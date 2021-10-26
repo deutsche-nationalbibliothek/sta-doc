@@ -5,14 +5,14 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>React Meetups</div>
+      <div className={classes.logo}>GND Dokumentation</div>
       <nav>
         <ul>
           <li>
-            <Link href='/'>All Meetups</Link>
+            <Link href='/'>Feldverzeichnis</Link>
           </li>
           <li>
-            <Link href='/new-meetup'>Add New Meetup</Link>
+            <Link href='/new-meetup'>Formvorlage(Demo)</Link>
           </li>
         </ul>
       </nav>

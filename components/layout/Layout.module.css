@@ -1,5 +1,6 @@
 .main {
   margin: 3rem auto;
-  width: 90%;
-  max-width: 40rem;
+  width: 100%;
+  max-width: 90rem;
+  font-family: EuclidCircularA, sans-serif;
 }
