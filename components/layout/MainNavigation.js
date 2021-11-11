@@ -9,7 +9,13 @@ function MainNavigation() {
       <nav>
         <ul>
           <li>
-            <Link href='/'>Feldverzeichnis</Link>
+            <Link href='/'>Home</Link>
+          </li>
+          <li>
+            <Link href='/fields'>Feldverzeichnis</Link>
+          </li>
+          <li>
+            <Link href='/codelist'>Entitaetencodeliste</Link>
           </li>
           <li>
             <Link href='/new-meetup'>Formvorlage(Demo)</Link>

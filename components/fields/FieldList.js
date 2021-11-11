@@ -1,22 +1,23 @@
 // import MeetupItem from './MeetupItem';
-// import 
+// import DataGrid from 'react-data-grid';
+import FieldTable from '../tables/FieldTable.js';
 import classes from './FieldList.module.css';
 
+const columns = [
+          { key: 'label', name: 'Feld' },
+          { key: 'description', name: 'Beschreibung' }
+];
+// const rows = [
+          // { id: 0, title: 'Example' },
+          // { id: 1, title: 'Demo' }
+// ];
+
 function FieldList(props) {
-        // console.log('props', props);
+        // console.log('FieldList', props.data)
         return (
-                <table id='custom'>
-                {Object.keys(props.fields).map(key => {
-                        console.log('key: ', props.fields[key].label);
-                <>
-                        <tr id={key}>
-                                <td>{props.fields[key].label}</td>
-                                <td>{props.fields[key].label}</td>
-                                </tr>
-                </>
-                })}
-                </table>
-        );
+                <FieldTable data={props.data}/>
+        )
 }
 
 export default FieldList;
+

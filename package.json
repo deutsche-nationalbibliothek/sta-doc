@@ -12,9 +12,9 @@
     "@types/react": "^17.0.33",
     "jsx": "^0.9.89",
     "next": "11.1.2",
-    "react": "^18.0.0-alpha-4298ddbc5-20211023",
+    "react": "17.0.2",
     "react-data-grid": "^7.0.0-beta.7",
-    "react-dom": "^18.0.0-alpha-4298ddbc5-20211023",
+    "react-dom": "17.0.2",
     "react-jsx": "^1.0.0",
     "react-table": "^7.7.0"
   },
