@@ -19,13 +19,15 @@ export async function getStaticProps() {
         Object.keys(fields).map(key => {
                 rows.push(fields[key])
                 // console.log(fields[key])
+                // console.log('key',key)
         })
 
         return {
                 props: {
                         // meetups: DUMMY_MEETUPS,
                         rows: rows
-                }
+                },
+                revalidate: 10
         }
 
 }

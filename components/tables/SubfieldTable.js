@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
-import { COLUMNS } from './FieldColumns';
-import { DATA } from './FieldData';
-import classes from './FieldTable.module.css';
-import SubfieldTable from '../tables/SubfieldTable.js';
+import { COLUMNS } from './SubfieldColumns';
+import classes from './SubfieldTable.module.css';
 
                 // <table className={classes.table}>
                 // <thead>
@@ -13,11 +11,10 @@ import SubfieldTable from '../tables/SubfieldTable.js';
                 // </tbody>
                 // </table>
 
-function FieldTable(props) {
+function SubfieldTable(props) {
         // console.log('FieldTable',props.data);
         const data = props.data
-        // console.log('data raw',data)
-        // console.log('obj',data[0])
+        // console.log('data in subfield',data)
         // const columnsCoding = Object.keys(props.data[0]['codings'])
         // const columnHeader = Object.keys(props.data[0])
         // const columnHeader = columnsCoding
@@ -43,8 +40,7 @@ function FieldTable(props) {
                 prepareRow,
                 state: { expanded }
         } = tableInstance
-        // console.log('rows',rows)
-        // console.log('data',data)
+        // console.log('row',rows)
                                            // return (typeof column === 'string') ? 
                                                 // <td>{row[column]}</td> :
                                                 // <td>no</td>
@@ -73,7 +69,6 @@ function FieldTable(props) {
                 // </table>
         return (
                 <>
-                <p>FieldTable</p>
                 <table {...getTableProps()} className={classes.table}>
                 <thead>
                 {headerGroups.map((headerGroup, index) => (
@@ -91,28 +86,12 @@ function FieldTable(props) {
                 </thead>
                 <tbody {...getTableBodyProps()}>
                 {rows.map((row, index) => {
-                        // console.log('subfields',row.original.subfields)
-                        const mapper = row.original.subfields
-                        const subfields = []
-                        Object.keys(mapper).map(key => {
-                                subfields.push(mapper[key])
-                        })
-                        // console.log('subfields arr',subfields)
-                        // const subfields = row['subfields']
                         prepareRow(row)
                         return (
                                 <tr key={index} {...row.getRowProps()}>
                                 {row.cells.map((cell, index) => {
                                         // console.log('cell',cell)
-                                        // console.log('subfields',subfields)
-                                        if (cell.column['Header'] === 'Feldbezeichnung') {
-                                                return( <td key={index} {...cell.getCellProps()}>{cell.render('Cell')}
-                                                        <SubfieldTable data={subfields}/>
-                                                        </td>
-                                                )}
-                                        else{
-                                                return <td key={index} {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                        }
+                                        return <td key={index} {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}
                                 </tr>
                         )
@@ -124,5 +103,5 @@ function FieldTable(props) {
         )
 }
 
-export default FieldTable;
+export default SubfieldTable;
 
