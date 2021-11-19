@@ -1,3 +1,5 @@
+import { Link } from 'next/link'
+
 export const COLUMNS = [
     {
             Header: 'PICA+',
@@ -17,7 +19,9 @@ export const COLUMNS = [
     {
             Header: 'Feldbezeichnung',
             accessor: 'label',
-            Cell: ({row}) => (<a href={row.original.editLink}>{row.original.label}</a>),
+            Cell: ({row}) => (<a href={`fields/${row.original.id}`}>{row.original.label}</a>),
+            // Cell: ({row}) => (<a href={row.original.editLink}>{row.original.label}</a>),
+            // Cell: ({ row }) => (<Link href={`/fields/${row.original.id}`}><a>{row.original.label}</a></Link>),
             sortType: 'basic'
     }
 ]

@@ -22,11 +22,13 @@
         color: white;
 }      
 .table a:link {
+        font-weight: bold;
+        font-size: 14px;
         color: blue;
 }
 /* visited link */
 .table a:visited {
-        color: darkblue;
+        color: blue;
 }
 /* mouse over link */
 .table a:hover {

@@ -17,9 +17,12 @@ export async function getStaticProps() {
         const fields = data.fields
         const rows = []
         Object.keys(fields).map(key => {
+                // every field needs a Property ID
+                fields[key]['id'] = key
                 rows.push(fields[key])
-                // console.log(fields[key])
-                // console.log('key',key)
+                // console.log('rows',rows)
+                console.log(fields[key])
+                console.log('key',key)
         })
 
         return {
