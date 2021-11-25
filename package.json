@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@types/react": "^17.0.33",
+    "htmlparser2": "^7.2.0",
     "jsx": "^0.9.89",
     "next": "11.1.2",
     "react": "17.0.2",
+    "react-collapsible": "^2.8.4",
     "react-data-grid": "^7.0.0-beta.7",
     "react-dom": "17.0.2",
     "react-jsx": "^1.0.0",

@@ -5,11 +5,11 @@
   align-items: center;
   justify-content: space-between;
   background-color: #0069b4;
-  padding: 0 10%;
+  padding: 0 5%;
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: white;
   font-weight: bold;
 }
@@ -23,12 +23,12 @@
 }
 
 .header li {
-  margin-left: 3rem;
+  margin-left: 2rem;
 }
 
 .header a {
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: white;
 }
 

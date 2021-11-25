@@ -21,6 +21,7 @@
 // ]
 
 function HomePage(props) { 
+        const image = 'https://doku.wikibase.wiki/w/thumb.php?f=GND_RGB.jpg&width=200'
         // const [data, setData] = useState([])
         // const[q, setQ] = useState('')
 
@@ -39,11 +40,21 @@ function HomePage(props) {
         // })
         // console.log('props', props);
         // <FieldTable data={data}></FieldTable>
-        console.log(props.parser)
+        const htmlparser2 = require("htmlparser2");
+        const json = props.json
+        const dom = htmlparser2.parseDocument(props.parser);
+        const tag_list = []
+        dom.children[0].children.map((element) => {
+                if (element['type'] === 'tag') {
+                        tag_list.push(element)
+                }})
+        console.log('json',json)
+        console.log('html page',dom)
 
         return (
                 <div>
                 <p>Willkommen auf der Webseite zur STA Dokumentation. </p>
+                <img src={image} alt={'Some Text'} />
                 </div>
         )
 
@@ -63,7 +74,7 @@ export async function getStaticProps() {
         const req = await fetch(url)
         const json = await req.json()
         const parser = json.parse.text['*']
-        console.log(json.parse.text["*"])
+        console.log(parser)
 
         // const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
         // const data = await res.json()
@@ -82,7 +93,8 @@ export async function getStaticProps() {
         return {
                 props: {
                         // meetups: DUMMY_MEETUPS,
-                        parser: parser
+                        parser: parser,
+                        json: json
                 },
                 // revalidate: 10
         }
