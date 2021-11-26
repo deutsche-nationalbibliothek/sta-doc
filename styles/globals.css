@@ -4,12 +4,29 @@ body {
   margin: 0;
   font-family: EuclidCircularA, sans-serif;
 }
+h2 {
+    /* text-shadow: 2px 2px 2px #CCCCCC; */
+}
 
 a {
-  color: inherit;
+  color: blue;
   text-decoration: none;
 }
 
 * {
   box-sizing: border-box;
+}
+ul {
+        /* list-style-type: none; */
+        /* text-align: center; */
+        max-width: 800px;
+        /* margin: 0 ; */
+        /* padding: 0; */
+
+}
+
+ul li {
+        /* text-align: center; */
+        padding: 2px 2px;
+        /* border-bottom: 1px solid #ddd; */
 }

@@ -21,8 +21,8 @@ export async function getStaticProps() {
                 fields[key]['id'] = key
                 rows.push(fields[key])
                 // console.log('rows',rows)
-                console.log(fields[key])
-                console.log('key',key)
+                // console.log(fields[key])
+                // console.log('key',key)
         })
 
         return {

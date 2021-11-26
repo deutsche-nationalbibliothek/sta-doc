@@ -5,7 +5,7 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>STA Dokumentation</div>
+      <div className={classes.logo}></div>
       <nav>
         <ul>
           <li>

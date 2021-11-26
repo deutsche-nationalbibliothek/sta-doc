@@ -43,19 +43,23 @@ function HomePage(props) {
         const htmlparser2 = require("htmlparser2");
         const json = props.json
         const dom = htmlparser2.parseDocument(props.parser);
+        const htmlString = props.parser
+        const title = props.title
         const tag_list = []
         dom.children[0].children.map((element) => {
                 if (element['type'] === 'tag') {
                         tag_list.push(element)
                 }})
+        console.log('props.parser',props.parser)
         console.log('json',json)
         console.log('html page',dom)
 
         return (
-                <div>
-                <p>Willkommen auf der Webseite zur STA Dokumentation. </p>
-                <img src={image} alt={'Some Text'} />
+                <>
+                <h1>{title}</h1>
+                <div dangerouslySetInnerHTML={{ __html: htmlString }}>
                 </div>
+                </>
         )
 
 } 
@@ -74,29 +78,16 @@ export async function getStaticProps() {
         const req = await fetch(url)
         const json = await req.json()
         const parser = json.parse.text['*']
-        console.log(parser)
-
-        // const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
-        // const data = await res.json()
-        // const fields = data.fields
-        // const rows = []
-        // Object.keys(fields).map(key => {
-                // // every field needs a Property ID
-                // fields[key]['id'] = key
-                // rows.push(fields[key])
-                // // console.log('rows',rows)
-                // console.log(fields[key])
-                // console.log('key',key)
-        // })
-        // const field = rows.filter(field => field.id === fieldId)
+        const title = json.parse.title
 
         return {
                 props: {
                         // meetups: DUMMY_MEETUPS,
                         parser: parser,
-                        json: json
+                        json: json,
+                        title: title
                 },
-                // revalidate: 10
+                revalidate: 10
         }
 
 }
