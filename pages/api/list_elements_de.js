@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-export default function handler(req, res) {
+async function handler(req, res) {
         class SPARQLQueryDispatcher {
                 constructor( endpoint ) {
                         this.endpoint = endpoint;
@@ -28,14 +28,33 @@ export default function handler(req, res) {
         PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
 
         SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
-                  ?element prop:P110 item:Q1 .
-                          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de" }
+                  { ?element prop:P110 item:Q1 . } #GND-Datenmodell
+                  UNION
+                  { ?element prop:P110 item:Q15 . } #Datenmodell-Dokumentation
+                  UNION
+                  { ?element prop:P110 item:Q263 . } #RDA-Dokumentation
+                  UNION
+                  { ?element prop:P110 item:Q14 . } #GND-Beispiel
+                  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+                  #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
                   BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
         }
         ORDER BY ASC(?elementLabel)
         `
         const queryDispatcher = new SPARQLQueryDispatcher( endpointUrl )
-        queryDispatcher.query( sparqlQuery ).then(function (response) {
-            res.status(200).json(response.results.bindings)
+        // queryDispatcher.query( sparqlQuery ).then(function (response) {
+            // res.status(200).json(response.results.bindings)
+        // })
+        const response = await queryDispatcher.query( sparqlQuery )
+        const bindings = response.results.bindings
+        // console.log('bindings',bindings)
+        const obj = {}
+        bindings.map( binding => {
+                obj[binding['eId'].value] = binding['elementLabel'].value
         })
+        console.log('obj',obj)
+
+        
+        res.status(200).json(obj)
 }
+export default handler
