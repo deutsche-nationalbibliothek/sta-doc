@@ -2,7 +2,7 @@ import FieldDetail from '../../../components/fields/FieldDetail'
 
 function FieldDetails(props) {
         const field = props.field
-        console.log('field', field)
+        // console.log('field', field)
         return(
                 <FieldDetail data={props.field}/>
         )
@@ -36,8 +36,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
         //fetch data for a single field
-        const fieldId = context.params.fieldId
-
         const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
         const data = await res.json()
         const fields = data.fields
@@ -47,8 +45,8 @@ export async function getStaticProps(context) {
                 fields[key]['id'] = key
                 rows.push(fields[key])
                 // console.log('rows',rows)
-                console.log(fields[key])
-                console.log('key',key)
+                // console.log(fields[key])
+                // console.log('key',key)
         })
         const field = rows.filter(field => field.id === fieldId)
 

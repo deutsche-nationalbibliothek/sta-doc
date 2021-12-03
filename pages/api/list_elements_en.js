@@ -50,9 +50,11 @@ async function handler(req, res) {
         // console.log('bindings',bindings)
         const obj = {}
         bindings.map( binding => {
-                obj[binding['eId'].value] = binding['elementLabel'].value
+                var value_strip = binding['elementLabel'].value.toLowerCase().split(" ").join("")
+                console.log(value_strip)
+                obj[binding['eId'].value] = value_strip
         })
-        console.log('obj',obj)
+        // console.log('obj',obj)
 
         
         res.status(200).json(obj)

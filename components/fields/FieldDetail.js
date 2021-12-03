@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import classes from './FieldDetail.module.css';
 
 function FieldDetail(props) {
-        console.log(props)
+        // console.log(props)
         const field = props.data
         return (
                 <>
