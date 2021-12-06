@@ -1,4 +1,3 @@
-
 async function handler(req, res) {
         const lookup_en = await fetch('http://localhost:3000/api/list_elements_en').then( body => body.json() )
         const lookup_de = await fetch('http://localhost:3000/api/list_elements_de').then( body => body.json() )
@@ -13,7 +12,7 @@ async function handler(req, res) {
         obj['label'] = property['labels']['de'].value
         obj['description'] = property['descriptions']['de'].value
         obj['statements'] = {}
-        obj['statementsdraft'] = property.claims
+        // obj['statementsdraft'] = property.claims
         const statements_arr = Object.keys(property.claims)
         statements_arr.map(key => {
                 // console.log(key,lookup_en[key])
@@ -51,46 +50,26 @@ async function handler(req, res) {
 
                                                 }
                                         })
-                                        // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurences'] = occurrences_arr2
-                                        // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]] = qualifiers[quali_key]
                                 })
-                                // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers_ref'] = qualifiers
                         }
                         const reference_arr = occurrences['references']
                         if (reference_arr) {
                                 obj['statements'][lookup_en[key]]['occurrences'][index]['references'] = {}
                                 reference_arr.map((reference,ref_index) => {
-                                        const ref_statements_arr = Object.keys(reference['snaks'])
-                                        obj['statements'][lookup_en[key]]['occurrences'][index]['references'] = ref_statements_arr
-                                        
-                                        
+                                        obj['statements'][lookup_en[key]]['occurrences'][index]['references'][ref_index] = {}
+                                        // console.log(ref_index)
+                                        const ref_keys = Object.keys(reference['snaks'])
+                                        // console.log(ref_keys)
+                                        ref_keys.map((ref_key) => {
+                                                obj['statements'][lookup_en[key]]['occurrences'][index]['references'][ref_index][lookup_en[ref_key]] = {}
+                                                obj['statements'][lookup_en[key]]['occurrences'][index]['references'][ref_index][lookup_en[ref_key]]['label'] = lookup_de[ref_key]
+                                                obj['statements'][lookup_en[key]]['occurrences'][index]['references'][ref_index][lookup_en[ref_key]]['id'] = ref_key
+                                                obj['statements'][lookup_en[key]]['occurrences'][index]['references'][ref_index][lookup_en[ref_key]]['value'] = reference['snaks'][ref_key][0]['datavalue']['value']
+                                        })
                                 })
-                                // obj['statements'][lookup_en[key]]['occurrences'][index]['references'] = occurrences['references']
                         }
-
                 })
-                
-                // obj['statements'][key]['value-type'] = property.claims[key][0]['mainsnak']['datavalue']['type']
-                // obj['statements'][key]['value'] = ((property.claims[key][0]['mainsnak']['datavalue']['value']['id']) ? 
-                        // lookup_en[property.claims[key][0]['mainsnak']['datavalue']['value']['id']] : 
-                        // property.claims[key][0]['mainsnak']['datavalue']['value']
-                // )
-                // obj['statements'][key]['qualifier'] = {}
-                // if (property.claims[key].length>1) {
-                        // property.claims[key].map( quali => {
-                            // obj['statements'][key]['qualifier'][quali['mainsnak']['datavalue']['value']['id']] = {}
-                            // if (quali['mainsnak']['datavalue']['value']['id']) {
-                                    // console.log(quali['mainsnak']['datavalue']['value']['id'],lookup_en[quali['mainsnak']['datavalue']['value']['id']])
-                                    // obj['statements'][key]['qualifier'][quali['mainsnak']['datavalue']['value']['id']]['label'] = lookup_en[quali['mainsnak']['datavalue']['value']['id']] } else {
-                                    // obj['statements'][key]['qualifier'][quali['mainsnak']['datavalue']['value']['id']]['label'] = '' }
-                        // })
-                // }
-                // var c = ((a < b) ? 'minor' : 'major')
-
-                // obj['statements'][key] = lookup_en[key]
         })
-
-        
         res.status(200).json(obj)
 }
 export default handler

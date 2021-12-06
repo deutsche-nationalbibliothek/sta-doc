@@ -2,7 +2,8 @@ import FieldDetail from '../../../components/fields/FieldDetail'
 
 function FieldDetails(props) {
         const field = props.field
-        // console.log('field', field)
+        console.log('field', field)
+        console.log('api_data', props.api_data)
         return(
                 <FieldDetail data={props.field}/>
         )
@@ -36,6 +37,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
         //fetch data for a single field
+        const fieldId = context.params.fieldId
+
+        const api_res = await fetch('http://10.69.59.78:3000/api/field/' + fieldId)
+        const api_data = await api_res.json()
+
         const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
         const data = await res.json()
         const fields = data.fields
@@ -53,7 +59,8 @@ export async function getStaticProps(context) {
         return {
                 props: {
                         // meetups: DUMMY_MEETUPS,
-                        field: field[0]
+                        field: field[0],
+                        api_data: api_data
                 },
                 revalidate: 10
         }

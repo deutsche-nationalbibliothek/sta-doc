@@ -30,13 +30,17 @@ async function handler(req, res) {
         SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
                   { ?element prop:P114 item:Q296 . } #Instance of schema
                   UNION
-                  { ?element prop:P110 item:Q1 . } #GND-Datenmodell
+                  { ?element prop:P110 item:Q1 . } #Schema: GND-Datenmodell
                   UNION
                   { ?element prop:P110 item:Q15 . } #Datenmodell-Dokumentation
                   UNION
                   { ?element prop:P110 item:Q263 . } #RDA-Dokumentation
                   UNION
                   { ?element prop:P110 item:Q14 . } #GND-Beispiel
+                  UNION
+                  { ?element prop:P2 item:Q3 . } #Element von: GND-Unterfeld
+                  UNION
+                  { ?element prop:P2 item:Q1315 . } #Element von: Datenformat
                   #SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
                   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
                   BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
