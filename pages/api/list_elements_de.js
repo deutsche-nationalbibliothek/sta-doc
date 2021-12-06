@@ -28,6 +28,8 @@ async function handler(req, res) {
         PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
 
         SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
+                  { ?element prop:P114 item:Q296 . } #Instance of schema
+                  UNION
                   { ?element prop:P110 item:Q1 . } #GND-Datenmodell
                   UNION
                   { ?element prop:P110 item:Q15 . } #Datenmodell-Dokumentation
