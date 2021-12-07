@@ -75,7 +75,6 @@ function FieldTable(props) {
                 // </table>
         return (
                 <>
-                <p>FieldTable</p>
                 <table {...getTableProps()} className={classes.table}>
                 <thead>
                 {headerGroups.map((headerGroup, index) => (
