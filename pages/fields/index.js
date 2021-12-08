@@ -1,4 +1,3 @@
-// import React, { useState, useEffect} from 'react';
 import FieldList from '../../components/fields/FieldList'
 
 function FieldListPage(props) {

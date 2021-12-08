@@ -12,18 +12,13 @@ function CodingTable(props) {
                 <tr>{columns.map((column, index) => <th key={index}>{column}</th>)}</tr>
                 </thead>
                 <tbody>
-                {rows.map((row, index) => {
-                        return(
-                                <tr key={index}>
-                                {columns.map((column, index) => {
-                                        // console.log(column)
+                        <tr>
+                {rows.map((cell, index) => {
                                         return (
-                                                <td key={index}>{row[index]}</td>
+                                                <td key={index}>{cell}</td>
                                         )
                                 })}
-                                </tr>
-                        )
-                })}
+                        </tr>
                 </tbody>
                 </table>
                 </>

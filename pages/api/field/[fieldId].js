@@ -35,15 +35,15 @@ async function handler(req, res) {
                                         obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]] = {}
                                         obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['label'] = lookup_de[quali_key]
                                         obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['id'] = quali_key
-                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurences'] = []
+                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'] = []
                                         const occurrences_arr2 = qualifiers[quali_key]
                                         occurrences_arr2.map((occurrences2,index2) => {
-                                                // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurences'][index2] = {}
+                                                // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {}
                                                 const occurrences2_id = occurrences2['datavalue']['value']['id']
                                                 if (occurrences2_id) {
-                                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurences'][index2] = {'id':occurrences2_id,'label':lookup_de[occurrences2_id]}
+                                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'id':occurrences2_id,'label':lookup_de[occurrences2_id]}
                                                 } else {
-                                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurences'][index2] = {'value':occurrences2['datavalue']['value']} 
+                                                        obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'value':occurrences2['datavalue']['value']} 
 
                                                 }
                                         })

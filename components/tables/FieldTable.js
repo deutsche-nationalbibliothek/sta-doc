@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './FieldColumns';
-import { DATA } from './FieldData';
 import classes from './FieldTable.module.css';
 import SubfieldTable from '../tables/SubfieldTable.js';
 import Collapsible from 'react-collapsible';

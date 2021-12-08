@@ -38,8 +38,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
         //fetch data for a single field
         const fieldId = context.params.fieldId
+        const api_url = 'http://localhost:3000/api/field/'
+        // const api_url = 'http://10.69.59.78:3000/api/field/'
 
-        const api_res = await fetch('http://10.69.59.78:3000/api/field/' + fieldId)
+        const api_res = await fetch(api_url + fieldId)
         const field = await api_res.json()
 
         // const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')

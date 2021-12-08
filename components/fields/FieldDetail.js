@@ -6,12 +6,14 @@ function FieldDetail(props) {
         // console.log(props)
         const field = props.data
         const coding_columns = []
+        const coding_rows = []
         field.statements.coding.occurrences.map((occurrence,index) => {
-                // coding_columns[index] = occurrence.qualifiers.
-                console.log('occurrence',occurrence.qualifiers.type)
+                console.log(occurrence.qualifiers.type.occurrences[0])
+                coding_columns[index] = occurrence.qualifiers.type.occurrences[0].label
+                coding_rows[index] = occurrence.value
         })
-        // console.log(coding_columns)
-
+        console.log('coding_columns',coding_columns)
+        console.log('coding_rows',coding_rows)
 
         return (
                 <>
@@ -20,13 +22,7 @@ function FieldDetail(props) {
                 <h1>{field.label}</h1>
                 <p>{field.description}</p>
                 <h3>{field.statements.coding.label}</h3>
-                <ul>
-                {field.statements.coding.occurrences.map((occurrence,index) => {
-                        return(
-                                <li key={index}>{occurrence.value}</li>
-                        )
-                })}
-                </ul>
+                        <CodingTable rows={coding_rows} columns={coding_columns}/>
                 <h3>{field.statements.definition.label}</h3>
                 {field.statements.definition.occurrences.map((occurrence,index) => {
                         return(
