@@ -50,9 +50,9 @@ function HomePage(props) {
                 if (element['type'] === 'tag') {
                         tag_list.push(element)
                 }})
-        console.log('props.parser',props.parser)
-        console.log('json',json)
-        console.log('html page',dom)
+        // console.log('props.parser',props.parser)
+        // console.log('json',json)
+        // console.log('html page',dom)
 
         return (
                 <>

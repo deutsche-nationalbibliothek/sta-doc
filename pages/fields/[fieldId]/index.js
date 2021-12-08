@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
         //fetch data for a single field
         const fieldId = context.params.fieldId
-        const api_url = 'http://localhost:3000/api/field/'
+        const api_url = 'http://localhost:3000/api/fields/'
         // const api_url = 'http://10.69.59.78:3000/api/field/'
 
         const api_res = await fetch(api_url + fieldId)

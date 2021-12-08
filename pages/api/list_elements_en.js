@@ -57,7 +57,7 @@ async function handler(req, res) {
         const obj = {}
         bindings.map( binding => {
                 var value_strip = binding['elementLabel'].value.toLowerCase().split(" ").join("")
-                console.log(value_strip)
+                // console.log(value_strip)
                 obj[binding['eId'].value] = value_strip
         })
         // console.log('obj',obj)
