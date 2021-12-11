@@ -8,12 +8,10 @@ function FieldDetail(props) {
         const coding_columns = []
         const coding_rows = []
         field.statements.coding.occurrences.map((occurrence,index) => {
-                console.log(occurrence.qualifiers.type.occurrences[0])
+                // console.log(occurrence.qualifiers.type.occurrences[0])
                 coding_columns[index] = occurrence.qualifiers.type.occurrences[0].label
                 coding_rows[index] = occurrence.value
         })
-        console.log('coding_columns',coding_columns)
-        console.log('coding_rows',coding_rows)
 
         return (
                 <>
@@ -39,6 +37,13 @@ function FieldDetail(props) {
                 {field.statements.validation.occurrences.map((occurrence,index) => {
                         return(
                                 <p key={index}>{occurrence.value}</p>
+                        )
+                })}
+                <h3>{field.statements.subfields.label}</h3>
+                {field.statements.subfields.occurrences.map((subfield,index) => {
+                        console.log(subfield)
+                        return(
+                                <h4 key={index}>{subfield.label}</h4>
                         )
                 })}
                 </section>

@@ -1,6 +1,7 @@
 async function handler(req, res) {
         const lookup_en = await fetch('http://localhost:3000/api/list_elements_en').then( body => body.json() )
         const lookup_de = await fetch('http://localhost:3000/api/list_elements_de').then( body => body.json() )
+        const codings = await fetch('http://localhost:3000/api/codings').then( body => body.json() )
 
         const { fieldId } = req.query
         const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + fieldId
@@ -26,6 +27,10 @@ async function handler(req, res) {
                                 obj['statements'][lookup_en[key]]['occurrences'][index] = {'id':occurrences_id,'label':lookup_de[occurrences_id]}
                         } else {
                                 obj['statements'][lookup_en[key]]['occurrences'][index] = {'value':occurrences['mainsnak']['datavalue']['value']}
+                        }
+                        // integrate subfield (P15) coding
+                        if (key === 'P15') {
+                                obj['statements'][lookup_en[key]]['occurrences'][index]['coding'] = codings[occurrences_id]['coding']
                         }
                         const qualifiers = occurrences['qualifiers']
                         if (qualifiers) {

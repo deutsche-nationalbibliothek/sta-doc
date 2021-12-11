@@ -13,23 +13,21 @@ export default FieldDetails
 
 export async function getStaticPaths() {
         //fetch data from API 
-        const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
+        // const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
+        // const data = await res.json()
+        const res = await fetch('http://localhost:3000/api/list_fields')
         const data = await res.json()
-        const fields = data.fields
+        const fields = data
         const rows = []
         Object.keys(fields).map(key => {
-                // every field needs a Property ID
-                fields[key]['id'] = key
-                rows.push(fields[key])
-                console.log('rows',rows)
-                // console.log(fields[key])
-                // console.log('key',key)
+                rows.push(key)
+                // console.log('rows',rows)
         })
 
         return {
                 fallback: false,
-                paths: rows.map((field) => ({
-                        params: { fieldId: field.id.toString() }
+                paths: rows.map((id) => ({
+                        params: { fieldId: id.toString() }
                 }))
         }
     
