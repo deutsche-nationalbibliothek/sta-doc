@@ -19,7 +19,7 @@ export const COLUMNS = [
                         {
                                 Header: 'Beschreibung',
                                 accessor: 'label',
-                                Cell: ({row}) => (<a href={row.original.editLink}>{row.original.label}</a>),
+                                Cell: ({row}) => <a href={'http://10.69.59.78:3000/subfields/'+row.original.id}>{row.original.label}</a>,
                                 sortType: 'basic'
                         }
                 ]

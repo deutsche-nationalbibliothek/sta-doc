@@ -7,12 +7,20 @@ body {
 h2 {
     /* text-shadow: 2px 2px 2px #CCCCCC; */
 }
-
+p {
+  font-size: 14px;
+}
+th {
+  font-size: 15px;
+}
+td {
+  font-size: 14px;
+}
 a {
+  font-size: 14px;
   color: blue;
   text-decoration: none;
 }
-
 * {
   box-sizing: border-box;
 }
@@ -24,7 +32,6 @@ ul {
         /* padding: 0; */
 
 }
-
 ul li {
         /* text-align: center; */
         padding: 2px 2px;

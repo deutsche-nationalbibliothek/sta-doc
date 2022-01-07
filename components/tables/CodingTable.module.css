@@ -2,12 +2,12 @@
         font-family: EuclidCircularA, sans-serif;
         border-collapse: collapse;
         width: 100%;
-        padding: 15px;
+        padding: 10px;
 }
 
 .table td, .table th {
         border: 1px solid #000;
-        padding: 8px;
+        padding: 4px;
 }
 
 .table tr:nth-child(even){background-color: #f2f2f2;}

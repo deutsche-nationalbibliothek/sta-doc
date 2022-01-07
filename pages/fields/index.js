@@ -1,16 +1,12 @@
 import FieldList from '../../components/fields/FieldList'
 
 function FieldListPage(props) {
-  // function addMeetupHandler(enteredMeetupData) {
-    // console.log(enteredMeetupData)
-  // }
   return (
           <FieldList data={props.rows}/>
   )
 }
 
 export async function getStaticProps() {
-        //fetch data from API 
         const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
         const data = await res.json()
         const fields = data.fields
@@ -23,10 +19,8 @@ export async function getStaticProps() {
                 // console.log(fields[key])
                 // console.log('key',key)
         })
-
         return {
                 props: {
-                        // meetups: DUMMY_MEETUPS,
                         rows: rows
                 },
                 revalidate: 10
