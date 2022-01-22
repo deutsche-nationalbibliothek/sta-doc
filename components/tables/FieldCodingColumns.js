@@ -1,7 +1,7 @@
 export const COLUMNS = [
   {
     // First group
-    Header: 'Feld-/Unterfeld',
+    Header: 'Feld',
     accessor: 'label'
   },
   {

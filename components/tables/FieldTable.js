@@ -17,13 +17,6 @@ import classesCollapsible from './Collapsible.module.css';
 function FieldTable(props) {
   // console.log('FieldTable',props.data);
   const data = props.data
-  // console.log('data raw',data)
-  // console.log('obj',data[0])
-  // const columnsCoding = Object.keys(props.data[0]['codings'])
-  // const columnHeader = Object.keys(props.data[0])
-  // const columnHeader = columnsCoding
-  // columnHeader.push('Datenfeld')
-
 
   const columns = useMemo(() => COLUMNS, [])
   const data2 = useMemo(() => data, [])
@@ -44,34 +37,7 @@ function FieldTable(props) {
     prepareRow,
     state: { expanded }
   } = tableInstance
-  // console.log('rows',rows)
-  // console.log('data',data)
-  // return (typeof column === 'string') ? 
-  // <td>{row[column]}</td> :
-  // <td>no</td>
-  // <table className={classes.table}>
-  // <thead>
-  // <tr>{props.data[0] && columnHeader.map((element, index) => <th key={index}>{element}</th>)}</tr>
-  // </thead>
-  // <tbody>
-  // {data.map((row, index) => <tr key={index}>
-  // {
-  // columnHeader.map((column, index) => 
-  // {
-  // const obj = row['codings']
-  // const arr = Object.values(obj)
-  // // console.log(column)
-  // return (column === 'Datenfeld') ? 
-  // <td key={index}>{row['label']}</td> :
-  // <td>{arr[index]}</td>
 
-  // }
-  // )
-  // }
-  // </tr>)
-  // }
-  // </tbody>
-  // </table>
   return (
     <>
     <table {...getTableProps()} className={classes.table}>

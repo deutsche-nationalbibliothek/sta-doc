@@ -15,7 +15,7 @@ export async function getStaticPaths() {
         //fetch data from API 
         // const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
         // const data = await res.json()
-        const res = await fetch('http://localhost:3000/api/list_fields')
+        const res = await fetch('http://localhost:3000/api/fields')
         const data = await res.json()
         const fields = data
         const rows = []

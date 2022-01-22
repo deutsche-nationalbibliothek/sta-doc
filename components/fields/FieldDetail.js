@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import CodingTable from '../tables/CodingTable.js';
 import References from './References.js';
+import Examples from './Examples.js';
 import classes from './FieldDetail.module.css';
 
 function FieldDetail(props) {
@@ -9,7 +10,7 @@ function FieldDetail(props) {
   const row0 = {
     label: field.label,
     format: {},
-    repeat: field.statements.repeat.occurrences[0].value
+    repeat: field.statements.repeat?.occurrences[0].value
   }
   field.statements.coding.occurrences.map((coding,index) => {
     let key = coding.qualifiers.type.occurrences[0].label
@@ -20,7 +21,7 @@ function FieldDetail(props) {
     let row = {
       label: subfield.label,
       format: {},
-      repeat: subfield.qualifiers.repeat.occurrences[0].value
+      repeat: subfield.qualifiers?.repeat?.occurrences[0].value
     }
     subfield.coding.occurrences.map((coding,index) => {
       let key = coding.qualifiers.type.occurrences[0].label
@@ -29,47 +30,40 @@ function FieldDetail(props) {
     rows.push(row)
   })
   console.log('rows',rows)
+    // <Examples examples={field.statements.examples}/>
   return (
     <>
     <title>{field.label}</title>
     <section className={classes.detail}>
     <h1>{field.label}</h1>
-    <h3>{field.statements.definition.label}</h3>
-    {field.statements.definition.occurrences.map((occurrence,index) => {
+    <h3>{field.statements.definition?.label}</h3>
+    {field.statements.definition?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
     <CodingTable data={rows} />
-    <h3>{field.statements.rulesofuse.label}</h3>
-    {field.statements.rulesofuse.occurrences.map((occurrence,index) => {
+    <h3>{field.statements.rulesofuse?.label}</h3>
+    {field.statements.rulesofuse?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
-    <h3>{field.statements.validation.label}</h3>
-    {field.statements.validation.occurrences.map((occurrence,index) => {
+    <h3>{field.statements.examples?.label}</h3>
+    <h3>{field.statements.validation?.label}</h3>
+    {field.statements.validation?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
-    <h3>{field.statements.subfields.label}</h3>
-    {field.statements.subfields.occurrences.map((subfield,index) => {
+    <h3 id={field.statements.subfields?.label}>{field.statements.subfields?.label}</h3>
+    {field.statements.subfields?.occurrences.map((subfield,index) => {
       // console.log(subfield)
-      let ListDescription
-      const descriptions = subfield.qualifiers.description
-      descriptions ? (ListDescription = descriptions.occurrences)
-        : ListDescription = []
-      let ListReference
-      const references = subfield.references
-      references ? (ListReference = references)
-        : ListReference = []
       return(
         <Fragment key={index}>
-        <h4>{subfield.label}</h4>
-        {references &&
-          <References references={subfield.references}/>
-        }
+        <h4 id={subfield.label}>{subfield.label}</h4>
+        {subfield.qualifiers.description?.occurrences.map(desc => <p key={index}>{desc.value}</p>)}
+        {subfield.references && <References references={subfield.references}/>}
         </Fragment>
       )
     })}

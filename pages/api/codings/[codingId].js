@@ -1,6 +1,6 @@
 async function handler(req, res) {
-        const lookup_en = await fetch('http://localhost:3000/api/list_elements_en').then( body => body.json() )
-        const lookup_de = await fetch('http://localhost:3000/api/list_elements_de').then( body => body.json() )
+        const lookup_en = await fetch('http://localhost:3000/api/elements/en').then( body => body.json() )
+        const lookup_de = await fetch('http://localhost:3000/api/elements/de').then( body => body.json() )
 
         const { codingId } = req.query
         const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + codingId
