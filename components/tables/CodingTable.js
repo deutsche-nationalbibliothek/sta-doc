@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './FieldCodingColumns';
 import classes from './CodingTable.module.css';
@@ -104,7 +103,12 @@ function CodingTable(props) {
     {headerGroups.map((headerGroup,index) => (
       <tr key={index} {...headerGroup.getHeaderGroupProps()}>
       {headerGroup.headers.map((column,index) => (
-        <th key={index} {...column.getHeaderProps()}>{column.render("Header")}</th>
+        <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())}>
+        {column.render('Header')}
+        <span>
+        {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+        </span>
+        </th>
       ))}
       </tr>
     ))}

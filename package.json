@@ -10,16 +10,21 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@types/react": "^17.0.33",
+    "axios": "^0.26.0",
     "htmlparser2": "^7.2.0",
     "jsx": "^0.9.89",
+    "memory-cache": "^0.2.0",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-collapsible": "^2.8.4",
     "react-data-grid": "^7.0.0-beta.7",
     "react-dom": "17.0.2",
     "react-jsx": "^1.0.0",
+    "react-query": "^3.34.15",
     "react-table": "^7.7.0",
+    "redis": "^4.0.3",
     "typescript": "^4.5.2"
   },
   "devDependencies": {

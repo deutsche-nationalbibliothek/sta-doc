@@ -9,7 +9,7 @@ async function handler(req, res) {
     query( sparqlQuery ) {
       const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery );
       const headers = { 'Accept': 'application/sparql-results+json' };
-      return fetchWithCache( fullUrl, { headers } )
+      return fetchWithCache( fullUrl, { headers } );
     }
   }
   const endpointUrl = 'https://doku.wikibase.wiki/query/proxy/wdqs/bigdata/namespace/wdq/sparql'
@@ -29,19 +29,7 @@ async function handler(req, res) {
         PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
 
         SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
-                  { ?element prop:P114 item:Q296 . } #Instance of schema
-                  UNION
-                  { ?element prop:P110 item:Q1 . } #Schema: GND-Datenmodell
-                  UNION
-                  { ?element prop:P110 item:Q15 . } #Datenmodell-Dokumentation
-                  UNION
-                  { ?element prop:P110 item:Q263 . } #RDA-Dokumentation
-                  UNION
-                  { ?element prop:P110 item:Q14 . } #GND-Beispiel
-                  UNION
-                  { ?element prop:P2 item:Q3 . } #Element von: GND-Unterfeld
-                  UNION
-                  { ?element prop:P2 item:Q1315 . } #Element von: Datenformat
+                  { ?element prop:P4 ?codingProp . } # All elements with coding prop
                   SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
                   #SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
                   BIND(STRAFTER(STR(?element), '/entity/') as ?eId)

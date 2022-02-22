@@ -2,13 +2,13 @@ import { Link } from 'next/link'
 
 export const COLUMNS = [
     {
-            Header: 'PICA+',
-            accessor: 'codings.PICA+',
+            Header: 'PICA3',
+            accessor: 'codings.PICA3',
             sortType: 'basic'
     },
     {
-            Header: 'PICA3',
-            accessor: 'codings.PICA3',
+            Header: 'PICA+',
+            accessor: 'codings.PICA+',
             sortType: 'basic'
     },
     {

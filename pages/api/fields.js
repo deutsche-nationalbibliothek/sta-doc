@@ -1,18 +1,19 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-async function handler(req, res) {
-        class SPARQLQueryDispatcher {
-                constructor( endpoint ) {
-                        this.endpoint = endpoint;
-                }
+import fetchWithCache from './fetchWithCache.js'
 
-                query( sparqlQuery ) {
-                        const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery );
-                        const headers = { 'Accept': 'application/sparql-results+json' };
-                        return fetch( fullUrl, { headers } ).then( body => body.json() );
-                }
-        }
-        const endpointUrl = 'https://doku.wikibase.wiki/query/proxy/wdqs/bigdata/namespace/wdq/sparql'
-        const sparqlQuery = `PREFIX wd: <http://www.wikidata.org/entity/>
+export default async function handler(req, res) {
+  class SPARQLQueryDispatcher {
+    constructor( endpoint ) {
+      this.endpoint = endpoint;
+    }
+
+    query( sparqlQuery ) {
+      const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery );
+      const headers = { 'Accept': 'application/sparql-results+json' };
+      return fetchWithCache( fullUrl, { headers } )
+    }
+  }
+  const endpointUrl = 'https://doku.wikibase.wiki/query/proxy/wdqs/bigdata/namespace/wdq/sparql'
+  const sparqlQuery = `PREFIX wd: <http://www.wikidata.org/entity/>
                 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
         PREFIX wikibase: <http://wikiba.se/ontology#>
         #PREFIX p: <http://www.wikidata.org/prop/>
@@ -35,22 +36,21 @@ async function handler(req, res) {
         }
         ORDER BY ASC(?elementLabel)
         `
-        const queryDispatcher = new SPARQLQueryDispatcher( endpointUrl )
-        // queryDispatcher.query( sparqlQuery ).then(function (response) {
-            // res.status(200).json(response.results.bindings)
-        // })
-        const response = await queryDispatcher.query( sparqlQuery )
-        const bindings = response.results.bindings
-        // console.log('bindings',bindings)
-        const obj = {}
-        bindings.map( binding => {
-                var value_strip = binding['elementLabel'].value.toLowerCase().split(" ").join("")
-                // console.log(value_strip)
-                obj[binding['eId'].value] = value_strip
-        })
-        // console.log('obj',obj)
+  const queryDispatcher = new SPARQLQueryDispatcher( endpointUrl )
+  // queryDispatcher.query( sparqlQuery ).then(function (response) {
+  // res.status(200).json(response.results.bindings)
+  // })
+  const response = await queryDispatcher.query( sparqlQuery )
+  const bindings = response.results.bindings
+  // console.log('bindings',bindings)
+  const obj = {}
+  bindings.map( binding => {
+    var value_strip = binding['elementLabel'].value.toLowerCase().split(" ").join("")
+    // console.log(value_strip)
+    obj[binding['eId'].value] = value_strip
+  })
+  // console.log('obj',obj)
 
-        
-        res.status(200).json(obj)
+
+  res.status(200).json(obj)
 }
-export default handler

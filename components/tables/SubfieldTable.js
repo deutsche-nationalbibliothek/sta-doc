@@ -40,33 +40,7 @@ function SubfieldTable(props) {
     prepareRow,
     state: { expanded }
   } = tableInstance
-  // console.log('row',rows)
-  // return (typeof column === 'string') ? 
-  // <td>{row[column]}</td> :
-  // <td>no</td>
-  // <table className={classes.table}>
-  // <thead>
-  // <tr>{props.data[0] && columnHeader.map((element, index) => <th key={index}>{element}</th>)}</tr>
-  // </thead>
-  // <tbody>
-  // {data.map((row, index) => <tr key={index}>
-  // {
-  // columnHeader.map((column, index) => 
-  // {
-  // const obj = row['codings']
-  // const arr = Object.values(obj)
-  // // console.log(column)
-  // return (column === 'Datenfeld') ? 
-  // <td key={index}>{row['label']}</td> :
-  // <td>{arr[index]}</td>
 
-  // }
-  // )
-  // }
-  // </tr>)
-  // }
-  // </tbody>
-  // </table>
   return (
     <>
     <table {...getTableProps()} className={classes.table}>

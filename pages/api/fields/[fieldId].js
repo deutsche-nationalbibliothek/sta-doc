@@ -1,13 +1,15 @@
-async function handler(req, res) {
-  const lookup_en = await fetch('http://localhost:3000/api/elements/en').then( body => body.json() )
-  const lookup_de = await fetch('http://localhost:3000/api/elements/de').then( body => body.json() )
-  const codings = await fetch('http://localhost:3000/api/codings').then( body => body.json() )
-  const examples = await fetch('http://localhost:3000/api/examples').then( body => body.json() )
+import fetchWithCache from '../fetchWithCache.js'
+
+export default async function handler(req, res) {
+  const lookup_en = await fetchWithCache('http://localhost:3000/api/elements/en')
+  const lookup_de = await fetchWithCache('http://localhost:3000/api/elements/de')
+  const codings = await fetchWithCache('http://localhost:3000/api/codings')
+  const examples = await fetchWithCache('http://localhost:3000/api/examples')
 
   const { fieldId } = req.query
   const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + fieldId
   // console.log( fieldId, wikiurl )
-  const wikiapi = await fetch(wikiurl).then( body => body.json() )
+  const wikiapi = await fetchWithCache(wikiurl)
   const property = wikiapi.entities[fieldId]
 
   const obj = {}
@@ -19,7 +21,12 @@ async function handler(req, res) {
   statements_arr.map(key => {
     // console.log(key,lookup_en[key])
     obj['statements'][lookup_en[key]] = {}
+    obj['statements'][lookup_en[key]]['id'] = key
     obj['statements'][lookup_en[key]]['label'] = lookup_de[key]
+    if (key === 'P4') { //integrate coding from codings api
+      obj['statements'][lookup_en[key]]['format'] = {}
+      obj['statements'][lookup_en[key]]['format'] = codings[fieldId]['coding']['format']
+    }
     obj['statements'][lookup_en[key]]['occurrences'] = []
     const occurrences_arr =  property.claims[key]
     occurrences_arr.map((occurrences,index) => {
@@ -35,7 +42,7 @@ async function handler(req, res) {
       }
       // integrate examples (P11) object if available
       if (key === 'P11' && examples[occurrences_id]) {
-        console.log('log',key,index,occurrences_id)
+        // console.log('log',key,index,occurrences_id)
         obj['statements'][lookup_en[key]]['occurrences'][index]['statements'] = examples[occurrences_id]['statements']
       }
       const qualifiers = occurrences['qualifiers']
@@ -49,17 +56,16 @@ async function handler(req, res) {
           obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'] = []
           const occurrences_arr2 = qualifiers[quali_key]
           occurrences_arr2.map((occurrences2,index2) => {
-            // obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {}
             const occurrences2_id = occurrences2['datavalue']['value']['id']
             if (occurrences2_id) {
               obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'id':occurrences2_id,'label':lookup_de[occurrences2_id]}
-              // integrate examples (P11) object if available
-              if (quali_key === 'P11') {
-                obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'statements':examples[occurrences2_id]['statements']}
+              // integrate examples (P11) objects if available
+              if (quali_key === 'P11' && examples[occurrences2_id]) {
+                obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'id':occurrences2_id,'statements':examples[occurrences2_id]['statements']}
               }
             } else {
               obj['statements'][lookup_en[key]]['occurrences'][index]['qualifiers'][lookup_en[quali_key]]['occurrences'][index2] = {'value':occurrences2['datavalue']['value']} 
-              
+
             }
           })
         })
@@ -86,4 +92,3 @@ async function handler(req, res) {
   })
   res.status(200).json(obj)
 }
-export default handler

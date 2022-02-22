@@ -9,13 +9,13 @@ export const COLUMNS = [
     Header: 'Format',
     columns: [
       {
-        Header: 'PICA+',
-        accessor: 'format.PICA+',
+        Header: 'PICA3',
+        accessor: 'format.PICA3',
         sortType: 'basic'
       },
       {
-        Header: 'PICA3',
-        accessor: 'format.PICA3',
+        Header: 'PICA+',
+        accessor: 'format.PICA+',
         sortType: 'basic'
       },
       {
