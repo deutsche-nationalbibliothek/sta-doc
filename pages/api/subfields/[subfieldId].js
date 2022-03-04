@@ -1,21 +1,16 @@
 import fetchWithCache from '../fetchWithCache.js'
-import * as constants from '../../../sparql/queryConstants'
-import queryCodings from '../../../sparql/queryCodings'
-import queryExamples from '../../../wikibase/queryExamples'
 
 export default async function handler(req, res) {
   const lookup_en = await fetchWithCache('http://localhost:3000/api/elements/en')
   const lookup_de = await fetchWithCache('http://localhost:3000/api/elements/de')
-  // const codings = await fetchWithCache('http://localhost:3000/api/codings')
-  const codings = await queryCodings( constants.QUERYCODINGS )
-  // const examples = await fetchWithCache('http://localhost:3000/api/examples')
-  const examples = await queryExamples( constants.QUERYEXAMPLES )
+  const codings = await fetchWithCache('http://localhost:3000/api/codings')
+  const examples = await fetchWithCache('http://localhost:3000/api/examples')
 
-  const { fieldId } = req.query
-  const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + fieldId
+  const { subfieldId } = req.query
+  const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + subfieldId
   // console.log( fieldId, wikiurl )
   const wikiapi = await fetchWithCache(wikiurl)
-  const property = wikiapi.entities[fieldId]
+  const property = wikiapi.entities[subfieldId]
 
   const obj = {}
   obj['label'] = property['labels']['de'].value
@@ -30,7 +25,7 @@ export default async function handler(req, res) {
     obj['statements'][lookup_en[key]]['label'] = lookup_de[key]
     if (key === 'P4') { //integrate coding from codings api
       obj['statements'][lookup_en[key]]['format'] = {}
-      obj['statements'][lookup_en[key]]['format'] = codings[fieldId]['coding']['format']
+      obj['statements'][lookup_en[key]]['format'] = codings[subfieldId]['coding']['format']
     }
     obj['statements'][lookup_en[key]]['occurrences'] = []
     const occurrences_arr =  property.claims[key]

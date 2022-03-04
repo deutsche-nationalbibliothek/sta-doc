@@ -1,24 +1,21 @@
+import fetchWithCache from '../api/fetchWithCache.js'
 import FieldList from '../../components/fields/FieldList'
+// import sparqlquery from '../../sparql/queryFields'
 
-function FieldListPage(props) {
-  console.log('fields',props.fields)
+export default function FieldListPage(props) {
   return (
     <FieldList data={props.rows}/>
   )
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
-  const data = await res.json()
+  const data = await fetchWithCache('https://doku.wikibase.wiki/w/rest.php/gnd/doku/v1/datafields')
   const fields = data.fields
   const rows = []
   Object.keys(fields).map(key => {
     // every field needs a Property ID
     fields[key]['id'] = key
     rows.push(fields[key])
-    // console.log('rows',rows)
-    // console.log(fields[key])
-    // console.log('key',key)
   })
   return {
     props: {
@@ -27,7 +24,4 @@ export async function getStaticProps() {
     },
     revalidate: 1000
   }
-
 }
-
-export default FieldListPage

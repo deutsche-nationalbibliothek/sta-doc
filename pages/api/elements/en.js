@@ -30,7 +30,11 @@ async function handler(req, res) {
         SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
                   { ?element prop:P114 item:Q296 . } #Instance of schema
                   UNION
+                  { ?element prop:P2 item:Q296 . } #Element of schema
+                  UNION
                   { ?element prop:P110 item:Q1 . } #Schema: GND-Datenmodell
+                  UNION
+                  { ?element prop:P110 item:Q3113 . } #Schema: DACH-Dokumentation
                   UNION
                   { ?element prop:P110 item:Q15 . } #Datenmodell-Dokumentation
                   UNION

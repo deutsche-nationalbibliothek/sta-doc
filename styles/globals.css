@@ -4,13 +4,19 @@ body {
   margin: 0;
   font-family: EuclidCircularA, sans-serif;
 }
-h2 {
+* {
+  box-sizing: border-box;
+}
+h5 {
+  padding: 2px;
+  margin: 2px;
+  margin-left: 0px;
 }
 h6 {
-  padding: 0;
+  padding: 1px;
   padding-top: 5px;
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
 }
 p {
   font-size: 14px;
@@ -25,9 +31,6 @@ a {
   font-size: 12px;
   color: blue;
   text-decoration: none;
-}
-* {
-  box-sizing: border-box;
 }
 ul {
         /* list-style-type: none; */

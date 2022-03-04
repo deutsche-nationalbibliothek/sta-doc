@@ -5,7 +5,7 @@ import Examples from './Examples.js';
 import Characteristics from './Characteristics.js';
 import classes from './FieldDetail.module.css';
 
-function FieldDetail(props) {
+export default function FieldDetail(props) {
   const field = props.data
   const rows = []
   const row0 = {
@@ -26,7 +26,7 @@ function FieldDetail(props) {
     // row0['format'][key] = coding.value
   // })
   rows.push(row0)
-  field.statements.subfields.occurrences.map((subfield,index) => {
+  field.statements.subfields?.occurrences.map((subfield,index) => {
     let row = {
       label: subfield.label,
       format: {},
@@ -71,14 +71,14 @@ function FieldDetail(props) {
     })}
     <h3 id={field.statements.subfields?.label}>{field.statements.subfields?.label}</h3>
     {field.statements.subfields?.occurrences.map((subfield,index) => {
-      // console.log(subfield)
+      console.log('subfield',subfield)
       return(
         <Fragment key={index}>
         <h4 id={subfield.label}>{subfield.label}</h4>
-        {subfield.qualifiers.description?.occurrences.map(desc => <p key={index}>{desc.value}</p>)}
-        {subfield.qualifiers.permittedcharacteristics && <Characteristics characteristics={subfield.qualifiers.permittedcharacteristics}/>}
-        <h5>{subfield.qualifiers.examples?.label}</h5>
-        <Examples examples={subfield.qualifiers.examples}/>
+        {subfield.qualifiers?.description?.occurrences.map(desc => <p key={index}>{desc.value}</p>)}
+        {subfield.qualifiers?.permittedcharacteristics && <Characteristics characteristics={subfield.qualifiers.permittedcharacteristics}/>}
+        <h5>{subfield.qualifiers?.examples?.label}</h5>
+        <Examples examples={subfield.qualifiers?.examples}/>
         {subfield.references && <References references={subfield.references}/>}
         </Fragment>
       )
@@ -87,5 +87,3 @@ function FieldDetail(props) {
     </>
   )
 }
-
-export default FieldDetail

@@ -1,17 +1,21 @@
-import fetchWithCache from '../fetchWithCache.js'
-import * as constants from '../../../sparql/queryConstants'
-import queryCodings from '../../../sparql/queryCodings'
-import queryExamples from '../../../wikibase/queryExamples'
+import fetchWithCache from '../pages/api/fetchWithCache.js'
+import * as constants from '../sparql/queryConstants'
+import queryElements from '../sparql/queryElements'
+import queryLabel from '../sparql/queryLabel'
+import queryCodings from '../sparql/queryCodings'
+import queryExamples from '../wikibase/queryExamples'
 
-export default async function handler(req, res) {
-  const lookup_en = await fetchWithCache('http://localhost:3000/api/elements/en')
-  const lookup_de = await fetchWithCache('http://localhost:3000/api/elements/de')
+export default async function queryField( fieldId ) {
+  // const lookup_en = await fetchWithCache('http://localhost:3000/api/elements/en')
+  const lookup_en = await queryElements( constants.QUERYLABELEN )
+  // const lookup_de = await fetchWithCache('http://localhost:3000/api/elements/de')
+  const lookup_de = await queryLabel( constants.QUERYLABELDE )
   // const codings = await fetchWithCache('http://localhost:3000/api/codings')
   const codings = await queryCodings( constants.QUERYCODINGS )
   // const examples = await fetchWithCache('http://localhost:3000/api/examples')
   const examples = await queryExamples( constants.QUERYEXAMPLES )
 
-  const { fieldId } = req.query
+  // const { fieldId } = req.query
   const wikiurl = 'https://doku.wikibase.wiki/w/api.php?action=wbgetentities&format=json&languages=de&ids=' + fieldId
   // console.log( fieldId, wikiurl )
   const wikiapi = await fetchWithCache(wikiurl)
@@ -95,5 +99,5 @@ export default async function handler(req, res) {
       }
     })
   })
-  res.status(200).json(obj)
+  return await obj
 }
