@@ -54,7 +54,7 @@ function ExampleBox(props) {
   const montagePica3 = []
   const montagePicaPlus = []
   if (sorted_statements.description) {
-    description.push(<Description key={props.id} description={sorted_statements.description}/>)
+    // description.push(<Description key={props.id} description={sorted_statements.description}/>)
   }
   example_statements.map((statement_key,index) => {
     // console.log('statement',props.statements[statement_key])
@@ -92,7 +92,7 @@ function ExampleBox(props) {
               subfieldMontagePicaPlus.push(`${value.value}`)
             }
           }
-          // Render description
+          // render box description 
           if (value.id === 'P7') {
             montagePica3.push(<p className={classes.boxdescription} key={key}>{value.value}</p>)
             montagePicaPlus.push(<p className={classes.boxdescription} key={key}>{value.value}</p>)

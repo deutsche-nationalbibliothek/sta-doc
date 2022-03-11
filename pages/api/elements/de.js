@@ -1,4 +1,4 @@
-import fetchWithCache from '../fetchWithCache.js'
+import fetchWithCache from '../../../cache/fetchWithCache.js'
 
 async function handler(req, res) {
   class SPARQLQueryDispatcher {

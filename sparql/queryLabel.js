@@ -1,4 +1,4 @@
-import fetchWithCache from '../pages/api/fetchWithCache.js'
+import fetchWithCache from '../cache/fetchWithCache.js'
 
 export default async function sparql( sparqlQuery ) {
   class SPARQLQueryDispatcher {

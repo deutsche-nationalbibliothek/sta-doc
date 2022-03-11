@@ -7,6 +7,7 @@ import classes from './FieldDetail.module.css';
 
 export default function FieldDetail(props) {
   const field = props.data
+  console.log('field',field)
   const rows = []
   const row0 = {
     label: field.label,
@@ -17,7 +18,7 @@ export default function FieldDetail(props) {
     // let key = coding.qualifiers.type.occurrences[0].label
     // row0['format'][key] = coding.value
   // })
-  for (const [key, value] of Object.entries(field.statements.coding.format)) {
+  for (const [key, value] of Object.entries(field.statements.encoding.format)) {
     // console.log(`${key}: ${value}`)
     row0['format'][key] = value
   }
@@ -71,7 +72,7 @@ export default function FieldDetail(props) {
     })}
     <h3 id={field.statements.subfields?.label}>{field.statements.subfields?.label}</h3>
     {field.statements.subfields?.occurrences.map((subfield,index) => {
-      console.log('subfield',subfield)
+      // console.log('subfield',subfield)
       return(
         <Fragment key={index}>
         <h4 id={subfield.label}>{subfield.label}</h4>

@@ -1,7 +1,9 @@
-import fetchWithCache from '../fetchWithCache.js'
+import fetchWithCache from '../../../cache/fetchWithCache.js'
 import * as constants from '../../../sparql/queryConstants'
 import queryCodings from '../../../sparql/queryCodings'
 import queryExamples from '../../../wikibase/queryExamples'
+import queryElements from '../../../sparql/queryElements'
+import queryLabel from '../../../sparql/queryLabel'
 
 export default async function handler(req, res) {
   const lookup_en = await fetchWithCache('http://localhost:3000/api/elements/en')

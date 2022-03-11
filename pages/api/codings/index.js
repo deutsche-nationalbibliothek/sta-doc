@@ -1,4 +1,4 @@
-import fetchWithCache from '../fetchWithCache.js'
+import fetchWithCache from '../../../cache/fetchWithCache.js'
 
 export default async function handler(req, res) {
 

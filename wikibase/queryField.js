@@ -1,4 +1,4 @@
-import fetchWithCache from '../pages/api/fetchWithCache.js'
+import fetchWithCache from '../cache/fetchWithCache.js'
 import * as constants from '../sparql/queryConstants'
 import queryElements from '../sparql/queryElements'
 import queryLabel from '../sparql/queryLabel'

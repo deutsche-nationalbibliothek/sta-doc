@@ -1,14 +1,14 @@
-import fetchWithCache from './fetchWithCache.js'
+import fetchWithCache from '../../cache/fetchWithCache.js'
 
 export default async function handler(req, res) {
   class SPARQLQueryDispatcher {
     constructor( endpoint ) {
-      this.endpoint = endpoint;
+      this.endpoint = endpoint
     }
 
     query( sparqlQuery ) {
-      const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery );
-      const headers = { 'Accept': 'application/sparql-results+json' };
+      const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery )
+      const headers = { 'Accept': 'application/sparql-results+json' }
       return fetchWithCache( fullUrl, { headers } )
     }
   }

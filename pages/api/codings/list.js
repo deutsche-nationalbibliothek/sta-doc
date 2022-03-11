@@ -1,13 +1,15 @@
-async function handler(req, res) {
+import fetchWithCache from '../../../cache/fetchWithCache.js'
+
+export default async function handler(req, res) {
   class SPARQLQueryDispatcher {
     constructor( endpoint ) {
-      this.endpoint = endpoint;
+      this.endpoint = endpoint
     }
 
     query( sparqlQuery ) {
-      const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery );
-      const headers = { 'Accept': 'application/sparql-results+json' };
-      return fetch( fullUrl, { headers } ).then( body => body.json() );
+      const fullUrl = this.endpoint + '?query=' + encodeURIComponent( sparqlQuery )
+      const headers = { 'Accept': 'application/sparql-results+json' }
+      return fetchWithCache( fullUrl, { headers } )
     }
   }
   const endpointUrl = 'https://doku.wikibase.wiki/query/proxy/wdqs/bigdata/namespace/wdq/sparql'
@@ -52,4 +54,3 @@ async function handler(req, res) {
 
   res.status(200).json(obj)
 }
-export default handler
