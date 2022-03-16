@@ -3,8 +3,6 @@ import classes from './Examples.module.css'
 import Description from './Description.js'
 
 function ExampleBox(props) {
-  // console.log('props',props)
-  // console.log('statements', props.statements)
   // sorting statements for correct order
   var template = [
     // Zugehörigkeit innerhalb der Namensräume
@@ -46,7 +44,6 @@ function ExampleBox(props) {
     }));
   };
   let sorted_statements = sortKeys(props.statements)
-  // console.log('sorted_statements',sorted_statements)
   let example_statements = Object.keys(sorted_statements).filter(statement => 
     statement !== 'elementof' && statement !== 'schema' && statement !== 'entitycode' && statement !== 'description')
   const description = []
@@ -54,13 +51,11 @@ function ExampleBox(props) {
   const montagePica3 = []
   const montagePicaPlus = []
   if (sorted_statements.description) {
-    // description.push(<Description key={props.id} description={sorted_statements.description}/>)
+    description.push(<Description key={props.id} description={sorted_statements.description}/>)
   }
   example_statements.map((statement_key,index) => {
-    // console.log('statement',props.statements[statement_key])
     let field_format = props.statements[statement_key].coding.format
     props.statements[statement_key].occurrences.map(occurrence => {
-      // console.log('statement',occurrence)
       if(occurrence.value !== '') {
         montageFormatNeutral.push(<p className={classes.formatneutral} key={statement_key}>{occurrence.value}</p>)
       }
@@ -68,8 +63,6 @@ function ExampleBox(props) {
         const subfieldMontagePica3 = []
         const subfieldMontagePicaPlus = []
         Object.entries(occurrence.qualifiers).forEach(([key, value]) => {
-          // console.log('value', key, value)
-          // console.log('key',key)
           if (value.coding) {
             if (value.coding.format['PICA3'] !== '-ohne-' && value.coding.format['PICA3'] !== '!...!') {
               subfieldMontagePica3.push(<b key={key}>{value.coding.format['PICA3']}</b>)
@@ -133,7 +126,7 @@ function ExampleBox(props) {
   )
 }
 
-function Examples({examples}) {
+export default function Examples({examples}) {
   if (examples) {
     return(
       <>
@@ -144,4 +137,3 @@ function Examples({examples}) {
     return null 
   }
 }
-export default Examples

@@ -17,11 +17,11 @@ import classesCollapsible from './Collapsible.module.css';
 function FieldTable(props) {
   const data = props.data.sort()
   data.sort(function(a, b){
-      let x = a.codings['PICA3'].toLowerCase()
-      let y = b.codings['PICA3'].toLowerCase()
-      if (x < y) {return -1}
-      if (x > y) {return 1}
-      return 0
+    let x = a.codings['PICA3'].toLowerCase()
+    let y = b.codings['PICA3'].toLowerCase()
+    if (x < y) {return -1}
+    if (x > y) {return 1}
+    return 0
   }) 
 
   const columns = useMemo(() => COLUMNS, [])

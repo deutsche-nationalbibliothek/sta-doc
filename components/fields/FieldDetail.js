@@ -12,7 +12,7 @@ export default function FieldDetail(props) {
   const row0 = {
     label: field.label,
     format: {},
-    repeat: field.statements.repeat?.occurrences[0].value
+    repetition: field.statements.repetition?.occurrences[0].value
   }
   // field.statements.coding.occurrences.map((coding,index) => {
     // let key = coding.qualifiers.type.occurrences[0].label
@@ -31,7 +31,7 @@ export default function FieldDetail(props) {
     let row = {
       label: subfield.label,
       format: {},
-      repeat: subfield.qualifiers?.repeat?.occurrences[0].value
+      repetition: subfield.qualifiers?.repetition?.occurrences[0].value
     }
     for (const [key, value] of Object.entries(subfield.coding.format)) {
       // console.log(`${key}: ${value}`)
@@ -56,8 +56,8 @@ export default function FieldDetail(props) {
       )
     })}
     <CodingTable data={rows} />
-    <h3>{field.statements.rulesofuse?.label}</h3>
-    {field.statements.rulesofuse?.occurrences.map((occurrence,index) => {
+    <h3>{field.statements.implementationprovisions?.label}</h3>
+    {field.statements.implementationprovisions?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )

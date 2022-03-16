@@ -1,5 +1,25 @@
-import { Fragment } from 'react';
-import classes from './Description.module.css';
+import { Fragment } from 'react'
+import classes from './Description.module.css'
+import Collapsible from 'react-collapsible'
+
+function DescriptionBox(props) {
+  console.log('props',props)
+  const description = props.statements.description?.occurrences.map((occ) => <p key={occ}>{occ.value}</p>)
+  if (description === undefined) { return null }
+  else {
+    return(
+      <Collapsible
+      trigger={props.label}
+      triggerWhenOpen={props.label}
+      openedClassName={classes.Collapsible}
+      triggerClassName={classes.CustomTriggerCSS}
+      triggerOpenedClassName={classes.CustomTriggerCSSopen}
+      >
+      {description}
+      </Collapsible>
+    )
+  }
+}
 
 export default function Description(props) {
   const description_arr = []
@@ -8,15 +28,15 @@ export default function Description(props) {
   const embedded_item = []
 
   const arr = props.description.occurrences
-  console.log('arr ',arr)
+  // console.log('arr ',arr)
   for (let i = 0; i < arr?.length; i++) {
     let qualifiers = arr[i].qualifiers
     if ( qualifiers === undefined) {
-    description_arr.push(<p>{arr[i].value}</p>)
+      description_arr.push(<p>{arr[i].value}</p>)
     }
     if (qualifiers) {
       for (const [key, value] of Object.entries(qualifiers)) {
-        console.log('for',key,value)
+        // console.log('for',key,value)
         if (value.id === 'P389') { //Layouttyp
           const expr = value.value.id
           switch (expr) {
@@ -54,17 +74,18 @@ export default function Description(props) {
           }
         }
         if (value.id === 'P396') {
-          // const item = queryExample(value.value.id)
-          // console.log('item',item)
-          description_arr.push(<p>Hier wird ein Item ({value.value.id}) geladen.</p>)
-
+          value.occurrences.map((occ,index) => {
+            description_arr.push(<DescriptionBox key={index} {...occ} />)
+          })
         }
       }
     }
   }
   return (
     <>
+    <div className={classes.DescriptionBlock}>
     {description_arr.map(descr => descr)}
+    </div>
     </>
   )
 }

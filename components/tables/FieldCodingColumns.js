@@ -34,6 +34,6 @@ export const COLUMNS = [
   {
     // Third group
     Header: 'Wiederholung',
-    accessor: 'repeat'
+    accessor: 'repetition'
   }
 ]
