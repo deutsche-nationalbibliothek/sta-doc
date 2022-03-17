@@ -11,6 +11,7 @@ h5 {
   padding: 2px;
   margin: 2px;
   margin-left: 0px;
+  font-size: 15px;
 }
 h6 {
   padding: 1px;
@@ -33,15 +34,15 @@ a {
   text-decoration: none;
 }
 ul {
-        /* list-style-type: none; */
-        /* text-align: center; */
-        max-width: 800px;
-        /* margin: 0 ; */
-        /* padding: 0; */
+  /* list-style-type: none; */
+  /* text-align: center; */
+  max-width: 800px;
+  /* margin: 0 ; */
+  /* padding: 0; */
 
 }
 ul li {
-        /* text-align: center; */
-        padding: 2px 2px;
-        /* border-bottom: 1px solid #ddd; */
+  /* text-align: center; */
+  padding: 2px 2px;
+  /* border-bottom: 1px solid #ddd; */
 }

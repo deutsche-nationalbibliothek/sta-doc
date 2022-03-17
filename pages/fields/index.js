@@ -10,7 +10,7 @@ export default function FieldListPage(props) {
 }
 
 export async function getStaticProps() {
-  const rows = await getFieldList()
+  const rows = await getFields()
   return {
     props: {
       rows: rows

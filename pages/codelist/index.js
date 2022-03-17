@@ -1,13 +1,7 @@
-import CodeList from '../../components/codes/CodeList'
+import CodeList from '@/components/codes/CodeList'
 
-function codeListPage() {
-  // function addMeetupHandler(enteredMeetupData) {
-    // console.log(enteredMeetupData)
-  // }
-
+export default function codeListPage() {
   return (
-          <p>codeListPage</p>
+    <p>codeListPage</p>
   )
 }
-
-export default codeListPage

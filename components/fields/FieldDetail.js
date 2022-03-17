@@ -49,36 +49,36 @@ export default function FieldDetail(props) {
     <title>{field.label}</title>
     <section className={classes.detail}>
     <h1>{field.label}</h1>
-    <h3>{field.statements.definition?.label}</h3>
+    <h2>{field.statements.definition?.label}</h2>
     {field.statements.definition?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
     <CodingTable data={rows} />
-    <h3>{field.statements.implementationprovisions?.label}</h3>
+    <h2>{field.statements.implementationprovisions?.label}</h2>
     {field.statements.implementationprovisions?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
-    <h3>{field.statements.examples?.label}</h3>
+    <h2>{field.statements.examples?.label}</h2>
     <Examples examples={field.statements.examples}/>
-    <h3>{field.statements.validation?.label}</h3>
+    <h2>{field.statements.validation?.label}</h2>
     {field.statements.validation?.occurrences.map((occurrence,index) => {
       return(
         <p key={index}>{occurrence.value}</p>
       )
     })}
-    <h3 id={field.statements.subfields?.label}>{field.statements.subfields?.label}</h3>
+    <h2 id={field.statements.subfields?.label}>{field.statements.subfields?.label}</h2>
     {field.statements.subfields?.occurrences.map((subfield,index) => {
       // console.log('subfield',subfield)
       return(
         <Fragment key={index}>
-        <h4 id={subfield.label}>{subfield.label}</h4>
+        <h3 id={subfield.label}>{subfield.label}</h3>
         {subfield.qualifiers?.description?.occurrences.map(desc => <p key={index}>{desc.value}</p>)}
         {subfield.qualifiers?.permittedcharacteristics && <Characteristics characteristics={subfield.qualifiers.permittedcharacteristics}/>}
-        <h5>{subfield.qualifiers?.examples?.label}</h5>
+        <h4>{subfield.qualifiers?.examples?.label}</h4>
         <Examples examples={subfield.qualifiers?.examples}/>
         {subfield.references && <References references={subfield.references}/>}
         </Fragment>

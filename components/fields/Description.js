@@ -74,7 +74,7 @@ export default function Description(props) {
           }
         }
         if (value.id === 'P396') {
-          value.occurrences.map((occ,index) => {
+          value.occurrences?.map((occ,index) => {
             description_arr.push(<DescriptionBox key={index} {...occ} />)
           })
         }
