@@ -1,5 +1,4 @@
-// import fetchWithCache from '../../cache/fetchWithCache.js'
-import { getFieldList } from '@/lib/api'
+import { getFields } from '@/lib/api'
 import FieldList from '../../components/fields/FieldList'
 // import sparqlquery from '../../sparql/queryFields'
 
