@@ -7,10 +7,10 @@ import classes from './FieldDetail.module.css';
 
 export default function FieldDetail(props) {
   const field = props.data
-  console.log('field',field)
+  // console.log('field',field)
   const rows = []
   const row0 = {
-    label: field.label,
+    label: field.label ?? '',
     format: {},
     repetition: field.statements.repetition?.occurrences[0].value
   }
@@ -29,7 +29,7 @@ export default function FieldDetail(props) {
   rows.push(row0)
   field.statements.subfields?.occurrences.map((subfield,index) => {
     let row = {
-      label: subfield.label,
+      label: subfield.label ?? '',
       format: {},
       repetition: subfield.qualifiers?.repetition?.occurrences[0].value
     }
