@@ -3,15 +3,7 @@ import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './SubfieldColumns';
 import classes from './SubfieldTable.module.css';
 
-// <table className={classes.table}>
-// <thead>
-// <tr>{rows[0] && Object.keys(rows).map((heading) => <th>{heading}</th>)}</tr>
-// </thead>
-// <tbody>
-// </tbody>
-// </table>
-
-function SubfieldTable(props) {
+export default function SubfieldTable(props) {
   // console.log('FieldTable',props.data);
   const data = props.data
   // console.log('data in subfield',data)
@@ -76,6 +68,3 @@ function SubfieldTable(props) {
     </>
   )
 }
-
-export default SubfieldTable;
-

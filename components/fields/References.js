@@ -19,7 +19,7 @@ function ReferenceBox(props) {
   )
 }
 
-function References({references}) {
+export default function References({references}) {
   if (references) {
     return(
       <>
@@ -29,4 +29,3 @@ function References({references}) {
     )
   }
 }
-export default References

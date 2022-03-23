@@ -17,6 +17,7 @@
     "jsx": "^0.9.89",
     "memory-cache": "^0.2.0",
     "next": "11.1.2",
+    "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-collapsible": "^2.8.4",
     "react-data-grid": "^7.0.0-beta.7",

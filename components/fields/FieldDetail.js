@@ -3,7 +3,7 @@ import CodingTable from '../tables/CodingTable.js';
 import References from './References.js';
 import Examples from './Examples.js';
 import Characteristics from './Characteristics.js';
-import classes from './FieldDetail.module.css';
+import styles from './FieldDetail.module.css';
 
 export default function FieldDetail(props) {
   const field = props.data
@@ -14,40 +14,34 @@ export default function FieldDetail(props) {
     format: {},
     repetition: field.statements.repetition?.occurrences[0].value
   }
-  // field.statements.coding.occurrences.map((coding,index) => {
-    // let key = coding.qualifiers.type.occurrences[0].label
-    // row0['format'][key] = coding.value
-  // })
-  for (const [key, value] of Object.entries(field.statements.encoding.format)) {
-    // console.log(`${key}: ${value}`)
-    row0['format'][key] = value
-  }
-  // field.statements.coding.format.map((coding,index) => {
-    // let key = coding.qualifiers.type.occurrences[0].label
-    // row0['format'][key] = coding.value
-  // })
-  rows.push(row0)
-  field.statements.subfields?.occurrences.map((subfield,index) => {
-    let row = {
-      label: subfield.label ?? '',
-      format: {},
-      repetition: subfield.qualifiers?.repetition?.occurrences[0].value
-    }
-    for (const [key, value] of Object.entries(subfield.coding.format)) {
+  if(field.statements.encoding){
+    for (const [key, value] of Object.entries(field.statements.encoding.format)) {
       // console.log(`${key}: ${value}`)
-      row['format'][key] = value
+      row0['format'][key] = value
     }
-    // subfield.coding.occurrences.map((coding,index) => {
+    rows.push(row0)
+    field.statements.subfields?.occurrences.map((subfield,index) => {
+      let row = {
+        label: subfield.label ?? '',
+        format: {},
+        repetition: subfield.qualifiers?.repetition?.occurrences[0].value
+      }
+      for (const [key, value] of Object.entries(subfield.coding.format)) {
+        // console.log(`${key}: ${value}`)
+        row['format'][key] = value
+      }
+      // subfield.coding.occurrences.map((coding,index) => {
       // let key = coding.qualifiers.type.occurrences[0].label
       // row['format'][key] = coding.value
-    // })
-    rows.push(row)
-  })
+      // })
+      rows.push(row)
+    })
+  }
   // console.log('rows',rows)
   return (
     <>
     <title>{field.label}</title>
-    <section className={classes.detail}>
+    <section className={styles.detail}>
     <h1>{field.label}</h1>
     <h2>{field.statements.definition?.label}</h2>
     {field.statements.definition?.occurrences.map((occurrence,index) => {

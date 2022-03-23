@@ -1,11 +1,20 @@
+import Head from 'next/head'
+import Layout from '@/components/layout/layout'
+import Sidebar from '@/components/sidebar/sidebar'
 import * as sparql from '@/lib/sparql'
 import { getElements, getField } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
 
-export default function FieldDetails({ field }) {
-  // console.log('field', field)
+export default function Field({ field }) {
+  console.log('field', field)
+  const title = field.label + ' | ' + field.description.replace(/ .*/,'')
   return(
-    <FieldDetail data={field}/>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <FieldDetail data={field}/>
+    </>
   )
 }
 
@@ -27,4 +36,13 @@ export async function getStaticPaths() {
     paths: Object.keys(fields).map((id) => ({params: { fieldId: id.toString() }})) || [],
     fallback: true
   }
+}
+
+Field.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <Sidebar />
+      {page}
+    </Layout>
+  )
 }

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import classes from './Examples.module.css'
+import styles from './Examples.module.css'
 import Description from './Description.js'
 
 function ExampleBox(props) {
@@ -57,7 +57,7 @@ function ExampleBox(props) {
     let field_format = props.statements[statement_key].coding.format
     props.statements[statement_key].occurrences.map(occurrence => {
       if(occurrence.value !== '') {
-        montageFormatNeutral.push(<p className={classes.formatneutral} key={statement_key}>{occurrence.value}</p>)
+        montageFormatNeutral.push(<p className={styles.formatneutral} key={statement_key}>{occurrence.value}</p>)
       }
       if (occurrence.qualifiers) {
         const subfieldMontagePica3 = []
@@ -76,19 +76,19 @@ function ExampleBox(props) {
               subfieldMontagePicaPlus.push(`${value.value.format['PICA+']}`)
             } else {
               if (value.coding.format['PICA3'] === '!...!') {
-                subfieldMontagePica3.push(<b key={key} className={classes.red}>!</b>)
+                subfieldMontagePica3.push(<b key={key} className={styles.red}>!</b>)
               }
               subfieldMontagePica3.push(`${value.value}`)
               if (value.coding.format['PICA3'] === '!...!') {
-                subfieldMontagePica3.push(<b key={key} className={classes.red}>!</b>)
+                subfieldMontagePica3.push(<b key={key} className={styles.red}>!</b>)
               }
               subfieldMontagePicaPlus.push(`${value.value}`)
             }
           }
           // render box description 
           if (value.id === 'P7') {
-            montagePica3.push(<p className={classes.boxdescription} key={key}>{value.value}</p>)
-            montagePicaPlus.push(<p className={classes.boxdescription} key={key}>{value.value}</p>)
+            montagePica3.push(<p className={styles.boxdescription} key={key}>{value.value}</p>)
+            montagePicaPlus.push(<p className={styles.boxdescription} key={key}>{value.value}</p>)
           }
         })
         montagePica3.push(<p key={statement_key}><b key={statement_key}>{field_format['PICA3']}</b> {subfieldMontagePica3.map(mont => mont)}</p>)
@@ -104,19 +104,19 @@ function ExampleBox(props) {
   return(
     <>
     {description.map(descr => descr)}
-    <h6 className={classes.boxtitle}><a href={link} target="_blank" rel="noopener noreferrer">{props.id}</a></h6>
+    <h6 className={styles.boxtitle}><a href={link} target="_blank" rel="noopener noreferrer">{props.id}</a></h6>
     {montageFormatNeutral.map(mont => mont)}
-    <div className={classes.clearfix}>
-    <div className={classes.box}>{
+    <div className={styles.clearfix}>
+    <div className={styles.box}>{
       <>
-      <p className={classes.boxtitle}><b>PICA3</b></p>
+      <p className={styles.boxtitle}><b>PICA3</b></p>
       {montagePica3.map(mont => mont)}
       </>
     }
     </div>
-    <div className={classes.box}>{
+    <div className={styles.box}>{
       <>
-      <p className={classes.boxtitle}><b>PICA+</b></p>
+      <p className={styles.boxtitle}><b>PICA+</b></p>
       {montagePicaPlus.map(mont => mont)}
       </>
     }

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export const COLUMNS = [
   {       Header: 'Unterfelder',
     columns: [
@@ -19,7 +21,7 @@ export const COLUMNS = [
       {
         Header: 'Beschreibung',
         accessor: 'label',
-        Cell: ({row}) => <a href={'http://10.69.59.78:3000/subfields/'+row.original.id}>{row.original.label}</a>,
+        Cell: ({row}) => <Link href={'/gnd/subfields/'+row.original.id}>{row.original.label}</Link>,
         sortType: 'basic'
       }
     ]

@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './FieldColumns';
-import classes from './FieldTable.module.css';
+import styles from './FieldTable.module.css';
 import SubfieldTable from '../tables/SubfieldTable.js';
 import Collapsible from 'react-collapsible';
-import classesCollapsible from './Collapsible.module.css';
+import stylesCollapsible from './Collapsible.module.css';
 
-// <table className={classes.table}>
+// <table className={styles.table}>
 // <thead>
 // <tr>{rows[0] && Object.keys(rows).map((heading) => <th>{heading}</th>)}</tr>
 // </thead>
@@ -46,7 +46,7 @@ function FieldTable(props) {
 
   return (
     <>
-    <table {...getTableProps()} className={classes.table}>
+    <table {...getTableProps()} className={styles.table}>
     <thead>
     {headerGroups.map((headerGroup, index) => (
       <tr key={index} {...headerGroup.getHeaderGroupProps()}>
@@ -86,9 +86,9 @@ function FieldTable(props) {
               <Collapsible
               trigger='Zeige Unterfelder' 
               triggerWhenOpen='Schließe Unterfelder'
-              ClassName={classesCollapsible.Collapsible}
-              triggerClassName={classesCollapsible.CustomTriggerCSS}
-              triggerOpenedClassName={classesCollapsible.CustomTriggerCSSopen}
+              ClassName={stylesCollapsible.Collapsible}
+              triggerClassName={stylesCollapsible.CustomTriggerCSS}
+              triggerOpenedClassName={stylesCollapsible.CustomTriggerCSSopen}
               >
               <SubfieldTable data={subfields}/>
               </Collapsible>

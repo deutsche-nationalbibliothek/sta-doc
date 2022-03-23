@@ -1,12 +1,14 @@
-import Layout from '../components/layout/Layout'
-import '../styles/globals.css'
+import Layout from '@/components/layout/layout'
+import '@/styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  )
+export default function MyApp({ Component, pageProps }) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(<Component {...pageProps} />)
 }
-
-export default MyApp
+  // return (
+    // <Layout>
+      // <Component {...pageProps} />
+    // </Layout>
+  // )

@@ -1,25 +1,24 @@
+import Layout from '@/components/layout/layout'
+import Sidebar from '@/components/sidebar/sidebar'
+
 export default function HomePage(props) { 
-  const image = 'https://doku.wikibase.wiki/w/thumb.php?f=GND_RGB.jpg&width=200'
-  const htmlparser2 = require("htmlparser2");
-  const json = props.json
-  const dom = htmlparser2.parseDocument(props.parser);
-  const htmlString = props.parser
-  const title = props.title
-  const tag_list = []
-  dom.children[0].children.map((element) => {
-    if (element['type'] === 'tag') {
-      tag_list.push(element)
-    }})
 
   return (
-    <>
-    <h1>{title}</h1>
-    <div dangerouslySetInnerHTML={{ __html: htmlString }}>
-    </div>
-    </>
+    <section>
+      <h1>DACH Dokumentationsplattform</h1>
+      <p>Herzlich willkommen!</p>
+    </section>
   )
-
 } 
+
+HomePage.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <Sidebar />
+      {page}
+    </Layout>
+  )
+}
 
 export async function getStaticProps() {
   const url = "https://doku.wikibase.wiki/api.php?" +
