@@ -2,8 +2,10 @@
   display: flex;
   /* height: 100%; */
   height: calc(100vh - 64px);
+  /* width: 30%; */
   background-color: white;
 }
 .main > section {
   padding: 32px;
+  width: 70%;
 }

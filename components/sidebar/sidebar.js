@@ -13,13 +13,13 @@ export default function Sidebar(props) {
         <ActiveLink activeClassName={styles.home} href="/about">
           <a className={styles.navButtons}>allgemeine Einführung</a>
         </ActiveLink>
-        <ActiveLink activeClassName={styles.home} href="/rda">
+        <ActiveLink activeClassName={styles.rda} href="/rda">
           <a className={styles.navButtons}>Handbuch Formalerschließung</a>
         </ActiveLink>
-        <ActiveLink activeClassName={styles.home} href="/content">
+        <ActiveLink activeClassName={styles.content} href="/content">
           <a className={styles.navButtons}>Handbuch Inhaltserschließung</a>
         </ActiveLink>
-        <ActiveLink activeClassName={styles.home} href="/gnd">
+        <ActiveLink activeClassName={styles.gnd} href="/gnd">
           <a className={styles.navButtons}>Handbuch GND</a>
         </ActiveLink>
       </nav>
