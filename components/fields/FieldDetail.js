@@ -10,7 +10,7 @@ export default function FieldDetail(props) {
   // console.log('field',field)
   const rows = []
   const row0 = {
-    label: field.label ?? '',
+    label: field?.label ?? '',
     format: {},
     repetition: field.statements.repetition?.occurrences[0].value
   }

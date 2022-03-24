@@ -5,6 +5,7 @@ export default function About() {
   return (
     <section>
       <h1>Allgemeine Einführung</h1>
+      <hr/>
       <p>Kontent</p>
       <p>Kontent</p>
     </section>

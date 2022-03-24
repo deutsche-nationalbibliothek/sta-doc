@@ -1,36 +1,7 @@
-import { Fragment, useMemo } from 'react';
-import { useTable, useSortBy, useExpanded } from 'react-table';
-import { COLUMNS } from './FieldCodingColumns';
-import classes from './CodingTable.module.css';
-
-
-function References({references}) {
-  if (references) {
-    return(
-      <>
-      <h5 className={classes.h5}>Referenzen</h5>
-      {references.map((ref,index) => <ReferenceBox key={index} {...ref} />)}
-      </>
-    )
-  }
-}
-function ReferenceBox(props) {
-  const referenceMap = {
-    url: (ref) => <a href={ref.value}>{ref.value}</a>,
-    default: (ref) => <p>{ref.value}</p>
-  }
-  return(
-    <div className={classes.div}>
-    {
-      Object.keys(props).map((key,index) => 
-        <Fragment key={index}>
-        {referenceMap[key] ? referenceMap[key](props[key]) : referenceMap.default(props[key])}
-        </Fragment>
-      )
-    }
-    </div>
-  )
-}
+import { Fragment, useMemo } from 'react'
+import { useTable, useSortBy, useExpanded } from 'react-table'
+import { COLUMNS } from './FieldCodingColumns'
+import styles from './CodingTable.module.css'
 
 function TableCell(props) {
   // console.log('props',props)
@@ -50,14 +21,14 @@ function TableRow(props) {
   if(props.index === 0) {
     return (
       <Fragment key={props.index}>
-      <tr className={classes.firstrow} {...props.getRowProps()}>
+      <tr className={styles.firstrow} {...props.getRowProps()}>
       {props.cells.map((cell,index) => {
         return (props.index === 0 ? 
-          <td key={index} className={classes.firstrow} {...cell.getCellProps()}>{cell.render("Cell")}</td> : 
+          <td key={index} className={styles.firstrow} {...cell.getCellProps()}>{cell.render("Cell")}</td> : 
           <td key={index} {...cell.getCellProps()}>{cell.render("Cell")}</td>)
       })}
       </tr>
-      <tr className={classes.secondrow}><td className={classes.secondrow} colSpan={props.allCells.length}>Unterfelder</td></tr>
+      <tr className={styles.secondrow}><td className={styles.secondrow} colSpan={props.allCells.length}>Unterfelder</td></tr>
       </Fragment>
     )
   } else {
@@ -75,7 +46,7 @@ function TableRow(props) {
   }
 }
 
-function CodingTable(props) {
+export default function CodingTable(props) {
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => props.data, [])
   
@@ -98,7 +69,7 @@ function CodingTable(props) {
   rows.forEach(prepareRow)
 
   return (
-    <table {...getTableProps()} className={classes.table}>
+    <table {...getTableProps()} className={styles.table}>
     <thead>
     {headerGroups.map((headerGroup,index) => (
       <tr key={index} {...headerGroup.getHeaderGroupProps()}>
@@ -118,22 +89,4 @@ function CodingTable(props) {
     </tbody>
     </table>
   )
-  // console.log('FieldTable',props.data);
-  // const rows = props.rows
-  // const columns = props.columns
-  // return (
-    // <>
-    // <table className={classes.table}>
-    // <thead>
-    // <tr>{columns.map((column, index) => <th key={index}>{column}</th>)}</tr>
-    // </thead>
-    // <tbody>
-    // {rows.map((row, index) => <GetRow key={index} {...row}/>)}
-    // </tbody>
-    // </table>
-    // </>
-  // )
-  // return null
 }
-
-export default CodingTable;

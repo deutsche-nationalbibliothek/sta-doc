@@ -6,19 +6,11 @@ export default function HomePage(props) {
   return (
     <section>
       <h1>DACH Dokumentationsplattform</h1>
+      <hr/>
       <p>Herzlich willkommen!</p>
     </section>
   )
 } 
-
-HomePage.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar />
-      {page}
-    </Layout>
-  )
-}
 
 export async function getStaticProps() {
   const url = "https://doku.wikibase.wiki/api.php?" +
@@ -29,7 +21,6 @@ export async function getStaticProps() {
       prop: "text",
       format: "json",
     })
-
   const req = await fetch(url)
   const json = await req.json()
   const parser = json.parse.text['*']
@@ -43,6 +34,13 @@ export async function getStaticProps() {
     },
     revalidate: 10
   }
-
 }
 
+HomePage.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <Sidebar />
+      {page}
+    </Layout>
+  )
+}

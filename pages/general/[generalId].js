@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import * as sparql from '@/lib/sparql'
 import { getElements, getField } from '@/lib/api'
-import FieldDetail from '@/components/fields/FieldDetail'
+import GeneralDetail from '@/components/general/GeneralDetail'
 
-export default function FieldDetails({ field }) {
-  console.log('field', field)
+export default function GeneralDetails({ field }) {
+  // console.log('field', field)
   const title = field.label + ' | ' + field.description.replace(/ .*/,'')
   return(
     <>
@@ -12,10 +12,10 @@ export default function FieldDetails({ field }) {
         <title>{title}</title>
       </Head>
       <h1>DEFAULT PAGE</h1>
+      <GeneralDetail data={field}/>
     </>
   )
 }
-    // <FieldDetail data={field}/>
 
 export async function getStaticProps({ params }) {
   // get API data

@@ -9,16 +9,16 @@ export default function GndNavigation() {
       <nav>
         <ul>
           <li>
-            <Link href='/gnd/fields'>Feldverzeichnis</Link>
+            <Link href='/gnd/fields'>Datenfelder</Link>
           </li>
           <li>
-            <Link href='/gnd/codes'>Entitätencodeliste</Link>
-          </li>
-          <li>
-            <Link href='/new-meetup'>Formvorlage(Demo)</Link>
+            <Link href='/gnd/codes'>Relationencodes</Link>
           </li>
         </ul>
       </nav>
     </header>
   )
 }
+          // <li>
+            // <Link href='/new-meetup'>Formvorlage(Demo)</Link>
+          // </li>

@@ -5,6 +5,7 @@ export default function Content() {
   return (
     <section>
       <h1>Inhaltserschließung</h1>
+      <hr/>
       <p>Kontent</p>
       <p>Kontent</p>
     </section>

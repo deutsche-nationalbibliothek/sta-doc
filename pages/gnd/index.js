@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
 import GndNavigation from '@/components/layout/gndNavigation'
@@ -23,7 +24,19 @@ export default function GNDHomePage(props) {
       </Head>
       <section>
         <GndNavigation />
-        <h1>Handbuch Gemeinsame Normdatei</h1>
+        <h1>
+          <span>
+            <Image 
+              alt="<<<GND LOGO>>>" 
+              src="/GND_RGB_Wabe.png" 
+              width={0.5*252} 
+              height={0.5*291} 
+            />
+          </span>
+          Handbuch Gemeinsame Normdatei
+        </h1>
+
+        <hr/>
         <div dangerouslySetInnerHTML={{ __html: htmlString }}></div>
       </section>
     </>
