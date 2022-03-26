@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
+import RdaNavigation from '@/components/layout/RdaNavigation'
 import Collapsible from 'react-collapsible'
 import stylesCollapsible from '@/styles/RdaCollapsible.module.css'
 
@@ -12,6 +13,7 @@ export default function Rda() {
         <title>Handbuch Formalerschließung (RDA) - Startseite</title>
       </Head>
       <section>
+        <RdaNavigation />
         <div>
           <h1>
             <span>

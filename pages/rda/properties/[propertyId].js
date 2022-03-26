@@ -3,7 +3,9 @@ import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
 import * as sparql from '@/lib/sparql'
 import { getElements, getField } from '@/lib/api'
+import RdaNavigation from '@/components/layout/RdaNavigation'
 import FieldDetail from '@/components/fields/FieldDetail'
+import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Property({ field }) {
   console.log('field', field)
@@ -13,7 +15,10 @@ export default function Property({ field }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <FieldDetail data={field}/>
+      <section>
+        <RdaNavigation/>
+        <GeneralDetail data={field}/>
+      </section>
     </>
   )
 }

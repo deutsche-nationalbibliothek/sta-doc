@@ -1,8 +1,8 @@
 import { Fragment } from 'react'
-import styles from './Description.module.css'
+import styles from './BasicRules.module.css'
 import Collapsible from 'react-collapsible'
 
-function DescriptionBox(props) {
+function BasicRulesBox(props) {
   console.log('props',props)
   const description = props.statements.description?.occurrences.map((occ) => <p key={occ}>{occ.value}</p>)
   if (description === undefined) { return null }
@@ -21,13 +21,14 @@ function DescriptionBox(props) {
   }
 }
 
-export default function Description(props) {
+export default function BasicRules(props) {
+  // console.log('propss',props)
   const description_arr = []
   let uncounted_list = []
   let counted_list = []
   const embedded_item = []
 
-  const arr = props.description.occurrences
+  const arr = props.basicrules?.occurrences
   // console.log('arr ',arr)
   for (let i = 0; i < arr?.length; i++) {
     let qualifiers = arr[i].qualifiers
@@ -38,7 +39,7 @@ export default function Description(props) {
       for (const [key, value] of Object.entries(qualifiers)) {
         // console.log('for',key,value)
         if (value.id === 'P389') { //Layouttyp
-          const expr = value.value.id
+          const expr = value.occurrences[0].id
           switch (expr) {
             case 'Q3127': //Schriftart kursiv
               description_arr.push(<p className={styles.italic}>{arr[i].value}</p>)
@@ -73,9 +74,9 @@ export default function Description(props) {
               break
           }
         }
-        if (value.id === 'P396') {
+        if (value.id === 'P396') { //embedded item
           value.occurrences?.map((occ,index) => {
-            description_arr.push(<DescriptionBox key={index} {...occ} />)
+            description_arr.push(<BasicRulesBox key={index} {...occ} />)
           })
         }
       }

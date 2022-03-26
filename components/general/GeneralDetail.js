@@ -3,13 +3,13 @@ import CodingTable from '@/components/tables/CodingTable.js';
 import References from '@/components/fields/References.js';
 import Examples from '@/components/fields/Examples.js';
 import Characteristics from '@/components/fields/Characteristics.js';
+import BasicRules from '@/components/rda/BasicRules.js';
 import styles from './GeneralDetail.module.css';
 import { sortStatements } from '@/lib/api'
 
 export default function GeneralDetail(props) {
   const field = props.data
   const sorted_statements = sortStatements(field.statements)
-  // console.log('sorted',sorted_statements)
   const rows = []
   const row0 = {
     label: field?.label ?? '',
@@ -47,22 +47,31 @@ export default function GeneralDetail(props) {
     <hr/>
   )
   for (const [key, statement] of Object.entries(sorted_statements)) {
-    console.log(key, statement)
+    // console.log(key, statement)
     view.push(<h2>{statement.label} ({statement.id})</h2>)
-    statement.occurrences.map((occ, index) => {
-      // console.log('occ',occ)
-      if(occ.value){
-        view.push(<p key={index}>{occ.value}</p>)
-      }
-      if(occ.id){
-        view.push(<p key={index}>{occ.label} ({occ.id})</p>)
-      }
-      if(occ.qualifiers){
-        for (const [key, qualifier] of Object.entries(occ.qualifiers)) {
-          // console.log('quali',key,qualifier)
+    if (statement.id === 'P388') { //Basisregeln
+      view.push(<BasicRules key={statement.id} basicrules={statement}/>)
+    } 
+    else {
+      statement.occurrences.map((occ, index) => {
+        console.log('key',key)
+        console.log('occ',occ)
+        if(occ.value){
+          view.push(<p key={index}>{occ.value}</p>)
         }
-      }
-    })
+        if(occ.id){
+          view.push(<p key={index}>{occ.label} ({occ.id})</p>)
+        }
+        if(occ.qualifiers){
+          for (const [key, qualifier] of Object.entries(occ.qualifiers)) {
+            console.log('quali',key,qualifier)
+            if (qualifier.id === 'P396') {
+              // view.push(<Examples examples={qualifier} />)
+            }
+          }
+        }
+      })
+    }
   }
 
 
