@@ -13,7 +13,7 @@ export default function Property({ field }) {
   return(
     <>
       <Head>
-        <title>{title}</title>
+        <title>{title} Huhu!</title>
       </Head>
       <section>
         <RdaNavigation/>
