@@ -71,24 +71,24 @@ function ExampleBox(props) {
               subfieldMontagePicaPlus.push(<b key={key}>{value.coding.format['PICA+']}</b>)
             }
             // check if qualifier value is a Property
-            if (value.value?.format !== undefined) {
-              subfieldMontagePica3.push(`${value.value.format['PICA3']}`)
-              subfieldMontagePicaPlus.push(`${value.value.format['PICA+']}`)
+            if (value.occurrences[0].coding?.format !== undefined) {
+              subfieldMontagePica3.push(`${value.occurrences[0].coding.format['PICA3']}`)
+              subfieldMontagePicaPlus.push(`${value.occurrences[0].coding.format['PICA+']}`)
             } else {
               if (value.coding.format['PICA3'] === '!...!') {
                 subfieldMontagePica3.push(<b key={key} className={styles.red}>!</b>)
               }
-              subfieldMontagePica3.push(`${value.value}`)
+              subfieldMontagePica3.push(`${value.occurrences[0].value}`)
               if (value.coding.format['PICA3'] === '!...!') {
                 subfieldMontagePica3.push(<b key={key} className={styles.red}>!</b>)
               }
-              subfieldMontagePicaPlus.push(`${value.value}`)
+              subfieldMontagePicaPlus.push(`${value.occurrences[0].value}`)
             }
           }
           // render box description 
           if (value.id === 'P7') {
-            montagePica3.push(<p className={styles.boxdescription} key={key}>{value.value}</p>)
-            montagePicaPlus.push(<p className={styles.boxdescription} key={key}>{value.value}</p>)
+            montagePica3.push(<p className={styles.boxdescription} key={key}>{value.occurrences[0].value}</p>)
+            montagePicaPlus.push(<p className={styles.boxdescription} key={key}>{value.occurrences[0].value}</p>)
           }
         })
         montagePica3.push(<p key={statement_key}><b key={statement_key}>{field_format['PICA3']}</b> {subfieldMontagePica3.map(mont => mont)}</p>)

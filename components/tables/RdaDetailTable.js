@@ -1,14 +1,36 @@
 import { Link } from 'next/link'
 import { Fragment, useMemo } from 'react'
 import { useTable, useSortBy, useExpanded } from 'react-table'
-import { COLUMNS } from './RdaTableColumns'
-import styles from './RdaTable.module.css'
+import { COLUMNS } from './RdaDetailTableColumns'
+import styles from './RdaDetailTable.module.css'
 
-export default function RdaTable(props) {
-  console.log('data',props.data)
+export default function RdaDetailTable(props) {
+  let buildTable = (obj) => {
+    console.log('obj',obj)
+
+    var arr=[]
+    for(var k in obj) {
+      switch (obj[k].id) {
+        case 'P124': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
+          break
+        case 'P401': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
+          break
+        case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
+          break
+        case 'P385': arr.push({ 'label':'Status', 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
+          break
+        case 'P126': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
+          break
+      }
+      // arr.push(obj[k])
+    }
+    return arr
+  }
+  let table = buildTable(props.data)
+  console.log('table',table)
 
   const columns = useMemo(() => COLUMNS, [])
-  const data = useMemo(() => props.data, [])
+  const data = useMemo(() => table, [])
 
   const tableInstance = useTable({
     columns: COLUMNS,
@@ -52,7 +74,6 @@ export default function RdaTable(props) {
 }
 
 function TableCell(props) {
-  // console.log('props',props)
   return <td key={props.id} {...props.getCellProps()}>{props.render("Cell")}</td>
 }
 // <Link href={`/rda/properties/${props.value}`}>
@@ -60,13 +81,11 @@ function TableCell(props) {
 // </Link>
 
 function TableRow(props) {
-  // console.log('props',props)
   return (
     <Fragment key={props.index}>
       <tr {...props.getRowProps()}>
         {props.cells.map((cell,index) => {
           cell.id = index
-          console.log('cell',cell)
           return <TableCell key={index} {...cell}/>
         })}
       </tr>

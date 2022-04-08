@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
 import * as sparql from '@/lib/sparql'
-import { getElements, getField } from '@/lib/api'
+import { getElements, getField, getEntity } from '@/lib/api'
 import RdaNavigation from '@/components/layout/RdaNavigation'
 import FieldDetail from '@/components/fields/FieldDetail'
 import GeneralDetail from '@/components/general/GeneralDetail'
@@ -13,7 +13,7 @@ export default function Property({ field }) {
   return(
     <>
       <Head>
-        <title>{title} Huhu!</title>
+        <title>{title}</title>
       </Head>
       <section>
         <RdaNavigation/>
@@ -26,7 +26,8 @@ export default function Property({ field }) {
 export async function getStaticProps({ params }) {
   // get API data
   const fieldId = params.propertyId
-  const field = await getField(fieldId)
+  // const field = await getField(fieldId)
+  const field = await getEntity(fieldId)
   return {
     props: {
       field: { ...field }

@@ -1,11 +1,12 @@
 .header {
   width: 100%;
-  height: 5rem;
+  margin: 0;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #fdd85b;
-  padding: 0 2%;
+  padding: 0 0%;
 }
 
 .logo {
@@ -27,6 +28,7 @@
 }
 
 .header a {
+  margin-right: 2rem;
   text-decoration: none;
   font-size: 1.2rem;
   color: white;

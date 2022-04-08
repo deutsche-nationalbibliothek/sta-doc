@@ -1,34 +1,46 @@
-import { Fragment } from 'react';
-import classes from './Characteristics.module.css';
+import { Link } from 'next/link'
+import { Fragment } from 'react'
+import classes from './Characteristics.module.css'
 
-function CharacteristicsBox(props) {
-  const referenceMap = {
-    url: (ref) => <a href={ref.value}>{ref.value}</a>,
-    default: (ref) => <p>{ref.value}</p>
-  }
-  return(
-    <div className={classes.div}>
-    {
-      Object.keys(props).map((key,index) => 
-        <Fragment key={index}>
-        {referenceMap[key] ? referenceMap[key](props[key]) : referenceMap.default(props[key])}
-        </Fragment>
-      )
-    }
-    </div>
-  )
-}
+// function CharacteristicsBox(props) {
+  // const referenceMap = {
+    // url: (ref) => <a href={ref.value}>{ref.value}</a>,
+    // default: (ref) => <p>{ref.value}</p>
+  // }
+  // return(
+    // <div className={classes.div}>
+    // {
+      // Object.keys(props).map((key,index) => 
+        // <Fragment key={index}>
+        // {referenceMap[key] ? referenceMap[key](props[key]) : referenceMap.default(props[key])}
+        // </Fragment>
+      // )
+    // }
+    // </div>
+  // )
+// }
 
-function Characteristics({characteristics}) {
+export default function Characteristics({characteristics}) {
+  console.log('carac',characteristics)
   if (characteristics) {
     return(
       <>
-      <h5 className={classes.h5}>{characteristics.label}</h5>
-      <ul>
-      {characteristics.occurrences.map((value,index) => <li key={index}>{value.label}</li>)}
-      </ul>
+        <h5 className={classes.h5}>{characteristics.label}</h5>
+        <ul>
+          {characteristics.occurrences.map((value,index) => 
+          <li key={index}>
+              <a>{value.label}</a>
+          </li>
+          )}
+        </ul>
       </>
     )
   }
 }
-export default Characteristics
+            // <Link
+              // href={{
+                // pathname: '/general/[generalId]',
+                // query: { generalId: value.id },
+              // }}
+            // >
+            // </Link>

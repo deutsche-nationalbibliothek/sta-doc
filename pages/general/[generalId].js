@@ -1,17 +1,16 @@
 import Head from 'next/head'
 import * as sparql from '@/lib/sparql'
-import { getElements, getField } from '@/lib/api'
+import { getElements, getField, getEntity } from '@/lib/api'
 import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function GeneralDetails({ field }) {
   // console.log('field', field)
-  const title = field.label + ' | ' + field.description.replace(/ .*/,'')
+  const title = field.label + ' | ' + field.description.replace(/ .*/,'') + ' (General Page)'
   return(
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <h1>DEFAULT PAGE</h1>
       <GeneralDetail data={field}/>
     </>
   )
@@ -20,7 +19,8 @@ export default function GeneralDetails({ field }) {
 export async function getStaticProps({ params }) {
   // get API data
   const id = params.generalId
-  const field = await getField(id)
+  // const field = await getField(id)
+  const field = await getEntity(id)
   return {
     props: {
       field: { ...field }
