@@ -1,7 +1,8 @@
-import { Link } from 'next/link'
+import Link from 'next/link'
 import { Fragment } from 'react'
 import classes from './Characteristics.module.css'
 
+const ROUTE_GENERAL_ID = "general/[generalId]";
 // function CharacteristicsBox(props) {
   // const referenceMap = {
     // url: (ref) => <a href={ref.value}>{ref.value}</a>,
@@ -29,7 +30,9 @@ export default function Characteristics({characteristics}) {
         <ul>
           {characteristics.occurrences.map((value,index) => 
           <li key={index}>
+            <Link href={`/general/${encodeURIComponent(value.id)}`}>
               <a>{value.label}</a>
+            </Link>
           </li>
           )}
         </ul>
