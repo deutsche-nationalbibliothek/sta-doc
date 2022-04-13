@@ -11,7 +11,7 @@ import { sortStatements } from '@/lib/api'
 
 export default function GeneralDetail(props) {
   const field = props.data
-  console.log('entity',field)
+  // console.log('entity',field)
   let sorted_statements = sortStatements(field.statements)
   const rows = []
   const row0 = {
@@ -43,23 +43,32 @@ export default function GeneralDetail(props) {
   const view = []
   view.push(
     <h1>{field.label} ({field.id})</h1>,
-    <p>{field.description}</p>,
+  )
+  if (field.statements.definition){
+    sorted_statements.pop
+    field.statements.definition.occurrences.map(occ => {
+      view.push(<p>{occ.value}</p>)
+    })
+  }
+  view.push(
     <hr/>
   )
-  if(field.statements.elementof?.occurrences[0].id === 'Q264') { //RDA-Eigenschaft
+  if (field.statements.elementof?.occurrences[0].id === 'Q264') { //RDA-Eigenschaft
     let filter_sorted_statements = Object.entries(sorted_statements).filter(([key,value]) => 
       value.id === 'P1' | value.id === 'P402' | value.id === 'P388' | value.id === 'P386' | value.id === 'P410' )
     sorted_statements = Object.fromEntries(filter_sorted_statements)
     view.push(<RdaDetailTable key={field.id} data={field.statements}/>)
-  } else if(field.statements.elementof?.occurrences[0].id === 'Q2') { //GND-Datenfeld
+  } else if (field.statements.elementof?.occurrences[0].id === 'Q2') { //GND-Datenfeld
     let filter_sorted_statements = Object.entries(sorted_statements).filter(([key,value]) => 
       value.id === 'P1' | value.id === 'P12' | value.id === 'P15' | value.id === 'P9' | value.id === 'P10' )
     sorted_statements = Object.fromEntries(filter_sorted_statements)
     view.push(<CodingTable data={rows} />)
   }
   for (const [key, statement] of Object.entries(sorted_statements)) {
+    if (statement.id === 'P1') { //ignore definition
+      continue
+    } 
     view.push(<h2>{statement.label} ({statement.id})</h2>)
-    // console.log('statement',statement)
     if (statement.id === 'P388') { //Basisregeln RDF
       view.push(<BasicRules key={statement.id} data={statement}/>)
     } 

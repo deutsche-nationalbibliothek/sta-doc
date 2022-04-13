@@ -1,19 +1,23 @@
 import Head from 'next/head'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
+import GndNavigation from '@/components/layout/gndNavigation'
 import * as sparql from '@/lib/sparql'
 import { getElements, getField, getEntity } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
 
 export default function Field({ field }) {
-  console.log('field', field)
+  // console.log('field', field)
   const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <FieldDetail data={field}/>
+      <section>
+        <GndNavigation />
+        <FieldDetail data={field}/>
+      </section>
     </>
   )
 }

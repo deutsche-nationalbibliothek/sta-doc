@@ -1,4 +1,5 @@
-// import { Link } from 'next/link'
+import Link from 'next/link'
+
 export const COLUMNS = [
   {
     Header: 'Elementeigenschaften',
@@ -9,14 +10,6 @@ export const COLUMNS = [
     Header: 'Wert',
     accessor: 'value',
     sorttype: 'basic',
-    Cell: ({row}) => (<a href={`/general/${row.original.id}`}>{row.original.value}</a>),
+    Cell: ({row}) => (<Link href={`/general/${encodeURIComponent(row.original.id)}`}><a>{row.original.value}</a></Link>)
   },
-  // {
-    // Header: 'Link',
-    // accessor: 'id',
-    // sortType: 'basic',
-    // // Cell: ({row}) => (<Link to={{ pathname: `/rda/properties/${row.values.id}`}}>{row.values.id}</Link>)
-    // // Cell: ({row}) => (<Link href={`/rda/properties/${encodeURIComponent(row.values.id)}`}><a>{row.values.id}</a></Link>)
-    // Cell: ({row}) => (<a href={`/rda/properties/${row.original.id}`}>{row.original.id}</a>),
-  // }
 ]

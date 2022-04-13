@@ -5,8 +5,8 @@ import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function GeneralDetails({ field }) {
   // console.log('field', field)
-  // const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') + ' (General Page)' : 'missing german entity label'
-  const title = field.id
+  const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') + ' (General Page)' : 'missing german entity label'
+  // const title = field.id
   return(
     <>
       <Head>

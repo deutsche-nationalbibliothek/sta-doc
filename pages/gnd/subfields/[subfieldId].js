@@ -1,3 +1,7 @@
+import Head from 'next/head'
+import Layout from '@/components/layout/layout'
+import Sidebar from '@/components/sidebar/sidebar'
+import GndNavigation from '@/components/layout/gndNavigation'
 import * as sparql from '@/lib/sparql'
 import { getElements, getEntity } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
@@ -7,8 +11,17 @@ export default function FieldDetails({ field }) {
   if(field === undefined) {
     return(<p>entity has no statements.</p>)
   } else {
+  const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
-    <FieldDetail data={field}/>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <section>
+        <GndNavigation />
+        <FieldDetail data={field}/>
+      </section>
+    </>
   )}
 }
 
@@ -37,4 +50,14 @@ export async function getStaticPaths() {
     paths: Object.keys(fields).map((id) => ({params: { subfieldId: id.toString() }})) || [],
     fallback: true
   }
+}
+
+FieldDetails.getLayout = function getLayout(page) {
+  const focusPage = 'gnd'
+  return (
+    <Layout>
+      <Sidebar focusPage={focusPage} />
+      {page}
+    </Layout>
+  )
 }

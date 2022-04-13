@@ -6,32 +6,30 @@ import styles from './RdaDetailTable.module.css'
 
 export default function RdaDetailTable(props) {
   let buildTable = (obj) => {
-    console.log('obj',obj)
-
     var arr=[]
-    for(var k in obj) {
-      switch (obj[k].id) {
-        case 'P124': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
-          break
-        case 'P401': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
-          break
-        case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
-          break
-        case 'P385': arr.push({ 'label':'Status', 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
-          break
-        case 'P126': arr.push({ 'label':obj[k].label, 'value':obj[k].occurrences[0].label, 'id':obj[k].occurrences[0].id })
-          break
-      }
-      // arr.push(obj[k])
+    for (const [key, value] of Object.entries(obj)) {
+      value.occurrences.map((qualifier,index) => {
+        switch (value.id) {
+          case 'P124': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+            break
+          case 'P401': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+            break
+          case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':qualifier.label, 'id':qualifier.id })
+            break
+          case 'P385': arr.push({ 'label':'Status', 'value':qualifier.label, 'id':qualifier.id })
+            break
+          case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+            break
+          case 'P113': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+            break
+        }
+      })
     }
     return arr
   }
   let table = buildTable(props.data)
-  console.log('table',table)
-
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => table, [])
-
   const tableInstance = useTable({
     columns: COLUMNS,
     data: data
