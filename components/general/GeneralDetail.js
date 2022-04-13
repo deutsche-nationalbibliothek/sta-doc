@@ -58,7 +58,6 @@ export default function GeneralDetail(props) {
     view.push(<CodingTable data={rows} />)
   }
   for (const [key, statement] of Object.entries(sorted_statements)) {
-    // console.log(key, statement)
     view.push(<h2>{statement.label} ({statement.id})</h2>)
     // console.log('statement',statement)
     if (statement.id === 'P388') { //Basisregeln RDF

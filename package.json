@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,7 +16,7 @@
     "htmlparser2": "^7.2.0",
     "jsx": "^0.9.89",
     "memory-cache": "^0.2.0",
-    "next": "11.1.2",
+    "next": "^12.1.5",
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-collapsible": "^2.8.4",
@@ -26,10 +26,12 @@
     "react-query": "^3.34.15",
     "react-table": "^7.7.0",
     "redis": "^4.0.3",
+    "sharp": "^0.30.3",
     "swr": "^1.2.2",
     "typescript": "^4.5.2"
   },
   "devDependencies": {
+    "@types/node": "^17.0.23",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2"
   }

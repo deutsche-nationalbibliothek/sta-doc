@@ -7,7 +7,6 @@ import RdaNavigation from '@/components/layout/RdaNavigation'
 import RdaTable from '@/components/tables/RdaTable'
 
 export default function RdaPropertiesPage({ list }) {
-  console.log('list',list)
   return (
     <>
       <Head>
@@ -21,7 +20,6 @@ export default function RdaPropertiesPage({ list }) {
     </>
   )
 }
-      // <FieldList data={list}/>
 
 export async function getStaticProps() {
   const list = await getRdaProperties()
@@ -29,7 +27,7 @@ export async function getStaticProps() {
     props: {
       list: [ ...list ]
     },
-    revalidate: 1000
+    revalidate: 10
   }
 }
 

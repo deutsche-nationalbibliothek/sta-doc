@@ -63,6 +63,7 @@ function ExampleBox(props) {
         const subfieldMontagePica3 = []
         const subfieldMontagePicaPlus = []
         Object.entries(occurrence.qualifiers).forEach(([key, value]) => {
+          console.log('value',value)
           if (value.coding) {
             if (value.coding.format['PICA3'] !== '-ohne-' && value.coding.format['PICA3'] !== '!...!') {
               subfieldMontagePica3.push(<b key={key}>{value.coding.format['PICA3']}</b>)
@@ -71,10 +72,10 @@ function ExampleBox(props) {
               subfieldMontagePicaPlus.push(<b key={key}>{value.coding.format['PICA+']}</b>)
             }
             // check if qualifier value is a Property
-            if (value.occurrences[0].coding?.format !== undefined) {
+            if (value.occurrences.length > 0 && value.occurrences[0].coding?.format !== undefined) {
               subfieldMontagePica3.push(`${value.occurrences[0].coding.format['PICA3']}`)
               subfieldMontagePicaPlus.push(`${value.occurrences[0].coding.format['PICA+']}`)
-            } else {
+            } else if (value.occurrences.length > 0) {
               if (value.coding.format['PICA3'] === '!...!') {
                 subfieldMontagePica3.push(<b key={key} className={styles.red}>!</b>)
               }

@@ -2,12 +2,12 @@ import Head from 'next/head'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
 import * as sparql from '@/lib/sparql'
-import { getElements, getField } from '@/lib/api'
+import { getElements, getField, getEntity } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
 
 export default function Field({ field }) {
   console.log('field', field)
-  const title = field.label + ' | ' + field.description.replace(/ .*/,'')
+  const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
     <>
       <Head>
@@ -21,7 +21,14 @@ export default function Field({ field }) {
 export async function getStaticProps({ params }) {
   // get API data
   const fieldId = params.fieldId
-  const field = await getField(fieldId)
+  const field = await getEntity(fieldId)
+
+  if (!field) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       field: { ...field }
@@ -33,8 +40,8 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const fields = await getElements( sparql.FIELDS )
   return {
-    paths: Object.keys(fields).map((id) => ({params: { fieldId: id.toString() }})) || [],
-    fallback: true
+    paths: Object.keys(fields).map((id) => ({params: { fieldId: id.toString() }})),
+    fallback: false
   }
 }
 

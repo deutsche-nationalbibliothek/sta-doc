@@ -129,8 +129,7 @@ export default function BasicRules(props) {
             description_arr.push(<BasicRulesBox key={index} {...occ} />)
           })
         }
-        if (value.id === 'P393') { // see(property)
-          console.log('pro',arr[i])
+        if (value.id === 'P393' && value.occurrences.length > 0) { // see(property)
           description_arr.push(<p>{arr[i].value} (siehe: {value.occurrences[0].label})</p>)
         }
       }

@@ -8,8 +8,7 @@ import FieldDetail from '@/components/fields/FieldDetail'
 import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Property({ field }) {
-  console.log('field', field)
-  const title = field.label + ' | ' + field.description.replace(/ .*/,'')
+  const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
     <>
       <Head>
@@ -28,6 +27,13 @@ export async function getStaticProps({ params }) {
   const fieldId = params.propertyId
   // const field = await getField(fieldId)
   const field = await getEntity(fieldId)
+
+  if (!field) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       field: { ...field }
@@ -39,8 +45,8 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const fields = await getElements( sparql.RDAPROPERTIES )
   return {
-    paths: Object.keys(fields).map((id) => ({params: { propertyId: id.toString() }})) || [],
-    fallback: true
+    paths: Object.keys(fields).map((id) => ({params: { propertyId: id.toString() }})),
+    fallback: false
   }
 }
 

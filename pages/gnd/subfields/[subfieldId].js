@@ -1,18 +1,28 @@
 import * as sparql from '@/lib/sparql'
-import { getElements, getField } from '@/lib/api'
+import { getElements, getEntity } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
 
 export default function FieldDetails({ field }) {
   // console.log('field', field)
+  if(field === undefined) {
+    return(<p>entity has no statements.</p>)
+  } else {
   return(
     <FieldDetail data={field}/>
-  )
+  )}
 }
 
 export async function getStaticProps({ params }) {
   // get API data
   const fieldId = params.subfieldId
-  const field = await getField(fieldId)
+  const field = await getEntity(fieldId)
+
+  if (!field) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       field: { ...field }

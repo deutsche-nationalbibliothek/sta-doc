@@ -5,7 +5,6 @@ import { COLUMNS } from './RdaTableColumns'
 import styles from './RdaTable.module.css'
 
 export default function RdaTable(props) {
-  console.log('data',props.data)
 
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => props.data, [])
@@ -52,7 +51,6 @@ export default function RdaTable(props) {
 }
 
 function TableCell(props) {
-  // console.log('props',props)
   return <td key={props.id} {...props.getCellProps()}>{props.render("Cell")}</td>
 }
 // <Link href={`/rda/properties/${props.value}`}>
@@ -60,13 +58,11 @@ function TableCell(props) {
 // </Link>
 
 function TableRow(props) {
-  // console.log('props',props)
   return (
     <Fragment key={props.index}>
       <tr {...props.getRowProps()}>
         {props.cells.map((cell,index) => {
           cell.id = index
-          console.log('cell',cell)
           return <TableCell key={index} {...cell}/>
         })}
       </tr>

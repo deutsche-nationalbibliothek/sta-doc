@@ -5,6 +5,7 @@ import Sidebar from '@/components/sidebar/sidebar'
 import RdaNavigation from '@/components/layout/RdaNavigation'
 import Collapsible from 'react-collapsible'
 import stylesCollapsible from '@/styles/RdaCollapsible.module.css'
+import rdaLogo from '@/public/a-rda-logo-small-300dpi.jpg'
 
 export default function Rda() {
   return (
@@ -18,8 +19,8 @@ export default function Rda() {
           <h1>
             <span>
               <Image 
+                src={rdaLogo}
                 alt="<<<RDA LOGO>>>" 
-                src="https://www.cilip.org.uk/resource/resmgr/cilip/facet/a-rda-logo-small-300dpi.jpg" 
                 width={255} 
                 height={107} 
               />

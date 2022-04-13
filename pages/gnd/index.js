@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
 import GndNavigation from '@/components/layout/gndNavigation'
+import gndLogo from '@/public/GND_RGB_Wabe.png'
 
 export default function GNDHomePage(props) { 
   const image = 'https://doku.wikibase.wiki/w/thumb.php?f=GND_RGB.jpg&width=200'
@@ -27,8 +28,8 @@ export default function GNDHomePage(props) {
         <h1>
           <span>
             <Image 
+              src={gndLogo}
               alt="<<<GND LOGO>>>" 
-              src="/GND_RGB_Wabe.png" 
               width={0.5*252} 
               height={0.5*291} 
             />

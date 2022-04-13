@@ -12,9 +12,9 @@ export default function FieldDetail(props) {
   const row0 = {
     label: field?.label ?? '',
     format: {},
-    repetition: field.statements.repetition?.occurrences[0].value
+    repetition: field.statements?.repetition?.occurrences[0].value
   }
-  if(field.statements.encoding){
+  if(field.statements?.encoding){
     for (const [key, value] of Object.entries(field.statements.encoding.format)) {
       // console.log(`${key}: ${value}`)
       row0['format'][key] = value

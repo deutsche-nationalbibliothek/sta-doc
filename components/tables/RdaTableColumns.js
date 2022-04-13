@@ -1,4 +1,5 @@
-// import { Link } from 'next/link'
+import Link from 'next/link'
+
 export const COLUMNS = [
   {
     Header: 'RDA Eigenschaft',
@@ -15,7 +16,7 @@ export const COLUMNS = [
     accessor: 'id',
     sortType: 'basic',
     // Cell: ({row}) => (<Link to={{ pathname: `/rda/properties/${row.values.id}`}}>{row.values.id}</Link>)
-    // Cell: ({row}) => (<Link href={`/rda/properties/${encodeURIComponent(row.values.id)}`}><a>{row.values.id}</a></Link>)
-    Cell: ({row}) => (<a href={`/rda/properties/${row.original.id}`}>{row.original.id}</a>),
+    Cell: ({row}) => (<Link href={`/rda/properties/${encodeURIComponent(row.values.id)}`}><a>{row.values.id}</a></Link>)
+    // Cell: ({row}) => (<a href={`/rda/properties/${row.original.id}`}>{row.original.id}</a>),
   }
 ]
