@@ -63,7 +63,6 @@ function ExampleBox(props) {
         const subfieldMontagePica3 = []
         const subfieldMontagePicaPlus = []
         Object.entries(occurrence.qualifiers).forEach(([key, value]) => {
-          console.log('value',value)
           if (value.coding) {
             if (value.coding.format['PICA3'] !== '-ohne-' && value.coding.format['PICA3'] !== '!...!') {
               subfieldMontagePica3.push(<b key={key}>{value.coding.format['PICA3']}</b>)

@@ -8,6 +8,7 @@ import FieldDetail from '@/components/fields/FieldDetail'
 import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Property({ field }) {
+  console.log('entity',field)
   const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
     <>
@@ -53,7 +54,7 @@ export async function getStaticPaths() {
 Property.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar active={page}/>
       {page}
     </Layout>
   )

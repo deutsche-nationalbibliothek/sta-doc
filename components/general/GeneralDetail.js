@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 import CodingTable from '@/components/tables/CodingTable'
 import RdaDetailTable from '@/components/tables/RdaDetailTable'
@@ -8,10 +9,12 @@ import BasicRules from '@/components/rda/BasicRules'
 import SubFields from '@/components/fields/SubFields'
 import styles from './GeneralDetail.module.css'
 import { sortStatements } from '@/lib/api'
+import Collapsible from 'react-collapsible'
+
+const WIKIBASE_URL = 'https://doku.wikibase.wiki/entity/'
 
 export default function GeneralDetail(props) {
   const field = props.data
-  // console.log('entity',field)
   let sorted_statements = sortStatements(field.statements)
   const rows = []
   const row0 = {
@@ -42,7 +45,7 @@ export default function GeneralDetail(props) {
   }
   const view = []
   view.push(
-    <h1>{field.label} ({field.id})</h1>,
+    <h1>{field.label} <a target='_blank' rel='noreferrer' href={WIKIBASE_URL+field.id}>&#x270E;</a></h1>
   )
   if (field.statements.definition){
     sorted_statements.pop
@@ -68,24 +71,26 @@ export default function GeneralDetail(props) {
     if (statement.id === 'P1') { //ignore definition
       continue
     } 
-    view.push(<h2>{statement.label} ({statement.id})</h2>)
-    if (statement.id === 'P388') { //Basisregeln RDF
-      view.push(<BasicRules key={statement.id} data={statement}/>)
-    } 
+    view.push(<h2>{statement.label}</h2>)
+    // if (statement.id === 'P388') { //Basisregeln RDF
+      // view.push(<BasicRules key={statement.id} data={statement}/>)
+    // } 
     if (statement.id === 'P15') { //Unterfelder GND
       view.push(<SubFields key={statement.id} {...statement}/>)
+    }
+    if (statement.id === 'P11') {
+      view.push(<Examples examples={statement}/>)
     }
     else {
       let uncounted_list = []
       let counted_list = []
       const embedded_item = []
       statement.occurrences.map((occ, index) => {
-        if ( occ.qualifiers === undefined) {
-          if(occ.id){
-            view.push(<p key={index}>{occ.label} ({occ.id})</p>)
-          } else {
-            view.push(<p key={index}>{occ.value}</p>)
-          }
+        if (occ.id){
+          view.push(<p key={index}>{occ.label} ({occ.id})</p>)
+        } 
+        if (occ.value && occ.qualifiers === undefined) {
+          view.push(<p key={index}>{occ.value}</p>)
         }
         if(occ.qualifiers){
           for (const [key, value] of Object.entries(occ.qualifiers)) {
@@ -126,15 +131,46 @@ export default function GeneralDetail(props) {
               }
             }
             if (value.id === 'P396') { // embedded Item
-              // view.push(<Examples examples={qualifier} />)
+              occ.value ? view.push(<p key={index}>{occ.value}</p>) : null
+              value.occurrences.map(quali => {
+                var trigger = <span>{quali.label} &#8744;</span>
+                var triggerWhenOpen = <span>&#8743;</span>
+                view.push(
+                  <Collapsible
+                    trigger={trigger}
+                    triggerWhenOpen={triggerWhenOpen}
+                    openedClassName={styles.Collapsible}
+                    triggerClassName={styles.CustomTriggerCSS}
+                    triggerOpenedClassName={styles.CustomTriggerCSSopen}
+                  >
+                    {<GeneralDetail data={quali}/>}
+                  </Collapsible>
+                )
+              })
             }
-            if (value.id === 'P393') { // see(property)
-              view.push(<p className={styles.bold}><b>{occ.value}</b></p>)
+            if (value.id === 'P392' || value.id === 'P393') { // see(item/property)
+              occ.value ? view.push(<p key={index}>{occ.value}</p>) : null
+              if (value.occurrences.length>0) {
+                value.occurrences.map(quali => {
+                  view.push(
+                    <p className={styles.bold}>&rArr;&ensp; 
+                      <Link href={`/general/${encodeURIComponent(quali.id)}`}>
+                        <a>{quali.label}</a>
+                      </Link>
+                    </p>
+                  )
+                })
+              } else {
+                view.push(<p className={styles.bold}>&rArr;&ensp;FEHLENDER LINK</p>)
+              }
             }
             if (value.id === 'P11') {
               view.push(<Examples examples={value}/>)
             }
           }
+        }
+        if (occ.references) {
+          view.push(<References references={occ.references}/>)
         }
       })
     }
