@@ -16,6 +16,7 @@ const WIKIBASE_URL = 'https://doku.wikibase.wiki/entity/'
 export default function GeneralDetail(props) {
   const field = props.data
   let sorted_statements = sortStatements(field.statements)
+
   const rows = []
   const row0 = {
     label: field?.label ?? '',
@@ -68,20 +69,35 @@ export default function GeneralDetail(props) {
     view.push(<CodingTable data={rows} />)
   }
   for (const [key, statement] of Object.entries(sorted_statements)) {
-    if (statement.id === 'P1') { //ignore definition
+    if (statement.id === 'P1' || statement.id === 'P12' || statement.id === 'P110' || statement.id === 'P2') { //ignore definition,repetition,schema,element of
       continue
     } 
-    view.push(<h2>{statement.label}</h2>)
     // if (statement.id === 'P388') { //Basisregeln RDF
       // view.push(<BasicRules key={statement.id} data={statement}/>)
     // } 
     if (statement.id === 'P15') { //Unterfelder GND
+      view.push(<h2>{statement.label}</h2>)
       view.push(<SubFields key={statement.id} {...statement}/>)
+      continue
     }
     if (statement.id === 'P11') {
+      view.push(<h2>{statement.label}</h2>)
       view.push(<Examples examples={statement}/>)
     }
+    if (statement.id === 'P397' || statement.id === 'P398') { //embedded in (Property)/(Item)
+      if (props.embedded === 'true') continue
+      statement.occurrences.map((occ,index) => {
+        view.push(
+          <p className={styles.bold}>eingebettet in: &rArr;&ensp; 
+            <Link href={occ.link}>
+              <a>{occ.label}</a>
+            </Link>
+          </p>
+        )
+      })
+    }
     else {
+      view.push(<h2>{statement.label}</h2>)
       let uncounted_list = []
       let counted_list = []
       const embedded_item = []
@@ -104,13 +120,13 @@ export default function GeneralDetail(props) {
                   view.push(<p className={styles.bold}><b>{occ.value}</b></p>)
                   break
                 case 'Q1343': // Zwischenueberschrift erster Ordnung
-                  view.push(<h5>{occ.value}</h5>)
+                  view.push(<h3>{occ.value}</h3>)
                   break
                 case 'Q1346': // Zwischenueberschrift zweiter Ordnung
-                  view.push(<h6>{occ.value}</h6>)
+                  view.push(<h4>{occ.value}</h4>)
                   break
                 case 'Q1347': // Zwischenueberschrift dritter Ordnung
-                  view.push(<h7>{occ.value}</h7>)
+                  view.push(<h5>{occ.value}</h5>)
                   break
                 case 'Q1344': // Aufzaehlung, ungezaehlt
                   uncounted_list.push(<li>{occ.value}</li>)
@@ -129,12 +145,13 @@ export default function GeneralDetail(props) {
                   } 
                   break
               }
+            } else if (occ.value && value.id !== 'P389') { // value und nicht Layouttyp
+              view.push(<p key={index}>{occ.value}</p>)
             }
-            if (value.id === 'P396') { // embedded Item
-              occ.value ? view.push(<p key={index}>{occ.value}</p>) : null
+            if (value.id === 'P396' || value.id === 'P411') { // embedded Item / embedded Property
               value.occurrences.map(quali => {
                 var trigger = <span>{quali.label} &#8744;</span>
-                var triggerWhenOpen = <span>&#8743;</span>
+                  var triggerWhenOpen = <span>&#8743;</span>
                 view.push(
                   <Collapsible
                     trigger={trigger}
@@ -143,29 +160,38 @@ export default function GeneralDetail(props) {
                     triggerClassName={styles.CustomTriggerCSS}
                     triggerOpenedClassName={styles.CustomTriggerCSSopen}
                   >
-                    {<GeneralDetail data={quali}/>}
+                    {
+                      <div>
+                        <GeneralDetail data={quali} embedded='true'/>
+                      </div>
+                    }
                   </Collapsible>
                 )
               })
             }
-            if (value.id === 'P392' || value.id === 'P393') { // see(item/property)
-              occ.value ? view.push(<p key={index}>{occ.value}</p>) : null
+            else if (value.id === 'P392' || value.id === 'P393') { // see(item/property)
               if (value.occurrences.length>0) {
                 value.occurrences.map(quali => {
                   view.push(
-                    <p className={styles.bold}>&rArr;&ensp; 
-                      <Link href={`/general/${encodeURIComponent(quali.id)}`}>
+                    <p className={styles.bold}>&ensp;&ensp;&rArr;&ensp; 
+                      <Link href={quali.link}>
                         <a>{quali.label}</a>
                       </Link>
                     </p>
                   )
                 })
               } else {
-                view.push(<p className={styles.bold}>&rArr;&ensp;FEHLENDER LINK</p>)
+                view.push(<p className={styles.bold}>&ensp;&ensp;&rArr;&ensp;FEHLENDER LINK</p>)
               }
             }
-            if (value.id === 'P11') {
+            else if (value.id === 'P11') {
               view.push(<Examples examples={value}/>)
+            }
+            else if (value.id !== 'P389' && value.id !== 'P404') { // Layouttyp /(embedded element)
+              view.push(<p className={styles.bold}>{value.label}: </p>)
+              value.occurrences.map(quali => {
+                view.push(<p className={styles.bold}>{quali.value}</p>)
+              })
             }
           }
         }

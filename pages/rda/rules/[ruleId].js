@@ -1,16 +1,14 @@
 import Head from 'next/head'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
-import GndNavigation from '@/components/layout/gndNavigation'
 import * as sparql from '@/lib/sparql'
-import { getElements, getEntity } from '@/lib/api'
+import { getElements, getField, getEntity } from '@/lib/api'
+import RdaNavigation from '@/components/layout/RdaNavigation'
 import FieldDetail from '@/components/fields/FieldDetail'
+import GeneralDetail from '@/components/general/GeneralDetail'
 
-export default function FieldDetails({ field }) {
-  // console.log('field', field)
-  if(field === undefined) {
-    return(<p>entity has no statements.</p>)
-  } else {
+export default function Rule({ field }) {
+  console.log('entity',field)
   const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
   return(
     <>
@@ -18,16 +16,17 @@ export default function FieldDetails({ field }) {
         <title>{title}</title>
       </Head>
       <section>
-        <GndNavigation />
-        <FieldDetail data={field}/>
+        <RdaNavigation/>
+        <GeneralDetail data={field}/>
       </section>
     </>
-  )}
+  )
 }
 
 export async function getStaticProps({ params }) {
   // get API data
-  const fieldId = params.subfieldId
+  const fieldId = params.ruleId
+  // const field = await getField(fieldId)
   const field = await getEntity(fieldId)
 
   if (!field) {
@@ -45,18 +44,17 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const fields = await getElements( sparql.SUBFIELDS )
+  const fields = await getElements( sparql.RDARULES )
   return {
-    paths: Object.keys(fields).map((id) => ({params: { subfieldId: id.toString() }})) || [],
-    fallback: true
+    paths: Object.keys(fields).map((id) => ({params: { ruleId: id.toString() }})),
+    fallback: false
   }
 }
 
-FieldDetails.getLayout = function getLayout(page) {
-  const focusPage = 'gnd'
+Rule.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar focusPage={focusPage} />
+      <Sidebar active={page}/>
       {page}
     </Layout>
   )

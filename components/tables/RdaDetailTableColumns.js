@@ -10,6 +10,6 @@ export const COLUMNS = [
     Header: 'Wert',
     accessor: 'value',
     sorttype: 'basic',
-    Cell: ({row}) => (<Link href={`/general/${encodeURIComponent(row.original.id)}`}><a>{row.original.value}</a></Link>)
+    Cell: ({row}) => (<Link href={row.original.link}><a>{row.original.value}</a></Link>)
   },
 ]

@@ -130,7 +130,9 @@ export default function Examples({examples}) {
   if (examples) {
     return(
       <>
-      {examples.occurrences.map((example,index) => <ExampleBox key={example.id} listId={index+1} {...example} />)}
+        <div className={styles.examples}>
+          {examples.occurrences.map((example,index) => <ExampleBox key={example.id} listId={index+1} {...example} />)}
+        </div>
       </>
     )
   } else { 

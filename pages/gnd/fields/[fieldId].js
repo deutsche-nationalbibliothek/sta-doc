@@ -5,6 +5,7 @@ import GndNavigation from '@/components/layout/gndNavigation'
 import * as sparql from '@/lib/sparql'
 import { getElements, getField, getEntity } from '@/lib/api'
 import FieldDetail from '@/components/fields/FieldDetail'
+import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Field({ field }) {
   // console.log('field', field)
@@ -16,7 +17,7 @@ export default function Field({ field }) {
       </Head>
       <section>
         <GndNavigation />
-        <FieldDetail data={field}/>
+        <GeneralDetail data={field}/>
       </section>
     </>
   )
@@ -37,7 +38,7 @@ export async function getStaticProps({ params }) {
     props: {
       field: { ...field }
     },
-    revalidate: 100
+    // revalidate: 100
   }
 }
 

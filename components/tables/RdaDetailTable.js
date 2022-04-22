@@ -10,17 +10,17 @@ export default function RdaDetailTable(props) {
     for (const [key, value] of Object.entries(obj)) {
       value.occurrences.map((qualifier,index) => {
         switch (value.id) {
-          case 'P124': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+          case 'P124': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
-          case 'P401': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+          case 'P401': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
-          case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':qualifier.label, 'id':qualifier.id })
+          // case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
+            // break
+          case 'P385': arr.push({ 'label':'Status', 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
-          case 'P385': arr.push({ 'label':'Status', 'value':qualifier.label, 'id':qualifier.id })
+          case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link})
             break
-          case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
-            break
-          case 'P113': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id })
+          case 'P113': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
         }
       })
@@ -74,9 +74,6 @@ export default function RdaDetailTable(props) {
 function TableCell(props) {
   return <td key={props.id} {...props.getCellProps()}>{props.render("Cell")}</td>
 }
-// <Link href={`/rda/properties/${props.value}`}>
-// <a>{props.render("Cell")}</a>
-// </Link>
 
 function TableRow(props) {
   return (

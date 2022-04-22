@@ -1,6 +1,9 @@
 /* * { */
   /* box-sizing: border-box; */
 /* } */
+.examples {
+  margin-left: 15px;
+}
 .box {
   /* position: relative; */
   float: left;
@@ -9,21 +12,21 @@
   height: auto;
   padding: 2px;
   margin: 2px;
-  border: 1px solid black; 
+  border: 1px solid black;
   background-color: #ffffcc;
   /* color: #335500;  */
-  font-size: 0.82em; 
+  font-size: 0.82em;
   vertical-align: text-top;
 }
 .boxtitle {
   float: right;
-  font-size: 0.62em; 
+  font-size: 0.62em;
   color: blue;
   text-align: right;
 }
 .boxdescription {
   /* float: right; */
-  font-size: 0.82em; 
+  font-size: 0.82em;
   /* color: blue; */
   font-style: italic;
   text-align: right;
@@ -43,6 +46,7 @@
   color: red;
 }
 .formatneutral {
+  font-weight: bolder;
   margin: 1px;
   padding: 1px;
 }

@@ -55,7 +55,6 @@ export default function FieldTable(props) {
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, index) => {
-            // console.log('subfields',row.original.subfields)
             const mapper = row.original.subfields
             // TODO workaround here: push id of prop to the object
             Object.keys(mapper).map(key => {
@@ -65,14 +64,11 @@ export default function FieldTable(props) {
             Object.keys(mapper).map(key => {
               subfields.push(mapper[key])
             })
-            // console.log('subfields arr',subfields)
             // const subfields = row['subfields']
             prepareRow(row)
             return (
               <tr key={index} {...row.getRowProps()}>
                 {row.cells.map((cell, index) => {
-                  // console.log('cell',cell)
-                  // console.log('subfields',subfields)
                   if (cell.column['Header'] === 'Feldbezeichnung') {
                     return( <td key={index} {...cell.getCellProps()}>{cell.render('Cell')}
                       <Collapsible

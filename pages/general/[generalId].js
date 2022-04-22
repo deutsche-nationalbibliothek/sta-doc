@@ -33,7 +33,7 @@ export async function getStaticProps({ params }) {
     props: {
       field: { ...field }
     },
-    revalidate: 100
+    // revalidate: 100
   }
 }
 

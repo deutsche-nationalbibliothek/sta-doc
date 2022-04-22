@@ -4,15 +4,7 @@ import { COLUMNS } from './SubfieldColumns';
 import classes from './SubfieldTable.module.css';
 
 export default function SubfieldTable(props) {
-  // console.log('FieldTable',props.data);
   const data = props.data
-  // console.log('data in subfield',data)
-  // const columnsCoding = Object.keys(props.data[0]['codings'])
-  // const columnHeader = Object.keys(props.data[0])
-  // const columnHeader = columnsCoding
-  // columnHeader.push('Datenfeld')
-
-
   const columns = useMemo(() => COLUMNS, [])
   const data2 = useMemo(() => data, [])
 
@@ -56,7 +48,6 @@ export default function SubfieldTable(props) {
       return (
         <tr key={index} {...row.getRowProps()}>
         {row.cells.map((cell, index) => {
-          // console.log('cell',cell)
           return <td key={index} {...cell.getCellProps()}>{cell.render('Cell')}</td>
         })}
         </tr>

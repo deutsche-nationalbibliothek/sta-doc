@@ -8,7 +8,7 @@ import References from '@/components/fields/References.js'
 function SubFieldBox(props) {
   return(
     <Fragment>
-      <h3 id={props.label}>{props.label} ({props.id})</h3>
+      <h3 id={props.label}>{props.label}</h3>
       {props.qualifiers?.description?.occurrences.map(desc => <p key={props.id}>{desc.value}</p>)}
       {props.qualifiers?.repetition?.occurrences.map(desc => <p key={props.id}>Unterfeld wiederholbar: {desc.value}</p>)}
       {props.qualifiers?.permittedcharacteristics && <Characteristics characteristics={props.qualifiers.permittedcharacteristics}/>}
@@ -20,7 +20,6 @@ function SubFieldBox(props) {
 }
 
 export default function SubFields(props) {
-  console.log('props',props)
   return(
     <>
       {props.occurrences.map((subfield,index) =>  <SubFieldBox key={index} {...subfield} />)}

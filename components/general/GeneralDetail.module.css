@@ -22,16 +22,15 @@
 .Collapsible {
   background-color: #f2f2f2;
   border: 1px solid black;
+  padding-top: 5px;
 }
 .CustomTriggerCSS {
-  /* font-size: 10px; */
-  /* transition: background-color 200ms ease; */
-  /* cursor: pointer; */
   background-color: #fdd85b;
   font-size: 12px;
   color: white;
   border: none;
   cursor: pointer;
+  margin: 5px;
   padding: 2px 12px 3px 12px;
   text-decoration: none;
 }
@@ -45,6 +44,3 @@
   padding: 2px 12px 3px 12px;
   text-decoration: none;
 }
-/* .detail h4 { */
-        /* margin-left: 10px; */
-/* } */
