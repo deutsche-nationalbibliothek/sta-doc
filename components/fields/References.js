@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import classes from './References.module.css';
+import styles from './References.module.css';
 
 function ReferenceBox(props) {
   const referenceMap = {
@@ -7,7 +7,7 @@ function ReferenceBox(props) {
     default: (ref) => <p>{ref.value}</p>
   }
   return(
-    <div className={classes.div}>
+    <div className={styles.div}>
     {
       Object.keys(props).map((key,index) => 
         <Fragment key={index}>
@@ -23,7 +23,7 @@ export default function References({references}) {
   if (references) {
     return(
       <>
-      <h5 className={classes.h5}>Referenzen</h5>
+      <p className={styles.p}>Referenzen</p>
       {references.map((ref,index) => <ReferenceBox key={index} {...ref} />)}
       </>
     )

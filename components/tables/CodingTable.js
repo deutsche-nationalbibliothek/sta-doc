@@ -47,8 +47,36 @@ function TableRow(props) {
 }
 
 export default function CodingTable(props) {
+  const field = props.data
+  const lines = []
+  const row0 = {
+    label: field?.label ?? '',
+    format: {},
+    repetition: field.statements.repetition?.occurrences[0].value
+  }
+  if(field.statements.encoding){
+    for (const [key, value] of Object.entries(field.statements.encoding.format)) {
+      row0['format'][key] = value
+    }
+    lines.push(row0)
+    field.statements.subfields?.occurrences.map((subfield,index) => {
+      let row = {
+        label: subfield.label ?? '',
+        format: {},
+        repetition: subfield.qualifiers?.repetition?.occurrences[0].value
+      }
+      for (const [key, value] of Object.entries(subfield.coding.format)) {
+        row['format'][key] = value
+      }
+      // subfield.coding.occurrences.map((coding,index) => {
+      // let key = coding.qualifiers.type.occurrences[0].label
+      // row['format'][key] = coding.value
+      // })
+      lines.push(row)
+    })
+  }
   const columns = useMemo(() => COLUMNS, [])
-  const data = useMemo(() => props.data, [])
+  const data = useMemo(() => lines, [])
   
   const tableInstance = useTable({
     columns: COLUMNS,

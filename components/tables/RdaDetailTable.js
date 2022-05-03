@@ -18,8 +18,8 @@ export default function RdaDetailTable(props) {
             // break
           case 'P385': arr.push({ 'label':'Status', 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
-          case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link})
-            break
+          // case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link})
+            // break
           case 'P113': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
             break
         }

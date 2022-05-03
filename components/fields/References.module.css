@@ -5,12 +5,12 @@
   /* max-width: 300px; */
   height: auto;
   padding: 3px;
-  margin: 2px;
+  margin: 5px;
   margin-left: 5px;
-  border: 1px solid black; 
-  background-color: #c0c0c0; 
+  border: 1px solid black;
+  background-color: #c0c0c0;
   /* color: #335500;  */
-  font-size: 0.82em; 
+  font-size: 0.82em;
 }
 .div p {
   margin: 5px;
@@ -18,9 +18,10 @@
 .div a {
   margin: 5px;
 }
-.h5 {
+.p {
   padding: 3px;
-  margin: 2px;
+  margin: 5px;
+  font-weight: bold;
 }
 /* .detail h4 { */
 /* margin-left: 10px; */

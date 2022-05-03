@@ -104,7 +104,7 @@ function ExampleBox(props) {
   return(
     <>
     {description.map(descr => descr)}
-    <h6 className={styles.boxtitle}><a href={link} target="_blank" rel="noopener noreferrer">{props.id}</a></h6>
+    <h6><a href={link} target="_blank" rel="noopener noreferrer">{props.id}</a></h6>
     {montageFormatNeutral.map(mont => mont)}
     <div className={styles.clearfix}>
     <div className={styles.box}>{

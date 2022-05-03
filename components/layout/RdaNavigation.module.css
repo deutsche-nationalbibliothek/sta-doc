@@ -1,5 +1,5 @@
 .header {
-  width: 100%;
+  /* width: 100%; */
   margin: 0;
   height: 3rem;
   display: flex;
@@ -31,7 +31,7 @@
   margin-right: 2rem;
   text-decoration: none;
   font-size: 1.2rem;
-  color: white;
+  color: black;
 }
 
 .header a:hover,
