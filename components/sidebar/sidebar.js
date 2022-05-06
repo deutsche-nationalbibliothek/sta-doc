@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './sidebar.module.css'
+// import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Sidebar(props) {
   const router = useRouter()
+  // const detailPage = GeneralDetail
+  // console.log('page',detailPage)
 
   return (
     <>

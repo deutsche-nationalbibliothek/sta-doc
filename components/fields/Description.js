@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Fragment } from 'react'
 import styles from './Description.module.css'
 import Collapsible from 'react-collapsible'
@@ -79,6 +80,19 @@ export default function Description(props) {
         if (value.id === 'P396') { // eingebettet Item
           value.occurrences?.map((occ,index) => {
             description_arr.push(<DescriptionBox key={index} {...occ} />)
+          })
+        }
+        if (value.id === 'P392' || value.id === 'P393') { // see(item/property)
+          // console.log('descriptionee',qualifiers)
+          description_arr.push(<p>{arr[i].value}</p>)
+          value.occurrences?.map((occ,index) => {
+            description_arr.push(
+              <p className={styles.bold}>&ensp;&ensp;&rArr;&ensp; 
+                <Link href={occ.link}>
+                  <a>{occ.label}</a>
+                </Link>
+              </p>
+            )
           })
         }
       }

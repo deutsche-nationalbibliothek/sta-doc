@@ -1,12 +1,16 @@
 .header {
-  /* width: 100%; */
-  margin: 0;
+  width: auto;
+  /* margin-left: 16%; */
+  padding-right: 16px;
+  margin-right: 16px;
+  overflow: hidden;
   height: 3rem;
   display: flex;
+  position: fixed;
+  top: 2px;
   align-items: center;
   justify-content: space-between;
   background-color: #fdd85b;
-  padding: 0 0%;
 }
 
 .logo {

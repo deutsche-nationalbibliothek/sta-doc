@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useState } from 'react'
 import { Fragment } from 'react'
 import CodingTable from '@/components/tables/CodingTable'
 import RdaDetailTable from '@/components/tables/RdaDetailTable'
@@ -16,23 +15,19 @@ const WIKIBASE_URL = 'https://doku.wikibase.wiki/entity/'
 let parentIds = []
 let initHeaderLevel = 1
 let lastHeaderLevel = 1
+let embeddedHeaderLevel = 0
 
 export default function GeneralDetail(props) {
+  const field = props.data
+  console.log('entity',field)
+  const view = []
   let headerLevel = props.lastHeaderLevel ? props.lastHeaderLevel+1 : initHeaderLevel
   lastHeaderLevel = headerLevel
-  const field = props.data
-  let sorted_statements = sortStatements(field.statements)
-  if (props.parents && !parentIds.includes(props.parents)) {
-    parentIds.push(props.parents)
-  } else if (props.parents && parentIds.includes(props.parents)) {
-    parentIds = parentIds.slice(0,parentIds.indexOf(props.parents)+1)
+  if (props.embeddedID) {
+    embeddedHeaderLevel = props.embeddedID === 'P411' ? 0 : -1
   }
-  var level = parentIds.length+1
-
-  const view = []
-  const headerList = []
+  let sorted_statements = sortStatements(field.statements)
   view.push(<header className={'header'+lastHeaderLevel} id={field.label}>{field.label} <a target='_blank' rel='noreferrer' href={WIKIBASE_URL+field.id}>&#x270E;</a></header>)
-  headerList.push([lastHeaderLevel,field.label])
   if (field.statements.definition){
     sorted_statements.pop
     field.statements.definition.occurrences.map(occ => {
@@ -69,8 +64,8 @@ export default function GeneralDetail(props) {
       view.push(<Examples examples={statement}/>)
       continue
     }
-    if (statement.id === 'P397' || statement.id === 'P398') { //embedded in (Property)/(Item)
-      if (props.embedded === 'true') continue
+    if (statement.id === 'P397' || statement.id === 'P398') { // embedded in (Property)/(Item)
+      if (props.embedded === 'true') continue // do not print if item/prop is embedded
       statement.occurrences.map((occ,index) => {
         view.push(
           <p className={styles.bold}>eingebettet in: &rArr;&ensp; 
@@ -83,7 +78,7 @@ export default function GeneralDetail(props) {
     }
     else {
       if (statement.id !== 'P7') { // No header for description
-      lastHeaderLevel = headerLevel + 1
+        lastHeaderLevel = headerLevel + 1
         view.push(<header className={'header'+lastHeaderLevel} id={statement.label}>{statement.label}</header>)
       }
       let uncounted_list = []
@@ -120,15 +115,15 @@ export default function GeneralDetail(props) {
                   view.push(<p className={styles.bold}><b>{occ.value}</b></p>)
                   break
                 case 'Q1343': // Zwischenueberschrift erster Ordnung
-                  lastHeaderLevel = headerLevel + 2
+                  lastHeaderLevel = headerLevel + embeddedHeaderLevel + 2
                   view.push(<header className={'header'+lastHeaderLevel} id={occ.value}>{occ.value}</header>)
                   break
                 case 'Q1346': // Zwischenueberschrift zweiter Ordnung
-                  lastHeaderLevel = headerLevel + 3
+                  lastHeaderLevel = headerLevel + embeddedHeaderLevel + 3
                   view.push(<header className={'header'+lastHeaderLevel} id={occ.value}>{occ.value}</header>)
                   break
                 case 'Q1347': // Zwischenueberschrift dritter Ordnung
-                  lastHeaderLevel = headerLevel + 4
+                  lastHeaderLevel = headerLevel + embeddedHeaderLevel + 4
                   view.push(<header className={'header'+lastHeaderLevel} id={occ.value}>{occ.value}</header>)
                   break
                 case 'Q1344': // Aufzaehlung, ungezaehlt
@@ -163,7 +158,7 @@ export default function GeneralDetail(props) {
                   >
                     {
                       <div>
-                        <GeneralDetail data={quali} embedded='true' parents={field.id} lastHeaderLevel={lastHeaderLevel}/>
+                        <GeneralDetail data={quali} embeddedID={value.id} embedded='true' lastHeaderLevel={lastHeaderLevel}/>
                       </div>
                     }
                   </Collapsible>
@@ -212,13 +207,14 @@ export default function GeneralDetail(props) {
       })
     }
   }
+  return view
 
-  return (
-    <>
-    <title>{field.label}</title>
-    <section className={styles.detail}>
-      {view.map( html => html )}
-    </section>
-    </>
-  )
+  // return (
+    // <>
+    // <title>{field.label}</title>
+    // <section className={styles.detail}>
+      // {view.map( html => html )}
+    // </section>
+    // </>
+  // )
 }

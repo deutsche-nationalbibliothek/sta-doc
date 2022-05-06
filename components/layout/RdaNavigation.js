@@ -4,16 +4,11 @@ import styles from './RdaNavigation.module.css'
 export default function RdaNavigation() {
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}></div>
+    <topmenu>
       <nav>
-        <ul>
-          <li>
-            <Link href='/rda/properties'>RDA-Elemente</Link>
-          </li>
-        </ul>
+        <Link href='/rda/properties'>RDA-Elemente</Link>
       </nav>
-    </header>
+    </topmenu>
   )
 }
           // <li>

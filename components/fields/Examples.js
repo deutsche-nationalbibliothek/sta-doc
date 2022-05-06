@@ -57,6 +57,12 @@ function ExampleBox(props) {
     let field_format = props.statements[statement_key].coding.format
     props.statements[statement_key].occurrences.map(occurrence => {
       if(occurrence.value !== '') {
+        if (occurrence.qualifiers?.formatneutrallabel) {
+          montageFormatNeutral.push(<p className={styles.kursiv} key={statement_key}>{occurrence.qualifiers.formatneutrallabel.occurrences[0].value}:</p>)
+        }
+        if (occurrence.qualifiers?.description) {
+          montageFormatNeutral.push(<p className={styles.boxdescription} key={statement_key}>{occurrence.qualifiers.description.occurrences[0].value}</p>)
+        }
         montageFormatNeutral.push(<p className={styles.formatneutral} key={statement_key}>{occurrence.value}</p>)
       }
       if (occurrence.qualifiers) {
@@ -103,25 +109,25 @@ function ExampleBox(props) {
   let link = "https://doku.wikibase.wiki/wiki/item:" + props.id
   return(
     <>
-    {description.map(descr => descr)}
-    <h6><a href={link} target="_blank" rel="noopener noreferrer">{props.id}</a></h6>
-    {montageFormatNeutral.map(mont => mont)}
-    <div className={styles.clearfix}>
-    <div className={styles.box}>{
-      <>
-      <p className={styles.boxtitle}><b>PICA3</b></p>
-      {montagePica3.map(mont => mont)}
-      </>
-    }
-    </div>
-    <div className={styles.box}>{
-      <>
-      <p className={styles.boxtitle}><b>PICA+</b></p>
-      {montagePicaPlus.map(mont => mont)}
-      </>
-    }
-    </div>
-    </div>
+      <p><a href={link} target="_blank" rel="noopener noreferrer">&#x270E;</a></p>
+      {description.map(descr => descr)}
+      {montageFormatNeutral.map(mont => mont)}
+      <div className={styles.clearfix}>
+        <div className={styles.box}>{
+          <>
+            <p className={styles.boxtitle}><b>PICA3</b></p>
+            {montagePica3.map(mont => mont)}
+          </>
+          }
+        </div>
+        <div className={styles.box}>{
+          <>
+            <p className={styles.boxtitle}><b>PICA+</b></p>
+            {montagePicaPlus.map(mont => mont)}
+          </>
+          }
+        </div>
+      </div>
     </>
   )
 }

@@ -1,12 +1,3 @@
-.nav {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: #fafafa;
-  padding: 32px;
-  border-right: 1px solid #eaeaea;
-}
-
 .navButtons {
   margin: 8px 0;
   text-decoration: none;

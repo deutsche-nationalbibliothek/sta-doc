@@ -26,10 +26,16 @@
 }
 .boxdescription {
   float: right;
-  font-size: 0.82em;
+  width: 50%;
+  font-size: 0.88em;
   /* color: blue; */
   font-style: italic;
-  text-align: right;
+  text-align: left;
+}
+.boxdescription::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 .box p {
   margin: 1px;
@@ -49,4 +55,7 @@
   font-weight: bolder;
   margin: 1px;
   padding: 1px;
+}
+.kursiv {
+  font-style: italic;
 }

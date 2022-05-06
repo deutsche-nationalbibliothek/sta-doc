@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head'
 import Layout from '@/components/layout/layout'
 import Sidebar from '@/components/sidebar/sidebar'
@@ -10,13 +11,14 @@ import GeneralDetail from '@/components/general/GeneralDetail'
 export default function Property({ field }) {
   // console.log('entity',field)
   const title = field.label && field.description ? field.label + ' | ' + field.description.replace(/ .*/,'') : 'missing german entity label'
+
   return(
     <>
       <Head>
         <title>{title}</title>
       </Head>
+      <RdaNavigation/>
       <section>
-        <RdaNavigation/>
         <GeneralDetail data={field}/>
       </section>
     </>
@@ -52,6 +54,7 @@ export async function getStaticPaths() {
 }
 
 Property.getLayout = function getLayout(page) {
+  console.log('pagee',page)
   return (
     <Layout>
       <Sidebar active={page}/>
