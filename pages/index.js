@@ -1,39 +1,39 @@
-import Layout from '@/components/layout/layout'
-import Sidebar from '@/components/sidebar/sidebar'
+import Layout from "@/components/layout/layout";
+import Sidebar from "@/components/sidebar/sidebar";
 
-export default function HomePage(props) { 
-
+export default function HomePage(props) {
   return (
     <section>
       <h1>DACH Dokumentationsplattform</h1>
-      <hr/>
+      <hr />
       <p>Herzlich willkommen!</p>
     </section>
-  )
-} 
+  );
+}
 
 export async function getStaticProps() {
-  const url = "https://doku.wikibase.wiki/api.php?" +
+  const url =
+    "https://doku.wikibase.wiki/api.php?" +
     new URLSearchParams({
       origin: "*",
       action: "parse",
       page: "GND-Dokumentation",
       prop: "text",
       format: "json",
-    })
-  const req = await fetch(url)
-  const json = await req.json()
-  const parser = json.parse.text['*']
-  const title = json.parse.title
+    });
+  const req = await fetch(url);
+  const json = await req.json();
+  const parser = json.parse.text["*"];
+  const title = json.parse.title;
 
   return {
     props: {
       parser: parser,
       json: json,
-      title: title
+      title: title,
     },
-    revalidate: 10
-  }
+    revalidate: 10,
+  };
 }
 
 HomePage.getLayout = function getLayout(page) {
@@ -42,5 +42,5 @@ HomePage.getLayout = function getLayout(page) {
       <Sidebar />
       {page}
     </Layout>
-  )
-}
+  );
+};

@@ -1,31 +1,33 @@
-import { Fragment } from 'react';
-import styles from './References.module.css';
+import { Fragment } from "react";
+import styles from "./References.module.css";
 
 function ReferenceBox(props) {
   const referenceMap = {
     url: (ref) => <a href={ref.value}>{ref.value}</a>,
-    default: (ref) => <p>{ref.value}</p>
-  }
-  return(
+    default: (ref) => <p>{ref.value}</p>,
+  };
+  return (
     <div className={styles.div}>
-    {
-      Object.keys(props).map((key,index) => 
+      {Object.keys(props).map((key, index) => (
         <Fragment key={index}>
-        {referenceMap[key] ? referenceMap[key](props[key]) : referenceMap.default(props[key])}
+          {referenceMap[key]
+            ? referenceMap[key](props[key])
+            : referenceMap.default(props[key])}
         </Fragment>
-      )
-    }
+      ))}
     </div>
-  )
+  );
 }
 
-export default function References({references}) {
+export default function References({ references }) {
   if (references) {
-    return(
+    return (
       <>
-      <p className={styles.p}>Referenzen</p>
-      {references.map((ref,index) => <ReferenceBox key={index} {...ref} />)}
+        <p className={styles.p}>Referenzen</p>
+        {references.map((ref, index) => (
+          <ReferenceBox key={index} {...ref} />
+        ))}
       </>
-    )
+    );
   }
 }

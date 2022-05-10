@@ -1,7 +1,5 @@
-import CodeList from '@/components/codes/CodeList'
+import CodeList from "@/components/codes/CodeList";
 
 export default function codeListPage() {
-  return (
-    <p>codeListPage</p>
-  )
+  return <p>codeListPage</p>;
 }

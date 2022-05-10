@@ -1,15 +1,15 @@
-import Layout from '@/components/layout/layout'
-import Sidebar from '@/components/sidebar/sidebar'
+import Layout from "@/components/layout/layout";
+import Sidebar from "@/components/sidebar/sidebar";
 
 export default function Content() {
   return (
     <section>
       <h1>Inhaltserschließung</h1>
-      <hr/>
+      <hr />
       <p>Kontent</p>
       <p>Kontent</p>
     </section>
-  )
+  );
 }
 
 Content.getLayout = function getLayout(page) {
@@ -18,5 +18,5 @@ Content.getLayout = function getLayout(page) {
       <Sidebar />
       {page}
     </Layout>
-  )
-}
+  );
+};

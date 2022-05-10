@@ -1,37 +1,37 @@
 /* .Collapsible div { */
-        /* background-color: #f2f2f2; */
+/* background-color: #f2f2f2; */
 /* } */
 /* The link which when clicked opens the collapsable area */
 /* .Collapsible__trigger { */
-        /* display: block; */
-        /* font-weight: 400; */
-        /* text-decoration: none; */
-        /* position: relative; */
-        /* border: 1px solid black; */
-        /* padding: 10px; */
-        /* background: cyan; */
-        /* color: white; */
+/* display: block; */
+/* font-weight: 400; */
+/* text-decoration: none; */
+/* position: relative; */
+/* border: 1px solid black; */
+/* padding: 10px; */
+/* background: cyan; */
+/* color: white; */
 /* } */
 .CustomTriggerCSS {
-        /* background-color: #d7e8dd; */
-        /* font-size: 10px; */
-        /* transition: background-color 200ms ease; */
-        /* cursor: pointer; */
-        background-color: #fdd85b;
-        font-size: 10px;
-        color: black;
-        border: none;
-        cursor: pointer;
-        padding: 2px 12px 3px 12px;
-        text-decoration: none;
+  /* background-color: #d7e8dd; */
+  /* font-size: 10px; */
+  /* transition: background-color 200ms ease; */
+  /* cursor: pointer; */
+  background-color: #fdd85b;
+  font-size: 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 2px 12px 3px 12px;
+  text-decoration: none;
 }
 
 .CustomTriggerCSSopen {
-        background-color: #a1893a;
-        font-size: 10px;
-        color: black;
-        border: none;
-        cursor: pointer;
-        padding: 2px 12px 3px 12px;
-        text-decoration: none;
+  background-color: #a1893a;
+  font-size: 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 2px 12px 3px 12px;
+  text-decoration: none;
 }

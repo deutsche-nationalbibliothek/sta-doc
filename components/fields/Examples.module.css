@@ -1,5 +1,5 @@
 /* * { */
-  /* box-sizing: border-box; */
+/* box-sizing: border-box; */
 /* } */
 .examples {
   margin-left: 15px;
@@ -48,7 +48,7 @@
   clear: both;
   display: table;
 }
-.red  {
+.red {
   color: red;
 }
 .formatneutral {

@@ -1,11 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Layout from '@/components/layout/layout'
-import Sidebar from '@/components/sidebar/sidebar'
-import RdaNavigation from '@/components/layout/RdaNavigation'
-import Collapsible from 'react-collapsible'
-import stylesCollapsible from '@/styles/RdaCollapsible.module.css'
-import rdaLogo from '@/public/a-rda-logo-small-300dpi.jpg'
+import Head from "next/head";
+import Image from "next/image";
+import Layout from "@/components/layout/layout";
+import Sidebar from "@/components/sidebar/sidebar";
+import RdaNavigation from "@/components/layout/RdaNavigation";
+import Collapsible from "react-collapsible";
+import stylesCollapsible from "@/styles/RdaCollapsible.module.css";
+import rdaLogo from "@/public/a-rda-logo-small-300dpi.jpg";
 
 export default function Rda() {
   return (
@@ -13,31 +13,40 @@ export default function Rda() {
       <Head>
         <title>Handbuch Formalerschließung (RDA) - Startseite</title>
       </Head>
+      <RdaNavigation />
       <section>
-        <RdaNavigation />
         <div>
           <h1>
             <span>
-              <Image 
+              <Image
                 src={rdaLogo}
-                alt="<<<RDA LOGO>>>" 
-                width={255} 
-                height={107} 
+                alt="<<<RDA LOGO>>>"
+                width={255}
+                height={107}
               />
             </span>
-            Handbuch Formalerschließung - Bibliothekarische Formalerschließung gemäß RDA
+            Handbuch Formalerschließung - Bibliothekarische Formalerschließung
+            gemäß RDA
           </h1>
         </div>
-        <hr/>
+        <hr />
         <section>
           <h2>Einleitung, Ziele des Regelwerks, Grundprinzipien</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod
+            tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex
+            ea commodi consequat. Quis aute iure reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+            obcaecat cupiditat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum.
+          </p>
         </section>
         <section>
           <h3>Allgemeine Konzepte der Formalerschließung</h3>
           <Collapsible
-            trigger='Öffne Liste' 
-            triggerWhenOpen='Schließe Liste'
+            trigger="Öffne Liste"
+            triggerWhenOpen="Schließe Liste"
             ClassName={stylesCollapsible.Collapsible}
             triggerClassName={stylesCollapsible.CustomTriggerCSS}
             triggerOpenedClassName={stylesCollapsible.CustomTriggerCSSopen}
@@ -55,8 +64,8 @@ export default function Rda() {
           </Collapsible>
           <h3>Allgemeines zu RDA-Entitäten</h3>
           <Collapsible
-            trigger='Öffne Liste' 
-            triggerWhenOpen='Schließe Liste'
+            trigger="Öffne Liste"
+            triggerWhenOpen="Schließe Liste"
             ClassName={stylesCollapsible.Collapsible}
             triggerClassName={stylesCollapsible.CustomTriggerCSS}
             triggerOpenedClassName={stylesCollapsible.CustomTriggerCSSopen}
@@ -76,8 +85,8 @@ export default function Rda() {
           </Collapsible>
           <h3>Beschreibungen der RDA-Elemente</h3>
           <Collapsible
-            trigger='Öffne Liste' 
-            triggerWhenOpen='Schließe Liste'
+            trigger="Öffne Liste"
+            triggerWhenOpen="Schließe Liste"
             ClassName={stylesCollapsible.Collapsible}
             triggerClassName={stylesCollapsible.CustomTriggerCSS}
             triggerOpenedClassName={stylesCollapsible.CustomTriggerCSSopen}
@@ -91,8 +100,8 @@ export default function Rda() {
           </Collapsible>
           <h3>Anwendungsprofile</h3>
           <Collapsible
-            trigger='Öffne Liste' 
-            triggerWhenOpen='Schließe Liste'
+            trigger="Öffne Liste"
+            triggerWhenOpen="Schließe Liste"
             ClassName={stylesCollapsible.Collapsible}
             triggerClassName={stylesCollapsible.CustomTriggerCSS}
             triggerOpenedClassName={stylesCollapsible.CustomTriggerCSSopen}
@@ -105,7 +114,7 @@ export default function Rda() {
         </section>
       </section>
     </>
-  )
+  );
 }
 
 Rda.getLayout = function getLayout(page) {
@@ -114,5 +123,5 @@ Rda.getLayout = function getLayout(page) {
       <Sidebar />
       {page}
     </Layout>
-  )
-}
+  );
+};

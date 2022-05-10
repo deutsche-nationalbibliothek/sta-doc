@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import Layout from '@/components/layout/layout'
-import Sidebar from '@/components/sidebar/sidebar'
-import { getFields } from '@/lib/api'
-import FieldTable from '@/components/tables/FieldTable'
+import Head from "next/head";
+import Layout from "@/components/layout/layout";
+import Sidebar from "@/components/sidebar/sidebar";
+import { getFields } from "@/lib/api";
+import FieldTable from "@/components/tables/FieldTable";
 
 export default function Fields({ list }) {
   // console.log('list',list)
@@ -13,20 +13,20 @@ export default function Fields({ list }) {
       </Head>
       <section>
         <h1>GND Feld-/Unterfeldliste</h1>
-        <FieldTable data={list}/>
+        <FieldTable data={list} />
       </section>
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const list = await getFields()
+  const list = await getFields();
   return {
     props: {
-      list: [ ...list ]
+      list: [...list],
     },
-    revalidate: 1000
-  }
+    revalidate: 1000,
+  };
 }
 
 Fields.getLayout = function getLayout(page) {
@@ -35,5 +35,5 @@ Fields.getLayout = function getLayout(page) {
       <Sidebar />
       {page}
     </Layout>
-  )
-}
+  );
+};
