@@ -100,7 +100,7 @@ export default function Occurance({
                 )}
                 {qualifier.id !== Property.typeoflayout &&
                   qualifier.id !==
-                    Property["typeoflayout(embeddedelement)"] && (
+                  Property["typeoflayout(embeddedelement)"] && (
                     <>
                       <p className={styles.bold}>{qualifier.label}: </p>
                       {qualifier.occurrences.map((quali: any) =>
