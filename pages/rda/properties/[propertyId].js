@@ -2,9 +2,10 @@ import Head from "next/head";
 import Layout from "@/components/layout/layout";
 import Sidebar from "@/components/sidebar/sidebar";
 import * as sparql from "@/lib/sparql";
-import { getElements, getField, getEntity } from "@/lib/api";
+import { getElements, sortStatements, getEntity } from "@/lib/api";
 import RdaNavigation from "@/components/layout/RdaNavigation";
 import GeneralDetail from "@/components/general/GeneralDetail";
+import Details from "@/components/details";
 
 export default function Property({ field }) {
   // console.log('entity',field)
@@ -20,7 +21,13 @@ export default function Property({ field }) {
       </Head>
       <RdaNavigation />
       <section>
-        <GeneralDetail data={field} />
+        {/* todo, sortStatements in api call */}
+        <Details
+          entity={{
+            ...field,
+            statements: sortStatements(field.statements),
+          }}
+        />
       </section>
     </>
   );
