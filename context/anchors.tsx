@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useRouter } from "next/router";
+import { createContext, useCallback, useContext, useState } from "react";
 
 interface Anchor {
   label: string;
@@ -21,13 +16,14 @@ const AnchorContext = createContext({} as AnchorContext);
 
 export default function AnchorProvider({ children }) {
   const [anchors, setAnchors] = useState<Anchor[]>([]);
+  const router = useRouter();
 
   const addAnchor = useCallback(
     (anchor: Anchor) => setAnchors((anchors) => [...anchors, anchor]),
     [setAnchors]
   );
 
-  useEffect(() => setAnchors([]), [window.location.href]);
+  router.events.on("routeChangeStart", () => setAnchors([]));
 
   return (
     <AnchorContext.Provider value={{ anchors, addAnchor }}>
