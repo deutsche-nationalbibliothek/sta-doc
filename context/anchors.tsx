@@ -23,7 +23,10 @@ export default function AnchorProvider({ children }) {
     [setAnchors]
   );
 
-  router.events.on("routeChangeStart", () => setAnchors([]));
+  if (typeof window !== "undefined") {
+    // if client rendering:
+    router.events.on("routeChangeStart", () => setAnchors([]));
+  }
 
   return (
     <AnchorContext.Provider value={{ anchors, addAnchor }}>
