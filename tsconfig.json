@@ -13,6 +13,9 @@
       ],
       "@/styles/*": [
         "styles/*"
+      ],
+      "@/types/*": [
+        "types/*"
       ]
     },
     "target": "es5",

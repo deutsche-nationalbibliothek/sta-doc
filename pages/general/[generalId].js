@@ -8,9 +8,9 @@ export default function GeneralDetails({ field }) {
   const title =
     field.label && field.description
       ? field.label +
-        " | " +
-        field.description.replace(/ .*/, "") +
-        " (General Page)"
+      " | " +
+      field.description.replace(/ .*/, "") +
+      " (General Page)"
       : "missing german entity label";
   // const title = field.id
   return (
@@ -18,7 +18,7 @@ export default function GeneralDetails({ field }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <GeneralDetail data={field} />
+      {/* <GeneralDetail data={field} /> */}
     </>
   );
 }

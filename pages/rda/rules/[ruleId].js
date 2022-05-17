@@ -20,7 +20,7 @@ export default function Rule({ field }) {
       </Head>
       <section>
         <RdaNavigation />
-        <GeneralDetail data={field} />
+        {/* <GeneralDetail data={field} /> */}
       </section>
     </>
   );

@@ -19,7 +19,7 @@ export default function Field({ field }) {
       </Head>
       <section>
         <GndNavigation />
-        <GeneralDetail data={field} />
+        {/* <GeneralDetail data={field} /> */}
       </section>
     </>
   );
