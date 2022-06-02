@@ -1,16 +1,18 @@
 import { useAnchor } from "context/anchors";
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface Props {
   level: number;
   label: string;
+  link?: string;
   id: string;
   editor?: boolean;
 }
 
 const WIKIBASE_URL = "https://doku.wikibase.wiki/entity/";
 
-export default function Header({ level, label, id, editor }: Props) {
+export default function Header({ level, label, id, editor, link }: Props) {
   const { addAnchor } = useAnchor();
   const anchorId = `${label}-${level}`;
 
@@ -18,7 +20,12 @@ export default function Header({ level, label, id, editor }: Props) {
 
   return (
     <header className={`header${level}`} id={anchorId}>
-      {label}{" "}
+      {link && (
+        <Link href={link}>
+          <a className={`header${level}`}>{label}</a>
+        </Link>
+      )}
+      {!link && `${label} `}
       {editor && (
         <a target="_blank" rel="noreferrer" href={WIKIBASE_URL + id}>
           &#x270E;

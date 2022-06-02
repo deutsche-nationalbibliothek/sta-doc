@@ -16,7 +16,7 @@ export default function Table({ entity, statements }: Props) {
     entity.statements.elementof?.occurrences[0].id === Item.gnddatafield
   ) {
     // todo, check if prop is working
-    return <CodingTable data={statements} />;
+    return <CodingTable data={entity} />;
   } else {
     return null;
   }

@@ -7,18 +7,7 @@ import Collapsible from "react-collapsible";
 import stylesCollapsible from "./Collapsible.module.css";
 
 export default function FieldTable(props) {
-  const data = props.data.sort();
-  data.sort(function (a, b) {
-    let x = a.codings["PICA3"].toLowerCase();
-    let y = b.codings["PICA3"].toLowerCase();
-    if (x < y) {
-      return -1;
-    }
-    if (x > y) {
-      return 1;
-    }
-    return 0;
-  });
+  const data = props.data;
 
   const columns = useMemo(() => COLUMNS, []);
   const data2 = useMemo(() => data, []);
@@ -27,6 +16,14 @@ export default function FieldTable(props) {
     {
       columns: COLUMNS,
       data: data2,
+      initialState: {
+        sortBy: [
+          {
+            id: "codings.PICA3",
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
     useExpanded // Use the useExpanded plugin hook

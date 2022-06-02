@@ -4,7 +4,7 @@ import { COLUMNS } from "./FieldCodingColumns";
 import styles from "./CodingTable.module.css";
 
 function TableCell(props) {
-  // console.log('props',props)
+  // console.log("props", props);
   if (props.id === 0) {
     return (
       <>

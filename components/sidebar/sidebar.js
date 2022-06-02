@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { useAnchor } from "../../context/anchors";
 import { useRouter } from "next/router";
+import { Item } from "@/types/item";
 import styles from "./sidebar.module.css";
 // import GeneralDetail from '@/components/general/GeneralDetail'
 
-export default function Sidebar(props) {
+export default function Sidebar({ active }) {
   const router = useRouter();
-  // const detailPage = GeneralDetail
-  // console.log('page',detailPage)
   const { anchors } = useAnchor();
+  const elementOf =
+    active?.props?.field?.statements?.elementof?.occurrences[0].id;
 
   return (
     <>
@@ -38,29 +39,32 @@ export default function Sidebar(props) {
         <Link href={"/rda"}>
           <a
             className={
-              router.pathname.startsWith("/rda")
+              router.pathname.startsWith("/rda") ||
+              elementOf === Item.rdaproperty
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
             }
           >
-            Handbuch Formalerschließung
+            Handbuch Erschließung
           </a>
         </Link>
-        <Link href={"/content"}>
-          <a
-            className={
-              router.pathname.startsWith("/content")
-                ? `${styles.content}`
-                : `${styles.navButtons}`
-            }
-          >
-            Handbuch Inhaltserschließung
-          </a>
-        </Link>
+        {/* <Link href={"/content"}> */}
+        {/*   <a */}
+        {/*     className={ */}
+        {/*       router.pathname.startsWith("/content") */}
+        {/*         ? `${styles.content}` */}
+        {/*         : `${styles.navButtons}` */}
+        {/*     } */}
+        {/*   > */}
+        {/*     Handbuch Inhaltserschließung */}
+        {/*   </a> */}
+        {/* </Link> */}
         <Link href={"/gnd"}>
           <a
             className={
-              router.pathname.startsWith("/gnd")
+              router.pathname.startsWith("/gnd") ||
+              elementOf === Item.gnddatafield ||
+              elementOf === Item.gndsubfield
                 ? `${styles.gnd}`
                 : `${styles.navButtons}`
             }

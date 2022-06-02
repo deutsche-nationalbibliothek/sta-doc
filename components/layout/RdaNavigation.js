@@ -1,10 +1,9 @@
 import Link from "next/link";
-import styles from "./RdaNavigation.module.css";
 
 export default function RdaNavigation() {
   return (
     <topmenu>
-      <nav>
+      <nav className={"rda-color"}>
         <Link href="/rda/properties">RDA-Elemente</Link>
       </nav>
     </topmenu>

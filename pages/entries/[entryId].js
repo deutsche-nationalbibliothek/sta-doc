@@ -3,11 +3,11 @@ import Layout from "@/components/layout/layout";
 import Sidebar from "@/components/sidebar/sidebar";
 import * as sparql from "@/lib/sparql";
 import { getElements, sortStatements, getEntity } from "@/lib/api";
-import RdaNavigation from "@/components/layout/RdaNavigation";
-import GeneralDetail from "@/components/general/GeneralDetail";
+import TopNavigation from "@/components/layout/topNavigation";
+// import GeneralDetail from "@/components/general/GeneralDetail";
 import Details from "@/components/details";
 
-export default function Property({ field }) {
+export default function Entry({ field }) {
   const title =
     field.label && field.description
       ? field.label + " | " + field.description.replace(/ .*/, "")
@@ -18,7 +18,7 @@ export default function Property({ field }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <RdaNavigation />
+      <TopNavigation field={field} />
       <section>
         {/* todo, sortStatements in api call */}
         <Details
@@ -34,7 +34,7 @@ export default function Property({ field }) {
 
 export async function getStaticProps({ params }) {
   // get API data
-  const fieldId = params.propertyId;
+  const fieldId = params.entryId;
   // const field = await getField(fieldId)
   const field = await getEntity(fieldId);
 
@@ -53,17 +53,16 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const fields = await getElements(sparql.RDAPROPERTIES);
+  const fields = await getElements(sparql.LABELEN);
   return {
     paths: Object.keys(fields).map((id) => ({
-      params: { propertyId: id.toString() },
+      params: { entryId: id.toString() },
     })),
     fallback: false,
   };
 }
 
-Property.getLayout = function getLayout(page) {
-  console.log("pagee", page);
+Entry.getLayout = function getLayout(page) {
   return (
     <Layout>
       <Sidebar active={page} />

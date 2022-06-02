@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Layout from "@/components/layout/layout";
 import Sidebar from "@/components/sidebar/sidebar";
+import GndNavigation from "@/components/layout/gndNavigation";
 import { getFields } from "@/lib/api";
 import FieldTable from "@/components/tables/FieldTable";
 
@@ -11,6 +12,7 @@ export default function Fields({ list }) {
       <Head>
         <title>GND Feld-/Unterfeldliste</title>
       </Head>
+      <GndNavigation />
       <section>
         <h1>GND Feld-/Unterfeldliste</h1>
         <FieldTable data={list} />
@@ -32,7 +34,7 @@ export async function getStaticProps() {
 Fields.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar active={page} />
       {page}
     </Layout>
   );

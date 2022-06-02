@@ -1,5 +1,6 @@
 import { Statement } from "@/types/entity";
 import { Item } from "@/types/item";
+import Header from "../layout/header";
 import styles from "../general/GeneralDetail.module.css";
 
 interface Occurance {
@@ -21,66 +22,78 @@ export default {
     </p>
   ),
   [Item.firstordersubheading]: (occurance: Occurance, headerLevel: number) => (
-    <header className={"header" + (headerLevel + 0)} id={occurance.value}>
-      {occurance.value}
-    </header>
+    <Header
+      label={occurance.value}
+      id={occurance.value}
+      level={headerLevel + 0}
+    />
   ),
   [Item.secondordersubheading]: (occurance: Occurance, headerLevel: number) => (
-    <header className={"header" + (headerLevel + 1)} id={occurance.value}>
-      {occurance.value}
-    </header>
+    <Header
+      label={occurance.value}
+      id={occurance.value}
+      level={headerLevel + 1}
+    />
   ),
   [Item.thirdordersubheading]: (occurance: Occurance, headerLevel: number) => (
-    <header className={"header" + (headerLevel + 2)} id={occurance.value}>
-      {occurance.value}
-    </header>
+    <Header
+      label={occurance.value}
+      id={occurance.value}
+      level={headerLevel + 2}
+    />
   ),
   [Item["enumeration,uncounted"]]: (
     occurance: Occurance,
     _headerLevel: number,
     index: number,
-    statement: Statement
+    statement: Statement,
+    groupedLists: object
   ) => (
     <ItemList
       occurance={occurance}
       statement={statement}
       index={index}
       itemId={Item["enumeration,uncounted"]}
+      groupedLists={groupedLists}
     />
   ),
   [Item["enumeration,counted"]]: (
     occurance: Occurance,
     _headerLevel: number,
     index: number,
-    statement: Statement
+    statement: Statement,
+    groupedLists: object
   ) => (
     <ItemList
       occurance={occurance}
       statement={statement}
       index={index}
       itemId={Item["enumeration,counted"]}
+      groupedLists={groupedLists}
     />
   ),
 };
 
-function ItemList({ statement, index, itemId, occurance }) {
-  const filteredStatements = statement.occurrences.filter(
-    (occ: any) =>
-      occ.qualifiers?.typeoflayout &&
-      occ.qualifiers.typeoflayout.occurrences[0].id === itemId
-  );
+function ItemList({ statement, index, itemId, occurance, groupedLists }) {
+  // const filteredStatements = statement.occurrences.filter(
+  //   (occ: any) =>
+  //     occ.qualifiers?.typeoflayout &&
+  //     occ.qualifiers.typeoflayout.occurrences[0].id === itemId
+  // );
+  // const cond =
+  //   filteredStatements.findIndex((s) => s.value === occurance.value) + 1 ===
+  //   filteredStatements.length;
 
   // todo: not ideal, structure data in StatementComp
-  const cond =
-    filteredStatements.findIndex((s) => s.value === occurance.value) + 1 ===
-    filteredStatements.length;
-
+  const cond = index in groupedLists;
+  console.log("index", index);
+  console.log("groupedLists", groupedLists);
   return (
     <>
       {cond && (
         <ListContainer ordered={Item["enumeration,counted"] === itemId}>
-          {filteredStatements.map((occ: any) => (
-            <li key={occ.id}>{occ.value}</li>
+          {groupedLists[index].map((listObject: any) => (
+            <li key={listObject.value}>{listObject.value}</li>
           ))}
         </ListContainer>
       )}

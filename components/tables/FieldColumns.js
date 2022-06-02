@@ -1,4 +1,5 @@
 import Link from "next/link";
+const WIKIBASE_URL = "http://doku.wikibase.wiki/entity/";
 
 export const COLUMNS = [
   {
@@ -22,7 +23,7 @@ export const COLUMNS = [
     // Cell: ({row}) => (<a href={`fields/${row.original.id}`}>{row.original.label}</a>),
     // Cell: ({row}) => (<a href={row.original.editLink}>{row.original.label}</a>),
     Cell: ({ row }) => (
-      <Link href={`/gnd/fields/${row.original.id}`}>
+      <Link href={`/entries/${encodeURIComponent(row.original.id)}`}>
         <a>{row.original.label}</a>
       </Link>
     ),

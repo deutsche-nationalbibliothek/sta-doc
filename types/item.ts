@@ -168,7 +168,7 @@ export enum Item {
   "dachclass:textwork" = "Q1947",
   "dachdocumentation" = "Q3113",
   "dachdocumentation:example" = "Q14",
-  "dachdocumentation:rules" = "Q3095",
+  "stadocumentation:rules" = "Q3095",
   "dachdokumentation:class" = "Q7",
   "dakota" = "Q2272",
   "danish" = "Q2273",

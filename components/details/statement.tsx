@@ -20,6 +20,59 @@ export default function StatementComp({
   headerLevel,
   index,
 }: Props) {
+  function reduceStatementOccurrences(statement) {
+    // TODO try the reduce arr method to rearrange the occurrences array
+    // const initialOcc = [];
+    // const reducedOccs = statement.occurrences.reduce(
+    //   (prevOccs, occ, occIndex) => {
+    //     let currentId = occ.qualifiers?.typeoflayout?.occurrences[0].id;
+    //     if (currentId === Item["enumeration,uncounted"]) {
+    //     }
+    //     return occ.value;
+    //   },
+    //   initialOcc
+    // );
+
+    const lists = {};
+    let firstIndex = 0;
+    statement.occurrences.map((occ, index) => {
+      if (occ.qualifiers) {
+        let currentId = occ.qualifiers?.typeoflayout?.occurrences[0].id;
+        let nextId =
+          statement.occurrences[index + 1]?.qualifiers?.typeoflayout
+            ?.occurrences[0]?.id;
+        let sublist = {};
+        let moreQualifiers = Object.keys(occ.qualifiers).length > 1;
+        if (moreQualifiers) {
+          const { typeoflayout, ...rest } = occ.qualifiers;
+          sublist = rest;
+        }
+
+        if (currentId === Item["enumeration,uncounted"]) {
+          if (firstIndex === 0) {
+            firstIndex = index;
+            lists[firstIndex] = [];
+          }
+          lists[firstIndex].push({ value: occ.value, sublist: sublist });
+          if (nextId !== Item["enumeration,uncounted"]) {
+            firstIndex = 0;
+          }
+        } else if (currentId === Item["enumeration,counted"]) {
+          if (firstIndex === 0) {
+            firstIndex = index;
+            lists[firstIndex] = [];
+          }
+          lists[firstIndex].push({ value: occ.value, sublist: sublist });
+          if (nextId !== Item["enumeration,counted"]) {
+            firstIndex = 0;
+          }
+        }
+      }
+    });
+    return lists;
+  }
+  const groupedLists = reduceStatementOccurrences(statement);
+
   // const unorderdList = () =>
   //   (statement.occurrences as any).filter(
   //     (occ: any) =>
@@ -27,6 +80,14 @@ export default function StatementComp({
   //       occ.qualifiers.typeoflayout.occurrences[0].id ===
   //       Item["enumeration,uncounted"]
   //   );
+  // uncounted_list.push(<li>{occ.value}</li>);
+  // var id_check =
+  //   statement.occurrences[index + 1]?.qualifiers?.typeoflayout
+  //   ?.occurrences[0]?.id;
+  // if (id_check !== "Q1344") {
+  //   view.push(<ul>{uncounted_list.map((li) => li)}</ul>);
+  //   uncounted_list = [];
+  // }
 
   // const renderStatements = {
   //   ...statement,
@@ -46,9 +107,9 @@ export default function StatementComp({
         <Header label={statement.label} id={statement.id} level={headerLevel} />
       )}
 
-      {statement.id === Property.subfields && (
-        <SubFields key={statement.id} {...statement} />
-      )}
+      {/* {statement.id === Property.subfields && ( */}
+      {/*   <SubFields key={statement.id} {...statement} /> */}
+      {/* )} */}
 
       {statement.id === Property.examples && <Examples examples={statement} />}
 
@@ -71,6 +132,7 @@ export default function StatementComp({
           headerLevel={headerLevel + (showHeadline ? 1 : 0)}
           index={index}
           statement={statement}
+          groupedLists={groupedLists}
         />
       ))}
     </>

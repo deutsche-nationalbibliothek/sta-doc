@@ -25,8 +25,8 @@ export default function GNDHomePage(props) {
       <Head>
         <title>Handbuch Gemeinsame Normdatei</title>
       </Head>
+      <GndNavigation />
       <section>
-        <GndNavigation />
         <h1>
           <span>
             <Image
@@ -73,10 +73,9 @@ export async function getStaticProps() {
 }
 
 GNDHomePage.getLayout = function getLayout(page) {
-  const focusPage = "gnd";
   return (
     <Layout>
-      <Sidebar focusPage={focusPage} />
+      <Sidebar active={page} />
       {page}
     </Layout>
   );

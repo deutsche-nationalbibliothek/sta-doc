@@ -12,6 +12,14 @@ export default function RdaTable(props) {
     {
       columns: COLUMNS,
       data: data,
+      initialState: {
+        sortBy: [
+          {
+            id: "label",
+            desc: false,
+          },
+        ],
+      },
     },
     useSortBy,
     useExpanded // Use the useExpanded plugin hook

@@ -14,7 +14,6 @@ export default function Detail({ entity, headerLevel = 1 }: Props) {
   const groups = groupStatements(entity);
   // const isEmbedded = headerLevel !== 1
 
-  console.log("entity", entity, "groups", groups);
   return (
     <>
       <Header
@@ -66,18 +65,33 @@ const groupsDefinition = {
   [Item.gnddatafield]: {
     tableProperties: [
       // todo, add later
+      Property.repetition,
     ],
     restProperties: [
       // Property.definition,
       Property.description,
       Property.examples,
-      Property.repetition,
       Property.subfields,
       Property.validation,
       Property.implementationprovisions,
+      Property.applicablefordatafield,
     ],
   },
-  [Item["dachdocumentation:rules"]]: {
+  [Item.gndsubfield]: {
+    tableProperties: [
+      // todo, add later
+    ],
+    restProperties: [
+      // Property.definition,
+      Property.description,
+      Property.examples,
+      Property.subfields,
+      Property.validation,
+      Property.implementationprovisions,
+      Property.applicablefordatafield,
+    ],
+  },
+  [Item["stadocumentation:rules"]]: {
     tableProperties: [],
     restProperties: [Property.description],
   },

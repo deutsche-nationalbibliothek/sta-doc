@@ -14,7 +14,6 @@
   width: 16%;
   overflow: auto; /* Enable scrolling if the sidenav has too much content */
 }
-
 .main > section {
   padding-top: 16px;
   padding-left: 36px;
@@ -25,14 +24,11 @@
 }
 .main > topmenu {
   display: block;
-}
-.main > topmenu {
   padding-left: 20px;
 }
 .main > topmenu nav {
   width: 100%;
   overflow: hidden;
-  background-color: #fdd85b;
   position: fixed;
   top: 0;
   padding-top: 16px;
@@ -41,13 +37,13 @@
   padding-right: 16px;
   margin-left: 16%;
 }
-
 .main > topmenu a {
   float: left;
   display: block;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
+  font-weight: bold;
   color: black;
 }
 
