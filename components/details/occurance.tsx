@@ -42,14 +42,16 @@ export default function Occurance({
           link={occurance.link}
         />
       )}
-      {occurance.id && statement.id !== Property.subfields && (
-        <p className={styles.bold}>
-          &ensp;&ensp;&rArr;&ensp;
-          <Link href={occurance.link}>
-            <a>{occurance.label}</a>
-          </Link>
-        </p>
-      )}
+      {occurance.id &&
+        statement.id !== Property.subfields &&
+        statement.id !== Property.examples && (
+          <p className={styles.bold}>
+            &ensp;&ensp;&rArr;&ensp;
+            <Link href={occurance.link}>
+              <a>{occurance.label}</a>
+            </Link>
+          </p>
+        )}
       {(!occurance.qualifiers ||
         !Object.keys(occurance.qualifiers).find(
           (el) => el === "typeoflayout"

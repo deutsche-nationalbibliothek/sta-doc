@@ -54,12 +54,13 @@ const groupsDefinition = {
     restProperties: [
       // Property.definition,
       Property.description,
-      Property.examples,
       Property.recordingmethod,
       Property.sourcesofinformation,
       Property.basicrules,
       Property.specialrules,
       Property.specificrules,
+      Property.permitedvalues,
+      Property.examples,
     ],
   },
   [Item.gnddatafield]: {
@@ -70,11 +71,12 @@ const groupsDefinition = {
     restProperties: [
       // Property.definition,
       Property.description,
-      Property.examples,
       Property.subfields,
       Property.validation,
       Property.implementationprovisions,
       Property.applicablefordatafield,
+      Property.permitedvalues,
+      Property.examples,
     ],
   },
   [Item.gndsubfield]: {
@@ -84,11 +86,12 @@ const groupsDefinition = {
     restProperties: [
       // Property.definition,
       Property.description,
-      Property.examples,
       Property.subfields,
       Property.validation,
       Property.implementationprovisions,
       Property.applicablefordatafield,
+      Property.permitedvalues,
+      Property.examples,
     ],
   },
   [Item["stadocumentation:rules"]]: {
