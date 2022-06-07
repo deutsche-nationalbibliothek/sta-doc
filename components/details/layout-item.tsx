@@ -1,7 +1,6 @@
 import { Statement } from "@/types/entity";
 import { Item } from "@/types/item";
 import Header from "../layout/header";
-import styles from "../general/GeneralDetail.module.css";
 
 interface Occurance {
   id: string;
@@ -14,10 +13,10 @@ interface Occurance {
 
 export default {
   [Item.italic]: (occurance: Occurance) => (
-    <p className={styles.italic}>{occurance.value}</p>
+    <p className={"italic"}>{occurance.value}</p>
   ),
   [Item.bold]: (occurance: Occurance) => (
-    <p className={styles.bold}>
+    <p className={"bold"}>
       <b>{occurance.value}</b>
     </p>
   ),

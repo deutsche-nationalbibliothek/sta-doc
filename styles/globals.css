@@ -133,3 +133,34 @@ div {
 .gnd-color {
   background-color: #006bb3;
 }
+.italic {
+  font-style: italic;
+}
+.bold {
+  font-style: normal;
+  font-weight: bold;
+}
+.Collapsible {
+  background-color: #f2f2f2;
+  border: 1px solid black;
+  padding-top: 5px;
+}
+.CustomTriggerCSS {
+  background-color: #fdd85b;
+  font-size: 12px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  padding: 2px 12px 3px 12px;
+  text-decoration: none;
+}
+.CustomTriggerCSSopen {
+  background-color: #fdd85b;
+  font-size: 12px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  padding: 2px 12px 3px 12px;
+  text-decoration: none;
+}

@@ -4,8 +4,6 @@ import { Property } from "@/types/property";
 import Link from "next/link";
 import React from "react";
 import Examples from "../fields/Examples";
-import SubFields from "../fields/SubFields";
-import styles from "../general/GeneralDetail.module.css";
 import Header from "../layout/header";
 import Occurance from "./occurance";
 
@@ -116,7 +114,7 @@ export default function StatementComp({
       {(statement.id === Property["embeddedin(property)"] ||
         statement.id === Property["embeddedin(item)"]) &&
         statement.occurrences.map((occ: any) => (
-          <p key={occ.id} className={styles.bold}>
+          <p key={occ.id} className={"bold"}>
             eingebettet in: &rArr;&ensp;
             {/* todo, fix || '#' */}
             <Link href={occ.link || "#"}>

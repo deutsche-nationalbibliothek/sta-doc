@@ -6,7 +6,6 @@ import Collapsible from "react-collapsible";
 import Detail from ".";
 import Examples from "../fields/Examples";
 import References from "../fields/References";
-import styles from "../general/GeneralDetail.module.css";
 import layoutItem from "./layout-item";
 import Header from "../layout/header";
 
@@ -45,7 +44,7 @@ export default function Occurance({
       {occurance.id &&
         statement.id !== Property.subfields &&
         statement.id !== Property.examples && (
-          <p className={styles.bold}>
+          <p className={"bold"}>
             &ensp;&ensp;&rArr;&ensp;
             <Link href={occurance.link}>
               <a>{occurance.label}</a>
@@ -65,7 +64,7 @@ export default function Occurance({
                   qualifier.id === Property["see(property)"]) &&
                   (qualifier.occurrences.length > 0 ? (
                     qualifier.occurrences.map((quali: any) => (
-                      <p key={quali.label} className={styles.bold}>
+                      <p key={quali.label} className={"bold"}>
                         &ensp;&ensp;&rArr;&ensp;
                         <Link href={quali.link || ""}>
                           <a>{quali.label}</a>
@@ -73,7 +72,7 @@ export default function Occurance({
                       </p>
                     ))
                   ) : (
-                    <p className={styles.bold}>
+                    <p className={"bold"}>
                       &ensp;&ensp;&rArr;&ensp;FEHLENDER LINK
                     </p>
                   ))}
@@ -92,9 +91,9 @@ export default function Occurance({
                       key={index}
                       trigger={<span> {quali.label} &#8744; </span>}
                       triggerWhenOpen={<span>&#8743; </span>}
-                      openedClassName={styles.Collapsible}
-                      triggerClassName={styles.CustomTriggerCSS}
-                      triggerOpenedClassName={styles.CustomTriggerCSSopen}
+                      openedClassName={"Collapsible"}
+                      triggerClassName={"CustomTriggerCSS"}
+                      triggerOpenedClassName={"CustomTriggerCSSopen"}
                     >
                       {
                         <div>
@@ -108,7 +107,7 @@ export default function Occurance({
                   ))}
                 {qualifier.id === Property.examples && (
                   <>
-                    <p className={styles.bold}>{qualifier.label}: </p>
+                    <p className={"bold"}>{qualifier.label}: </p>
                     <Examples examples={qualifier} />
                   </>
                 )}
@@ -116,7 +115,7 @@ export default function Occurance({
                   <>
                     {qualifier.occurrences.map((quali: any) =>
                       quali.id ? (
-                        <p key={quali.label} className={styles.bold}>
+                        <p key={quali.label} className={"bold"}>
                           &ensp;&ensp;&rArr;&ensp;
                           <Link href={quali.link || ""}>
                             <a>{quali.label}</a>
@@ -137,10 +136,10 @@ export default function Occurance({
                   qualifier.id !== Property.description &&
                   qualifier.id !== Property.examples && (
                     <>
-                      <p className={styles.bold}>{qualifier.label}: </p>
+                      <p className={"bold"}>{qualifier.label}: </p>
                       {qualifier.occurrences.map((quali: any) =>
                         quali.id ? (
-                          <p key={quali.label} className={styles.bold}>
+                          <p key={quali.label} className={"bold"}>
                             &ensp;&ensp;&rArr;&ensp;
                             <Link href={quali.link || ""}>
                               <a>{quali.label}</a>
