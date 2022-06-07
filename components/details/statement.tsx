@@ -37,12 +37,12 @@ export default function StatementComp({
     let firstIndex = 0;
     statement.occurrences.map((occ, index) => {
       if (occ.qualifiers) {
-        let currentId = occ.qualifiers?.typeoflayout?.occurrences[0].id;
-        let nextId =
+        const currentId = occ.qualifiers?.typeoflayout?.occurrences[0].id;
+        const nextId =
           statement.occurrences[index + 1]?.qualifiers?.typeoflayout
             ?.occurrences[0]?.id;
         let sublist = {};
-        let moreQualifiers = Object.keys(occ.qualifiers).length > 1;
+        const moreQualifiers = Object.keys(occ.qualifiers).length > 1;
         if (moreQualifiers) {
           const { typeoflayout, ...rest } = occ.qualifiers;
           sublist = rest;

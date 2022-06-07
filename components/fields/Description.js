@@ -45,6 +45,8 @@ export default function Description(props) {
           // Layouttyp
           // console.log('value',value)
           const expr = value.occurrences[0].id;
+          const id_check =
+            arr[i + 1]?.qualifiers?.typeoflayout?.occurrences[0]?.id;
           switch (expr) {
             case "Q3127": // Schriftart kursiv
               description_arr.push(
@@ -71,9 +73,8 @@ export default function Description(props) {
               break;
             case "Q1344": // Aufzaehlung, ungezaehlt
               uncounted_list.push(<li>{arr[i].value}</li>);
-              // var id_check = arr[i+1]?.qualifiers?.typeoflayout?.value?.id
-              var id_check =
-                arr[i + 1]?.qualifiers?.typeoflayout?.occurrences[0]?.id;
+              // var id_check =
+              //   arr[i + 1]?.qualifiers?.typeoflayout?.occurrences[0]?.id;
               if (id_check !== "Q1344") {
                 description_arr.push(<ul>{uncounted_list.map((li) => li)}</ul>);
                 uncounted_list = [];
@@ -81,9 +82,8 @@ export default function Description(props) {
               break;
             case "Q1345": // Aufzaehlung, gezaehlt
               counted_list.push(<li>{arr[i].value}</li>);
-              // var id_check = arr[i+1]?.qualifiers?.typeoflayout?.value?.id
-              var id_check =
-                arr[i + 1]?.qualifiers?.typeoflayout?.occurrences[0]?.id;
+              // var id_check =
+              //   arr[i + 1]?.qualifiers?.typeoflayout?.occurrences[0]?.id;
               if (id_check !== "Q1345") {
                 description_arr.push(<ol>{counted_list.map((li) => li)}</ol>);
                 counted_list = [];

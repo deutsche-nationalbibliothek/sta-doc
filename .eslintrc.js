@@ -8,5 +8,6 @@ module.exports = {
   rules: {
     "no-debugger": "warn", // instead of default error
     indent: ["warn", 2, { SwitchCase: 1 }], // instead of default 4
+    "no-undef": "off",
   },
 };
