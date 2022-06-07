@@ -40,7 +40,8 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/rda") ||
-              elementOf === Item.rdaproperty
+              elementOf === Item.rdaproperty ||
+              elementOf === Item["stadocumentation:rules"]
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
             }

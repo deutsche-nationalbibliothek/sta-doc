@@ -36,7 +36,7 @@ export default function Description(props) {
   for (let i = 0; i < arr?.length; i++) {
     let qualifiers = arr[i].qualifiers;
     if (qualifiers === undefined) {
-      description_arr.push(<p>{arr[i].value}</p>);
+      description_arr.push(<p key={i}>{arr[i].value}</p>);
     }
     if (qualifiers) {
       for (const [key, value] of Object.entries(qualifiers)) {
@@ -48,12 +48,14 @@ export default function Description(props) {
           switch (expr) {
             case "Q3127": // Schriftart kursiv
               description_arr.push(
-                <p className={styles.italic}>{arr[i].value}</p>
+                <p key={i} className={styles.italic}>
+                  {arr[i].value}
+                </p>
               );
               break;
             case "Q3128": // Schriftart fett
               description_arr.push(
-                <p className={styles.bold}>
+                <p key={i} className={styles.bold}>
                   <b>{arr[i].value}</b>
                 </p>
               );
@@ -98,10 +100,10 @@ export default function Description(props) {
         if (value.id === "P392" || value.id === "P393") {
           // see(item/property)
           // console.log('descriptionee',qualifiers)
-          description_arr.push(<p>{arr[i].value}</p>);
+          description_arr.push(<p key={i}>{arr[i].value}</p>);
           value.occurrences?.map((occ, index) => {
             description_arr.push(
-              <p className={styles.bold}>
+              <p key={i} className={styles.bold}>
                 &ensp;&ensp;&rArr;&ensp;
                 <Link href={occ.link}>
                   <a>{occ.label}</a>

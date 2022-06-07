@@ -12,9 +12,9 @@ interface Props {
 export default function TopNavigation({ field }: Props) {
   return (
     <>
-      {field.statements.elementof.occurrences[0].id === Item.rdaproperty && (
-        <RdaNavigation />
-      )}
+      {(field.statements.elementof.occurrences[0].id === Item.rdaproperty ||
+        field.statements.elementof.occurrences[0].id ===
+          Item["stadocumentation:rules"]) && <RdaNavigation />}
       {(field.statements.elementof.occurrences[0].id === Item.gnddatafield ||
         field.statements.elementof.occurrences[0].id === Item.gndsubfield) && (
         <GndNavigation />
