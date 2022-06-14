@@ -3,6 +3,7 @@
 import { Item } from "@/types/item";
 import RdaNavigation from "@/components/layout/RdaNavigation";
 import GndNavigation from "@/components/layout/gndNavigation";
+import DatamodelNavigation from "@/components/layout/datamodelNavigation";
 // import Link from "next/link";
 
 interface Props {
@@ -10,14 +11,13 @@ interface Props {
 }
 
 export default function TopNavigation({ field }: Props) {
+  const id = field.statements.schema?.occurrences[0]?.id;
   return (
     <>
-      {(field.statements.elementof.occurrences[0].id === Item.rdaproperty ||
-        field.statements.elementof.occurrences[0].id ===
-          Item["stadocumentation:rules"]) && <RdaNavigation />}
-      {(field.statements.elementof.occurrences[0].id === Item.gnddatafield ||
-        field.statements.elementof.occurrences[0].id === Item.gndsubfield) && (
-        <GndNavigation />
+      {id === Item["rda-documentation"] && <RdaNavigation />}
+      {id === Item.gnddatamodel && <GndNavigation />}
+      {id !== Item["rda-documentation"] && id !== Item.gnddatamodel && (
+        <DatamodelNavigation />
       )}
     </>
   );

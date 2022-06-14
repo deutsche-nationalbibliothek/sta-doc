@@ -91,9 +91,9 @@ export default function Occurance({
                       key={index}
                       trigger={<span> {quali.label} &#8744; </span>}
                       triggerWhenOpen={<span>&#8743; </span>}
-                      openedClassName={"Collapsible"}
-                      triggerClassName={"CustomTriggerCSS"}
-                      triggerOpenedClassName={"CustomTriggerCSSopen"}
+                      openedClassName={"CollapsibleOpen"}
+                      triggerClassName={"CollapsibleClosed"}
+                      triggerOpenedClassName={"CollapsibleTriggerOpen"}
                     >
                       {
                         <div>

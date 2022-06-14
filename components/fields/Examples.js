@@ -152,7 +152,7 @@ function ExampleBox(props) {
     (statement) =>
       statement !== "elementof" &&
       statement !== "schema" &&
-      statement !== "entitycode" &&
+      // statement !== "entitycode" &&
       statement !== "description"
   );
   const description = [];
@@ -166,6 +166,7 @@ function ExampleBox(props) {
   }
   example_statements.map((statement_key, index) => {
     let field_format = props.statements[statement_key].coding.format;
+    let field_label = props.statements[statement_key].label;
     props.statements[statement_key].occurrences.map((occurrence) => {
       if (occurrence.value !== "") {
         if (occurrence.qualifiers?.formatneutrallabel) {
@@ -252,26 +253,38 @@ function ExampleBox(props) {
         });
         montagePica3.push(
           <p key={statement_key}>
-            <b key={statement_key}>{field_format["PICA3"]}</b>{" "}
+            <b key={statement_key} className="tooltip">
+              {field_format["PICA3"]}
+              <span class="tooltiptext">{field_label}</span>
+            </b>{" "}
             {subfieldMontagePica3.map((mont) => mont)}
           </p>
         );
         montagePicaPlus.push(
           <p key={statement_key}>
-            <b key={statement_key}>{field_format["PICA+"]}</b>{" "}
+            <b key={statement_key} className="tooltip">
+              {field_format["PICA+"]}
+              <span class="tooltiptext">{field_label}</span>
+            </b>{" "}
             {subfieldMontagePicaPlus.map((mont) => mont)}
           </p>
         );
       } else {
         montagePica3.push(
           <p key={statement_key}>
-            <b key={statement_key}>{field_format["PICA3"]}</b>{" "}
+            <b key={statement_key} className="tooltip">
+              {field_format["PICA3"]}
+              <span class="tooltiptext">{field_label}</span>
+            </b>{" "}
             {occurrence.value}
           </p>
         );
         montagePicaPlus.push(
           <p key={statement_key}>
-            <b key={statement_key}>{field_format["PICA+"]}</b>{" "}
+            <b key={statement_key} className="tooltip">
+              {field_format["PICA+"]}
+              <span class="tooltiptext">{field_label}</span>
+            </b>{" "}
             {occurrence.value}
           </p>
         );

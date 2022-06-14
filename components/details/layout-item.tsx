@@ -85,8 +85,6 @@ function ItemList({ statement, index, itemId, occurance, groupedLists }) {
 
   // todo: not ideal, structure data in StatementComp
   const cond = index in groupedLists;
-  console.log("index", index);
-  console.log("groupedLists", groupedLists);
   return (
     <>
       {cond && (

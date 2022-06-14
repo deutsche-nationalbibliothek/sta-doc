@@ -95,7 +95,9 @@ const groupsDefinition = {
     ],
   },
   [Item["stadocumentation:rules"]]: {
-    tableProperties: [],
+    tableProperties: [
+      // todo, add later
+    ],
     restProperties: [Property.description],
   },
 };
@@ -118,6 +120,10 @@ const groupStatements = (entity: Entity) => {
           )
         )
         .map((key) => entity.statements[key]),
+    };
+  } else {
+    return {
+      rest: Object.keys(entity.statements).map((key) => entity.statements[key]),
     };
   }
 };

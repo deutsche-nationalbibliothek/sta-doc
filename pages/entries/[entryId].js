@@ -53,7 +53,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const fields = await getElements(sparql.LABELEN);
+  const fields = await getElements(sparql.ENTRIES);
   return {
     paths: Object.keys(fields).map((id) => ({
       params: { entryId: id.toString() },
