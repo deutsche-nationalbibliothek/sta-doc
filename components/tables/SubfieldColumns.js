@@ -23,9 +23,7 @@ export const COLUMNS = [
         Header: "Beschreibung",
         accessor: "label",
         Cell: ({ row }) => (
-          <Link href={"/gnd/subfields/" + row.original.id}>
-            {row.original.label}
-          </Link>
+          <Link href={"/entries/" + row.original.id}>{row.original.label}</Link>
         ),
         sortType: "basic",
       },

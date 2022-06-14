@@ -9,8 +9,8 @@ import Details from "@/components/details";
 
 export default function Entry({ field }) {
   const title =
-    field.label && field.description
-      ? field.label + " | " + field.description.replace(/ .*/, "")
+    field.label && field.statements.elementof
+      ? field.label + " | " + field.statements.elementof.occurrences[0].label
       : "missing german entity label";
 
   return (

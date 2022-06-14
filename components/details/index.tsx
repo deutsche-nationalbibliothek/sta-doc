@@ -52,7 +52,6 @@ const groupsDefinition = {
       Property.subproperties,
     ],
     restProperties: [
-      // Property.definition,
       Property.description,
       Property.recordingmethod,
       Property.sourcesofinformation,
@@ -69,7 +68,6 @@ const groupsDefinition = {
       Property.repetition,
     ],
     restProperties: [
-      // Property.definition,
       Property.description,
       Property.subfields,
       Property.validation,
@@ -77,6 +75,7 @@ const groupsDefinition = {
       Property.applicablefordatafield,
       Property.permitedvalues,
       Property.examples,
+      Property.authorizations,
     ],
   },
   [Item.gndsubfield]: {
@@ -84,9 +83,8 @@ const groupsDefinition = {
       // todo, add later
     ],
     restProperties: [
-      // Property.definition,
+      Property.encoding,
       Property.description,
-      Property.subfields,
       Property.validation,
       Property.implementationprovisions,
       Property.applicablefordatafield,
@@ -94,11 +92,41 @@ const groupsDefinition = {
       Property.examples,
     ],
   },
+  [Item["gndentitytype:entityencoding"]]: {
+    tableProperties: [
+      // todo, add later
+    ],
+    restProperties: [
+      Property.encoding,
+      Property.description,
+      Property.datafields,
+      Property.subfields,
+      Property.validation,
+      Property.implementationprovisions,
+      Property.applicablefordatafield,
+      Property.permitedvalues,
+      Property.examples,
+      Property.applicablefordatafield,
+      Property.applicablefortypeofentity,
+    ],
+  },
   [Item["stadocumentation:rules"]]: {
     tableProperties: [
       // todo, add later
     ],
     restProperties: [Property.description],
+  },
+  ["default-template"]: {
+    // default renders tableProps, but NOT restProps like above
+    tableProperties: [
+      // todo, add later
+    ],
+    // here no render
+    ignoreProperties: [
+      Property.schema,
+      Property.elementof,
+      Property.definition,
+    ],
   },
 };
 
@@ -123,7 +151,21 @@ const groupStatements = (entity: Entity) => {
     };
   } else {
     return {
-      rest: Object.keys(entity.statements).map((key) => entity.statements[key]),
+      table: Object.keys(entity.statements)
+        .filter((key) =>
+          groupsDefinition["default-template"].tableProperties.find(
+            (tProp: any) => entity.statements[key].id === tProp
+          )
+        )
+        .map((key) => entity.statements[key]),
+      rest: Object.keys(entity.statements)
+        .filter(
+          (key) =>
+            !groupsDefinition["default-template"].ignoreProperties.find(
+              (rProp: any) => entity.statements[key].id === rProp
+            )
+        )
+        .map((key) => entity.statements[key]),
     };
   }
 };

@@ -105,10 +105,6 @@ export default function StatementComp({
         <Header label={statement.label} id={statement.id} level={headerLevel} />
       )}
 
-      {/* {statement.id === Property.subfields && ( */}
-      {/*   <SubFields key={statement.id} {...statement} /> */}
-      {/* )} */}
-
       {statement.id === Property.examples && <Examples examples={statement} />}
 
       {(statement.id === Property["embeddedin(property)"] ||

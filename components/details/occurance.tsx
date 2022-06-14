@@ -33,16 +33,19 @@ export default function Occurance({
 }: Props) {
   return (
     <>
-      {occurance.id && statement.id === Property.subfields && (
-        <Header
-          label={occurance.label}
-          id={occurance.id}
-          level={headerLevel}
-          link={occurance.link}
-        />
-      )}
+      {occurance.id &&
+        (statement.id === Property.subfields ||
+          statement.id === Property.datafields) && (
+          <Header
+            label={occurance.label}
+            id={occurance.id}
+            level={headerLevel}
+            link={occurance.link}
+          />
+        )}
       {occurance.id &&
         statement.id !== Property.subfields &&
+        statement.id !== Property.datafields &&
         statement.id !== Property.examples && (
           <p className={"bold"}>
             &ensp;&ensp;&rArr;&ensp;
