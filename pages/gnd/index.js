@@ -23,7 +23,7 @@ export default function GNDHomePage(props) {
   return (
     <>
       <Head>
-        <title>Handbuch Gemeinsame Normdatei</title>
+        <title>Handbuch Gemeinsame Normdatei | Startseite</title>
       </Head>
       <GndNavigation />
       <section>

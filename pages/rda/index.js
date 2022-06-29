@@ -11,7 +11,7 @@ export default function Rda() {
   return (
     <>
       <Head>
-        <title>Handbuch Formalerschließung (RDA) - Startseite</title>
+        <title>Handbuch Formalerschließung (RDA) | Startseite</title>
       </Head>
       <RdaNavigation />
       <section>

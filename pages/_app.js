@@ -1,4 +1,3 @@
-import Layout from "@/components/layout/layout";
 import AnchorProvider from "../context/anchors";
 import "@/styles/globals.css";
 

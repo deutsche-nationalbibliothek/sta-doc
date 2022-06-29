@@ -16,21 +16,30 @@ export default function Header({ level, label, id, editor, link }: Props) {
   const { addAnchor } = useAnchor();
   const anchorId = `${label}-${level}`;
 
-  useEffect(() => addAnchor({ id: anchorId, label }), [addAnchor]);
+  useEffect(() => {
+    addAnchor({ id: anchorId, label });
+  }, [addAnchor, anchorId, label]);
 
   return (
-    <header className={`header${level}`} id={anchorId}>
-      {link && (
-        <Link href={link}>
-          <a className={`header${level}`}>{label}</a>
-        </Link>
-      )}
-      {!link && `${label} `}
+    <>
+      <header className={`header${level}`} id={anchorId}>
+        {link && (
+          <Link href={link}>
+            <a className={`header${level}`}>{label}</a>
+          </Link>
+        )}
+        {!link && `${label} `}
+      </header>
       {editor && (
-        <a target="_blank" rel="noreferrer" href={WIKIBASE_URL + id}>
+        <a
+          className={"penInHeader"}
+          target="_blank"
+          rel="noreferrer"
+          href={WIKIBASE_URL + id}
+        >
           &#x270E;
         </a>
       )}
-    </header>
+    </>
   );
 }

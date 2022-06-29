@@ -18,7 +18,7 @@ export default function StatementComp({
   headerLevel,
   index,
 }: Props) {
-  function reduceStatementOccurrences(statement) {
+  function handleStatementLists(statement) {
     // TODO try the reduce arr method to rearrange the occurrences array
     // const initialOcc = [];
     // const reducedOccs = statement.occurrences.reduce(
@@ -69,7 +69,7 @@ export default function StatementComp({
     });
     return lists;
   }
-  const groupedLists = reduceStatementOccurrences(statement);
+  const groupedLists = handleStatementLists(statement);
 
   // const unorderdList = () =>
   //   (statement.occurrences as any).filter(
@@ -119,7 +119,7 @@ export default function StatementComp({
           </p>
         ))}
 
-      {statement.occurrences.map((occ: any, index: any) => (
+      {statement.occurrences.map((occ: any, index: number) => (
         <Occurance
           key={occ.id}
           occurance={occ}

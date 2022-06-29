@@ -19,7 +19,7 @@ export default function Entry({ field }) {
         <title>{title}</title>
       </Head>
       <TopNavigation field={field} />
-      <section>
+      <section className={"entry-content"}>
         {/* todo, sortStatements in api call */}
         <Details
           entity={{

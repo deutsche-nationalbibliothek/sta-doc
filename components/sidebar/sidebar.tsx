@@ -2,8 +2,9 @@ import Link from "next/link";
 import { useAnchor } from "../../context/anchors";
 import { useRouter } from "next/router";
 import { Item } from "@/types/item";
+import ListOfContent from "./listOfContent";
+import TOC from "../toc/toc";
 import styles from "./sidebar.module.css";
-// import GeneralDetail from '@/components/general/GeneralDetail'
 
 export default function Sidebar({ active }) {
   const router = useRouter();
@@ -40,8 +41,8 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/rda") ||
-              elementOf === Item.rdaproperty ||
-              elementOf === Item["stadocumentation:rules"]
+                elementOf === Item.rdaproperty ||
+                elementOf === Item["stadocumentation:rules"]
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
             }
@@ -49,6 +50,8 @@ export default function Sidebar({ active }) {
             Handbuch Erschließung
           </a>
         </Link>
+        {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
+        {elementOf === Item.rdaproperty && <TOC />}
         {/* <Link href={"/content"}> */}
         {/*   <a */}
         {/*     className={ */}
@@ -64,8 +67,8 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/gnd") ||
-              elementOf === Item.gnddatafield ||
-              elementOf === Item.gndsubfield
+                elementOf === Item.gnddatafield ||
+                elementOf === Item.gndsubfield
                 ? `${styles.gnd}`
                 : `${styles.navButtons}`
             }
@@ -73,12 +76,15 @@ export default function Sidebar({ active }) {
             Handbuch GND
           </a>
         </Link>
+        {(elementOf === Item.gnddatafield ||
+          elementOf === Item.gndsubfield) && <TOC />}
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
       </nav>
-      {anchors.map((a) => (
-        <p style={{ display: "none" }}>
-          {a.label}-{a.id}
-        </p>
-      ))}
     </>
   );
 }

@@ -1,8 +1,10 @@
 import { Statement } from "@/types/entity";
 import { Property } from "@/types/property";
+import { Item } from "@/types/item";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import Collapsible from "react-collapsible";
+import ReactHtmlParser from "react-html-parser";
 import Detail from ".";
 import Examples from "../fields/Examples";
 import References from "../fields/References";
@@ -57,7 +59,12 @@ export default function Occurance({
       {(!occurance.qualifiers ||
         !Object.keys(occurance.qualifiers).find(
           (el) => el === "typeoflayout"
-        )) && <p>{occurance.value}</p>}
+        )) &&
+        (occurance.value?.indexOf("<p>") > -1 ? (
+          ReactHtmlParser(occurance.value)
+        ) : (
+          <p>{occurance.value}</p>
+        ))}
       {occurance.qualifiers && (
         <>
           {Object.entries(occurance.qualifiers).map(
@@ -92,20 +99,28 @@ export default function Occurance({
                   qualifier.occurrences.map((quali: any) => (
                     <Collapsible
                       key={index}
+                      openedClassName={
+                        quali.statements.elementof.occurrences[0].id ===
+                          Item.gnddatafield
+                          ? "CollapsibleOpenGnd"
+                          : "CollapsibleOpenRda"
+                      }
+                      open={true}
+                      overflowWhenOpen={"unset"}
                       trigger={<span> {quali.label} &#8744; </span>}
                       triggerWhenOpen={<span>&#8743; </span>}
-                      openedClassName={"CollapsibleOpen"}
-                      triggerClassName={"CollapsibleClosed"}
-                      triggerOpenedClassName={"CollapsibleTriggerOpen"}
-                    >
-                      {
-                        <div>
-                          <Detail
-                            entity={quali}
-                            headerLevel={headerLevel + 1}
-                          />
-                        </div>
+                      triggerClassName={
+                        quali.statements.elementof.occurrences[0].id ===
+                          Item.gnddatafield
+                          ? "CollapsibleClosedGnd"
+                          : "CollapsibleClosedRda"
                       }
+                      triggerOpenedClassName={"CollapsibleTriggerOpen"}
+                      triggerElementProps={{
+                        id: `Collapsible-${quali.label}-${headerLevel}`,
+                      }}
+                    >
+                      {<Detail entity={quali} headerLevel={headerLevel + 1} />}
                     </Collapsible>
                   ))}
                 {qualifier.id === Property.examples && (

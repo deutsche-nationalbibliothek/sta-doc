@@ -3,6 +3,15 @@
   flex-direction: column;
   min-height: 100vh;
 }
+:target:before {
+  content: "";
+  display: block;
+  height: 30px; /* fixed header height*/
+  margin: -30px 0 0; /* negative fixed header height */
+}
+html {
+  scroll-behavior: smooth;
+}
 body {
   padding: 0;
   margin: 0;
@@ -47,94 +56,63 @@ ol li {
 div {
   padding: 1px;
 }
-.header1 {
-  padding: 2px;
-  padding-top: 5px;
+header {
   margin: 0;
-  /* margin-left: 0px; */
+  padding: 0;
+  margin-block-start: 0.37em;
+  margin-block-end: 0.17em;
+}
+.header1 {
   font-size: 30px;
   font-weight: normal;
 }
 .header2 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 2px; */
   font-size: 28px;
   font-weight: normal;
 }
 .header3 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 4px; */
   font-size: 26px;
   font-weight: normal;
 }
 .header4 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 6px; */
   font-size: 24px;
   font-weight: normal;
 }
 .header5 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 8px; */
   font-size: 22px;
   font-weight: normal;
 }
 .header6 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 10px; */
   font-size: 20px;
   font-weight: normal;
 }
 .header7 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 10px; */
   font-size: 18px;
   font-weight: normal;
 }
 .header8 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 10px; */
   font-size: 18px;
   font-weight: normal;
 }
 .header9 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 10px; */
   font-size: 16px;
   font-weight: normal;
 }
 .header10 {
-  padding: 2px;
-  padding-top: 5px;
-  margin: 0;
-  /* margin-left: 10px; */
   font-size: 14px;
   font-weight: normal;
 }
 .rda-color {
   background-color: #fdd85b;
+  box-shadow: 2px 5px 5px #888888;
 }
 .gnd-color {
   background-color: #006bb3;
+  box-shadow: 2px 5px 5px #888888;
 }
 .datamodel-color {
   background-color: #474747;
+  box-shadow: 2px 5px 5px #888888;
 }
 .datamodel-color > p {
   color: #fafafa;
@@ -146,13 +124,31 @@ div {
   font-style: normal;
   font-weight: bold;
 }
-.CollapsibleOpen {
+.CollapsibleOpenGnd {
   background-color: #f2f2f2;
   font-size: 12px;
   border: 1px solid black;
+  border-left: 3px solid #006bb3;
   padding-top: 5px;
 }
-.CollapsibleClosed {
+.CollapsibleOpenRda {
+  background-color: #f2f2f2;
+  font-size: 12px;
+  border: 1px solid black;
+  border-left: 3px solid #fdd85b;
+  padding-top: 5px;
+}
+.CollapsibleClosedGnd {
+  background-color: #006bb3;
+  font-size: 12px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  padding: 2px 12px 3px 12px;
+  text-decoration: none;
+}
+.CollapsibleClosedRda {
   background-color: #fdd85b;
   font-size: 12px;
   color: black;
@@ -163,13 +159,14 @@ div {
   text-decoration: none;
 }
 .CollapsibleTriggerOpen {
-  background-color: #fdd85b;
+  background-color: #6e7f80;
   font-size: 12px;
   color: black;
   border: none;
   cursor: pointer;
   padding: 2px 12px 3px 12px;
   text-decoration: none;
+  float: right;
 }
 .tooltip {
   position: relative;
@@ -191,4 +188,7 @@ div {
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+.TOCactive {
+  background: #faf0be;
 }

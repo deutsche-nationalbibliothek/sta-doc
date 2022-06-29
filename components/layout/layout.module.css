@@ -10,32 +10,39 @@
   background-color: #fafafa;
   border-right: 1px solid #eaeaea;
   margin: 0;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 16%;
   overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+.main > nav ul {
+  padding-inline-start: 10px;
+  margin-bottom: 0px;
 }
 .main > section {
   padding-top: 16px;
   padding-left: 36px;
   padding-right: 16px;
   margin-left: 16%;
-  margin-top: 48px;
+  margin-top: 16px;
+  margin-bottom: 48px;
   /* width: 70%; */
 }
 .main > topmenu {
-  display: block;
   padding-left: 20px;
 }
 .main > topmenu nav {
+  display: flex;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: fixed;
   top: 0;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  height: 30px;
+  z-index: 2;
   padding-left: 36px;
   padding-right: 16px;
-  margin-left: 16%;
+  margin-left: 17%;
+  align-items: center;
 }
 .main > topmenu a {
   float: left;
