@@ -97,11 +97,11 @@ export default function StatementComp({
   //   ),
   // };
 
-  const showHeadline = statement.id !== Property.description;
+  const statementHeader = statement.id !== Property.description;
 
   return (
     <>
-      {showHeadline && (
+      {statementHeader && (
         <Header label={statement.label} id={statement.id} level={headerLevel} />
       )}
 
@@ -123,7 +123,7 @@ export default function StatementComp({
         <Occurance
           key={occ.id}
           occurance={occ}
-          headerLevel={headerLevel + (showHeadline ? 1 : 0)}
+          headerLevel={headerLevel}
           index={index}
           statement={statement}
           groupedLists={groupedLists}

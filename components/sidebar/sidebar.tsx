@@ -51,7 +51,8 @@ export default function Sidebar({ active }) {
           </a>
         </Link>
         {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
-        {elementOf === Item.rdaproperty && <TOC />}
+        {(elementOf === Item.rdaproperty ||
+          elementOf === Item["rda-ressourcetype"]) && <TOC />}
         {/* <Link href={"/content"}> */}
         {/*   <a */}
         {/*     className={ */}

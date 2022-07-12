@@ -24,21 +24,21 @@ export default {
     <Header
       label={occurance.value}
       id={occurance.value}
-      level={headerLevel + 0}
+      level={(headerLevel = headerLevel + 0)}
     />
   ),
   [Item.secondordersubheading]: (occurance: Occurance, headerLevel: number) => (
     <Header
       label={occurance.value}
       id={occurance.value}
-      level={headerLevel + 1}
+      level={(headerLevel = headerLevel + 1)}
     />
   ),
   [Item.thirdordersubheading]: (occurance: Occurance, headerLevel: number) => (
     <Header
       label={occurance.value}
       id={occurance.value}
-      level={headerLevel + 2}
+      level={(headerLevel = headerLevel + 2)}
     />
   ),
   [Item["enumeration,uncounted"]]: (

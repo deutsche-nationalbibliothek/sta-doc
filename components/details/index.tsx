@@ -8,9 +8,14 @@ import Table from "./table";
 interface Props {
   entity: Entity;
   headerLevel: number;
+  embedded: boolean;
 }
 
-export default function Detail({ entity, headerLevel = 1 }: Props) {
+export default function Detail({
+  entity,
+  headerLevel = 1,
+  embedded = false,
+}: Props) {
   const groups = groupStatements(entity);
   // const isEmbedded = headerLevel !== 1
 
@@ -21,6 +26,7 @@ export default function Detail({ entity, headerLevel = 1 }: Props) {
         id={entity.id}
         level={headerLevel}
         editor={true}
+        embedded={embedded}
       />
       {entity.statements.definition &&
         entity.statements.definition.occurrences.map((occ) => (

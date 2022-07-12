@@ -8,7 +8,7 @@ import ReactHtmlParser from "react-html-parser";
 import Detail from ".";
 import Examples from "../fields/Examples";
 import References from "../fields/References";
-import layoutItem from "./layout-item";
+import layoutItem from "./layoutItem";
 import Header from "../layout/header";
 
 interface Props {
@@ -56,15 +56,13 @@ export default function Occurance({
             </Link>
           </p>
         )}
-      {(!occurance.qualifiers ||
-        !Object.keys(occurance.qualifiers).find(
-          (el) => el === "typeoflayout"
-        )) &&
-        (occurance.value?.indexOf("<p>") > -1 ? (
-          ReactHtmlParser(occurance.value)
-        ) : (
-          <p>{occurance.value}</p>
-        ))}
+      {!occurance.id &&
+        (!occurance.qualifiers ||
+          !Object.keys(occurance.qualifiers).find(
+            (el) => el === "typeoflayout"
+          )) &&
+        ReactHtmlParser(`<p>${occurance.value}</p>`)}
+
       {occurance.qualifiers && (
         <>
           {Object.entries(occurance.qualifiers).map(
@@ -107,7 +105,9 @@ export default function Occurance({
                       }
                       open={true}
                       overflowWhenOpen={"unset"}
-                      trigger={<span> {quali.label} &#8744; </span>}
+                      trigger={
+                        <span>Weiterführende Informationen &#8744; </span>
+                      }
                       triggerWhenOpen={<span>&#8743; </span>}
                       triggerClassName={
                         quali.statements.elementof.occurrences[0].id ===
@@ -120,7 +120,13 @@ export default function Occurance({
                         id: `Collapsible-${quali.label}-${headerLevel}`,
                       }}
                     >
-                      {<Detail entity={quali} headerLevel={headerLevel + 1} />}
+                      {
+                        <Detail
+                          entity={quali}
+                          headerLevel={headerLevel + 1}
+                          embedded={true}
+                        />
+                      }
                     </Collapsible>
                   ))}
                 {qualifier.id === Property.examples && (

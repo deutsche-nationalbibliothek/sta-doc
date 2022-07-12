@@ -538,6 +538,7 @@ export enum Item {
   "rdaproperty" = "Q264",
   "rda-example" = "Q267",
   "rda-documentation" = "Q263",
+  "rda-ressourcetype" = "Q308",
   "rswkproperty" = "Q3327",
   "rswk-documentation" = "Q3326",
   "raeto-romance" = "Q2528",

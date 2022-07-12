@@ -18,7 +18,7 @@ body {
   font-family: EuclidCircularA, sans-serif;
 }
 p {
-  margin: 4px;
+  margin: 5px;
   font-size: 14px;
 }
 a {
@@ -53,6 +53,7 @@ ol {
 ol li {
   padding: 2px 2px;
 }
+
 div {
   padding: 1px;
 }
