@@ -1699,4 +1699,5 @@ export enum Item {
   "workmanifested" = "Q444",
   "workreviewedin" = "Q831",
   "yeardegreegranted" = "Q930",
+  "example(typeoflayout)" = "Q3399",
 }

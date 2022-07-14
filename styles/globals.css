@@ -193,3 +193,13 @@ header {
 .TOCactive {
   background: #faf0be;
 }
+.example {
+  /* float: left; */
+  /* width: 49%; */
+  height: auto;
+  padding: 2px;
+  margin: 2px;
+  border: 1px solid #000;
+  background-color: #ffc;
+  vertical-align: text-top;
+}

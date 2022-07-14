@@ -1,6 +1,7 @@
 import { Statement } from "@/types/entity";
 import { Item } from "@/types/item";
 import Header from "../layout/header";
+import ReactHtmlParser from "react-html-parser";
 
 interface Occurance {
   id: string;
@@ -12,6 +13,8 @@ interface Occurance {
 }
 
 export default {
+  [Item["example(typeoflayout)"]]: (occurance: Occurance) =>
+    ReactHtmlParser(`<p class="example">${occurance.value}</p>`),
   [Item.italic]: (occurance: Occurance) => (
     <p className={"italic"}>{occurance.value}</p>
   ),
