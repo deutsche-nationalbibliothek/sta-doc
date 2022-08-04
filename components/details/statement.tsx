@@ -4,6 +4,8 @@ import { Property } from "@/types/property";
 import Link from "next/link";
 import React from "react";
 import Examples from "../fields/Examples";
+import Elements from "../fields/elements";
+// import Elements from "../fields/elements";
 import Header from "../layout/header";
 import Occurance from "./occurance";
 
@@ -70,43 +72,23 @@ export default function StatementComp({
     return lists;
   }
   const groupedLists = handleStatementLists(statement);
-
-  // const unorderdList = () =>
-  //   (statement.occurrences as any).filter(
-  //     (occ: any) =>
-  //       occ.qualifiers?.typeoflayout &&
-  //       occ.qualifiers.typeoflayout.occurrences[0].id ===
-  //       Item["enumeration,uncounted"]
-  //   );
-  // uncounted_list.push(<li>{occ.value}</li>);
-  // var id_check =
-  //   statement.occurrences[index + 1]?.qualifiers?.typeoflayout
-  //   ?.occurrences[0]?.id;
-  // if (id_check !== "Q1344") {
-  //   view.push(<ul>{uncounted_list.map((li) => li)}</ul>);
-  //   uncounted_list = [];
-  // }
-
-  // const renderStatements = {
-  //   ...statement,
-  //   [Item["enumeration,counted"]]: (statement.occurrences as any).filter(
-  //     (occ: any) =>
-  //       occ.qualifiers?.typeoflayout &&
-  //       occ.qualifiers.typeoflayout.occurrences[0].id ===
-  //         Item["enumeration,uncounted"]
-  //   ),
-  // };
-
-  const statementHeader = statement.id !== Property.description;
+  const statementHeader =
+    statement.id !== Property.description &&
+    statement.id !== Property["embeddedin(item)"] &&
+    statement.id !== Property["embeddedin(property)"] &&
+    statement.id !== Property.elements &&
+    statement.id !== Property["description(attheend)"];
+  const statementElements = statement.id === Property.elements;
 
   return (
     <>
       {statementHeader && (
         <Header label={statement.label} id={statement.id} level={headerLevel} />
       )}
-
+      {statementElements && (
+        <Elements elements={statement} headerLevel={headerLevel} />
+      )}
       {statement.id === Property.examples && <Examples examples={statement} />}
-
       {(statement.id === Property["embeddedin(property)"] ||
         statement.id === Property["embeddedin(item)"]) &&
         statement.occurrences.map((occ: any) => (
@@ -119,16 +101,17 @@ export default function StatementComp({
           </p>
         ))}
 
-      {statement.occurrences.map((occ: any, index: number) => (
-        <Occurance
-          key={occ.id}
-          occurance={occ}
-          headerLevel={headerLevel}
-          index={index}
-          statement={statement}
-          groupedLists={groupedLists}
-        />
-      ))}
+      {statement.id !== Property.elements &&
+        statement.occurrences.map((occ: any, index: number) => (
+          <Occurance
+            key={occ.id}
+            occurance={occ}
+            headerLevel={headerLevel}
+            index={index}
+            statement={statement}
+            groupedLists={groupedLists}
+          />
+        ))}
     </>
   );
 }

@@ -4,7 +4,7 @@ import { Item } from "@/types/item";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import Collapsible from "react-collapsible";
-import ReactHtmlParser from "react-html-parser";
+import HtmlReactParser from "html-react-parser";
 import Detail from ".";
 import Examples from "../fields/Examples";
 import References from "../fields/References";
@@ -37,7 +37,8 @@ export default function Occurance({
     <>
       {occurance.id &&
         (statement.id === Property.subfields ||
-          statement.id === Property.datafields) && (
+          statement.id === Property.datafields ||
+          statement.id === Property.elements) && (
           <Header
             label={occurance.label}
             id={occurance.id}
@@ -48,6 +49,7 @@ export default function Occurance({
       {occurance.id &&
         statement.id !== Property.subfields &&
         statement.id !== Property.datafields &&
+        statement.id !== Property.elements &&
         statement.id !== Property.examples && (
           <p className={"bold"}>
             &ensp;&ensp;&rArr;&ensp;
@@ -61,7 +63,7 @@ export default function Occurance({
           !Object.keys(occurance.qualifiers).find(
             (el) => el === "typeoflayout"
           )) &&
-        ReactHtmlParser(`<p>${occurance.value}</p>`)}
+        HtmlReactParser(`<p>${occurance.value}</p>`)}
 
       {occurance.qualifiers && (
         <>
@@ -117,7 +119,7 @@ export default function Occurance({
                       }
                       triggerOpenedClassName={"CollapsibleTriggerOpen"}
                       triggerElementProps={{
-                        id: `Collapsible-${quali.label}-${headerLevel}`,
+                        id: `Collapsible-${quali.label}`,
                       }}
                     >
                       {
@@ -125,6 +127,7 @@ export default function Occurance({
                           entity={quali}
                           headerLevel={headerLevel + 1}
                           embedded={true}
+                          ressourceTypePage={false}
                         />
                       }
                     </Collapsible>

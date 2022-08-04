@@ -22,7 +22,7 @@ export default function Header({
   embedded,
 }: Props) {
   const { addAnchor } = useAnchor();
-  const anchorId = `${label}-${level}`;
+  const anchorId = `${label}`;
 
   useEffect(() => {
     addAnchor({ id: anchorId, label });

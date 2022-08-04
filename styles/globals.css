@@ -33,11 +33,19 @@ table {
   font-family: EuclidCircularA, sans-serif;
   margin-top: 10px;
 }
+tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+tbody tr:nth-child(even) {
+  background: #f4f4f4;
+}
 th {
   font-size: 15px;
+  text-align: center;
 }
 td {
   font-size: 14px;
+  border: 1px solid black;
 }
 ul {
   margin: 4px;
@@ -194,12 +202,40 @@ header {
   background: #faf0be;
 }
 .example {
-  /* float: left; */
-  /* width: 49%; */
   height: auto;
   padding: 2px;
-  margin: 2px;
+  margin: 2px 0.5em 2px 0.5em;
   border: 1px solid #000;
   background-color: #ffc;
   vertical-align: text-top;
+}
+.Button {
+  background-color: #fdd85b;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+}
+.Button:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+.title {
+  display: block;
+  /* border-top: 5px solid #969696; */
+  /* background-color: #76db95; */
+  height: 40px;
+  line-height: 30px;
+  padding: 4px 6px;
+  /* font-size: 16px; */
+  /* color: #000000; */
+  margin-bottom: 13px;
+  clear: both;
+}
+.title .header {
+  float: left;
+}
+.title .button {
+  float: right;
 }

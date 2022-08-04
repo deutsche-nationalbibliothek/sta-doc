@@ -255,7 +255,7 @@ function ExampleBox(props) {
           <p key={statement_key}>
             <b key={statement_key} className="tooltip">
               {field_format["PICA3"]}
-              <span class="tooltiptext">{field_label}</span>
+              <span className="tooltiptext">{field_label}</span>
             </b>{" "}
             {subfieldMontagePica3.map((mont) => mont)}
           </p>
@@ -264,7 +264,7 @@ function ExampleBox(props) {
           <p key={statement_key}>
             <b key={statement_key} className="tooltip">
               {field_format["PICA+"]}
-              <span class="tooltiptext">{field_label}</span>
+              <span className="tooltiptext">{field_label}</span>
             </b>{" "}
             {subfieldMontagePicaPlus.map((mont) => mont)}
           </p>
@@ -274,7 +274,7 @@ function ExampleBox(props) {
           <p key={statement_key}>
             <b key={statement_key} className="tooltip">
               {field_format["PICA3"]}
-              <span class="tooltiptext">{field_label}</span>
+              <span className="tooltiptext">{field_label}</span>
             </b>{" "}
             {occurrence.value}
           </p>
@@ -283,7 +283,7 @@ function ExampleBox(props) {
           <p key={statement_key}>
             <b key={statement_key} className="tooltip">
               {field_format["PICA+"]}
-              <span class="tooltiptext">{field_label}</span>
+              <span className="tooltiptext">{field_label}</span>
             </b>{" "}
             {occurrence.value}
           </p>

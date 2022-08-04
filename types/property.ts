@@ -368,6 +368,7 @@ export enum Property {
   "visualartist" = "P233",
   "voiceactor" = "P266",
   "wb-connection" = "P329",
+  "wemilevel" = "P639",
   "work" = "P292",
   "worktitle" = "P24",
   "alternativedenomination:subjectterm" = "P99",
@@ -382,6 +383,7 @@ export enum Property {
   "dateoftermination" = "P422",
   "definition" = "P1",
   "description" = "P7",
+  "description(attheend)" = "P642",
   "embedded(item)" = "P396",
   "embedded(property)" = "P411",
   "embeddedin(item)" = "P398",
@@ -424,4 +426,5 @@ export enum Property {
   "toolkitdefinition" = "P121",
   "variantnameoffamily" = "P415",
   "versionnumber" = "P129",
+  "elements" = "P637",
 }

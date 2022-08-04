@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Layout from "@/components/layout/layout";
+import { Item } from "@/types/item";
+import { Property } from "@/types/property";
 import Sidebar from "@/components/sidebar/sidebar";
 import * as sparql from "@/lib/sparql";
 import { getElements, sortStatements, getEntity } from "@/lib/api";
@@ -12,6 +14,9 @@ export default function Entry({ field }) {
     field.label && field.statements.elementof
       ? field.label + " | " + field.statements.elementof.occurrences[0].label
       : "missing german entity label";
+  const ressourceTypePage =
+    field.statements.elements &&
+    field.statements.elementof.occurrences[0].id === Item["rda-ressourcetype"];
 
   return (
     <>
@@ -26,6 +31,7 @@ export default function Entry({ field }) {
             ...field,
             statements: sortStatements(field.statements),
           }}
+          ressourceTypePage={ressourceTypePage}
         />
       </section>
     </>

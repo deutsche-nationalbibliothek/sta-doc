@@ -214,8 +214,7 @@ function getNestedHeadings(headings: readonly HTMLHeadingElement[]): HEntry[] {
 }
 
 function level(e: HTMLHeadingElement): number {
-  console.log("element", e);
-  return parseInt(e.id.substring(e.id.indexOf("-") + 1));
+  return parseInt(e.className.substring(e.className.indexOf("r") + 1));
 }
 
 function getCollapsibleParentIds(elem) {
@@ -226,8 +225,6 @@ function getCollapsibleParentIds(elem) {
   ) {
     elem = elem.parentNode;
     let ref = elem.parentNode.firstChild.id || "";
-    console.log("elemmm", elem.parentNode.firstChild.id);
-    console.log("ref", ref);
     if (ref.indexOf("Collapsible-") > -1) {
       parents.push(ref);
     }
