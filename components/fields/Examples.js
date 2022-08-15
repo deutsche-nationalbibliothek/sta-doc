@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import styles from "./Examples.module.css";
 import Description from "./Description.js";
 
@@ -165,131 +164,134 @@ function ExampleBox(props) {
     );
   }
   example_statements.map((statement_key, index) => {
-    let field_format = props.statements[statement_key].coding.format;
-    let field_label = props.statements[statement_key].label;
-    props.statements[statement_key].occurrences.map((occurrence) => {
-      if (occurrence.value !== "") {
-        if (occurrence.qualifiers?.formatneutrallabel) {
-          montageFormatNeutral.push(
-            <p className={styles.kursiv} key={statement_key}>
-              {occurrence.qualifiers.formatneutrallabel.occurrences[0].value}:
-            </p>
-          );
-        }
-        if (occurrence.qualifiers?.description) {
-          montageFormatNeutral.push(
-            <p className={styles.boxdescription} key={statement_key}>
-              {occurrence.qualifiers.description.occurrences[0].value}
-            </p>
-          );
-        }
-        montageFormatNeutral.push(
-          <p className={styles.formatneutral} key={statement_key}>
-            {occurrence.value}
-          </p>
-        );
-      }
-      if (occurrence.qualifiers) {
-        const subfieldMontagePica3 = [];
-        const subfieldMontagePicaPlus = [];
-        Object.entries(occurrence.qualifiers).forEach(([key, value]) => {
-          if (value.coding) {
-            if (
-              value.coding.format["PICA3"] !== "-ohne-" &&
-              value.coding.format["PICA3"] !== "!...!"
-            ) {
-              subfieldMontagePica3.push(
-                <b key={key}>{value.coding.format["PICA3"]}</b>
-              );
-            }
-            if (value.coding.format["PICA+"] !== "-ohne-") {
-              subfieldMontagePicaPlus.push(
-                <b key={key}>{value.coding.format["PICA+"]}</b>
-              );
-            }
-            // check if qualifier value is a Property
-            if (
-              value.occurrences.length > 0 &&
-              value.occurrences[0].coding?.format !== undefined
-            ) {
-              subfieldMontagePica3.push(
-                `${value.occurrences[0].coding.format["PICA3"]}`
-              );
-              subfieldMontagePicaPlus.push(
-                `${value.occurrences[0].coding.format["PICA+"]}`
-              );
-            } else if (value.occurrences.length > 0) {
-              if (value.coding.format["PICA3"] === "!...!") {
-                subfieldMontagePica3.push(
-                  <b key={key} className={styles.red}>
-                    !
-                  </b>
-                );
-              }
-              subfieldMontagePica3.push(`${value.occurrences[0].value}`);
-              if (value.coding.format["PICA3"] === "!...!") {
-                subfieldMontagePica3.push(
-                  <b key={key} className={styles.red}>
-                    !
-                  </b>
-                );
-              }
-              subfieldMontagePicaPlus.push(`${value.occurrences[0].value}`);
-            }
-          }
-          // render box description
-          if (value.id === "P7") {
-            montagePica3.push(
-              <p className={styles.boxdescription} key={key}>
-                {value.occurrences[0].value}
-              </p>
-            );
-            montagePicaPlus.push(
-              <p className={styles.boxdescription} key={key}>
-                {value.occurrences[0].value}
+    let field_format =
+      props.statements[statement_key].coding?.format || undefined;
+    let field_label = props.statements[statement_key].label || undefined;
+    if (field_label !== undefined || field_format !== undefined) {
+      props.statements[statement_key].occurrences.map((occurrence) => {
+        if (occurrence.value !== "") {
+          if (occurrence.qualifiers?.formatneutrallabel) {
+            montageFormatNeutral.push(
+              <p className={styles.kursiv} key={statement_key}>
+                {occurrence.qualifiers.formatneutrallabel.occurrences[0].value}:
               </p>
             );
           }
-        });
-        montagePica3.push(
-          <p key={statement_key}>
-            <b key={statement_key} className="tooltip">
-              {field_format["PICA3"]}
-              <span className="tooltiptext">{field_label}</span>
-            </b>{" "}
-            {subfieldMontagePica3.map((mont) => mont)}
-          </p>
-        );
-        montagePicaPlus.push(
-          <p key={statement_key}>
-            <b key={statement_key} className="tooltip">
-              {field_format["PICA+"]}
-              <span className="tooltiptext">{field_label}</span>
-            </b>{" "}
-            {subfieldMontagePicaPlus.map((mont) => mont)}
-          </p>
-        );
-      } else {
-        montagePica3.push(
-          <p key={statement_key}>
-            <b key={statement_key} className="tooltip">
-              {field_format["PICA3"]}
-              <span className="tooltiptext">{field_label}</span>
-            </b>{" "}
-            {occurrence.value}
-          </p>
-        );
-        montagePicaPlus.push(
-          <p key={statement_key}>
-            <b key={statement_key} className="tooltip">
-              {field_format["PICA+"]}
-              <span className="tooltiptext">{field_label}</span>
-            </b>{" "}
-            {occurrence.value}
-          </p>
-        );
-      }
-    });
+          if (occurrence.qualifiers?.description) {
+            montageFormatNeutral.push(
+              <p className={styles.boxdescription} key={statement_key}>
+                {occurrence.qualifiers.description.occurrences[0].value}
+              </p>
+            );
+          }
+          montageFormatNeutral.push(
+            <p className={styles.formatneutral} key={statement_key}>
+              {occurrence.value}
+            </p>
+          );
+        }
+        if (occurrence.qualifiers) {
+          const subfieldMontagePica3 = [];
+          const subfieldMontagePicaPlus = [];
+          Object.entries(occurrence.qualifiers).forEach(([key, value]) => {
+            if (value.coding) {
+              if (
+                value.coding.format["PICA3"] !== "-ohne-" &&
+                value.coding.format["PICA3"] !== "!...!"
+              ) {
+                subfieldMontagePica3.push(
+                  <b key={key}>{value.coding.format["PICA3"]}</b>
+                );
+              }
+              if (value.coding.format["PICA+"] !== "-ohne-") {
+                subfieldMontagePicaPlus.push(
+                  <b key={key}>{value.coding.format["PICA+"]}</b>
+                );
+              }
+              // check if qualifier value is a Property
+              if (
+                value.occurrences.length > 0 &&
+                value.occurrences[0].coding?.format !== undefined
+              ) {
+                subfieldMontagePica3.push(
+                  `${value.occurrences[0].coding.format["PICA3"]}`
+                );
+                subfieldMontagePicaPlus.push(
+                  `${value.occurrences[0].coding.format["PICA+"]}`
+                );
+              } else if (value.occurrences.length > 0) {
+                if (value.coding.format["PICA3"] === "!...!") {
+                  subfieldMontagePica3.push(
+                    <b key={key} className={styles.red}>
+                      !
+                    </b>
+                  );
+                }
+                subfieldMontagePica3.push(`${value.occurrences[0].value}`);
+                if (value.coding.format["PICA3"] === "!...!") {
+                  subfieldMontagePica3.push(
+                    <b key={key} className={styles.red}>
+                      !
+                    </b>
+                  );
+                }
+                subfieldMontagePicaPlus.push(`${value.occurrences[0].value}`);
+              }
+            }
+            // render box description
+            if (value.id === "P7") {
+              montagePica3.push(
+                <p className={styles.boxdescription} key={key}>
+                  {value.occurrences[0].value}
+                </p>
+              );
+              montagePicaPlus.push(
+                <p className={styles.boxdescription} key={key}>
+                  {value.occurrences[0].value}
+                </p>
+              );
+            }
+          });
+          montagePica3.push(
+            <p key={statement_key}>
+              <b key={statement_key} className="tooltip">
+                {field_format["PICA3"]}
+                <span className="tooltiptext">{field_label}</span>
+              </b>{" "}
+              {subfieldMontagePica3.map((mont) => mont)}
+            </p>
+          );
+          montagePicaPlus.push(
+            <p key={statement_key}>
+              <b key={statement_key} className="tooltip">
+                {field_format["PICA+"]}
+                <span className="tooltiptext">{field_label}</span>
+              </b>{" "}
+              {subfieldMontagePicaPlus.map((mont) => mont)}
+            </p>
+          );
+        } else {
+          montagePica3.push(
+            <p key={statement_key}>
+              <b key={statement_key} className="tooltip">
+                {field_format["PICA3"]}
+                <span className="tooltiptext">{field_label}</span>
+              </b>{" "}
+              {occurrence.value}
+            </p>
+          );
+          montagePicaPlus.push(
+            <p key={statement_key}>
+              <b key={statement_key} className="tooltip">
+                {field_format["PICA+"]}
+                <span className="tooltiptext">{field_label}</span>
+              </b>{" "}
+              {occurrence.value}
+            </p>
+          );
+        }
+      });
+    }
   });
   // Include reference to corresponding wikibase example item
   let link = "https://doku.wikibase.wiki/wiki/item:" + props.id;
@@ -301,7 +303,7 @@ function ExampleBox(props) {
         </a>
       </p>
       {description.map((descr) => descr)}
-      {montageFormatNeutral.map((mont) => mont)}
+      {montageFormatNeutral?.map((mont) => mont)}
       <div className={styles.clearfix}>
         <div className={styles.box}>
           {
@@ -309,7 +311,7 @@ function ExampleBox(props) {
               <p className={styles.boxtitle}>
                 <b>PICA3</b>
               </p>
-              {montagePica3.map((mont) => mont)}
+              {montagePica3?.map((mont) => mont)}
             </>
           }
         </div>
@@ -319,7 +321,7 @@ function ExampleBox(props) {
               <p className={styles.boxtitle}>
                 <b>PICA+</b>
               </p>
-              {montagePicaPlus.map((mont) => mont)}
+              {montagePicaPlus?.map((mont) => mont)}
             </>
           }
         </div>

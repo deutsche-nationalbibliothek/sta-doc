@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Statement } from "@/types/entity";
 import { Item } from "@/types/item";
 import { Property } from "@/types/property";
@@ -5,21 +6,25 @@ import Link from "next/link";
 import React from "react";
 import Examples from "../fields/Examples";
 import Elements from "../fields/elements";
-// import Elements from "../fields/elements";
 import Header from "../layout/header";
 import Occurance from "./occurance";
 
 interface Props {
   statement: Statement;
   headerLevel: number;
+  elementOf: string;
   index: number;
 }
 
 export default function StatementComp({
   statement,
   headerLevel,
+  elementOf,
   index,
 }: Props) {
+  const { query } = useRouter();
+  const applicationProfile = query.path;
+  console.log("appProf", applicationProfile);
   function handleStatementLists(statement) {
     // TODO try the reduce arr method to rearrange the occurrences array
     // const initialOcc = [];
@@ -76,7 +81,7 @@ export default function StatementComp({
     statement.id !== Property.description &&
     statement.id !== Property["embeddedin(item)"] &&
     statement.id !== Property["embeddedin(property)"] &&
-    statement.id !== Property.elements &&
+    // statement.id !== Property.elements &&
     statement.id !== Property["description(attheend)"];
   const statementElements = statement.id === Property.elements;
 
@@ -104,7 +109,7 @@ export default function StatementComp({
       {statement.id !== Property.elements &&
         statement.occurrences.map((occ: any, index: number) => (
           <Occurance
-            key={occ.id}
+            key={`${index}-${occ.id}`}
             occurance={occ}
             headerLevel={headerLevel}
             index={index}

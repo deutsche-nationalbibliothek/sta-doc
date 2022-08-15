@@ -1,8 +1,8 @@
+import React, { Fragment } from "react";
+import Link from "next/link";
 import { Statement } from "@/types/entity";
 import { Property } from "@/types/property";
 import { Item } from "@/types/item";
-import Link from "next/link";
-import React, { Fragment } from "react";
 import Collapsible from "react-collapsible";
 import HtmlReactParser from "html-react-parser";
 import Detail from ".";

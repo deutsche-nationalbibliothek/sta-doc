@@ -22,6 +22,7 @@ export default function Detail({
   ressourceTypePage = false,
 }: Props) {
   const { query } = useRouter();
+  // const elementOf = entity.statements.elementof.occurrences[0].label;
   const groups = groupStatements(entity);
 
   return (
@@ -83,25 +84,21 @@ export default function Detail({
       )}
       <br></br>
       {entity.statements.definition &&
-        entity.statements.definition.occurrences.map((occ) =>
-          HtmlReactParser(`<p>${occ.value}</p>`)
+        entity.statements.definition.occurrences.map((occ, index) =>
+          HtmlReactParser(`<p key=${index}>${occ.value}</p>`)
         )}
-      {groups && !query.view ? (
+      {groups && (
         <>
           <Table entity={entity} statements={groups.table} />
           {groups.rest.map((statement, index) => (
             <Statement
               key={index}
               statement={statement}
+              elementOf={""}
               index={index}
               headerLevel={headerLevel + 1}
             />
           ))}
-        </>
-      ) : (
-        <>
-          <br></br>
-          <p className={"bold"}>Content for Application Profile</p>
         </>
       )}
     </>
