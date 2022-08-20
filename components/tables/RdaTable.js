@@ -5,7 +5,6 @@ import { COLUMNS } from "./RdaTableColumns";
 import styles from "./RdaTable.module.css";
 
 export default function RdaTable(props) {
-  const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => props.data, []);
 
   const tableInstance = useTable(

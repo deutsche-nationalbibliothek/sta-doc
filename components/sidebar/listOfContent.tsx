@@ -5,14 +5,14 @@ interface Props {
 export default function ListOfContent({ anchors }: Props) {
   console.log("anchors", anchors);
   const anchs = anchors;
-  let lastAnchorLevel = 1;
+  const lastAnchorLevel = 1;
   const nestedArr = recursiveNestedArray(anchs, lastAnchorLevel);
-  console.log("nestedArr", nestedArr);
+  // console.log("nestedArr", nestedArr);
   return null;
 }
 
 function recursiveNestedArray(anchs, lastAnchorLevel) {
-  let arr = [];
+  const arr = [];
   //  Array.from(document.querySelectorAll(".header1,.header2"))
   // anchs.map((anchor, index) => {
   //   let level = parseInt(anchor.id.substring(anchor.id.indexOf("-") + 1));

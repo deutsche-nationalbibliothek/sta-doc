@@ -390,7 +390,7 @@ export enum Property {
   "embeddedin(property)" = "P397",
   "employee" = "P414",
   "entitytype/domain" = "P124",
-  "examples" = "P11",
+  "example(s)" = "P11",
   "formatneutrallabel" = "P440",
   "haselement(item)" = "P115",
   "haselement(property)" = "P116",
@@ -427,4 +427,5 @@ export enum Property {
   "variantnameoffamily" = "P415",
   "versionnumber" = "P129",
   "elements" = "P637",
+  "introductiontext" = "P644",
 }

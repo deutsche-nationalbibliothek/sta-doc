@@ -2,10 +2,10 @@ import Head from "next/head";
 import Layout from "@/components/layout/layout";
 import { Item } from "@/types/item";
 import Sidebar from "@/components/sidebar/sidebar";
+import labelen from "@/data/labelen.json";
 import * as sparql from "@/lib/sparql";
-import { getElements, sortStatements, getEntity } from "@/lib/api";
+import { getElements, readLabelEn, getEntity } from "@/lib/api";
 import TopNavigation from "@/components/layout/topNavigation";
-// import GeneralDetail from "@/components/general/GeneralDetail";
 import Details from "@/components/details";
 
 export default function Entry({ entry }) {
@@ -16,6 +16,7 @@ export default function Entry({ entry }) {
   const ressourceTypePage =
     entry.statements.elements &&
     entry.statements.elementof.occurrences[0].id === Item["rda-ressourcetype"];
+  console.log("id", entry.id, entry.label);
 
   return (
     <>
@@ -26,9 +27,8 @@ export default function Entry({ entry }) {
       <section className={"entry-content"}>
         {/* todo, sortStatements in api call */}
         <Details
-          entity={{
+          entry={{
             ...entry,
-            statements: sortStatements(entry.statements),
           }}
           ressourceTypePage={ressourceTypePage}
         />
@@ -37,11 +37,7 @@ export default function Entry({ entry }) {
   );
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=100, stale-while-revalidate=100"
-  );
+export async function getStaticProps({ params }) {
   // get API data
   const entryId = params.entryId;
   const entry = await getEntity(entryId);
@@ -56,36 +52,20 @@ export async function getServerSideProps({ params, res }) {
     props: {
       entry: { ...entry },
     },
+    // revalidate: 10, // In seconds
   };
 }
 
-// export async function getStaticProps({ params }) {
-//   // get API data
-//   const entryId = params.entryId;
-//   const entry = await getEntity(entryId);
-
-//   if (!entry) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: {
-//       entry: { ...entry },
-//     },
-//   };
-// }
-
-// export async function getStaticPaths() {
-//   const entrys = await getElements(sparql.ENTRIES);
-//   return {
-//     paths: Object.keys(entrys).map((id) => ({
-//       params: { entryId: id.toString() },
-//     })),
-//     fallback: true,
-//   };
-// }
+export async function getStaticPaths() {
+  // const entrys = await getElements(sparql.ENTRIES);
+  const entries = await readLabelEn(labelen);
+  return {
+    paths: Object.keys(entries).map((id) => ({
+      params: { entryId: id.toString() },
+    })),
+    fallback: true,
+  };
+}
 
 Entry.getLayout = function getLayout(page) {
   return (

@@ -10,7 +10,7 @@ export default function GNDHomePage(props) {
   // const json = props.json;
   // const title = props.title;
   // const image =
-  // "https://doku.wikibase.wiki/w/thumb.php?f=GND_RGB.jpg&width=200";
+  // "https://doku.wikibase.wiki/w/thumb.php?f=Akteure.jpg&width=200";
   // const htmlparser2 = require("htmlparser2");
   // const dom = htmlparser2.parseDocument(props.parser);
   // const tag_list = [];

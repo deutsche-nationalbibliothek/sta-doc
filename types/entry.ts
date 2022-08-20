@@ -1,4 +1,4 @@
-export default interface Entity {
+export default interface Entry {
   id: string;
   label: string;
   entitycounter: number;
@@ -30,7 +30,10 @@ export interface Schema {
 export interface Occurrence {
   id: string;
   label: string;
-  link: string;
+  link?: string;
+  value?: string;
+  qualifiers?: any;
+  references?: any;
 }
 
 export interface Definition {

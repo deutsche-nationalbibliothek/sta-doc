@@ -14,7 +14,7 @@ export const COLUMNS = [
   },
   {
     Header: "Entitätstyp",
-    accessor: "statements.entitytype/domain.occurrences[0].label",
+    accessor: "domainLabel",
     sorttype: "basic",
   },
   {

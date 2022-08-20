@@ -10,7 +10,7 @@ export default function Sidebar({ active }) {
   const router = useRouter();
   const { anchors } = useAnchor();
   const elementOf =
-    active?.props?.field?.statements?.elementof?.occurrences[0].id;
+    active?.props?.entry?.statements?.elementof?.occurrences[0].id;
 
   return (
     <>
@@ -52,18 +52,8 @@ export default function Sidebar({ active }) {
         </Link>
         {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
         {(elementOf === Item.rdaproperty ||
-          elementOf === Item["rda-ressourcetype"]) && <TOC />}
-        {/* <Link href={"/content"}> */}
-        {/*   <a */}
-        {/*     className={ */}
-        {/*       router.pathname.startsWith("/content") */}
-        {/*         ? `${styles.content}` */}
-        {/*         : `${styles.navButtons}` */}
-        {/*     } */}
-        {/*   > */}
-        {/*     Handbuch Inhaltserschließung */}
-        {/*   </a> */}
-        {/* </Link> */}
+          elementOf === Item["rda-ressourcetype"] ||
+          elementOf === Item.rdaguidance) && <TOC />}
         <Link href={"/gnd"}>
           <a
             className={

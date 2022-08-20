@@ -1,6 +1,22 @@
 import styles from "./Examples.module.css";
 import Description from "./Description.js";
 
+export default function Examples({ examples }) {
+  if (examples) {
+    return (
+      <>
+        <div className={styles.examples}>
+          {examples.occurrences.map((example, index) => (
+            <ExampleBox key={example.id} listId={index + 1} {...example} />
+          ))}
+        </div>
+      </>
+    );
+  } else {
+    return null;
+  }
+}
+
 function ExampleBox(props) {
   // sorting statements for correct order
   var template = [
@@ -328,20 +344,4 @@ function ExampleBox(props) {
       </div>
     </>
   );
-}
-
-export default function Examples({ examples }) {
-  if (examples) {
-    return (
-      <>
-        <div className={styles.examples}>
-          {examples.occurrences.map((example, index) => (
-            <ExampleBox key={example.id} listId={index + 1} {...example} />
-          ))}
-        </div>
-      </>
-    );
-  } else {
-    return null;
-  }
 }

@@ -1,10 +1,11 @@
 import { Fragment } from "react";
+import HtmlReactParser from "html-react-parser";
 import styles from "./References.module.css";
 
 function ReferenceBox(props) {
   const referenceMap = {
     url: (ref) => <a href={ref.value}>{ref.value}</a>,
-    default: (ref) => <p>{ref.value}</p>,
+    default: (ref) => HtmlReactParser(`<p>${ref.value}</p>`),
   };
   return (
     <div className={styles.div}>

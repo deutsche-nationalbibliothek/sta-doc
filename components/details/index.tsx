@@ -2,28 +2,30 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Statement from "@/components/details/statement";
 import Header from "@/components/layout/header";
-import Entity from "@/types/entity";
+import Entry from "@/types/entry";
 import { Item } from "@/types/item";
 import { Property } from "@/types/property";
+// import { getElements, sortStatements, getEntity } from "@/lib/api";
 import Table from "./table";
 import HtmlReactParser from "html-react-parser";
 
 interface Props {
-  entity: Entity;
+  entry: Entry;
   headerLevel: number;
   embedded: boolean;
   ressourceTypePage: boolean;
 }
 
 export default function Detail({
-  entity,
+  entry,
   headerLevel = 1,
   embedded = false,
   ressourceTypePage = false,
 }: Props) {
   const { query } = useRouter();
-  // const elementOf = entity.statements.elementof.occurrences[0].label;
-  const groups = groupStatements(entity);
+  console.log("entry, header", embedded);
+  // const elementOf = entry.statements.elementof.occurrences[0].label;
+  const groups = groupStatements(entry);
 
   return (
     <>
@@ -32,16 +34,16 @@ export default function Detail({
           <span className={"header"}>
             {!query.view ? (
               <Header
-                label={entity.label}
-                id={entity.id}
+                label={entry.label}
+                id={entry.id}
                 level={headerLevel}
                 editor={true}
                 embedded={embedded}
               />
             ) : (
               <Header
-                label={`Application Profile: ${entity.label}`}
-                id={`Application Profile: ${entity.label}`}
+                label={`Application Profile: ${entry.label}`}
+                id={`Application Profile: ${entry.label}`}
                 level={headerLevel}
                 editor={true}
                 embedded={embedded}
@@ -75,21 +77,21 @@ export default function Detail({
         </div>
       ) : (
         <Header
-          label={entity.label}
-          id={entity.id}
+          label={entry.label}
+          id={entry.id}
           level={headerLevel}
           editor={true}
           embedded={embedded}
         />
       )}
       <br></br>
-      {entity.statements.definition &&
-        entity.statements.definition.occurrences.map((occ, index) =>
+      {entry.statements.definition &&
+        entry.statements.definition.occurrences.map((occ, index) =>
           HtmlReactParser(`<p key=${index}>${occ.value}</p>`)
         )}
       {groups && (
         <>
-          <Table entity={entity} statements={groups.table} />
+          <Table entity={entry} statements={groups.table} />
           {groups.rest.map((statement, index) => (
             <Statement
               key={index}
@@ -118,7 +120,7 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property.examples,
+      Property["example(s)"],
       Property.authorizations,
     ],
   },
@@ -133,7 +135,7 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property.examples,
+      Property["example(s)"],
     ],
   },
   [Item["gndentitytype:entityencoding"]]: {
@@ -149,7 +151,7 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property.examples,
+      Property["example(s)"],
       Property.applicablefordatafield,
       Property.applicablefortypeofentity,
     ],
@@ -179,7 +181,7 @@ const groupsDefinition = {
       Property.specialrules,
       Property.specificrules,
       Property.permitedvalues,
-      Property.examples,
+      Property["example(s)"],
     ],
   },
   [Item["rda-ressourcetype"]]: {
@@ -189,6 +191,7 @@ const groupsDefinition = {
     restProperties: [
       Property.description,
       Property.elements,
+      Property.sourcesofinformation,
       Property["description(attheend)"],
     ],
   },
@@ -206,42 +209,42 @@ const groupsDefinition = {
   },
 };
 
-const groupStatements = (entity: Entity) => {
-  const relevantKey = entity.statements.elementof?.occurrences[0].id;
+const groupStatements = (entry: Entry) => {
+  const relevantKey = entry.statements.elementof?.occurrences[0].id;
   if (groupsDefinition[relevantKey]) {
     return {
-      table: Object.keys(entity.statements)
+      table: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition[relevantKey].tableProperties.find(
-            (tProp: any) => entity.statements[key].id === tProp
+            (tProp: any) => entry.statements[key].id === tProp
           )
         )
-        .map((key) => entity.statements[key]),
-      rest: Object.keys(entity.statements)
+        .map((key) => entry.statements[key]),
+      rest: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition[relevantKey].restProperties.find(
-            (rProp: any) => entity.statements[key].id === rProp
+            (rProp: any) => entry.statements[key].id === rProp
           )
         )
-        .map((key) => entity.statements[key]),
+        .map((key) => entry.statements[key]),
     };
   } else {
     return {
-      table: Object.keys(entity.statements)
+      table: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition["default-template"].tableProperties.find(
-            (tProp: any) => entity.statements[key].id === tProp
+            (tProp: any) => entry.statements[key].id === tProp
           )
         )
-        .map((key) => entity.statements[key]),
-      rest: Object.keys(entity.statements)
+        .map((key) => entry.statements[key]),
+      rest: Object.keys(entry.statements)
         .filter(
           (key) =>
             !groupsDefinition["default-template"].ignoreProperties.find(
-              (rProp: any) => entity.statements[key].id === rProp
+              (rProp: any) => entry.statements[key].id === rProp
             )
         )
-        .map((key) => entity.statements[key]),
+        .map((key) => entry.statements[key]),
     };
   }
 };

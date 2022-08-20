@@ -126,7 +126,6 @@ function H({
         className={entry.id === inView ? "TOCactive" : undefined}
         ref={aRef}
         onClick={() => {
-          console.log("entry", aRef.current);
           onClick();
         }}
       >

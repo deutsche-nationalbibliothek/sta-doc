@@ -1,7 +1,6 @@
 import Layout from "@/components/layout/layout";
 import Sidebar from "@/components/sidebar/sidebar";
 import Head from "next/head";
-import * as sparql from "@/lib/sparql";
 import { getRdaProperties } from "@/lib/api";
 import RdaNavigation from "@/components/layout/RdaNavigation";
 import RdaTable from "@/components/tables/RdaTable";

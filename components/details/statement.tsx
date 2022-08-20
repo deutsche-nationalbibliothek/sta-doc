@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Statement } from "@/types/entity";
+import { Statement } from "@/types/entry";
 import { Item } from "@/types/item";
 import { Property } from "@/types/property";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export default function StatementComp({
 }: Props) {
   const { query } = useRouter();
   const applicationProfile = query.path;
-  console.log("appProf", applicationProfile);
+
   function handleStatementLists(statement) {
     // TODO try the reduce arr method to rearrange the occurrences array
     // const initialOcc = [];
@@ -109,7 +109,7 @@ export default function StatementComp({
       {statement.id !== Property.elements &&
         statement.occurrences.map((occ: any, index: number) => (
           <Occurance
-            key={`${index}-${occ.id}`}
+            key={`${index}`}
             occurance={occ}
             headerLevel={headerLevel}
             index={index}

@@ -1,13 +1,15 @@
-import { Statement } from "@/types/entity";
+import { Statement } from "@/types/entry";
 import { Item } from "@/types/item";
 import Header from "../layout/header";
 import HtmlReactParser from "html-react-parser";
+import CollapsibleWithPreview from "./collapsibleWithPreview";
 import Collapsible from "react-collapsible";
 
 interface Occurance {
   id: string;
   label: string;
   link: string;
+  statement: Statement;
   qualifiers?: string;
   value?: string;
   references?: any;
@@ -15,24 +17,27 @@ interface Occurance {
 
 export default {
   [Item["collapsible-collapsed"]]: (occurance: Occurance) => (
-    <>
-      <Collapsible
-        key={occurance.id}
-        openedClassName={"CollapsibleOpenRda"}
-        open={true}
-        overflowWhenOpen={"unset"}
-        trigger={<span>Weiterführende Informationen &#8744; </span>}
-        triggerWhenOpen={<span>&#8743; </span>}
-        triggerClassName={"CollapsibleClosedRda"}
-        triggerOpenedClassName={"CollapsibleTriggerOpen"}
-        triggerElementProps={{
-          id: `Collapsible-${occurance.label}`,
-        }}
-      >
-        {HtmlReactParser(`<div>${occurance.value}</div>`)}
-      </Collapsible>
-    </>
+    <CollapsibleWithPreview occurance={occurance} />
   ),
+  // [Item["collapsible-collapsed"]]: (occurance: Occurance) => (
+  //   <>
+  //     <Collapsible
+  //       key={occurance.id}
+  //       openedClassName={"CollapsibleOpenRda"}
+  //       open={true}
+  //       overflowWhenOpen={"unset"}
+  //       trigger={<span>Weiterführende Informationen &#8744; </span>}
+  //       triggerWhenOpen={<span>&#8743; </span>}
+  //       triggerClassName={"CollapsibleClosedRda"}
+  //       triggerOpenedClassName={"CollapsibleTriggerOpen"}
+  //       triggerElementProps={{
+  //         id: `Collapsible-${occurance.label}`,
+  //       }}
+  //     >
+  //       {HtmlReactParser(`<div>${occurance.value}</div>`)}
+  //     </Collapsible>
+  //   </>
+  // ),
   [Item["example(typeoflayout)"]]: (occurance: Occurance) =>
     HtmlReactParser(`<p class="example">${occurance.value}</p>`),
   [Item.italic]: (occurance: Occurance) => (

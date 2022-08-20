@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Link from "next/link";
-import { Statement } from "@/types/entity";
+import { Statement } from "@/types/entry";
 import { Property } from "@/types/property";
 import { Item } from "@/types/item";
 import Collapsible from "react-collapsible";
@@ -50,7 +50,7 @@ export default function Occurance({
         statement.id !== Property.subfields &&
         statement.id !== Property.datafields &&
         statement.id !== Property.elements &&
-        statement.id !== Property.examples && (
+        statement.id !== Property["example(s)"] && (
           <p className={"bold"}>
             &ensp;&ensp;&rArr;&ensp;
             <Link href={occurance.link}>
@@ -96,43 +96,46 @@ export default function Occurance({
                   )}
                 {(qualifier.id === Property["embedded(item)"] ||
                   qualifier.id === Property["embedded(property)"]) &&
+                  qualifier.occurrences.length > 0 &&
                   qualifier.occurrences.map((quali: any) => (
-                    <Collapsible
-                      key={index}
-                      openedClassName={
-                        quali.statements.elementof.occurrences[0].id ===
-                          Item.gnddatafield
-                          ? "CollapsibleOpenGnd"
-                          : "CollapsibleOpenRda"
-                      }
-                      open={true}
-                      overflowWhenOpen={"unset"}
-                      trigger={
-                        <span>Weiterführende Informationen &#8744; </span>
-                      }
-                      triggerWhenOpen={<span>&#8743; </span>}
-                      triggerClassName={
-                        quali.statements.elementof.occurrences[0].id ===
-                          Item.gnddatafield
-                          ? "CollapsibleClosedGnd"
-                          : "CollapsibleClosedRda"
-                      }
-                      triggerOpenedClassName={"CollapsibleTriggerOpen"}
-                      triggerElementProps={{
-                        id: `Collapsible-${quali.label}`,
-                      }}
-                    >
-                      {
-                        <Detail
-                          entity={quali}
-                          headerLevel={headerLevel + 1}
-                          embedded={true}
-                          ressourceTypePage={false}
-                        />
-                      }
-                    </Collapsible>
+                    <>
+                      <Collapsible
+                        key={index}
+                        openedClassName={
+                          quali.statements.elementof.occurrences[0].id ===
+                            Item.gnddatafield
+                            ? "CollapsibleOpenGnd"
+                            : "CollapsibleOpenRda"
+                        }
+                        open={true}
+                        overflowWhenOpen={"unset"}
+                        trigger={
+                          <span>Weiterführende Informationen &#8744; </span>
+                        }
+                        triggerWhenOpen={<span>&#8743; </span>}
+                        triggerClassName={
+                          quali.statements.elementof.occurrences[0].id ===
+                            Item.gnddatafield
+                            ? "CollapsibleClosedGnd"
+                            : "CollapsibleClosedRda"
+                        }
+                        triggerOpenedClassName={"CollapsibleTriggerOpen"}
+                        triggerElementProps={{
+                          id: `Collapsible-${quali.label}`,
+                        }}
+                      >
+                        {
+                          <Detail
+                            entry={quali}
+                            headerLevel={headerLevel + 1}
+                            embedded={true}
+                            ressourceTypePage={false}
+                          />
+                        }
+                      </Collapsible>
+                    </>
                   ))}
-                {qualifier.id === Property.examples && (
+                {qualifier.id === Property["example(s)"] && (
                   <>
                     <p className={"bold"}>{qualifier.label}: </p>
                     <Examples examples={qualifier} />
@@ -149,19 +152,20 @@ export default function Occurance({
                           </Link>
                         </p>
                       ) : (
-                        <p key={quali.label}>{quali.value}</p>
+                        HtmlReactParser(`<p>${quali.value}</p>`)
                       )
                     )}
                   </>
                 )}
                 {qualifier.id !== Property.typeoflayout &&
+                  qualifier.id !== Property.introductiontext &&
                   qualifier.id !== Property["see(item)"] &&
                   qualifier.id !== Property["see(property)"] &&
                   qualifier.id !== Property["typeoflayout(embeddedelement)"] &&
                   qualifier.id !== Property["embedded(item)"] &&
                   qualifier.id !== Property["embedded(property)"] &&
                   qualifier.id !== Property.description &&
-                  qualifier.id !== Property.examples && (
+                  qualifier.id !== Property["example(s)"] && (
                     <>
                       <p className={"bold"}>{qualifier.label}: </p>
                       {qualifier.occurrences.map((quali: any) =>
