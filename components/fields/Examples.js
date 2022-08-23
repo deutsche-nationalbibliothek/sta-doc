@@ -3,6 +3,7 @@ import Description from "./Description.js";
 
 export default function Examples({ examples }) {
   if (examples) {
+    console.log("examples", examples);
     return (
       <>
         <div className={styles.examples}>

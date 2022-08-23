@@ -23,8 +23,8 @@ export default function Detail({
   ressourceTypePage = false,
 }: Props) {
   const { query } = useRouter();
-  console.log("entry, header", embedded);
   // const elementOf = entry.statements.elementof.occurrences[0].label;
+  console.log('elements',entry.statements.elements)
   const groups = groupStatements(entry);
 
   return (
@@ -161,8 +161,9 @@ const groupsDefinition = {
       // todo, add later
     ],
     restProperties: [
-      Property["embedded(property)"],
-      Property["embeddedin(item)"],
+      // Property["embedded(property)"],
+      // Property["embeddedin(item)"],
+      // Property["embeddedin(property)"],
       Property.description,
     ],
   },

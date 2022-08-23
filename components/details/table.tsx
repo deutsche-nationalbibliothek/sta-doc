@@ -1,4 +1,4 @@
-import { Property } from "@/types/property";
+// import { Property } from "@/types/property";
 import CodingTable from "@/components/tables/CodingTable";
 import RdaDetailTable from "@/components/tables/RdaDetailTable";
 import { Item } from "@/types/item";

@@ -17,9 +17,17 @@ export interface Statements {
   recordingmethod: Recordingmethod;
   elementof: Elementof6;
   subproperties?: Subproperties;
+  elements: Elements;
 }
 
 export type Statement = Statements[keyof Statements];
+
+export interface Elements {
+  id: string;
+  label: string;
+  link?: string;
+  occurrences: Occurrence[];
+}
 
 export interface Schema {
   id: string;

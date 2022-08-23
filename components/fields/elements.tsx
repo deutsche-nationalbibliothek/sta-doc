@@ -78,7 +78,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                               key={index}
                               openedClassName={
                                 quali.statements.elementof.occurrences[0].id ===
-                                  Item.gnddatafield
+                                Item.gnddatafield
                                   ? "CollapsibleOpenGnd"
                                   : "CollapsibleOpenRda"
                               }
@@ -92,7 +92,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                               triggerWhenOpen={<span>&#8743; </span>}
                               triggerClassName={
                                 quali.statements.elementof.occurrences[0].id ===
-                                  Item.gnddatafield
+                                Item.gnddatafield
                                   ? "CollapsibleClosedGnd"
                                   : "CollapsibleClosedRda"
                               }
@@ -103,7 +103,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                             >
                               {
                                 <Detail
-                                  entity={quali}
+                                  entry={quali}
                                   headerLevel={headerLevel + 2}
                                   embedded={true}
                                   ressourceTypePage={false}
@@ -120,7 +120,6 @@ export default function Elements({ elements, headerLevel }: Props) {
         )
       ) : (
         <>
-          <p>Application Profile</p>
           <DataGrid
             id="gridContainer"
             dataSource={elementsDataGrid}
