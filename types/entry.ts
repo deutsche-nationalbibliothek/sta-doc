@@ -3,6 +3,7 @@ export default interface Entry {
   label: string;
   entitycounter: number;
   description: string;
+  error?: string;
   statements: Statements;
 }
 
@@ -18,9 +19,17 @@ export interface Statements {
   elementof: Elementof6;
   subproperties?: Subproperties;
   elements: Elements;
+  logo: Logo;
 }
 
 export type Statement = Statements[keyof Statements];
+
+export interface Logo {
+  id: string;
+  label: string;
+  link?: string;
+  occurrences: Occurrence[];
+}
 
 export interface Elements {
   id: string;

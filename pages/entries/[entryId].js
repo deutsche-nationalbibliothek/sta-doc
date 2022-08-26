@@ -16,7 +16,6 @@ export default function Entry({ entry }) {
   const ressourceTypePage =
     entry.statements.elements &&
     entry.statements.elementof.occurrences[0].id === Item["rda-ressourcetype"];
-  console.log("id", entry.id, entry.label);
 
   return (
     <>
@@ -57,11 +56,13 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  // const entrys = await getElements(sparql.ENTRIES);
   const entries = await readLabelEn(labelen);
+  const subsetOfEntries = Object.entries(entries).filter(
+    (entry) => entry[1].assignmentId !== Item["stadocumentation:example"]
+  );
   return {
-    paths: Object.keys(entries).map((id) => ({
-      params: { entryId: id.toString() },
+    paths: subsetOfEntries.map((entry) => ({
+      params: { entryId: entry[0].toString() },
     })),
     fallback: true,
   };

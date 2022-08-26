@@ -37,7 +37,6 @@ export default function StatementComp({
     //   },
     //   initialOcc
     // );
-
     const lists = {};
     let firstIndex = 0;
     statement.occurrences.map((occ, index) => {
@@ -52,7 +51,6 @@ export default function StatementComp({
           const { typeoflayout, ...rest } = occ.qualifiers;
           sublist = rest;
         }
-
         if (currentId === Item["enumeration,uncounted"]) {
           if (firstIndex === 0) {
             firstIndex = index;
@@ -93,7 +91,9 @@ export default function StatementComp({
       {statementElements && (
         <Elements elements={statement} headerLevel={headerLevel} />
       )}
-      {statement.id === Property.examples && <Examples examples={statement} />}
+      {statement.id === Property["example(s)"] && (
+        <Examples examples={statement} />
+      )}
       {(statement.id === Property["embeddedin(property)"] ||
         statement.id === Property["embeddedin(item)"]) &&
         statement.occurrences.map((occ: any) => (

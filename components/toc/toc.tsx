@@ -198,7 +198,9 @@ function getNestedHeadings(headings: readonly HTMLHeadingElement[]): HEntry[] {
       let last = traversalStack[traversalStack.length - 1];
       hLevel <= last.level;
       traversalStack.pop(), last = traversalStack[traversalStack.length - 1]
-    ) { }
+    ) {
+      continue;
+    }
     const last = traversalStack[traversalStack.length - 1];
     last.items = last.items || [];
     last.items.push({
@@ -217,13 +219,13 @@ function level(e: HTMLHeadingElement): number {
 }
 
 function getCollapsibleParentIds(elem) {
-  let parents = [];
+  const parents = [];
   while (
     elem.parentNode &&
     elem.parentNode.nodeName.toLowerCase() != "section"
   ) {
     elem = elem.parentNode;
-    let ref = elem.parentNode.firstChild.id || "";
+    const ref = elem.parentNode.firstChild.id || "";
     if (ref.indexOf("Collapsible-") > -1) {
       parents.push(ref);
     }

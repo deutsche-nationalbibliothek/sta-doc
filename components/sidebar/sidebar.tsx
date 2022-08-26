@@ -9,6 +9,7 @@ import styles from "./sidebar.module.css";
 export default function Sidebar({ active }) {
   const router = useRouter();
   const { anchors } = useAnchor();
+  const schema = active?.props?.entry?.statements?.schema?.occurrences[0].id;
   const elementOf =
     active?.props?.entry?.statements?.elementof?.occurrences[0].id;
 
@@ -41,8 +42,10 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/rda") ||
+                schema === Item["rda-documentation"] ||
                 elementOf === Item.rdaproperty ||
-                elementOf === Item["stadocumentation:rules"]
+                elementOf === Item["stadocumentation:rules"] ||
+                elementOf === Item.rdaguidance
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
             }
@@ -51,7 +54,9 @@ export default function Sidebar({ active }) {
           </a>
         </Link>
         {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
-        {(elementOf === Item.rdaproperty ||
+        {(
+          schema === Item["rda-documentation"] ||
+          elementOf === Item.rdaproperty ||
           elementOf === Item["rda-ressourcetype"] ||
           elementOf === Item.rdaguidance) && <TOC />}
         <Link href={"/gnd"}>

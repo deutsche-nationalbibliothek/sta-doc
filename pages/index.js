@@ -45,7 +45,7 @@ export async function getStaticProps() {
 HomePage.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar active={page} />
       {page}
     </Layout>
   );

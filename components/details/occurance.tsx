@@ -97,6 +97,7 @@ export default function Occurance({
                 {(qualifier.id === Property["embedded(item)"] ||
                   qualifier.id === Property["embedded(property)"]) &&
                   qualifier.occurrences.length > 0 &&
+                  !qualifier.occurrences[0].error &&
                   qualifier.occurrences.map((quali: any) => (
                     <>
                       <Collapsible
@@ -141,22 +142,23 @@ export default function Occurance({
                     <Examples examples={qualifier} />
                   </>
                 )}
-                {qualifier.id === Property.description && (
-                  <>
-                    {qualifier.occurrences.map((quali: any) =>
-                      quali.id ? (
-                        <p key={quali.label} className={"bold"}>
-                          &ensp;&ensp;&rArr;&ensp;
-                          <Link href={quali.link || ""}>
-                            <a>{quali.label}</a>
-                          </Link>
-                        </p>
-                      ) : (
-                        HtmlReactParser(`<p>${quali.value}</p>`)
-                      )
-                    )}
-                  </>
-                )}
+                {(qualifier.id === Property.description ||
+                  qualifier.id === Property["description(attheend)"]) && (
+                    <>
+                      {qualifier.occurrences.map((quali: any) =>
+                        quali.id ? (
+                          <p key={quali.label} className={"bold"}>
+                            &ensp;&ensp;&rArr;&ensp;
+                            <Link href={quali.link || ""}>
+                              <a>{quali.label}</a>
+                            </Link>
+                          </p>
+                        ) : (
+                          HtmlReactParser(`<p>${quali.value}</p>`)
+                        )
+                      )}
+                    </>
+                  )}
                 {qualifier.id !== Property.typeoflayout &&
                   qualifier.id !== Property.introductiontext &&
                   qualifier.id !== Property["see(item)"] &&
@@ -165,6 +167,7 @@ export default function Occurance({
                   qualifier.id !== Property["embedded(item)"] &&
                   qualifier.id !== Property["embedded(property)"] &&
                   qualifier.id !== Property.description &&
+                  qualifier.id !== Property["description(attheend)"] &&
                   qualifier.id !== Property["example(s)"] && (
                     <>
                       <p className={"bold"}>{qualifier.label}: </p>

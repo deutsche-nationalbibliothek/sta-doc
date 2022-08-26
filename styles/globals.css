@@ -203,13 +203,14 @@ header {
 .TOCactive {
   background: #faf0be;
 }
-.example {
+.example-typeoflayout {
   height: auto;
-  padding: 2px;
-  margin: 2px 0.5em 2px 0.5em;
-  border: 1px solid #000;
-  background-color: #ffc;
-  vertical-align: text-top;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+  background-color: #f8f1e2;
+  /* vertical-align: text-top; */
 }
 .Button {
   background-color: #fdd85b;
@@ -222,24 +223,6 @@ header {
 .Button:hover {
   background-color: #4caf50; /* Green */
   color: white;
-}
-.title {
-  display: block;
-  /* border-top: 5px solid #969696; */
-  /* background-color: #76db95; */
-  height: 40px;
-  line-height: 30px;
-  padding: 4px 6px;
-  /* font-size: 16px; */
-  /* color: #000000; */
-  margin-bottom: 13px;
-  clear: both;
-}
-.title .header {
-  float: left;
-}
-.title .button {
-  float: right;
 }
 #gridContainer {
   height: 640px;
@@ -282,4 +265,35 @@ summary {
 }
 .collapse-module a:not(.collapsed):after {
   content: "- Zuklappen -";
+}
+.title {
+  position: relative;
+  /* display: block; */
+  /* border-top: 5px solid #969696; */
+  /* background-color: #76db95; */
+  height: 40px;
+  line-height: 50px;
+  padding: 4px 6px;
+  /* font-size: 16px; */
+  /* color: #000000; */
+  margin-bottom: 13px;
+  clear: both;
+}
+/* .title .header { */
+/*   float: left; */
+/* } */
+.title .button {
+  float: right;
+}
+.headerlogo {
+  float: right;
+  overflow: hidden;
+  height: 70px;
+  align-items: center;
+}
+.penInHeader {
+  margin-left: 10px;
+}
+.inline-elements > * {
+  display: inline-block;
 }

@@ -38,8 +38,13 @@ export default {
   //     </Collapsible>
   //   </>
   // ),
-  [Item["example(typeoflayout)"]]: (occurance: Occurance) =>
-    HtmlReactParser(`<p class="example">${occurance.value}</p>`),
+  [Item["example(typeoflayout)"]]: (occurance: Occurance) => (
+    <>
+      <div className="example-typeoflayout">
+        {HtmlReactParser(`<p>${occurance.value}</p>`)}
+      </div>
+    </>
+  ),
   [Item.italic]: (occurance: Occurance) => (
     <p className={"italic"}>{occurance.value}</p>
   ),
@@ -118,7 +123,7 @@ function ItemList({ statement, index, itemId, occurance, groupedLists }) {
       {cond && (
         <ListContainer ordered={Item["enumeration,counted"] === itemId}>
           {groupedLists[index].map((listObject: any) => (
-            <li key={listObject.value}>{listObject.value}</li>
+            <li key={listObject.value}>{HtmlReactParser(`<p>${listObject.value}</p>`)}</li>
           ))}
         </ListContainer>
       )}

@@ -4,7 +4,17 @@ export default function RdaNavigation() {
   return (
     <topmenu>
       <nav className={"rda-color"}>
-        <Link href="/rda/properties">RDA-Elemente</Link>
+        <p>Formalerschließung [ </p>
+        <Link href="/entries/Q8566">Allgemeines</Link>
+        <p> | </p>
+        <Link href="/entries/Q8477">Erfassungsmethoden</Link>
+        <p> | </p>
+        <Link href="/rda/properties">Elemente</Link>
+        <p> | </p>
+        <Link href="/entries/Q8567">Ressourcentypen</Link>
+        <p> | </p>
+        <Link href="/entries/Q8568">Anwendungsprofile</Link>
+        <p> ] </p>
       </nav>
     </topmenu>
   );

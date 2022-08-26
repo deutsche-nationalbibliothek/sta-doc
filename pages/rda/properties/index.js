@@ -33,7 +33,7 @@ export async function getStaticProps() {
 RdaPropertiesPage.getLayout = function getLayout(page) {
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar active={page} />
       {page}
     </Layout>
   );

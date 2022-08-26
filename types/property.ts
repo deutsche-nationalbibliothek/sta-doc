@@ -428,4 +428,5 @@ export enum Property {
   "versionnumber" = "P129",
   "elements" = "P637",
   "introductiontext" = "P644",
+  "logo" = "P652",
 }

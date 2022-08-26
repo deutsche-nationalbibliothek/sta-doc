@@ -2,7 +2,13 @@
 /* box-sizing: border-box; */
 /* } */
 .examples {
-  margin-left: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.example {
+  margin-bottom: 15px;
+  border: 1px solid black;
+  background-color: #f8f1e2;
 }
 .box {
   /* position: relative; */

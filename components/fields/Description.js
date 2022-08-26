@@ -2,12 +2,15 @@ import Link from "next/link";
 import { Fragment } from "react";
 import styles from "./Description.module.css";
 import Collapsible from "react-collapsible";
+import HtmlReactParser from "html-react-parser";
 
 function DescriptionBox(props) {
   // console.log('props',props)
-  const description = props.statements.description?.occurrences.map((occ) => (
-    <p key={occ}>{occ.value}</p>
-  ));
+  const description = props.statements.description?.occurrences.map(
+    (occ, index) => (
+      <div key={index}>{HtmlReactParser(`<p>${occ.value}</p>`)}</div>
+    )
+  );
   if (description === undefined) {
     return null;
   } else {
@@ -36,7 +39,7 @@ export default function Description(props) {
   for (let i = 0; i < arr?.length; i++) {
     let qualifiers = arr[i].qualifiers;
     if (qualifiers === undefined) {
-      description_arr.push(<p key={i}>{arr[i].value}</p>);
+      description_arr.push(HtmlReactParser(`<p>${arr[i].value}</p>`));
     }
     if (qualifiers) {
       for (const [key, value] of Object.entries(qualifiers)) {

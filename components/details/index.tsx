@@ -10,22 +10,21 @@ import Table from "./table";
 import HtmlReactParser from "html-react-parser";
 
 interface Props {
+  embedded: boolean;
   entry: Entry;
   headerLevel: number;
-  embedded: boolean;
   ressourceTypePage: boolean;
 }
 
 export default function Detail({
+  embedded = false,
   entry,
   headerLevel = 1,
-  embedded = false,
   ressourceTypePage = false,
 }: Props) {
   const { query } = useRouter();
-  // const elementOf = entry.statements.elementof.occurrences[0].label;
-  console.log('elements',entry.statements.elements)
   const groups = groupStatements(entry);
+  const logo = entry.statements.logo && entry.statements.logo.occurrences[0].value || undefined
 
   return (
     <>
@@ -37,13 +36,14 @@ export default function Detail({
                 label={entry.label}
                 id={entry.id}
                 level={headerLevel}
+                logo={logo}
                 editor={true}
                 embedded={embedded}
               />
             ) : (
               <Header
-                label={`Application Profile: ${entry.label}`}
-                id={`Application Profile: ${entry.label}`}
+                label={`Anwendungsprofil: ${entry.label}`}
+                id={`Anwendungsprofil: ${entry.label}`}
                 level={headerLevel}
                 editor={true}
                 embedded={embedded}
@@ -60,7 +60,7 @@ export default function Detail({
                       query: { view: "application-profile" },
                     }}
                   >
-                    <a>Application Profile</a>
+                    <a>Anwendungsprofil</a>
                   </Link>
                 ) : (
                   <Link
@@ -68,7 +68,7 @@ export default function Detail({
                       pathname: `${query.entryId}`,
                     }}
                   >
-                    <a>Ressourcenbeschreibung</a>
+                    <a>Ressourcentypbeschreibung</a>
                   </Link>
                 )}
               </button>
@@ -206,6 +206,7 @@ const groupsDefinition = {
       Property.schema,
       Property.elementof,
       Property.definition,
+      Property.logo
     ],
   },
 };
