@@ -54,11 +54,7 @@ export default function Sidebar({ active }) {
           </a>
         </Link>
         {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
-        {(
-          schema === Item["rda-documentation"] ||
-          elementOf === Item.rdaproperty ||
-          elementOf === Item["rda-ressourcetype"] ||
-          elementOf === Item.rdaguidance) && <TOC />}
+        {schema === Item["rda-documentation"] && <TOC />}
         <Link href={"/gnd"}>
           <a
             className={
@@ -72,8 +68,7 @@ export default function Sidebar({ active }) {
             Handbuch GND
           </a>
         </Link>
-        {(elementOf === Item.gnddatafield ||
-          elementOf === Item.gndsubfield) && <TOC />}
+        {schema === Item.gnddatamodel && <TOC />}
         <p></p>
         <p></p>
         <p></p>

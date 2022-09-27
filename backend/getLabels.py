@@ -9,8 +9,6 @@ endpoint_url = "https://doku.wikibase.wiki/query/proxy/wdqs/bigdata/namespace/wd
 data_path = "/home/afs/Workspace/React/gnd-doc/data/"
 
 query_label_en = """
-    PREFIX wd: <http://www.wikidata.org/entity/>
-    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
     PREFIX p: <https://doku.wikibase.wiki/prop/>
@@ -19,7 +17,7 @@ query_label_en = """
     PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
     PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
     SELECT ?eId ?elementLabel ?assignmentId ?assignmentLabel WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
-        { ?element prop:P110 ?item . } #Schema
+        ?element rdfs:label ?type .
         OPTIONAL
         { ?element p:P2 ?assignmentProp .
         ?assignmentProp statement:P2 ?assignment . }
@@ -27,11 +25,9 @@ query_label_en = """
         BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
         BIND(STRAFTER(STR(?assignment), '/entity/') as ?assignmentId)
     }
-    ORDER BY ASC(?elementLabel) #LABELEN
+    ORDER BY ASC(?elementLabel)
 """
 query_label_de = """
-    PREFIX wd: <http://www.wikidata.org/entity/>
-    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
     PREFIX p: <https://doku.wikibase.wiki/prop/>
@@ -40,11 +36,11 @@ query_label_de = """
     PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
     PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
     SELECT ?eId ?elementLabel WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
-        { ?element prop:P110 ?item . } #Schema
+        ?element rdfs:label ?type .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
         BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
     }
-    ORDER BY ASC(?elementLabel) #LABELEN
+    ORDER BY ASC(?elementLabel)
 """
 
 
