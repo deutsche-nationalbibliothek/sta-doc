@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import classNames from "./toc.module.css";
 // import { UnfoldMore, UnfoldLess, Dismiss, Restore } from "./toc-buttons.js";
 
@@ -15,10 +16,16 @@ export default function TOC({
   postSelector?: string;
   headingSelector?: string;
 }) {
+  const router = useRouter();
+  const pathChange = router.asPath;
   postSelector = postSelector || ".entry-content";
   headingSelector = headingSelector || "header";
-  const { headings } = useHeadingsData(postSelector, headingSelector);
-  const { inViewId } = useInViewId(postSelector, headingSelector);
+  const { headings } = useHeadingsData(
+    postSelector,
+    headingSelector,
+    pathChange
+  );
+  const { inViewId } = useInViewId(postSelector, headingSelector, pathChange);
   const [expansion, setExpansion] = useState(State.Expanded);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -34,8 +41,8 @@ export default function TOC({
   };
 
   const expand = () => setExpansion(State.Expanded);
-  const normal = () => setExpansion(State.Normal);
-  const collapse = () => setExpansion(State.Collapsed);
+  // const normal = () => setExpansion(State.Normal);
+  // const collapse = () => setExpansion(State.Collapsed);
 
   return (
     <>
@@ -145,7 +152,11 @@ function H({
   );
 }
 
-function useInViewId(postSelector: string, headingSelector: string) {
+function useInViewId(
+  postSelector: string,
+  headingSelector: string,
+  pathChange: string
+) {
   const [inViewId, setInViewId] = useState<string | undefined>();
 
   useEffect(() => {
@@ -174,7 +185,7 @@ function useInViewId(postSelector: string, headingSelector: string) {
       observer.observe(el);
     }
     return () => observer.disconnect();
-  }, []);
+  }, [pathChange]);
 
   return { inViewId };
 }
@@ -238,7 +249,11 @@ function collapsiblesAbove(e: HTMLHeadingElement): any[] {
   return parents || [];
 }
 
-function useHeadingsData(postSelector: string, headingSelector: string) {
+function useHeadingsData(
+  postSelector: string,
+  headingSelector: string,
+  pathChange: string
+) {
   const [headings, setHeadings] = useState<HEntry[]>([]);
   useEffect(() => {
     const hs = getNestedHeadings(
@@ -249,6 +264,7 @@ function useHeadingsData(postSelector: string, headingSelector: string) {
       )
     );
     setHeadings(hs);
-  }, []);
+  }, [pathChange]);
+
   return { headings };
 }

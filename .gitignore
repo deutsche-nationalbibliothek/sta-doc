@@ -10,7 +10,7 @@ package-lock.json
 
 # testing
 /coverage
-/data
+# /data
 
 # next.js
 /.next/
