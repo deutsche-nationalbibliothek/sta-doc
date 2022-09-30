@@ -1,17 +1,21 @@
-import Link from "next/link";
-import { useAnchor } from "../../context/anchors";
-import { useRouter } from "next/router";
-import { Item } from "@/types/item";
-import ListOfContent from "./listOfContent";
-import TOC from "../toc/toc";
-import styles from "./sidebar.module.css";
+import Link from "next/link"
+import {useAnchor} from "../../context/anchors"
+import {useRouter} from "next/router"
+import {Item} from "@/types/item"
+import ListOfContent from "./listOfContent"
+import TOC from "../toc/toc"
+import styles from "./sidebar.module.css"
 
-export default function Sidebar({ active }) {
-  const router = useRouter();
-  const { anchors } = useAnchor();
-  const schema = active?.props?.entry?.statements?.schema?.occurrences[0].id;
+interface SideBarProps {
+  active?: any
+}
+
+export default function Sidebar({active}: SideBarProps) {
+  const router = useRouter()
+  const {anchors} = useAnchor()
+  const schema = active?.props?.entry?.statements?.schema?.occurrences[0].id
   const elementOf =
-    active?.props?.entry?.statements?.elementof?.occurrences[0].id;
+    active?.props?.entry?.statements?.elementof?.occurrences[0].id
 
   return (
     <>
@@ -42,10 +46,10 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/rda") ||
-                schema === Item["rda-documentation"] ||
-                elementOf === Item.rdaproperty ||
-                elementOf === Item["stadocumentation:rules"] ||
-                elementOf === Item.rdaguidance
+              schema === Item["rda-documentation"] ||
+              elementOf === Item.rdaproperty ||
+              elementOf === Item["stadocumentation:rules"] ||
+              elementOf === Item.rdaguidance
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
             }
@@ -59,8 +63,8 @@ export default function Sidebar({ active }) {
           <a
             className={
               router.pathname.startsWith("/gnd") ||
-                elementOf === Item.gnddatafield ||
-                elementOf === Item.gndsubfield
+              elementOf === Item.gnddatafield ||
+              elementOf === Item.gndsubfield
                 ? `${styles.gnd}`
                 : `${styles.navButtons}`
             }
@@ -77,5 +81,5 @@ export default function Sidebar({ active }) {
         <p></p>
       </nav>
     </>
-  );
+  )
 }

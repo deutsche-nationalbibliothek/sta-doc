@@ -1,19 +1,19 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Statement from "@/components/details/statement";
-import Header from "@/components/layout/header";
-import Entry from "@/types/entry";
-import { Item } from "@/types/item";
-import { Property } from "@/types/property";
+import {useRouter} from "next/router"
+import Link from "next/link"
+import Statement from "@/components/details/statement"
+import Header from "@/components/layout/header"
+import Entry from "@/types/entry"
+import {Item} from "@/types/item"
+import {Property} from "@/types/property"
 // import { getElements, sortStatements, getEntity } from "@/lib/api";
-import Table from "./table";
-import HtmlReactParser from "html-react-parser";
+import Table from "./table"
+import HtmlReactParser from "html-react-parser"
 
 interface Props {
-  embedded: boolean;
-  entry: Entry;
-  headerLevel: number;
-  ressourceTypePage: boolean;
+  embedded?: boolean
+  entry: Entry
+  headerLevel?: number
+  ressourceTypePage?: boolean
 }
 
 export default function Detail({
@@ -22,9 +22,11 @@ export default function Detail({
   headerLevel = 1,
   ressourceTypePage = false,
 }: Props) {
-  const { query } = useRouter();
-  const groups = groupStatements(entry);
-  const logo = entry.statements.logo && entry.statements.logo.occurrences[0].value || undefined
+  const {query} = useRouter()
+  const groups = groupStatements(entry)
+  const logo =
+    (entry.statements.logo && entry.statements.logo.occurrences[0].value) ||
+    undefined
 
   return (
     <>
@@ -57,7 +59,7 @@ export default function Detail({
                   <Link
                     href={{
                       pathname: `${query.entryId}`,
-                      query: { view: "application-profile" },
+                      query: {view: "application-profile"},
                     }}
                   >
                     <a>Anwendungsprofil</a>
@@ -104,7 +106,7 @@ export default function Detail({
         </>
       )}
     </>
-  );
+  )
 }
 
 const groupsDefinition = {
@@ -206,13 +208,13 @@ const groupsDefinition = {
       Property.schema,
       Property.elementof,
       Property.definition,
-      Property.logo
+      Property.logo,
     ],
   },
-};
+}
 
 const groupStatements = (entry: Entry) => {
-  const relevantKey = entry.statements.elementof?.occurrences[0].id;
+  const relevantKey = entry.statements.elementof?.occurrences[0].id
   if (groupsDefinition[relevantKey]) {
     return {
       table: Object.keys(entry.statements)
@@ -229,7 +231,7 @@ const groupStatements = (entry: Entry) => {
           )
         )
         .map((key) => entry.statements[key]),
-    };
+    }
   } else {
     return {
       table: Object.keys(entry.statements)
@@ -247,6 +249,6 @@ const groupStatements = (entry: Entry) => {
             )
         )
         .map((key) => entry.statements[key]),
-    };
+    }
   }
-};
+}
