@@ -1,4 +1,4 @@
-import FieldTable from "@/components/tables/FieldTable.js";
+import FieldTable from "@/components/tables/FieldTable";
 import classes from "./FieldList.module.css";
 
 const columns = [

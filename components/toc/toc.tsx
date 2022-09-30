@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import classNames from "./toc.module.css";
-// import { UnfoldMore, UnfoldLess, Dismiss, Restore } from "./toc-buttons.js";
+import React, {useEffect, useCallback, useRef, useState} from "react"
+import {useRouter} from "next/router"
+import classNames from "./toc.module.css"
+// import { UnfoldMore, UnfoldLess, Dismiss, Restore } from "./toc-buttons";
 
 enum State {
   Normal,
@@ -13,34 +13,30 @@ export default function TOC({
   postSelector,
   headingSelector,
 }: {
-  postSelector?: string;
-  headingSelector?: string;
+  postSelector?: string
+  headingSelector?: string
 }) {
-  const router = useRouter();
-  const pathChange = router.asPath;
-  postSelector = postSelector || ".entry-content";
-  headingSelector = headingSelector || "header";
-  const { headings } = useHeadingsData(
-    postSelector,
-    headingSelector,
-    pathChange
-  );
-  const { inViewId } = useInViewId(postSelector, headingSelector, pathChange);
-  const [expansion, setExpansion] = useState(State.Expanded);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+  const pathChange = router.asPath
+  postSelector = postSelector || ".entry-content"
+  headingSelector = headingSelector || "header"
+  const {headings} = useHeadingsData(postSelector, headingSelector, pathChange)
+  const {inViewId} = useInViewId(postSelector, headingSelector, pathChange)
+  const [expansion, setExpansion] = useState(State.Expanded)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   function scroll(to: number) {
     scrollRef.current?.scroll({
       top: to - 75,
       behavior: "smooth",
-    });
+    })
   }
 
   const dismissIfExpanded = () => {
-    if (expansion === State.Expanded) expand();
-  };
+    if (expansion === State.Expanded) expand()
+  }
 
-  const expand = () => setExpansion(State.Expanded);
+  const expand = () => setExpansion(State.Expanded)
   // const normal = () => setExpansion(State.Normal);
   // const collapse = () => setExpansion(State.Collapsed);
 
@@ -71,39 +67,39 @@ export default function TOC({
     //     </div>
     //   )}
 
-    //   <div
-    //     ref={scrollRef}
-    //     className={classNames("outer-scroll", {
-    //       expanded: expansion == State.Expanded,
-    //       collapsed: expansion == State.Collapsed,
-    //       normal: expansion == State.Normal,
-    //     })}
-    //   >
-    //     {expansion == State.Collapsed ? (
-    //       <Restore onClick={normal} />
-    //     ) : (
-    //       <>
-    //         <div role="heading" aria-level={6}>
-    //           In this post:
-    //         </div>
+  //   <div
+  //     ref={scrollRef}
+  //     className={classNames("outer-scroll", {
+  //       expanded: expansion == State.Expanded,
+  //       collapsed: expansion == State.Collapsed,
+  //       normal: expansion == State.Normal,
+  //     })}
+  //   >
+  //     {expansion == State.Collapsed ? (
+  //       <Restore onClick={normal} />
+  //     ) : (
+  //       <>
+  //         <div role="heading" aria-level={6}>
+  //           In this post:
+  //         </div>
 
-    //         <ul>
-    //           {headings.map((h) => (
-    //             <li key={h.id}>
-    //               <H
-    //                 entry={h}
-    //                 inView={inViewId}
-    //                 scroll={scroll}
-    //                 onClick={dismissIfExpanded}
-    //               />
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       </>
-    //     )}
-    //   </div>
-    // </nav>
-  );
+  //         <ul>
+  //           {headings.map((h) => (
+  //             <li key={h.id}>
+  //               <H
+  //                 entry={h}
+  //                 inView={inViewId}
+  //                 scroll={scroll}
+  //                 onClick={dismissIfExpanded}
+  //               />
+  //             </li>
+  //           ))}
+  //         </ul>
+  //       </>
+  //     )}
+  //   </div>
+  // </nav>
+  )
 }
 
 function H({
@@ -112,18 +108,18 @@ function H({
   scroll,
   onClick,
 }: {
-  entry: HEntry;
-  inView: string | undefined;
-  scroll: (to: number) => void;
-  onClick: () => void;
+  entry: HEntry
+  inView: string | undefined
+  scroll: (to: number) => void
+  onClick: () => void
 }) {
-  const aRef = useRef<HTMLAnchorElement>(null);
+  const aRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     if (inView == entry.id && aRef.current) {
-      scroll(aRef.current.offsetTop);
+      scroll(aRef.current.offsetTop)
     }
-  }, [inView]);
+  }, [inView])
 
   return (
     <>
@@ -133,7 +129,7 @@ function H({
         className={entry.id === inView ? "TOCactive" : undefined}
         ref={aRef}
         onClick={() => {
-          onClick();
+          onClick()
         }}
       >
         {entry.text}
@@ -149,7 +145,7 @@ function H({
         </ul>
       )}
     </>
-  );
+  )
 }
 
 function useInViewId(
@@ -157,96 +153,96 @@ function useInViewId(
   headingSelector: string,
   pathChange: string
 ) {
-  const [inViewId, setInViewId] = useState<string | undefined>();
+  const [inViewId, setInViewId] = useState<string | undefined>()
 
   useEffect(() => {
-    const inViewSet = new Map<string, HTMLElement>();
+    const inViewSet = new Map<string, HTMLElement>()
     const callback: IntersectionObserverCallback = (changes) => {
       for (const change of changes) {
         change.isIntersecting
           ? inViewSet.set(change.target.id, change.target as HTMLElement)
-          : inViewSet.delete(change.target.id);
+          : inViewSet.delete(change.target.id)
       }
       const inView = Array.from(inViewSet.entries())
         .map(([id, el]) => [id, el.offsetTop] as const)
-        .filter(([id, _]) => !!id);
+        .filter(([id, _]) => !!id)
       if (inView.length > 0) {
         setInViewId(
           inView.reduce((acc, next) => (next[1] < acc[1] ? next : acc))[0]
-        );
+        )
       }
-    };
+    }
     const observer = new IntersectionObserver(callback, {
       rootMargin: "-40px 0px -20% 0px",
-    });
+    })
     for (const el of document
       .querySelector(postSelector)!
       .querySelectorAll(headingSelector)) {
-      observer.observe(el);
+      observer.observe(el)
     }
-    return () => observer.disconnect();
-  }, [pathChange]);
+    return () => observer.disconnect()
+  }, [pathChange])
 
-  return { inViewId };
+  return {inViewId}
 }
 
 interface HEntry {
-  text: string;
-  id: string;
-  level: number;
-  items?: HEntry[];
-  collapsiblesAbove?: any[];
+  text: string
+  id: string
+  level: number
+  items?: HEntry[]
+  collapsiblesAbove?: any[]
 }
 
 function getNestedHeadings(headings: readonly HTMLHeadingElement[]): HEntry[] {
-  const sentinel: HEntry = { text: "", id: "", level: 0 };
-  const traversalStack: HEntry[] = [sentinel];
+  const sentinel: HEntry = {text: "", id: "", level: 0}
+  const traversalStack: HEntry[] = [sentinel]
 
   for (const h of headings) {
-    const hLevel = level(h);
-    const hCollapsibles = collapsiblesAbove(h);
+    const hLevel = level(h)
+    const hCollapsibles = collapsiblesAbove(h)
     for (
       let last = traversalStack[traversalStack.length - 1];
       hLevel <= last.level;
       traversalStack.pop(), last = traversalStack[traversalStack.length - 1]
     ) {
-      continue;
+      continue
     }
-    const last = traversalStack[traversalStack.length - 1];
-    last.items = last.items || [];
+    const last = traversalStack[traversalStack.length - 1]
+    last.items = last.items || []
     last.items.push({
       text: h.textContent || "",
       id: h.id,
       level: hLevel,
       collapsiblesAbove: hCollapsibles,
-    });
-    traversalStack.push(last.items[last.items.length - 1]);
+    })
+    traversalStack.push(last.items[last.items.length - 1])
   }
-  return sentinel.items || [];
+  return sentinel.items || []
 }
 
 function level(e: HTMLHeadingElement): number {
-  return parseInt(e.className.substring(e.className.indexOf("r") + 1));
+  return parseInt(e.className.substring(e.className.indexOf("r") + 1))
 }
 
 function getCollapsibleParentIds(elem) {
-  const parents = [];
+  const parents = []
   while (
     elem.parentNode &&
     elem.parentNode.nodeName.toLowerCase() != "section"
   ) {
-    elem = elem.parentNode;
-    const ref = elem.parentNode.firstChild.id || "";
+    elem = elem.parentNode
+    const ref = elem.parentNode.firstChild.id || ""
     if (ref.indexOf("Collapsible-") > -1) {
-      parents.push(ref);
+      parents.push(ref)
     }
   }
-  return parents;
+  return parents
 }
 
 function collapsiblesAbove(e: HTMLHeadingElement): any[] {
-  const parents = getCollapsibleParentIds(e);
-  return parents || [];
+  const parents = getCollapsibleParentIds(e)
+  return parents || []
 }
 
 function useHeadingsData(
@@ -254,7 +250,7 @@ function useHeadingsData(
   headingSelector: string,
   pathChange: string
 ) {
-  const [headings, setHeadings] = useState<HEntry[]>([]);
+  const [headings, setHeadings] = useState<HEntry[]>([])
   useEffect(() => {
     const hs = getNestedHeadings(
       Array.from(
@@ -262,9 +258,9 @@ function useHeadingsData(
           .querySelector(postSelector)!
           .querySelectorAll<HTMLHeadingElement>(headingSelector)
       )
-    );
-    setHeadings(hs);
-  }, [pathChange]);
+    )
+    setHeadings(hs)
+  }, [pathChange])
 
-  return { headings };
+  return {headings}
 }

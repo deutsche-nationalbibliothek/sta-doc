@@ -1,13 +1,14 @@
-import { Link } from "next/link";
+import  Link from "next/link";
 import { Fragment, useMemo } from "react";
 import { useTable, useSortBy, useExpanded } from "react-table";
 import { COLUMNS } from "./RdaDetailTableColumns";
 import styles from "./RdaDetailTable.module.css";
 
-export default function RdaDetailTable(props) {
-  let buildTable = (obj) => {
-    var arr = [];
-    for (const [key, value] of Object.entries(obj)) {
+export default function RdaDetailTable(props: any) {
+  const buildTable = (obj) => {
+    const arr = [];
+    for (const entry of Object.entries(obj)) {
+      const [key,value]: any = entry
       value.occurrences.map((qualifier, index) => {
         switch (value.id) {
           case "P124":
@@ -51,7 +52,7 @@ export default function RdaDetailTable(props) {
     }
     return arr;
   };
-  let table = buildTable(props.data);
+  const table = buildTable(props.data);
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => table, []);
   const tableInstance = useTable(

@@ -1,8 +1,8 @@
 import { Fragment } from "react";
-import CodingTable from "../tables/CodingTable.js";
-import References from "./References.js";
-import Examples from "./Examples.js";
-import Characteristics from "./Characteristics.js";
+import CodingTable from "../tables/CodingTable";
+import References from "./References";
+import Examples from "./Examples";
+import Characteristics from "./Characteristics";
 import styles from "./FieldDetail.module.css";
 
 export default function FieldDetail(props) {
@@ -23,7 +23,7 @@ export default function FieldDetail(props) {
     }
     rows.push(row0);
     field.statements.subfields?.occurrences.map((subfield, index) => {
-      let row = {
+      const row = {
         label: subfield.label ?? "",
         format: {},
         repetition: subfield.qualifiers?.repetition?.occurrences[0].value,

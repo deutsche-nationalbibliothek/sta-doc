@@ -82,7 +82,7 @@ export default function CodingTable(props) {
     }
     lines.push(row0);
     field.statements.subfields?.occurrences.map((subfield, index) => {
-      let row = {
+      const row = {
         label: subfield.label ?? "",
         format: {},
         repetition: subfield.qualifiers?.repetition?.occurrences[0].value,

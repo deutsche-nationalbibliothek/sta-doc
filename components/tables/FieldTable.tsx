@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useTable, useSortBy, useExpanded } from "react-table";
 import { COLUMNS } from "./FieldColumns";
 import styles from "./FieldTable.module.css";
-import SubfieldTable from "../tables/SubfieldTable.js";
+import SubfieldTable from "../tables/SubfieldTable";
 import Collapsible from "react-collapsible";
 import stylesCollapsible from "./Collapsible.module.css";
 
@@ -85,7 +85,7 @@ export default function FieldTable(props) {
                         <Collapsible
                           trigger="Zeige Unterfelder"
                           triggerWhenOpen="Schließe Unterfelder"
-                          ClassName={stylesCollapsible.Collapsible}
+                          className={stylesCollapsible.Collapsible}
                           triggerClassName={stylesCollapsible.CustomTriggerCSS}
                           triggerOpenedClassName={
                             stylesCollapsible.CustomTriggerCSSopen

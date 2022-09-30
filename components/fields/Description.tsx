@@ -37,12 +37,12 @@ export default function Description(props) {
   const arr = props.description.occurrences;
   // console.log('arr ',arr)
   for (let i = 0; i < arr?.length; i++) {
-    let qualifiers = arr[i].qualifiers;
+    const qualifiers = arr[i].qualifiers;
     if (qualifiers === undefined) {
       description_arr.push(HtmlReactParser(`<p>${arr[i].value}</p>`));
     }
     if (qualifiers) {
-      for (const [key, value] of Object.entries(qualifiers)) {
+      for (const [key, value] of Object.entries(qualifiers) as any) {
         // console.log('for',key,value)
         if (value.id === "P389") {
           // Layouttyp

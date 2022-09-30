@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import Examples from "@/components/fields/Examples.js";
-import Characteristics from "@/components/fields/Characteristics.js";
-import References from "@/components/fields/References.js";
+import Examples from "@/components/fields/Examples";
+import Characteristics from "@/components/fields/Characteristics";
+import References from "@/components/fields/References";
 // import styles from './BasicRules.module.css'
 // import Collapsible from 'react-collapsible'
 

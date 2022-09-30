@@ -1,4 +1,4 @@
-import { Link } from "next/link";
+import Link from "next/link";
 import { Fragment, useMemo } from "react";
 import { useTable, useSortBy, useExpanded } from "react-table";
 import { COLUMNS } from "./RdaTableColumns";
