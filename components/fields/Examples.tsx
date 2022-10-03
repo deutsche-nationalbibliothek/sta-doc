@@ -1,7 +1,7 @@
 import styles from "./Examples.module.css"
 import Description from "./Description"
 
-export default function Examples({examples}) {
+export default function Examples({ examples }) {
   if (examples) {
     return (
       <>
@@ -187,8 +187,8 @@ function ExampleBox(props) {
   if (example_statements.length > 0) {
     example_statements.map((statement_key, index) => {
       const field_format =
-        props.statements[statement_key].coding?.format || undefined
-      const field_label = props.statements[statement_key].label || undefined
+        props.statements[statement_key]?.coding?.format || undefined
+      const field_label = props.statements[statement_key]?.label || undefined
       if (field_label !== undefined || field_format !== undefined) {
         props.statements[statement_key].occurrences.map((occurrence) => {
           if (occurrence.value !== "") {
@@ -219,65 +219,69 @@ function ExampleBox(props) {
           if (occurrence.qualifiers) {
             const subfieldMontagePica3 = []
             const subfieldMontagePicaPlus = []
-            Object.entries(occurrence.qualifiers).forEach(([key, value]: any[]) => {
-              if (value.coding) {
-                if (
-                  value.coding.format["PICA3"] !== "-ohne-" &&
-                  value.coding.format["PICA3"] !== "!...!"
-                ) {
-                  subfieldMontagePica3.push(
-                    <b key={key}>{value.coding.format["PICA3"]}</b>
-                  )
-                }
-                if (value.coding.format["PICA+"] !== "-ohne-") {
-                  subfieldMontagePicaPlus.push(
-                    <b key={key}>{value.coding.format["PICA+"]}</b>
-                  )
-                }
-                // check if qualifier value is a Property
-                if (
-                  value.occurrences.length > 0 &&
-                  value.occurrences[0].coding?.format !== undefined
-                ) {
-                  subfieldMontagePica3.push(
-                    `${value.occurrences[0].coding.format["PICA3"]}`
-                  )
-                  subfieldMontagePicaPlus.push(
-                    `${value.occurrences[0].coding.format["PICA+"]}`
-                  )
-                } else if (value.occurrences.length > 0) {
-                  if (value.coding.format["PICA3"] === "!...!") {
+            Object.entries(occurrence.qualifiers).forEach(
+              ([key, value]: any[]) => {
+                if (value.coding) {
+                  if (
+                    value.coding.format["PICA3"] !== "-ohne-" &&
+                    value.coding.format["PICA3"] !== "!...!"
+                  ) {
                     subfieldMontagePica3.push(
-                      <b key={key} className={styles.red}>
-                        !
-                      </b>
+                      <b key={key}>{value.coding.format["PICA3"]}</b>
                     )
                   }
-                  subfieldMontagePica3.push(`${value.occurrences[0].value}`)
-                  if (value.coding.format["PICA3"] === "!...!") {
-                    subfieldMontagePica3.push(
-                      <b key={key} className={styles.red}>
-                        !
-                      </b>
+                  if (value.coding.format["PICA+"] !== "-ohne-") {
+                    subfieldMontagePicaPlus.push(
+                      <b key={key}>{value.coding.format["PICA+"]}</b>
                     )
                   }
-                  subfieldMontagePicaPlus.push(`${value.occurrences[0].value}`)
+                  // check if qualifier value is a Property
+                  if (
+                    value.occurrences.length > 0 &&
+                    value.occurrences[0].coding?.format !== undefined
+                  ) {
+                    subfieldMontagePica3.push(
+                      `${value.occurrences[0].coding.format["PICA3"]}`
+                    )
+                    subfieldMontagePicaPlus.push(
+                      `${value.occurrences[0].coding.format["PICA+"]}`
+                    )
+                  } else if (value.occurrences.length > 0) {
+                    if (value.coding.format["PICA3"] === "!...!") {
+                      subfieldMontagePica3.push(
+                        <b key={key} className={styles.red}>
+                          !
+                        </b>
+                      )
+                    }
+                    subfieldMontagePica3.push(`${value.occurrences[0].value}`)
+                    if (value.coding.format["PICA3"] === "!...!") {
+                      subfieldMontagePica3.push(
+                        <b key={key} className={styles.red}>
+                          !
+                        </b>
+                      )
+                    }
+                    subfieldMontagePicaPlus.push(
+                      `${value.occurrences[0].value}`
+                    )
+                  }
+                }
+                // render box description
+                if (value.id === "P7") {
+                  montagePica3.push(
+                    <p className={styles.boxdescription} key={key}>
+                      {value.occurrences[0].value}
+                    </p>
+                  )
+                  montagePicaPlus.push(
+                    <p className={styles.boxdescription} key={key}>
+                      {value.occurrences[0].value}
+                    </p>
+                  )
                 }
               }
-              // render box description
-              if (value.id === "P7") {
-                montagePica3.push(
-                  <p className={styles.boxdescription} key={key}>
-                    {value.occurrences[0].value}
-                  </p>
-                )
-                montagePicaPlus.push(
-                  <p className={styles.boxdescription} key={key}>
-                    {value.occurrences[0].value}
-                  </p>
-                )
-              }
-            })
+            )
             montagePica3.push(
               <p key={statement_key}>
                 <b key={statement_key} className="tooltip">
