@@ -1,7 +1,7 @@
-import { Fragment, useMemo } from "react";
-import { useTable, useSortBy, useExpanded } from "react-table";
-import { COLUMNS } from "./FieldCodingColumns";
-import styles from "./CodingTable.module.css";
+import { Fragment, useMemo } from 'react';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+import { COLUMNS } from './FieldCodingColumns';
+import styles from './CodingTable.module.css';
 
 function TableCell(props) {
   // console.log("props", props);
@@ -9,14 +9,14 @@ function TableCell(props) {
     return (
       <>
         <td key={props.id} {...props.getCellProps()}>
-          <a href={`#${props.value}`}>{props.render("Cell")}</a>
+          <a href={`#${props.value}`}>{props.render('Cell')}</a>
         </td>
       </>
     );
   } else {
     return (
       <td key={props.id} {...props.getCellProps()}>
-        {props.render("Cell")}
+        {props.render('Cell')}
       </td>
     );
   }
@@ -35,11 +35,11 @@ function TableRow(props) {
                 className={styles.firstrow}
                 {...cell.getCellProps()}
               >
-                {cell.render("Cell")}
+                {cell.render('Cell')}
               </td>
             ) : (
               <td key={index} {...cell.getCellProps()}>
-                {cell.render("Cell")}
+                {cell.render('Cell')}
               </td>
             );
           })}
@@ -70,7 +70,7 @@ export default function CodingTable(props) {
   const field = props.data;
   const lines = [];
   const row0 = {
-    label: field?.label ?? "",
+    label: field?.label ?? '',
     format: {},
     repetition: field.statements.repetition?.occurrences[0].value,
   };
@@ -78,17 +78,17 @@ export default function CodingTable(props) {
     for (const [key, value] of Object.entries(
       field.statements.encoding.format
     )) {
-      row0["format"][key] = value;
+      row0['format'][key] = value;
     }
     lines.push(row0);
     field.statements.subfields?.occurrences.map((subfield, index) => {
       const row = {
-        label: subfield.label ?? "",
+        label: subfield.label ?? '',
         format: {},
         repetition: subfield.qualifiers?.repetition?.occurrences[0].value,
       };
       for (const [key, value] of Object.entries(subfield.coding.format)) {
-        row["format"][key] = value;
+        row['format'][key] = value;
       }
       // subfield.coding.occurrences.map((coding,index) => {
       // let key = coding.qualifiers.type.occurrences[0].label
@@ -129,9 +129,9 @@ export default function CodingTable(props) {
                 key={index}
                 {...column.getHeaderProps(column.getSortByToggleProps())}
               >
-                {column.render("Header")}
+                {column.render('Header')}
                 <span>
-                  {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                 </span>
               </th>
             ))}

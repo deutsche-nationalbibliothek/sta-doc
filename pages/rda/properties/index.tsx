@@ -1,9 +1,9 @@
-import Layout from "@/components/layout/layout";
-import Sidebar from "@/components/sidebar/sidebar";
-import Head from "next/head";
-import { getRdaProperties } from "@/lib/api";
-import RdaNavigation from "@/components/layout/RdaNavigation";
-import RdaTable from "@/components/tables/RdaTable";
+import Layout from '@/components/layout/layout';
+import Sidebar from '@/components/sidebar/sidebar';
+import Head from 'next/head';
+import { getRdaProperties } from '@/lib/api';
+import RdaNavigation from '@/components/layout/RdaNavigation';
+import RdaTable from '@/components/tables/RdaTable';
 
 export default function RdaPropertiesPage({ list }) {
   return (

@@ -1,13 +1,13 @@
-import { useRouter } from "next/router";
-import { Statement } from "@/types/entry";
-import { Item } from "@/types/item";
-import { Property } from "@/types/property";
-import Link from "next/link";
-import React from "react";
-import Examples from "../fields/Examples";
-import Elements from "../fields/elements";
-import Header from "../layout/header";
-import Occurance from "./occurance";
+import { useRouter } from 'next/router';
+import { Statement } from '@/types/entry';
+import { Item } from '@/types/item';
+import { Property } from '@/types/property';
+import Link from 'next/link';
+import React from 'react';
+import Examples from '../fields/Examples';
+import Elements from '../fields/elements';
+import Header from '../layout/header';
+import Occurance from './occurance';
 
 interface Props {
   statement: Statement;
@@ -51,22 +51,22 @@ export default function StatementComp({
           const { typeoflayout, ...rest } = occ.qualifiers;
           sublist = rest;
         }
-        if (currentId === Item["enumeration,uncounted"]) {
+        if (currentId === Item['enumeration,uncounted']) {
           if (firstIndex === 0) {
             firstIndex = index;
             lists[firstIndex] = [];
           }
           lists[firstIndex].push({ value: occ.value, sublist: sublist });
-          if (nextId !== Item["enumeration,uncounted"]) {
+          if (nextId !== Item['enumeration,uncounted']) {
             firstIndex = 0;
           }
-        } else if (currentId === Item["enumeration,counted"]) {
+        } else if (currentId === Item['enumeration,counted']) {
           if (firstIndex === 0) {
             firstIndex = index;
             lists[firstIndex] = [];
           }
           lists[firstIndex].push({ value: occ.value, sublist: sublist });
-          if (nextId !== Item["enumeration,counted"]) {
+          if (nextId !== Item['enumeration,counted']) {
             firstIndex = 0;
           }
         }
@@ -77,10 +77,10 @@ export default function StatementComp({
   const groupedLists = handleStatementLists(statement);
   const statementHeader =
     statement.id !== Property.description &&
-    statement.id !== Property["embeddedin(item)"] &&
-    statement.id !== Property["embeddedin(property)"] &&
+    statement.id !== Property['embeddedin(item)'] &&
+    statement.id !== Property['embeddedin(property)'] &&
     // statement.id !== Property.elements &&
-    statement.id !== Property["description(attheend)"];
+    statement.id !== Property['description(attheend)'];
   const statementElements = statement.id === Property.elements;
 
   return (
@@ -91,16 +91,16 @@ export default function StatementComp({
       {statementElements && (
         <Elements elements={statement} headerLevel={headerLevel} />
       )}
-      {statement.id === Property["example(s)"] && (
+      {statement.id === Property['example(s)'] && (
         <Examples examples={statement} />
       )}
-      {(statement.id === Property["embeddedin(property)"] ||
-        statement.id === Property["embeddedin(item)"]) &&
+      {(statement.id === Property['embeddedin(property)'] ||
+        statement.id === Property['embeddedin(item)']) &&
         statement.occurrences.map((occ: any) => (
-          <p key={occ.id} className={"bold"}>
+          <p key={occ.id} className={'bold'}>
             eingebettet in: &rArr;&ensp;
             {/* todo, fix || '#' */}
-            <Link href={occ.link || "#"}>
+            <Link href={occ.link || '#'}>
               <a>{occ.label}</a>
             </Link>
           </p>

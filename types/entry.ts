@@ -14,7 +14,7 @@ export interface Statements {
   sourcesofinformation: Sourcesofinformation;
   standardelementfor?: Standardelementfor;
   basicrules: Basicrules;
-  "entitytype/domain": EntitytypeDomain;
+  'entitytype/domain': EntitytypeDomain;
   recordingmethod: Recordingmethod;
   elementof: Elementof6;
   subproperties?: Subproperties;
@@ -88,8 +88,8 @@ export interface Occurrence4 {
 }
 
 export interface Qualifiers {
-  "see(property)"?: SeeProperty;
-  "see(item)"?: SeeItem;
+  'see(property)'?: SeeProperty;
+  'see(item)'?: SeeItem;
   typeoflayout?: Typeoflayout;
 }
 
@@ -165,10 +165,10 @@ export interface Occurrence8 {
 
 export interface Qualifiers2 {
   typeoflayout?: Typeoflayout2;
-  "see(property)"?: SeeProperty2;
-  "see(item)"?: SeeItem2;
-  "embedded(item)"?: EmbeddedItem;
-  "typeoflayout(embeddedelement)"?: TypeoflayoutEmbeddedelement2;
+  'see(property)'?: SeeProperty2;
+  'see(item)'?: SeeItem2;
+  'embedded(item)'?: EmbeddedItem;
+  'typeoflayout(embeddedelement)'?: TypeoflayoutEmbeddedelement2;
 }
 
 export interface Typeoflayout2 {
@@ -225,7 +225,7 @@ export interface Statements2 {
   schema: Schema2;
   elementof: Elementof;
   description: Description2;
-  "embeddedin(property)": EmbeddedinProperty;
+  'embeddedin(property)': EmbeddedinProperty;
 }
 
 export interface Schema2 {
@@ -266,9 +266,9 @@ export interface Occurrence15 {
 
 export interface Qualifiers3 {
   typeoflayout?: Typeoflayout3;
-  "embedded(item)"?: EmbeddedItem2;
-  "typeoflayout(embeddedelement)"?: TypeoflayoutEmbeddedelement;
-  "see(item)"?: SeeItem4;
+  'embedded(item)'?: EmbeddedItem2;
+  'typeoflayout(embeddedelement)'?: TypeoflayoutEmbeddedelement;
+  'see(item)'?: SeeItem4;
   examples?: Examples3;
 }
 
@@ -302,7 +302,7 @@ export interface Statements3 {
   schema: Schema3;
   elementof: Elementof2;
   description: Description3;
-  "embeddedin(item)": EmbeddedinItem;
+  'embeddedin(item)': EmbeddedinItem;
   examples?: Examples2;
 }
 
@@ -343,7 +343,7 @@ export interface Occurrence20 {
 }
 
 export interface Qualifiers4 {
-  "see(item)"?: SeeItem3;
+  'see(item)'?: SeeItem3;
   examples?: Examples;
   typeoflayout?: Typeoflayout4;
   annotation?: Annotation;
@@ -372,7 +372,7 @@ export interface Occurrence21 {
 export interface Statements4 {
   schema: Schema4;
   elementof: Elementof3;
-  "preferredname:personorfamily"?: PreferrednamePersonorfamily;
+  'preferredname:personorfamily'?: PreferrednamePersonorfamily;
   description?: Description5;
   variantnameofapersonorfamily?: Variantnameofapersonorfamily;
 }
@@ -413,10 +413,10 @@ export interface Coding {
 }
 
 export interface Format {
-  "GND-Ontologie": string;
-  "PICA+": string;
+  'GND-Ontologie': string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Occurrence24 {
@@ -427,7 +427,7 @@ export interface Occurrence24 {
 export interface Qualifiers5 {
   surname: Surname;
   givenname: Givenname;
-  "epithet,genericname,territory,title"?: EpithetGenericnameTerritoryTitle;
+  'epithet,genericname,territory,title'?: EpithetGenericnameTerritoryTitle;
   postpositionedprefix?: Postpositionedprefix;
   formatneutrallabel?: Formatneutrallabel;
   description?: Description4;
@@ -450,8 +450,8 @@ export interface Coding2 {
 
 export interface Format2 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Givenname {
@@ -470,10 +470,10 @@ export interface Coding3 {
 }
 
 export interface Format3 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "GND-Ontologie": string;
+  'GND-Ontologie': string;
 }
 
 export interface EpithetGenericnameTerritoryTitle {
@@ -492,9 +492,9 @@ export interface Coding4 {
 }
 
 export interface Format4 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Postpositionedprefix {
@@ -513,9 +513,9 @@ export interface Coding5 {
 }
 
 export interface Format5 {
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Formatneutrallabel {
@@ -561,8 +561,8 @@ export interface Coding6 {
 
 export interface Format6 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Occurrence32 {
@@ -572,7 +572,7 @@ export interface Occurrence32 {
 
 export interface Qualifiers6 {
   personalname?: Personalname;
-  "epithet,genericname,territory,title"?: EpithetGenericnameTerritoryTitle2;
+  'epithet,genericname,territory,title'?: EpithetGenericnameTerritoryTitle2;
   formatneutrallabel?: Formatneutrallabel2;
   surname?: Surname2;
   givenname?: Givenname2;
@@ -596,8 +596,8 @@ export interface Coding7 {
 }
 
 export interface Format7 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -617,9 +617,9 @@ export interface Coding8 {
 }
 
 export interface Format8 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Formatneutrallabel2 {
@@ -649,8 +649,8 @@ export interface Coding9 {
 
 export interface Format9 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Givenname2 {
@@ -669,10 +669,10 @@ export interface Coding10 {
 }
 
 export interface Format10 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "GND-Ontologie": string;
+  'GND-Ontologie': string;
 }
 
 export interface Postpositionedprefix2 {
@@ -691,9 +691,9 @@ export interface Coding11 {
 }
 
 export interface Format11 {
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Typeofrelation {
@@ -716,9 +716,9 @@ export interface Coding12 {
 
 export interface Format12 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
-  "GND-Ontologie": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
+  'GND-Ontologie': string;
 }
 
 export interface Coding13 {
@@ -727,8 +727,8 @@ export interface Coding13 {
 
 export interface Format13 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Typeoflayout4 {
@@ -799,7 +799,7 @@ export interface Occurrence43 {
 export interface Statements5 {
   schema: Schema5;
   elementof: Elementof4;
-  "preferredname:personorfamily": PreferrednamePersonorfamily2;
+  'preferredname:personorfamily': PreferrednamePersonorfamily2;
 }
 
 export interface Schema5 {
@@ -838,10 +838,10 @@ export interface Coding14 {
 }
 
 export interface Format14 {
-  "GND-Ontologie": string;
-  "PICA+": string;
+  'GND-Ontologie': string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Occurrence46 {
@@ -852,7 +852,7 @@ export interface Occurrence46 {
 export interface Qualifiers7 {
   personalname: Personalname2;
   numericdesignation?: Numericdesignation;
-  "epithet,genericname,territory,title": EpithetGenericnameTerritoryTitle3;
+  'epithet,genericname,territory,title': EpithetGenericnameTerritoryTitle3;
 }
 
 export interface Personalname2 {
@@ -871,8 +871,8 @@ export interface Coding15 {
 }
 
 export interface Format15 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -893,8 +893,8 @@ export interface Coding16 {
 
 export interface Format16 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface EpithetGenericnameTerritoryTitle3 {
@@ -913,9 +913,9 @@ export interface Coding17 {
 }
 
 export interface Format17 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface TypeoflayoutEmbeddedelement {
@@ -959,11 +959,11 @@ export interface Occurrence52 {
 export interface Statements6 {
   schema: Schema6;
   elementof: Elementof5;
-  "preferredname:personorfamily": PreferrednamePersonorfamily3;
+  'preferredname:personorfamily': PreferrednamePersonorfamily3;
   variantnameofapersonorfamily?: Variantnameofapersonorfamily2;
   description?: Description9;
   typeofrecord?: Typeofrecord;
-  "relationship:personorfamily"?: RelationshipPersonorfamily;
+  'relationship:personorfamily'?: RelationshipPersonorfamily;
 }
 
 export interface Schema6 {
@@ -1002,10 +1002,10 @@ export interface Coding18 {
 }
 
 export interface Format18 {
-  "GND-Ontologie": string;
-  "PICA+": string;
+  'GND-Ontologie': string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Occurrence55 {
@@ -1018,7 +1018,7 @@ export interface Qualifiers8 {
   givenname?: Givenname3;
   formatneutrallabel?: Formatneutrallabel3;
   personalname?: Personalname3;
-  "epithet,genericname,territory,title"?: EpithetGenericnameTerritoryTitle4;
+  'epithet,genericname,territory,title'?: EpithetGenericnameTerritoryTitle4;
   description?: Description7;
   numericdesignation?: Numericdesignation2;
   postpositionedprefix?: Postpositionedprefix3;
@@ -1041,8 +1041,8 @@ export interface Coding19 {
 
 export interface Format19 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Givenname3 {
@@ -1061,10 +1061,10 @@ export interface Coding20 {
 }
 
 export interface Format20 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "GND-Ontologie": string;
+  'GND-Ontologie': string;
 }
 
 export interface Formatneutrallabel3 {
@@ -1093,8 +1093,8 @@ export interface Coding21 {
 }
 
 export interface Format21 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -1114,9 +1114,9 @@ export interface Coding22 {
 }
 
 export interface Format22 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Description7 {
@@ -1146,8 +1146,8 @@ export interface Coding23 {
 
 export interface Format23 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Postpositionedprefix3 {
@@ -1166,9 +1166,9 @@ export interface Coding24 {
 }
 
 export interface Format24 {
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Variantnameofapersonorfamily2 {
@@ -1184,8 +1184,8 @@ export interface Coding25 {
 
 export interface Format25 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Occurrence64 {
@@ -1198,7 +1198,7 @@ export interface Qualifiers9 {
   description?: Description8;
   surname?: Surname4;
   givenname?: Givenname4;
-  "epithet,genericname,territory,title"?: EpithetGenericnameTerritoryTitle5;
+  'epithet,genericname,territory,title'?: EpithetGenericnameTerritoryTitle5;
   formatneutrallabel?: Formatneutrallabel4;
   numericdesignation?: Numericdesignation3;
   postpositionedprefix?: Postpositionedprefix4;
@@ -1221,8 +1221,8 @@ export interface Coding26 {
 }
 
 export interface Format26 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -1253,8 +1253,8 @@ export interface Coding27 {
 
 export interface Format27 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Givenname4 {
@@ -1273,10 +1273,10 @@ export interface Coding28 {
 }
 
 export interface Format28 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "GND-Ontologie": string;
+  'GND-Ontologie': string;
 }
 
 export interface EpithetGenericnameTerritoryTitle5 {
@@ -1295,9 +1295,9 @@ export interface Coding29 {
 }
 
 export interface Format29 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Formatneutrallabel4 {
@@ -1327,8 +1327,8 @@ export interface Coding30 {
 
 export interface Format30 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Postpositionedprefix4 {
@@ -1347,9 +1347,9 @@ export interface Coding31 {
 }
 
 export interface Format31 {
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Typeofrelation2 {
@@ -1371,9 +1371,9 @@ export interface Coding32 {
 }
 
 export interface Format32 {
-  "PICA+": string;
-  "GND-Ontologie": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'GND-Ontologie': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -1383,8 +1383,8 @@ export interface Coding33 {
 
 export interface Format33 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Description9 {
@@ -1400,7 +1400,7 @@ export interface Occurrence74 {
 
 export interface Qualifiers10 {
   typeoflayout?: Typeoflayout5;
-  "see(property)"?: SeeProperty3;
+  'see(property)'?: SeeProperty3;
 }
 
 export interface Typeoflayout5 {
@@ -1439,8 +1439,8 @@ export interface Coding34 {
 }
 
 export interface Format34 {
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -1475,7 +1475,7 @@ export interface Coding35 {
 
 export interface Format35 {
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Coding36 {
@@ -1483,9 +1483,9 @@ export interface Coding36 {
 }
 
 export interface Format36 {
-  "PICA+": string;
+  'PICA+': string;
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Entitytype {
@@ -1508,8 +1508,8 @@ export interface Coding37 {
 
 export interface Format37 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Coding38 {
@@ -1518,8 +1518,8 @@ export interface Coding38 {
 
 export interface Format38 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Cataloginglevel {
@@ -1541,9 +1541,9 @@ export interface Coding39 {
 }
 
 export interface Format39 {
-  "MARC 21 Format für Normdaten": string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Coding40 {
@@ -1552,8 +1552,8 @@ export interface Coding40 {
 
 export interface Format40 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface RelationshipPersonorfamily {
@@ -1569,8 +1569,8 @@ export interface Coding41 {
 
 export interface Format41 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Occurrence81 {
@@ -1579,7 +1579,7 @@ export interface Occurrence81 {
 }
 
 export interface Qualifiers12 {
-  "linkedgnd-identifier": LinkedgndIdentifier;
+  'linkedgnd-identifier': LinkedgndIdentifier;
   expansion: Expansion;
   typeofrelation: Typeofrelation3;
   formatneutrallabel: Formatneutrallabel5;
@@ -1602,8 +1602,8 @@ export interface Coding42 {
 
 export interface Format42 {
   PICA3: string;
-  "MARC 21 Format für Normdaten": string;
-  "PICA+": string;
+  'MARC 21 Format für Normdaten': string;
+  'PICA+': string;
 }
 
 export interface Expansion {
@@ -1623,7 +1623,7 @@ export interface Coding43 {
 
 export interface Format43 {
   PICA3: string;
-  "PICA+": string;
+  'PICA+': string;
 }
 
 export interface Typeofrelation3 {
@@ -1645,9 +1645,9 @@ export interface Coding44 {
 }
 
 export interface Format44 {
-  "PICA+": string;
-  "GND-Ontologie": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'GND-Ontologie': string;
+  'MARC 21 Format für Normdaten': string;
   PICA3: string;
 }
 
@@ -1657,8 +1657,8 @@ export interface Coding45 {
 
 export interface Format45 {
   PICA3: string;
-  "PICA+": string;
-  "MARC 21 Format für Normdaten": string;
+  'PICA+': string;
+  'MARC 21 Format für Normdaten': string;
 }
 
 export interface Formatneutrallabel5 {

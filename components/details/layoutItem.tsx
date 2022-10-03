@@ -1,9 +1,9 @@
-import { Statement } from "@/types/entry";
-import { Item } from "@/types/item";
-import Header from "../layout/header";
-import HtmlReactParser from "html-react-parser";
-import CollapsibleWithPreview from "./collapsibleWithPreview";
-import Collapsible from "react-collapsible";
+import { Statement } from '@/types/entry';
+import { Item } from '@/types/item';
+import Header from '../layout/header';
+import HtmlReactParser from 'html-react-parser';
+import CollapsibleWithPreview from './collapsibleWithPreview';
+import Collapsible from 'react-collapsible';
 
 interface Occurance {
   id: string;
@@ -16,7 +16,7 @@ interface Occurance {
 }
 
 export default {
-  [Item["collapsible-collapsed"]]: (occurance: Occurance) => (
+  [Item['collapsible-collapsed']]: (occurance: Occurance) => (
     <CollapsibleWithPreview occurance={occurance} />
   ),
   // [Item["collapsible-collapsed"]]: (occurance: Occurance) => (
@@ -38,7 +38,7 @@ export default {
   //     </Collapsible>
   //   </>
   // ),
-  [Item["example(typeoflayout)"]]: (occurance: Occurance) => (
+  [Item['example(typeoflayout)']]: (occurance: Occurance) => (
     <>
       <div className="example-typeoflayout">
         {HtmlReactParser(`<p>${occurance.value}</p>`)}
@@ -46,10 +46,10 @@ export default {
     </>
   ),
   [Item.italic]: (occurance: Occurance) => (
-    <p className={"italic"}>{occurance.value}</p>
+    <p className={'italic'}>{occurance.value}</p>
   ),
   [Item.bold]: (occurance: Occurance) => (
-    <p className={"bold"}>
+    <p className={'bold'}>
       <b>{occurance.value}</b>
     </p>
   ),
@@ -74,7 +74,7 @@ export default {
       level={(headerLevel = headerLevel + 2)}
     />
   ),
-  [Item["enumeration,uncounted"]]: (
+  [Item['enumeration,uncounted']]: (
     occurance: Occurance,
     _headerLevel: number,
     index: number,
@@ -85,11 +85,11 @@ export default {
       occurance={occurance}
       statement={statement}
       index={index}
-      itemId={Item["enumeration,uncounted"]}
+      itemId={Item['enumeration,uncounted']}
       groupedLists={groupedLists}
     />
   ),
-  [Item["enumeration,counted"]]: (
+  [Item['enumeration,counted']]: (
     occurance: Occurance,
     _headerLevel: number,
     index: number,
@@ -100,7 +100,7 @@ export default {
       occurance={occurance}
       statement={statement}
       index={index}
-      itemId={Item["enumeration,counted"]}
+      itemId={Item['enumeration,counted']}
       groupedLists={groupedLists}
     />
   ),
@@ -121,9 +121,11 @@ function ItemList({ statement, index, itemId, occurance, groupedLists }) {
   return (
     <>
       {cond && (
-        <ListContainer ordered={Item["enumeration,counted"] === itemId}>
+        <ListContainer ordered={Item['enumeration,counted'] === itemId}>
           {groupedLists[index].map((listObject: any) => (
-            <li key={listObject.value}>{HtmlReactParser(`<p>${listObject.value}</p>`)}</li>
+            <li key={listObject.value}>
+              {HtmlReactParser(`<p>${listObject.value}</p>`)}
+            </li>
           ))}
         </ListContainer>
       )}

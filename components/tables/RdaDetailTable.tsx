@@ -1,17 +1,17 @@
-import  Link from "next/link";
-import { Fragment, useMemo } from "react";
-import { useTable, useSortBy, useExpanded } from "react-table";
-import { COLUMNS } from "./RdaDetailTableColumns";
-import styles from "./RdaDetailTable.module.css";
+import Link from 'next/link';
+import { Fragment, useMemo } from 'react';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+import { COLUMNS } from './RdaDetailTableColumns';
+import styles from './RdaDetailTable.module.css';
 
 export default function RdaDetailTable(props: any) {
   const buildTable = (obj) => {
     const arr = [];
     for (const entry of Object.entries(obj)) {
-      const [key,value]: any = entry
+      const [key, value]: any = entry;
       value.occurrences.map((qualifier, index) => {
         switch (value.id) {
-          case "P124":
+          case 'P124':
             arr.push({
               label: value.label,
               value: qualifier.label,
@@ -19,7 +19,7 @@ export default function RdaDetailTable(props: any) {
               link: qualifier.link,
             });
             break;
-          case "P401":
+          case 'P401':
             arr.push({
               label: value.label,
               value: qualifier.label,
@@ -29,9 +29,9 @@ export default function RdaDetailTable(props: any) {
             break;
           // case 'P119': arr.push({ 'label':'Link zum Toolkit', 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link })
           // break
-          case "P385":
+          case 'P385':
             arr.push({
-              label: "Status",
+              label: 'Status',
               value: qualifier.label,
               id: qualifier.id,
               link: qualifier.link,
@@ -39,7 +39,7 @@ export default function RdaDetailTable(props: any) {
             break;
           // case 'P126': arr.push({ 'label':value.label, 'value':qualifier.label, 'id':qualifier.id, 'link':qualifier.link})
           // break
-          case "P113":
+          case 'P113':
             arr.push({
               label: value.label,
               value: qualifier.label,
@@ -84,9 +84,9 @@ export default function RdaDetailTable(props: any) {
                 key={index}
                 {...column.getHeaderProps(column.getSortByToggleProps())}
               >
-                {column.render("Header")}
+                {column.render('Header')}
                 <span>
-                  {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                 </span>
               </th>
             ))}
@@ -105,7 +105,7 @@ export default function RdaDetailTable(props: any) {
 function TableCell(props) {
   return (
     <td key={props.id} {...props.getCellProps()}>
-      {props.render("Cell")}
+      {props.render('Cell')}
     </td>
   );
 }

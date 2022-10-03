@@ -1,21 +1,21 @@
-import Link from "next/link"
-import {useAnchor} from "../../context/anchors"
-import {useRouter} from "next/router"
-import {Item} from "@/types/item"
-import ListOfContent from "./listOfContent"
-import TOC from "../toc/toc"
-import styles from "./sidebar.module.css"
+import Link from 'next/link';
+import { useAnchor } from '../../context/anchors';
+import { useRouter } from 'next/router';
+import { Item } from '@/types/item';
+import ListOfContent from './listOfContent';
+import TOC from '../toc/toc';
+import styles from './sidebar.module.css';
 
 interface SideBarProps {
-  active?: any
+  active?: any;
 }
 
-export default function Sidebar({active}: SideBarProps) {
-  const router = useRouter()
-  const {anchors} = useAnchor()
-  const schema = active?.props?.entry?.statements?.schema?.occurrences[0].id
+export default function Sidebar({ active }: SideBarProps) {
+  const router = useRouter();
+  const { anchors } = useAnchor();
+  const schema = active?.props?.entry?.statements?.schema?.occurrences[0].id;
   const elementOf =
-    active?.props?.entry?.statements?.elementof?.occurrences[0].id
+    active?.props?.entry?.statements?.elementof?.occurrences[0].id;
 
   return (
     <>
@@ -25,16 +25,16 @@ export default function Sidebar({active}: SideBarProps) {
         <Link href={`/`}>
           <a
             className={
-              router.pathname == "/" ? `${styles.home}` : `${styles.navButtons}`
+              router.pathname == '/' ? `${styles.home}` : `${styles.navButtons}`
             }
           >
             Willkommen
           </a>
         </Link>
-        <Link href={"/about"}>
+        <Link href={'/about'}>
           <a
             className={
-              router.pathname == "/about"
+              router.pathname == '/about'
                 ? `${styles.home}`
                 : `${styles.navButtons}`
             }
@@ -42,13 +42,13 @@ export default function Sidebar({active}: SideBarProps) {
             allgemeine Einführung
           </a>
         </Link>
-        <Link href={"/rda"}>
+        <Link href={'/rda'}>
           <a
             className={
-              router.pathname.startsWith("/rda") ||
-              schema === Item["rda-documentation"] ||
+              router.pathname.startsWith('/rda') ||
+              schema === Item['rda-documentation'] ||
               elementOf === Item.rdaproperty ||
-              elementOf === Item["stadocumentation:rules"] ||
+              elementOf === Item['stadocumentation:rules'] ||
               elementOf === Item.rdaguidance
                 ? `${styles.rda}`
                 : `${styles.navButtons}`
@@ -58,11 +58,11 @@ export default function Sidebar({active}: SideBarProps) {
           </a>
         </Link>
         {/* {elementOf === Item.rdaproperty && <ListOfContent anchors={anchors} />} */}
-        {schema === Item["rda-documentation"] && <TOC />}
-        <Link href={"/gnd"}>
+        {schema === Item['rda-documentation'] && <TOC />}
+        <Link href={'/gnd'}>
           <a
             className={
-              router.pathname.startsWith("/gnd") ||
+              router.pathname.startsWith('/gnd') ||
               elementOf === Item.gnddatafield ||
               elementOf === Item.gndsubfield
                 ? `${styles.gnd}`
@@ -81,5 +81,5 @@ export default function Sidebar({active}: SideBarProps) {
         <p></p>
       </nav>
     </>
-  )
+  );
 }

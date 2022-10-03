@@ -1,7 +1,7 @@
-import { useAnchor } from "context/anchors";
-import { useEffect } from "react";
-import Link from "next/link";
-import HtmlReactParser from "html-react-parser";
+import { useAnchor } from 'context/anchors';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import HtmlReactParser from 'html-react-parser';
 
 interface Props {
   level: number;
@@ -13,7 +13,7 @@ interface Props {
   logo?: string;
 }
 
-const WIKIBASE_URL = "https://doku.wikibase.wiki/entity/";
+const WIKIBASE_URL = 'https://doku.wikibase.wiki/entity/';
 
 export default function Header({
   editor,
@@ -34,13 +34,13 @@ export default function Header({
   return (
     <>
       {level === 1 && (
-        <div className={"inline-elements"}>
+        <div className={'inline-elements'}>
           {logo && HtmlReactParser(`<span class="headerlogo">${logo}</span>`)}
           <header className={`header${level}`} id={anchorId}>
             {`${label}`}
           </header>
           <a
-            className={"penInHeader"}
+            className={'penInHeader'}
             target="_blank"
             rel="noreferrer"
             href={WIKIBASE_URL + id}
@@ -50,7 +50,7 @@ export default function Header({
         </div>
       )}
       {!embedded && level > 1 && (
-        <div className={"inline-elements"}>
+        <div className={'inline-elements'}>
           <header className={`header${level}`} id={anchorId}>
             {`${label}`}
             {link && (
@@ -66,7 +66,7 @@ export default function Header({
           </header>
           {editor && (
             <a
-              className={"penInHeader"}
+              className={'penInHeader'}
               target="_blank"
               rel="noreferrer"
               href={WIKIBASE_URL + id}
@@ -78,7 +78,7 @@ export default function Header({
       )}
       {embedded && editor && level > 1 && (
         <a
-          className={"penInHeader"}
+          className={'penInHeader'}
           target="_blank"
           rel="noreferrer"
           href={WIKIBASE_URL + id}

@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Layout from "@/components/layout/layout";
-import Sidebar from "@/components/sidebar/sidebar";
-import GndNavigation from "@/components/layout/gndNavigation";
-import { getFields } from "@/lib/api";
-import FieldTable from "@/components/tables/FieldTable";
+import Head from 'next/head';
+import Layout from '@/components/layout/layout';
+import Sidebar from '@/components/sidebar/sidebar';
+import GndNavigation from '@/components/layout/gndNavigation';
+import { getFields } from '@/lib/api';
+import FieldTable from '@/components/tables/FieldTable';
 
 export default function Fields({ list }) {
   // console.log('list',list)

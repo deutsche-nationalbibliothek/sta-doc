@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { Fragment, useMemo } from "react";
-import { useTable, useSortBy, useExpanded } from "react-table";
-import { COLUMNS } from "./RdaTableColumns";
-import styles from "./RdaTable.module.css";
+import Link from 'next/link';
+import { Fragment, useMemo } from 'react';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+import { COLUMNS } from './RdaTableColumns';
+import styles from './RdaTable.module.css';
 
 export default function RdaTable(props) {
   const data = useMemo(() => props.data, []);
@@ -14,7 +14,7 @@ export default function RdaTable(props) {
       initialState: {
         sortBy: [
           {
-            id: "label",
+            id: 'label',
             desc: false,
           },
         ],
@@ -44,9 +44,9 @@ export default function RdaTable(props) {
                 key={index}
                 {...column.getHeaderProps(column.getSortByToggleProps())}
               >
-                {column.render("Header")}
+                {column.render('Header')}
                 <span>
-                  {column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                 </span>
               </th>
             ))}
@@ -65,7 +65,7 @@ export default function RdaTable(props) {
 function TableCell(props) {
   return (
     <td key={props.id} {...props.getCellProps()}>
-      {props.render("Cell")}
+      {props.render('Cell')}
     </td>
   );
 }

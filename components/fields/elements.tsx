@@ -1,11 +1,11 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import React, { Fragment } from "react";
-import Collapsible from "react-collapsible";
-import { Item } from "@/types/item";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React, { Fragment } from 'react';
+import Collapsible from 'react-collapsible';
+import { Item } from '@/types/item';
 // import { Property } from "@/types/property";
-import Header from "../layout/header";
-import Detail from "../details/index";
+import Header from '../layout/header';
+import Detail from '../details/index';
 import {
   DataGrid,
   GroupPanel,
@@ -16,7 +16,7 @@ import {
   FilterPanel,
   // FilterBuilderPopup,
   // Scrolling,
-} from "devextreme-react/data-grid";
+} from 'devextreme-react/data-grid';
 
 interface Props {
   elements: any;
@@ -36,12 +36,12 @@ export default function Elements({ elements, headerLevel }: Props) {
     return acc;
   }, {});
   const elementsDataGrid = elements.occurrences.map((element) => ({
-    "WEMI-Ebene":
+    'WEMI-Ebene':
       element.qualifiers.wemilevel?.occurrences[0].label ||
-      "Nicht eingruppiert",
+      'Nicht eingruppiert',
     Elementname: element.label,
-    Status: element.qualifiers.status?.occurrences[0].label || "",
-    Notation: "xyz",
+    Status: element.qualifiers.status?.occurrences[0].label || '',
+    Notation: 'xyz',
   }));
 
   return (
@@ -54,11 +54,11 @@ export default function Elements({ elements, headerLevel }: Props) {
                 label={label}
                 id={label}
                 level={headerLevel}
-                link={wemi[0].qualifiers.wemilevel?.occurrences[0].link || "/"}
+                link={wemi[0].qualifiers.wemilevel?.occurrences[0].link || '/'}
               />
               {wemi.map(
                 (statement: any) =>
-                  (statement.qualifiers["embedded(item)"] ||
+                  (statement.qualifiers['embedded(item)'] ||
                     statement.qualifiers.description) && (
                     <>
                       <Header
@@ -71,32 +71,32 @@ export default function Elements({ elements, headerLevel }: Props) {
                         statement.qualifiers.description.occurrences.map(
                           (occ: any) => <p>{occ.value}</p>
                         )}
-                      {statement.qualifiers["embedded(item)"] &&
-                        statement.qualifiers["embedded(item)"].occurrences.map(
+                      {statement.qualifiers['embedded(item)'] &&
+                        statement.qualifiers['embedded(item)'].occurrences.map(
                           (quali: any) => (
                             <Collapsible
                               key={index}
                               openedClassName={
                                 quali.statements.elementof.occurrences[0].id ===
                                 Item.gnddatafield
-                                  ? "CollapsibleOpenGnd"
-                                  : "CollapsibleOpenRda"
+                                  ? 'CollapsibleOpenGnd'
+                                  : 'CollapsibleOpenRda'
                               }
                               open={true}
-                              overflowWhenOpen={"unset"}
+                              overflowWhenOpen={'unset'}
                               trigger={
                                 <span>
-                                  Weiterführende Informationen &#8744;{" "}
+                                  Weiterführende Informationen &#8744;{' '}
                                 </span>
                               }
                               triggerWhenOpen={<span>&#8743; </span>}
                               triggerClassName={
                                 quali.statements.elementof.occurrences[0].id ===
                                 Item.gnddatafield
-                                  ? "CollapsibleClosedGnd"
-                                  : "CollapsibleClosedRda"
+                                  ? 'CollapsibleClosedGnd'
+                                  : 'CollapsibleClosedRda'
                               }
-                              triggerOpenedClassName={"CollapsibleTriggerOpen"}
+                              triggerOpenedClassName={'CollapsibleTriggerOpen'}
                               triggerElementProps={{
                                 id: `Collapsible-${quali.label}`,
                               }}
@@ -128,7 +128,7 @@ export default function Elements({ elements, headerLevel }: Props) {
           >
             <GroupPanel
               visible={true}
-              emptyPanelText={"Ziehe eine Spalte hierher um zu gruppieren!"}
+              emptyPanelText={'Ziehe eine Spalte hierher um zu gruppieren!'}
             />
             <FilterRow visible={true} />
             <FilterPanel visible={false} />

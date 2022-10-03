@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { useTable, useSortBy, useExpanded } from "react-table";
-import { COLUMNS } from "./FieldColumns";
-import styles from "./FieldTable.module.css";
-import SubfieldTable from "../tables/SubfieldTable";
-import Collapsible from "react-collapsible";
-import stylesCollapsible from "./Collapsible.module.css";
+import { useMemo } from 'react';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+import { COLUMNS } from './FieldColumns';
+import styles from './FieldTable.module.css';
+import SubfieldTable from '../tables/SubfieldTable';
+import Collapsible from 'react-collapsible';
+import stylesCollapsible from './Collapsible.module.css';
 
 export default function FieldTable(props) {
   const data = props.data;
@@ -19,7 +19,7 @@ export default function FieldTable(props) {
       initialState: {
         sortBy: [
           {
-            id: "codings.PICA3",
+            id: 'codings.PICA3',
             desc: false,
           },
         ],
@@ -49,13 +49,13 @@ export default function FieldTable(props) {
                   key={index}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
-                  {column.render("Header")}
+                  {column.render('Header')}
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
                   </span>
                 </th>
               ))}
@@ -67,7 +67,7 @@ export default function FieldTable(props) {
             const mapper = row.original.subfields;
             // TODO workaround here: push id of prop to the object
             Object.keys(mapper).map((key) => {
-              mapper[key]["id"] = key;
+              mapper[key]['id'] = key;
             });
             const subfields = [];
             Object.keys(mapper).map((key) => {
@@ -78,10 +78,10 @@ export default function FieldTable(props) {
             return (
               <tr key={index} {...row.getRowProps()}>
                 {row.cells.map((cell, index) => {
-                  if (cell.column["Header"] === "Feldbezeichnung") {
+                  if (cell.column['Header'] === 'Feldbezeichnung') {
                     return (
                       <td key={index} {...cell.getCellProps()}>
-                        {cell.render("Cell")}
+                        {cell.render('Cell')}
                         <Collapsible
                           trigger="Zeige Unterfelder"
                           triggerWhenOpen="Schließe Unterfelder"
@@ -98,7 +98,7 @@ export default function FieldTable(props) {
                   } else {
                     return (
                       <td key={index} {...cell.getCellProps()}>
-                        {cell.render("Cell")}
+                        {cell.render('Cell')}
                       </td>
                     );
                   }

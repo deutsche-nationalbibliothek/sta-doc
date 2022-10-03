@@ -1,4 +1,4 @@
-import HtmlReactParser from "html-react-parser";
+import HtmlReactParser from 'html-react-parser';
 
 export default function CollapsibleWithPreview({ occurance }) {
   return (

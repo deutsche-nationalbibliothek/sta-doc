@@ -1,5 +1,5 @@
-import * as sparql from "@/lib/sparql";
-import { getCodings } from "@/lib/api";
+import * as sparql from '@/lib/sparql';
+import { getCodings } from '@/lib/api';
 
 export default async function handler(req, res) {
   const { codingId } = req.query;

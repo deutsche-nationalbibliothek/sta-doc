@@ -1,8 +1,8 @@
 // import { Property } from "@/types/property";
-import CodingTable from "@/components/tables/CodingTable";
-import RdaDetailTable from "@/components/tables/RdaDetailTable";
-import { Item } from "@/types/item";
-import Entity, { Statement } from "@/types/entry";
+import CodingTable from '@/components/tables/CodingTable';
+import RdaDetailTable from '@/components/tables/RdaDetailTable';
+import { Item } from '@/types/item';
+import Entity, { Statement } from '@/types/entry';
 
 interface Props {
   entity: Entity;

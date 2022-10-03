@@ -1,6 +1,6 @@
-import Head from "next/head";
-import Layout from "@/components/layout/layout";
-import Sidebar from "@/components/sidebar/sidebar";
+import Head from 'next/head';
+import Layout from '@/components/layout/layout';
+import Sidebar from '@/components/sidebar/sidebar';
 
 export default function HomePage(props) {
   return (
@@ -19,17 +19,17 @@ export default function HomePage(props) {
 
 export async function getStaticProps() {
   const url =
-    "https://doku.wikibase.wiki/api.php?" +
+    'https://doku.wikibase.wiki/api.php?' +
     new URLSearchParams({
-      origin: "*",
-      action: "parse",
-      page: "GND-Dokumentation",
-      prop: "text",
-      format: "json",
+      origin: '*',
+      action: 'parse',
+      page: 'GND-Dokumentation',
+      prop: 'text',
+      format: 'json',
     });
   const req = await fetch(url);
   const json = await req.json();
-  const parser = json.parse.text["*"];
+  const parser = json.parse.text['*'];
   const title = json.parse.title;
 
   return {

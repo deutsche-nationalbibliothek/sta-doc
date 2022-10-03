@@ -3,7 +3,7 @@ interface Props {
 }
 
 export default function ListOfContent({ anchors }: Props) {
-  console.log("anchors", anchors);
+  console.log('anchors', anchors);
   const anchs = anchors;
   const lastAnchorLevel = 1;
   const nestedArr = recursiveNestedArray(anchs, lastAnchorLevel);

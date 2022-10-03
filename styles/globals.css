@@ -4,7 +4,7 @@
   min-height: 100vh;
 }
 :target:before {
-  content: "";
+  content: '';
   display: block;
   height: 30px; /* fixed header height*/
   margin: -30px 0 0; /* negative fixed header height */
@@ -261,10 +261,10 @@ summary {
   display: none; /* Of course you don't want to display ... */
 }
 .collapse-module a.collapsed:after {
-  content: "+ Aufklappen +";
+  content: '+ Aufklappen +';
 }
 .collapse-module a:not(.collapsed):after {
-  content: "- Zuklappen -";
+  content: '- Zuklappen -';
 }
 .title {
   position: relative;

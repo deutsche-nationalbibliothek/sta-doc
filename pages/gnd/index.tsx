@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Image from "next/image";
-import Layout from "@/components/layout/layout";
-import Sidebar from "@/components/sidebar/sidebar";
-import GndNavigation from "@/components/layout/gndNavigation";
-import gndLogo from "@/public/GND_RGB_Wabe.png";
+import Head from 'next/head';
+import Image from 'next/image';
+import Layout from '@/components/layout/layout';
+import Sidebar from '@/components/sidebar/sidebar';
+import GndNavigation from '@/components/layout/gndNavigation';
+import gndLogo from '@/public/GND_RGB_Wabe.png';
 
 export default function GNDHomePage(props) {
   const htmlString = props.parser;
@@ -48,18 +48,18 @@ export default function GNDHomePage(props) {
 
 export async function getStaticProps() {
   const url =
-    "https://doku.wikibase.wiki/api.php?" +
+    'https://doku.wikibase.wiki/api.php?' +
     new URLSearchParams({
-      origin: "*",
-      action: "parse",
-      page: "GND-Dokumentation",
-      prop: "text",
-      format: "json",
+      origin: '*',
+      action: 'parse',
+      page: 'GND-Dokumentation',
+      prop: 'text',
+      format: 'json',
     });
 
   const req = await fetch(url);
   const json = await req.json();
-  const parser = json.parse.text["*"];
+  const parser = json.parse.text['*'];
   const title = json.parse.title;
 
   return {

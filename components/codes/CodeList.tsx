@@ -1,6 +1,6 @@
 // import MeetupItem from './MeetupItem';
 // import
-import classes from "./CodeList.module.css"
+import classes from './CodeList.module.css';
 
 function CodeList(props) {
   // console.log('props', props);
@@ -14,10 +14,10 @@ function CodeList(props) {
               <td>{props.fields[key].label}</td>
             </tr>
           </>
-        )
+        );
       })}
     </table>
-  )
+  );
 }
 
-export default CodeList
+export default CodeList;

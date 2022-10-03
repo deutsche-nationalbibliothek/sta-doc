@@ -1,31 +1,31 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export const COLUMNS = [
   {
-    Header: "Unterfelder",
+    Header: 'Unterfelder',
     columns: [
       {
-        Header: "PICA3",
-        accessor: "codings.PICA3",
-        sortType: "basic",
+        Header: 'PICA3',
+        accessor: 'codings.PICA3',
+        sortType: 'basic',
       },
       {
-        Header: "PICA+",
-        accessor: "codings.PICA+",
-        sortType: "basic",
+        Header: 'PICA+',
+        accessor: 'codings.PICA+',
+        sortType: 'basic',
       },
       {
-        Header: "MARC21",
-        accessor: "codings.MARC 21",
-        sortType: "basic",
+        Header: 'MARC21',
+        accessor: 'codings.MARC 21',
+        sortType: 'basic',
       },
       {
-        Header: "Beschreibung",
-        accessor: "label",
+        Header: 'Beschreibung',
+        accessor: 'label',
         Cell: ({ row }) => (
-          <Link href={"/entries/" + row.original.id}>{row.original.label}</Link>
+          <Link href={'/entries/' + row.original.id}>{row.original.label}</Link>
         ),
-        sortType: "basic",
+        sortType: 'basic',
       },
     ],
   },

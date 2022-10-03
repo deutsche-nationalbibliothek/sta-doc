@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
-import { createContext, useCallback, useContext, useState } from "react";
+import { useRouter } from 'next/router';
+import { createContext, useCallback, useContext, useState } from 'react';
 
 interface Collapsible {
   label: string;
@@ -24,9 +24,9 @@ export default function CollapsibleProvider({ children }) {
     [setCollapsibles]
   );
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     // if client rendering:
-    router.events.on("routeChangeStart", () => setCollapsibles([]));
+    router.events.on('routeChangeStart', () => setCollapsibles([]));
   }
 
   return (

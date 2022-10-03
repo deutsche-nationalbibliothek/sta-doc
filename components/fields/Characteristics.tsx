@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { Fragment } from "react";
-import classes from "./Characteristics.module.css";
+import Link from 'next/link';
+import { Fragment } from 'react';
+import classes from './Characteristics.module.css';
 
-const ROUTE_GENERAL_ID = "general/[generalId]";
+const ROUTE_GENERAL_ID = 'general/[generalId]';
 
 export default function Characteristics({ characteristics }) {
   // console.log('carac',characteristics)

@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { useTable, useSortBy, useExpanded } from "react-table";
-import { COLUMNS } from "./SubfieldColumns";
-import classes from "./SubfieldTable.module.css";
+import { useMemo } from 'react';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+import { COLUMNS } from './SubfieldColumns';
+import classes from './SubfieldTable.module.css';
 
 export default function SubfieldTable(props) {
   const data = props.data;
@@ -37,13 +37,13 @@ export default function SubfieldTable(props) {
                   key={index}
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
-                  {column.render("Header")}
+                  {column.render('Header')}
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
                   </span>
                 </th>
               ))}
@@ -58,7 +58,7 @@ export default function SubfieldTable(props) {
                 {row.cells.map((cell, index) => {
                   return (
                     <td key={index} {...cell.getCellProps()}>
-                      {cell.render("Cell")}
+                      {cell.render('Cell')}
                     </td>
                   );
                 })}

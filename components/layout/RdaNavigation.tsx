@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function RdaNavigation() {
   return (
     <topmenu>
-      <nav className={"rda-color"}>
+      <nav className={'rda-color'}>
         <p>Formalerschließung [ </p>
         <Link href="/entries/Q8566">Allgemeines</Link>
         <p> | </p>

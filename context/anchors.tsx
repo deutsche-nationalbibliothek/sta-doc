@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
-import { createContext, useCallback, useContext, useState } from "react";
+import { useRouter } from 'next/router';
+import { createContext, useCallback, useContext, useState } from 'react';
 
 interface Anchor {
   label: string;
@@ -23,9 +23,9 @@ export default function AnchorProvider({ children }) {
     [setAnchors]
   );
 
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     // if client rendering:
-    router.events.on("routeChangeStart", () => setAnchors([]));
+    router.events.on('routeChangeStart', () => setAnchors([]));
   }
 
   return (

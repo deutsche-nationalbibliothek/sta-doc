@@ -1,16 +1,16 @@
-import { Fragment } from "react";
-import CodingTable from "../tables/CodingTable";
-import References from "./References";
-import Examples from "./Examples";
-import Characteristics from "./Characteristics";
-import styles from "./FieldDetail.module.css";
+import { Fragment } from 'react';
+import CodingTable from '../tables/CodingTable';
+import References from './References';
+import Examples from './Examples';
+import Characteristics from './Characteristics';
+import styles from './FieldDetail.module.css';
 
 export default function FieldDetail(props) {
   const field = props.data;
   // console.log('field',field)
   const rows = [];
   const row0 = {
-    label: field?.label ?? "",
+    label: field?.label ?? '',
     format: {},
     repetition: field.statements?.repetition?.occurrences[0].value,
   };
@@ -19,18 +19,18 @@ export default function FieldDetail(props) {
       field.statements.encoding.format
     )) {
       // console.log(`${key}: ${value}`)
-      row0["format"][key] = value;
+      row0['format'][key] = value;
     }
     rows.push(row0);
     field.statements.subfields?.occurrences.map((subfield, index) => {
       const row = {
-        label: subfield.label ?? "",
+        label: subfield.label ?? '',
         format: {},
         repetition: subfield.qualifiers?.repetition?.occurrences[0].value,
       };
       for (const [key, value] of Object.entries(subfield.coding.format)) {
         // console.log(`${key}: ${value}`)
-        row["format"][key] = value;
+        row['format'][key] = value;
       }
       // subfield.coding.occurrences.map((coding,index) => {
       // let key = coding.qualifiers.type.occurrences[0].label

@@ -1,13 +1,13 @@
 module.exports = {
   extends: [
-    "eslint:recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
+    'eslint:recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
-    "no-debugger": "warn", // instead of default error
-    indent: ["warn", 2, { SwitchCase: 1 }], // instead of default 4
-    "no-undef": "off",
+    'no-debugger': 'warn', // instead of default error
+    indent: ['warn', 2, { SwitchCase: 1 }], // instead of default 4
+    'no-undef': 'off',
   },
 };

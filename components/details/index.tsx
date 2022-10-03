@@ -1,19 +1,19 @@
-import {useRouter} from "next/router"
-import Link from "next/link"
-import Statement from "@/components/details/statement"
-import Header from "@/components/layout/header"
-import Entry from "@/types/entry"
-import {Item} from "@/types/item"
-import {Property} from "@/types/property"
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Statement from '@/components/details/statement';
+import Header from '@/components/layout/header';
+import Entry from '@/types/entry';
+import { Item } from '@/types/item';
+import { Property } from '@/types/property';
 // import { getElements, sortStatements, getEntity } from "@/lib/api";
-import Table from "./table"
-import HtmlReactParser from "html-react-parser"
+import Table from './table';
+import HtmlReactParser from 'html-react-parser';
 
 interface Props {
-  embedded?: boolean
-  entry: Entry
-  headerLevel?: number
-  ressourceTypePage?: boolean
+  embedded?: boolean;
+  entry: Entry;
+  headerLevel?: number;
+  ressourceTypePage?: boolean;
 }
 
 export default function Detail({
@@ -22,17 +22,17 @@ export default function Detail({
   headerLevel = 1,
   ressourceTypePage = false,
 }: Props) {
-  const {query} = useRouter()
-  const groups = groupStatements(entry)
+  const { query } = useRouter();
+  const groups = groupStatements(entry);
   const logo =
     (entry.statements.logo && entry.statements.logo.occurrences[0].value) ||
-    undefined
+    undefined;
 
   return (
     <>
       {!embedded ? (
-        <div className={"title"}>
-          <span className={"header"}>
+        <div className={'title'}>
+          <span className={'header'}>
             {!query.view ? (
               <Header
                 label={entry.label}
@@ -53,13 +53,13 @@ export default function Detail({
             )}
           </span>
           {ressourceTypePage && (
-            <span className={"button"}>
-              <button className={"Button"}>
+            <span className={'button'}>
+              <button className={'Button'}>
                 {!query.view ? (
                   <Link
                     href={{
                       pathname: `${query.entryId}`,
-                      query: {view: "application-profile"},
+                      query: { view: 'application-profile' },
                     }}
                   >
                     <a>Anwendungsprofil</a>
@@ -98,7 +98,7 @@ export default function Detail({
             <Statement
               key={index}
               statement={statement}
-              elementOf={""}
+              elementOf={''}
               index={index}
               headerLevel={headerLevel + 1}
             />
@@ -106,7 +106,7 @@ export default function Detail({
         </>
       )}
     </>
-  )
+  );
 }
 
 const groupsDefinition = {
@@ -122,7 +122,7 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property["example(s)"],
+      Property['example(s)'],
       Property.authorizations,
     ],
   },
@@ -137,10 +137,10 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property["example(s)"],
+      Property['example(s)'],
     ],
   },
-  [Item["gndentitytype:entityencoding"]]: {
+  [Item['gndentitytype:entityencoding']]: {
     tableProperties: [
       // todo, add later
     ],
@@ -153,12 +153,12 @@ const groupsDefinition = {
       Property.implementationprovisions,
       Property.applicablefordatafield,
       Property.permitedvalues,
-      Property["example(s)"],
+      Property['example(s)'],
       Property.applicablefordatafield,
       Property.applicablefortypeofentity,
     ],
   },
-  [Item["stadocumentation:rules"]]: {
+  [Item['stadocumentation:rules']]: {
     tableProperties: [
       // todo, add later
     ],
@@ -171,7 +171,7 @@ const groupsDefinition = {
   },
   [Item.rdaproperty]: {
     tableProperties: [
-      Property["entitytype/domain"],
+      Property['entitytype/domain'],
       Property.parentproperty,
       Property.standardelementfor,
       Property.subproperties,
@@ -184,10 +184,10 @@ const groupsDefinition = {
       Property.specialrules,
       Property.specificrules,
       Property.permitedvalues,
-      Property["example(s)"],
+      Property['example(s)'],
     ],
   },
-  [Item["rda-ressourcetype"]]: {
+  [Item['rda-ressourcetype']]: {
     tableProperties: [
       // todo, add later
     ],
@@ -195,10 +195,10 @@ const groupsDefinition = {
       Property.description,
       Property.elements,
       Property.sourcesofinformation,
-      Property["description(attheend)"],
+      Property['description(attheend)'],
     ],
   },
-  ["default-template"]: {
+  ['default-template']: {
     // default renders tableProps, but NOT restProps like above
     tableProperties: [
       // todo, add later
@@ -211,10 +211,10 @@ const groupsDefinition = {
       Property.logo,
     ],
   },
-}
+};
 
 const groupStatements = (entry: Entry) => {
-  const relevantKey = entry.statements.elementof?.occurrences[0].id
+  const relevantKey = entry.statements.elementof?.occurrences[0].id;
   if (groupsDefinition[relevantKey]) {
     return {
       table: Object.keys(entry.statements)
@@ -231,12 +231,12 @@ const groupStatements = (entry: Entry) => {
           )
         )
         .map((key) => entry.statements[key]),
-    }
+    };
   } else {
     return {
       table: Object.keys(entry.statements)
         .filter((key) =>
-          groupsDefinition["default-template"].tableProperties.find(
+          groupsDefinition['default-template'].tableProperties.find(
             (tProp: any) => entry.statements[key].id === tProp
           )
         )
@@ -244,11 +244,11 @@ const groupStatements = (entry: Entry) => {
       rest: Object.keys(entry.statements)
         .filter(
           (key) =>
-            !groupsDefinition["default-template"].ignoreProperties.find(
+            !groupsDefinition['default-template'].ignoreProperties.find(
               (rProp: any) => entry.statements[key].id === rProp
             )
         )
         .map((key) => entry.statements[key]),
-    }
+    };
   }
-}
+};

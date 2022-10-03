@@ -1,4 +1,4 @@
-import { getEntity } from "@/lib/api";
+import { getEntity } from '@/lib/api';
 
 export default async function handler(req, res) {
   const { entryId } = req.query;

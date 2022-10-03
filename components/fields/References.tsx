@@ -1,6 +1,6 @@
-import { Fragment } from "react";
-import HtmlReactParser from "html-react-parser";
-import styles from "./References.module.css";
+import { Fragment } from 'react';
+import HtmlReactParser from 'html-react-parser';
+import styles from './References.module.css';
 
 function ReferenceBox(props) {
   const referenceMap = {

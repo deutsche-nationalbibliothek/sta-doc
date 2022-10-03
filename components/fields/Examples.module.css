@@ -39,7 +39,7 @@
   text-align: left;
 }
 .boxdescription::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }
@@ -50,7 +50,7 @@
   margin: 5px;
 }
 .clearfix::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }
