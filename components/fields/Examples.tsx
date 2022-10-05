@@ -1,7 +1,12 @@
 import styles from './Examples.module.css';
 import Description from './Description';
+import { Examples as ExamplesType } from '@/types/entry';
 
-export default function Examples({ examples }) {
+interface ExamplesProps {
+  examples?: ExamplesType
+}
+
+export default function Examples({ examples }: ExamplesProps) {
   if (examples) {
     return (
       <>
