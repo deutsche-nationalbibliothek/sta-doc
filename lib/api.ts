@@ -1,10 +1,14 @@
 import cacheData from 'memory-cache';
-import * as sparql from '@/lib/sparql';
-import labelen from '@/data/labelen.json';
-import labelde from '@/data/labelde.json';
-import code from '@/data/codings.json';
+import * as sparql from '../lib/sparql';
+import labelen from '../data/labelen.json';
+import labelde from '../data/labelde.json';
+import code from '../data/codings.json';
 const API_URL = 'http://doku.wikibase.wiki';
 const endpointUrl = API_URL + '/query/proxy/wdqs/bigdata/namespace/wdq/sparql';
+
+// todo, do distinction if node env or not
+const fetch = (url, options) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(url, { ...options }));
 
 export async function getRdaProperties() {
   const response = await queryDispatcher.query(sparql.RDAPROPERTIES);
@@ -81,8 +85,8 @@ async function readCodings(codings) {
     obj[key]['coding']['format'] = {};
     key_filter.map(
       (coding) =>
-        (obj[key]['coding']['format'][coding['codingTypeLabel']?.value] =
-          coding['coding'].value)
+      (obj[key]['coding']['format'][coding['codingTypeLabel']?.value] =
+        coding['coding'].value)
     );
   });
   return obj;
@@ -200,8 +204,8 @@ export async function getCodings(sparqlQuery) {
     obj[key]['coding']['format'] = {};
     key_filter.map(
       (binding) =>
-        (obj[key]['coding']['format'][binding['codingTypeLabel']?.value] =
-          binding['coding'].value)
+      (obj[key]['coding']['format'][binding['codingTypeLabel']?.value] =
+        binding['coding'].value)
     );
   });
   return obj;
@@ -347,7 +351,8 @@ async function recursiveRenderEntity(id, headerLevel = 1) {
               occurrence['mainsnak']['datavalue']['value']['id'];
             // obj['statements'][lookup_en[key].label]['occurrences'][index]['statements'] = examples[occurrence_id]['statements']
             obj['statements'][lookup_en[key].label]['occurrences'][index] =
-              await recursiveRenderEntity(occurrence_id, headerLevel + 1);
+              occurrence_id;
+            // await recursiveRenderEntity(occurrence_id, headerLevel + 1);
           }
           // fourth level
           if (occurrence['qualifiers'] !== undefined) {
@@ -453,11 +458,11 @@ async function recursiveRenderEntity(id, headerLevel = 1) {
                                 'occurrences'
                               ][index]['qualifiers'][
                                 lookup_en[quali_key].label
-                              ]['occurrences'][index2] =
-                                await recursiveRenderEntity(
-                                  occurrences2_id,
-                                  headerLevel + 1
-                                );
+                              ]['occurrences'][index2] = occurrences2_id;
+                              // await recursiveRenderEntity(
+                              //   occurrences2_id,
+                              //   headerLevel + 1
+                              // );
                             }
                           } else if (occurrences2['datatype'] === 'time') {
                             obj['statements'][lookup_en[key].label][
@@ -528,8 +533,8 @@ export async function getExample(exampleId) {
 
   const res = await fetchWithCache(
     API_URL +
-      '/w/api.php?action=wbgetentities&format=json&languages=de&ids=' +
-      exampleId
+    '/w/api.php?action=wbgetentities&format=json&languages=de&ids=' +
+    exampleId
   );
   const element = res.entities[exampleId];
   // first level
@@ -649,7 +654,7 @@ export async function getExample(exampleId) {
               ) {
                 const property =
                   occurrence['qualifiers'][quali_key][0]['datavalue']['value'][
-                    'id'
+                  'id'
                   ];
                 if (codings[property]) {
                   obj['statements'][lookup_en[claim_key].label]['occurrences'][
