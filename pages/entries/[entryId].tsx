@@ -1,18 +1,24 @@
 import Head from 'next/head';
 import Layout from '@/components/layout/layout';
 import { Item } from '@/types/item';
+import EntryType from '@/types/entry';
 import Sidebar from '@/components/sidebar/sidebar';
-import labelen from '@/data/labelen.json';
-import * as sparql from '@/lib/sparql';
-import { getElements, readLabelEn, getEntity } from '@/lib/api';
+import labelen from '@/data/parsed/labels-en.json';
+import entities from '@/data/parsed/entities.json';
 import TopNavigation from '@/components/layout/topNavigation';
 import Details from '@/components/details';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
-export default function Entry({ entry }) {
+interface EntryProps {
+  entry: EntryType;
+}
+
+export default function Entry({ entry }: EntryProps) {
   const title =
     entry.label && entry.statements.elementof
       ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
       : 'missing german entity label';
+
   const ressourceTypePage =
     entry.statements.elements &&
     entry.statements.elementof.occurrences[0].id === Item['rda-ressourcetype'];
@@ -36,10 +42,12 @@ export default function Entry({ entry }) {
   );
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<
+  EntryProps,
+  { entryId: string }
+> = async ({ params }) => {
   // get API data
-  const entryId = params.entryId;
-  const entry = await getEntity(entryId);
+  const entry = entities[params.entryId];
 
   if (!entry) {
     return {
@@ -49,30 +57,32 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      entry: { ...entry },
+      entry,
     },
     // revalidate: 10, // In seconds
   };
-}
+};
 
-export async function getStaticPaths() {
-  const entries = await readLabelEn(labelen);
-  const subsetOfEntries = Object.entries(entries).filter(
-    (entry) => entry[1].assignmentId !== Item['stadocumentation:example']
-  );
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = labelen;
+  const subsetOfEntries = Object.entries(entries).filter((entry) => {
+    // console.log({ entry });
+    return (
+      'assignmentId' in entry[1] &&
+      entry[1].assignmentId !== Item['stadocumentation:example']
+    );
+  });
   return {
     paths: subsetOfEntries.map((entry) => ({
       params: { entryId: entry[0].toString() },
     })),
     fallback: true,
   };
-}
-
-Entry.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+Entry.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

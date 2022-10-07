@@ -1,12 +1,12 @@
 import styles from './Examples.module.css';
 import Description from './Description';
-import { Examples as ExamplesType } from '@/types/entry';
+import {Examples as ExamplesType} from '@/types/entry';
 
 interface ExamplesProps {
-  examples?: ExamplesType
+  examples?: ExamplesType;
 }
 
-export default function Examples({ examples }: ExamplesProps) {
+export default function Examples({examples}: ExamplesProps) {
   if (examples) {
     return (
       <>
@@ -27,6 +27,7 @@ export default function Examples({ examples }: ExamplesProps) {
 }
 
 function ExampleBox(props) {
+  console.log({props});
   // Include reference to corresponding wikibase example item
   const link = 'https://doku.wikibase.wiki/wiki/item:' + props.id;
   // sorting statements for correct order
@@ -162,15 +163,15 @@ function ExampleBox(props) {
     const y = b[1].id;
     return template.indexOf(x) - template.indexOf(y);
   }
-  const sortKeys = (obj: any) => {
+  const sortKeys = (obj) => {
     return Object.entries(obj)
       .sort(sortFunc)
-      .map(([key, value]) => {
-        return {
-          [key]: value,
-        };
-      });
+      .reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
   };
+
   const sorted_statements = sortKeys(props.statements) as any;
   const example_statements = Object.keys(sorted_statements).filter(
     (statement) =>

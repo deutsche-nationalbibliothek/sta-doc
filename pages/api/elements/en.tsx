@@ -1,7 +1,6 @@
-import * as sparql from '@/lib/sparql';
-import { getElements } from '@/lib/api';
+import {NextApiRequest, NextApiResponse} from 'next';
+import labelsEn from '@/data/parsed/labels-de.json';
 
-export default async function handler(req, res) {
-  const labels = await getElements(sparql.LABELEN);
-  res.status(200).json(labels);
-}
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
+  res.status(200).json(labelsEn);
+};

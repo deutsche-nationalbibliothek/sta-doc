@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import { createContext, useCallback, useContext, useState } from 'react';
+import {useRouter} from 'next/router';
+import {createContext, useCallback, useContext, useState} from 'react';
 
 interface Anchor {
   label: string;
@@ -14,7 +14,7 @@ interface AnchorContext {
 // param is only used for typing context
 const AnchorContext = createContext({} as AnchorContext);
 
-export default function AnchorProvider({ children }) {
+export default function AnchorProvider({children}) {
   const [anchors, setAnchors] = useState<Anchor[]>([]);
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export default function AnchorProvider({ children }) {
   }
 
   return (
-    <AnchorContext.Provider value={{ anchors, addAnchor }}>
+    <AnchorContext.Provider value={{anchors, addAnchor}}>
       {children}
     </AnchorContext.Provider>
   );

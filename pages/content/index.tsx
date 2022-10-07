@@ -12,7 +12,7 @@ export default function Content() {
   );
 }
 
-Content.getLayout = function getLayout(page) {
+Content.getLayout = (page: React.ReactNode) => {
   return (
     <Layout>
       <Sidebar />

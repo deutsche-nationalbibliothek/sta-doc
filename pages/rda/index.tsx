@@ -1,16 +1,17 @@
 import Head from 'next/head';
-// import Image from "next/image";
+import { GetStaticProps } from 'next';
 import Layout from '@/components/layout/layout';
 import Sidebar from '@/components/sidebar/sidebar';
 import TopNavigation from '@/components/layout/topNavigation';
-import { getElements, readLabelEn, getEntity } from '@/lib/api';
-// import RdaNavigation from "@/components/layout/RdaNavigation";
-// import Collapsible from "react-collapsible";
-// import stylesCollapsible from "@/styles/RdaCollapsible.module.css";
-// import rdaLogo from "@/public/a-rda-logo-small-300dpi.jpg";
+import entities from '@/data/parsed/entities.json';
 import Details from '@/components/details';
+import Entry from '@/types/entry';
 
-export default function Rda({ entry }) {
+interface RdaProps {
+  entry: Entry;
+}
+
+export default function Rda({ entry }: RdaProps) {
   const title =
     entry.label && entry.statements.elementof
       ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
@@ -31,17 +32,15 @@ export default function Rda({ entry }) {
           entry={{
             ...entry,
           }}
-          // ressourceTypePage={ressourceTypePage}
+        // ressourceTypePage={ressourceTypePage}
         />
       </section>
     </>
   );
 }
 
-export async function getStaticProps() {
-  // get API data
-  const entryId = 'Q8469';
-  const entry = await getEntity(entryId);
+export const getStaticProps: GetStaticProps = async () => {
+  const entry = entities['Q8469'];
 
   if (!entry) {
     return {
@@ -55,13 +54,11 @@ export async function getStaticProps() {
     },
     // revalidate: 10, // In seconds
   };
-}
-
-Rda.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+Rda.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

@@ -5,7 +5,6 @@ import Header from '@/components/layout/header';
 import Entry from '@/types/entry';
 import { Item } from '@/types/item';
 import { Property } from '@/types/property';
-// import { getElements, sortStatements, getEntity } from "@/lib/api";
 import Table from './table';
 import HtmlReactParser from 'html-react-parser';
 

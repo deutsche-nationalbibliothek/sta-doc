@@ -1,9 +1,12 @@
-import * as sparql from '@/lib/sparql';
-import { getCodings } from '@/lib/api';
+import { NextApiRequest, NextApiResponse } from 'next';
+import codings from '@/data/parsed/codings.json';
 
-export default async function handler(req, res) {
+export default (req: NextApiRequest, res: NextApiResponse) => {
   const { codingId } = req.query;
-  const codings = await getCodings(sparql.CODINGS);
-  const coding = codings[codingId];
-  res.status(200).json(coding);
-}
+  if (typeof codingId === 'string') {
+    const coding = codings[codingId];
+    res.status(200).json(coding);
+  } else {
+    res.status(404).json({err: 'codingId is not of type string'});
+  }
+};

@@ -2,11 +2,16 @@ import Head from 'next/head';
 import Layout from '@/components/layout/layout';
 import Sidebar from '@/components/sidebar/sidebar';
 import GndNavigation from '@/components/layout/gndNavigation';
-import { getFields } from '@/lib/api';
+import fields from '@/data/parsed/fields.json';
 import FieldTable from '@/components/tables/FieldTable';
+import { GetStaticProps } from 'next';
+import { Field } from '@/types/generated/field';
 
-export default function Fields({ list }) {
-  // console.log('list',list)
+interface FieldsProps {
+  list: Field[];
+}
+
+export default function Fields({ list }: FieldsProps) {
   return (
     <>
       <Head>
@@ -21,21 +26,20 @@ export default function Fields({ list }) {
   );
 }
 
-export async function getStaticProps() {
-  const list = await getFields();
+export const getStaticProps: GetStaticProps = async () => {
+  const list = fields;
+  console.log(list)
   return {
     props: {
-      list: [...list],
+      list,
     },
     revalidate: 1000,
   };
-}
-
-Fields.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+Fields.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

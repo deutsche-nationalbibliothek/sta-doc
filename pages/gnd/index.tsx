@@ -4,8 +4,13 @@ import Layout from '@/components/layout/layout';
 import Sidebar from '@/components/sidebar/sidebar';
 import GndNavigation from '@/components/layout/gndNavigation';
 import gndLogo from '@/public/GND_RGB_Wabe.png';
+import {GetStaticProps} from 'next';
 
-export default function GNDHomePage(props) {
+interface GNDHomePageProps {
+  parser: string;
+}
+
+export default function GNDHomePage(props: GNDHomePageProps) {
   const htmlString = props.parser;
   // const json = props.json;
   // const title = props.title;
@@ -40,13 +45,13 @@ export default function GNDHomePage(props) {
         </h1>
 
         <hr />
-        <div dangerouslySetInnerHTML={{ __html: htmlString }}></div>
+        <div dangerouslySetInnerHTML={{__html: htmlString}}></div>
       </section>
     </>
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps<GNDHomePageProps> = async () => {
   const url =
     'https://doku.wikibase.wiki/api.php?' +
     new URLSearchParams({
@@ -70,13 +75,11 @@ export async function getStaticProps() {
     },
     revalidate: 10,
   };
-}
-
-GNDHomePage.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+GNDHomePage.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

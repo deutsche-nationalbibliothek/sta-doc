@@ -1,8 +1,6 @@
-import * as sparql from '@/lib/sparql';
-import { getCodings } from '@/lib/api';
+import { NextApiRequest, NextApiResponse } from 'next';
+import codings from '@/data/parsed/codings.json';
 
-export default async function handler(req, res) {
-  const { codingId } = req.query;
-  const codings = await getCodings(sparql.CODINGS);
+export default (_req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json(codings);
 }

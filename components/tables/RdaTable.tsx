@@ -1,12 +1,14 @@
-import Link from 'next/link';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './RdaTableColumns';
 import styles from './RdaTable.module.css';
+import { RdaProperty } from '@/types/generated/rda-property';
 
-export default function RdaTable(props) {
-  const data = useMemo(() => props.data, []);
+interface RdaTableProps {
+  data: RdaProperty;
+}
 
+export default function RdaTable({ data }: RdaTableProps) {
   const tableInstance = useTable(
     {
       columns: COLUMNS,

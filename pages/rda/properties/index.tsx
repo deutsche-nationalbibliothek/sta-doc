@@ -1,11 +1,17 @@
 import Layout from '@/components/layout/layout';
 import Sidebar from '@/components/sidebar/sidebar';
 import Head from 'next/head';
-import { getRdaProperties } from '@/lib/api';
 import RdaNavigation from '@/components/layout/RdaNavigation';
+import rdaProperties from '@/data/parsed/rda-properties.json';
 import RdaTable from '@/components/tables/RdaTable';
+import { GetStaticProps } from 'next';
+import { RdaProperty } from '@/types/generated/rda-property';
 
-export default function RdaPropertiesPage({ list }) {
+interface RdaPropertiesPageProps {
+  list: RdaProperty[];
+}
+
+export default function RdaPropertiesPage({ list }: RdaPropertiesPageProps) {
   return (
     <>
       <Head>
@@ -20,21 +26,19 @@ export default function RdaPropertiesPage({ list }) {
   );
 }
 
-export async function getStaticProps() {
-  const list = await getRdaProperties();
+export const getStaticProps: GetStaticProps = async () => {
+  const list = rdaProperties;
   return {
     props: {
-      list: [...list],
+      list,
     },
     revalidate: 10,
   };
-}
-
-RdaPropertiesPage.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+RdaPropertiesPage.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

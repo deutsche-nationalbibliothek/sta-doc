@@ -1,21 +1,54 @@
 import { useMemo } from 'react';
+import Link from 'next/link';
 import { useTable, useSortBy, useExpanded } from 'react-table';
-import { COLUMNS } from './FieldColumns';
 import styles from './FieldTable.module.css';
 import SubfieldTable from '../tables/SubfieldTable';
 import Collapsible from 'react-collapsible';
 import stylesCollapsible from './Collapsible.module.css';
+import { Field } from '@/types/generated/field';
 
-export default function FieldTable(props) {
-  const data = props.data;
+interface FieldTableProps {
+  data: Field[];
+}
 
-  const columns = useMemo(() => COLUMNS, []);
-  const data2 = useMemo(() => data, []);
+export default function FieldTable({ data }: FieldTableProps) {
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'PICA3',
+        accessor: 'codings.PICA3',
+        sortType: 'basic',
+      },
+      {
+        Header: 'PICA+',
+        accessor: 'codings.PICA+',
+        sortType: 'basic',
+      },
+      {
+        Header: 'MARC21',
+        accessor: 'codings.MARC 21',
+        sortType: 'basic',
+      },
+      {
+        Header: 'Feldbezeichnung',
+        accessor: 'label',
+        // Cell: ({row}) => (<a href={`fields/${row.original.id}`}>{row.original.label}</a>),
+        // Cell: ({row}) => (<a href={row.original.editLink}>{row.original.label}</a>),
+        Cell: ({ row }) => (
+          <Link href={`/entries/${encodeURIComponent(row.original.id)}`}>
+            <a>{row.original.label}</a>
+          </Link>
+        ),
+        sortType: 'basic',
+      },
+    ],
+    []
+  );
 
   const tableInstance = useTable(
     {
-      columns: COLUMNS,
-      data: data2,
+      columns,
+      data: data,
       initialState: {
         sortBy: [
           {
@@ -35,7 +68,7 @@ export default function FieldTable(props) {
     headerGroups,
     rows,
     prepareRow,
-    state: { expanded },
+    // state: { expanded },
   } = tableInstance;
 
   return (

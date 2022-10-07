@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Layout from '@/components/layout/layout';
 import Sidebar from '@/components/sidebar/sidebar';
+import {GetStaticProps} from 'next';
 
-export default function HomePage(props) {
+export default function HomePage() {
   return (
     <>
       <Head>
@@ -17,7 +18,7 @@ export default function HomePage(props) {
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const url =
     'https://doku.wikibase.wiki/api.php?' +
     new URLSearchParams({
@@ -40,13 +41,11 @@ export async function getStaticProps() {
     },
     revalidate: 10,
   };
-}
-
-HomePage.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar active={page} />
-      {page}
-    </Layout>
-  );
 };
+
+HomePage.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar active={page} />
+    {page}
+  </Layout>
+);

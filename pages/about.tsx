@@ -12,11 +12,9 @@ export default function About() {
   );
 }
 
-About.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Sidebar />
-      {page}
-    </Layout>
-  );
-};
+About.getLayout = (page: React.ReactNode) => (
+  <Layout>
+    <Sidebar />
+    {page}
+  </Layout>
+);
