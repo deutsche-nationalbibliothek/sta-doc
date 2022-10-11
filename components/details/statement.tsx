@@ -15,12 +15,13 @@ interface Props {
   elementOf: string;
   index: number;
 }
+//todo, continue with WischedProps
 
 export default function StatementComp({
   statement,
   headerLevel,
-  elementOf,
-  index,
+  // elementOf,
+  // index,
 }: Props) {
   const { query } = useRouter();
   const applicationProfile = query.path;

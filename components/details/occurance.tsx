@@ -130,7 +130,7 @@ export default function Occurance({
                             entry={quali}
                             headerLevel={headerLevel + 1}
                             embedded={true}
-                            ressourceTypePage={false}
+                            isRessourceTypePage={false}
                           />
                         }
                       </Collapsible>

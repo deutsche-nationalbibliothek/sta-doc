@@ -3,8 +3,13 @@ import { Fragment, useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './RdaDetailTableColumns';
 import styles from './RdaDetailTable.module.css';
+import { Statement } from '@/types/entry';
 
-export default function RdaDetailTable(props: any) {
+interface RdaDetailTableProps {
+  statements: Statement[]
+}
+
+export default function RdaDetailTable(props: RdaDetailTableProps) {
   const buildTable = (obj) => {
     const arr = [];
     for (const entry of Object.entries(obj)) {
@@ -52,7 +57,7 @@ export default function RdaDetailTable(props: any) {
     }
     return arr;
   };
-  const table = buildTable(props.data);
+  const table = buildTable(props.statements);
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => table, []);
   const tableInstance = useTable(

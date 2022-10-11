@@ -1,25 +1,30 @@
 import Head from 'next/head';
 import Layout from '@/components/layout/layout';
-import { Item } from '@/types/item';
+import {Item} from '@/types/item';
 import EntryType from '@/types/entry';
 import Sidebar from '@/components/sidebar/sidebar';
 import labelen from '@/data/parsed/labels-en.json';
 import entities from '@/data/parsed/entities.json';
 import TopNavigation from '@/components/layout/topNavigation';
 import Details from '@/components/details';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {GetStaticPaths, GetStaticProps} from 'next';
 
 interface EntryProps {
   entry: EntryType;
 }
 
-export default function Entry({ entry }: EntryProps) {
+interface WishedEntryProps {
+  title: string;
+  isRessourceTypePage: boolean;
+}
+
+export default function Entry({entry}: EntryProps) {
   const title =
     entry.label && entry.statements.elementof
       ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
       : 'missing german entity label';
 
-  const ressourceTypePage =
+  const isRessourceTypePage =
     entry.statements.elements &&
     entry.statements.elementof.occurrences[0].id === Item['rda-ressourcetype'];
 
@@ -35,7 +40,7 @@ export default function Entry({ entry }: EntryProps) {
           entry={{
             ...entry,
           }}
-          ressourceTypePage={ressourceTypePage}
+          isRessourceTypePage={isRessourceTypePage}
         />
       </section>
     </>
@@ -44,8 +49,8 @@ export default function Entry({ entry }: EntryProps) {
 
 export const getStaticProps: GetStaticProps<
   EntryProps,
-  { entryId: string }
-> = async ({ params }) => {
+  {entryId: string}
+> = async ({params}) => {
   // get API data
   const entry = entities[params.entryId];
 
@@ -74,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   return {
     paths: subsetOfEntries.map((entry) => ({
-      params: { entryId: entry[0].toString() },
+      params: {entryId: entry[0].toString()},
     })),
     fallback: true,
   };

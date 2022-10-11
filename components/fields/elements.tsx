@@ -106,7 +106,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                                   entry={quali}
                                   headerLevel={headerLevel + 2}
                                   embedded={true}
-                                  ressourceTypePage={false}
+                                  isRessourceTypePage={false}
                                 />
                               }
                             </Collapsible>

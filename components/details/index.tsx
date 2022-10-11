@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Statement from '@/components/details/statement';
 import Header from '@/components/layout/header';
 import Entry from '@/types/entry';
-import { Item } from '@/types/item';
-import { Property } from '@/types/property';
+import {Item} from '@/types/item';
+import {Property} from '@/types/property';
 import Table from './table';
 import HtmlReactParser from 'html-react-parser';
 
@@ -12,16 +12,25 @@ interface Props {
   embedded?: boolean;
   entry: Entry;
   headerLevel?: number;
-  ressourceTypePage?: boolean;
+  isRessourceTypePage?: boolean;
+}
+
+interface WishedDetailProps {
+  groups: {
+    table: any[];
+    rest: any[];
+  };
+  logo?: string;
+  statementsDefinitionOccurances?: any[]; //Occurance2[];
 }
 
 export default function Detail({
   embedded = false,
   entry,
   headerLevel = 1,
-  ressourceTypePage = false,
+  isRessourceTypePage = false,
 }: Props) {
-  const { query } = useRouter();
+  const {query} = useRouter();
   const groups = groupStatements(entry);
   const logo =
     (entry.statements.logo && entry.statements.logo.occurrences[0].value) ||
@@ -51,14 +60,14 @@ export default function Detail({
               />
             )}
           </span>
-          {ressourceTypePage && (
+          {isRessourceTypePage && (
             <span className={'button'}>
               <button className={'Button'}>
                 {!query.view ? (
                   <Link
                     href={{
                       pathname: `${query.entryId}`,
-                      query: { view: 'application-profile' },
+                      query: {view: 'application-profile'},
                     }}
                   >
                     <a>Anwendungsprofil</a>
@@ -86,6 +95,7 @@ export default function Detail({
         />
       )}
       <br></br>
+      {/* wishedProps.statementsDefinitionOccurances */}
       {entry.statements.definition &&
         entry.statements.definition.occurrences.map((occ, index) =>
           HtmlReactParser(`<p key=${index}>${occ.value}</p>`)
@@ -219,7 +229,7 @@ const groupStatements = (entry: Entry) => {
       table: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition[relevantKey].tableProperties.find(
-            (tProp: any) => entry.statements[key].id === tProp
+            (tProp) => entry.statements[key].id === tProp
           )
         )
         .map((key) => entry.statements[key]),
