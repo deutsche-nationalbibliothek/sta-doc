@@ -1,5 +1,5 @@
-export interface Coding9 {
-  [key: string]: any;
+export interface Coding9 extends Indexable<Coding9> {
+  Q2171: Q2171;
   P173: P173;
   P362: Q2171;
   P99: P99;
@@ -51,7 +51,7 @@ export interface Coding9 {
   P179: P173;
   P374: Q2171;
   P18: P99;
-  P311: P98;
+  P311: P99;
   P48: P99;
   Q2189: P98;
   Q2190: P98;
@@ -128,7 +128,7 @@ export interface Coding9 {
   P56: Q2171;
   P55: P99;
   P198: P173;
-  P368: P98;
+  P368: P99;
   Q2221: P98;
   Q2222: P99;
   Q2223: Q2171;
@@ -162,7 +162,7 @@ export interface Coding9 {
   Q2252: P98;
   P202: Q2171;
   P335: Q2171;
-  P64: P99;
+  P64: Q2171;
   Q1395: Q2171;
   P102: P99;
   Q1363: P99;
@@ -209,7 +209,7 @@ export interface Coding9 {
   Q2292: Q2171;
   Q2616: P99;
   P146: Q2171;
-  P406: P99;
+  P406: Q2171;
   Q2293: P99;
   P63: Q2171;
   P207: P99;
@@ -330,7 +330,7 @@ export interface Coding9 {
   Q1466: Q2171;
   Q1467: Q2171;
   Q1468: Q2171;
-  Q1469: P99;
+  Q1469: Q2171;
   Q1470: Q2171;
   Q1471: Q2171;
   Q1472: Q2171;
@@ -525,7 +525,7 @@ export interface Coding9 {
   Q1661: Q2171;
   Q1662: Q2171;
   Q1663: Q2171;
-  Q1664: P99;
+  Q1664: Q2171;
   Q1665: Q2171;
   Q1666: Q2171;
   Q1667: Q2171;
@@ -753,7 +753,7 @@ export interface Coding9 {
   Q1889: Q2171;
   Q2315: P98;
   Q2325: P99;
-  Q2427: P99;
+  Q2427: Q2171;
   Q2316: Q2171;
   Q2317: Q2171;
   Q212: Q2171;
@@ -889,7 +889,7 @@ export interface Coding9 {
   Q256: Q2171;
   Q257: Q2171;
   P344: Q2171;
-  P341: Q2171;
+  P341: P99;
   P535: P470;
   Q2241: P98;
   Q2387: P99;
@@ -924,7 +924,7 @@ export interface Coding9 {
   P148: Q2171;
   P540: P470;
   P228: P173;
-  Q2260: Q2171;
+  Q2260: P99;
   Q2401: P99;
   Q2261: P98;
   P229: Q2171;
@@ -975,7 +975,7 @@ export interface Coding9 {
   Q2426: Q2171;
   Q2425: P99;
   Q2428: P99;
-  Q2560: P99;
+  Q2560: P98;
   Q2429: Q2171;
   Q2430: P98;
   Q2431: Q2171;
@@ -1220,7 +1220,7 @@ export interface Coding9 {
   Q2572: P99;
   Q2541: Q2171;
   P53: P98;
-  P74: P98;
+  P74: Q2171;
   P61: P99;
   P62: Q2171;
   P331: P98;
@@ -1291,15 +1291,15 @@ export interface Coding9 {
   Q273: P98;
   Q274: Q2171;
   Q275: P98;
-  Q276: Q2171;
+  Q276: P99;
   Q277: P99;
   Q278: P99;
   Q279: P99;
-  Q280: P98;
+  Q280: P99;
   Q281: P99;
   Q282: P99;
   Q283: P99;
-  Q284: Q2171;
+  Q284: P99;
   Q285: P99;
   Q286: P99;
   P108: Q2171;
@@ -1370,9 +1370,9 @@ export interface Coding9 {
   P255: P98;
   P217: P173;
   Q266: Q266;
-  Q270: Q270;
-  Q271: Q270;
-  Q272: Q270;
+  Q270: Q266;
+  Q271: Q271;
+  Q272: Q271;
   P186: P173;
   Q231: P99;
   P19: P99;
@@ -1421,7 +1421,7 @@ export interface Coding9 {
   P355: Q2171;
   P354: Q2171;
   P227: P173;
-  P235: P99;
+  P235: P173;
   P351: Q2171;
   P224: Q2171;
   P232: P98;
@@ -1483,105 +1483,105 @@ export interface Coding9 {
   P268: Q2171;
 }
 
-interface Q270 {
-  [key: string]: any;
+interface Q271 {
+  label: string;
   coding: Coding8;
 }
 
 interface Coding8 {
-  [key: string]: any;
+  format: Format8;
 }
 
 interface Format8 {
-  [key: string]: any;
+  'PICA <Bibliotheksinformationssystem>': string;
 }
 
 interface Q266 {
-  [key: string]: any;
+  label: string;
   coding: Coding7;
 }
 
 interface Coding7 {
-  [key: string]: any;
+  format: Format7;
 }
 
 interface Format7 {
-  [key: string]: any;
+  'MARC 21': string;
 }
 
 interface P470 {
-  [key: string]: any;
+  label: string;
   coding: Coding6;
 }
 
 interface Coding6 {
-  [key: string]: any;
+  format: Format6;
 }
 
 interface Format6 {
-  [key: string]: any;
+}
 
 interface P409 {
-  [key: string]: any;
+  label: string;
   coding: Coding5;
 }
 
 interface Coding5 {
-  [key: string]: any;
+  format: Format5;
 }
 
 interface Format5 {
-  [key: string]: any;
+  'MARC 21  Format für bibliographische Daten': string;
 }
 
 interface P98 {
-  [key: string]: any;
+  label: string;
   coding: Coding4;
 }
 
 interface Coding4 {
-  [key: string]: any;
+  format: Format4;
 }
 
 interface Format4 {
-  [key: string]: any;
+  PICA3: string;
 }
 
 interface P99 {
-  [key: string]: any;
+  label: string;
   coding: Coding3;
 }
 
 interface Coding3 {
-  [key: string]: any;
+  format: Format3;
 }
 
 interface Format3 {
-  [key: string]: any;
+  'PICA+': string;
 }
 
 interface P173 {
-  [key: string]: any;
+  label: string;
   coding: Coding2;
 }
 
 interface Coding2 {
-  [key: string]: any;
+  format: Format2;
 }
 
 interface Format2 {
-  [key: string]: any;
+  'GND-Ontologie': string;
 }
 
 interface Q2171 {
-  [key: string]: any;
+  label: string;
   coding: Coding;
 }
 
 interface Coding {
-  [key: string]: any;
+  format: Format;
 }
 
 interface Format {
-  [key: string]: any;
+  'MARC 21 Format für Normdaten': string;
 }

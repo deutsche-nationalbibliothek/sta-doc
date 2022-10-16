@@ -1,16 +1,16 @@
-export interface EntityIndexRaw {
-  [key: string]: any;
+export interface EntityIndexRaw extends Indexable<EntityIndexRaw> {
+  element: Element;
   eId: Element;
   elementLabel: ElementLabel;
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  type: string;
   value: string;
   'xml:lang'?: string;
 }
 
 interface Element {
-  [key: string]: any;
+  type: string;
   value: string;
 }

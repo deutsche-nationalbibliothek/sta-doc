@@ -1,15 +1,15 @@
-export interface LabelDeRaw {
-  [key: string]: any;
+export interface LabelDeRaw extends Indexable<LabelDeRaw> {
+  eId: EId;
   elementLabel: ElementLabel;
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  'xml:lang': string;
   type: string;
   value: string;
 }
 
 interface EId {
-  [key: string]: any;
+  type: string;
   value: string;
 }

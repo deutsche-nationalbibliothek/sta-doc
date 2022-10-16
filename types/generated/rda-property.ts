@@ -1,5 +1,5 @@
-export interface RdaProperty {
-  [key: string]: any;
+export interface RdaProperty extends Indexable<RdaProperty> {
+  id: string;
   label: string;
   domainId: string;
   domainLabel: string;

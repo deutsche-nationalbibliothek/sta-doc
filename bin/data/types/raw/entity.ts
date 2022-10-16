@@ -1,5 +1,5 @@
-export interface EntityRaw {
-  [key: string]: any;
+export interface EntityRaw extends Indexable<EntityRaw> {
+  P399: P399;
   P400: P400;
   P413: P413;
   Q1352: Q1352;
@@ -552,8 +552,8 @@ export interface EntityRaw {
   Q1983: Q1983;
   Q1984: Q1984;
   Q1985: Q1985;
-  Q1986: Q1985;
-  Q1987: Q1985;
+  Q1986: Q1986;
+  Q1987: Q1986;
   Q1988: Q1988;
   Q1989: Q1989;
   Q1990: Q1990;
@@ -662,7 +662,7 @@ export interface EntityRaw {
   Q2122: Q2122;
   Q2123: Q2122;
   Q2124: Q2124;
-  Q2125: Q2125;
+  Q2125: Q2122;
   Q2126: Q2126;
   Q2127: Q2127;
   Q2128: Q2127;
@@ -904,7 +904,7 @@ export interface EntityRaw {
   Q2873: Q2873;
   Q2874: Q2874;
   Q2875: Q2875;
-  Q2876: Q1913;
+  Q2876: Q2876;
   Q2877: Q2877;
   Q2880: Q2880;
   Q2881: Q2881;
@@ -1284,13 +1284,13 @@ export interface EntityRaw {
   Q3303: Q3294;
   Q3304: Q3304;
   Q3306: Q3306;
-  Q3307: Q1914;
+  Q3307: Q3307;
   Q3308: Q3308;
   Q3309: Q3309;
   Q3310: Q3310;
   Q3311: Q3311;
-  Q3312: Q1917;
-  Q3313: Q1914;
+  Q3312: Q3312;
+  Q3313: Q3307;
   Q3316: Q3316;
   Q3317: Q3317;
   Q3318: Q3318;
@@ -1298,26 +1298,26 @@ export interface EntityRaw {
   Q3320: Q3320;
   Q3321: Q3321;
   Q3322: Q3316;
-  Q3323: Q1915;
+  Q3323: Q3323;
   Q3324: Q3316;
   Q3325: Q3325;
   Q3328: Q3294;
   Q3329: Q3294;
   Q3330: Q3294;
-  Q3331: Q1914;
+  Q3331: Q3307;
   Q3332: Q3332;
   Q3333: Q3332;
-  Q3334: Q1914;
+  Q3334: Q3307;
   Q3335: Q3332;
   Q3336: Q3316;
   Q3337: Q3337;
   Q3338: Q3338;
   Q3339: Q3338;
   Q3340: Q3340;
-  Q3341: Q3341;
-  Q3342: Q3341;
+  Q3341: Q1917;
+  Q3342: Q1917;
   Q3343: Q3343;
-  Q3344: Q3341;
+  Q3344: Q1917;
   Q3345: Q3345;
   Q3346: Q3346;
   Q3347: Q3347;
@@ -1325,16 +1325,16 @@ export interface EntityRaw {
   Q3349: Q3348;
   Q3350: Q3174;
   Q3351: Q3351;
-  Q3352: Q1909;
+  Q3352: Q3352;
   Q3353: Q3353;
-  Q3354: Q1911;
-  Q3355: Q1909;
+  Q3354: Q3354;
+  Q3355: Q3352;
   Q3356: Q3356;
   Q3357: Q3356;
-  Q3358: Q1909;
+  Q3358: Q3352;
   Q3359: Q3353;
   Q3360: Q3353;
-  Q3361: Q1909;
+  Q3361: Q3352;
   Q3363: Q3363;
   Q3364: Q3364;
   Q3365: Q3364;
@@ -1371,8 +1371,8 @@ export interface EntityRaw {
   Q3406: Q3401;
   Q3407: Q3401;
   Q3408: Q3401;
-  Q3409: Q1957;
-  Q3410: Q1957;
+  Q3409: Q3409;
+  Q3410: Q3409;
   Q3411: Q3401;
   Q3412: Q3412;
   Q3413: Q3401;
@@ -1435,7 +1435,7 @@ export interface EntityRaw {
   Q3470: Q3456;
   Q3471: Q3445;
   Q3472: Q3446;
-  Q3477: Q3477;
+  Q3477: Q1919;
   Q3478: Q3478;
   Q3479: Q3479;
   Q3480: Q3480;
@@ -1506,13 +1506,13 @@ export interface EntityRaw {
   Q3572: Q3572;
   Q3573: Q3573;
   Q3574: Q3572;
-  Q3575: Q3477;
+  Q3575: Q1919;
   Q3576: Q3576;
   Q3577: Q3577;
   Q3578: Q3577;
   Q3579: Q3579;
-  Q3580: Q3580;
-  Q3581: Q3580;
+  Q3580: Q1971;
+  Q3581: Q1971;
   Q3583: Q3583;
   Q3584: Q3576;
   Q3585: Q3577;
@@ -6353,13 +6353,13 @@ export interface EntityRaw {
   Q8430: Q8430;
   Q8431: Q8431;
   Q8432: Q8432;
-  Q8433: Q8433;
-  Q8434: Q8433;
+  Q8433: Q2833;
+  Q8434: Q2833;
   Q8435: Q8435;
   Q8436: Q8436;
   Q8437: Q8437;
   Q8438: Q8437;
-  Q8439: Q8433;
+  Q8439: Q2833;
   Q8440: Q8440;
   Q8441: Q8441;
   Q8442: Q8442;
@@ -6552,6 +6552,10 @@ export interface EntityRaw {
   Q8646: Q8646;
   Q8647: Q8646;
   Q8648: Q8646;
+  Q8649: Q8646;
+  Q8650: Q8646;
+  Q8651: Q8637;
+  Q8652: Q8637;
   Q315: Q2038;
   P173: P173;
   Q2171: Q2171;
@@ -6684,7 +6688,7 @@ export interface EntityRaw {
   Q254: Q251;
   Q255: Q255;
   Q257: Q257;
-  P344: P3445;
+  P344: P3444;
   P341: P341;
   Q2241: Q1407;
   Q2242: Q1407;
@@ -6694,7 +6698,7 @@ export interface EntityRaw {
   Q2247: Q1407;
   Q2258: Q1407;
   Q2244: Q1407;
-  P301: P3012;
+  P301: P3013;
   P286: P286;
   P194: P286;
   Q2246: Q1407;
@@ -6752,7 +6756,7 @@ export interface EntityRaw {
   P480: P466;
   Q2261: Q1407;
   Q151: Q151;
-  P104: P1046;
+  P104: P1047;
   P229: P173;
   Q2262: Q1407;
   Q159: Q163;
@@ -6771,7 +6775,7 @@ export interface EntityRaw {
   Q2270: Q1407;
   Q2271: Q1407;
   P130: P162;
-  P65: P653;
+  P65: P655;
   Q2272: Q1407;
   Q2273: Q1407;
   Q2274: Q1407;
@@ -6792,7 +6796,7 @@ export interface EntityRaw {
   P140: P148;
   P181: P181;
   P306: P307;
-  P84: P843;
+  P84: P842;
   P516: P466;
   Q2276: Q1407;
   P237: P173;
@@ -6878,7 +6882,7 @@ export interface EntityRaw {
   Q2298: Q1407;
   P166: P173;
   P284: P286;
-  Q2108: Q3171;
+  Q2108: Q2108;
   Q2096: Q2096;
   Q2091: Q2091;
   Q2104: Q2104;
@@ -6944,8 +6948,8 @@ export interface EntityRaw {
   Q8472: Q303;
   Q13: Q13;
   Q8: Q8;
-  Q1359: Q13;
   P340: P340;
+  Q1359: Q13;
   Q1905: Q2657;
   Q2: Q2;
   Q1: Q1;
@@ -6957,7 +6961,7 @@ export interface EntityRaw {
   Q1902: Q2657;
   Q1903: Q2657;
   Q1904: Q2657;
-  P295: P2956;
+  P295: P2955;
   P101: P1016;
   Q1335: Q1335;
   Q4: Q2;
@@ -7089,7 +7093,7 @@ export interface EntityRaw {
   P322: P3222;
   P43: P33;
   P350: P307;
-  P351: P3512;
+  P351: P3513;
   Q2390: Q1407;
   Q2392: Q1407;
   Q2391: Q1407;
@@ -7300,7 +7304,7 @@ export interface EntityRaw {
   P290: P290;
   P373: P307;
   P375: P3754;
-  P245: P2455;
+  P245: P2453;
   Q3547: Q3550;
   P318: P307;
   P270: P224;
@@ -7398,12 +7402,12 @@ export interface EntityRaw {
   P27: P27;
   Q2519: Q1407;
   P182: P182;
-  P391: P39124;
-  P90: P9012;
-  P58: P5832;
-  P94: P947;
-  P93: P937;
-  P91: P9139;
+  P391: P39125;
+  P90: P9013;
+  P58: P5831;
+  P94: P948;
+  P93: P936;
+  P91: P9135;
   P299: P307;
   P622: P466;
   P206: P173;
@@ -7458,7 +7462,7 @@ export interface EntityRaw {
   P55: P555;
   P73: P70;
   P72: P70;
-  P89: P8926;
+  P89: P8920;
   P71: P70;
   Q172: Q163;
   P12: P637;
@@ -7731,7 +7735,7 @@ export interface EntityRaw {
   Q304: Q303;
   Q2627: Q1407;
   P9: P162;
-  P59: P5920;
+  P59: P5922;
   P95: P9719;
   P96: P9719;
   P98: P984;
@@ -7829,6 +7833,7 @@ export interface EntityRaw {
   P454: P454;
   Q3399: Q303;
   P11: P637;
+  P653: P466;
   P508: P6322;
   P440: P644;
   P557: P538;
@@ -7913,7 +7918,7 @@ export interface EntityRaw {
 }
 
 interface Q296 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -7923,12 +7928,12 @@ interface Q296 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims756;
+  claims: Claims760;
   sitelinks: Aliases;
 }
 
 interface P558 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -7939,11 +7944,11 @@ interface P558 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims804;
+  claims: Claims808;
 }
 
-interface Claims804 {
-  [key: string]: any;
+interface Claims808 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -7959,7 +7964,7 @@ interface Claims804 {
 }
 
 interface P470 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -7970,11 +7975,11 @@ interface P470 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims803;
+  claims: Claims807;
 }
 
-interface Claims803 {
-  [key: string]: any;
+interface Claims807 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -7990,7 +7995,7 @@ interface Claims803 {
 }
 
 interface P3822 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8001,16 +8006,16 @@ interface P3822 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims802;
+  claims: Claims806;
 }
 
-interface Claims802 {
-  [key: string]: any;
+interface Claims806 {
+  P110: P110[];
   P1: P1[];
 }
 
 interface P473 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8021,11 +8026,11 @@ interface P473 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims801;
+  claims: Claims805;
 }
 
-interface Claims801 {
-  [key: string]: any;
+interface Claims805 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8040,7 +8045,7 @@ interface Claims801 {
 }
 
 interface P1322 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8051,18 +8056,18 @@ interface P1322 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims800;
+  claims: Claims804;
 }
 
-interface Claims800 {
-  [key: string]: any;
+interface Claims804 {
+  P110: P110[];
   P2: P110[];
   P7: P1[];
   P8: P110[];
 }
 
 interface P527 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8073,11 +8078,11 @@ interface P527 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims799;
+  claims: Claims803;
 }
 
-interface Claims799 {
-  [key: string]: any;
+interface Claims803 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8092,7 +8097,7 @@ interface Claims799 {
 }
 
 interface P116 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8103,11 +8108,11 @@ interface P116 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims691;
+  claims: Claims694;
 }
 
 interface P454 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8118,11 +8123,11 @@ interface P454 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims798;
+  claims: Claims802;
 }
 
-interface Claims798 {
-  [key: string]: any;
+interface Claims802 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8138,7 +8143,7 @@ interface Claims798 {
 }
 
 interface P5372 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8149,11 +8154,11 @@ interface P5372 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims797;
+  claims: Claims801;
 }
 
-interface Claims797 {
-  [key: string]: any;
+interface Claims801 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8168,7 +8173,7 @@ interface Claims797 {
 }
 
 interface P414 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8179,11 +8184,11 @@ interface P414 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims796;
+  claims: Claims800;
 }
 
-interface Claims796 {
-  [key: string]: any;
+interface Claims800 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P119: P1[];
@@ -8192,7 +8197,7 @@ interface Claims796 {
 }
 
 interface Q316 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8202,12 +8207,12 @@ interface Q316 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims705;
+  claims: Claims709;
   sitelinks: Aliases;
 }
 
 interface P545 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8218,11 +8223,11 @@ interface P545 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims795;
+  claims: Claims799;
 }
 
-interface Claims795 {
-  [key: string]: any;
+interface Claims799 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8237,7 +8242,7 @@ interface Claims795 {
 }
 
 interface Q3218 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8247,18 +8252,18 @@ interface Q3218 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims794;
+  claims: Claims798;
   sitelinks: Aliases;
 }
 
-interface Claims794 {
-  [key: string]: any;
+interface Claims798 {
+  P110: P110[];
   P116: P110[];
   P1: P1[];
 }
 
 interface Q15 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8268,19 +8273,19 @@ interface Q15 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims793;
+  claims: Claims797;
   sitelinks: Aliases;
 }
 
-interface Claims793 {
-  [key: string]: any;
+interface Claims797 {
+  P2: P110[];
   P110: P110[];
   P115: P110[];
   P116: P110[];
 }
 
 interface Q1339 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8290,12 +8295,12 @@ interface Q1339 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims59;
+  claims: Claims60;
   sitelinks: Aliases;
 }
 
 interface P538 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8306,11 +8311,11 @@ interface P538 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims792;
+  claims: Claims796;
 }
 
-interface Claims792 {
-  [key: string]: any;
+interface Claims796 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8325,7 +8330,7 @@ interface Claims792 {
 }
 
 interface P5342 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8336,11 +8341,11 @@ interface P5342 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims791;
+  claims: Claims795;
 }
 
-interface Claims791 {
-  [key: string]: any;
+interface Claims795 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8355,7 +8360,7 @@ interface Claims791 {
 }
 
 interface Q1326 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8365,37 +8370,37 @@ interface Q1326 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims790;
+  claims: Claims794;
   sitelinks: Aliases;
 }
 
-interface Claims790 {
-  [key: string]: any;
+interface Claims794 {
+  P93: P1[];
   P99: P1[];
-  P101: P332[];
-  P53: P532[];
-  P295: P2952[];
+  P101: P1015[];
+  P53: P535[];
+  P295: P2954[];
   P72: P7213[];
   P110: P110[];
   P2: P110[];
 }
 
 interface P7213 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers455;
+  qualifiers: Qualifiers449;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers455 {
-  [key: string]: any;
+interface Qualifiers449 {
+  P129: P3932[];
   P169: Mainsnak[];
 }
 
 interface P994 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8406,11 +8411,11 @@ interface P994 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims789;
+  claims: Claims793;
 }
 
-interface Claims789 {
-  [key: string]: any;
+interface Claims793 {
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
@@ -8420,7 +8425,7 @@ interface Claims789 {
 }
 
 interface P541 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8431,11 +8436,11 @@ interface P541 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims788;
+  claims: Claims792;
 }
 
-interface Claims788 {
-  [key: string]: any;
+interface Claims792 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -8450,7 +8455,7 @@ interface Claims788 {
 }
 
 interface Q266 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8460,18 +8465,18 @@ interface Q266 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims787;
+  claims: Claims791;
   sitelinks: Aliases;
 }
 
-interface Claims787 {
-  [key: string]: any;
+interface Claims791 {
+  P2: P110[];
   P4: P46[];
   P110: P110[];
 }
 
 interface P441 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8482,18 +8487,18 @@ interface P441 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims786;
+  claims: Claims790;
 }
 
-interface Claims786 {
-  [key: string]: any;
+interface Claims790 {
+  P110: P110[];
   P2: P110[];
   P124: P110[];
-  P410: P763[];
+  P410: P739[];
 }
 
 interface P984 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8504,11 +8509,11 @@ interface P984 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims785;
+  claims: Claims789;
 }
 
-interface Claims785 {
-  [key: string]: any;
+interface Claims789 {
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
@@ -8517,8 +8522,8 @@ interface Claims785 {
   P110: P110[];
 }
 
-interface P5920 {
-  [key: string]: any;
+interface P5922 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8529,11 +8534,11 @@ interface P5920 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims784;
+  claims: Claims788;
 }
 
-interface Claims784 {
-  [key: string]: any;
+interface Claims788 {
+  P2: P110[];
   P1: P1[];
   P15: P1530[];
   P12: P1[];
@@ -8545,24 +8550,24 @@ interface Claims784 {
 }
 
 interface P1530 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers454;
+  qualifiers: Qualifiers448;
   'qualifiers-order': string[];
   id: string;
   rank: string;
   references?: Reference[];
 }
 
-interface Qualifiers454 {
-  [key: string]: any;
+interface Qualifiers448 {
+  P12: Mainsnak2[];
   P7?: Mainsnak2[];
   P396?: Mainsnak[];
   P168?: Mainsnak[];
 }
 
 interface P328 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8573,11 +8578,11 @@ interface P328 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims783;
+  claims: Claims787;
 }
 
-interface Claims783 {
-  [key: string]: any;
+interface Claims787 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -8589,7 +8594,7 @@ interface Claims783 {
 }
 
 interface Q8540 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8599,12 +8604,12 @@ interface Q8540 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims300;
+  claims: Claims301;
   sitelinks: Aliases;
 }
 
 interface P537 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8615,11 +8620,11 @@ interface P537 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims782;
+  claims: Claims786;
 }
 
-interface Claims782 {
-  [key: string]: any;
+interface Claims786 {
+  P2: P110[];
   P4: P4[];
   P15: P1529[];
   P9: P1[];
@@ -8630,21 +8635,21 @@ interface Claims782 {
 }
 
 interface P1529 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers453;
+  qualifiers: Qualifiers447;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers453 {
-  [key: string]: any;
+interface Qualifiers447 {
+  P8: Mainsnak[];
   P7?: Mainsnak2[];
 }
 
 interface P389 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8655,16 +8660,16 @@ interface P389 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims781;
+  claims: Claims785;
 }
 
-interface Claims781 {
-  [key: string]: any;
+interface Claims785 {
+  P110: P110[];
   P8: P110[];
 }
 
 interface P5182 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8675,11 +8680,11 @@ interface P5182 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims780;
+  claims: Claims784;
 }
 
-interface Claims780 {
-  [key: string]: any;
+interface Claims784 {
+  P110: P110[];
   P2: P110[];
   P124: P110[];
   P4: P4[];
@@ -8687,7 +8692,7 @@ interface Claims780 {
 }
 
 interface Q1348 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8697,12 +8702,12 @@ interface Q1348 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims779;
+  claims: Claims783;
   sitelinks: Aliases;
 }
 
-interface Claims779 {
-  [key: string]: any;
+interface Claims783 {
+  P110: P110[];
   P4: P4[];
   P2: P110[];
   P380: P110[];
@@ -8710,7 +8715,7 @@ interface Claims779 {
 }
 
 interface P1682 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
   qualifiers?: Qualifiers4;
   'qualifiers-order'?: string[];
@@ -8719,7 +8724,7 @@ interface P1682 {
 }
 
 interface Q1329 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8729,12 +8734,12 @@ interface Q1329 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims778;
+  claims: Claims782;
   sitelinks: Aliases;
 }
 
-interface Claims778 {
-  [key: string]: any;
+interface Claims782 {
+  P114: P110[];
   P61: P110[];
   P62: P110[];
   P91: P1[];
@@ -8742,39 +8747,206 @@ interface Claims778 {
   P158: P1[];
   P66: P1[];
   P167: P167[];
-  P101: P332[];
+  P101: P1015[];
   P110: P110[];
   P2: P110[];
 }
 
 interface P167 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers452;
+  qualifiers: Qualifiers446;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers452 {
-  [key: string]: any;
+interface Qualifiers446 {
+  P407: Mainsnak2[];
 }
 
 interface P9721 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers451;
+  qualifiers?: Qualifiers445;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers451 {
-  [key: string]: any;
+interface Qualifiers445 {
+  P47: Mainsnak2[];
 }
 
 interface Q1333 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims781;
+  sitelinks: Aliases;
+}
+
+interface Claims781 {
+  P110: P110[];
+  P2: P110[];
+  P66: P1[];
+  P91: P9136[];
+  P97: P9720[];
+  P53: P536[];
+  P55: P557[];
+  P89: P8922[];
+  P63: P1[];
+  P101: P1015[];
+}
+
+interface P8922 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers444;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers444 {
+  P407: Mainsnak2[];
+  P169: Mainsnak[];
+}
+
+interface P557 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers443;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers443 {
+  P169: Mainsnak[];
+}
+
+interface P9720 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers442;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers442 {
+  P132: P393[];
+  P47?: Mainsnak2[];
+}
+
+interface P9136 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers428;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface P6322 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims780;
+}
+
+interface Claims780 {
+  P110: P110[];
+  P2: P110[];
+  P641: P1[];
+  P124: P110[];
+  P126: P110[];
+  P638: P1[];
+  P4: P1[];
+  P1: P1[];
+  P631: P1[];
+  P402: P1[];
+  P388: P739[];
+}
+
+interface P1592 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims779;
+}
+
+interface Claims779 {
+  P2: P110[];
+  P110: P110[];
+  P1: P12[];
+  P4: P42[];
+  P13: P13[];
+  P109: P110[];
+  P10: P1[];
+}
+
+interface P1032 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims778;
+}
+
+interface Claims778 {
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P15: P1528[];
+  P9: P1[];
+  P110: P110[];
+}
+
+interface P1528 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers391;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference7[];
+}
+
+interface Q3512 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8789,85 +8961,15 @@ interface Q1333 {
 }
 
 interface Claims777 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P66: P1[];
-  P91: P9140[];
-  P97: P9720[];
-  P53: P536[];
-  P55: P557[];
-  P89: P8915[];
-  P63: P1[];
-  P101: P332[];
+  P7: P1[];
+  P397: P110[];
+  P398: P110[];
 }
 
-interface P557 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers450;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers450 {
-  [key: string]: any;
-}
-
-interface P9720 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers449;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers449 {
-  [key: string]: any;
-  P47?: Mainsnak2[];
-}
-
-interface P9140 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers436;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface P6322 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims776;
-}
-
-interface Claims776 {
-  [key: string]: any;
-  P2: P110[];
-  P641: P1[];
-  P124: P110[];
-  P126: P110[];
-  P638: P1[];
-  P4: P1[];
-  P1: P1[];
-  P631: P1[];
-  P402: P1[];
-  P388: P739[];
-}
-
-interface P1592 {
-  [key: string]: any;
+interface P8114 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8878,21 +8980,49 @@ interface P1592 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
+  claims: Claims776;
+}
+
+interface Claims776 {
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P15: P158[];
+  P9: P1[];
+  P10: P111[];
+  P110: P110[];
+  P11: P110[];
+}
+
+interface P325 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
   claims: Claims775;
 }
 
 interface Claims775 {
-  [key: string]: any;
   P110: P110[];
-  P1: P12[];
-  P4: P42[];
-  P13: P13[];
-  P109: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
   P10: P1[];
+  P16: P1[];
+  P15: P154[];
 }
 
-interface P1032 {
-  [key: string]: any;
+interface P172 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -8907,125 +9037,14 @@ interface P1032 {
 }
 
 interface Claims774 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P1528[];
-  P9: P1[];
   P110: P110[];
-}
-
-interface P1528 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers401;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-  references?: Reference7[];
-}
-
-interface Q3512 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims773;
-  sitelinks: Aliases;
-}
-
-interface Claims773 {
-  [key: string]: any;
-  P2: P110[];
-  P7: P1[];
-  P397: P110[];
-  P398: P110[];
-}
-
-interface P8114 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims772;
-}
-
-interface Claims772 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P158[];
-  P9: P1[];
-  P10: P111[];
-  P110: P110[];
-  P11: P110[];
-}
-
-interface P325 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims771;
-}
-
-interface Claims771 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P10: P1[];
-  P16: P1[];
-  P15: P154[];
-}
-
-interface P172 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims770;
-}
-
-interface Claims770 {
-  [key: string]: any;
   P2: P110[];
   P4: P4[];
   P8: P110[];
 }
 
 interface P3782 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9036,11 +9055,11 @@ interface P3782 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims769;
+  claims: Claims773;
 }
 
-interface Claims769 {
-  [key: string]: any;
+interface Claims773 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -9053,7 +9072,7 @@ interface Claims769 {
 }
 
 interface Q262 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9063,59 +9082,204 @@ interface Q262 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims768;
+  claims: Claims772;
   sitelinks: Aliases;
 }
 
-interface Claims768 {
-  [key: string]: any;
-  P53: P532[];
-  P63: P309[];
-  P58: P582[];
+interface Claims772 {
+  P2: P110[];
+  P53: P535[];
+  P63: P3012[];
+  P58: P589[];
   P56: P565[];
   P72: P7311[];
   P73: P98[];
   P81: P812[];
-  P85: P854[];
-  P89: P898[];
-  P300: P309[];
-  P295: P2952[];
+  P85: P855[];
+  P89: P8921[];
+  P300: P3012[];
+  P295: P2954[];
   P334: P3343[];
   P110: P110[];
 }
 
 interface P3343 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers448;
+  qualifiers: Qualifiers441;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers448 {
-  [key: string]: any;
+interface Qualifiers441 {
+  P338: Mainsnak[];
   P337: Mainsnak2[];
   P47: Mainsnak2[];
 }
 
-interface P565 {
-  [key: string]: any;
+interface P8921 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers447;
+  qualifiers: Qualifiers440;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers447 {
-  [key: string]: any;
+interface Qualifiers440 {
+  P405: Mainsnak2[];
+  P169: Mainsnak[];
+}
+
+interface P565 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers439;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers439 {
+  P22: Mainsnak2[];
   P25: Mainsnak2[];
   P169: Mainsnak[];
 }
 
 interface Q1934 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims771;
+  sitelinks: Aliases;
+}
+
+interface Claims771 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P379: P110[];
+  P7: P739[];
+}
+
+interface Q1933 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims770;
+  sitelinks: Aliases;
+}
+
+interface Claims770 {
+  P110: P110[];
+  P2: P110[];
+  P1: P113[];
+  P379: P110[];
+  P380: P110[];
+  P7: P727[];
+}
+
+interface P113 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers302;
+  'qualifiers-order'?: string[];
+}
+
+interface Q1937 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims769;
+  sitelinks: Aliases;
+}
+
+interface Claims769 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P379: P110[];
+  P14: P1411[];
+}
+
+interface P1411 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers438;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers438 {
+  P8?: Mainsnak[];
+  P396?: Mainsnak[];
+}
+
+interface Q312 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims768;
+  sitelinks: Aliases;
+}
+
+interface Claims768 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P379: P110[];
+  P380: P110[];
+}
+
+interface Q1949 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims461;
+  sitelinks: Aliases;
+}
+
+interface Q222 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9130,138 +9294,7 @@ interface Q1934 {
 }
 
 interface Claims767 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P379: P110[];
-  P7: P739[];
-}
-
-interface Q1933 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims766;
-  sitelinks: Aliases;
-}
-
-interface Claims766 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P113[];
-  P379: P110[];
-  P380: P110[];
-  P7: P729[];
-}
-
-interface P113 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers304;
-  'qualifiers-order'?: string[];
-}
-
-interface Q1937 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims765;
-  sitelinks: Aliases;
-}
-
-interface Claims765 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P379: P110[];
-  P14: P1411[];
-}
-
-interface P1411 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers446;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers446 {
-  [key: string]: any;
-  P396?: Mainsnak[];
-}
-
-interface Q312 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims764;
-  sitelinks: Aliases;
-}
-
-interface Claims764 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P379: P110[];
-  P380: P110[];
-}
-
-interface Q1949 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims459;
-  sitelinks: Aliases;
-}
-
-interface Q222 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims763;
-  sitelinks: Aliases;
-}
-
-interface Claims763 {
-  [key: string]: any;
+  P13: P110[];
   P4: P4[];
   P2: P110[];
   P110: P110[];
@@ -9271,22 +9304,22 @@ interface Claims763 {
 }
 
 interface P1410 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers445;
+  qualifiers: Qualifiers437;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers445 {
-  [key: string]: any;
+interface Qualifiers437 {
+  P7: Mainsnak2[];
   P15?: Mainsnak[];
   P168?: Mainsnak[];
 }
 
 interface Q8487 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9296,34 +9329,34 @@ interface Q8487 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims762;
+  claims: Claims766;
   sitelinks: Aliases;
 }
 
-interface Claims762 {
-  [key: string]: any;
+interface Claims766 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P637: P6373[];
 }
 
 interface P6373 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers444;
+  qualifiers: Qualifiers436;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers444 {
-  [key: string]: any;
+interface Qualifiers436 {
+  P639: Mainsnak[];
   P640?: Mainsnak[];
   P7?: Mainsnak2[];
 }
 
 interface Q8520 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9333,12 +9366,12 @@ interface Q8520 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims761;
+  claims: Claims765;
   sitelinks: Aliases;
 }
 
-interface Claims761 {
-  [key: string]: any;
+interface Claims765 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P7: P74[];
@@ -9348,23 +9381,23 @@ interface Claims761 {
 }
 
 interface P6372 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers443;
+  qualifiers: Qualifiers435;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers443 {
-  [key: string]: any;
+interface Qualifiers435 {
+  P639: Mainsnak[];
   P640?: Mainsnak[];
   P396?: Mainsnak[];
   P7?: Mainsnak2[];
 }
 
-interface P8926 {
-  [key: string]: any;
+interface P8920 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9375,11 +9408,11 @@ interface P8926 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims760;
+  claims: Claims764;
 }
 
-interface Claims760 {
-  [key: string]: any;
+interface Claims764 {
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
@@ -9391,7 +9424,7 @@ interface Claims760 {
 }
 
 interface P555 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9402,11 +9435,11 @@ interface P555 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims759;
+  claims: Claims763;
 }
 
-interface Claims759 {
-  [key: string]: any;
+interface Claims763 {
+  P2: P110[];
   P1: P1[];
   P15: P1527[];
   P12: P1[];
@@ -9417,9 +9450,9 @@ interface Claims759 {
 }
 
 interface P1527 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers397;
+  qualifiers: Qualifiers387;
   'qualifiers-order': string[];
   id: string;
   rank: string;
@@ -9427,7 +9460,125 @@ interface P1527 {
 }
 
 interface P564 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims762;
+}
+
+interface Claims762 {
+  P2: P110[];
+  P1: P1[];
+  P15: P1526[];
+  P12: P1[];
+  P9: P1[];
+  P10: P1[];
+  P4: P4[];
+  P110: P110[];
+}
+
+interface P1526 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers387;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference11[];
+}
+
+interface Reference11 {
+  hash: string;
+  snaks: Snaks11;
+  'snaks-order': string[];
+}
+
+interface Snaks11 {
+  P7?: Mainsnak2[];
+  P371: Mainsnak2[];
+  P20?: Mainsnak2[];
+}
+
+interface P70 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims761;
+}
+
+interface Claims761 {
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P15: P15[];
+  P9: P1[];
+  P10: P1[];
+  P110: P110[];
+}
+
+interface Q263 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims760;
+  sitelinks: Aliases;
+}
+
+interface Claims760 {
+  P115: P110[];
+  P2: P110[];
+  P110: P110[];
+}
+
+interface Q223 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims759;
+  sitelinks: Aliases;
+}
+
+interface Claims759 {
+  P13: P110[];
+  P4: P4[];
+  P2: P110[];
+  P110: P110[];
+  P1: P111[];
+}
+
+interface P9135 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9442,40 +9593,47 @@ interface P564 {
 }
 
 interface Claims758 {
-  [key: string]: any;
+  P2: P110[];
   P1: P1[];
-  P15: P1526[];
   P12: P1[];
+  P4: P4[];
+  P15: P1525[];
   P9: P1[];
   P10: P1[];
-  P4: P4[];
   P110: P110[];
 }
 
-interface P1526 {
-  [key: string]: any;
+interface P1525 {
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers397;
+  qualifiers: Qualifiers434;
   'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference11[];
+  references?: Reference10[];
 }
 
-interface Reference11 {
-  [key: string]: any;
-  snaks: Snaks11;
+interface Reference10 {
+  hash: string;
+  snaks: Snaks10;
   'snaks-order': string[];
 }
 
-interface Snaks11 {
-  [key: string]: any;
-  P371: Mainsnak2[];
-  P20?: Mainsnak2[];
+interface Snaks10 {
+  P20: Mainsnak2[];
+  P57?: Mainsnak2[];
+  P371?: Mainsnak2[];
 }
 
-interface P70 {
-  [key: string]: any;
+interface Qualifiers434 {
+  P12: Mainsnak2[];
+  P7: Mainsnak2[];
+  P11?: Mainsnak[];
+  P393?: Mainsnak[];
+}
+
+interface P936 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9490,62 +9648,109 @@ interface P70 {
 }
 
 interface Claims757 {
-  [key: string]: any;
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
-  P15: P15[];
+  P15: P1524[];
   P9: P1[];
   P10: P1[];
   P110: P110[];
 }
 
-interface Q263 {
-  [key: string]: any;
+interface P1524 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers419;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference7[];
+}
+
+interface P948 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
+  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
-  aliases: Aliases;
+  aliases: Aliases2;
   claims: Claims756;
-  sitelinks: Aliases;
 }
 
 interface Claims756 {
-  [key: string]: any;
   P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P15: P1517[];
+  P9: P1[];
+  P10: P1011[];
   P110: P110[];
+  P11: P110[];
 }
 
-interface Q223 {
-  [key: string]: any;
+interface P1011 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers432;
+  'qualifiers-order'?: string[];
+}
+
+interface P5831 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
+  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
-  aliases: Aliases;
+  aliases: Aliases2;
   claims: Claims755;
-  sitelinks: Aliases;
 }
 
 interface Claims755 {
-  [key: string]: any;
-  P4: P4[];
   P2: P110[];
+  P1: P1[];
+  P15: P1523[];
+  P12: P1[];
+  P9: P1[];
+  P10: P1[];
+  P4: P43[];
   P110: P110[];
-  P1: P111[];
+  P629: P402[];
 }
 
-interface P9139 {
-  [key: string]: any;
+interface P1523 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers433;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference[];
+}
+
+interface Qualifiers433 {
+  P12: Mainsnak2[];
+  P7?: Mainsnak2[];
+  P396?: Mainsnak[];
+  P404?: Mainsnak[];
+  P11?: Mainsnak[];
+}
+
+interface P9013 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9560,47 +9765,38 @@ interface P9139 {
 }
 
 interface Claims754 {
-  [key: string]: any;
   P1: P1[];
   P12: P1[];
   P4: P4[];
-  P15: P1525[];
+  P15: P1522[];
   P9: P1[];
-  P10: P1[];
+  P10: P1010[];
+  P2: P110[];
   P110: P110[];
 }
 
-interface P1525 {
-  [key: string]: any;
+interface P1010 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers442;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers172;
+  'qualifiers-order'?: string[];
+  references?: Reference[];
+}
+
+interface P1522 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers419;
   'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference10[];
+  references?: Reference9[];
 }
 
-interface Reference10 {
-  [key: string]: any;
-  snaks: Snaks10;
-  'snaks-order': string[];
-}
-
-interface Snaks10 {
-  [key: string]: any;
-  P57?: Mainsnak2[];
-  P371?: Mainsnak2[];
-}
-
-interface Qualifiers442 {
-  [key: string]: any;
-  P7: Mainsnak2[];
-  P11?: Mainsnak[];
-  P393?: Mainsnak[];
-}
-
-interface P937 {
-  [key: string]: any;
+interface P39125 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9615,28 +9811,28 @@ interface P937 {
 }
 
 interface Claims753 {
-  [key: string]: any;
+  P110: P110[];
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
-  P15: P1524[];
+  P15: P1521[];
   P9: P1[];
   P10: P1[];
-  P110: P110[];
 }
 
-interface P1524 {
-  [key: string]: any;
+interface P1521 {
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers427;
+  qualifiers: Qualifiers419;
   'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference7[];
+  references?: Reference[];
 }
 
-interface P947 {
-  [key: string]: any;
+interface P182 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9651,28 +9847,26 @@ interface P947 {
 }
 
 interface Claims752 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P1517[];
-  P9: P1[];
-  P10: P1017[];
   P110: P110[];
-  P11: P110[];
+  P2: P110[];
+  P4: P42[];
+  P1: P112[];
+  P13: P13[];
+  P109: P110[];
 }
 
-interface P1017 {
-  [key: string]: any;
+interface P112 {
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
-  qualifiers?: Qualifiers440;
+  references?: Reference6[];
+  qualifiers?: Snaks6;
   'qualifiers-order'?: string[];
 }
 
-interface P5832 {
-  [key: string]: any;
+interface P27 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9687,37 +9881,29 @@ interface P5832 {
 }
 
 interface Claims751 {
-  [key: string]: any;
-  P1: P1[];
-  P15: P1523[];
-  P12: P1[];
-  P9: P1[];
-  P10: P1[];
-  P4: P43[];
+  P2: P110[];
+  P4: P4[];
   P110: P110[];
-  P629: P402[];
+  P1: P1[];
+  P60: P110[];
+  P7: P763[];
 }
 
-interface P1523 {
-  [key: string]: any;
+interface P763 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers441;
+  qualifiers: Qualifiers432;
   'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference[];
 }
 
-interface Qualifiers441 {
-  [key: string]: any;
-  P7?: Mainsnak2[];
-  P396?: Mainsnak[];
-  P404?: Mainsnak[];
-  P11?: Mainsnak[];
+interface Qualifiers432 {
+  P396: Mainsnak[];
 }
 
-interface P9012 {
-  [key: string]: any;
+interface P1077 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9732,74 +9918,64 @@ interface P9012 {
 }
 
 interface Claims750 {
-  [key: string]: any;
+  P2: P110[];
+  P1: P1[];
   P12: P1[];
   P4: P4[];
-  P15: P1522[];
+  P15: P153[];
   P9: P1[];
-  P10: P1011[];
-  P2: P110[];
+  P10: P74[];
   P110: P110[];
+  P11: P110[];
 }
 
-interface P1011 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers174;
-  'qualifiers-order'?: string[];
-  references?: Reference[];
-}
-
-interface P1522 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers427;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-  references?: Reference9[];
-}
-
-interface P39124 {
-  [key: string]: any;
+interface Q17 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
-  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
   claims: Claims749;
+  sitelinks: Aliases;
 }
 
 interface Claims749 {
-  [key: string]: any;
   P2: P110[];
-  P1: P1[];
-  P12: P1[];
   P4: P4[];
-  P15: P1521[];
-  P9: P1[];
-  P10: P1[];
+  P110: P110[];
+  P1: P111[];
+  P14: P149[];
 }
 
-interface P1521 {
-  [key: string]: any;
+interface P149 {
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers427;
-  'qualifiers-order': string[];
+  qualifiers?: Qualifiers431;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers431 {
+  P8?: Mainsnak[];
+  P168?: Mainsnak[];
+}
+
+interface P111 {
+  mainsnak: Mainsnak2;
+  type: string;
   id: string;
   rank: string;
   references?: Reference[];
 }
 
-interface P182 {
-  [key: string]: any;
+interface P1082 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9814,150 +9990,7 @@ interface P182 {
 }
 
 interface Claims748 {
-  [key: string]: any;
   P2: P110[];
-  P4: P42[];
-  P1: P112[];
-  P13: P13[];
-  P109: P110[];
-}
-
-interface P112 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references?: Reference6[];
-  qualifiers?: Snaks6;
-  'qualifiers-order'?: string[];
-}
-
-interface P27 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims747;
-}
-
-interface Claims747 {
-  [key: string]: any;
-  P4: P4[];
-  P110: P110[];
-  P1: P1[];
-  P60: P110[];
-  P7: P763[];
-}
-
-interface P763 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers440;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers440 {
-  [key: string]: any;
-}
-
-interface P1077 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims746;
-}
-
-interface Claims746 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P153[];
-  P9: P1[];
-  P10: P74[];
-  P110: P110[];
-  P11: P110[];
-}
-
-interface Q17 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims745;
-  sitelinks: Aliases;
-}
-
-interface Claims745 {
-  [key: string]: any;
-  P4: P4[];
-  P110: P110[];
-  P1: P111[];
-  P14: P149[];
-}
-
-interface P149 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers439;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers439 {
-  [key: string]: any;
-  P168?: Mainsnak[];
-}
-
-interface P111 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references?: Reference[];
-}
-
-interface P1082 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims744;
-}
-
-interface Claims744 {
-  [key: string]: any;
   P4: P4[];
   P12: P1[];
   P10: P1[];
@@ -9967,7 +10000,7 @@ interface Claims744 {
 }
 
 interface Q285 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9977,12 +10010,12 @@ interface Q285 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims685;
+  claims: Claims688;
   sitelinks: Aliases;
 }
 
 interface Q276 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -9992,37 +10025,149 @@ interface Q276 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims377;
+  claims: Claims378;
   sitelinks: Aliases;
 }
 
 interface Q268 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims747;
+  sitelinks: Aliases;
+}
+
+interface Claims747 {
+  P2: P110[];
+  P53: P536[];
+  P63: P1[];
+  P66: P1[];
+  P72: P7211[];
+  P93: P934[];
+  P110: P110[];
+}
+
+interface P339 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims746;
+}
+
+interface Claims746 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P1[];
+  P16: P1[];
+  P15: P1514[];
+  P11: P110[];
+}
+
+interface P5962 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims745;
+}
+
+interface Claims745 {
+  P110: P110[];
+  P2: P110[];
+  P124: P110[];
+  P643: P1[];
+}
+
+interface P3342 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims744;
+}
+
+interface Claims744 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P109[];
+  P16: P1[];
+  P15: P1514[];
+  P11: P110[];
+}
+
+interface P109 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Snaks8;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface P2453 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
   claims: Claims743;
-  sitelinks: Aliases;
 }
 
 interface Claims743 {
-  [key: string]: any;
-  P53: P536[];
-  P63: P1[];
-  P66: P1[];
-  P72: P7211[];
-  P93: P932[];
   P110: P110[];
+  P2: P110[];
+  P4: P42[];
+  P12: P1[];
+  P1: P1[];
+  P15: P153[];
+  P9: P1[];
+  P10: P1[];
+  P16: P1[];
 }
 
-interface P339 {
-  [key: string]: any;
+interface P3754 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10037,77 +10182,29 @@ interface P339 {
 }
 
 interface Claims742 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
+  P9: P1[];
   P10: P1[];
   P16: P1[];
-  P15: P1514[];
+  P15: P1520[];
   P11: P110[];
 }
 
-interface P5962 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
+interface P1520 {
+  mainsnak: Mainsnak;
   type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims741;
-}
-
-interface Claims741 {
-  [key: string]: any;
-  P2: P110[];
-  P124: P110[];
-  P643: P1[];
-}
-
-interface P3342 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims740;
-}
-
-interface Claims740 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P10: P1010[];
-  P16: P1[];
-  P15: P1514[];
-  P11: P110[];
-}
-
-interface P1010 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Snaks8;
+  qualifiers?: Qualifiers390;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface P2455 {
-  [key: string]: any;
+interface P290 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10117,24 +10214,83 @@ interface P2455 {
   id: string;
   labels: Labels;
   descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims741;
+}
+
+interface Claims741 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P4: P4[];
+  P13: P13[];
+}
+
+interface P178 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims740;
+}
+
+interface Claims740 {
+  P110: P110[];
+  P2: P110[];
+  P4: P42[];
+  P10: P1[];
+  P1: P12[];
+  P13: P134[];
+}
+
+interface P134 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers430;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers430 {
+  P168: Mainsnak[];
+}
+
+interface Q1328 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims739;
+  sitelinks: Aliases;
 }
 
 interface Claims739 {
-  [key: string]: any;
+  P114: P110[];
+  P94: P1[];
+  P61: P110[];
+  P62: P110[];
+  P66: P1[];
+  P101: P1015[];
+  P110: P110[];
   P2: P110[];
-  P4: P42[];
-  P12: P1[];
-  P1: P1[];
-  P15: P153[];
-  P9: P1[];
-  P10: P1[];
-  P16: P1[];
 }
 
-interface P3754 {
-  [key: string]: any;
+interface P3209 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10149,29 +10305,19 @@ interface P3754 {
 }
 
 interface Claims738 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
-  P9: P1[];
   P10: P1[];
   P16: P1[];
-  P15: P1520[];
+  P15: P1510[];
   P11: P110[];
 }
 
-interface P1520 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers400;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface P290 {
-  [key: string]: any;
+interface P3553 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10181,20 +10327,25 @@ interface P290 {
   id: string;
   labels: Labels;
   descriptions: Labels;
-  aliases: Aliases2;
+  aliases: Aliases;
   claims: Claims737;
 }
 
 interface Claims737 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
+  P12: P1[];
   P4: P4[];
-  P13: P13[];
+  P15: P1519[];
+  P9: P1[];
+  P10: P1[];
+  P16: P1[];
+  P11: P110[];
 }
 
-interface P178 {
-  [key: string]: any;
+interface P3542 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10204,60 +10355,125 @@ interface P178 {
   id: string;
   labels: Labels;
   descriptions: Labels;
-  aliases: Aliases2;
+  aliases: Aliases;
   claims: Claims736;
 }
 
 interface Claims736 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P4: P42[];
-  P10: P1[];
-  P1: P12[];
-  P13: P134[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P74[];
+  P15: P152[];
+  P16: P1[];
+  P9: P1[];
+  P11: P110[];
 }
 
-interface P134 {
-  [key: string]: any;
+interface Q3550 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
   type: string;
-  qualifiers: Qualifiers438;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims616;
+  sitelinks: Aliases;
+}
+
+interface Q201 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims658;
+  sitelinks: Aliases;
+}
+
+interface P4092 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims735;
+}
+
+interface Claims735 {
+  P110: P110[];
+  P2: P110[];
+  P124: P110[];
+  P4: P46[];
+  P385: P110[];
+  P126: P60[];
+  P386: P74[];
+  P388: P74[];
+  P1: P19[];
+  P410: P410[];
+}
+
+interface P410 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers429;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers438 {
-  [key: string]: any;
+interface Qualifiers429 {
+  P389: Mainsnak[];
+  P396: Mainsnak[];
+  P404: Mainsnak[];
 }
 
-interface Q1328 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
+interface P19 {
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims735;
-  sitelinks: Aliases;
+  rank: string;
+  qualifiers?: Qualifiers428;
+  'qualifiers-order'?: string[];
 }
 
-interface Claims735 {
-  [key: string]: any;
-  P94: P1[];
-  P61: P110[];
-  P62: P110[];
-  P66: P1[];
-  P101: P332[];
-  P110: P110[];
-  P2: P110[];
+interface Qualifiers428 {
+  P132: Mainsnak[];
 }
 
-interface P3209 {
-  [key: string]: any;
+interface P46 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers427;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers427 {
+  P3: Mainsnak[];
+  P7?: Mainsnak2[];
+}
+
+interface P395 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10272,190 +10488,7 @@ interface P3209 {
 }
 
 interface Claims734 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P10: P1[];
-  P16: P1[];
-  P15: P1510[];
-  P11: P110[];
-}
-
-interface P3553 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims733;
-}
-
-interface Claims733 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P1519[];
-  P9: P1[];
-  P10: P1[];
-  P16: P1[];
-  P11: P110[];
-}
-
-interface P3542 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims732;
-}
-
-interface Claims732 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P10: P74[];
-  P15: P152[];
-  P16: P1[];
-  P9: P1[];
-  P11: P110[];
-}
-
-interface Q3550 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims613;
-  sitelinks: Aliases;
-}
-
-interface Q201 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims655;
-  sitelinks: Aliases;
-}
-
-interface P4092 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims731;
-}
-
-interface Claims731 {
-  [key: string]: any;
-  P2: P110[];
-  P124: P110[];
-  P4: P46[];
-  P385: P110[];
-  P126: P60[];
-  P386: P74[];
-  P388: P74[];
-  P1: P19[];
-  P410: P410[];
-}
-
-interface P410 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers437;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers437 {
-  [key: string]: any;
-  P396: Mainsnak[];
-  P404: Mainsnak[];
-}
-
-interface P19 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers436;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers436 {
-  [key: string]: any;
-}
-
-interface P46 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers435;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers435 {
-  [key: string]: any;
-  P7?: Mainsnak2[];
-}
-
-interface P395 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims730;
-}
-
-interface Claims730 {
-  [key: string]: any;
+  P110: P110[];
   P1: P1[];
   P401: P110[];
   P402: P4022[];
@@ -10468,51 +10501,51 @@ interface Claims730 {
 }
 
 interface P629 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers434;
+  qualifiers: Qualifiers426;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers434 {
-  [key: string]: any;
+interface Qualifiers426 {
+  P411: Mainsnak[];
 }
 
 interface P3884 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers433;
+  qualifiers?: Qualifiers425;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers433 {
-  [key: string]: any;
+interface Qualifiers425 {
+  P389?: Mainsnak[];
   P396?: Mainsnak[];
   P393?: Mainsnak[];
   P392?: Mainsnak[];
 }
 
 interface P4022 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers432;
+  qualifiers: Qualifiers424;
   'qualifiers-order': string[];
   id: string;
   rank: string;
   references?: Reference[];
 }
 
-interface Qualifiers432 {
-  [key: string]: any;
+interface Qualifiers424 {
+  P392?: P3932[];
   P389?: Mainsnak[];
 }
 
 interface Q3106 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10522,28 +10555,28 @@ interface Q3106 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims729;
+  claims: Claims733;
   sitelinks: Aliases;
 }
 
-interface Claims729 {
-  [key: string]: any;
+interface Claims733 {
+  P110: P110[];
   P2: P110[];
   P7: P762[];
   P397: P110[];
 }
 
 interface P762 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers431;
+  qualifiers?: Qualifiers423;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers431 {
-  [key: string]: any;
+interface Qualifiers423 {
+  P389?: Mainsnak[];
   P392?: P393[];
   P11?: Mainsnak[];
   P393?: Mainsnak[];
@@ -10551,7 +10584,7 @@ interface Qualifiers431 {
 }
 
 interface P321 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10566,7 +10599,7 @@ interface P321 {
 }
 
 interface P556 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10577,11 +10610,11 @@ interface P556 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims728;
+  claims: Claims732;
 }
 
-interface Claims728 {
-  [key: string]: any;
+interface Claims732 {
+  P110: P110[];
   P2: P110[];
   P641: P1[];
   P124: P110[];
@@ -10597,7 +10630,7 @@ interface Claims728 {
 }
 
 interface P352 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10608,11 +10641,11 @@ interface P352 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims727;
+  claims: Claims731;
 }
 
-interface Claims727 {
-  [key: string]: any;
+interface Claims731 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -10622,7 +10655,7 @@ interface Claims727 {
 }
 
 interface P3493 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10633,11 +10666,11 @@ interface P3493 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims726;
+  claims: Claims730;
 }
 
-interface Claims726 {
-  [key: string]: any;
+interface Claims730 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -10649,21 +10682,21 @@ interface Claims726 {
 }
 
 interface P1519 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers430;
+  qualifiers: Qualifiers422;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers430 {
-  [key: string]: any;
+interface Qualifiers422 {
+  P12: Mainsnak2[];
   P8?: Mainsnak[];
 }
 
 interface P7410 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10674,11 +10707,177 @@ interface P7410 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims685;
+  claims: Claims688;
 }
 
 interface P3642 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims729;
+}
+
+interface Claims729 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P108[];
+  P16: P1[];
+  P15: P1518[];
+  P9: P1[];
+  P11: P110[];
+}
+
+interface P1518 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers400;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference6[];
+}
+
+interface P108 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers421;
+  'qualifiers-order'?: string[];
+}
+
+interface Qualifiers421 {
+  P389: Mainsnak[];
+  P3?: Mainsnak[];
+}
+
+interface Q1321 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims712;
+  sitelinks: Aliases;
+}
+
+interface Q1319 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims712;
+  sitelinks: Aliases;
+}
+
+interface Q269 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims728;
+  sitelinks: Aliases;
+}
+
+interface Claims728 {
+  P2: P110[];
+  P53: P536[];
+  P63: P1[];
+  P72: P7212[];
+  P93: P1[];
+  P110: P110[];
+}
+
+interface P7212 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers420;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers420 {
+  P20: Mainsnak2[];
+  P31?: Mainsnak2[];
+  P169: Mainsnak[];
+}
+
+interface Q1318 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims727;
+  sitelinks: Aliases;
+}
+
+interface Claims727 {
+  P2: P110[];
+  P57: P1[];
+  P115: P110[];
+  P110: P110[];
+}
+
+interface Q227 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims726;
+  sitelinks: Aliases;
+}
+
+interface Claims726 {
+  P13: P110[];
+  P4: P4[];
+  P2: P110[];
+  P110: P110[];
+  P1: P1[];
+}
+
+interface P3092 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10693,135 +10892,100 @@ interface P3642 {
 }
 
 interface Claims725 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
-  P10: P109[];
-  P16: P1[];
-  P15: P1518[];
-  P9: P1[];
+  P15: P156[];
+  P10: P74[];
+  P16: P74[];
   P11: P110[];
 }
 
-interface P1518 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers410;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-  references?: Reference6[];
-}
-
-interface P109 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers429;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers429 {
-  [key: string]: any;
-  P3?: Mainsnak[];
-}
-
-interface Q1321 {
-  [key: string]: any;
+interface P117 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
+  datatype: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims708;
-  sitelinks: Aliases;
+  claims: Claims364;
 }
 
-interface Q1319 {
-  [key: string]: any;
+interface P3513 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims708;
-  sitelinks: Aliases;
-}
-
-interface Q269 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
+  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
   claims: Claims724;
-  sitelinks: Aliases;
 }
 
 interface Claims724 {
-  [key: string]: any;
-  P53: P536[];
-  P63: P1[];
-  P72: P7212[];
-  P93: P1[];
   P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P1[];
+  P15: P1517[];
 }
 
-interface P7212 {
-  [key: string]: any;
+interface P1517 {
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers428;
+  qualifiers: Qualifiers419;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers428 {
-  [key: string]: any;
-  P31?: Mainsnak2[];
-  P169: Mainsnak[];
+interface Qualifiers419 {
+  P12: Mainsnak2[];
+  P7: Mainsnak2[];
+  P11?: Mainsnak[];
 }
 
-interface Q1318 {
-  [key: string]: any;
+interface P3222 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
+  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
   claims: Claims723;
-  sitelinks: Aliases;
 }
 
 interface Claims723 {
-  [key: string]: any;
-  P57: P1[];
-  P115: P110[];
   P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P16: P1[];
+  P15: P154[];
+  P11: P110[];
 }
 
-interface Q227 {
-  [key: string]: any;
+interface Q212 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10836,15 +11000,16 @@ interface Q227 {
 }
 
 interface Claims722 {
-  [key: string]: any;
+  P13: P110[];
   P4: P4[];
+  P10: P1[];
   P2: P110[];
   P110: P110[];
   P1: P1[];
 }
 
-interface P3092 {
-  [key: string]: any;
+interface P644 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10853,25 +11018,13 @@ interface P3092 {
   datatype: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims721;
+  claims: Claims301;
 }
 
-interface Claims721 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P156[];
-  P10: P74[];
-  P16: P74[];
-  P11: P110[];
-}
-
-interface P117 {
-  [key: string]: any;
+interface P863 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10882,51 +11035,84 @@ interface P117 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims363;
+  claims: Claims721;
 }
 
-interface P3512 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims720;
-}
-
-interface Claims720 {
-  [key: string]: any;
+interface Claims721 {
   P2: P110[];
+  P4: P4[];
   P1: P1[];
   P12: P1[];
-  P4: P4[];
-  P10: P1[];
-  P15: P1517[];
+  P110: P110[];
+  P15: P1516[];
 }
 
-interface P1517 {
-  [key: string]: any;
+interface P1516 {
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers427;
+  qualifiers: Qualifiers418;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers427 {
-  [key: string]: any;
-  P7: Mainsnak2[];
-  P11?: Mainsnak[];
+interface Qualifiers418 {
+  P12: Mainsnak2[];
+  P11: Mainsnak[];
 }
 
-interface P3222 {
-  [key: string]: any;
+interface Q261 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims720;
+  sitelinks: Aliases;
+}
+
+interface Claims720 {
+  P2: P110[];
+  P53: P536[];
+  P63: P1[];
+  P66: P1[];
+  P72: P7211[];
+  P81: P1[];
+  P86: P1[];
+  P110: P110[];
+}
+
+interface P7211 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers167;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface P135 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims378;
+}
+
+interface P118 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10937,22 +11123,53 @@ interface P3222 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
+  claims: Claims364;
+}
+
+interface Q1334 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
   claims: Claims719;
+  sitelinks: Aliases;
 }
 
 interface Claims719 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P16: P1[];
-  P15: P154[];
-  P11: P110[];
+  P66: P1[];
+  P58: P589[];
+  P59: P595[];
+  P53: P536[];
+  P63: P3012[];
+  P55: P554[];
+  P89: P8919[];
+  P300: P3012[];
 }
 
-interface Q212 {
-  [key: string]: any;
+interface P536 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers417;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers417 {
+  P61: Mainsnak[];
+  P62: Mainsnak[];
+}
+
+interface Q226 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -10967,31 +11184,15 @@ interface Q212 {
 }
 
 interface Claims718 {
-  [key: string]: any;
-  P4: P4[];
-  P10: P1[];
+  P13: P110[];
+  P4: P43[];
   P2: P110[];
   P110: P110[];
   P1: P1[];
 }
 
-interface P644 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims300;
-}
-
-interface P863 {
-  [key: string]: any;
+interface P29 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11006,196 +11207,28 @@ interface P863 {
 }
 
 interface Claims717 {
-  [key: string]: any;
-  P4: P4[];
-  P1: P1[];
-  P12: P1[];
-  P110: P110[];
-  P15: P1516[];
-}
-
-interface P1516 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers426;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers426 {
-  [key: string]: any;
-  P11: Mainsnak[];
-}
-
-interface Q261 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims716;
-  sitelinks: Aliases;
-}
-
-interface Claims716 {
-  [key: string]: any;
-  P53: P536[];
-  P63: P1[];
-  P66: P1[];
-  P72: P7211[];
-  P81: P1[];
-  P86: P1[];
-  P110: P110[];
-}
-
-interface P7211 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers169;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface P135 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims377;
-}
-
-interface P118 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims363;
-}
-
-interface Q1334 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims715;
-  sitelinks: Aliases;
-}
-
-interface Claims715 {
-  [key: string]: any;
   P2: P110[];
-  P66: P1[];
-  P58: P582[];
-  P59: P594[];
-  P53: P536[];
-  P63: P309[];
-  P55: P554[];
-  P89: P8910[];
-  P300: P309[];
-}
-
-interface P536 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers425;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers425 {
-  [key: string]: any;
-  P62: Mainsnak[];
-}
-
-interface Q226 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims714;
-  sitelinks: Aliases;
-}
-
-interface Claims714 {
-  [key: string]: any;
-  P4: P43[];
-  P2: P110[];
-  P110: P110[];
-  P1: P1[];
-}
-
-interface P29 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims713;
-}
-
-interface Claims713 {
-  [key: string]: any;
   P4: P45[];
   P110: P110[];
   P1: P1[];
 }
 
 interface P45 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers424;
+  qualifiers: Qualifiers416;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers424 {
-  [key: string]: any;
+interface Qualifiers416 {
+  P3: Mainsnak[];
   P371?: Mainsnak2[];
 }
 
 interface Q228 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11205,12 +11238,12 @@ interface Q228 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims712;
+  claims: Claims716;
   sitelinks: Aliases;
 }
 
-interface Claims712 {
-  [key: string]: any;
+interface Claims716 {
+  P13: P110[];
   P4: P4[];
   P2: P110[];
   P110: P110[];
@@ -11219,21 +11252,21 @@ interface Claims712 {
 }
 
 interface P147 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers423;
+  qualifiers: Qualifiers415;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers423 {
-  [key: string]: any;
+interface Qualifiers415 {
+  P8?: Mainsnak[];
   P7?: Mainsnak2[];
 }
 
 interface P1339 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11244,11 +11277,11 @@ interface P1339 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims711;
+  claims: Claims715;
 }
 
-interface Claims711 {
-  [key: string]: any;
+interface Claims715 {
+  P2: P110[];
   P1: P1[];
   P4: P4[];
   P15: P1515[];
@@ -11257,21 +11290,21 @@ interface Claims711 {
 }
 
 interface P1515 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers?: Qualifiers422;
+  qualifiers?: Qualifiers414;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers422 {
-  [key: string]: any;
+interface Qualifiers414 {
+  P7?: Mainsnak2[];
   P11?: Mainsnak[];
 }
 
 interface P3002 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11282,11 +11315,11 @@ interface P3002 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims710;
+  claims: Claims714;
 }
 
-interface Claims710 {
-  [key: string]: any;
+interface Claims714 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P4[];
@@ -11296,22 +11329,22 @@ interface Claims710 {
 }
 
 interface P1514 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers421;
+  qualifiers: Qualifiers413;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers421 {
-  [key: string]: any;
+interface Qualifiers413 {
+  P12: Mainsnak2[];
   P7?: Mainsnak2[];
   P8?: Mainsnak[];
 }
 
 interface P66 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11322,11 +11355,11 @@ interface P66 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims709;
+  claims: Claims713;
 }
 
-interface Claims709 {
-  [key: string]: any;
+interface Claims713 {
+  P2: P110[];
   P4: P4[];
   P15: P110[];
   P1: P1[];
@@ -11335,7 +11368,7 @@ interface Claims709 {
 }
 
 interface Q9 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11350,7 +11383,7 @@ interface Q9 {
 }
 
 interface Q1335 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11360,18 +11393,18 @@ interface Q1335 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims708;
+  claims: Claims712;
   sitelinks: Aliases;
 }
 
-interface Claims708 {
-  [key: string]: any;
+interface Claims712 {
+  P2: P110[];
   P57: P1[];
   P110: P110[];
 }
 
 interface P1016 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11382,11 +11415,11 @@ interface P1016 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims707;
+  claims: Claims711;
 }
 
-interface Claims707 {
-  [key: string]: any;
+interface Claims711 {
+  P2: P110[];
   P4: P4[];
   P110: P110[];
   P15: P1513[];
@@ -11396,7 +11429,7 @@ interface Claims707 {
 }
 
 interface P1513 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
   qualifiers: Snaks2;
   'qualifiers-order': string[];
@@ -11404,8 +11437,8 @@ interface P1513 {
   rank: string;
 }
 
-interface P2956 {
-  [key: string]: any;
+interface P2955 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11416,11 +11449,11 @@ interface P2956 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims706;
+  claims: Claims710;
 }
 
-interface Claims706 {
-  [key: string]: any;
+interface Claims710 {
+  P110: P110[];
   P4: P4[];
   P1: P1[];
   P15: P1512[];
@@ -11430,21 +11463,21 @@ interface Claims706 {
 }
 
 interface P1512 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers420;
+  qualifiers: Qualifiers412;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers420 {
-  [key: string]: any;
+interface Qualifiers412 {
+  P12: Mainsnak2[];
   P11?: Mainsnak[];
 }
 
 interface Q6 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11454,12 +11487,12 @@ interface Q6 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims702;
+  claims: Claims706;
   sitelinks: Aliases;
 }
 
 interface Q1 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11469,12 +11502,12 @@ interface Q1 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims702;
+  claims: Claims706;
   sitelinks: Aliases;
 }
 
 interface Q2 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11484,19 +11517,19 @@ interface Q2 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims705;
+  claims: Claims709;
   sitelinks: Aliases;
 }
 
-interface Claims705 {
-  [key: string]: any;
+interface Claims709 {
+  P1: P1[];
   P2: P110[];
   P110: P110[];
   P116: P110[];
 }
 
 interface P340 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11507,11 +11540,11 @@ interface P340 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims704;
+  claims: Claims708;
 }
 
-interface Claims704 {
-  [key: string]: any;
+interface Claims708 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -11524,7 +11557,7 @@ interface Claims704 {
 }
 
 interface Q8 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11534,18 +11567,18 @@ interface Q8 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims703;
+  claims: Claims707;
   sitelinks: Aliases;
 }
 
-interface Claims703 {
-  [key: string]: any;
+interface Claims707 {
+  P1: P1[];
   P110: P110[];
   P115: P110[];
 }
 
 interface Q13 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11555,19 +11588,19 @@ interface Q13 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims702;
+  claims: Claims706;
   sitelinks: Aliases;
 }
 
-interface Claims702 {
-  [key: string]: any;
+interface Claims706 {
+  P1: P1[];
   P2: P110[];
   P110: P110[];
   P115: P110[];
 }
 
 interface P333 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11578,11 +11611,11 @@ interface P333 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims701;
+  claims: Claims705;
 }
 
-interface Claims701 {
-  [key: string]: any;
+interface Claims705 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -11594,7 +11627,7 @@ interface Claims701 {
 }
 
 interface Q1332 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11604,22 +11637,167 @@ interface Q1332 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims700;
+  claims: Claims704;
   sitelinks: Aliases;
 }
 
-interface Claims700 {
-  [key: string]: any;
+interface Claims704 {
+  P114: P110[];
   P66: P1[];
   P61: P110[];
   P62: P110[];
-  P101: P332[];
+  P101: P1015[];
   P110: P110[];
   P2: P110[];
 }
 
 interface Q221 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims703;
+  sitelinks: Aliases;
+}
+
+interface Claims703 {
+  P13: P110[];
+  P4: P43[];
+  P2: P110[];
+  P110: P110[];
+  P1: P75[];
+  P14: P146[];
+}
+
+interface P146 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers411;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers411 {
+  P7: Mainsnak2[];
+  P15?: Mainsnak[];
+  P396?: Mainsnak[];
+  P168?: Mainsnak[];
+}
+
+interface P390 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims378;
+}
+
+interface P185 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims702;
+}
+
+interface Claims702 {
+  P110: P110[];
+  P2: P110[];
+  P1: P18[];
+  P4: P42[];
+  P10: P1[];
+  P13: P13[];
+}
+
+interface P18 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references: Reference7[];
+}
+
+interface Q2104 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims701;
+  sitelinks: Aliases;
+}
+
+interface Claims701 {
+  P110: P110[];
+  P2: P110[];
+  P336: P336[];
+}
+
+interface Q2091 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims700;
+  sitelinks: Aliases;
+}
+
+interface Claims700 {
+  P110: P110[];
+  P2: P110[];
+  P334: P334[];
+}
+
+interface P334 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers410;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers410 {
+  P338: Mainsnak[];
+  P337: Mainsnak2[];
+  P440: Mainsnak2[];
+  P47?: Mainsnak2[];
+}
+
+interface Q2096 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11634,190 +11812,56 @@ interface Q221 {
 }
 
 interface Claims699 {
-  [key: string]: any;
-  P4: P43[];
-  P2: P110[];
   P110: P110[];
-  P1: P75[];
-  P14: P146[];
-}
-
-interface P146 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers419;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers419 {
-  [key: string]: any;
-  P15?: Mainsnak[];
-  P396?: Mainsnak[];
-  P168?: Mainsnak[];
-}
-
-interface P390 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims377;
-}
-
-interface P185 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims698;
-}
-
-interface Claims698 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P18[];
-  P4: P42[];
-  P10: P1[];
-  P13: P13[];
-}
-
-interface P18 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references: Reference7[];
-}
-
-interface Q2104 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims697;
-  sitelinks: Aliases;
-}
-
-interface Claims697 {
-  [key: string]: any;
-  P2: P110[];
-  P336: P3364[];
-}
-
-interface P3364 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers418;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers418 {
-  [key: string]: any;
-}
-
-interface Q2091 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims696;
-  sitelinks: Aliases;
-}
-
-interface Claims696 {
-  [key: string]: any;
-  P2: P110[];
-  P334: P334[];
-}
-
-interface P334 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers417;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers417 {
-  [key: string]: any;
-  P337: Mainsnak2[];
-  P47?: Mainsnak2[];
-}
-
-interface Q2096 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims695;
-  sitelinks: Aliases;
-}
-
-interface Claims695 {
-  [key: string]: any;
   P2: P110[];
   P133: P1338[];
   P7: P1[];
 }
 
 interface P1338 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers416;
+  qualifiers: Qualifiers409;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers416 {
-  [key: string]: any;
+interface Qualifiers409 {
+  P135: Mainsnak2[];
   P134: Mainsnak2[];
   P136: Mainsnak2[];
   P137: Mainsnak2[];
   P138: Mainsnak2[];
   P145: P3932[];
   P146?: P3932[];
+  P440?: Mainsnak2[];
+}
+
+interface Q2108 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims698;
+  sitelinks: Aliases;
+}
+
+interface Claims698 {
+  P110: P110[];
+  P2: P110[];
+  P65: P65[];
+  P93: P93[];
 }
 
 interface P3702 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11828,11 +11872,11 @@ interface P3702 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims694;
+  claims: Claims697;
 }
 
-interface Claims694 {
-  [key: string]: any;
+interface Claims697 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -11845,7 +11889,7 @@ interface Claims694 {
 }
 
 interface Q1325 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11855,57 +11899,107 @@ interface Q1325 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims693;
+  claims: Claims696;
   sitelinks: Aliases;
 }
 
-interface Claims693 {
-  [key: string]: any;
-  P59: P58[];
-  P101: P332[];
+interface Claims696 {
+  P58: P589[];
+  P59: P5811[];
+  P101: P1015[];
   P85: P1[];
-  P53: P532[];
-  P295: P2952[];
+  P53: P535[];
+  P295: P2954[];
   P55: P554[];
-  P89: P8910[];
+  P89: P8919[];
   P73: P7311[];
   P2: P110[];
   P110: P110[];
 }
 
 interface P7311 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers415;
+  qualifiers: Qualifiers408;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers415 {
-  [key: string]: any;
+interface Qualifiers408 {
+  P19: Mainsnak2[];
   P169: Mainsnak[];
   P329: Mainsnak[];
 }
 
-interface P554 {
-  [key: string]: any;
+interface P8919 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers414;
+  qualifiers: Qualifiers407;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers414 {
-  [key: string]: any;
+interface Qualifiers407 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
+}
+
+interface P554 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers406;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers406 {
+  P19: Mainsnak2[];
   P169: Mainsnak[];
   P47: Mainsnak2[];
   P329: Mainsnak[];
 }
 
+interface P2954 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers405;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers405 {
+  P66: Mainsnak2[];
+}
+
+interface P535 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers170;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface P1015 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers404;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers404 {
+  P150: Mainsnak2[];
+}
+
 interface P61 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11920,7 +12014,154 @@ interface P61 {
 }
 
 interface P633 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims695;
+}
+
+interface Claims695 {
+  P2: P110[];
+  P4: P4[];
+  P1: P1[];
+  P12: P1[];
+  P9: P1[];
+  P15: P1511[];
+  P10: P1[];
+  P110: P110[];
+  P11: P110[];
+}
+
+interface P1511 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers403;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers403 {
+  P12: Mainsnak2[];
+  P8: Mainsnak[];
+}
+
+interface P406 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims666;
+}
+
+interface P44 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims301;
+}
+
+interface P637 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims301;
+}
+
+interface P2 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims694;
+}
+
+interface Claims694 {
+  P109: P110[];
+  P110: P110[];
+}
+
+interface P807 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims693;
+}
+
+interface Claims693 {
+  P2: P110[];
+  P12: P1[];
+  P4: P4[];
+  P15: P1510[];
+  P10: P1[];
+  P110: P110[];
+  P1: P1[];
+  P9: P1[];
+}
+
+interface P1510 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers402;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers402 {
+  P12: Mainsnak2[];
+  P7: Mainsnak2[];
+  P11: Mainsnak[];
+}
+
+interface P48 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -11935,98 +12176,46 @@ interface P633 {
 }
 
 interface Claims692 {
-  [key: string]: any;
+  P2: P110[];
   P4: P4[];
+  P7: P761[];
   P1: P1[];
-  P12: P1[];
-  P9: P1[];
-  P15: P1511[];
-  P10: P1[];
   P110: P110[];
-  P11: P110[];
 }
 
-interface P1511 {
-  [key: string]: any;
+interface P761 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers413;
-  'qualifiers-order': string[];
   id: string;
   rank: string;
+  references?: Reference9[];
 }
 
-interface Qualifiers413 {
-  [key: string]: any;
-  P8: Mainsnak[];
-}
-
-interface P406 {
-  [key: string]: any;
+interface Q1351 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
   modified: string;
   type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims663;
-}
-
-interface P44 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims300;
-}
-
-interface P637 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims300;
-}
-
-interface P2 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
   id: string;
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
   claims: Claims691;
+  sitelinks: Aliases;
 }
 
 interface Claims691 {
-  [key: string]: any;
   P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P60: P110[];
+  P11: P110[];
 }
 
-interface P807 {
-  [key: string]: any;
+interface P842 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12041,33 +12230,18 @@ interface P807 {
 }
 
 interface Claims690 {
-  [key: string]: any;
+  P2: P110[];
+  P1: P1[];
   P12: P1[];
   P4: P4[];
-  P15: P1510[];
+  P15: P152[];
   P10: P1[];
+  P11: P110[];
   P110: P110[];
-  P1: P1[];
-  P9: P1[];
 }
 
-interface P1510 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers412;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers412 {
-  [key: string]: any;
-  P7: Mainsnak2[];
-  P11: Mainsnak[];
-}
-
-interface P48 {
-  [key: string]: any;
+interface P181 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12082,46 +12256,15 @@ interface P48 {
 }
 
 interface Claims689 {
-  [key: string]: any;
-  P4: P4[];
-  P7: P761[];
-  P1: P1[];
   P110: P110[];
-}
-
-interface P761 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references?: Reference9[];
-}
-
-interface Q1351 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims688;
-  sitelinks: Aliases;
-}
-
-interface Claims688 {
-  [key: string]: any;
   P2: P110[];
-  P1: P1[];
-  P60: P110[];
-  P11: P110[];
+  P1: P12[];
+  P4: P42[];
+  P13: P13[];
 }
 
-interface P843 {
-  [key: string]: any;
+interface P32 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12132,22 +12275,38 @@ interface P843 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims687;
+  claims: Claims688;
 }
 
-interface Claims687 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
+interface Claims688 {
+  P2: P110[];
   P4: P4[];
-  P15: P152[];
-  P10: P1[];
-  P11: P110[];
+  P60: P110[];
   P110: P110[];
 }
 
-interface P181 {
-  [key: string]: any;
+interface Q1315 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims687;
+  sitelinks: Aliases;
+}
+
+interface Claims687 {
+  P114: P110[];
+  P110: P110[];
+}
+
+interface P655 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12162,72 +12321,7 @@ interface P181 {
 }
 
 interface Claims686 {
-  [key: string]: any;
   P2: P110[];
-  P1: P12[];
-  P4: P42[];
-  P13: P13[];
-}
-
-interface P32 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims685;
-}
-
-interface Claims685 {
-  [key: string]: any;
-  P4: P4[];
-  P60: P110[];
-  P110: P110[];
-}
-
-interface Q1315 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims684;
-  sitelinks: Aliases;
-}
-
-interface Claims684 {
-  [key: string]: any;
-  P110: P110[];
-}
-
-interface P653 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims683;
-}
-
-interface Claims683 {
-  [key: string]: any;
   P4: P4[];
   P110: P110[];
   P15: P159[];
@@ -12238,23 +12332,23 @@ interface Claims683 {
 }
 
 interface P159 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers411;
+  qualifiers: Qualifiers401;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers411 {
-  [key: string]: any;
+interface Qualifiers401 {
+  P12: Mainsnak2[];
   P8?: Mainsnak[];
   P7?: Mainsnak2[];
   P11?: Mainsnak[];
 }
 
 interface P3363 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12265,11 +12359,11 @@ interface P3363 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims682;
+  claims: Claims685;
 }
 
-interface Claims682 {
-  [key: string]: any;
+interface Claims685 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -12281,21 +12375,21 @@ interface Claims682 {
 }
 
 interface P158 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers410;
+  qualifiers: Qualifiers400;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers410 {
-  [key: string]: any;
+interface Qualifiers400 {
+  P12: Mainsnak2[];
   P7: Mainsnak2[];
 }
 
-interface P1046 {
-  [key: string]: any;
+interface P1047 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12306,11 +12400,11 @@ interface P1046 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims681;
+  claims: Claims684;
 }
 
-interface Claims681 {
-  [key: string]: any;
+interface Claims684 {
+  P2: P110[];
   P1: P1[];
   P12: P1[];
   P4: P4[];
@@ -12321,7 +12415,7 @@ interface Claims681 {
 }
 
 interface Q151 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12331,12 +12425,12 @@ interface Q151 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims680;
+  claims: Claims683;
   sitelinks: Aliases;
 }
 
-interface Claims680 {
-  [key: string]: any;
+interface Claims683 {
+  P2: P110[];
   P4: P4[];
   P110: P110[];
   P1: P1[];
@@ -12344,7 +12438,7 @@ interface Claims680 {
 }
 
 interface P148 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12355,11 +12449,11 @@ interface P148 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims377;
+  claims: Claims378;
 }
 
 interface P33 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12374,7 +12468,7 @@ interface P33 {
 }
 
 interface P683 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12385,11 +12479,11 @@ interface P683 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims679;
+  claims: Claims682;
 }
 
-interface Claims679 {
-  [key: string]: any;
+interface Claims682 {
+  P2: P110[];
   P4: P4[];
   P9: P1[];
   P110: P110[];
@@ -12398,7 +12492,7 @@ interface Claims679 {
 }
 
 interface P157 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
   id: string;
   rank: string;
@@ -12407,7 +12501,148 @@ interface P157 {
 }
 
 interface P1052 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims681;
+}
+
+interface Claims681 {
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P15: P153[];
+  P9: P1[];
+  P10: P409[];
+  P110: P110[];
+  P11: P110[];
+}
+
+interface Q152 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims680;
+  sitelinks: Aliases;
+}
+
+interface Claims680 {
+  P2: P110[];
+  P4: P4[];
+  P1: P1[];
+  P110: P110[];
+  P7: P760[];
+  P14: P145[];
+  P642: P642[];
+}
+
+interface P642 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers399;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers399 {
+  P389: Mainsnak[];
+  P11?: Mainsnak[];
+}
+
+interface P145 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers398;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+  references?: Reference3[];
+}
+
+interface Qualifiers398 {
+  P7: Mainsnak2[];
+  P11?: Mainsnak[];
+  P396?: Mainsnak[];
+  P642?: Mainsnak2[];
+  P168?: Mainsnak[];
+}
+
+interface P760 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers245;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface P507 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims60;
+}
+
+interface Q246 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims679;
+  sitelinks: Aliases;
+}
+
+interface Claims679 {
+  P13: P110[];
+  P4: P4[];
+  P2: P110[];
+  P110: P110[];
+  P1: P1[];
+  P14: P144[];
+}
+
+interface P144 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers?: Qualifiers392;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface P286 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12422,148 +12657,7 @@ interface P1052 {
 }
 
 interface Claims678 {
-  [key: string]: any;
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P15: P153[];
-  P9: P1[];
-  P10: P409[];
   P110: P110[];
-  P11: P110[];
-}
-
-interface Q152 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims677;
-  sitelinks: Aliases;
-}
-
-interface Claims677 {
-  [key: string]: any;
-  P4: P4[];
-  P1: P1[];
-  P110: P110[];
-  P7: P760[];
-  P14: P145[];
-  P642: P642[];
-}
-
-interface P642 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers409;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers409 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-}
-
-interface P145 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers408;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-  references?: Reference3[];
-}
-
-interface Qualifiers408 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-  P396?: Mainsnak[];
-  P642?: Mainsnak2[];
-  P168?: Mainsnak[];
-}
-
-interface P760 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers246;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface P507 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims59;
-}
-
-interface Q246 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims676;
-  sitelinks: Aliases;
-}
-
-interface Claims676 {
-  [key: string]: any;
-  P4: P4[];
-  P2: P110[];
-  P110: P110[];
-  P1: P1[];
-  P14: P144[];
-}
-
-interface P144 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers402;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface P286 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims675;
-}
-
-interface Claims675 {
-  [key: string]: any;
   P2: P110[];
   P1: P1[];
   P4: P4[];
@@ -12571,8 +12665,8 @@ interface Claims675 {
   P13: P13[];
 }
 
-interface P3012 {
-  [key: string]: any;
+interface P3013 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12583,11 +12677,11 @@ interface P3012 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims674;
+  claims: Claims677;
 }
 
-interface Claims674 {
-  [key: string]: any;
+interface Claims677 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -12600,22 +12694,22 @@ interface Claims674 {
 }
 
 interface P156 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers407;
+  qualifiers: Qualifiers397;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers407 {
-  [key: string]: any;
+interface Qualifiers397 {
+  P12: Mainsnak2[];
   P7: Mainsnak2[];
   P8: Mainsnak[];
 }
 
 interface P288 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12626,11 +12720,11 @@ interface P288 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims673;
+  claims: Claims676;
 }
 
-interface Claims673 {
-  [key: string]: any;
+interface Claims676 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P42[];
@@ -12638,7 +12732,7 @@ interface Claims673 {
 }
 
 interface P341 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12652,8 +12746,8 @@ interface P341 {
   claims: Claims5;
 }
 
-interface P3445 {
-  [key: string]: any;
+interface P3444 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12664,11 +12758,11 @@ interface P3445 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims672;
+  claims: Claims675;
 }
 
-interface Claims672 {
-  [key: string]: any;
+interface Claims675 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -12679,22 +12773,22 @@ interface Claims672 {
 }
 
 interface P155 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers406;
+  qualifiers: Qualifiers396;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers406 {
-  [key: string]: any;
+interface Qualifiers396 {
+  P12: Mainsnak2[];
   P7: Mainsnak2[];
   P8?: Mainsnak[];
 }
 
 interface Q257 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12704,12 +12798,12 @@ interface Q257 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims671;
+  claims: Claims674;
   sitelinks: Aliases;
 }
 
 interface Q255 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12719,19 +12813,19 @@ interface Q255 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims671;
+  claims: Claims674;
   sitelinks: Aliases;
 }
 
-interface Claims671 {
-  [key: string]: any;
+interface Claims674 {
+  P2: P110[];
   P4: P4[];
   P60: P602[];
   P110: P110[];
 }
 
 interface Q253 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12741,12 +12835,12 @@ interface Q253 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims670;
+  claims: Claims673;
   sitelinks: Aliases;
 }
 
-interface Claims670 {
-  [key: string]: any;
+interface Claims673 {
+  P2: P110[];
   P4: P4[];
   P60: P602[];
   P16: P409[];
@@ -12755,20 +12849,20 @@ interface Claims670 {
 }
 
 interface P143 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers405;
+  qualifiers: Qualifiers395;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers405 {
-  [key: string]: any;
+interface Qualifiers395 {
+  P16: Mainsnak2[];
 }
 
 interface Q251 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12778,12 +12872,12 @@ interface Q251 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases2;
-  claims: Claims669;
+  claims: Claims672;
   sitelinks: Aliases;
 }
 
 interface Q250 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12793,12 +12887,12 @@ interface Q250 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims669;
+  claims: Claims672;
   sitelinks: Aliases;
 }
 
-interface Claims669 {
-  [key: string]: any;
+interface Claims672 {
+  P2: P110[];
   P4: P4[];
   P60: P602[];
   P16: P409[];
@@ -12806,20 +12900,20 @@ interface Claims669 {
 }
 
 interface P602 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers404;
+  qualifiers: Qualifiers394;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers404 {
-  [key: string]: any;
+interface Qualifiers394 {
+  P15: Mainsnak[];
 }
 
 interface P62 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12830,11 +12924,11 @@ interface P62 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims668;
+  claims: Claims671;
 }
 
-interface Claims668 {
-  [key: string]: any;
+interface Claims671 {
+  P2: P110[];
   P4: P4[];
   P8: P110[];
   P110: P110[];
@@ -12842,7 +12936,7 @@ interface Claims668 {
 }
 
 interface P3673 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12853,11 +12947,11 @@ interface P3673 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims667;
+  claims: Claims670;
 }
 
-interface Claims667 {
-  [key: string]: any;
+interface Claims670 {
+  P4: P4[];
   P10: P102[];
   P16: P1[];
   P15: P154[];
@@ -12870,7 +12964,7 @@ interface Claims667 {
 }
 
 interface P102 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
@@ -12880,7 +12974,7 @@ interface P102 {
 }
 
 interface P353 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12891,11 +12985,11 @@ interface P353 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims666;
+  claims: Claims669;
 }
 
-interface Claims666 {
-  [key: string]: any;
+interface Claims669 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P12: P1[];
@@ -12904,20 +12998,20 @@ interface Claims666 {
 }
 
 interface P154 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers403;
+  qualifiers: Qualifiers393;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers403 {
-  [key: string]: any;
+interface Qualifiers393 {
+  P12: Mainsnak2[];
 }
 
 interface Q156 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -12927,12 +13021,12 @@ interface Q156 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims665;
+  claims: Claims668;
   sitelinks: Aliases;
 }
 
-interface Claims665 {
-  [key: string]: any;
+interface Claims668 {
+  P13: P110[];
   P4: P43[];
   P2: P110[];
   P110: P110[];
@@ -12941,22 +13035,22 @@ interface Claims665 {
 }
 
 interface P142 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers402;
+  qualifiers: Qualifiers392;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers402 {
-  [key: string]: any;
+interface Qualifiers392 {
+  P8?: Mainsnak[];
   P7?: Mainsnak2[];
   P168?: Mainsnak[];
 }
 
 interface P17 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
@@ -12964,18 +13058,18 @@ interface P17 {
 }
 
 interface Reference9 {
-  [key: string]: any;
+  hash: string;
   snaks: Snaks9;
   'snaks-order': string[];
 }
 
 interface Snaks9 {
-  [key: string]: any;
+  P20: Mainsnak2[];
   P371: Mainsnak2[];
 }
 
 interface P43 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers4;
   'qualifiers-order': string[];
@@ -12985,17 +13079,17 @@ interface P43 {
 }
 
 interface Reference8 {
-  [key: string]: any;
+  hash: string;
   snaks: Snaks8;
   'snaks-order': string[];
 }
 
 interface Snaks8 {
-  [key: string]: any;
+  P371: Mainsnak2[];
 }
 
 interface Q214 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13005,19 +13099,123 @@ interface Q214 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims664;
+  claims: Claims667;
   sitelinks: Aliases;
 }
 
-interface Claims664 {
-  [key: string]: any;
+interface Claims667 {
+  P13: P110[];
   P4: P4[];
   P2: P110[];
   P110: P110[];
 }
 
 interface Q2648 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims666;
+  sitelinks: Aliases;
+}
+
+interface Claims666 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P4: P4[];
+  P10: P1[];
+}
+
+interface P859 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims665;
+}
+
+interface Claims665 {
+  P2: P110[];
+  P4: P4[];
+  P15: P153[];
+  P1: P1[];
+  P12: P1[];
+  P110: P110[];
+  P10: P1[];
+}
+
+interface P153 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers391;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers391 {
+  P12: Mainsnak2[];
+  P7?: Mainsnak2[];
+  P11?: Mainsnak[];
+}
+
+interface P3587 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims664;
+}
+
+interface Claims664 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P12: P1[];
+  P4: P4[];
+  P10: P1[];
+  P16: P1[];
+  P15: P152[];
+  P11: P110[];
+}
+
+interface P152 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers390;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers390 {
+  P12: Mainsnak2[];
+  P7?: Mainsnak2[];
+}
+
+interface Q3170 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13032,118 +13230,14 @@ interface Q2648 {
 }
 
 interface Claims663 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P4: P4[];
-  P10: P1[];
-}
-
-interface P859 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims662;
-}
-
-interface Claims662 {
-  [key: string]: any;
-  P4: P4[];
-  P15: P153[];
-  P1: P1[];
-  P12: P1[];
   P110: P110[];
-  P10: P1[];
-}
-
-interface P153 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers401;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers401 {
-  [key: string]: any;
-  P7?: Mainsnak2[];
-  P11?: Mainsnak[];
-}
-
-interface P3587 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims661;
-}
-
-interface Claims661 {
-  [key: string]: any;
   P2: P110[];
-  P1: P1[];
-  P12: P1[];
-  P4: P4[];
-  P10: P1[];
-  P16: P1[];
-  P15: P152[];
-  P11: P110[];
-}
-
-interface P152 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers400;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers400 {
-  [key: string]: any;
-  P7?: Mainsnak2[];
-}
-
-interface Q3170 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims660;
-  sitelinks: Aliases;
-}
-
-interface Claims660 {
-  [key: string]: any;
-  P2: P110[];
-  P65: P65[];
-  P93: P932[];
+  P65: P654[];
+  P93: P934[];
 }
 
 interface Q2860 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13153,27 +13247,27 @@ interface Q2860 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims659;
+  claims: Claims662;
   sitelinks: Aliases;
 }
 
-interface Claims659 {
-  [key: string]: any;
+interface Claims662 {
+  P349: P3492[];
   P110: P110[];
   P2: P110[];
 }
 
 interface P3492 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers399;
+  qualifiers: Qualifiers389;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers399 {
-  [key: string]: any;
+interface Qualifiers389 {
+  P345: Mainsnak2[];
   P346: Mainsnak[];
   P438: Mainsnak2[];
   P19: Mainsnak2[];
@@ -13181,7 +13275,7 @@ interface Qualifiers399 {
 }
 
 interface Q2859 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13191,34 +13285,34 @@ interface Q2859 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims658;
+  claims: Claims661;
   sitelinks: Aliases;
 }
 
-interface Claims658 {
-  [key: string]: any;
+interface Claims661 {
+  P349: P349[];
   P110: P110[];
   P2: P110[];
 }
 
 interface P349 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers398;
+  qualifiers: Qualifiers388;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers398 {
-  [key: string]: any;
+interface Qualifiers388 {
+  P345: Mainsnak2[];
   P19: Mainsnak2[];
   P390: Mainsnak2[];
   P7: Mainsnak2[];
 }
 
 interface P162 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13229,11 +13323,11 @@ interface P162 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims59;
+  claims: Claims60;
 }
 
 interface P323 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13248,7 +13342,104 @@ interface P323 {
 }
 
 interface P186 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims660;
+}
+
+interface Claims660 {
+  P110: P110[];
+  P2: P110[];
+  P4: P42[];
+  P1: P16[];
+  P10: P1[];
+  P13: P13[];
+}
+
+interface P16 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references?: Reference6[];
+}
+
+interface P184 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims659;
+}
+
+interface Claims659 {
+  P110: P110[];
+  P2: P110[];
+  P1: P14[];
+  P4: P42[];
+  P10: P1[];
+  P13: P13[];
+}
+
+interface P14 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references?: Reference7[];
+}
+
+interface Reference7 {
+  hash: string;
+  snaks: Snaks7;
+  'snaks-order': string[];
+}
+
+interface Snaks7 {
+  P20: Mainsnak2[];
+  P57: Mainsnak2[];
+}
+
+interface P782 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims658;
+}
+
+interface Claims658 {
+  P2: P110[];
+  P4: P4[];
+  P10: P1[];
+  P110: P110[];
+}
+
+interface P179 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13263,24 +13454,39 @@ interface P186 {
 }
 
 interface Claims657 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P4: P42[];
-  P1: P16[];
+  P1: P12[];
   P10: P1[];
   P13: P13[];
 }
 
-interface P16 {
-  [key: string]: any;
+interface P12 {
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
-  references?: Reference6[];
+  references: Reference6[];
 }
 
-interface P184 {
-  [key: string]: any;
+interface P394 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims60;
+}
+
+interface P9719 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13295,119 +13501,7 @@ interface P184 {
 }
 
 interface Claims656 {
-  [key: string]: any;
   P2: P110[];
-  P1: P14[];
-  P4: P42[];
-  P10: P1[];
-  P13: P13[];
-}
-
-interface P14 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references?: Reference7[];
-}
-
-interface Reference7 {
-  [key: string]: any;
-  snaks: Snaks7;
-  'snaks-order': string[];
-}
-
-interface Snaks7 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-}
-
-interface P782 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims655;
-}
-
-interface Claims655 {
-  [key: string]: any;
-  P4: P4[];
-  P10: P1[];
-  P110: P110[];
-}
-
-interface P179 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims654;
-}
-
-interface Claims654 {
-  [key: string]: any;
-  P2: P110[];
-  P4: P42[];
-  P1: P12[];
-  P10: P1[];
-  P13: P13[];
-}
-
-interface P12 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references: Reference6[];
-}
-
-interface P394 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims59;
-}
-
-interface P9719 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims653;
-}
-
-interface Claims653 {
-  [key: string]: any;
   P1: P1[];
   P12: P1[];
   P4: P4[];
@@ -13418,23 +13512,23 @@ interface Claims653 {
 }
 
 interface P15 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers397;
+  qualifiers: Qualifiers387;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers397 {
-  [key: string]: any;
+interface Qualifiers387 {
+  P12: Mainsnak2[];
   P7?: Mainsnak2[];
   P11?: Mainsnak[];
   P168?: Mainsnak[];
 }
 
 interface P31 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13449,7 +13543,7 @@ interface P31 {
 }
 
 interface Q163 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13459,12 +13553,12 @@ interface Q163 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims652;
+  claims: Claims655;
   sitelinks: Aliases;
 }
 
-interface Claims652 {
-  [key: string]: any;
+interface Claims655 {
+  P13: P110[];
   P4: P4[];
   P10: P1[];
   P2: P110[];
@@ -13472,7 +13566,89 @@ interface Claims652 {
 }
 
 interface P175 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims654;
+}
+
+interface Claims654 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P10: P1[];
+  P4: P42[];
+  P13: P13[];
+  P382: P382[];
+}
+
+interface P382 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers386;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers386 {
+  P383: Mainsnak[];
+}
+
+interface P224 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases2;
+  claims: Claims653;
+}
+
+interface Claims653 {
+  P110: P110[];
+  P2: P110[];
+  P1: P1[];
+  P4: P42[];
+  P10: P1[];
+}
+
+interface P466 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  datatype: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims652;
+}
+
+interface Claims652 {
+  P110: P110[];
+  P2: P110[];
+  P124: P110[];
+}
+
+interface P177 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13487,89 +13663,7 @@ interface P175 {
 }
 
 interface Claims651 {
-  [key: string]: any;
   P2: P110[];
-  P1: P1[];
-  P10: P1[];
-  P4: P42[];
-  P13: P13[];
-  P382: P382[];
-}
-
-interface P382 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers396;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers396 {
-  [key: string]: any;
-}
-
-interface P224 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims650;
-}
-
-interface Claims650 {
-  [key: string]: any;
-  P2: P110[];
-  P1: P1[];
-  P4: P42[];
-  P10: P1[];
-}
-
-interface P466 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims649;
-}
-
-interface Claims649 {
-  [key: string]: any;
-  P2: P110[];
-  P124: P110[];
-}
-
-interface P177 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  datatype: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases2;
-  claims: Claims648;
-}
-
-interface Claims648 {
-  [key: string]: any;
   P110: P110[];
   P1: P1[];
   P4: P42[];
@@ -13578,21 +13672,21 @@ interface Claims648 {
 }
 
 interface P132 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers395;
+  qualifiers: Qualifiers385;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers395 {
-  [key: string]: any;
+interface Qualifiers385 {
+  P60: Mainsnak[];
   P7: Mainsnak2[];
 }
 
 interface P412 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13603,11 +13697,11 @@ interface P412 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims647;
+  claims: Claims650;
 }
 
-interface Claims647 {
-  [key: string]: any;
+interface Claims650 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P124: P110[];
@@ -13615,7 +13709,7 @@ interface Claims647 {
 }
 
 interface P307 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13630,7 +13724,7 @@ interface P307 {
 }
 
 interface Q2171 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13645,7 +13739,7 @@ interface Q2171 {
 }
 
 interface P173 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13656,11 +13750,11 @@ interface P173 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims646;
+  claims: Claims649;
 }
 
-interface Claims646 {
-  [key: string]: any;
+interface Claims649 {
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P42[];
@@ -13669,34 +13763,34 @@ interface Claims646 {
 }
 
 interface P13 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
-  qualifiers: Qualifiers394;
+  qualifiers: Qualifiers384;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers394 {
-  [key: string]: any;
+interface Qualifiers384 {
+  P60: Mainsnak[];
 }
 
 interface P42 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers393;
+  qualifiers: Qualifiers383;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers393 {
-  [key: string]: any;
+interface Qualifiers383 {
+  P3: Mainsnak[];
   P57?: Mainsnak2[];
 }
 
 interface Q8646 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13706,12 +13800,12 @@ interface Q8646 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims645;
+  claims: Claims648;
   sitelinks: Aliases;
 }
 
 interface Q8637 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13721,17 +13815,17 @@ interface Q8637 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims645;
+  claims: Claims648;
   sitelinks: Aliases;
 }
 
-interface Claims645 {
-  [key: string]: any;
+interface Claims648 {
+  P110: P110[];
   P7: P1[];
 }
 
 interface Q8635 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13741,12 +13835,12 @@ interface Q8635 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims644;
+  claims: Claims647;
   sitelinks: Aliases;
 }
 
-interface Claims644 {
-  [key: string]: any;
+interface Claims647 {
+  P110: P110[];
   P2: P110[];
   P7: P7[];
   P518: P7[];
@@ -13777,7 +13871,7 @@ interface Claims644 {
 }
 
 interface P409 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Snaks2;
   'qualifiers-order': string[];
@@ -13786,7 +13880,117 @@ interface P409 {
 }
 
 interface Q8634 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims646;
+  sitelinks: Aliases;
+}
+
+interface Claims646 {
+  P110: P110[];
+  P2: P110[];
+  P7: P759[];
+}
+
+interface P759 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references?: Reference[];
+  qualifiers?: Qualifiers5;
+  'qualifiers-order'?: string[];
+}
+
+interface Q8606 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims645;
+  sitelinks: Aliases;
+}
+
+interface Claims645 {
+  P110: P110[];
+  P7: P758[];
+  P2: P110[];
+}
+
+interface P758 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers382;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+  references?: Reference6[];
+}
+
+interface Reference6 {
+  hash: string;
+  snaks: Snaks6;
+  'snaks-order': string[];
+}
+
+interface Snaks6 {
+  P7: Mainsnak2[];
+  P57: Mainsnak2[];
+}
+
+interface Qualifiers382 {
+  P389?: Mainsnak[];
+  P11?: Mainsnak[];
+  P392?: Mainsnak[];
+  P644?: Mainsnak2[];
+}
+
+interface Q8604 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims644;
+  sitelinks: Aliases;
+}
+
+interface Claims644 {
+  P110: P110[];
+  P2: P110[];
+  P7: P757[];
+}
+
+interface P757 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers;
+  'qualifiers-order'?: string[];
+}
+
+interface Q8599 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13801,23 +14005,27 @@ interface Q8634 {
 }
 
 interface Claims643 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P759[];
+  P7: P756[];
 }
 
-interface P759 {
-  [key: string]: any;
+interface P756 {
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
-  references?: Reference[];
-  qualifiers?: Qualifiers5;
+  qualifiers?: Qualifiers381;
   'qualifiers-order'?: string[];
 }
 
-interface Q8606 {
-  [key: string]: any;
+interface Qualifiers381 {
+  P389: Mainsnak[];
+  P393?: Mainsnak[];
+}
+
+interface Q8577 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13825,48 +14033,67 @@ interface Q8606 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims642;
   sitelinks: Aliases;
 }
 
 interface Claims642 {
-  [key: string]: any;
-  P7: P758[];
+  P110: P110[];
   P2: P110[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P328: P300[];
+  P101: P101[];
+  P344: P344[];
+  P336: P336[];
+  P340: P336[];
+  P391: P39124[];
+  P95: P9514[];
+  P72: P56[];
+  P81: P817[];
+  P367: P367[];
+  P245: P1013[];
+  P86: P862[];
+  P375: P3753[];
 }
 
-interface P758 {
-  [key: string]: any;
+interface P3753 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers392;
-  'qualifiers-order'?: string[];
+  qualifiers: Qualifiers380;
+  'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference6[];
 }
 
-interface Reference6 {
-  [key: string]: any;
-  snaks: Snaks6;
-  'snaks-order': string[];
+interface Qualifiers380 {
+  P372: Mainsnak2[];
+  P373: Mainsnak2[];
+  P374: Mainsnak2[];
+  P150: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Snaks6 {
-  [key: string]: any;
-  P57: Mainsnak2[];
+interface P9514 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers379;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
 }
 
-interface Qualifiers392 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-  P392?: Mainsnak[];
-  P644?: Mainsnak2[];
+interface Qualifiers379 {
+  P23: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q8604 {
-  [key: string]: any;
+interface Q8576 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13874,29 +14101,68 @@ interface Q8604 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims641;
   sitelinks: Aliases;
 }
 
 interface Claims641 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P757[];
+  P53: P532[];
+  P295: P2953[];
+  P63: P300[];
+  P108: P300[];
+  P328: P300[];
+  P101: P101[];
+  P344: P344[];
+  P336: P336[];
+  P340: P336[];
+  P391: P39124[];
+  P95: P39124[];
+  P70: P56[];
+  P72: P56[];
+  P73: P56[];
+  P81: P818[];
+  P367: P3672[];
+  P245: P245[];
+  P85: P858[];
+  P86: P862[];
+  P375: P3752[];
 }
 
-interface P757 {
-  [key: string]: any;
+interface P858 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers: Qualifiers378;
+  'qualifiers-order': string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers;
-  'qualifiers-order'?: string[];
 }
 
-interface Q8599 {
-  [key: string]: any;
+interface Qualifiers378 {
+  P82: Mainsnak2[];
+  P4: Mainsnak2[];
+}
+
+interface P3672 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers377;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers377 {
+  P365?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P366?: Mainsnak2[];
+}
+
+interface Q8575 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13904,34 +14170,31 @@ interface Q8599 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims640;
   sitelinks: Aliases;
 }
 
 interface Claims640 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P756[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P101: P101[];
+  P344: P3443[];
+  P336: P336[];
+  P391: P39124[];
+  P73: P56[];
+  P81: P818[];
+  P367: P367[];
+  P86: P862[];
 }
 
-interface P756 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers391;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers391 {
-  [key: string]: any;
-  P393?: Mainsnak[];
-}
-
-interface Q8577 {
-  [key: string]: any;
+interface Q8574 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -13946,76 +14209,96 @@ interface Q8577 {
 }
 
 interface Claims639 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
+  P53: P532[];
+  P295: P2953[];
   P63: P300[];
   P108: P300[];
   P328: P300[];
-  P101: P1014[];
-  P344: P3442[];
+  P101: P101[];
+  P344: P344[];
   P336: P336[];
   P340: P336[];
-  P391: P39123[];
-  P95: P9514[];
+  P391: P39124[];
+  P95: P9513[];
+  P56: P56[];
   P72: P56[];
-  P81: P817[];
+  P73: P722[];
+  P81: P8113[];
   P367: P367[];
-  P245: P2454[];
+  P245: P245[];
+  P80: P802[];
   P86: P862[];
-  P375: P3753[];
+  P375: P3752[];
 }
 
-interface P3753 {
-  [key: string]: any;
+interface P3752 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers390;
+  qualifiers: Qualifiers376;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers390 {
-  [key: string]: any;
+interface Qualifiers376 {
+  P372: Mainsnak2[];
   P373: Mainsnak2[];
   P374: Mainsnak2[];
   P150: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P2454 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers389;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers389 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P9514 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers388;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers388 {
-  [key: string]: any;
   P440?: Mainsnak2[];
 }
 
-interface Q8576 {
-  [key: string]: any;
+interface P8113 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers375;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers375 {
+  P304: Mainsnak2[];
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P9513 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers374;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers374 {
+  P23: Mainsnak2[];
+  P28?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P26?: Mainsnak2[];
+  P169?: Mainsnak[];
+}
+
+interface P39124 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers373;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers373 {
+  P23: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q8573 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14030,61 +14313,63 @@ interface Q8576 {
 }
 
 interface Claims638 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2955[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
   P108: P300[];
   P328: P300[];
-  P101: P1014[];
-  P344: P3442[];
+  P101: P101[];
+  P344: P344[];
   P336: P336[];
   P340: P336[];
-  P391: P39123[];
-  P95: P39123[];
+  P391: P3913[];
+  P95: P9512[];
+  P56: P56[];
   P70: P56[];
+  P89: P892[];
   P72: P56[];
   P73: P56[];
-  P81: P818[];
-  P367: P3672[];
-  P245: P2453[];
-  P85: P858[];
-  P86: P862[];
-  P375: P3752[];
+  P81: P8112[];
+  P367: P367[];
 }
 
-interface P858 {
-  [key: string]: any;
+interface P8112 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers387;
+  qualifiers: Qualifiers372;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers387 {
-  [key: string]: any;
-  P4: Mainsnak2[];
-}
-
-interface P3672 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers386;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers386 {
-  [key: string]: any;
+interface Qualifiers372 {
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
   P440?: Mainsnak2[];
-  P366?: Mainsnak2[];
 }
 
-interface Q8575 {
-  [key: string]: any;
+interface P9512 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers371;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers371 {
+  P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P38?: Mainsnak2[];
+}
+
+interface Q8571 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14092,31 +14377,30 @@ interface Q8575 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims637;
   sitelinks: Aliases;
 }
 
 interface Claims637 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P101: P1014[];
-  P344: P3444[];
-  P336: P336[];
-  P391: P39123[];
-  P73: P56[];
-  P81: P818[];
-  P367: P367[];
-  P86: P862[];
+  P398: P110[];
+  P7: P755[];
 }
 
-interface Q8574 {
-  [key: string]: any;
+interface P755 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers349;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Q8570 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14131,127 +14415,63 @@ interface Q8574 {
 }
 
 interface Claims636 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2955[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
   P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P344: P3442[];
+  P101: P101[];
+  P344: P344[];
   P336: P336[];
   P340: P336[];
-  P391: P39123[];
-  P95: P9513[];
-  P56: P56[];
+  P391: P391[];
+  P95: P9511[];
+  P70: P56[];
+  P89: P8918[];
   P72: P56[];
-  P73: P722[];
-  P81: P8113[];
+  P73: P56[];
+  P81: P817[];
   P367: P367[];
-  P245: P2453[];
-  P80: P805[];
-  P86: P862[];
-  P375: P3752[];
+  P56: P56[];
+  P85: P85[];
 }
 
-interface P3752 {
-  [key: string]: any;
+interface P8918 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers385;
+  qualifiers: Qualifiers370;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers385 {
-  [key: string]: any;
-  P373: Mainsnak2[];
-  P374: Mainsnak2[];
-  P150: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers370 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
+  P4: Mainsnak2[];
 }
 
-interface P2453 {
-  [key: string]: any;
+interface P9511 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers384;
+  qualifiers: Qualifiers369;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers384 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P47?: Mainsnak2[];
-}
-
-interface P8113 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers383;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers383 {
-  [key: string]: any;
-  P82: Mainsnak2[];
-  P57: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface P9513 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers382;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers382 {
-  [key: string]: any;
+interface Qualifiers369 {
+  P23: Mainsnak2[];
+  P32?: Mainsnak2[];
   P28?: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P26?: Mainsnak2[];
+  P440: Mainsnak2[];
   P169?: Mainsnak[];
 }
 
-interface P39123 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers381;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers381 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P2955 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers380;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers380 {
-  [key: string]: any;
-  P54: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q8573 {
-  [key: string]: any;
+interface Q8569 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14266,63 +14486,54 @@ interface Q8573 {
 }
 
 interface Claims635 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
   P108: P300[];
   P328: P300[];
-  P101: P1014[];
-  P344: P3442[];
+  P101: P101[];
+  P344: P3443[];
   P336: P336[];
-  P340: P336[];
-  P391: P39112[];
-  P95: P9512[];
-  P56: P56[];
+  P391: P39113[];
+  P95: P9510[];
   P70: P56[];
-  P89: P892[];
-  P72: P56[];
+  P89: P89[];
+  P72: P73[];
   P73: P56[];
-  P81: P8112[];
+  P81: P818[];
   P367: P367[];
 }
 
-interface P8112 {
-  [key: string]: any;
+interface P9510 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers379;
+  qualifiers: Qualifiers368;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers379 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface P9512 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers378;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers378 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
+interface Qualifiers368 {
+  P23: Mainsnak2[];
+  P32?: Mainsnak2[];
   P28?: Mainsnak2[];
   P440?: Mainsnak2[];
-  P38?: Mainsnak2[];
+  P169?: Mainsnak[];
 }
 
-interface Q8571 {
-  [key: string]: any;
+interface P3443 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers354;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Q8567 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14336,24 +14547,30 @@ interface Q8571 {
   sitelinks: Aliases;
 }
 
-interface Claims634 {
-  [key: string]: any;
-  P2: P110[];
-  P398: P110[];
-  P7: P755[];
-}
-
-interface P755 {
-  [key: string]: any;
+interface Q8566 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
   type: string;
-  qualifiers: Qualifiers356;
-  'qualifiers-order': string[];
   id: string;
-  rank: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims634;
+  sitelinks: Aliases;
 }
 
-interface Q8570 {
-  [key: string]: any;
+interface Claims634 {
+  P110: P110[];
+  P7: P1[];
+  P2: P110[];
+  P1: P1[];
+}
+
+interface Q8565 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14368,63 +14585,63 @@ interface Q8570 {
 }
 
 interface Claims633 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
   P108: P300[];
-  P101: P1014[];
-  P344: P3442[];
+  P328: P300[];
+  P101: P101[];
+  P344: P344[];
   P336: P336[];
-  P340: P336[];
-  P391: P3912[];
-  P95: P9511[];
+  P340: P300[];
+  P391: P3913[];
+  P95: P959[];
   P70: P56[];
-  P89: P8925[];
+  P89: P89[];
   P72: P56[];
-  P73: P56[];
-  P81: P817[];
+  P73: P722[];
+  P81: P8111[];
   P367: P367[];
-  P56: P56[];
-  P85: P85[];
 }
 
-interface P8925 {
-  [key: string]: any;
+interface P8111 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers377;
+  qualifiers: Qualifiers367;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers377 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
-  P4: Mainsnak2[];
+interface Qualifiers367 {
+  P307: Mainsnak2[];
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface P9511 {
-  [key: string]: any;
+interface P959 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers376;
+  qualifiers: Qualifiers366;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers376 {
-  [key: string]: any;
+interface Qualifiers366 {
+  P23: Mainsnak2[];
+  P39?: Mainsnak2[];
   P32?: Mainsnak2[];
   P28?: Mainsnak2[];
-  P440: Mainsnak2[];
+  P440?: Mainsnak2[];
   P169?: Mainsnak[];
 }
 
-interface Q8569 {
-  [key: string]: any;
+interface Q8564 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14432,61 +14649,54 @@ interface Q8569 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims632;
   sitelinks: Aliases;
 }
 
 interface Claims632 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P344: P3444[];
-  P336: P336[];
-  P391: P39111[];
-  P95: P9510[];
-  P70: P56[];
-  P89: P89[];
-  P72: P724[];
-  P73: P56[];
-  P81: P818[];
-  P367: P367[];
+  P391: P39123[];
+  P89: P8917[];
+  P73: P553[];
 }
 
-interface P9510 {
-  [key: string]: any;
+interface P8917 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers375;
+  qualifiers: Qualifiers365;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers375 {
-  [key: string]: any;
-  P32?: Mainsnak2[];
-  P28?: Mainsnak2[];
+interface Qualifiers365 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
   P440?: Mainsnak2[];
-  P169?: Mainsnak[];
 }
 
-interface P3444 {
-  [key: string]: any;
+interface P39123 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers361;
+  qualifiers: Qualifiers364;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Q8567 {
-  [key: string]: any;
+interface Qualifiers364 {
+  P22: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q8563 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14500,30 +14710,66 @@ interface Q8567 {
   sitelinks: Aliases;
 }
 
-interface Q8566 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims631;
-  sitelinks: Aliases;
-}
-
 interface Claims631 {
-  [key: string]: any;
-  P7: P1[];
+  P110: P110[];
   P2: P110[];
-  P1: P1[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P101: P1014[];
+  P336: P3362[];
+  P391: P39122[];
+  P95: P39122[];
+  P89: P89[];
+  P73: P722[];
 }
 
-interface Q8565 {
-  [key: string]: any;
+interface P39122 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers363;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers363 {
+  P22: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface P3362 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers362;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers362 {
+  P64: P3932[];
+  P440?: Mainsnak2[];
+}
+
+interface P1014 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers361;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers361 {
+  P299: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q8562 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14531,70 +14777,21 @@ interface Q8565 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims630;
   sitelinks: Aliases;
 }
 
 interface Claims630 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P344: P3442[];
-  P336: P336[];
-  P340: P300[];
-  P391: P39112[];
-  P95: P959[];
-  P70: P56[];
   P89: P89[];
-  P72: P56[];
   P73: P722[];
-  P81: P8111[];
-  P367: P367[];
 }
 
-interface P8111 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers374;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers374 {
-  [key: string]: any;
-  P82: Mainsnak2[];
-  P57: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P959 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers373;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers373 {
-  [key: string]: any;
-  P39?: Mainsnak2[];
-  P32?: Mainsnak2[];
-  P28?: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P169?: Mainsnak[];
-}
-
-interface Q8564 {
-  [key: string]: any;
+interface Q8561 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14609,47 +14806,29 @@ interface Q8564 {
 }
 
 interface Claims629 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39122[];
-  P89: P8924[];
-  P73: P553[];
+  P95: P958[];
 }
 
-interface P8924 {
-  [key: string]: any;
+interface P958 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers372;
+  qualifiers: Qualifiers360;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers372 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
+interface Qualifiers360 {
+  P23: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
   P440?: Mainsnak2[];
 }
 
-interface P39122 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers371;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers371 {
-  [key: string]: any;
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q8563 {
-  [key: string]: any;
+interface Q8560 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14664,65 +14843,14 @@ interface Q8563 {
 }
 
 interface Claims628 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P101: P1015[];
-  P336: P3362[];
-  P391: P39121[];
-  P95: P39121[];
-  P89: P89[];
-  P73: P722[];
+  P95: P391[];
+  P7: P7[];
 }
 
-interface P39121 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers370;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers370 {
-  [key: string]: any;
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-}
-
-interface P3362 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers369;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers369 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface P1015 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers368;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers368 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q8562 {
-  [key: string]: any;
+interface Q8559 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14737,14 +14865,60 @@ interface Q8562 {
 }
 
 interface Claims627 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P328: P300[];
+  P101: P101[];
+  P344: P3442[];
+  P336: P336[];
+  P391: P39121[];
+  P95: P957[];
+  P56: P56[];
+  P70: P56[];
   P89: P89[];
-  P73: P722[];
+  P73: P56[];
+  P81: P818[];
+  P367: P367[];
 }
 
-interface Q8561 {
-  [key: string]: any;
+interface P957 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers359;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers359 {
+  P23: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface P39121 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers358;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers358 {
+  P23: Mainsnak2[];
+  P26: Mainsnak2[];
+  P39: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q8558 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14759,29 +14933,25 @@ interface Q8561 {
 }
 
 interface Claims626 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P95: P958[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P101: P101[];
+  P344: P3442[];
+  P336: P336[];
+  P391: P39120[];
+  P70: P56[];
+  P89: P89[];
+  P73: P56[];
+  P81: P818[];
+  P367: P367[];
 }
 
-interface P958 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers367;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers367 {
-  [key: string]: any;
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q8560 {
-  [key: string]: any;
+interface Q8556 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14796,14 +14966,93 @@ interface Q8560 {
 }
 
 interface Claims625 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P95: P3912[];
-  P7: P7[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P101: P101[];
+  P344: P3442[];
+  P336: P336[];
+  P391: P39120[];
+  P96: P902[];
+  P95: P956[];
+  P70: P56[];
+  P89: P8916[];
+  P73: P56[];
+  P367: P367[];
 }
 
-interface Q8559 {
-  [key: string]: any;
+interface P8916 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers357;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers357 {
+  P407: Mainsnak2[];
+  P169: Mainsnak[];
+  P4: Mainsnak2[];
+}
+
+interface P956 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers356;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers356 {
+  P23: Mainsnak2[];
+  P169?: Mainsnak[];
+  P440?: Mainsnak2[];
+  P39?: Mainsnak2[];
+  P32?: Mainsnak2[];
+  P28?: Mainsnak2[];
+  P26?: Mainsnak2[];
+}
+
+interface P39120 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers355;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers355 {
+  P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P26: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P3442 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers354;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers354 {
+  P341: Mainsnak[];
+  P342: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q8555 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14818,60 +15067,13 @@ interface Q8559 {
 }
 
 interface Claims624 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P344: P3443[];
-  P336: P336[];
-  P391: P39120[];
-  P95: P957[];
-  P56: P56[];
-  P70: P56[];
-  P89: P89[];
-  P73: P56[];
-  P81: P818[];
-  P367: P367[];
+  P391: P3915[];
 }
 
-interface P957 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers366;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers366 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface P39120 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers365;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers365 {
-  [key: string]: any;
-  P26: Mainsnak2[];
-  P39: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q8558 {
-  [key: string]: any;
+interface Q8554 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14886,25 +15088,15 @@ interface Q8558 {
 }
 
 interface Claims623 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P101: P1014[];
-  P344: P3443[];
-  P336: P336[];
-  P391: P39119[];
-  P70: P56[];
-  P89: P89[];
-  P73: P56[];
-  P81: P818[];
-  P367: P367[];
+  P391: P391[];
+  P89: P892[];
+  P7: P7[];
 }
 
-interface Q8556 {
-  [key: string]: any;
+interface Q8553 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -14919,93 +15111,13 @@ interface Q8556 {
 }
 
 interface Claims622 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P101: P1014[];
-  P344: P3443[];
-  P336: P336[];
-  P391: P39119[];
-  P96: P903[];
-  P95: P956[];
-  P70: P56[];
-  P89: P8923[];
-  P73: P56[];
-  P367: P367[];
+  P90: P3915[];
 }
 
-interface P8923 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers364;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers364 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P4: Mainsnak2[];
-}
-
-interface P956 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers363;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers363 {
-  [key: string]: any;
-  P169?: Mainsnak[];
-  P440?: Mainsnak2[];
-  P39?: Mainsnak2[];
-  P32?: Mainsnak2[];
-  P28?: Mainsnak2[];
-  P26?: Mainsnak2[];
-}
-
-interface P39119 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers362;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers362 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P26: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P3443 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers361;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers361 {
-  [key: string]: any;
-  P342: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q8555 {
-  [key: string]: any;
+interface Q8552 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15020,13 +15132,14 @@ interface Q8555 {
 }
 
 interface Claims621 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P391[];
+  P391: P3915[];
+  P7: P7[];
 }
 
-interface Q8554 {
-  [key: string]: any;
+interface Q8550 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15041,15 +15154,34 @@ interface Q8554 {
 }
 
 interface Claims620 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P391[];
-  P89: P8915[];
-  P7: P7[];
+  P7: P754[];
 }
 
-interface Q8553 {
-  [key: string]: any;
+interface P754 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references?: Reference5[];
+  qualifiers?: Qualifiers172;
+  'qualifiers-order'?: string[];
+}
+
+interface Reference5 {
+  hash: string;
+  snaks: Snaks5;
+  'snaks-order': string[];
+}
+
+interface Snaks5 {
+  P7: P3932[];
+  P57: Mainsnak2[];
+}
+
+interface Q8542 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15064,13 +15196,42 @@ interface Q8553 {
 }
 
 interface Claims619 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P391[];
+  P7: P753[];
 }
 
-interface Q8552 {
-  [key: string]: any;
+interface P753 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers353;
+  'qualifiers-order'?: string[];
+}
+
+interface Qualifiers353 {
+  P404?: Mainsnak[];
+  P389?: Mainsnak[];
+}
+
+interface Q8541 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims609;
+  sitelinks: Aliases;
+}
+
+interface Q8492 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15085,14 +15246,37 @@ interface Q8552 {
 }
 
 interface Claims618 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P391[];
-  P7: P7[];
+  P7: P752[];
 }
 
-interface Q8550 {
-  [key: string]: any;
+interface P752 {
+  mainsnak: Mainsnak3;
+  type: string;
+  qualifiers?: Qualifiers307;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Q8490 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims301;
+  sitelinks: Aliases;
+}
+
+interface Q8489 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15107,34 +15291,28 @@ interface Q8550 {
 }
 
 interface Claims617 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P754[];
+  P7: P751[];
 }
 
-interface P754 {
-  [key: string]: any;
+interface P751 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers?: Qualifiers352;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  references?: Reference5[];
-  qualifiers?: Qualifiers174;
-  'qualifiers-order'?: string[];
 }
 
-interface Reference5 {
-  [key: string]: any;
-  snaks: Snaks5;
-  'snaks-order': string[];
+interface Qualifiers352 {
+  P389?: Mainsnak[];
+  P392?: Mainsnak[];
+  P393?: Mainsnak[];
 }
 
-interface Snaks5 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-}
-
-interface Q8542 {
-  [key: string]: any;
+interface Q8484 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15149,42 +15327,13 @@ interface Q8542 {
 }
 
 interface Claims616 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P753[];
+  P1: P1[];
 }
 
-interface P753 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers360;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers360 {
-  [key: string]: any;
-  P389?: Mainsnak[];
-}
-
-interface Q8541 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims606;
-  sitelinks: Aliases;
-}
-
-interface Q8492 {
-  [key: string]: any;
+interface Q8480 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15199,37 +15348,14 @@ interface Q8492 {
 }
 
 interface Claims615 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P752[];
+  P7: P731[];
+  P1: P1[];
 }
 
-interface P752 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers309;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Q8490 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims300;
-  sitelinks: Aliases;
-}
-
-interface Q8489 {
-  [key: string]: any;
+interface Q8474 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15244,28 +15370,29 @@ interface Q8489 {
 }
 
 interface Claims614 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P751[];
+  P7: P750[];
 }
 
-interface P751 {
-  [key: string]: any;
+interface P750 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers359;
+  qualifiers?: Qualifiers351;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers359 {
-  [key: string]: any;
-  P392?: Mainsnak[];
+interface Qualifiers351 {
+  P389?: Mainsnak[];
   P393?: Mainsnak[];
+  P392?: Mainsnak[];
+  P11?: Mainsnak[];
 }
 
-interface Q8484 {
-  [key: string]: any;
+interface Q8469 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15280,13 +15407,28 @@ interface Q8484 {
 }
 
 interface Claims613 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P1: P1[];
+  P7: P749[];
+  P652: P1[];
 }
 
-interface Q8480 {
-  [key: string]: any;
+interface P749 {
+  mainsnak: Mainsnak3;
+  type: string;
+  qualifiers?: Qualifiers350;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers350 {
+  P389: Mainsnak[];
+  P644?: Mainsnak2[];
+}
+
+interface Q8467 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15301,14 +15443,27 @@ interface Q8480 {
 }
 
 interface Claims612 {
-  [key: string]: any;
+  P110: P110[];
+  P7: P748[];
   P2: P110[];
-  P7: P736[];
-  P1: P1[];
 }
 
-interface Q8474 {
-  [key: string]: any;
+interface P748 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers349;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers349 {
+  P389?: Mainsnak[];
+  P11?: Mainsnak[];
+}
+
+interface Q8461 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15323,29 +15478,22 @@ interface Q8474 {
 }
 
 interface Claims611 {
-  [key: string]: any;
+  P110: P110[];
+  P7: P747[];
   P2: P110[];
-  P7: P750[];
 }
 
-interface P750 {
-  [key: string]: any;
+interface P747 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers358;
+  qualifiers?: Qualifiers331;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers358 {
-  [key: string]: any;
-  P393?: Mainsnak[];
-  P392?: Mainsnak[];
-  P11?: Mainsnak[];
-}
-
-interface Q8469 {
-  [key: string]: any;
+interface Q8451 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15353,35 +15501,35 @@ interface Q8469 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims364;
+  sitelinks: Aliases;
+}
+
+interface Q8450 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims610;
   sitelinks: Aliases;
 }
 
 interface Claims610 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P749[];
-  P652: P1[];
+  P7: P717[];
 }
 
-interface P749 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers357;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers357 {
-  [key: string]: any;
-  P644?: Mainsnak2[];
-}
-
-interface Q8467 {
-  [key: string]: any;
+interface Q8448 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15389,34 +15537,20 @@ interface Q8467 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims609;
   sitelinks: Aliases;
 }
 
 interface Claims609 {
-  [key: string]: any;
-  P7: P748[];
+  P110: P110[];
   P2: P110[];
+  P7: P74[];
 }
 
-interface P748 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers356;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers356 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-}
-
-interface Q8461 {
-  [key: string]: any;
+interface Q8446 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15431,37 +15565,13 @@ interface Q8461 {
 }
 
 interface Claims608 {
-  [key: string]: any;
-  P7: P747[];
+  P110: P110[];
+  P7: P79[];
   P2: P110[];
 }
 
-interface P747 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers338;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Q8451 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims363;
-  sitelinks: Aliases;
-}
-
-interface Q8450 {
-  [key: string]: any;
+interface Q8443 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15476,13 +15586,15 @@ interface Q8450 {
 }
 
 interface Claims607 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P717[];
+  P91: P9010[];
+  P97: P9010[];
+  P7: P1[];
 }
 
-interface Q8448 {
-  [key: string]: any;
+interface Q8442 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15497,13 +15609,15 @@ interface Q8448 {
 }
 
 interface Claims606 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
+  P91: P9010[];
+  P97: P9010[];
   P7: P74[];
 }
 
-interface Q8446 {
-  [key: string]: any;
+interface Q8441 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15511,20 +15625,20 @@ interface Q8446 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims605;
   sitelinks: Aliases;
 }
 
 interface Claims605 {
-  [key: string]: any;
-  P7: P79[];
+  P110: P110[];
   P2: P110[];
+  P91: P932[];
 }
 
-interface Q8443 {
-  [key: string]: any;
+interface Q8440 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15539,15 +15653,15 @@ interface Q8443 {
 }
 
 interface Claims604 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P909[];
-  P97: P909[];
-  P7: P1[];
+  P91: P9010[];
+  P97: P9010[];
+  P7: P7[];
 }
 
-interface Q8442 {
-  [key: string]: any;
+interface Q8437 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15562,15 +15676,15 @@ interface Q8442 {
 }
 
 interface Claims603 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P909[];
-  P97: P909[];
-  P7: P74[];
+  P93: P9010[];
+  P99: P9010[];
+  P7: P1[];
 }
 
-interface Q8441 {
-  [key: string]: any;
+interface Q8436 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15585,13 +15699,15 @@ interface Q8441 {
 }
 
 interface Claims602 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P934[];
+  P93: P9010[];
+  P99: P9010[];
+  P7: P74[];
 }
 
-interface Q8440 {
-  [key: string]: any;
+interface Q8435 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15606,15 +15722,14 @@ interface Q8440 {
 }
 
 interface Claims601 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P909[];
-  P97: P909[];
-  P7: P7[];
+  P93: P932[];
+  P73: P56[];
 }
 
-interface Q8437 {
-  [key: string]: any;
+interface Q8432 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15629,15 +15744,15 @@ interface Q8437 {
 }
 
 interface Claims600 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P909[];
-  P99: P909[];
-  P7: P1[];
+  P93: P9010[];
+  P99: P9010[];
+  P7: P7[];
 }
 
-interface Q8436 {
-  [key: string]: any;
+interface Q8431 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15652,15 +15767,27 @@ interface Q8436 {
 }
 
 interface Claims599 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P909[];
-  P99: P909[];
-  P7: P74[];
+  P94: P947[];
 }
 
-interface Q8435 {
-  [key: string]: any;
+interface P947 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers348;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers348 {
+  P52: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q8430 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15675,14 +15802,28 @@ interface Q8435 {
 }
 
 interface Claims598 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P934[];
-  P73: P56[];
+  P94: P946[];
+  P98: P946[];
+  P7: P7[];
 }
 
-interface Q8433 {
-  [key: string]: any;
+interface P946 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers347;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers347 {
+  P52: Mainsnak2[];
+}
+
+interface Q8429 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15697,13 +15838,28 @@ interface Q8433 {
 }
 
 interface Claims597 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P934[];
+  P94: P945[];
 }
 
-interface Q8432 {
-  [key: string]: any;
+interface P945 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers346;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers346 {
+  P20: Mainsnak2[];
+  P31: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q8418 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15718,15 +15874,15 @@ interface Q8432 {
 }
 
 interface Claims596 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P909[];
-  P99: P909[];
-  P7: P7[];
+  P94: P932[];
+  P72: P73[];
+  P73: P73[];
 }
 
-interface Q8431 {
-  [key: string]: any;
+interface Q8414 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15741,27 +15897,14 @@ interface Q8431 {
 }
 
 interface Claims595 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P946[];
+  P94: P932[];
+  P73: P73[];
 }
 
-interface P946 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers355;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers355 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface Q8430 {
-  [key: string]: any;
+interface Q8411 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15776,28 +15919,15 @@ interface Q8430 {
 }
 
 interface Claims594 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P945[];
-  P98: P945[];
-  P7: P7[];
+  P94: P9010[];
+  P98: P9010[];
+  P7: P1[];
 }
 
-interface P945 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers354;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers354 {
-  [key: string]: any;
-}
-
-interface Q8429 {
-  [key: string]: any;
+interface Q8410 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15812,28 +15942,15 @@ interface Q8429 {
 }
 
 interface Claims593 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P944[];
+  P94: P9010[];
+  P98: P9010[];
+  P7: P74[];
 }
 
-interface P944 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers353;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers353 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q8418 {
-  [key: string]: any;
+interface Q8409 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15848,15 +15965,14 @@ interface Q8418 {
 }
 
 interface Claims592 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P934[];
-  P72: P724[];
-  P73: P724[];
+  P391: P39113[];
+  P72: P56[];
 }
 
-interface Q8414 {
-  [key: string]: any;
+interface Q8408 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15871,14 +15987,31 @@ interface Q8414 {
 }
 
 interface Claims591 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P934[];
-  P73: P724[];
+  P391: P39119[];
+  P56: P73[];
 }
 
-interface Q8411 {
-  [key: string]: any;
+interface P39119 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers345;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers345 {
+  P31: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q8407 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15893,15 +16026,15 @@ interface Q8411 {
 }
 
 interface Claims590 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P909[];
-  P98: P909[];
+  P391: P9010[];
+  P95: P9010[];
   P7: P1[];
 }
 
-interface Q8410 {
-  [key: string]: any;
+interface Q8406 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15916,15 +16049,15 @@ interface Q8410 {
 }
 
 interface Claims589 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P909[];
-  P98: P909[];
-  P7: P74[];
+  P391: P9010[];
+  P95: P9010[];
+  P7: P7[];
 }
 
-interface Q8409 {
-  [key: string]: any;
+interface Q8352 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15939,14 +16072,14 @@ interface Q8409 {
 }
 
 interface Claims588 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39111[];
-  P72: P56[];
+  P391: P391[];
+  P73: P722[];
 }
 
-interface Q8408 {
-  [key: string]: any;
+interface Q8350 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -15961,31 +16094,14 @@ interface Q8408 {
 }
 
 interface Claims587 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39118[];
-  P56: P724[];
+  P391: P391[];
+  P73: P56[];
 }
 
-interface P39118 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers352;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers352 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q8407 {
-  [key: string]: any;
+interface Q8349 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16000,15 +16116,14 @@ interface Q8407 {
 }
 
 interface Claims586 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P909[];
-  P95: P909[];
-  P7: P1[];
+  P391: P3913[];
+  P73: P56[];
 }
 
-interface Q8406 {
-  [key: string]: any;
+interface Q8348 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16023,15 +16138,15 @@ interface Q8406 {
 }
 
 interface Claims585 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P909[];
-  P95: P909[];
-  P7: P7[];
+  P391: P39118[];
+  P95: P39118[];
+  P7: P1[];
 }
 
-interface Q8352 {
-  [key: string]: any;
+interface Q8347 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16046,14 +16161,15 @@ interface Q8352 {
 }
 
 interface Claims584 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3912[];
-  P73: P722[];
+  P391: P39117[];
+  P95: P39118[];
+  P7: P1[];
 }
 
-interface Q8350 {
-  [key: string]: any;
+interface Q8346 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16068,14 +16184,41 @@ interface Q8350 {
 }
 
 interface Claims583 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3912[];
-  P73: P56[];
+  P391: P39118[];
+  P95: P39118[];
+  P7: P746[];
 }
 
-interface Q8349 {
-  [key: string]: any;
+interface P746 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers344;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers344 {
+  P544: Mainsnak2[];
+}
+
+interface P39118 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers343;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers343 {
+  P28: Mainsnak2[];
+}
+
+interface Q8344 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16090,14 +16233,15 @@ interface Q8349 {
 }
 
 interface Claims582 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39112[];
-  P73: P56[];
+  P391: P39117[];
+  P95: P39117[];
+  P7: P1[];
 }
 
-interface Q8348 {
-  [key: string]: any;
+interface Q8343 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16112,15 +16256,28 @@ interface Q8348 {
 }
 
 interface Claims581 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P391: P39117[];
   P95: P39117[];
-  P7: P1[];
+  P7: P7[];
 }
 
-interface Q8347 {
-  [key: string]: any;
+interface P39117 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers342;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers342 {
+  P32: Mainsnak2[];
+}
+
+interface Q8342 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16135,15 +16292,31 @@ interface Q8347 {
 }
 
 interface Claims580 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P391: P39116[];
-  P95: P39117[];
-  P7: P1[];
 }
 
-interface Q8346 {
-  [key: string]: any;
+interface P39116 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers341;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers341 {
+  P23: Mainsnak2[];
+  P39?: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P7?: Mainsnak2[];
+}
+
+interface Q8341 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16158,41 +16331,31 @@ interface Q8346 {
 }
 
 interface Claims579 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39117[];
-  P95: P39117[];
-  P7: P746[];
+  P391: P39115[];
 }
 
-interface P746 {
-  [key: string]: any;
+interface P39115 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers351;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers351 {
-  [key: string]: any;
-}
-
-interface P39117 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers350;
+  qualifiers: Qualifiers340;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers350 {
-  [key: string]: any;
+interface Qualifiers340 {
+  P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P7?: Mainsnak2[];
 }
 
-interface Q8344 {
-  [key: string]: any;
+interface Q8338 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16207,15 +16370,15 @@ interface Q8344 {
 }
 
 interface Claims578 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39116[];
-  P95: P39116[];
+  P391: P39114[];
+  P95: P39114[];
   P7: P1[];
 }
 
-interface Q8343 {
-  [key: string]: any;
+interface Q8337 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16230,28 +16393,28 @@ interface Q8343 {
 }
 
 interface Claims577 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39116[];
-  P95: P39116[];
-  P7: P7[];
+  P391: P39114[];
+  P95: P39114[];
+  P7: P74[];
 }
 
-interface P39116 {
-  [key: string]: any;
+interface P39114 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers349;
+  qualifiers: Qualifiers339;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers349 {
-  [key: string]: any;
+interface Qualifiers339 {
+  P39: Mainsnak2[];
 }
 
-interface Q8342 {
-  [key: string]: any;
+interface Q5301 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16259,38 +16422,23 @@ interface Q8342 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims576;
   sitelinks: Aliases;
 }
 
 interface Claims576 {
-  [key: string]: any;
+  P641: P1[];
+  P110: P110[];
   P2: P110[];
-  P391: P39115[];
+  P397: P110[];
+  P398: P110[];
+  P7: P739[];
 }
 
-interface P39115 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers348;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers348 {
-  [key: string]: any;
-  P39?: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P7?: Mainsnak2[];
-}
-
-interface Q8341 {
-  [key: string]: any;
+interface Q5042 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16298,38 +16446,23 @@ interface Q8341 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims575;
   sitelinks: Aliases;
 }
 
 interface Claims575 {
-  [key: string]: any;
+  P641: P1[];
+  P110: P110[];
   P2: P110[];
-  P391: P39114[];
+  P397: P110[];
+  P398: P110[];
+  P7: P741[];
 }
 
-interface P39114 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers347;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers347 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P7?: Mainsnak2[];
-}
-
-interface Q8338 {
-  [key: string]: any;
+interface Q5037 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16337,22 +16470,23 @@ interface Q8338 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims574;
   sitelinks: Aliases;
 }
 
 interface Claims574 {
-  [key: string]: any;
+  P641: P1[];
+  P110: P110[];
   P2: P110[];
-  P391: P39113[];
-  P95: P39113[];
-  P7: P1[];
+  P397: P110[];
+  P398: P110[];
+  P7: P740[];
 }
 
-interface Q8337 {
-  [key: string]: any;
+interface Q4292 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16360,35 +16494,67 @@ interface Q8337 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims573;
+  sitelinks: Aliases;
+}
+
+interface Q4172 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims510;
+  sitelinks: Aliases;
+}
+
+interface Q4138 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims573;
   sitelinks: Aliases;
 }
 
 interface Claims573 {
-  [key: string]: any;
+  P641: P1[];
+  P110: P110[];
   P2: P110[];
-  P391: P39113[];
-  P95: P39113[];
-  P7: P74[];
+  P397: P110[];
+  P398: P110[];
 }
 
-interface P39113 {
-  [key: string]: any;
+interface Q4020 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
   type: string;
-  qualifiers: Qualifiers346;
-  'qualifiers-order': string[];
   id: string;
-  rank: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims572;
+  sitelinks: Aliases;
 }
 
-interface Qualifiers346 {
-  [key: string]: any;
-}
-
-interface Q5301 {
-  [key: string]: any;
+interface Q3758 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16403,16 +16569,106 @@ interface Q5301 {
 }
 
 interface Claims572 {
-  [key: string]: any;
+  P641: P1[];
   P110: P110[];
   P2: P110[];
   P397: P110[];
   P398: P110[];
-  P7: P739[];
+  P7: P7[];
 }
 
-interface Q5042 {
-  [key: string]: any;
+interface Q3757 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims507;
+  sitelinks: Aliases;
+}
+
+interface Q3633 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims509;
+  sitelinks: Aliases;
+}
+
+interface Q3615 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims506;
+  sitelinks: Aliases;
+}
+
+interface Q3608 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims508;
+  sitelinks: Aliases;
+}
+
+interface Q3606 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims514;
+  sitelinks: Aliases;
+}
+
+interface Q3605 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims512;
+  sitelinks: Aliases;
+}
+
+interface Q3604 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16427,237 +16683,7 @@ interface Q5042 {
 }
 
 interface Claims571 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P398: P110[];
-  P7: P741[];
-}
-
-interface Q5037 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims570;
-  sitelinks: Aliases;
-}
-
-interface Claims570 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P398: P110[];
-  P7: P740[];
-}
-
-interface Q4292 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims569;
-  sitelinks: Aliases;
-}
-
-interface Q4172 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims504;
-  sitelinks: Aliases;
-}
-
-interface Q4138 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims569;
-  sitelinks: Aliases;
-}
-
-interface Claims569 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P398: P110[];
-}
-
-interface Q4020 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims568;
-  sitelinks: Aliases;
-}
-
-interface Q3758 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims568;
-  sitelinks: Aliases;
-}
-
-interface Claims568 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P398: P110[];
-  P7: P7[];
-}
-
-interface Q3757 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims501;
-  sitelinks: Aliases;
-}
-
-interface Q3633 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims503;
-  sitelinks: Aliases;
-}
-
-interface Q3615 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims500;
-  sitelinks: Aliases;
-}
-
-interface Q3608 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims502;
-  sitelinks: Aliases;
-}
-
-interface Q3606 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims508;
-  sitelinks: Aliases;
-}
-
-interface Q3605 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims506;
-  sitelinks: Aliases;
-}
-
-interface Q3604 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims567;
-  sitelinks: Aliases;
-}
-
-interface Claims567 {
-  [key: string]: any;
+  P641: P1[];
   P110: P110[];
   P2: P110[];
   P397: P110[];
@@ -16665,16 +16691,124 @@ interface Claims567 {
 }
 
 interface P745 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers313;
+  qualifiers: Qualifiers311;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
 interface Q3601 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims570;
+  sitelinks: Aliases;
+}
+
+interface Claims570 {
+  P110: P110[];
+  P2: P110[];
+  P90: P902[];
+  P7: P1[];
+}
+
+interface Q3600 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims569;
+  sitelinks: Aliases;
+}
+
+interface Claims569 {
+  P110: P110[];
+  P2: P110[];
+  P90: P9011[];
+  P7: P1[];
+}
+
+interface Q3595 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims568;
+  sitelinks: Aliases;
+}
+
+interface Claims568 {
+  P110: P110[];
+  P2: P110[];
+  P90: P902[];
+  P89: P8915[];
+  P72: P73[];
+  P73: P73[];
+}
+
+interface P8915 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers338;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers338 {
+  P405: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P48: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3594 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims567;
+  sitelinks: Aliases;
+}
+
+interface Claims567 {
+  P110: P110[];
+  P2: P110[];
+  P90: P902[];
+  P72: P73[];
+  P73: P73[];
+}
+
+interface Q3593 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16689,14 +16823,16 @@ interface Q3601 {
 }
 
 interface Claims566 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
+  P90: P902[];
+  P72: P73[];
+  P73: P73[];
   P7: P1[];
 }
 
-interface Q3600 {
-  [key: string]: any;
+interface Q3592 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16711,14 +16847,15 @@ interface Q3600 {
 }
 
 interface Claims565 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P9010[];
-  P7: P1[];
+  P90: P902[];
+  P96: P902[];
+  P72: P73[];
 }
 
-interface Q3595 {
-  [key: string]: any;
+interface Q3591 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16733,33 +16870,29 @@ interface Q3595 {
 }
 
 interface Claims564 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P89: P8922[];
-  P72: P724[];
-  P73: P724[];
+  P90: P9010[];
+  P96: P967[];
+  P7: P1[];
 }
 
-interface P8922 {
-  [key: string]: any;
+interface P967 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers345;
+  qualifiers: Qualifiers337;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers345 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P48: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers337 {
+  P31: Mainsnak2[];
+  P7: Mainsnak2[];
 }
 
-interface Q3594 {
-  [key: string]: any;
+interface Q3590 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16774,15 +16907,15 @@ interface Q3594 {
 }
 
 interface Claims563 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P72: P724[];
-  P73: P724[];
+  P90: P9010[];
+  P96: P9010[];
+  P7: P7[];
 }
 
-interface Q3593 {
-  [key: string]: any;
+interface Q3589 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16797,16 +16930,30 @@ interface Q3593 {
 }
 
 interface Claims562 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P72: P724[];
-  P73: P724[];
+  P90: P9012[];
+  P96: P902[];
+  P56: P56[];
   P7: P1[];
 }
 
-interface Q3592 {
-  [key: string]: any;
+interface P9012 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers336;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers336 {
+  P25: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3587 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16821,15 +16968,15 @@ interface Q3592 {
 }
 
 interface Claims561 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P96: P903[];
-  P72: P724[];
+  P90: P902[];
+  P56: P73[];
+  P7: P1[];
 }
 
-interface Q3591 {
-  [key: string]: any;
+interface Q3583 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16844,29 +16991,50 @@ interface Q3591 {
 }
 
 interface Claims560 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P909[];
-  P96: P967[];
+  P90: P9011[];
+  P96: P902[];
+  P73: P7310[];
   P7: P1[];
 }
 
-interface P967 {
-  [key: string]: any;
+interface P7310 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers344;
+  qualifiers: Qualifiers335;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers344 {
-  [key: string]: any;
+interface Qualifiers335 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: P3932[];
+  P48: Mainsnak2[];
   P7: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3590 {
-  [key: string]: any;
+interface P9011 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers334;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers334 {
+  P22: Mainsnak2[];
+  P25: Mainsnak2[];
+  P31: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3579 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16881,15 +17049,15 @@ interface Q3590 {
 }
 
 interface Claims559 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P909[];
-  P96: P909[];
-  P7: P7[];
+  P90: P902[];
+  P7: P1[];
+  P73: P73[];
 }
 
-interface Q3589 {
-  [key: string]: any;
+interface Q3577 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16904,30 +17072,15 @@ interface Q3589 {
 }
 
 interface Claims558 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P9011[];
-  P96: P903[];
-  P56: P56[];
+  P90: P9010[];
+  P96: P9010[];
   P7: P1[];
 }
 
-interface P9011 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers343;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers343 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3587 {
-  [key: string]: any;
+interface Q3576 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16942,15 +17095,28 @@ interface Q3587 {
 }
 
 interface Claims557 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P56: P724[];
-  P7: P1[];
+  P90: P9010[];
+  P96: P9010[];
+  P7: P74[];
 }
 
-interface Q3583 {
-  [key: string]: any;
+interface P9010 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers333;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers333 {
+  P31: Mainsnak2[];
+}
+
+interface Q3573 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -16965,50 +17131,14 @@ interface Q3583 {
 }
 
 interface Claims556 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P9010[];
-  P96: P903[];
-  P73: P7310[];
+  P58: P587[];
   P7: P1[];
 }
 
-interface P7310 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers342;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers342 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: P3932[];
-  P48: Mainsnak2[];
-  P7: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P9010 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers341;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers341 {
-  [key: string]: any;
-  P25: Mainsnak2[];
-  P31: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3580 {
-  [key: string]: any;
+interface Q3572 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17023,14 +17153,28 @@ interface Q3580 {
 }
 
 interface Claims555 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P73: P724[];
+  P58: P5830[];
+  P59: P5830[];
+  P7: P7[];
 }
 
-interface Q3579 {
-  [key: string]: any;
+interface P5830 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers332;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers332 {
+  P34: Mainsnak2[];
+}
+
+interface Q3571 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17045,15 +17189,15 @@ interface Q3579 {
 }
 
 interface Claims554 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
+  P90: P902[];
+  P94: P932[];
   P7: P1[];
-  P73: P724[];
 }
 
-interface Q3577 {
-  [key: string]: any;
+interface Q3570 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17068,15 +17212,29 @@ interface Q3577 {
 }
 
 interface Claims553 {
-  [key: string]: any;
+  P110: P110[];
+  P7: P744[];
   P2: P110[];
-  P90: P909[];
-  P96: P909[];
-  P7: P1[];
 }
 
-interface Q3576 {
-  [key: string]: any;
+interface P744 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers331;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+  references?: Reference[];
+}
+
+interface Qualifiers331 {
+  P389?: Mainsnak[];
+  P11?: Mainsnak[];
+  P392?: P393[];
+}
+
+interface Q3569 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17091,28 +17249,89 @@ interface Q3576 {
 }
 
 interface Claims552 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P909[];
-  P96: P909[];
-  P7: P74[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P632[];
+  P108: P300[];
+  P328: P300[];
+  P101: P101[];
+  P245: P2452[];
+  P344: P344[];
+  P336: P336[];
+  P340: P336[];
+  P58: P5829[];
+  P59: P5921[];
+  P55: P71[];
+  P89: P89[];
+  P300: P63[];
+  P80: P806[];
+  P81: P8110[];
+  P358: P3586[];
 }
 
-interface P909 {
-  [key: string]: any;
+interface P3586 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers340;
+  qualifiers: Qualifiers330;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers340 {
-  [key: string]: any;
+interface Qualifiers330 {
+  P24: Mainsnak2[];
+  P30: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q3573 {
-  [key: string]: any;
+interface P806 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers329;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers329 {
+  P305: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P5921 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers328;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers328 {
+  P41: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P34?: Mainsnak2[];
+  P39?: Mainsnak2[];
+}
+
+interface P632 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers327;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers327 {
+  P64: Mainsnak[];
+  P4: Mainsnak2[];
+}
+
+interface Q3568 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17127,14 +17346,75 @@ interface Q3573 {
 }
 
 interface Claims551 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
+  P53: P532[];
+  P295: P2952[];
+  P63: P300[];
+  P108: P300[];
+  P328: P300[];
+  P101: P101[];
+  P245: P2452[];
+  P344: P344[];
+  P336: P336[];
+  P340: P336[];
+  P58: P5829[];
+  P59: P5829[];
+  P55: P553[];
+  P89: P89[];
+  P81: P8110[];
   P7: P1[];
 }
 
-interface Q3572 {
-  [key: string]: any;
+interface P8110 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers326;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers326 {
+  P304: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P553 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers325;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers325 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P2452 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers324;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers324 {
+  P299: Mainsnak2[];
+  P150: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q3567 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17149,28 +17429,29 @@ interface Q3572 {
 }
 
 interface Claims550 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5831[];
-  P59: P5831[];
-  P7: P7[];
+  P59: P5920[];
 }
 
-interface P5831 {
-  [key: string]: any;
+interface P5920 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers339;
+  qualifiers: Qualifiers323;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers339 {
-  [key: string]: any;
+interface Qualifiers323 {
+  P41: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P39?: Mainsnak2[];
 }
 
-interface Q3571 {
-  [key: string]: any;
+interface Q3566 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17185,15 +17466,13 @@ interface Q3571 {
 }
 
 interface Claims549 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P94: P934[];
-  P7: P1[];
+  P59: P5829[];
 }
 
-interface Q3570 {
-  [key: string]: any;
+interface Q3565 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17208,29 +17487,13 @@ interface Q3570 {
 }
 
 interface Claims548 {
-  [key: string]: any;
-  P7: P744[];
+  P110: P110[];
   P2: P110[];
+  P59: P5817[];
 }
 
-interface P744 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers338;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-  references?: Reference[];
-}
-
-interface Qualifiers338 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-  P392?: P393[];
-}
-
-interface Q3569 {
-  [key: string]: any;
+interface Q3563 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17245,89 +17508,31 @@ interface Q3569 {
 }
 
 interface Claims547 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P632[];
-  P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P245: P2452[];
-  P344: P3442[];
-  P336: P336[];
-  P340: P336[];
-  P58: P5830[];
-  P59: P5919[];
-  P55: P71[];
+  P58: P585[];
   P89: P89[];
-  P300: P63[];
-  P80: P806[];
-  P81: P8110[];
-  P358: P3586[];
+  P72: P7210[];
 }
 
-interface P3586 {
-  [key: string]: any;
+interface P7210 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers337;
+  qualifiers: Qualifiers322;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers337 {
-  [key: string]: any;
-  P30: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers322 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P440: Mainsnak2[];
+  P169?: Mainsnak[];
 }
 
-interface P806 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers336;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers336 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface P5919 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers335;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers335 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-  P34?: Mainsnak2[];
-  P39?: Mainsnak2[];
-}
-
-interface P632 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers334;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers334 {
-  [key: string]: any;
-  P4: Mainsnak2[];
-}
-
-interface Q3568 {
-  [key: string]: any;
+interface Q3545 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17342,89 +17547,15 @@ interface Q3568 {
 }
 
 interface Claims546 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P328: P300[];
-  P101: P1014[];
-  P245: P2452[];
-  P344: P3442[];
-  P336: P336[];
-  P340: P336[];
-  P58: P5830[];
-  P59: P5830[];
-  P55: P553[];
+  P58: P583[];
   P89: P893[];
-  P81: P8110[];
-  P7: P1[];
+  P72: P56[];
 }
 
-interface P8110 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers333;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers333 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface P553 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers332;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers332 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface P3442 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers331;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers331 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P2452 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers330;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers330 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P47: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q3567 {
-  [key: string]: any;
+interface Q3544 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17439,29 +17570,15 @@ interface Q3567 {
 }
 
 interface Claims545 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P59: P5918[];
+  P58: P585[];
+  P89: P89[];
+  P72: P56[];
 }
 
-interface P5918 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers329;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers329 {
-  [key: string]: any;
-  P34: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P39?: Mainsnak2[];
-}
-
-interface Q3566 {
-  [key: string]: any;
+interface Q3541 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17476,13 +17593,15 @@ interface Q3566 {
 }
 
 interface Claims544 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P59: P5830[];
+  P58: P587[];
+  P55: P71[];
+  P89: P893[];
 }
 
-interface Q3565 {
-  [key: string]: any;
+interface Q3540 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17497,13 +17616,15 @@ interface Q3565 {
 }
 
 interface Claims543 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P59: P5818[];
+  P58: P587[];
+  P55: P71[];
+  P89: P89[];
 }
 
-interface Q3563 {
-  [key: string]: any;
+interface Q3539 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17518,31 +17639,15 @@ interface Q3563 {
 }
 
 interface Claims542 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5826[];
+  P58: P583[];
   P89: P89[];
-  P72: P7210[];
+  P72: P56[];
 }
 
-interface P7210 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers328;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers328 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P440: Mainsnak2[];
-  P169?: Mainsnak[];
-}
-
-interface Q3545 {
-  [key: string]: any;
+interface Q3538 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17557,15 +17662,16 @@ interface Q3545 {
 }
 
 interface Claims541 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P89: P893[];
+  P58: P583[];
+  P59: P587[];
+  P89: P89[];
   P72: P56[];
 }
 
-interface Q3544 {
-  [key: string]: any;
+interface Q3518 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17573,22 +17679,21 @@ interface Q3544 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims540;
   sitelinks: Aliases;
 }
 
 interface Claims540 {
-  [key: string]: any;
   P2: P110[];
-  P58: P5826[];
-  P89: P89[];
-  P72: P56[];
+  P397: P110[];
+  P110: P110[];
+  P7: P74[];
 }
 
-interface Q3541 {
-  [key: string]: any;
+interface Q3508 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17603,15 +17708,15 @@ interface Q3541 {
 }
 
 interface Claims539 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P55: P71[];
-  P89: P893[];
+  P58: P587[];
+  P59: P587[];
+  P89: P89[];
 }
 
-interface Q3540 {
-  [key: string]: any;
+interface Q3507 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17626,15 +17731,14 @@ interface Q3540 {
 }
 
 interface Claims538 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P55: P71[];
+  P58: P587[];
   P89: P89[];
 }
 
-interface Q3539 {
-  [key: string]: any;
+interface Q3504 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17649,15 +17753,14 @@ interface Q3539 {
 }
 
 interface Claims537 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P89: P89[];
-  P72: P56[];
+  P58: P587[];
+  P89: P898[];
 }
 
-interface Q3538 {
-  [key: string]: any;
+interface Q3503 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17672,16 +17775,30 @@ interface Q3538 {
 }
 
 interface Claims536 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P59: P5815[];
-  P89: P89[];
-  P72: P56[];
+  P58: P5829[];
+  P89: P8914[];
 }
 
-interface Q3518 {
-  [key: string]: any;
+interface P8914 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers321;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers321 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3502 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17689,21 +17806,37 @@ interface Q3518 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims535;
   sitelinks: Aliases;
 }
 
 interface Claims535 {
-  [key: string]: any;
-  P397: P110[];
   P110: P110[];
-  P7: P74[];
+  P2: P110[];
+  P58: P5829[];
+  P89: P89[];
 }
 
-interface Q3508 {
-  [key: string]: any;
+interface P5829 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers320;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers320 {
+  P41: Mainsnak2[];
+  P39: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3501 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17718,15 +17851,25 @@ interface Q3508 {
 }
 
 interface Claims534 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P59: P5815[];
-  P89: P89[];
+  P379: P110[];
+  P7: P743[];
+  P11: P110[];
 }
 
-interface Q3507 {
-  [key: string]: any;
+interface P743 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers220;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+  references?: Reference2[];
+}
+
+interface Q3500 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17741,14 +17884,15 @@ interface Q3507 {
 }
 
 interface Claims533 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P89: P89[];
+  P63: P300[];
+  P58: P582[];
+  P85: P85[];
 }
 
-interface Q3504 {
-  [key: string]: any;
+interface Q3496 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17763,29 +17907,31 @@ interface Q3504 {
 }
 
 interface Claims532 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P89: P8921[];
+  P63: P300[];
+  P58: P582[];
+  P59: P5919[];
 }
 
-interface P8921 {
-  [key: string]: any;
+interface P5919 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers327;
+  qualifiers: Qualifiers319;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers327 {
-  [key: string]: any;
+interface Qualifiers319 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
   P169: Mainsnak[];
-  P440: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q3503 {
-  [key: string]: any;
+interface Q3492 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17800,30 +17946,15 @@ interface Q3503 {
 }
 
 interface Claims531 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5830[];
-  P89: P8920[];
+  P63: P300[];
+  P58: P582[];
+  P55: P722[];
 }
 
-interface P8920 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers326;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers326 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3502 {
-  [key: string]: any;
+interface Q3491 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17838,30 +17969,16 @@ interface Q3502 {
 }
 
 interface Claims530 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5830[];
-  P89: P89[];
+  P63: P300[];
+  P58: P582[];
+  P55: P722[];
+  P80: P802[];
 }
 
-interface P5830 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers325;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers325 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P34: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3501 {
-  [key: string]: any;
+interface Q3490 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17876,25 +17993,33 @@ interface Q3501 {
 }
 
 interface Claims529 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P379: P110[];
-  P7: P743[];
-  P11: P110[];
+  P7: P1[];
+  P63: P300[];
+  P58: P582[];
+  P59: P5918[];
+  P80: P802[];
 }
 
-interface P743 {
-  [key: string]: any;
+interface P5918 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers222;
-  'qualifiers-order'?: string[];
+  qualifiers: Qualifiers318;
+  'qualifiers-order': string[];
   id: string;
   rank: string;
-  references?: Reference2[];
 }
 
-interface Q3500 {
-  [key: string]: any;
+interface Qualifiers318 {
+  P41: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3489 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17909,15 +18034,15 @@ interface Q3500 {
 }
 
 interface Claims528 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P58: P5810[];
-  P85: P85[];
+  P58: P582[];
+  P55: P56[];
 }
 
-interface Q3496 {
-  [key: string]: any;
+interface Q3488 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17932,31 +18057,16 @@ interface Q3496 {
 }
 
 interface Claims527 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P58: P5810[];
-  P59: P5917[];
+  P58: P582[];
+  P55: P56[];
+  P80: P802[];
 }
 
-interface P5917 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers324;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers324 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P169: Mainsnak[];
-  P440?: Mainsnak2[];
-}
-
-interface Q3492 {
-  [key: string]: any;
+interface Q3487 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17971,15 +18081,32 @@ interface Q3492 {
 }
 
 interface Claims526 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P58: P5810[];
-  P55: P722[];
+  P58: P58[];
+  P59: P5917[];
 }
 
-interface Q3491 {
-  [key: string]: any;
+interface P5917 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers317;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers317 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P27: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q3486 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -17994,16 +18121,41 @@ interface Q3491 {
 }
 
 interface Claims525 {
-  [key: string]: any;
+  P7: P742[];
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P58: P5810[];
-  P55: P722[];
-  P80: P805[];
+  P379: P110[];
 }
 
-interface Q3490 {
-  [key: string]: any;
+interface P742 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers316;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+  references?: Reference4[];
+}
+
+interface Reference4 {
+  hash: string;
+  snaks: Snaks4;
+  'snaks-order': string[];
+}
+
+interface Snaks4 {
+  P7: Mainsnak2[];
+  P371: P3932[];
+}
+
+interface Qualifiers316 {
+  P389?: Mainsnak[];
+  P11?: Mainsnak[];
+  P404?: Mainsnak[];
+}
+
+interface Q3485 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18018,33 +18170,75 @@ interface Q3490 {
 }
 
 interface Claims524 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P1[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
-  P58: P5810[];
+  P108: P300[];
+  P101: P101[];
+  P336: P336[];
+  P340: P336[];
+  P58: P585[];
+  P300: P300[];
   P59: P5916[];
-  P80: P805[];
+  P89: P893[];
+  P72: P56[];
+  P81: P819[];
+  P85: P85[];
+  P7: P1[];
 }
 
-interface P5916 {
-  [key: string]: any;
+interface P819 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers323;
+  qualifiers: Qualifiers315;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers323 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
+interface Qualifiers315 {
+  P304?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P82?: Mainsnak2[];
+  P57?: Mainsnak2[];
+}
+
+interface P5916 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers314;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers314 {
+  P41?: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P21?: Mainsnak2[];
+  P29?: Mainsnak2[];
+  P169?: Mainsnak[];
+}
+
+interface P336 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers313;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers313 {
+  P64: P3932[];
   P440: Mainsnak2[];
 }
 
-interface Q3489 {
-  [key: string]: any;
+interface Q3484 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18059,15 +18253,14 @@ interface Q3489 {
 }
 
 interface Claims523 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P58: P5810[];
-  P55: P56[];
+  P58: P587[];
+  P72: P56[];
 }
 
-interface Q3488 {
-  [key: string]: any;
+interface Q3483 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18082,30 +18275,13 @@ interface Q3488 {
 }
 
 interface Claims522 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P58: P5810[];
-  P55: P56[];
-  P80: P805[];
+  P59: P587[];
 }
 
-interface P805 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers322;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers322 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3487 {
-  [key: string]: any;
+interface Q3482 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18120,32 +18296,30 @@ interface Q3487 {
 }
 
 interface Claims521 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P58: P5812[];
-  P59: P5915[];
+  P58: P5828[];
 }
 
-interface P5915 {
-  [key: string]: any;
+interface P5828 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers321;
+  qualifiers: Qualifiers312;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers321 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P27: Mainsnak2[];
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
+interface Qualifiers312 {
+  P21?: Mainsnak2[];
+  P29?: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P41?: Mainsnak2[];
 }
 
-interface Q3486 {
-  [key: string]: any;
+interface Q3481 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18160,41 +18334,15 @@ interface Q3486 {
 }
 
 interface Claims520 {
-  [key: string]: any;
+  P7: P79[];
   P110: P110[];
   P2: P110[];
+  P11: P110[];
   P379: P110[];
 }
 
-interface P742 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers320;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-  references?: Reference4[];
-}
-
-interface Reference4 {
-  [key: string]: any;
-  snaks: Snaks4;
-  'snaks-order': string[];
-}
-
-interface Snaks4 {
-  [key: string]: any;
-  P371: P3932[];
-}
-
-interface Qualifiers320 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-  P404?: Mainsnak[];
-}
-
-interface Q3485 {
-  [key: string]: any;
+interface Q3480 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18209,75 +18357,22 @@ interface Q3485 {
 }
 
 interface Claims519 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P295: P2954[];
+  P53: P532[];
+  P295: P2952[];
   P63: P300[];
   P108: P300[];
-  P101: P1014[];
-  P336: P336[];
-  P340: P336[];
-  P58: P5826[];
-  P300: P300[];
-  P59: P5914[];
-  P89: P893[];
+  P101: P101[];
+  P58: P587[];
+  P59: P587[];
+  P55: P71[];
   P72: P56[];
-  P81: P819[];
   P85: P85[];
-  P7: P1[];
 }
 
-interface P819 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers319;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers319 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-  P82?: Mainsnak2[];
-  P57?: Mainsnak2[];
-}
-
-interface P5914 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers318;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers318 {
-  [key: string]: any;
-  P34: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P21?: Mainsnak2[];
-  P29?: Mainsnak2[];
-  P169?: Mainsnak[];
-}
-
-interface P336 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers317;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers317 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3484 {
-  [key: string]: any;
+interface Q3479 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18292,14 +18387,14 @@ interface Q3484 {
 }
 
 interface Claims518 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
+  P55: P71[];
   P72: P56[];
 }
 
-interface Q3483 {
-  [key: string]: any;
+interface Q3478 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18314,13 +18409,13 @@ interface Q3483 {
 }
 
 interface Claims517 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P59: P5815[];
+  P59: P585[];
 }
 
-interface Q3482 {
-  [key: string]: any;
+interface Q3465 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18328,205 +18423,21 @@ interface Q3482 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims516;
   sitelinks: Aliases;
 }
 
 interface Claims516 {
-  [key: string]: any;
   P2: P110[];
-  P58: P5829[];
-}
-
-interface P5829 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers316;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers316 {
-  [key: string]: any;
-  P29?: Mainsnak2[];
-  P34: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P41?: Mainsnak2[];
-}
-
-interface Q3481 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims515;
-  sitelinks: Aliases;
-}
-
-interface Claims515 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P11: P110[];
-  P379: P110[];
-}
-
-interface Q3480 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims514;
-  sitelinks: Aliases;
-}
-
-interface Claims514 {
-  [key: string]: any;
-  P2: P110[];
-  P53: P535[];
-  P295: P2954[];
-  P63: P300[];
-  P108: P300[];
-  P101: P1014[];
-  P58: P5815[];
-  P59: P5815[];
-  P55: P71[];
-  P72: P56[];
-  P85: P85[];
-}
-
-interface P1014 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers315;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers315 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P2954 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers314;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers314 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3479 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims513;
-  sitelinks: Aliases;
-}
-
-interface Claims513 {
-  [key: string]: any;
-  P2: P110[];
-  P55: P71[];
-  P72: P56[];
-}
-
-interface Q3478 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims512;
-  sitelinks: Aliases;
-}
-
-interface Claims512 {
-  [key: string]: any;
-  P2: P110[];
-  P59: P5826[];
-}
-
-interface Q3477 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims511;
-  sitelinks: Aliases;
-}
-
-interface Claims511 {
-  [key: string]: any;
-  P2: P110[];
-  P58: P5815[];
-}
-
-interface Q3465 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims510;
-  sitelinks: Aliases;
-}
-
-interface Claims510 {
-  [key: string]: any;
   P397: P110[];
   P110: P110[];
   P7: P1[];
 }
 
 interface Q3459 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18536,19 +18447,178 @@ interface Q3459 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims509;
+  claims: Claims515;
   sitelinks: Aliases;
 }
 
-interface Claims509 {
-  [key: string]: any;
+interface Claims515 {
+  P2: P110[];
   P397: P110[];
   P110: P1102[];
   P7: P1[];
 }
 
 interface Q3456 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims514;
+  sitelinks: Aliases;
+}
+
+interface Claims514 {
+  P641: P1[];
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P398: P110[];
+  P7: P1[];
+}
+
+interface Q3452 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims513;
+  sitelinks: Aliases;
+}
+
+interface Claims513 {
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P398: P110[];
+  P7: P74[];
+}
+
+interface Q3446 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims512;
+  sitelinks: Aliases;
+}
+
+interface Claims512 {
+  P641: P1[];
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P398: P110[];
+  P7: P74[];
+}
+
+interface Q3445 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims511;
+  sitelinks: Aliases;
+}
+
+interface Claims511 {
+  P2: P110[];
+  P397: P110[];
+  P110: P1102[];
+}
+
+interface P1102 {
+  mainsnak: P3932;
+  type: string;
+  id: string;
+  rank: string;
+}
+
+interface Q3426 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims510;
+  sitelinks: Aliases;
+}
+
+interface Claims510 {
+  P641: P1[];
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P7: P741[];
+}
+
+interface P741 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers311;
+  'qualifiers-order'?: string[];
+}
+
+interface Qualifiers311 {
+  P389: Mainsnak[];
+  P396?: Mainsnak[];
+}
+
+interface Q3425 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases2;
+  claims: Claims509;
+  sitelinks: Aliases;
+}
+
+interface Claims509 {
+  P641: P1[];
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P7: P74[];
+}
+
+interface Q3424 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18563,16 +18633,15 @@ interface Q3456 {
 }
 
 interface Claims508 {
-  [key: string]: any;
+  P641: P1[];
   P110: P110[];
   P2: P110[];
   P397: P110[];
-  P398: P110[];
   P7: P1[];
 }
 
-interface Q3452 {
-  [key: string]: any;
+interface Q3423 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18581,21 +18650,30 @@ interface Q3452 {
   id: string;
   labels: Labels;
   descriptions: Aliases;
-  aliases: Aliases;
+  aliases: Aliases2;
   claims: Claims507;
   sitelinks: Aliases;
 }
 
 interface Claims507 {
-  [key: string]: any;
+  P641: P1[];
+  P110: P110[];
   P2: P110[];
   P397: P110[];
-  P398: P110[];
-  P7: P74[];
+  P7: P740[];
 }
 
-interface Q3446 {
-  [key: string]: any;
+interface P740 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers310;
+  'qualifiers-order'?: string[];
+}
+
+interface Q3422 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18610,16 +18688,29 @@ interface Q3446 {
 }
 
 interface Claims506 {
-  [key: string]: any;
+  P641: P1[];
   P110: P110[];
   P2: P110[];
   P397: P110[];
-  P398: P110[];
-  P7: P74[];
+  P7: P739[];
 }
 
-interface Q3445 {
-  [key: string]: any;
+interface P739 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers310;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers310 {
+  P389: Mainsnak[];
+  P396: Mainsnak[];
+}
+
+interface Q3421 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18634,206 +18725,26 @@ interface Q3445 {
 }
 
 interface Claims505 {
-  [key: string]: any;
-  P397: P110[];
-  P110: P1102[];
-}
-
-interface P1102 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-}
-
-interface Q3426 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims504;
-  sitelinks: Aliases;
-}
-
-interface Claims504 {
-  [key: string]: any;
   P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P7: P741[];
-}
-
-interface P741 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers313;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers313 {
-  [key: string]: any;
-  P396?: Mainsnak[];
-}
-
-interface Q3425 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims503;
-  sitelinks: Aliases;
-}
-
-interface Claims503 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P7: P74[];
-}
-
-interface Q3424 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims502;
-  sitelinks: Aliases;
-}
-
-interface Claims502 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P7: P1[];
-}
-
-interface Q3423 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims501;
-  sitelinks: Aliases;
-}
-
-interface Claims501 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P7: P740[];
-}
-
-interface P740 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers312;
-  'qualifiers-order'?: string[];
-}
-
-interface Q3422 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases2;
-  claims: Claims500;
-  sitelinks: Aliases;
-}
-
-interface Claims500 {
-  [key: string]: any;
-  P110: P110[];
-  P2: P110[];
-  P397: P110[];
-  P7: P739[];
-}
-
-interface P739 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers312;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers312 {
-  [key: string]: any;
-  P396: Mainsnak[];
-}
-
-interface Q3421 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims499;
-  sitelinks: Aliases;
-}
-
-interface Claims499 {
-  [key: string]: any;
   P2: P110[];
   P7: P738[];
 }
 
 interface P738 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers311;
+  qualifiers: Qualifiers309;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers311 {
-  [key: string]: any;
+interface Qualifiers309 {
+  P393: P3932[];
 }
 
 interface Q3419 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18843,12 +18754,12 @@ interface Q3419 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims498;
+  claims: Claims504;
   sitelinks: Aliases;
 }
 
-interface Claims498 {
-  [key: string]: any;
+interface Claims504 {
+  P110: P110[];
   P2: P110[];
   P7: P737[];
   P10: P10[];
@@ -18857,23 +18768,204 @@ interface Claims498 {
 }
 
 interface P737 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers310;
+  qualifiers?: Qualifiers308;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers310 {
-  [key: string]: any;
+interface Qualifiers308 {
+  P389?: Mainsnak[];
   P393?: Mainsnak[];
   P11?: Mainsnak[];
   P392?: P3932[];
 }
 
 interface Q3412 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims503;
+  sitelinks: Aliases;
+}
+
+interface Claims503 {
+  P110: P110[];
+  P2: P110[];
+  P90: P909[];
+  P7: P74[];
+}
+
+interface P909 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers214;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Q3409 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims502;
+  sitelinks: Aliases;
+}
+
+interface Claims502 {
+  P110: P110[];
+  P2: P110[];
+  P90: P905[];
+}
+
+interface Q3401 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims501;
+  sitelinks: Aliases;
+}
+
+interface Claims501 {
+  P110: P110[];
+  P2: P110[];
+  P90: P908[];
+}
+
+interface Q3400 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims500;
+  sitelinks: Aliases;
+}
+
+interface Claims500 {
+  P110: P110[];
+  P2: P110[];
+  P7: P731[];
+}
+
+interface P731 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers307;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers307 {
+  P389?: Mainsnak[];
+  P11?: Mainsnak[];
+  P393?: Mainsnak[];
+}
+
+interface Q3393 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims499;
+  sitelinks: Aliases;
+}
+
+interface Claims499 {
+  P110: P110[];
+  P2: P110[];
+  P7: P7[];
+  P518: P518[];
+}
+
+interface P518 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers306;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers306 {
+  P440: Mainsnak2[];
+  P7: Mainsnak2[];
+}
+
+interface Q3390 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims498;
+  sitelinks: Aliases;
+}
+
+interface Claims498 {
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P7: P730[];
+}
+
+interface P730 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers305;
+  'qualifiers-order'?: string[];
+}
+
+interface Qualifiers305 {
+  P392?: P3932[];
+  P11?: Mainsnak[];
+}
+
+interface Q3389 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18888,23 +18980,14 @@ interface Q3412 {
 }
 
 interface Claims497 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P908[];
-  P7: P74[];
+  P58: P58[];
+  P59: P58[];
 }
 
-interface P908 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers19;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Q3401 {
-  [key: string]: any;
+interface Q3388 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18912,20 +18995,21 @@ interface Q3401 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims496;
   sitelinks: Aliases;
 }
 
 interface Claims496 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P902[];
+  P397: P110[];
+  P7: P79[];
 }
 
-interface Q3400 {
-  [key: string]: any;
+interface Q3387 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -18940,64 +19024,23 @@ interface Q3400 {
 }
 
 interface Claims495 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P736[];
+  P397: P110[];
+  P7: P729[];
 }
 
-interface P736 {
-  [key: string]: any;
+interface P729 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers309;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers309 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-  P393?: Mainsnak[];
-}
-
-interface Q3393 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims494;
-  sitelinks: Aliases;
-}
-
-interface Claims494 {
-  [key: string]: any;
-  P2: P110[];
-  P7: P7[];
-  P518: P518[];
-}
-
-interface P518 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers308;
+  qualifiers: Qualifiers223;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers308 {
-  [key: string]: any;
-  P7: Mainsnak2[];
-}
-
-interface Q3390 {
-  [key: string]: any;
+interface Q3385 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19007,33 +19050,42 @@ interface Q3390 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
+  claims: Claims494;
+  sitelinks: Aliases;
+}
+
+interface Claims494 {
+  P110: P110[];
+  P2: P110[];
+  P397: P110[];
+  P7: P711[];
+}
+
+interface Q3374 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
   claims: Claims493;
   sitelinks: Aliases;
 }
 
 interface Claims493 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P397: P110[];
-  P7: P735[];
+  P55: P582[];
+  P58: P582[];
+  P53: P532[];
 }
 
-interface P735 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers307;
-  'qualifiers-order'?: string[];
-}
-
-interface Qualifiers307 {
-  [key: string]: any;
-  P11?: Mainsnak[];
-}
-
-interface Q3389 {
-  [key: string]: any;
+interface Q3373 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19048,14 +19100,15 @@ interface Q3389 {
 }
 
 interface Claims492 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5812[];
-  P59: P5812[];
+  P58: P582[];
+  P53: P534[];
+  P59: P552[];
 }
 
-interface Q3388 {
-  [key: string]: any;
+interface Q3369 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19063,21 +19116,37 @@ interface Q3388 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims491;
   sitelinks: Aliases;
 }
 
 interface Claims491 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P397: P110[];
-  P7: P79[];
+  P58: P582[];
+  P55: P552[];
+  P53: P532[];
 }
 
-interface Q3387 {
-  [key: string]: any;
+interface P552 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers304;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers304 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q3368 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19092,23 +19161,41 @@ interface Q3387 {
 }
 
 interface Claims490 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
+  P7: P728[];
+  P398: P110[];
   P397: P110[];
-  P7: P731[];
 }
 
-interface P731 {
-  [key: string]: any;
+interface P728 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers225;
-  'qualifiers-order': string[];
+  qualifiers?: Qualifiers303;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
+  references?: Reference3[];
 }
 
-interface Q3385 {
-  [key: string]: any;
+interface Reference3 {
+  hash: string;
+  snaks: Snaks3;
+  'snaks-order': string[];
+}
+
+interface Snaks3 {
+  P7: Mainsnak2[];
+  P371?: Mainsnak2[];
+}
+
+interface Qualifiers303 {
+  P389?: Mainsnak[];
+  P396?: Mainsnak[];
+}
+
+interface Q3367 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19123,14 +19210,58 @@ interface Q3385 {
 }
 
 interface Claims489 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P397: P110[];
-  P7: P711[];
+  P7: P727[];
+  P1: P1[];
+  P10: P10[];
 }
 
-interface Q3374 {
-  [key: string]: any;
+interface P10 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers302;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers302 {
+  P392: Mainsnak[];
+}
+
+interface P727 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers301;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers301 {
+  P389?: Mainsnak[];
+  P396?: Mainsnak[];
+  P393?: Mainsnak[];
+}
+
+interface Q3366 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims60;
+  sitelinks: Aliases;
+}
+
+interface Q3364 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19145,15 +19276,15 @@ interface Q3374 {
 }
 
 interface Claims488 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P55: P5810[];
-  P58: P5810[];
-  P53: P535[];
+  P53: P532[];
+  P58: P582[];
+  P55: P56[];
 }
 
-interface Q3373 {
-  [key: string]: any;
+interface Q3363 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19161,22 +19292,38 @@ interface Q3373 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims487;
   sitelinks: Aliases;
 }
 
 interface Claims487 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5810[];
-  P53: P534[];
-  P59: P552[];
+  P58: P582[];
+  P59: P5915[];
 }
 
-interface Q3369 {
-  [key: string]: any;
+interface P5915 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers300;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers300 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+  P7: Mainsnak2[];
+}
+
+interface Q3356 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19191,30 +19338,14 @@ interface Q3369 {
 }
 
 interface Claims486 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5810[];
-  P55: P552[];
-  P53: P535[];
+  P58: P593[];
+  P59: P5811[];
 }
 
-interface P552 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers306;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers306 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q3368 {
-  [key: string]: any;
+interface Q3354 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19222,48 +19353,21 @@ interface Q3368 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims485;
   sitelinks: Aliases;
 }
 
 interface Claims485 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P730[];
-  P398: P110[];
-  P397: P110[];
+  P58: P589[];
+  P7: P1[];
 }
 
-interface P730 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers305;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-  references?: Reference3[];
-}
-
-interface Reference3 {
-  [key: string]: any;
-  snaks: Snaks3;
-  'snaks-order': string[];
-}
-
-interface Snaks3 {
-  [key: string]: any;
-  P371?: Mainsnak2[];
-}
-
-interface Qualifiers305 {
-  [key: string]: any;
-  P396?: Mainsnak[];
-}
-
-interface Q3367 {
-  [key: string]: any;
+interface Q3353 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19271,65 +19375,35 @@ interface Q3367 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims470;
+  sitelinks: Aliases;
+}
+
+interface Q3352 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims484;
   sitelinks: Aliases;
 }
 
 interface Claims484 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P729[];
-  P1: P1[];
-  P10: P10[];
+  P58: P5811[];
 }
 
-interface P10 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers304;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers304 {
-  [key: string]: any;
-}
-
-interface P729 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers303;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers303 {
-  [key: string]: any;
-  P396?: Mainsnak[];
-  P393?: Mainsnak[];
-}
-
-interface Q3366 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims59;
-  sitelinks: Aliases;
-}
-
-interface Q3364 {
-  [key: string]: any;
+interface Q3351 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19344,15 +19418,29 @@ interface Q3364 {
 }
 
 interface Claims483 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P535[];
-  P58: P5810[];
-  P55: P56[];
+  P58: P5827[];
 }
 
-interface Q3363 {
-  [key: string]: any;
+interface P5827 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers299;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers299 {
+  P41: Mainsnak2[];
+  P39?: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3348 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19360,38 +19448,21 @@ interface Q3363 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims482;
   sitelinks: Aliases;
 }
 
 interface Claims482 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5810[];
-  P59: P5913[];
+  P58: P583[];
+  P59: P5814[];
 }
 
-interface P5913 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers302;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers302 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-  P7: Mainsnak2[];
-}
-
-interface Q3356 {
-  [key: string]: any;
+interface Q3347 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19406,29 +19477,28 @@ interface Q3356 {
 }
 
 interface Claims481 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P587[];
-  P59: P58[];
+  P58: P5826[];
 }
 
-interface Q3353 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
+interface P5826 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers: Qualifiers298;
+  'qualifiers-order': string[];
   id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims467;
-  sitelinks: Aliases;
+  rank: string;
 }
 
-interface Q3351 {
-  [key: string]: any;
+interface Qualifiers298 {
+  P41: Mainsnak2[];
+  P440: Mainsnak2[];
+  P34?: Mainsnak2[];
+}
+
+interface Q3346 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19443,29 +19513,31 @@ interface Q3351 {
 }
 
 interface Claims480 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5828[];
+  P58: P582[];
+  P59: P5914[];
 }
 
-interface P5828 {
-  [key: string]: any;
+interface P5914 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers301;
+  qualifiers: Qualifiers297;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers301 {
-  [key: string]: any;
-  P39?: Mainsnak2[];
+interface Qualifiers297 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
   P34: Mainsnak2[];
+  P169: Mainsnak[];
   P440: Mainsnak2[];
 }
 
-interface Q3348 {
-  [key: string]: any;
+interface Q3345 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19480,14 +19552,30 @@ interface Q3348 {
 }
 
 interface Claims479 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P59: P5814[];
+  P58: P585[];
+  P59: P5913[];
 }
 
-interface Q3347 {
-  [key: string]: any;
+interface P5913 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers296;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers296 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q3343 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19502,28 +19590,14 @@ interface Q3347 {
 }
 
 interface Claims478 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5827[];
+  P58: P585[];
+  P7: P74[];
 }
 
-interface P5827 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers300;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers300 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-  P34?: Mainsnak2[];
-}
-
-interface Q3346 {
-  [key: string]: any;
+interface Q3340 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19538,31 +19612,14 @@ interface Q3346 {
 }
 
 interface Claims477 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5810[];
-  P59: P5912[];
+  P58: P583[];
+  P59: P585[];
 }
 
-interface P5912 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers299;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers299 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P34: Mainsnak2[];
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q3345 {
-  [key: string]: any;
+interface Q3338 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19577,30 +19634,14 @@ interface Q3345 {
 }
 
 interface Claims476 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5826[];
-  P59: P5911[];
+  P58: P585[];
+  P59: P585[];
 }
 
-interface P5911 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers298;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers298 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q3343 {
-  [key: string]: any;
+interface Q3337 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19615,14 +19656,14 @@ interface Q3343 {
 }
 
 interface Claims475 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5826[];
-  P7: P74[];
+  P58: P583[];
+  P59: P587[];
 }
 
-interface Q3341 {
-  [key: string]: any;
+interface Q3332 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19637,13 +19678,13 @@ interface Q3341 {
 }
 
 interface Claims474 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5826[];
+  P59: P589[];
 }
 
-interface Q3340 {
-  [key: string]: any;
+interface Q3325 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19658,14 +19699,13 @@ interface Q3340 {
 }
 
 interface Claims473 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P59: P5826[];
+  P59: P5822[];
 }
 
-interface Q3338 {
-  [key: string]: any;
+interface Q3323 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19680,30 +19720,13 @@ interface Q3338 {
 }
 
 interface Claims472 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5826[];
-  P59: P5826[];
+  P58: P5812[];
 }
 
-interface P5826 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers297;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers297 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P34: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3337 {
-  [key: string]: any;
+interface Q3321 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19718,14 +19741,29 @@ interface Q3337 {
 }
 
 interface Claims471 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P589[];
-  P59: P5815[];
+  P58: P5825[];
 }
 
-interface Q3332 {
-  [key: string]: any;
+interface P5825 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers295;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers295 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P27?: Mainsnak2[];
+  P7: Mainsnak2[];
+}
+
+interface Q3320 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19733,20 +19771,21 @@ interface Q3332 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims470;
   sitelinks: Aliases;
 }
 
 interface Claims470 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P59: P582[];
+  P7: P1[];
+  P58: P5811[];
 }
 
-interface Q3325 {
-  [key: string]: any;
+interface Q3319 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19754,20 +19793,35 @@ interface Q3325 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims469;
   sitelinks: Aliases;
 }
 
 interface Claims469 {
-  [key: string]: any;
   P2: P110[];
-  P59: P5822[];
+  P110: P110[];
+  P58: P5824[];
 }
 
-interface Q3321 {
-  [key: string]: any;
+interface P5824 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers294;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers294 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P7: Mainsnak2[];
+}
+
+interface Q3318 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19782,29 +19836,14 @@ interface Q3321 {
 }
 
 interface Claims468 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5825[];
+  P7: P7[];
+  P58: P589[];
 }
 
-interface P5825 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers296;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers296 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P27?: Mainsnak2[];
-  P7: Mainsnak2[];
-}
-
-interface Q3320 {
-  [key: string]: any;
+interface Q3317 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19812,21 +19851,36 @@ interface Q3320 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims467;
   sitelinks: Aliases;
 }
 
 interface Claims467 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P1[];
-  P58: P58[];
+  P58: P5823[];
 }
 
-interface Q3319 {
-  [key: string]: any;
+interface P5823 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers293;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers293 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P34?: Mainsnak2[];
+  P39?: Mainsnak2[];
+}
+
+interface Q3316 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19834,35 +19888,35 @@ interface Q3319 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims466;
   sitelinks: Aliases;
 }
 
 interface Claims466 {
-  [key: string]: any;
   P110: P110[];
-  P58: P5824[];
+  P2: P110[];
+  P58: P5822[];
 }
 
-interface P5824 {
-  [key: string]: any;
+interface P5822 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers295;
+  qualifiers: Qualifiers292;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers295 {
-  [key: string]: any;
+interface Qualifiers292 {
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
-  P7: Mainsnak2[];
+  P27?: Mainsnak2[];
 }
 
-interface Q3318 {
-  [key: string]: any;
+interface Q3312 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19877,14 +19931,28 @@ interface Q3318 {
 }
 
 interface Claims465 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P7[];
-  P58: P582[];
+  P58: P5821[];
 }
 
-interface Q3317 {
-  [key: string]: any;
+interface P5821 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers291;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers291 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P34: Mainsnak2[];
+}
+
+interface Q3311 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19899,29 +19967,27 @@ interface Q3317 {
 }
 
 interface Claims464 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5823[];
+  P58: P5820[];
 }
 
-interface P5823 {
-  [key: string]: any;
+interface P5820 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers294;
+  qualifiers: Qualifiers290;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers294 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P34?: Mainsnak2[];
-  P39?: Mainsnak2[];
+interface Qualifiers290 {
+  P21: Mainsnak2[];
+  P34: Mainsnak2[];
 }
 
-interface Q3316 {
-  [key: string]: any;
+interface Q3310 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19936,28 +20002,38 @@ interface Q3316 {
 }
 
 interface Claims463 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5822[];
+  P1: P1[];
+  P379: P110[];
+  P168: P168[];
+  P388: P3883[];
 }
 
-interface P5822 {
-  [key: string]: any;
+interface P3883 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers293;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers5;
+  'qualifiers-order'?: string[];
+}
+
+interface P168 {
+  mainsnak: Mainsnak;
+  type: string;
+  qualifiers: Qualifiers289;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers293 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P27?: Mainsnak2[];
+interface Qualifiers289 {
+  P396: P3932[];
 }
 
-interface Q3311 {
-  [key: string]: any;
+interface Q3309 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -19972,27 +20048,28 @@ interface Q3311 {
 }
 
 interface Claims462 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5821[];
+  P58: P5819[];
 }
 
-interface P5821 {
-  [key: string]: any;
+interface P5819 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers292;
+  qualifiers: Qualifiers288;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers292 {
-  [key: string]: any;
-  P34: Mainsnak2[];
+interface Qualifiers288 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P7?: Mainsnak2[];
 }
 
-interface Q3310 {
-  [key: string]: any;
+interface Q3308 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20007,38 +20084,14 @@ interface Q3310 {
 }
 
 interface Claims461 {
-  [key: string]: any;
-  P2: P110[];
   P1: P1[];
+  P110: P110[];
+  P2: P110[];
   P379: P110[];
-  P168: P168[];
-  P388: P3883[];
 }
 
-interface P3883 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Qualifiers5;
-  'qualifiers-order'?: string[];
-}
-
-interface P168 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers291;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers291 {
-  [key: string]: any;
-}
-
-interface Q3309 {
-  [key: string]: any;
+interface Q3307 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20053,28 +20106,13 @@ interface Q3309 {
 }
 
 interface Claims460 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5820[];
+  P58: P589[];
 }
 
-interface P5820 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers290;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers290 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P7?: Mainsnak2[];
-}
-
-interface Q3308 {
-  [key: string]: any;
+interface Q3306 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20089,14 +20127,29 @@ interface Q3308 {
 }
 
 interface Claims459 {
-  [key: string]: any;
   P110: P110[];
   P2: P110[];
-  P379: P110[];
+  P58: P5818[];
 }
 
-interface Q3306 {
-  [key: string]: any;
+interface P5818 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers287;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers287 {
+  P21?: Mainsnak2[];
+  P29?: Mainsnak2[];
+  P7?: Mainsnak2[];
+  P41?: Mainsnak2[];
+}
+
+interface Q3304 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20111,29 +20164,15 @@ interface Q3306 {
 }
 
 interface Claims458 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5819[];
+  P7: P74[];
+  P58: P582[];
+  P59: P5813[];
 }
 
-interface P5819 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers289;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers289 {
-  [key: string]: any;
-  P29?: Mainsnak2[];
-  P7?: Mainsnak2[];
-  P41?: Mainsnak2[];
-}
-
-interface Q3304 {
-  [key: string]: any;
+interface Q3302 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20148,15 +20187,14 @@ interface Q3304 {
 }
 
 interface Claims457 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P74[];
-  P58: P5810[];
-  P59: P5813[];
+  P58: P587[];
+  P59: P587[];
 }
 
-interface Q3302 {
-  [key: string]: any;
+interface Q3300 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20171,14 +20209,29 @@ interface Q3302 {
 }
 
 interface Claims456 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P59: P5815[];
+  P58: P5817[];
+  P59: P5912[];
 }
 
-interface Q3300 {
-  [key: string]: any;
+interface P5912 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers286;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers286 {
+  P41: Mainsnak2[];
+  P39?: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q3299 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20193,29 +20246,29 @@ interface Q3300 {
 }
 
 interface Claims455 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5818[];
-  P59: P5910[];
+  P58: P5817[];
+  P59: P5817[];
 }
 
-interface P5910 {
-  [key: string]: any;
+interface P5817 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers288;
+  qualifiers: Qualifiers285;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers288 {
-  [key: string]: any;
-  P39?: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers285 {
+  P41: Mainsnak2[];
+  P39: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3299 {
-  [key: string]: any;
+interface Q3298 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20230,29 +20283,29 @@ interface Q3299 {
 }
 
 interface Claims454 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5818[];
-  P59: P5818[];
+  P58: P587[];
+  P59: P5911[];
 }
 
-interface P5818 {
-  [key: string]: any;
+interface P5911 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers287;
+  qualifiers: Qualifiers284;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers287 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers284 {
+  P41: Mainsnak2[];
+  P34: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q3298 {
-  [key: string]: any;
+interface Q3295 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20267,29 +20320,29 @@ interface Q3298 {
 }
 
 interface Claims453 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5815[];
-  P59: P599[];
+  P58: P582[];
+  P59: P583[];
 }
 
-interface P599 {
-  [key: string]: any;
+interface Q3294 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
   type: string;
-  qualifiers: Qualifiers286;
-  'qualifiers-order': string[];
   id: string;
-  rank: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims367;
+  sitelinks: Aliases;
 }
 
-interface Qualifiers286 {
-  [key: string]: any;
-  P34: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q3295 {
-  [key: string]: any;
+interface Q3292 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20304,29 +20357,14 @@ interface Q3295 {
 }
 
 interface Claims452 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5810[];
-  P59: P589[];
+  P90: P908[];
+  P370: P370[];
 }
 
-interface Q3294 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims366;
-  sitelinks: Aliases;
-}
-
-interface Q3292 {
-  [key: string]: any;
+interface Q3291 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20341,14 +20379,15 @@ interface Q3292 {
 }
 
 interface Claims451 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P902[];
+  P90: P908[];
+  P96: P908[];
   P370: P370[];
 }
 
-interface Q3291 {
-  [key: string]: any;
+interface Q3289 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20363,15 +20402,27 @@ interface Q3291 {
 }
 
 interface Claims450 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P902[];
-  P96: P902[];
   P370: P370[];
 }
 
-interface Q3289 {
-  [key: string]: any;
+interface P370 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers283;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers283 {
+  P368: Mainsnak2[];
+  P369: Mainsnak2[];
+}
+
+interface Q3288 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20386,27 +20437,28 @@ interface Q3289 {
 }
 
 interface Claims449 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P370: P370[];
+  P378: P378[];
 }
 
-interface P370 {
-  [key: string]: any;
+interface P378 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers285;
+  qualifiers: Qualifiers282;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers285 {
-  [key: string]: any;
-  P369: Mainsnak2[];
+interface Qualifiers282 {
+  P376: Mainsnak2[];
+  P377?: Mainsnak2[];
+  P18: P3932[];
 }
 
-interface Q3288 {
-  [key: string]: any;
+interface Q3286 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20421,28 +20473,29 @@ interface Q3288 {
 }
 
 interface Claims448 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P378: P378[];
+  P375: P375[];
 }
 
-interface P378 {
-  [key: string]: any;
+interface P375 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers284;
+  qualifiers: Qualifiers281;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers284 {
-  [key: string]: any;
-  P377?: Mainsnak2[];
-  P18: P3932[];
+interface Qualifiers281 {
+  P372: Mainsnak2[];
+  P373: Mainsnak2[];
+  P374: Mainsnak2[];
+  P150: Mainsnak2[];
 }
 
-interface Q3286 {
-  [key: string]: any;
+interface Q3284 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20457,29 +20510,28 @@ interface Q3286 {
 }
 
 interface Claims447 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P375: P375[];
+  P367: P367[];
 }
 
-interface P375 {
-  [key: string]: any;
+interface P367 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers283;
+  qualifiers: Qualifiers280;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers283 {
-  [key: string]: any;
-  P373: Mainsnak2[];
-  P374: Mainsnak2[];
-  P150: Mainsnak2[];
+interface Qualifiers280 {
+  P365?: Mainsnak2[];
+  P440: Mainsnak2[];
+  P366?: Mainsnak2[];
 }
 
-interface Q3284 {
-  [key: string]: any;
+interface Q3283 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20494,28 +20546,28 @@ interface Q3284 {
 }
 
 interface Claims446 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P367: P367[];
+  P364: P364[];
 }
 
-interface P367 {
-  [key: string]: any;
+interface P364 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers282;
+  qualifiers: Qualifiers279;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers282 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-  P366?: Mainsnak2[];
+interface Qualifiers279 {
+  P361: P297[];
+  P362: Mainsnak2[];
+  P363: Mainsnak2[];
 }
 
-interface Q3283 {
-  [key: string]: any;
+interface Q3281 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20530,28 +20582,26 @@ interface Q3283 {
 }
 
 interface Claims445 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P364: P364[];
+  P360: P360[];
 }
 
-interface P364 {
-  [key: string]: any;
+interface P360 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers281;
+  qualifiers: Qualifiers278;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers281 {
-  [key: string]: any;
-  P362: Mainsnak2[];
-  P363: Mainsnak2[];
+interface Qualifiers278 {
+  P359: Mainsnak2[];
 }
 
-interface Q3281 {
-  [key: string]: any;
+interface Q3280 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20566,26 +20616,37 @@ interface Q3281 {
 }
 
 interface Claims444 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P360: P360[];
+  P53: P534[];
+  P94: P934[];
+  P106: P1063[];
+  P7: P1[];
 }
 
-interface P360 {
-  [key: string]: any;
+interface P1063 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers280;
+  qualifiers: Qualifiers277;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers280 {
-  [key: string]: any;
+interface Qualifiers277 {
+  P20: Mainsnak2[];
+  P57?: Mainsnak2[];
+  P150?: Mainsnak2[];
+  P102?: Mainsnak2[];
+  P45?: Mainsnak2[];
+  P46?: Mainsnak2[];
+  P36?: Mainsnak[];
+  P18?: P3932[];
+  P47?: Mainsnak2[];
 }
 
-interface Q3280 {
-  [key: string]: any;
+interface Q3279 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20600,37 +20661,31 @@ interface Q3280 {
 }
 
 interface Claims443 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P94: P932[];
-  P106: P1063[];
+  P94: P94[];
+  P106: P1062[];
   P7: P1[];
 }
 
-interface P1063 {
-  [key: string]: any;
+interface P1062 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers279;
+  qualifiers: Qualifiers276;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers279 {
-  [key: string]: any;
-  P57?: Mainsnak2[];
-  P150?: Mainsnak2[];
-  P102?: Mainsnak2[];
-  P45?: Mainsnak2[];
-  P46?: Mainsnak2[];
-  P36?: Mainsnak[];
-  P18?: P3932[];
-  P47?: Mainsnak2[];
+interface Qualifiers276 {
+  P100: Mainsnak2[];
+  P150: Mainsnak2[];
+  P102: Mainsnak2[];
 }
 
-interface Q3279 {
-  [key: string]: any;
+interface Q3278 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20645,31 +20700,32 @@ interface Q3279 {
 }
 
 interface Claims442 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P94: P93[];
-  P106: P1062[];
-  P7: P1[];
+  P94: P94[];
+  P106: P106[];
 }
 
-interface P1062 {
-  [key: string]: any;
+interface P106 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers278;
+  qualifiers: Qualifiers275;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers278 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P102: Mainsnak2[];
+interface Qualifiers275 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P20: Mainsnak2[];
+  P18: P3932[];
+  P47: Mainsnak2[];
 }
 
-interface Q3278 {
-  [key: string]: any;
+interface Q3276 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20684,32 +20740,33 @@ interface Q3278 {
 }
 
 interface Claims441 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P94: P93[];
-  P106: P106[];
+  P93: P94[];
+  P103: P103[];
 }
 
-interface P106 {
-  [key: string]: any;
+interface P103 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers277;
+  qualifiers: Qualifiers274;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers277 {
-  [key: string]: any;
-  P46: Mainsnak2[];
+interface Qualifiers274 {
   P20: Mainsnak2[];
-  P18: P3932[];
+  P57: Mainsnak2[];
+  P100: Mainsnak2[];
+  P150: Mainsnak2[];
+  P102: Mainsnak2[];
   P47: Mainsnak2[];
 }
 
-interface Q3276 {
-  [key: string]: any;
+interface Q3275 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20724,33 +20781,15 @@ interface Q3276 {
 }
 
 interface Claims440 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P93: P93[];
-  P103: P103[];
+  P391: P1[];
+  P105: P1[];
 }
 
-interface P103 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers276;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers276 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-  P100: Mainsnak2[];
-  P150: Mainsnak2[];
-  P102: Mainsnak2[];
-  P47: Mainsnak2[];
-}
-
-interface Q3275 {
-  [key: string]: any;
+interface Q3274 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20765,15 +20804,34 @@ interface Q3275 {
 }
 
 interface Claims439 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P391: P1[];
-  P105: P1[];
+  P391: P3915[];
+  P95: P3915[];
+  P105: P105[];
+  P7: P1[];
 }
 
-interface Q3274 {
-  [key: string]: any;
+interface P105 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers273;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers273 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P23: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface Q3273 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20788,34 +20846,32 @@ interface Q3274 {
 }
 
 interface Claims438 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P391: P391[];
-  P95: P391[];
-  P105: P105[];
+  P90: P905[];
+  P104: P1046[];
   P7: P1[];
 }
 
-interface P105 {
-  [key: string]: any;
+interface P1046 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers275;
+  qualifiers: Qualifiers272;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers275 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P23: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
+interface Qualifiers272 {
+  P22: Mainsnak2[];
+  P100: Mainsnak2[];
+  P150: Mainsnak2[];
+  P102: Mainsnak2[];
 }
 
-interface Q3273 {
-  [key: string]: any;
+interface Q3272 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20830,32 +20886,32 @@ interface Q3273 {
 }
 
 interface Claims437 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P90: P90[];
+  P90: P904[];
   P104: P1045[];
   P7: P1[];
 }
 
 interface P1045 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers274;
+  qualifiers: Qualifiers271;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers274 {
-  [key: string]: any;
-  P100: Mainsnak2[];
-  P150: Mainsnak2[];
+interface Qualifiers271 {
+  P22: Mainsnak2[];
+  P25: Mainsnak2[];
+  P19: Mainsnak2[];
   P102: Mainsnak2[];
 }
 
-interface Q3272 {
-  [key: string]: any;
+interface Q3271 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20870,32 +20926,49 @@ interface Q3272 {
 }
 
 interface Claims436 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P90: P104[];
+  P90: P905[];
+  P96: P966[];
   P104: P1044[];
-  P7: P1[];
 }
 
 interface P1044 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers273;
+  qualifiers: Qualifiers270;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers273 {
-  [key: string]: any;
-  P25: Mainsnak2[];
-  P19: Mainsnak2[];
-  P102: Mainsnak2[];
+interface Qualifiers270 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P22: Mainsnak2[];
+  P18: P3932[];
+  P47: Mainsnak2[];
 }
 
-interface Q3271 {
-  [key: string]: any;
+interface P966 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers269;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers269 {
+  P22: Mainsnak2[];
+  P45?: Mainsnak2[];
+  P46?: Mainsnak2[];
+  P18?: P3932[];
+}
+
+interface Q3270 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20910,32 +20983,33 @@ interface Q3271 {
 }
 
 interface Claims435 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P90: P90[];
-  P96: P966[];
-  P104: P1042[];
+  P90: P905[];
+  P96: P905[];
+  P104: P1043[];
 }
 
-interface P966 {
-  [key: string]: any;
+interface P1043 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers272;
+  qualifiers: Qualifiers268;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers272 {
-  [key: string]: any;
-  P45?: Mainsnak2[];
-  P46?: Mainsnak2[];
-  P18?: P3932[];
+interface Qualifiers268 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P36?: Mainsnak[];
+  P22: Mainsnak2[];
+  P47?: Mainsnak2[];
 }
 
-interface Q3270 {
-  [key: string]: any;
+interface Q3269 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20950,33 +21024,34 @@ interface Q3270 {
 }
 
 interface Claims434 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P90: P90[];
-  P96: P90[];
-  P104: P1043[];
+  P58: P589[];
+  P81: P81[];
+  P107: P1076[];
+  P7: P1[];
 }
 
-interface P1043 {
-  [key: string]: any;
+interface P1076 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers271;
+  qualifiers: Qualifiers267;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers271 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P36?: Mainsnak[];
-  P22: Mainsnak2[];
-  P47?: Mainsnak2[];
+interface Qualifiers267 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P100: Mainsnak2[];
+  P150: Mainsnak2[];
+  P102: Mainsnak2[];
 }
 
-interface Q3269 {
-  [key: string]: any;
+interface Q3268 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -20991,67 +21066,25 @@ interface Q3269 {
 }
 
 interface Claims433 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P582[];
-  P81: P81[];
-  P107: P1076[];
-  P7: P1[];
-}
-
-interface P1076 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers270;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers270 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P100: Mainsnak2[];
-  P150: Mainsnak2[];
-  P102: Mainsnak2[];
-}
-
-interface Q3268 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims432;
-  sitelinks: Aliases;
-}
-
-interface Claims432 {
-  [key: string]: any;
-  P2: P110[];
-  P53: P534[];
-  P58: P582[];
+  P58: P589[];
   P107: P1075[];
   P7: P1[];
 }
 
 interface P1075 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers269;
+  qualifiers: Qualifiers266;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers269 {
-  [key: string]: any;
+interface Qualifiers266 {
+  P45?: Mainsnak2[];
   P46?: Mainsnak2[];
   P41?: Mainsnak2[];
   P21?: Mainsnak2[];
@@ -21066,7 +21099,63 @@ interface Qualifiers269 {
 }
 
 interface Q3267 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims432;
+  sitelinks: Aliases;
+}
+
+interface Claims432 {
+  P110: P110[];
+  P2: P110[];
+  P53: P534[];
+  P58: P589[];
+  P59: P5910[];
+  P107: P1074[];
+}
+
+interface P1074 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers265;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers265 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P41: Mainsnak2[];
+  P47?: Mainsnak2[];
+}
+
+interface P5910 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers264;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers264 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+}
+
+interface Q3266 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21081,48 +21170,29 @@ interface Q3267 {
 }
 
 interface Claims431 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P534[];
-  P58: P582[];
-  P59: P598[];
-  P107: P1074[];
+  P355: P3552[];
 }
 
-interface P1074 {
-  [key: string]: any;
+interface P3552 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers268;
+  qualifiers: Qualifiers263;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers268 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P41: Mainsnak2[];
+interface Qualifiers263 {
+  P335: Mainsnak[];
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
   P47?: Mainsnak2[];
 }
 
-interface P598 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers267;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers267 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P21: Mainsnak2[];
-  P29: Mainsnak2[];
-}
-
-interface Q3266 {
-  [key: string]: any;
+interface Q3265 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21137,29 +21207,27 @@ interface Q3266 {
 }
 
 interface Claims430 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P355: P3552[];
+  P301: P3012[];
+  P354: P351[];
 }
 
-interface P3552 {
-  [key: string]: any;
+interface P3012 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers266;
+  qualifiers: Qualifiers262;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers266 {
-  [key: string]: any;
-  P19: Mainsnak2[];
-  P390: Mainsnak2[];
-  P47?: Mainsnak2[];
+interface Qualifiers262 {
+  P64: Mainsnak[];
 }
 
-interface Q3265 {
-  [key: string]: any;
+interface Q3261 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21174,14 +21242,14 @@ interface Q3265 {
 }
 
 interface Claims429 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P301: P309[];
-  P354: P3103[];
+  P94: P94[];
+  P86: P86[];
 }
 
-interface Q3261 {
-  [key: string]: any;
+interface Q3260 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21196,14 +21264,14 @@ interface Q3261 {
 }
 
 interface Claims428 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P93[];
+  P93: P94[];
   P86: P86[];
 }
 
-interface Q3260 {
-  [key: string]: any;
+interface Q3259 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21218,14 +21286,45 @@ interface Q3260 {
 }
 
 interface Claims427 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P93[];
-  P86: P86[];
+  P86: P862[];
+  P55: P56[];
+  P91: P9134[];
 }
 
-interface Q3259 {
-  [key: string]: any;
+interface P9134 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers261;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers261 {
+  P20: Mainsnak2[];
+  P37: Mainsnak2[];
+  P38: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P862 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers260;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers260 {
+  P308: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3258 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21240,45 +21339,14 @@ interface Q3259 {
 }
 
 interface Claims426 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P86: P862[];
-  P55: P56[];
-  P91: P9138[];
+  P391: P9128[];
+  P86: P86[];
 }
 
-interface P9138 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers265;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers265 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P38: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P862 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers264;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers264 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3258 {
-  [key: string]: any;
+interface Q3257 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21293,49 +21361,27 @@ interface Q3258 {
 }
 
 interface Claims425 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P91[];
-  P86: P86[];
-}
-
-interface Q3257 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims424;
-  sitelinks: Aliases;
-}
-
-interface Claims424 {
-  [key: string]: any;
-  P2: P110[];
-  P391: P3913[];
+  P391: P3916[];
   P86: P86[];
 }
 
 interface P86 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers263;
+  qualifiers: Qualifiers259;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers263 {
-  [key: string]: any;
+interface Qualifiers259 {
+  P308: Mainsnak2[];
 }
 
 interface Q3256 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21345,33 +21391,56 @@ interface Q3256 {
   labels: Labels;
   descriptions: Aliases;
   aliases: Aliases;
-  claims: Claims423;
+  claims: Claims424;
   sitelinks: Aliases;
 }
 
-interface Claims423 {
-  [key: string]: any;
+interface Claims424 {
+  P110: P110[];
   P2: P110[];
   P398: P110[];
-  P7: P728[];
+  P7: P726[];
 }
 
-interface P728 {
-  [key: string]: any;
+interface P726 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers262;
+  qualifiers?: Qualifiers258;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers262 {
-  [key: string]: any;
+interface Qualifiers258 {
+  P389?: Mainsnak[];
   P392?: P393[];
 }
 
 interface Q3252 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims423;
+  sitelinks: Aliases;
+}
+
+interface Claims423 {
+  P110: P110[];
+  P2: P110[];
+  P91: P9128[];
+  P85: P854[];
+  P7: P1[];
+}
+
+interface Q3251 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21386,15 +21455,15 @@ interface Q3252 {
 }
 
 interface Claims422 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
+  P91: P9128[];
   P85: P853[];
   P7: P1[];
 }
 
-interface Q3251 {
-  [key: string]: any;
+interface Q3249 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21409,15 +21478,15 @@ interface Q3251 {
 }
 
 interface Claims421 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P85: P852[];
+  P91: P9128[];
+  P85: P855[];
   P7: P1[];
 }
 
-interface Q3249 {
-  [key: string]: any;
+interface Q3248 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21432,15 +21501,19 @@ interface Q3249 {
 }
 
 interface Claims420 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P85: P854[];
+  P90: P902[];
+  P56: P56[];
+  P72: P722[];
+  P81: P818[];
+  P85: P857[];
+  P96: P96[];
   P7: P1[];
 }
 
-interface Q3248 {
-  [key: string]: any;
+interface Q3247 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21455,33 +21528,18 @@ interface Q3248 {
 }
 
 interface Claims419 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P56: P56[];
-  P72: P722[];
-  P81: P818[];
-  P85: P856[];
-  P96: P965[];
+  P90: P90[];
+  P72: P56[];
+  P73: P56[];
+  P81: P815[];
+  P85: P85[];
   P7: P1[];
 }
 
-interface P965 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers261;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers261 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface Q3247 {
-  [key: string]: any;
+interface Q3246 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21496,18 +21554,19 @@ interface Q3247 {
 }
 
 interface Claims418 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P905[];
-  P72: P56[];
+  P90: P90[];
+  P89: P893[];
   P73: P56[];
-  P81: P815[];
+  P81: P818[];
   P85: P85[];
+  P96: P965[];
   P7: P1[];
 }
 
-interface Q3246 {
-  [key: string]: any;
+interface Q3245 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21522,19 +21581,18 @@ interface Q3246 {
 }
 
 interface Claims417 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P905[];
+  P90: P90[];
   P89: P893[];
   P73: P56[];
-  P81: P818[];
-  P85: P85[];
-  P96: P964[];
+  P85: P852[];
+  P96: P90[];
   P7: P1[];
 }
 
-interface Q3245 {
-  [key: string]: any;
+interface Q3244 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21549,32 +21607,50 @@ interface Q3245 {
 }
 
 interface Claims416 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P905[];
-  P89: P893[];
+  P90: P90[];
+  P72: P56[];
   P73: P56[];
-  P85: P857[];
-  P96: P905[];
+  P81: P818[];
+  P85: P85[];
+  P96: P965[];
   P7: P1[];
 }
 
-interface P857 {
-  [key: string]: any;
+interface P965 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers260;
+  qualifiers: Qualifiers257;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers260 {
-  [key: string]: any;
+interface Qualifiers257 {
+  P22: Mainsnak2[];
+  P440: Mainsnak2[];
+  P169?: Mainsnak[];
+}
+
+interface P818 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers256;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers256 {
+  P304: Mainsnak2[];
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q3244 {
-  [key: string]: any;
+interface Q3243 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21589,50 +21665,34 @@ interface Q3244 {
 }
 
 interface Claims415 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P905[];
-  P72: P56[];
+  P90: P902[];
+  P89: P893[];
+  P72: P73[];
   P73: P56[];
-  P81: P818[];
-  P85: P85[];
-  P96: P964[];
+  P81: P817[];
+  P85: P857[];
   P7: P1[];
 }
 
-interface P964 {
-  [key: string]: any;
+interface P817 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers259;
+  qualifiers: Qualifiers255;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers259 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-  P169?: Mainsnak[];
-}
-
-interface P818 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers258;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers258 {
-  [key: string]: any;
+interface Qualifiers255 {
   P82: Mainsnak2[];
   P57: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q3243 {
-  [key: string]: any;
+interface Q3241 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21647,34 +21707,16 @@ interface Q3243 {
 }
 
 interface Claims414 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
-  P89: P893[];
-  P72: P724[];
-  P73: P56[];
-  P81: P817[];
-  P85: P856[];
+  P90: P902[];
+  P89: P89[];
+  P85: P85[];
   P7: P1[];
 }
 
-interface P817 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers257;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers257 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3241 {
-  [key: string]: any;
+interface Q3240 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21689,16 +21731,16 @@ interface Q3241 {
 }
 
 interface Claims413 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P902[];
-  P89: P8910[];
-  P85: P852[];
+  P90: P90[];
+  P89: P89[];
+  P85: P85[];
   P7: P1[];
 }
 
-interface Q3240 {
-  [key: string]: any;
+interface Q3239 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21713,16 +21755,49 @@ interface Q3240 {
 }
 
 interface Claims412 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P90[];
-  P89: P8910[];
-  P85: P852[];
+  P89: P893[];
+  P96: P90[];
+  P73: P56[];
+  P81: P816[];
+  P85: P857[];
   P7: P1[];
 }
 
-interface Q3239 {
-  [key: string]: any;
+interface P857 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers254;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers254 {
+  P307: Mainsnak2[];
+  P82: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P816 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers253;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers253 {
+  P304: Mainsnak2[];
+  P57: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3236 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21737,49 +21812,16 @@ interface Q3239 {
 }
 
 interface Claims411 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P905[];
+  P90: P902[];
+  P85: P85[];
   P89: P893[];
-  P96: P905[];
-  P73: P56[];
-  P81: P816[];
-  P85: P856[];
   P7: P1[];
 }
 
-interface P856 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers256;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers256 {
-  [key: string]: any;
-  P82: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P816 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers255;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers255 {
-  [key: string]: any;
-  P57: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3236 {
-  [key: string]: any;
+interface Q3234 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21794,16 +21836,30 @@ interface Q3236 {
 }
 
 interface Claims410 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P902[];
-  P85: P852[];
-  P89: P898[];
+  P58: P589[];
+  P85: P856[];
   P7: P1[];
 }
 
-interface Q3234 {
-  [key: string]: any;
+interface P856 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers252;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers252 {
+  P307: Mainsnak2[];
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
+}
+
+interface Q3233 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21818,30 +21874,29 @@ interface Q3234 {
 }
 
 interface Claims409 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P582[];
+  P58: P589[];
   P85: P855[];
   P7: P1[];
 }
 
 interface P855 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers254;
+  qualifiers: Qualifiers251;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers254 {
-  [key: string]: any;
+interface Qualifiers251 {
+  P307: Mainsnak2[];
   P82: Mainsnak2[];
-  P57: Mainsnak2[];
 }
 
-interface Q3233 {
-  [key: string]: any;
+interface Q3232 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21856,29 +21911,28 @@ interface Q3233 {
 }
 
 interface Claims408 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P582[];
+  P58: P589[];
   P85: P854[];
   P7: P1[];
 }
 
 interface P854 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers253;
+  qualifiers: Qualifiers250;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers253 {
-  [key: string]: any;
-  P82: Mainsnak2[];
+interface Qualifiers250 {
+  P307: Mainsnak2[];
 }
 
-interface Q3232 {
-  [key: string]: any;
+interface Q3231 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21893,28 +21947,15 @@ interface Q3232 {
 }
 
 interface Claims407 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P582[];
+  P58: P589[];
   P85: P853[];
   P7: P1[];
 }
 
-interface P853 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers252;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers252 {
-  [key: string]: any;
-}
-
-interface Q3231 {
-  [key: string]: any;
+interface Q3227 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21929,15 +21970,14 @@ interface Q3231 {
 }
 
 interface Claims406 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P582[];
-  P85: P852[];
-  P7: P1[];
+  P93: P94[];
+  P84: P84[];
 }
 
-interface Q3227 {
-  [key: string]: any;
+interface Q3225 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21952,14 +21992,15 @@ interface Q3227 {
 }
 
 interface Claims405 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P93[];
-  P84: P842[];
+  P53: P534[];
+  P83: P81[];
+  P58: P589[];
 }
 
-interface Q3225 {
-  [key: string]: any;
+interface Q3220 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21974,15 +22015,36 @@ interface Q3225 {
 }
 
 interface Claims404 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P83: P81[];
-  P58: P582[];
+  P391: P3913[];
+  P95: P955[];
+  P70: P56[];
+  P7: P1[];
 }
 
-interface Q3220 {
-  [key: string]: any;
+interface P955 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers249;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers249 {
+  P23?: Mainsnak2[];
+  P39?: Mainsnak2[];
+  P32?: Mainsnak2[];
+  P28?: Mainsnak2[];
+  P440: Mainsnak2[];
+  P22?: Mainsnak2[];
+  P169?: Mainsnak[];
+}
+
+interface Q3219 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -21997,70 +22059,26 @@ interface Q3220 {
 }
 
 interface Claims403 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P391: P39112[];
-  P95: P955[];
-  P70: P56[];
-  P7: P1[];
-}
-
-interface P955 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers251;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers251 {
-  [key: string]: any;
-  P39?: Mainsnak2[];
-  P32?: Mainsnak2[];
-  P28?: Mainsnak2[];
-  P440: Mainsnak2[];
-  P22?: Mainsnak2[];
-  P169?: Mainsnak[];
-}
-
-interface Q3219 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims402;
-  sitelinks: Aliases;
-}
-
-interface Claims402 {
-  [key: string]: any;
-  P2: P110[];
-  P53: P534[];
-  P391: P39112[];
+  P391: P3913[];
   P95: P954[];
   P70: P56[];
   P7: P1[];
 }
 
 interface P954 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers250;
+  qualifiers: Qualifiers248;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers250 {
-  [key: string]: any;
+interface Qualifiers248 {
+  P23: Mainsnak2[];
   P39?: Mainsnak2[];
   P32?: Mainsnak2[];
   P28?: Mainsnak2[];
@@ -22069,7 +22087,43 @@ interface Qualifiers250 {
 }
 
 interface Q3216 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims402;
+  sitelinks: Aliases;
+}
+
+interface Claims402 {
+  P110: P110[];
+  P2: P110[];
+  P398: P110[];
+  P7: P725[];
+}
+
+interface P725 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers247;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers247 {
+  P389?: Mainsnak[];
+  P392?: Mainsnak[];
+}
+
+interface Q3214 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22084,28 +22138,14 @@ interface Q3216 {
 }
 
 interface Claims401 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P398: P110[];
-  P7: P727[];
+  P7: P1[];
 }
 
-interface P727 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers249;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers249 {
-  [key: string]: any;
-  P392?: Mainsnak[];
-}
-
-interface Q3214 {
-  [key: string]: any;
+interface Q3213 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22120,14 +22160,28 @@ interface Q3214 {
 }
 
 interface Claims400 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P398: P110[];
-  P7: P1[];
+  P7: P721[];
 }
 
-interface Q3213 {
-  [key: string]: any;
+interface P721 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers246;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers246 {
+  P389: Mainsnak[];
+  P392?: Mainsnak[];
+}
+
+interface Q3212 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22142,50 +22196,14 @@ interface Q3213 {
 }
 
 interface Claims399 {
-  [key: string]: any;
-  P2: P110[];
-  P398: P110[];
-  P7: P721[];
-}
-
-interface P721 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers248;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers248 {
-  [key: string]: any;
-  P392?: Mainsnak[];
-}
-
-interface Q3212 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims398;
-  sitelinks: Aliases;
-}
-
-interface Claims398 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P7: P74[];
   P398: P110[];
 }
 
 interface Q3211 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22195,38 +22213,69 @@ interface Q3211 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
+  claims: Claims398;
+  sitelinks: Aliases;
+}
+
+interface Claims398 {
+  P110: P110[];
+  P2: P110[];
+  P53: P534[];
+  P391: P3913[];
+  P70: P56[];
+  P7: P1[];
+}
+
+interface Q3210 {
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
   claims: Claims397;
   sitelinks: Aliases;
 }
 
 interface Claims397 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P534[];
-  P391: P39112[];
-  P70: P56[];
-  P7: P1[];
+  P398: P110[];
+  P7: P720[];
 }
 
-interface P39112 {
-  [key: string]: any;
+interface P720 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers247;
-  'qualifiers-order': string[];
+  qualifiers?: Qualifiers245;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
+  references?: Reference2[];
 }
 
-interface Qualifiers247 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Reference2 {
+  hash: string;
+  snaks: Snaks2;
+  'snaks-order': string[];
 }
 
-interface Q3210 {
-  [key: string]: any;
+interface Snaks2 {
+  P7: Mainsnak2[];
+}
+
+interface Qualifiers245 {
+  P389?: Mainsnak[];
+  P392?: Mainsnak[];
+  P396?: Mainsnak[];
+}
+
+interface Q3209 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22241,40 +22290,28 @@ interface Q3210 {
 }
 
 interface Claims396 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P398: P110[];
-  P7: P720[];
+  P7: P719[];
+  P397: P110[];
 }
 
-interface P720 {
-  [key: string]: any;
+interface P719 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers246;
-  'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  references?: Reference2[];
+  qualifiers?: Qualifiers244;
+  'qualifiers-order'?: string[];
 }
 
-interface Reference2 {
-  [key: string]: any;
-  snaks: Snaks2;
-  'snaks-order': string[];
+interface Qualifiers244 {
+  P396: Mainsnak[];
+  P404?: Mainsnak[];
 }
 
-interface Snaks2 {
-  [key: string]: any;
-}
-
-interface Qualifiers246 {
-  [key: string]: any;
-  P392?: Mainsnak[];
-  P396?: Mainsnak[];
-}
-
-interface Q3209 {
-  [key: string]: any;
+interface Q3208 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22282,35 +22319,35 @@ interface Q3209 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims395;
   sitelinks: Aliases;
 }
 
 interface Claims395 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P719[];
-  P397: P110[];
+  P91: P915[];
+  P71: P56[];
+  P84: P84[];
 }
 
-interface P719 {
-  [key: string]: any;
+interface P84 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers: Qualifiers243;
+  'qualifiers-order': string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers245;
-  'qualifiers-order'?: string[];
 }
 
-interface Qualifiers245 {
-  [key: string]: any;
-  P404?: Mainsnak[];
+interface Qualifiers243 {
+  P306: Mainsnak2[];
 }
 
-interface Q3208 {
-  [key: string]: any;
+interface Q3207 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22325,28 +22362,31 @@ interface Q3208 {
 }
 
 interface Claims394 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P916[];
-  P71: P56[];
-  P84: P842[];
+  P90: P905[];
+  P96: P964[];
+  P7: P1[];
 }
 
-interface P842 {
-  [key: string]: any;
+interface P964 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers244;
+  qualifiers: Qualifiers242;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers244 {
-  [key: string]: any;
+interface Qualifiers242 {
+  P22: Mainsnak2[];
+  P31?: Mainsnak2[];
+  P36?: Mainsnak[];
+  P18?: P3932[];
 }
 
-interface Q3207 {
-  [key: string]: any;
+interface Q3206 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22361,31 +22401,29 @@ interface Q3207 {
 }
 
 interface Claims393 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P90[];
-  P96: P963[];
+  P391: P3919[];
+  P95: P953[];
   P7: P1[];
 }
 
-interface P963 {
-  [key: string]: any;
+interface P953 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers243;
+  qualifiers: Qualifiers241;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers243 {
-  [key: string]: any;
-  P31?: Mainsnak2[];
-  P36?: Mainsnak[];
-  P18?: P3932[];
+interface Qualifiers241 {
+  P23: Mainsnak2[];
+  P169: Mainsnak[];
 }
 
-interface Q3206 {
-  [key: string]: any;
+interface Q3202 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22400,29 +22438,15 @@ interface Q3206 {
 }
 
 interface Claims392 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3917[];
-  P95: P953[];
+  P391: P3919[];
+  P95: P3919[];
   P7: P1[];
 }
 
-interface P953 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers242;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers242 {
-  [key: string]: any;
-  P169: Mainsnak[];
-}
-
-interface Q3202 {
-  [key: string]: any;
+interface Q3197 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22437,15 +22461,15 @@ interface Q3202 {
 }
 
 interface Claims391 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3917[];
-  P95: P3917[];
+  P391: P3915[];
+  P95: P3915[];
   P7: P1[];
 }
 
-interface Q3197 {
-  [key: string]: any;
+interface Q3196 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22460,15 +22484,15 @@ interface Q3197 {
 }
 
 interface Claims390 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P391[];
-  P95: P391[];
+  P391: P3918[];
+  P95: P3918[];
   P7: P1[];
 }
 
-interface Q3196 {
-  [key: string]: any;
+interface Q3195 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22483,15 +22507,31 @@ interface Q3196 {
 }
 
 interface Claims389 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3914[];
-  P95: P3914[];
+  P391: P3919[];
+  P95: P952[];
   P7: P1[];
 }
 
-interface Q3195 {
-  [key: string]: any;
+interface P952 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers240;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers240 {
+  P36: Mainsnak[];
+  P23: Mainsnak2[];
+  P28: Mainsnak2[];
+  P18: P3932[];
+}
+
+interface Q3194 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22506,31 +22546,35 @@ interface Q3195 {
 }
 
 interface Claims388 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3917[];
-  P95: P952[];
-  P7: P1[];
+  P391: P3918[];
+  P95: P95[];
+  P105: P95[];
 }
 
-interface P952 {
-  [key: string]: any;
+interface P95 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers241;
+  qualifiers: Qualifiers239;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers241 {
-  [key: string]: any;
+interface Qualifiers239 {
+  P45: Mainsnak2[];
+  P46: Mainsnak2[];
+  P36: Mainsnak[];
   P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
   P28: Mainsnak2[];
   P18: P3932[];
 }
 
-interface Q3194 {
-  [key: string]: any;
+interface Q3191 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22545,35 +22589,32 @@ interface Q3194 {
 }
 
 interface Claims387 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3914[];
-  P95: P95[];
-  P105: P95[];
+  P391: P39113[];
+  P72: P73[];
+  P73: P56[];
 }
 
-interface P95 {
-  [key: string]: any;
+interface P39113 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers240;
+  qualifiers: Qualifiers238;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers240 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P36: Mainsnak[];
+interface Qualifiers238 {
   P23: Mainsnak2[];
-  P39: Mainsnak2[];
+  P31: Mainsnak2[];
   P32: Mainsnak2[];
   P28: Mainsnak2[];
-  P18: P3932[];
+  P440: Mainsnak2[];
 }
 
-interface Q3191 {
-  [key: string]: any;
+interface Q3190 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22588,32 +22629,34 @@ interface Q3191 {
 }
 
 interface Claims386 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39111[];
-  P72: P724[];
+  P391: P39112[];
+  P56: P73[];
+  P89: P892[];
   P73: P56[];
 }
 
-interface P39111 {
-  [key: string]: any;
+interface P39112 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers239;
+  qualifiers: Qualifiers237;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers239 {
-  [key: string]: any;
+interface Qualifiers237 {
+  P23: Mainsnak2[];
   P31: Mainsnak2[];
+  P39: Mainsnak2[];
   P32: Mainsnak2[];
   P28: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q3190 {
-  [key: string]: any;
+interface Q3187 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22628,34 +22671,15 @@ interface Q3190 {
 }
 
 interface Claims385 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P39110[];
-  P56: P724[];
+  P391: P3913[];
   P89: P892[];
   P73: P56[];
 }
 
-interface P39110 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers238;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers238 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3187 {
-  [key: string]: any;
+interface Q3184 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22670,15 +22694,29 @@ interface Q3187 {
 }
 
 interface Claims384 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3914[];
-  P89: P8915[];
-  P73: P733[];
+  P391: P39111[];
 }
 
-interface Q3184 {
-  [key: string]: any;
+interface P39111 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers236;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers236 {
+  P23: Mainsnak2[];
+  P26: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface Q3183 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22693,29 +22731,31 @@ interface Q3184 {
 }
 
 interface Claims383 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3919[];
+  P63: P300[];
+  P108: P300[];
+  P391: P39110[];
+  P56: P73[];
 }
 
-interface P3919 {
-  [key: string]: any;
+interface P39110 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers237;
+  qualifiers: Qualifiers235;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers237 {
-  [key: string]: any;
-  P26: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
+interface Qualifiers235 {
+  P23: Mainsnak2[];
+  P31: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3183 {
-  [key: string]: any;
+interface Q3179 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22730,31 +22770,28 @@ interface Q3183 {
 }
 
 interface Claims382 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
   P108: P300[];
-  P391: P3918[];
-  P56: P724[];
+  P391: P3919[];
 }
 
-interface P3918 {
-  [key: string]: any;
+interface P3919 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers236;
+  qualifiers: Qualifiers234;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers236 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers234 {
+  P23: Mainsnak2[];
 }
 
-interface Q3179 {
-  [key: string]: any;
+interface Q3178 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22769,28 +22806,14 @@ interface Q3179 {
 }
 
 interface Claims381 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P108: P300[];
-  P391: P3917[];
+  P391: P3915[];
+  P95: P3915[];
 }
 
-interface P3917 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers235;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers235 {
-  [key: string]: any;
-}
-
-interface Q3178 {
-  [key: string]: any;
+interface Q3177 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22805,14 +22828,30 @@ interface Q3178 {
 }
 
 interface Claims380 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P391[];
-  P95: P391[];
+  P391: P3918[];
+  P95: P3918[];
 }
 
-interface Q3177 {
-  [key: string]: any;
+interface P3918 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers233;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers233 {
+  P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface Q3176 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22827,51 +22866,29 @@ interface Q3177 {
 }
 
 interface Claims379 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P391: P3914[];
-  P95: P3914[];
+  P391: P3917[];
 }
 
-interface Q3176 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
+interface P3917 {
+  mainsnak: Mainsnak2;
   type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Labels;
-  aliases: Aliases;
-  claims: Claims378;
-  sitelinks: Aliases;
-}
-
-interface Claims378 {
-  [key: string]: any;
-  P2: P110[];
-  P391: P3916[];
-}
-
-interface P3916 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers234;
+  qualifiers: Qualifiers232;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers234 {
-  [key: string]: any;
+interface Qualifiers232 {
+  P23: Mainsnak2[];
   P32: Mainsnak2[];
   P28: Mainsnak2[];
   P39?: Mainsnak2[];
 }
 
 interface Q3175 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22881,18 +22898,53 @@ interface Q3175 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases2;
-  claims: Claims377;
+  claims: Claims378;
   sitelinks: Aliases;
 }
 
-interface Claims377 {
-  [key: string]: any;
+interface Claims378 {
+  P110: P110[];
   P2: P110[];
   P4: P4[];
 }
 
 interface Q3174 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Labels;
+  aliases: Aliases;
+  claims: Claims377;
+  sitelinks: Aliases;
+}
+
+interface Claims377 {
+  P110: P110[];
+  P2: P110[];
+  P58: P5816[];
+}
+
+interface P5816 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers231;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers231 {
+  P41: Mainsnak2[];
+  P7: Mainsnak2[];
+}
+
+interface Q3171 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22907,27 +22959,29 @@ interface Q3174 {
 }
 
 interface Claims376 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P58: P5817[];
+  P65: P654[];
+  P93: P94[];
 }
 
-interface P5817 {
-  [key: string]: any;
+interface P654 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers233;
+  qualifiers: Qualifiers230;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers233 {
-  [key: string]: any;
-  P7: Mainsnak2[];
+interface Qualifiers230 {
+  P294: Mainsnak2[];
+  P296: Mainsnak[];
+  P297: P297[];
 }
 
-interface Q3171 {
-  [key: string]: any;
+interface Q3141 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22942,14 +22996,14 @@ interface Q3171 {
 }
 
 interface Claims375 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P65: P65[];
-  P93: P93[];
+  P91: P9128[];
+  P310: P351[];
 }
 
-interface Q3141 {
-  [key: string]: any;
+interface Q3139 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22964,14 +23018,30 @@ interface Q3141 {
 }
 
 interface Claims374 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P310: P3103[];
+  P53: P534[];
+  P58: P5815[];
 }
 
-interface Q3139 {
-  [key: string]: any;
+interface P5815 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers229;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers229 {
+  P41: Mainsnak2[];
+  P34: Mainsnak2[];
+  P7: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3137 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -22986,30 +23056,15 @@ interface Q3139 {
 }
 
 interface Claims373 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5816[];
+  P58: P587[];
+  P59: P587[];
 }
 
-interface P5816 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers232;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers232 {
-  [key: string]: any;
-  P34: Mainsnak2[];
-  P7: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3137 {
-  [key: string]: any;
+interface Q3136 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23024,15 +23079,14 @@ interface Q3137 {
 }
 
 interface Claims372 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5815[];
-  P59: P5815[];
+  P58: P587[];
 }
 
-interface Q3136 {
-  [key: string]: any;
+interface Q3134 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23047,29 +23101,14 @@ interface Q3136 {
 }
 
 interface Claims371 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5815[];
+  P58: P5814[];
 }
 
-interface P5815 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers231;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers231 {
-  [key: string]: any;
-  P34: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3134 {
-  [key: string]: any;
+interface Q3133 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23084,14 +23123,15 @@ interface Q3134 {
 }
 
 interface Claims370 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5814[];
+  P58: P5813[];
+  P59: P582[];
 }
 
-interface Q3133 {
-  [key: string]: any;
+interface Q3132 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23106,15 +23146,44 @@ interface Q3133 {
 }
 
 interface Claims369 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5813[];
-  P59: P5810[];
+  P58: P5814[];
+  P59: P599[];
 }
 
-interface Q3132 {
-  [key: string]: any;
+interface P599 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers228;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers228 {
+  P41: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P5814 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers227;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers227 {
+  P41: Mainsnak2[];
+  P7: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3130 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23129,44 +23198,30 @@ interface Q3132 {
 }
 
 interface Claims368 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P534[];
-  P58: P5814[];
-  P59: P597[];
+  P58: P5813[];
 }
 
-interface P597 {
-  [key: string]: any;
+interface P5813 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers230;
+  qualifiers: Qualifiers226;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers230 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface P5814 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers229;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers229 {
-  [key: string]: any;
+interface Qualifiers226 {
   P7: Mainsnak2[];
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q3130 {
-  [key: string]: any;
+interface Q3126 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23174,37 +23229,21 @@ interface Q3130 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Labels;
+  descriptions: Aliases;
   aliases: Aliases;
   claims: Claims367;
   sitelinks: Aliases;
 }
 
 interface Claims367 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P534[];
-  P58: P5813[];
+  P58: P582[];
+  P59: P582[];
 }
 
-interface P5813 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers228;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers228 {
-  [key: string]: any;
-  P21: Mainsnak2[];
-  P29: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3126 {
-  [key: string]: any;
+interface Q3125 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23219,36 +23258,14 @@ interface Q3126 {
 }
 
 interface Claims366 {
-  [key: string]: any;
-  P2: P110[];
-  P58: P5810[];
-  P59: P5810[];
-}
-
-interface Q3125 {
-  [key: string]: any;
-  ns: number;
-  title: string;
-  lastrevid: number;
-  modified: string;
-  type: string;
-  id: string;
-  labels: Labels;
-  descriptions: Aliases;
-  aliases: Aliases;
-  claims: Claims365;
-  sitelinks: Aliases;
-}
-
-interface Claims365 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P7: P74[];
-  P58: P5810[];
+  P58: P582[];
 }
 
 interface Q3123 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23258,18 +23275,39 @@ interface Q3123 {
   labels: Labels;
   descriptions: Labels;
   aliases: Aliases;
-  claims: Claims364;
+  claims: Claims365;
   sitelinks: Aliases;
 }
 
-interface Claims364 {
-  [key: string]: any;
+interface Claims365 {
+  P110: P110[];
   P2: P110[];
   P60: P110[];
 }
 
 interface Q3114 {
-  [key: string]: any;
+  pageid: number;
+  ns: number;
+  title: string;
+  lastrevid: number;
+  modified: string;
+  type: string;
+  id: string;
+  labels: Labels;
+  descriptions: Aliases;
+  aliases: Aliases;
+  claims: Claims364;
+  sitelinks: Aliases;
+}
+
+interface Claims364 {
+  P110: P110[];
+  P2: P110[];
+  P7: P1[];
+}
+
+interface Q3110 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23284,13 +23322,23 @@ interface Q3114 {
 }
 
 interface Claims363 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P1[];
+  P7: P718[];
+  P398: P110[];
 }
 
-interface Q3110 {
-  [key: string]: any;
+interface P718 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers222;
+  'qualifiers-order'?: string[];
+}
+
+interface Q3108 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23305,23 +23353,24 @@ interface Q3110 {
 }
 
 interface Claims362 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P718[];
+  P7: P717[];
   P398: P110[];
+  P11: P110[];
 }
 
-interface P718 {
-  [key: string]: any;
+interface P717 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers?: Qualifiers225;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers224;
-  'qualifiers-order'?: string[];
 }
 
-interface Q3108 {
-  [key: string]: any;
+interface Q3104 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23336,24 +23385,14 @@ interface Q3108 {
 }
 
 interface Claims361 {
-  [key: string]: any;
   P2: P110[];
-  P7: P717[];
-  P398: P110[];
-  P11: P110[];
+  P63: P9129[];
+  P72: P723[];
+  P110: P110[];
 }
 
-interface P717 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers227;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Q3104 {
-  [key: string]: any;
+interface Q3103 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23368,14 +23407,29 @@ interface Q3104 {
 }
 
 interface Claims360 {
-  [key: string]: any;
-  P63: P9134[];
-  P72: P725[];
   P110: P110[];
+  P2: P110[];
+  P7: P716[];
+  P398: P110[];
+  P11: P110[];
 }
 
-interface Q3103 {
-  [key: string]: any;
+interface P716 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  qualifiers?: Qualifiers225;
+  'qualifiers-order'?: string[];
+  references?: Reference[];
+}
+
+interface Qualifiers225 {
+  P392: P3932[];
+}
+
+interface Q3102 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23390,29 +23444,24 @@ interface Q3103 {
 }
 
 interface Claims359 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P716[];
-  P398: P110[];
-  P11: P110[];
+  P7: P715[];
+  P397: P110[];
 }
 
-interface P716 {
-  [key: string]: any;
+interface P715 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers?: Qualifiers224;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers227;
-  'qualifiers-order'?: string[];
   references?: Reference[];
 }
 
-interface Qualifiers227 {
-  [key: string]: any;
-}
-
-interface Q3102 {
-  [key: string]: any;
+interface Q3101 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23427,24 +23476,30 @@ interface Q3102 {
 }
 
 interface Claims358 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P715[];
+  P7: P714[];
   P397: P110[];
 }
 
-interface P715 {
-  [key: string]: any;
+interface P714 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers226;
+  qualifiers?: Qualifiers224;
   'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  references?: Reference[];
 }
 
-interface Q3101 {
-  [key: string]: any;
+interface Qualifiers224 {
+  P389?: Mainsnak[];
+  P392?: P3932[];
+  P11?: Mainsnak[];
+  P396?: Mainsnak[];
+}
+
+interface Q3100 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23459,30 +23514,28 @@ interface Q3101 {
 }
 
 interface Claims357 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P714[];
-  P397: P110[];
+  P7: P711[];
+  P398: P110[];
 }
 
-interface P714 {
-  [key: string]: any;
+interface P711 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers?: Qualifiers226;
-  'qualifiers-order'?: string[];
   id: string;
   rank: string;
+  qualifiers?: Qualifiers223;
+  'qualifiers-order'?: string[];
 }
 
-interface Qualifiers226 {
-  [key: string]: any;
-  P392?: P3932[];
+interface Qualifiers223 {
+  P392: P3932[];
   P11?: Mainsnak[];
-  P396?: Mainsnak[];
 }
 
-interface Q3100 {
-  [key: string]: any;
+interface Q3099 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23497,28 +23550,27 @@ interface Q3100 {
 }
 
 interface Claims356 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P711[];
+  P7: P710[];
   P398: P110[];
 }
 
-interface P711 {
-  [key: string]: any;
+interface P710 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers: Qualifiers222;
+  'qualifiers-order': string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers225;
-  'qualifiers-order'?: string[];
 }
 
-interface Qualifiers225 {
-  [key: string]: any;
-  P11?: Mainsnak[];
+interface Qualifiers222 {
+  P11: Mainsnak[];
 }
 
-interface Q3099 {
-  [key: string]: any;
+interface Q3098 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23533,27 +23585,23 @@ interface Q3099 {
 }
 
 interface Claims355 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P710[];
+  P7: P79[];
   P398: P110[];
 }
 
-interface P710 {
-  [key: string]: any;
+interface P79 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers224;
-  'qualifiers-order': string[];
   id: string;
   rank: string;
+  qualifiers?: Qualifiers220;
+  'qualifiers-order'?: string[];
 }
 
-interface Qualifiers224 {
-  [key: string]: any;
-}
-
-interface Q3098 {
-  [key: string]: any;
+interface Q3097 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23568,23 +23616,30 @@ interface Q3098 {
 }
 
 interface Claims354 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P79[];
+  P7: P78[];
   P398: P110[];
 }
 
-interface P79 {
-  [key: string]: any;
+interface P78 {
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
-  qualifiers?: Qualifiers222;
+  qualifiers?: Qualifiers221;
   'qualifiers-order'?: string[];
+  references?: Reference[];
 }
 
-interface Q3097 {
-  [key: string]: any;
+interface Qualifiers221 {
+  P389?: Mainsnak[];
+  P394?: Mainsnak2[];
+  P11?: Mainsnak[];
+}
+
+interface Q3096 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23599,30 +23654,31 @@ interface Q3097 {
 }
 
 interface Claims353 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P78[];
-  P398: P110[];
+  P7: P77[];
+  P397: P110[];
 }
 
-interface P78 {
-  [key: string]: any;
+interface P77 {
+  mainsnak: Mainsnak3;
   type: string;
   id: string;
   rank: string;
-  qualifiers?: Qualifiers223;
+  qualifiers?: Qualifiers220;
   'qualifiers-order'?: string[];
-  references?: Reference[];
 }
 
-interface Qualifiers223 {
-  [key: string]: any;
-  P394?: Mainsnak2[];
-  P11?: Mainsnak[];
+interface Mainsnak3 {
+  snaktype: string;
+  property: string;
+  hash: string;
+  datavalue?: Datavalue2;
+  datatype: string;
 }
 
-interface Q3096 {
-  [key: string]: any;
+interface Q3094 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23637,31 +23693,30 @@ interface Q3096 {
 }
 
 interface Claims352 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P7: P77[];
+  P7: P76[];
   P397: P110[];
 }
 
-interface P77 {
-  [key: string]: any;
+interface P76 {
+  mainsnak: Mainsnak2;
   type: string;
+  qualifiers?: Qualifiers220;
+  'qualifiers-order'?: string[];
   id: string;
   rank: string;
-  qualifiers?: Qualifiers222;
-  'qualifiers-order'?: string[];
+  references?: Reference[];
 }
 
-interface Mainsnak3 {
-  [key: string]: any;
-  property: string;
-  hash: string;
-  datavalue?: Datavalue2;
-  datatype: string;
+interface Qualifiers220 {
+  P389?: Mainsnak[];
+  P392?: P3932[];
+  P11?: Mainsnak[];
 }
 
-interface Q3094 {
-  [key: string]: any;
+interface Q3093 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23669,37 +23724,22 @@ interface Q3094 {
   type: string;
   id: string;
   labels: Labels;
-  descriptions: Aliases;
+  descriptions: Labels;
   aliases: Aliases;
   claims: Claims351;
   sitelinks: Aliases;
 }
 
 interface Claims351 {
-  [key: string]: any;
+  P53: P534[];
+  P94: P934[];
+  P358: P358[];
+  P110: P110[];
   P2: P110[];
-  P7: P76[];
-  P397: P110[];
 }
 
-interface P76 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers222;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-  references?: Reference[];
-}
-
-interface Qualifiers222 {
-  [key: string]: any;
-  P392?: P3932[];
-  P11?: Mainsnak[];
-}
-
-interface Q3093 {
-  [key: string]: any;
+interface Q3092 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23714,15 +23754,15 @@ interface Q3093 {
 }
 
 interface Claims350 {
-  [key: string]: any;
-  P94: P932[];
-  P358: P358[];
+  P53: P534[];
+  P391: P1[];
+  P358: P1[];
   P110: P110[];
   P2: P110[];
 }
 
-interface Q3092 {
-  [key: string]: any;
+interface Q3091 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23737,15 +23777,30 @@ interface Q3092 {
 }
 
 interface Claims349 {
-  [key: string]: any;
-  P391: P1[];
-  P358: P1[];
+  P53: P534[];
+  P358: P3585[];
+  P90: P908[];
   P110: P110[];
   P2: P110[];
 }
 
-interface Q3091 {
-  [key: string]: any;
+interface P3585 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers219;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers219 {
+  P24: Mainsnak2[];
+  P356: Mainsnak2[];
+  P30: Mainsnak2[];
+}
+
+interface Q3090 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23760,30 +23815,29 @@ interface Q3091 {
 }
 
 interface Claims348 {
-  [key: string]: any;
-  P358: P3585[];
-  P90: P902[];
+  P53: P534[];
+  P58: P589[];
+  P358: P3584[];
   P110: P110[];
   P2: P110[];
 }
 
-interface P3585 {
-  [key: string]: any;
+interface P3584 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers221;
+  qualifiers: Qualifiers218;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers221 {
-  [key: string]: any;
+interface Qualifiers218 {
+  P24: Mainsnak2[];
   P356: Mainsnak2[];
-  P30: Mainsnak2[];
 }
 
-interface Q3090 {
-  [key: string]: any;
+interface Q3089 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23798,29 +23852,29 @@ interface Q3090 {
 }
 
 interface Claims347 {
-  [key: string]: any;
-  P58: P582[];
-  P358: P3584[];
+  P53: P534[];
+  P58: P589[];
+  P358: P3583[];
   P110: P110[];
   P2: P110[];
 }
 
-interface P3584 {
-  [key: string]: any;
+interface P3583 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers220;
+  qualifiers: Qualifiers217;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers220 {
-  [key: string]: any;
-  P356: Mainsnak2[];
+interface Qualifiers217 {
+  P24: Mainsnak2[];
+  P357: Mainsnak2[];
 }
 
-interface Q3089 {
-  [key: string]: any;
+interface Q3088 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23835,29 +23889,31 @@ interface Q3089 {
 }
 
 interface Claims346 {
-  [key: string]: any;
-  P58: P582[];
-  P358: P3583[];
+  P53: P534[];
+  P58: P589[];
+  P358: P3582[];
   P110: P110[];
   P2: P110[];
 }
 
-interface P3583 {
-  [key: string]: any;
+interface P3582 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers219;
+  qualifiers: Qualifiers216;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers219 {
-  [key: string]: any;
-  P357: Mainsnak2[];
+interface Qualifiers216 {
+  P24: Mainsnak2[];
+  P356?: Mainsnak2[];
+  P30: Mainsnak2[];
+  P150?: Mainsnak2[];
 }
 
-interface Q3088 {
-  [key: string]: any;
+interface Q3085 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23872,31 +23928,29 @@ interface Q3088 {
 }
 
 interface Claims345 {
-  [key: string]: any;
-  P58: P582[];
-  P358: P3582[];
+  P53: P534[];
+  P58: P589[];
+  P358: P358[];
   P110: P110[];
   P2: P110[];
 }
 
-interface P3582 {
-  [key: string]: any;
+interface P358 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers218;
+  qualifiers: Qualifiers215;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers218 {
-  [key: string]: any;
-  P356?: Mainsnak2[];
+interface Qualifiers215 {
+  P24: Mainsnak2[];
   P30: Mainsnak2[];
-  P150?: Mainsnak2[];
 }
 
-interface Q3085 {
-  [key: string]: any;
+interface Q3084 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23911,29 +23965,15 @@ interface Q3085 {
 }
 
 interface Claims344 {
-  [key: string]: any;
-  P58: P582[];
-  P358: P358[];
-  P110: P110[];
+  P53: P534[];
+  P90: P908[];
+  P81: P812[];
   P2: P110[];
+  P110: P110[];
 }
 
-interface P358 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers217;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers217 {
-  [key: string]: any;
-  P30: Mainsnak2[];
-}
-
-interface Q3084 {
-  [key: string]: any;
+interface Q3083 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23948,15 +23988,31 @@ interface Q3084 {
 }
 
 interface Claims343 {
-  [key: string]: any;
-  P90: P902[];
+  P53: P534[];
+  P108: P300[];
+  P90: P908[];
   P81: P812[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3083 {
-  [key: string]: any;
+interface P908 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers214;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers214 {
+  P22: Mainsnak2[];
+  P31: Mainsnak2[];
+}
+
+interface Q3082 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23971,17 +24027,17 @@ interface Q3083 {
 }
 
 interface Claims342 {
-  [key: string]: any;
+  P53: P534[];
   P108: P300[];
-  P90: P902[];
+  P58: P589[];
   P81: P812[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3082 {
-  [key: string]: any;
+interface Q3081 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -23996,17 +24052,15 @@ interface Q3082 {
 }
 
 interface Claims341 {
-  [key: string]: any;
-  P108: P300[];
-  P58: P582[];
-  P81: P812[];
-  P7: P1[];
+  P53: P534[];
+  P94: P94[];
+  P81: P81[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3081 {
-  [key: string]: any;
+interface Q3079 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24021,15 +24075,16 @@ interface Q3081 {
 }
 
 interface Claims340 {
-  [key: string]: any;
-  P94: P93[];
-  P81: P81[];
+  P53: P532[];
+  P91: P915[];
+  P55: P56[];
+  P81: P815[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3079 {
-  [key: string]: any;
+interface Q3078 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24044,16 +24099,16 @@ interface Q3079 {
 }
 
 interface Claims339 {
-  [key: string]: any;
-  P91: P916[];
+  P53: P532[];
+  P91: P91[];
   P55: P56[];
   P81: P815[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3078 {
-  [key: string]: any;
+interface Q3077 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24068,32 +24123,31 @@ interface Q3078 {
 }
 
 interface Claims338 {
-  [key: string]: any;
-  P91: P914[];
-  P55: P56[];
+  P53: P534[];
+  P93: P93[];
+  P99: P93[];
+  P72: P56[];
   P81: P815[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P535 {
-  [key: string]: any;
+interface P815 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers216;
+  qualifiers: Qualifiers213;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers216 {
-  [key: string]: any;
-  P61: Mainsnak[];
-  P62: Mainsnak[];
+interface Qualifiers213 {
+  P304: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q3077 {
-  [key: string]: any;
+interface Q3076 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24108,31 +24162,15 @@ interface Q3077 {
 }
 
 interface Claims337 {
-  [key: string]: any;
-  P93: P936[];
-  P99: P936[];
-  P72: P56[];
-  P81: P815[];
+  P53: P534[];
+  P93: P934[];
+  P81: P81[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P815 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers215;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers215 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q3076 {
-  [key: string]: any;
+interface Q3075 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24147,15 +24185,32 @@ interface Q3076 {
 }
 
 interface Claims336 {
-  [key: string]: any;
-  P93: P932[];
-  P81: P81[];
+  P53: P534[];
+  P93: P93[];
+  P72: P56[];
+  P81: P814[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3075 {
-  [key: string]: any;
+interface P814 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers212;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers212 {
+  P304: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P82?: Mainsnak2[];
+  P57?: Mainsnak2[];
+}
+
+interface Q3074 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24170,32 +24225,15 @@ interface Q3075 {
 }
 
 interface Claims335 {
-  [key: string]: any;
-  P93: P936[];
-  P72: P56[];
-  P81: P814[];
+  P53: P534[];
+  P93: P94[];
+  P81: P81[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P814 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers214;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers214 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-  P82?: Mainsnak2[];
-  P57?: Mainsnak2[];
-}
-
-interface Q3074 {
-  [key: string]: any;
+interface Q3073 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24210,15 +24248,29 @@ interface Q3074 {
 }
 
 interface Claims334 {
-  [key: string]: any;
-  P93: P93[];
-  P81: P81[];
+  P53: P534[];
+  P391: P3916[];
+  P81: P812[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3073 {
-  [key: string]: any;
+interface P3916 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers211;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers211 {
+  P23: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface Q3072 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24233,15 +24285,15 @@ interface Q3073 {
 }
 
 interface Claims333 {
-  [key: string]: any;
-  P391: P3913[];
+  P53: P534[];
+  P90: P905[];
   P81: P812[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3072 {
-  [key: string]: any;
+interface Q3070 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24256,15 +24308,30 @@ interface Q3072 {
 }
 
 interface Claims332 {
-  [key: string]: any;
-  P90: P90[];
-  P81: P812[];
+  P53: P534[];
+  P58: P589[];
+  P81: P813[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3070 {
-  [key: string]: any;
+interface P813 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers210;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers210 {
+  P304: Mainsnak2[];
+  P82?: Mainsnak2[];
+  P57?: Mainsnak2[];
+}
+
+interface Q3069 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24279,30 +24346,30 @@ interface Q3070 {
 }
 
 interface Claims331 {
-  [key: string]: any;
-  P58: P582[];
-  P81: P813[];
+  P53: P534[];
+  P58: P589[];
+  P81: P812[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P813 {
-  [key: string]: any;
+interface P812 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers213;
+  qualifiers: Qualifiers209;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers213 {
-  [key: string]: any;
-  P82?: Mainsnak2[];
-  P57?: Mainsnak2[];
+interface Qualifiers209 {
+  P304: Mainsnak2[];
+  P82: Mainsnak2[];
+  P57: Mainsnak2[];
 }
 
-interface Q3069 {
-  [key: string]: any;
+interface Q3067 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24317,30 +24384,28 @@ interface Q3069 {
 }
 
 interface Claims330 {
-  [key: string]: any;
-  P58: P582[];
-  P81: P812[];
+  P53: P534[];
+  P58: P589[];
+  P81: P81[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P812 {
-  [key: string]: any;
+interface P81 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers212;
+  qualifiers: Qualifiers208;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers212 {
-  [key: string]: any;
-  P82: Mainsnak2[];
-  P57: Mainsnak2[];
+interface Qualifiers208 {
+  P304: Mainsnak2[];
 }
 
-interface Q3067 {
-  [key: string]: any;
+interface Q3066 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24355,28 +24420,43 @@ interface Q3067 {
 }
 
 interface Claims329 {
-  [key: string]: any;
-  P58: P582[];
-  P81: P81[];
+  P91: P9133[];
+  P80: P805[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P81 {
-  [key: string]: any;
+interface P805 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers211;
+  qualifiers: Qualifiers207;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers211 {
-  [key: string]: any;
+interface Qualifiers207 {
+  P305: Mainsnak2[];
+  P18: P3932[];
 }
 
-interface Q3066 {
-  [key: string]: any;
+interface P9133 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers206;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers206 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P43: Mainsnak2[];
+}
+
+interface Q3065 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24391,28 +24471,14 @@ interface Q3066 {
 }
 
 interface Claims328 {
-  [key: string]: any;
-  P80: P804[];
+  P91: P9128[];
+  P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P804 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers210;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers210 {
-  [key: string]: any;
-  P18: P3932[];
-}
-
-interface Q3065 {
-  [key: string]: any;
+interface Q3063 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24427,14 +24493,15 @@ interface Q3065 {
 }
 
 interface Claims327 {
-  [key: string]: any;
-  P80: P802[];
+  P90: P90[];
+  P56: P56[];
+  P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3063 {
-  [key: string]: any;
+interface Q3062 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24449,15 +24516,28 @@ interface Q3063 {
 }
 
 interface Claims326 {
-  [key: string]: any;
-  P56: P56[];
-  P80: P802[];
+  P90: P907[];
+  P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3062 {
-  [key: string]: any;
+interface P907 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers205;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers205 {
+  P90: Mainsnak2[];
+  P31: Mainsnak2[];
+}
+
+interface Q3061 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24472,28 +24552,42 @@ interface Q3062 {
 }
 
 interface Claims325 {
-  [key: string]: any;
-  P80: P802[];
+  P90: P906[];
+  P80: P804[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P907 {
-  [key: string]: any;
+interface P804 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers209;
+  qualifiers: Qualifiers204;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers209 {
-  [key: string]: any;
-  P31: Mainsnak2[];
+interface Qualifiers204 {
+  P80: Mainsnak2[];
+  P18: P3932[];
 }
 
-interface Q3061 {
-  [key: string]: any;
+interface P906 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers203;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers203 {
+  P90: Mainsnak2[];
+  P25: Mainsnak2[];
+}
+
+interface Q3060 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24508,28 +24602,14 @@ interface Q3061 {
 }
 
 interface Claims324 {
-  [key: string]: any;
+  P90: P905[];
   P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P803 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers208;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers208 {
-  [key: string]: any;
-  P18: P3932[];
-}
-
-interface Q3060 {
-  [key: string]: any;
+interface Q3059 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24544,14 +24624,15 @@ interface Q3060 {
 }
 
 interface Claims323 {
-  [key: string]: any;
-  P80: P802[];
+  P58: P589[];
+  P80: P803[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3059 {
-  [key: string]: any;
+interface Q3056 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24566,15 +24647,14 @@ interface Q3059 {
 }
 
 interface Claims322 {
-  [key: string]: any;
-  P80: P802[];
-  P7: P1[];
+  P58: P589[];
+  P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3056 {
-  [key: string]: any;
+interface Q3055 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24589,14 +24669,27 @@ interface Q3056 {
 }
 
 interface Claims321 {
-  [key: string]: any;
-  P80: P802[];
+  P58: P5811[];
+  P80: P803[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3055 {
-  [key: string]: any;
+interface P803 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers202;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers202 {
+  P305: Mainsnak2[];
+}
+
+interface Q3053 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24611,14 +24704,15 @@ interface Q3055 {
 }
 
 interface Claims320 {
-  [key: string]: any;
-  P80: P802[];
+  P53: P534[];
+  P94: P932[];
+  P73: P73[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3053 {
-  [key: string]: any;
+interface Q3051 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24633,15 +24727,16 @@ interface Q3053 {
 }
 
 interface Claims319 {
-  [key: string]: any;
-  P94: P934[];
-  P73: P724[];
+  P53: P534[];
+  P94: P94[];
+  P73: P734[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3051 {
-  [key: string]: any;
+interface Q3050 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24656,16 +24751,31 @@ interface Q3051 {
 }
 
 interface Claims318 {
-  [key: string]: any;
-  P94: P93[];
-  P73: P733[];
+  P53: P534[];
+  P391: P3915[];
+  P73: P734[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3050 {
-  [key: string]: any;
+interface P3915 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers201;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers201 {
+  P23: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+}
+
+interface Q3049 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24680,16 +24790,16 @@ interface Q3050 {
 }
 
 interface Claims317 {
-  [key: string]: any;
-  P391: P391[];
-  P73: P733[];
+  P53: P534[];
+  P58: P589[];
+  P73: P734[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3049 {
-  [key: string]: any;
+interface Q3048 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24704,16 +24814,31 @@ interface Q3049 {
 }
 
 interface Claims316 {
-  [key: string]: any;
-  P58: P582[];
-  P73: P733[];
+  P53: P534[];
+  P58: P5812[];
+  P73: P734[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3048 {
-  [key: string]: any;
+interface P5812 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers200;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers200 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P27: Mainsnak2[];
+}
+
+interface Q3047 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24728,16 +24853,16 @@ interface Q3048 {
 }
 
 interface Claims315 {
-  [key: string]: any;
-  P58: P583[];
-  P73: P733[];
-  P7: P1[];
+  P53: P534[];
+  P90: P90[];
+  P73: P722[];
   P2: P110[];
+  P7: P1[];
   P110: P110[];
 }
 
-interface Q3047 {
-  [key: string]: any;
+interface Q3046 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24752,16 +24877,16 @@ interface Q3047 {
 }
 
 interface Claims314 {
-  [key: string]: any;
-  P90: P905[];
-  P73: P722[];
+  P53: P534[];
+  P90: P90[];
+  P73: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3046 {
-  [key: string]: any;
+interface Q3045 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24776,16 +24901,32 @@ interface Q3046 {
 }
 
 interface Claims313 {
-  [key: string]: any;
-  P90: P905[];
-  P73: P56[];
+  P53: P534[];
+  P94: P94[];
+  P73: P736[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3045 {
-  [key: string]: any;
+interface P736 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers199;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers199 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P403: Mainsnak2[];
+}
+
+interface Q3044 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24800,32 +24941,18 @@ interface Q3045 {
 }
 
 interface Claims312 {
-  [key: string]: any;
-  P94: P93[];
-  P73: P734[];
+  P53: P534[];
+  P90: P90[];
+  P55: P56[];
+  P72: P56[];
+  P73: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P734 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers207;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers207 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P403: Mainsnak2[];
-}
-
-interface Q3044 {
-  [key: string]: any;
+interface Q3043 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24840,18 +24967,29 @@ interface Q3044 {
 }
 
 interface Claims311 {
-  [key: string]: any;
+  P53: P534[];
   P90: P905[];
-  P55: P56[];
-  P72: P56[];
   P73: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3043 {
-  [key: string]: any;
+interface P905 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers198;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers198 {
+  P22: Mainsnak2[];
+}
+
+interface Q3042 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24866,16 +25004,30 @@ interface Q3043 {
 }
 
 interface Claims310 {
-  [key: string]: any;
-  P90: P90[];
-  P73: P56[];
+  P53: P534[];
+  P90: P904[];
+  P73: P734[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3042 {
-  [key: string]: any;
+interface P904 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers197;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers197 {
+  P22: Mainsnak2[];
+  P25: Mainsnak2[];
+}
+
+interface Q3041 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24890,16 +25042,16 @@ interface Q3042 {
 }
 
 interface Claims309 {
-  [key: string]: any;
-  P90: P104[];
-  P73: P733[];
+  P53: P534[];
+  P94: P932[];
+  P72: P73[];
+  P73: P73[];
   P2: P110[];
-  P7: P1[];
   P110: P110[];
 }
 
-interface Q3041 {
-  [key: string]: any;
+interface Q3040 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24914,16 +25066,31 @@ interface Q3041 {
 }
 
 interface Claims308 {
-  [key: string]: any;
-  P94: P934[];
-  P72: P724[];
-  P73: P724[];
+  P53: P534[];
+  P72: P73[];
+  P391: P3914[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3040 {
-  [key: string]: any;
+interface P3914 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers196;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers196 {
+  P23: Mainsnak2[];
+  P31: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3039 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24938,31 +25105,16 @@ interface Q3040 {
 }
 
 interface Claims307 {
-  [key: string]: any;
-  P72: P724[];
-  P391: P3915[];
+  P53: P534[];
+  P58: P582[];
+  P72: P56[];
   P2: P110[];
+  P7: P1[];
   P110: P110[];
 }
 
-interface P3915 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers206;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers206 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q3039 {
-  [key: string]: any;
+interface Q3037 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -24977,16 +25129,16 @@ interface Q3039 {
 }
 
 interface Claims306 {
-  [key: string]: any;
-  P58: P5810[];
+  P53: P534[];
+  P93: P932[];
   P72: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3037 {
-  [key: string]: any;
+interface Q3036 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25001,16 +25153,17 @@ interface Q3037 {
 }
 
 interface Claims305 {
-  [key: string]: any;
-  P93: P934[];
+  P53: P534[];
+  P91: P9131[];
+  P55: P56[];
   P72: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3036 {
-  [key: string]: any;
+interface Q3034 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25025,8 +25178,8 @@ interface Q3036 {
 }
 
 interface Claims304 {
-  [key: string]: any;
-  P91: P9135[];
+  P53: P534[];
+  P91: P91[];
   P55: P56[];
   P72: P56[];
   P2: P110[];
@@ -25034,8 +25187,8 @@ interface Claims304 {
   P110: P110[];
 }
 
-interface Q3034 {
-  [key: string]: any;
+interface Q3033 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25050,17 +25203,16 @@ interface Q3034 {
 }
 
 interface Claims303 {
-  [key: string]: any;
-  P91: P914[];
-  P55: P56[];
-  P72: P56[];
+  P53: P534[];
+  P91: P91[];
+  P72: P722[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3033 {
-  [key: string]: any;
+interface Q3032 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25075,16 +25227,16 @@ interface Q3033 {
 }
 
 interface Claims302 {
-  [key: string]: any;
-  P91: P914[];
-  P72: P722[];
+  P53: P534[];
+  P94: P932[];
+  P72: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q3032 {
-  [key: string]: any;
+interface Q303 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25099,16 +25251,11 @@ interface Q3032 {
 }
 
 interface Claims301 {
-  [key: string]: any;
-  P94: P934[];
-  P72: P56[];
-  P2: P110[];
-  P7: P1[];
   P110: P110[];
 }
 
-interface Q303 {
-  [key: string]: any;
+interface Q3029 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25123,11 +25270,31 @@ interface Q303 {
 }
 
 interface Claims300 {
-  [key: string]: any;
+  P53: P534[];
+  P58: P582[];
+  P72: P724[];
+  P2: P110[];
+  P7: P1[];
+  P110: P110[];
 }
 
-interface Q3029 {
-  [key: string]: any;
+interface P724 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers195;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers195 {
+  P20: Mainsnak2[];
+  P169: Mainsnak[];
+  P440?: Mainsnak2[];
+}
+
+interface Q3027 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25142,31 +25309,31 @@ interface Q3029 {
 }
 
 interface Claims299 {
-  [key: string]: any;
-  P58: P5810[];
-  P72: P726[];
+  P53: P534[];
+  P58: P582[];
+  P72: P723[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P726 {
-  [key: string]: any;
+interface P723 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers205;
+  qualifiers: Qualifiers194;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers205 {
-  [key: string]: any;
+interface Qualifiers194 {
+  P20: Mainsnak2[];
   P169: Mainsnak[];
-  P440?: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3027 {
-  [key: string]: any;
+interface Q3026 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25181,31 +25348,16 @@ interface Q3027 {
 }
 
 interface Claims298 {
-  [key: string]: any;
-  P58: P5810[];
-  P72: P725[];
+  P53: P534[];
+  P93: P93[];
+  P72: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P725 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers204;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers204 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q3026 {
-  [key: string]: any;
+interface Q3025 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25220,16 +25372,14 @@ interface Q3026 {
 }
 
 interface Claims297 {
-  [key: string]: any;
-  P93: P936[];
-  P72: P56[];
+  P89: P89[];
+  P391: P391[];
   P2: P110[];
-  P7: P1[];
   P110: P110[];
 }
 
-interface Q3025 {
-  [key: string]: any;
+interface Q3024 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25244,14 +25394,16 @@ interface Q3025 {
 }
 
 interface Claims296 {
-  [key: string]: any;
-  P391: P391[];
+  P91: P91[];
+  P55: P56[];
+  P89: P892[];
+  P85: P85[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3024 {
-  [key: string]: any;
+interface Q3023 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25266,16 +25418,15 @@ interface Q3024 {
 }
 
 interface Claims295 {
-  [key: string]: any;
   P55: P56[];
-  P89: P892[];
-  P85: P85[];
+  P89: P89[];
+  P91: P914[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3023 {
-  [key: string]: any;
+interface Q3022 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25290,30 +25441,15 @@ interface Q3023 {
 }
 
 interface Claims294 {
-  [key: string]: any;
-  P89: P89[];
-  P91: P9137[];
+  P91: P91[];
+  P89: P896[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9137 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers203;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers203 {
-  [key: string]: any;
-  P38: Mainsnak2[];
-  P42: Mainsnak2[];
-}
-
-interface Q3022 {
-  [key: string]: any;
+interface Q3021 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25328,30 +25464,15 @@ interface Q3022 {
 }
 
 interface Claims293 {
-  [key: string]: any;
-  P89: P8919[];
+  P91: P9132[];
+  P89: P89[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8919 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers202;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers202 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47?: Mainsnak2[];
-}
-
-interface Q3021 {
-  [key: string]: any;
+interface Q3020 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25366,15 +25487,32 @@ interface Q3021 {
 }
 
 interface Claims292 {
-  [key: string]: any;
+  P91: P9132[];
+  P55: P56[];
   P89: P8910[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3020 {
-  [key: string]: any;
+interface P9132 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers193;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers193 {
+  P91: Mainsnak2[];
+  P31: Mainsnak2[];
+  P38: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3019 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25389,46 +25527,15 @@ interface Q3020 {
 }
 
 interface Claims291 {
-  [key: string]: any;
-  P55: P56[];
-  P89: P8918[];
-  P7: P1[];
+  P91: P91[];
+  P56: P56[];
+  P89: P892[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8918 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers201;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers201 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface P9136 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers200;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers200 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P38: Mainsnak2[];
-}
-
-interface Q3019 {
-  [key: string]: any;
+interface Q3018 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25443,15 +25550,15 @@ interface Q3019 {
 }
 
 interface Claims290 {
-  [key: string]: any;
-  P56: P56[];
+  P91: P91[];
+  P55: P56[];
   P89: P892[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3018 {
-  [key: string]: any;
+interface Q3017 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25466,15 +25573,14 @@ interface Q3018 {
 }
 
 interface Claims289 {
-  [key: string]: any;
-  P55: P56[];
-  P89: P892[];
+  P91: P91[];
+  P89: P89[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3017 {
-  [key: string]: any;
+interface Q3016 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25489,14 +25595,14 @@ interface Q3017 {
 }
 
 interface Claims288 {
-  [key: string]: any;
-  P89: P8910[];
+  P89: P893[];
+  P91: P91[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3016 {
-  [key: string]: any;
+interface Q3015 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25511,14 +25617,31 @@ interface Q3016 {
 }
 
 interface Claims287 {
-  [key: string]: any;
-  P91: P91[];
+  P89: P892[];
+  P391: P3913[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3015 {
-  [key: string]: any;
+interface P3913 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers192;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers192 {
+  P23: Mainsnak2[];
+  P39: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3014 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25533,30 +25656,14 @@ interface Q3015 {
 }
 
 interface Claims286 {
-  [key: string]: any;
-  P391: P3914[];
+  P90: P902[];
+  P89: P8910[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P3914 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers199;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers199 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-}
-
-interface Q3014 {
-  [key: string]: any;
+interface Q3013 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25571,14 +25678,14 @@ interface Q3014 {
 }
 
 interface Claims285 {
-  [key: string]: any;
-  P89: P8913[];
+  P89: P892[];
+  P391: P391[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3013 {
-  [key: string]: any;
+interface Q3012 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25593,14 +25700,31 @@ interface Q3013 {
 }
 
 interface Claims284 {
-  [key: string]: any;
-  P391: P391[];
+  P89: P893[];
+  P85: P85[];
+  P391: P3912[];
   P2: P110[];
   P110: P110[];
+  P7: P7[];
 }
 
-interface Q3012 {
-  [key: string]: any;
+interface P3912 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers191;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers191 {
+  P23: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3011 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25615,30 +25739,15 @@ interface Q3012 {
 }
 
 interface Claims283 {
-  [key: string]: any;
-  P85: P1[];
-  P391: P3913[];
+  P90: P90[];
+  P89: P895[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
-  P7: P7[];
 }
 
-interface P3913 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers198;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers198 {
-  [key: string]: any;
-  P28: Mainsnak2[];
-}
-
-interface Q3011 {
-  [key: string]: any;
+interface Q3010 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25653,15 +25762,28 @@ interface Q3011 {
 }
 
 interface Claims282 {
-  [key: string]: any;
-  P89: P8911[];
-  P7: P1[];
+  P90: P903[];
+  P89: P895[];
+  P85: P853[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3010 {
-  [key: string]: any;
+interface P853 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers190;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers190 {
+  P82: Mainsnak2[];
+}
+
+interface Q3009 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25676,15 +25798,14 @@ interface Q3010 {
 }
 
 interface Claims281 {
-  [key: string]: any;
-  P89: P8911[];
-  P85: P852[];
+  P90: P903[];
+  P89: P895[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3009 {
-  [key: string]: any;
+interface Q3008 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25699,14 +25820,14 @@ interface Q3009 {
 }
 
 interface Claims280 {
-  [key: string]: any;
-  P89: P8911[];
+  P90: P90[];
+  P89: P89[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3008 {
-  [key: string]: any;
+interface Q3007 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25721,14 +25842,29 @@ interface Q3008 {
 }
 
 interface Claims279 {
-  [key: string]: any;
-  P89: P8910[];
+  P90: P903[];
+  P89: P898[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3007 {
-  [key: string]: any;
+interface P903 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers189;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers189 {
+  P90: Mainsnak2[];
+  P25: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q3006 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25743,28 +25879,31 @@ interface Q3007 {
 }
 
 interface Claims278 {
-  [key: string]: any;
-  P89: P899[];
+  P90: P90[];
+  P89: P8913[];
+  P85: P85[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P906 {
-  [key: string]: any;
+interface P8913 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers197;
+  qualifiers: Qualifiers188;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers197 {
-  [key: string]: any;
-  P25: Mainsnak2[];
+interface Qualifiers188 {
+  P405: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3006 {
-  [key: string]: any;
+interface Q3005 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25779,30 +25918,15 @@ interface Q3006 {
 }
 
 interface Claims277 {
-  [key: string]: any;
-  P89: P8917[];
-  P85: P852[];
+  P90: P90[];
+  P89: P893[];
+  P7: P74[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8917 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers196;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers196 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-}
-
-interface Q3005 {
-  [key: string]: any;
+interface Q3004 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25817,15 +25941,45 @@ interface Q3005 {
 }
 
 interface Claims276 {
-  [key: string]: any;
-  P89: P898[];
-  P7: P74[];
+  P58: P58[];
+  P89: P8912[];
+  P80: P802[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q3004 {
-  [key: string]: any;
+interface P802 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers187;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers187 {
+  P305: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P8912 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers186;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers186 {
+  P405: Mainsnak2[];
+  P406?: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q3003 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25840,43 +25994,29 @@ interface Q3004 {
 }
 
 interface Claims275 {
-  [key: string]: any;
-  P89: P8916[];
-  P80: P802[];
+  P58: P582[];
+  P89: P892[];
+  P85: P852[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P802 {
-  [key: string]: any;
+interface P852 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers195;
+  qualifiers: Qualifiers185;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers195 {
-  [key: string]: any;
+interface Qualifiers185 {
+  P307: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface P8916 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers194;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers194 {
-  [key: string]: any;
-  P406?: Mainsnak2[];
-  P169: Mainsnak[];
-}
-
-interface Q3003 {
-  [key: string]: any;
+interface Q3002 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25891,29 +26031,30 @@ interface Q3003 {
 }
 
 interface Claims274 {
-  [key: string]: any;
-  P89: P8915[];
-  P85: P1[];
+  P89: P8911[];
+  P58: P587[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8915 {
-  [key: string]: any;
+interface P8911 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers193;
+  qualifiers: Qualifiers184;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers193 {
-  [key: string]: any;
+interface Qualifiers184 {
+  P407: Mainsnak2[];
   P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q3002 {
-  [key: string]: any;
+interface Q3001 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25928,29 +26069,15 @@ interface Q3002 {
 }
 
 interface Claims273 {
-  [key: string]: any;
   P58: P587[];
+  P89: P89[];
+  P85: P85[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8914 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers192;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers192 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-}
-
-interface Q3001 {
-  [key: string]: any;
+interface Q2999 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -25965,28 +26092,14 @@ interface Q3001 {
 }
 
 interface Claims272 {
-  [key: string]: any;
+  P58: P58[];
   P89: P8910[];
-  P85: P852[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P852 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers191;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers191 {
-  [key: string]: any;
-}
-
-interface Q2999 {
-  [key: string]: any;
+interface Q2998 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26001,14 +26114,29 @@ interface Q2999 {
 }
 
 interface Claims271 {
-  [key: string]: any;
-  P89: P8913[];
+  P58: P587[];
+  P89: P8910[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2998 {
-  [key: string]: any;
+interface P8910 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers183;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers183 {
+  P78: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q2997 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26023,28 +26151,14 @@ interface Q2998 {
 }
 
 interface Claims270 {
-  [key: string]: any;
-  P89: P8913[];
+  P58: P582[];
+  P89: P89[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P8913 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers190;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers190 {
-  [key: string]: any;
-  P169: Mainsnak[];
-}
-
-interface Q2997 {
-  [key: string]: any;
+interface Q2996 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26059,14 +26173,51 @@ interface Q2997 {
 }
 
 interface Claims269 {
-  [key: string]: any;
-  P89: P8910[];
+  P58: P582[];
+  P89: P899[];
+  P7: P75[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2996 {
-  [key: string]: any;
+interface P75 {
+  mainsnak: Mainsnak2;
+  type: string;
+  id: string;
+  rank: string;
+  references: Reference[];
+}
+
+interface Reference {
+  hash: string;
+  snaks: Snaks;
+  'snaks-order': string[];
+}
+
+interface Snaks {
+  P7: Mainsnak2[];
+  P371: Mainsnak2[];
+}
+
+interface P899 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers182;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers182 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
+  P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q2995 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26081,50 +26232,15 @@ interface Q2996 {
 }
 
 interface Claims268 {
-  [key: string]: any;
-  P89: P8912[];
-  P7: P75[];
+  P58: P582[];
+  P89: P895[];
+  P7: P74[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P75 {
-  [key: string]: any;
-  type: string;
-  id: string;
-  rank: string;
-  references: Reference[];
-}
-
-interface Reference {
-  [key: string]: any;
-  snaks: Snaks;
-  'snaks-order': string[];
-}
-
-interface Snaks {
-  [key: string]: any;
-  P371: Mainsnak2[];
-}
-
-interface P8912 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers189;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers189 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
-  P47?: Mainsnak2[];
-}
-
-interface Q2995 {
-  [key: string]: any;
+interface Q2994 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26139,15 +26255,15 @@ interface Q2995 {
 }
 
 interface Claims267 {
-  [key: string]: any;
-  P89: P8911[];
+  P58: P582[];
+  P89: P89[];
   P7: P74[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2994 {
-  [key: string]: any;
+interface Q2990 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26162,15 +26278,15 @@ interface Q2994 {
 }
 
 interface Claims266 {
-  [key: string]: any;
-  P89: P8910[];
-  P7: P74[];
+  P58: P582[];
+  P89: P895[];
+  P7: P7[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2990 {
-  [key: string]: any;
+interface Q2989 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26185,31 +26301,15 @@ interface Q2990 {
 }
 
 interface Claims265 {
-  [key: string]: any;
-  P89: P8911[];
-  P7: P7[];
+  P58: P582[];
+  P89: P89[];
   P2: P110[];
   P110: P110[];
+  P7: P7[];
 }
 
-interface P8911 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers188;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers188 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-}
-
-interface Q2989 {
-  [key: string]: any;
+interface Q2988 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26224,30 +26324,30 @@ interface Q2989 {
 }
 
 interface Claims264 {
-  [key: string]: any;
-  P89: P8910[];
+  P58: P582[];
+  P89: P898[];
+  P7: P7[];
   P2: P110[];
   P110: P110[];
-  P7: P7[];
 }
 
-interface P8910 {
-  [key: string]: any;
+interface P898 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers187;
+  qualifiers: Qualifiers181;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers187 {
-  [key: string]: any;
+interface Qualifiers181 {
   P406: Mainsnak2[];
   P169: Mainsnak[];
+  P440: Mainsnak2[];
 }
 
-interface Q2988 {
-  [key: string]: any;
+interface Q2987 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26262,29 +26362,15 @@ interface Q2988 {
 }
 
 interface Claims263 {
-  [key: string]: any;
-  P89: P899[];
+  P58: P582[];
+  P89: P893[];
   P7: P7[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P899 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers186;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers186 {
-  [key: string]: any;
-  P169: Mainsnak[];
-}
-
-interface Q2987 {
-  [key: string]: any;
+interface Q2986 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26299,29 +26385,32 @@ interface Q2987 {
 }
 
 interface Claims262 {
-  [key: string]: any;
-  P89: P898[];
-  P7: P7[];
+  P90: P902[];
+  P89: P897[];
+  P73: P73[];
+  P96: P902[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P898 {
-  [key: string]: any;
+interface P897 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers185;
+  qualifiers: Qualifiers180;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers185 {
-  [key: string]: any;
+interface Qualifiers180 {
+  P406: Mainsnak2[];
   P169: Mainsnak[];
+  P48: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2986 {
-  [key: string]: any;
+interface Q2984 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26336,32 +26425,30 @@ interface Q2986 {
 }
 
 interface Claims261 {
-  [key: string]: any;
-  P89: P897[];
-  P73: P724[];
-  P96: P903[];
+  P91: P91[];
+  P89: P896[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P897 {
-  [key: string]: any;
+interface P896 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers184;
+  qualifiers: Qualifiers179;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers184 {
-  [key: string]: any;
+interface Qualifiers179 {
+  P407: Mainsnak2[];
   P169: Mainsnak[];
-  P48: Mainsnak2[];
+  P47?: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2984 {
-  [key: string]: any;
+interface Q2983 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26376,30 +26463,14 @@ interface Q2984 {
 }
 
 interface Claims260 {
-  [key: string]: any;
-  P89: P896[];
+  P90: P90[];
+  P89: P895[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P896 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers183;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers183 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47?: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2983 {
-  [key: string]: any;
+interface Q2981 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26414,14 +26485,31 @@ interface Q2983 {
 }
 
 interface Claims259 {
-  [key: string]: any;
+  P58: P582[];
   P89: P895[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2981 {
-  [key: string]: any;
+interface P895 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers178;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers178 {
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2980 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26436,31 +26524,26 @@ interface Q2981 {
 }
 
 interface Claims258 {
-  [key: string]: any;
-  P89: P895[];
-  P2: P110[];
+  P89: P894[];
   P110: P110[];
+  P2: P110[];
 }
 
-interface P895 {
-  [key: string]: any;
+interface P894 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers182;
+  qualifiers: Qualifiers177;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers182 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers177 {
+  P78: Mainsnak2[];
 }
 
-interface Q2980 {
-  [key: string]: any;
+interface Q2978 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26475,26 +26558,15 @@ interface Q2980 {
 }
 
 interface Claims257 {
-  [key: string]: any;
-  P110: P110[];
+  P71: P72[];
+  P91: P91[];
+  P7: P1[];
   P2: P110[];
+  P110: P110[];
 }
 
-interface P894 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers181;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers181 {
-  [key: string]: any;
-}
-
-interface Q2978 {
-  [key: string]: any;
+interface Q2977 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26509,15 +26581,15 @@ interface Q2978 {
 }
 
 interface Claims256 {
-  [key: string]: any;
-  P91: P914[];
+  P71: P56[];
+  P91: P9131[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2977 {
-  [key: string]: any;
+interface Q2974 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26532,15 +26604,31 @@ interface Q2977 {
 }
 
 interface Claims255 {
-  [key: string]: any;
-  P91: P9135[];
+  P55: P56[];
+  P71: P56[];
+  P91: P9131[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2974 {
-  [key: string]: any;
+interface P9131 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers176;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers176 {
+  P24: Mainsnak2[];
+  P44: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2973 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26555,31 +26643,16 @@ interface Q2974 {
 }
 
 interface Claims254 {
-  [key: string]: any;
   P71: P56[];
-  P91: P9135[];
+  P84: P1[];
+  P91: P91[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9135 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers180;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers180 {
-  [key: string]: any;
-  P44: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2973 {
-  [key: string]: any;
+interface Q2972 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26594,16 +26667,16 @@ interface Q2973 {
 }
 
 interface Claims253 {
-  [key: string]: any;
+  P94: P93[];
+  P71: P56[];
   P84: P1[];
-  P91: P914[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2972 {
-  [key: string]: any;
+interface Q2971 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26618,16 +26691,15 @@ interface Q2972 {
 }
 
 interface Claims252 {
-  [key: string]: any;
+  P93: P93[];
   P71: P56[];
-  P84: P1[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2971 {
-  [key: string]: any;
+interface Q2970 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26642,15 +26714,16 @@ interface Q2971 {
 }
 
 interface Claims251 {
-  [key: string]: any;
+  P93: P93[];
   P71: P56[];
+  P84: P1[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2970 {
-  [key: string]: any;
+interface Q2969 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26665,7 +26738,7 @@ interface Q2970 {
 }
 
 interface Claims250 {
-  [key: string]: any;
+  P93: P91[];
   P71: P56[];
   P84: P1[];
   P7: P1[];
@@ -26673,8 +26746,8 @@ interface Claims250 {
   P110: P110[];
 }
 
-interface Q2969 {
-  [key: string]: any;
+interface Q2968 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26689,16 +26762,16 @@ interface Q2969 {
 }
 
 interface Claims249 {
-  [key: string]: any;
   P71: P56[];
-  P84: P1[];
+  P89: P89[];
+  P91: P915[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2968 {
-  [key: string]: any;
+interface Q2967 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26713,16 +26786,31 @@ interface Q2968 {
 }
 
 interface Claims248 {
-  [key: string]: any;
-  P89: P89[];
-  P91: P916[];
-  P7: P1[];
+  P71: P56[];
+  P89: P893[];
+  P91: P91[];
+  P7: P74[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2967 {
-  [key: string]: any;
+interface P893 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers175;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers175 {
+  P405: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q2964 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26737,31 +26825,17 @@ interface Q2967 {
 }
 
 interface Claims247 {
-  [key: string]: any;
-  P89: P893[];
-  P91: P914[];
-  P7: P74[];
+  P55: P56[];
+  P71: P56[];
+  P84: P306[];
+  P91: P91[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P893 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers179;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers179 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q2964 {
-  [key: string]: any;
+interface Q2963 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26776,31 +26850,16 @@ interface Q2964 {
 }
 
 interface Claims246 {
-  [key: string]: any;
-  P71: P56[];
-  P84: P84[];
-  P91: P914[];
+  P71: P722[];
+  P84: P1[];
+  P91: P91[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P84 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers178;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers178 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q2963 {
-  [key: string]: any;
+interface Q2962 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26815,16 +26874,15 @@ interface Q2963 {
 }
 
 interface Claims245 {
-  [key: string]: any;
+  P71: P56[];
   P84: P1[];
-  P91: P914[];
-  P7: P1[];
-  P2: P110[];
+  P91: P91[];
   P110: P110[];
+  P2: P110[];
 }
 
-interface Q2962 {
-  [key: string]: any;
+interface Q2960 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26839,15 +26897,16 @@ interface Q2962 {
 }
 
 interface Claims244 {
-  [key: string]: any;
+  P90: P90[];
+  P71: P56[];
   P84: P1[];
-  P91: P914[];
-  P110: P110[];
+  P7: P1[];
   P2: P110[];
+  P110: P110[];
 }
 
-interface Q2960 {
-  [key: string]: any;
+interface Q2957 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26862,16 +26921,15 @@ interface Q2960 {
 }
 
 interface Claims243 {
-  [key: string]: any;
+  P58: P58[];
   P71: P56[];
-  P84: P1[];
-  P7: P1[];
   P2: P110[];
+  P7: P1[];
   P110: P110[];
 }
 
-interface Q2957 {
-  [key: string]: any;
+interface Q2956 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26886,29 +26944,16 @@ interface Q2957 {
 }
 
 interface Claims242 {
-  [key: string]: any;
   P71: P56[];
+  P72: P56[];
+  P91: P915[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P5812 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers177;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers177 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q2956 {
-  [key: string]: any;
+interface Q2954 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26923,16 +26968,15 @@ interface Q2956 {
 }
 
 interface Claims241 {
-  [key: string]: any;
-  P72: P56[];
-  P91: P916[];
+  P71: P56[];
   P2: P110[];
   P7: P1[];
+  P391: P391[];
   P110: P110[];
 }
 
-interface Q2954 {
-  [key: string]: any;
+interface Q2952 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26947,15 +26991,15 @@ interface Q2954 {
 }
 
 interface Claims240 {
-  [key: string]: any;
+  P90: P90[];
+  P71: P56[];
   P2: P110[];
   P7: P1[];
-  P391: P3912[];
   P110: P110[];
 }
 
-interface Q2952 {
-  [key: string]: any;
+interface Q2951 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26970,15 +27014,15 @@ interface Q2952 {
 }
 
 interface Claims239 {
-  [key: string]: any;
-  P71: P56[];
+  P55: P56[];
+  P91: P9123[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2951 {
-  [key: string]: any;
+interface Q2950 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -26993,15 +27037,16 @@ interface Q2951 {
 }
 
 interface Claims238 {
-  [key: string]: any;
-  P91: P9129[];
+  P55: P56[];
+  P71: P56[];
+  P91: P9117[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2950 {
-  [key: string]: any;
+interface Q2949 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27016,16 +27061,16 @@ interface Q2950 {
 }
 
 interface Claims237 {
-  [key: string]: any;
   P71: P56[];
-  P91: P9126[];
+  P91: P9110[];
   P2: P110[];
   P7: P1[];
+  P56: P56[];
   P110: P110[];
 }
 
-interface Q2949 {
-  [key: string]: any;
+interface Q2948 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27040,16 +27085,30 @@ interface Q2949 {
 }
 
 interface Claims236 {
-  [key: string]: any;
-  P91: P9114[];
+  P55: P56[];
+  P71: P56[];
+  P91: P9130[];
   P2: P110[];
   P7: P1[];
-  P56: P56[];
   P110: P110[];
 }
 
-interface Q2948 {
-  [key: string]: any;
+interface P9130 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers174;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers174 {
+  P24: Mainsnak2[];
+  P38: Mainsnak2[];
+}
+
+interface Q2947 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27064,16 +27123,16 @@ interface Q2948 {
 }
 
 interface Claims235 {
-  [key: string]: any;
   P71: P56[];
-  P91: P919[];
+  P84: P1[];
+  P91: P915[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2947 {
-  [key: string]: any;
+interface Q2945 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27088,16 +27147,25 @@ interface Q2947 {
 }
 
 interface Claims234 {
-  [key: string]: any;
-  P84: P1[];
-  P91: P916[];
+  P71: P56[];
+  P89: P89[];
+  P91: P915[];
   P2: P110[];
-  P7: P1[];
+  P7: P74[];
   P110: P110[];
 }
 
-interface Q2945 {
-  [key: string]: any;
+interface P74 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers?: Qualifiers172;
+  'qualifiers-order'?: string[];
+  id: string;
+  rank: string;
+}
+
+interface Q2944 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27112,25 +27180,16 @@ interface Q2945 {
 }
 
 interface Claims233 {
-  [key: string]: any;
-  P89: P89[];
-  P91: P916[];
+  P71: P56[];
+  P72: P56[];
+  P91: P91[];
   P2: P110[];
-  P7: P74[];
+  P7: P1[];
   P110: P110[];
 }
 
-interface P74 {
-  [key: string]: any;
-  type: string;
-  qualifiers?: Qualifiers174;
-  'qualifiers-order'?: string[];
-  id: string;
-  rank: string;
-}
-
-interface Q2944 {
-  [key: string]: any;
+interface Q2943 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27145,16 +27204,15 @@ interface Q2944 {
 }
 
 interface Claims232 {
-  [key: string]: any;
-  P72: P56[];
-  P91: P914[];
+  P71: P722[];
+  P91: P9118[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2943 {
-  [key: string]: any;
+interface Q2942 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27169,15 +27227,15 @@ interface Q2943 {
 }
 
 interface Claims231 {
-  [key: string]: any;
-  P91: P9122[];
+  P71: P56[];
+  P91: P91[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2942 {
-  [key: string]: any;
+interface Q2941 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27192,15 +27250,33 @@ interface Q2942 {
 }
 
 interface Claims230 {
-  [key: string]: any;
-  P91: P914[];
+  P53: P534[];
+  P58: P582[];
+  P56: P563[];
   P2: P110[];
-  P7: P1[];
   P110: P110[];
 }
 
-interface Q2941 {
-  [key: string]: any;
+interface P563 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers173;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers173 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P403: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2940 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27215,33 +27291,15 @@ interface Q2941 {
 }
 
 interface Claims229 {
-  [key: string]: any;
-  P58: P5810[];
-  P56: P563[];
+  P53: P534[];
+  P90: P902[];
+  P56: P73[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P563 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers176;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers176 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P403: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2940 {
-  [key: string]: any;
+interface Q2938 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27256,15 +27314,16 @@ interface Q2940 {
 }
 
 interface Claims228 {
-  [key: string]: any;
-  P90: P903[];
-  P56: P724[];
+  P56: P56[];
+  P91: P9128[];
+  P53: P534[];
   P2: P110[];
+  P7: P7[];
   P110: P110[];
 }
 
-interface Q2938 {
-  [key: string]: any;
+interface Q2937 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27279,16 +27338,16 @@ interface Q2938 {
 }
 
 interface Claims227 {
-  [key: string]: any;
-  P91: P91[];
   P53: P534[];
+  P90: P90[];
+  P56: P56[];
   P2: P110[];
   P7: P7[];
   P110: P110[];
 }
 
-interface Q2937 {
-  [key: string]: any;
+interface Q2936 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27303,30 +27362,15 @@ interface Q2937 {
 }
 
 interface Claims226 {
-  [key: string]: any;
-  P90: P905[];
-  P56: P56[];
+  P56: P71[];
+  P58: P582[];
+  P53: P534[];
   P2: P110[];
-  P7: P7[];
   P110: P110[];
 }
 
-interface P905 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers175;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers175 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q2936 {
-  [key: string]: any;
+interface Q2935 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27341,15 +27385,16 @@ interface Q2936 {
 }
 
 interface Claims225 {
-  [key: string]: any;
-  P58: P5810[];
+  P56: P56[];
+  P58: P582[];
   P53: P534[];
   P2: P110[];
+  P7: P7[];
   P110: P110[];
 }
 
-interface Q2935 {
-  [key: string]: any;
+interface Q2934 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27364,16 +27409,29 @@ interface Q2935 {
 }
 
 interface Claims224 {
-  [key: string]: any;
-  P58: P5810[];
+  P56: P56[];
+  P90: P104[];
   P53: P534[];
   P2: P110[];
-  P7: P7[];
   P110: P110[];
+  P7: P7[];
 }
 
-interface Q2934 {
-  [key: string]: any;
+interface P7 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers172;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers172 {
+  P389: Mainsnak[];
+}
+
+interface Q2933 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27388,29 +27446,34 @@ interface Q2934 {
 }
 
 interface Claims223 {
-  [key: string]: any;
-  P90: P904[];
   P53: P534[];
+  P91: P9117[];
+  P55: P55[];
+  P56: P56[];
   P2: P110[];
+  P7: P1[];
   P110: P110[];
-  P7: P7[];
 }
 
-interface P7 {
-  [key: string]: any;
+interface P55 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers174;
+  qualifiers: Qualifiers171;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers174 {
-  [key: string]: any;
+interface Qualifiers171 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P403: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2933 {
-  [key: string]: any;
+interface Q2932 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27425,34 +27488,16 @@ interface Q2933 {
 }
 
 interface Claims222 {
-  [key: string]: any;
-  P91: P9126[];
-  P55: P55[];
-  P56: P56[];
+  P53: P534[];
+  P55: P56[];
+  P391: P391[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P55 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers173;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers173 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P403: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2932 {
-  [key: string]: any;
+interface Q2925 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27467,32 +27512,16 @@ interface Q2932 {
 }
 
 interface Claims221 {
-  [key: string]: any;
-  P55: P56[];
-  P391: P3912[];
+  P53: P534[];
+  P58: P582[];
+  P55: P71[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P3912 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers172;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers172 {
-  [key: string]: any;
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2925 {
-  [key: string]: any;
+interface Q2921 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27507,16 +27536,16 @@ interface Q2925 {
 }
 
 interface Claims220 {
-  [key: string]: any;
-  P58: P5810[];
-  P55: P71[];
+  P53: P534[];
+  P91: P91[];
+  P55: P56[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface Q2921 {
-  [key: string]: any;
+interface Q2920 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27531,16 +27560,31 @@ interface Q2921 {
 }
 
 interface Claims219 {
-  [key: string]: any;
-  P91: P914[];
-  P55: P56[];
+  P53: P534[];
+  P94: P932[];
+  P55: P722[];
   P2: P110[];
-  P7: P1[];
   P110: P110[];
+  P7: P1[];
 }
 
-interface Q2920 {
-  [key: string]: any;
+interface P534 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers170;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers170 {
+  P74: Mainsnak[];
+  P61: Mainsnak[];
+  P62: Mainsnak[];
+}
+
+interface Q2919 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27555,25 +27599,31 @@ interface Q2920 {
 }
 
 interface Claims218 {
-  [key: string]: any;
-  P94: P934[];
-  P55: P722[];
+  P94: P944[];
+  P98: P983[];
   P2: P110[];
   P110: P110[];
-  P7: P1[];
 }
 
-interface P534 {
-  [key: string]: any;
+interface P983 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers100;
+  qualifiers: Qualifiers169;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Q2919 {
-  [key: string]: any;
+interface Qualifiers169 {
+  P20: Mainsnak2[];
+  P31: Mainsnak2[];
+  P49: Mainsnak2[];
+  P47: Mainsnak2[];
+  P169?: Mainsnak[];
+}
+
+interface Q2916 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27588,31 +27638,30 @@ interface Q2919 {
 }
 
 interface Claims217 {
-  [key: string]: any;
-  P98: P983[];
+  P94: P94[];
+  P98: P982[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P983 {
-  [key: string]: any;
+interface P982 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers171;
+  qualifiers: Qualifiers168;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers171 {
-  [key: string]: any;
+interface Qualifiers168 {
+  P20: Mainsnak2[];
   P31: Mainsnak2[];
-  P49: Mainsnak2[];
-  P47: Mainsnak2[];
-  P169?: Mainsnak[];
+  P169: Mainsnak[];
 }
 
-interface Q2916 {
-  [key: string]: any;
+interface Q2915 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27627,30 +27676,29 @@ interface Q2916 {
 }
 
 interface Claims216 {
-  [key: string]: any;
-  P98: P982[];
+  P94: P94[];
+  P98: P98[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P982 {
-  [key: string]: any;
+interface P98 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers170;
+  qualifiers: Qualifiers167;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers170 {
-  [key: string]: any;
-  P31: Mainsnak2[];
+interface Qualifiers167 {
+  P20: Mainsnak2[];
   P169: Mainsnak[];
 }
 
-interface Q2915 {
-  [key: string]: any;
+interface Q2914 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27665,29 +27713,14 @@ interface Q2915 {
 }
 
 interface Claims215 {
-  [key: string]: any;
-  P98: P98[];
-  P7: P1[];
+  P94: P94[];
+  P98: P943[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P98 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers169;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers169 {
-  [key: string]: any;
-  P169: Mainsnak[];
-}
-
-interface Q2914 {
-  [key: string]: any;
+interface Q2913 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27702,14 +27735,30 @@ interface Q2914 {
 }
 
 interface Claims214 {
-  [key: string]: any;
-  P98: P942[];
+  P94: P944[];
+  P98: P944[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2913 {
-  [key: string]: any;
+interface P944 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers166;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers166 {
+  P20: Mainsnak2[];
+  P31: Mainsnak2[];
+  P49: Mainsnak2[];
+}
+
+interface Q2912 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27724,30 +27773,14 @@ interface Q2913 {
 }
 
 interface Claims213 {
-  [key: string]: any;
-  P98: P943[];
-  P7: P1[];
+  P94: P934[];
+  P98: P934[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P943 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers168;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers168 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P49: Mainsnak2[];
-}
-
-interface Q2912 {
-  [key: string]: any;
+interface Q2911 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27762,14 +27795,14 @@ interface Q2912 {
 }
 
 interface Claims212 {
-  [key: string]: any;
-  P98: P932[];
+  P94: P94[];
+  P98: P94[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2911 {
-  [key: string]: any;
+interface Q2910 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27784,14 +27817,29 @@ interface Q2911 {
 }
 
 interface Claims211 {
-  [key: string]: any;
-  P98: P93[];
+  P93: P94[];
+  P99: P993[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2910 {
-  [key: string]: any;
+interface P993 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers165;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers165 {
+  P20: Mainsnak2[];
+  P47: Mainsnak2[];
+}
+
+interface Q2909 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27806,29 +27854,28 @@ interface Q2910 {
 }
 
 interface Claims210 {
-  [key: string]: any;
-  P99: P993[];
-  P7: P1[];
+  P93: P94[];
+  P99: P992[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P993 {
-  [key: string]: any;
+interface P992 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers167;
+  qualifiers: Qualifiers164;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers167 {
-  [key: string]: any;
-  P47: Mainsnak2[];
+interface Qualifiers164 {
+  P20: Mainsnak2[];
+  P47?: Mainsnak2[];
 }
 
-interface Q2909 {
-  [key: string]: any;
+interface Q2908 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27843,28 +27890,17 @@ interface Q2909 {
 }
 
 interface Claims209 {
-  [key: string]: any;
-  P99: P992[];
+  P53: P533[];
+  P93: P94[];
+  P351: P351[];
+  P99: P935[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P992 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers166;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers166 {
-  [key: string]: any;
-  P47?: Mainsnak2[];
-}
-
-interface Q2908 {
-  [key: string]: any;
+interface Q2907 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27879,17 +27915,15 @@ interface Q2908 {
 }
 
 interface Claims208 {
-  [key: string]: any;
   P93: P93[];
-  P351: P3103[];
-  P99: P935[];
-  P7: P1[];
+  P99: P942[];
+  P72: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2907 {
-  [key: string]: any;
+interface Q2906 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27904,29 +27938,29 @@ interface Q2907 {
 }
 
 interface Claims207 {
-  [key: string]: any;
-  P99: P94[];
-  P72: P56[];
+  P93: P94[];
+  P99: P99[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P936 {
-  [key: string]: any;
+interface P99 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers165;
+  qualifiers: Qualifiers163;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers165 {
-  [key: string]: any;
-  P440: Mainsnak2[];
+interface Qualifiers163 {
+  P20: Mainsnak2[];
+  P49?: Mainsnak2[];
+  P31?: Mainsnak2[];
 }
 
-interface Q2906 {
-  [key: string]: any;
+interface Q2905 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27941,29 +27975,14 @@ interface Q2906 {
 }
 
 interface Claims206 {
-  [key: string]: any;
-  P99: P99[];
+  P93: P934[];
+  P99: P934[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P99 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers164;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers164 {
-  [key: string]: any;
-  P49?: Mainsnak2[];
-  P31?: Mainsnak2[];
-}
-
-interface Q2905 {
-  [key: string]: any;
+interface Q2903 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -27978,14 +27997,14 @@ interface Q2905 {
 }
 
 interface Claims205 {
-  [key: string]: any;
-  P99: P932[];
+  P93: P94[];
+  P99: P94[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2903 {
-  [key: string]: any;
+interface Q2902 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28000,14 +28019,15 @@ interface Q2903 {
 }
 
 interface Claims204 {
-  [key: string]: any;
-  P99: P93[];
+  P91: P91[];
+  P97: P9718[];
+  P55: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2902 {
-  [key: string]: any;
+interface Q2901 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28022,15 +28042,31 @@ interface Q2902 {
 }
 
 interface Claims203 {
-  [key: string]: any;
+  P91: P9110[];
   P97: P9718[];
   P55: P56[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2901 {
-  [key: string]: any;
+interface P9718 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers162;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers162 {
+  P24: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2900 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28045,31 +28081,44 @@ interface Q2901 {
 }
 
 interface Claims202 {
-  [key: string]: any;
-  P97: P9718[];
+  P91: P9129[];
+  P97: P9717[];
   P55: P56[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9718 {
-  [key: string]: any;
+interface P9717 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers163;
+  qualifiers: Qualifiers161;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers163 {
-  [key: string]: any;
-  P47: Mainsnak2[];
+interface Qualifiers161 {
+  P24: Mainsnak2[];
+  P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface P9129 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers160;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers160 {
   P440: Mainsnak2[];
 }
 
-interface Q2900 {
-  [key: string]: any;
+interface Q2899 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28084,44 +28133,33 @@ interface Q2900 {
 }
 
 interface Claims201 {
-  [key: string]: any;
-  P97: P9717[];
-  P55: P56[];
+  P91: P91[];
+  P97: P9716[];
+  P89: P89[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9717 {
-  [key: string]: any;
+interface P9716 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers162;
+  qualifiers: Qualifiers159;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers162 {
-  [key: string]: any;
-  P47?: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers159 {
+  P24: Mainsnak2[];
+  P31: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface P9134 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers161;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers161 {
-  [key: string]: any;
-}
-
-interface Q2899 {
-  [key: string]: any;
+interface Q2898 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28136,33 +28174,48 @@ interface Q2899 {
 }
 
 interface Claims200 {
-  [key: string]: any;
-  P97: P9716[];
-  P89: P89[];
-  P7: P1[];
+  P91: P91[];
+  P97: P9715[];
+  P55: P56[];
+  P71: P713[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9716 {
-  [key: string]: any;
+interface P713 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers160;
+  qualifiers: Qualifiers158;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers160 {
-  [key: string]: any;
-  P31: Mainsnak2[];
+interface Qualifiers158 {
+  P390: Mainsnak2[];
   P169: Mainsnak[];
   P47: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2898 {
-  [key: string]: any;
+interface P9715 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers157;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers157 {
+  P24: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2897 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28177,48 +28230,28 @@ interface Q2898 {
 }
 
 interface Claims199 {
-  [key: string]: any;
-  P97: P9715[];
-  P55: P56[];
-  P71: P713[];
+  P91: P9128[];
+  P97: P9714[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P713 {
-  [key: string]: any;
+interface P9714 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers159;
+  qualifiers: Qualifiers156;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers159 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers156 {
+  P24: Mainsnak2[];
+  P169?: Mainsnak[];
 }
 
-interface P9715 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers158;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers158 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2897 {
-  [key: string]: any;
+interface Q2896 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28233,28 +28266,30 @@ interface Q2897 {
 }
 
 interface Claims198 {
-  [key: string]: any;
-  P97: P9714[];
+  P91: P9128[];
+  P97: P9713[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9714 {
-  [key: string]: any;
+interface P9713 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers157;
+  qualifiers: Qualifiers155;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers157 {
-  [key: string]: any;
-  P169?: Mainsnak[];
+interface Qualifiers155 {
+  P24: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
 }
 
-interface Q2896 {
-  [key: string]: any;
+interface Q2895 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28269,30 +28304,42 @@ interface Q2896 {
 }
 
 interface Claims197 {
-  [key: string]: any;
-  P97: P9713[];
+  P91: P9128[];
+  P97: P9712[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9713 {
-  [key: string]: any;
+interface P9712 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers156;
+  qualifiers: Qualifiers154;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers156 {
-  [key: string]: any;
+interface Qualifiers154 {
+  P24: Mainsnak2[];
   P169: Mainsnak[];
-  P47: Mainsnak2[];
 }
 
-interface Q2895 {
-  [key: string]: any;
+interface P9128 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers153;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers153 {
+  P24: Mainsnak2[];
+}
+
+interface Q2894 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28307,29 +28354,32 @@ interface Q2895 {
 }
 
 interface Claims196 {
-  [key: string]: any;
-  P97: P9712[];
-  P7: P1[];
+  P91: P916[];
+  P97: P9711[];
+  P55: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9712 {
-  [key: string]: any;
+interface P9711 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers155;
+  qualifiers: Qualifiers152;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers155 {
-  [key: string]: any;
-  P169: Mainsnak[];
+interface Qualifiers152 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P43: Mainsnak2[];
+  P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q2894 {
-  [key: string]: any;
+interface Q2893 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28344,32 +28394,29 @@ interface Q2894 {
 }
 
 interface Claims195 {
-  [key: string]: any;
-  P97: P9711[];
-  P55: P56[];
+  P91: P9127[];
+  P97: P9127[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9711 {
-  [key: string]: any;
+interface P9127 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers154;
+  qualifiers: Qualifiers151;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers154 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P43: Mainsnak2[];
-  P47?: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers151 {
+  P24: Mainsnak2[];
+  P42: Mainsnak2[];
 }
 
-interface Q2893 {
-  [key: string]: any;
+interface Q2892 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28384,29 +28431,31 @@ interface Q2893 {
 }
 
 interface Claims194 {
-  [key: string]: any;
-  P97: P9133[];
-  P7: P1[];
+  P91: P91[];
+  P97: P9710[];
+  P55: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9133 {
-  [key: string]: any;
+interface P9710 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers153;
+  qualifiers: Qualifiers150;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers153 {
-  [key: string]: any;
-  P42: Mainsnak2[];
+interface Qualifiers150 {
+  P24: Mainsnak2[];
+  P42?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P47?: Mainsnak2[];
 }
 
-interface Q2892 {
-  [key: string]: any;
+interface Q2891 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28421,31 +28470,33 @@ interface Q2892 {
 }
 
 interface Claims193 {
-  [key: string]: any;
-  P97: P9710[];
-  P55: P56[];
+  P91: P912[];
+  P97: P979[];
+  P55: P72[];
+  P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P9710 {
-  [key: string]: any;
+interface P979 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers152;
+  qualifiers: Qualifiers149;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers152 {
-  [key: string]: any;
-  P42?: Mainsnak2[];
+interface Qualifiers149 {
+  P24: Mainsnak2[];
+  P37?: Mainsnak2[];
+  P38?: Mainsnak2[];
+  P47: Mainsnak2[];
   P440?: Mainsnak2[];
-  P47?: Mainsnak2[];
 }
 
-interface Q2891 {
-  [key: string]: any;
+interface Q2890 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28460,33 +28511,33 @@ interface Q2891 {
 }
 
 interface Claims192 {
-  [key: string]: any;
-  P97: P979[];
-  P55: P72[];
+  P91: P913[];
+  P97: P978[];
+  P55: P56[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P979 {
-  [key: string]: any;
+interface P978 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers151;
+  qualifiers: Qualifiers148;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers151 {
-  [key: string]: any;
-  P37?: Mainsnak2[];
+interface Qualifiers148 {
+  P24: Mainsnak2[];
   P38?: Mainsnak2[];
-  P47: Mainsnak2[];
+  P43?: Mainsnak2[];
   P440?: Mainsnak2[];
+  P47?: Mainsnak2[];
 }
 
-interface Q2890 {
-  [key: string]: any;
+interface Q2889 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28501,33 +28552,31 @@ interface Q2890 {
 }
 
 interface Claims191 {
-  [key: string]: any;
-  P97: P978[];
+  P91: P913[];
+  P97: P977[];
   P55: P56[];
   P7: P1[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P978 {
-  [key: string]: any;
+interface P977 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers150;
+  qualifiers: Qualifiers147;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers150 {
-  [key: string]: any;
-  P38?: Mainsnak2[];
-  P43?: Mainsnak2[];
+interface Qualifiers147 {
+  P24: Mainsnak2[];
+  P38: Mainsnak2[];
   P440?: Mainsnak2[];
-  P47?: Mainsnak2[];
 }
 
-interface Q2889 {
-  [key: string]: any;
+interface Q2888 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28542,31 +28591,16 @@ interface Q2889 {
 }
 
 interface Claims190 {
-  [key: string]: any;
-  P97: P977[];
+  P91: P9110[];
+  P97: P913[];
   P55: P56[];
-  P7: P1[];
+  P71: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P977 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers149;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers149 {
-  [key: string]: any;
-  P38: Mainsnak2[];
-  P440?: Mainsnak2[];
-}
-
-interface Q2888 {
-  [key: string]: any;
+interface Q2887 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28581,16 +28615,31 @@ interface Q2888 {
 }
 
 interface Claims189 {
-  [key: string]: any;
-  P97: P913[];
+  P91: P913[];
+  P97: P976[];
   P55: P56[];
-  P71: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2887 {
-  [key: string]: any;
+interface P976 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers146;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers146 {
+  P24: Mainsnak2[];
+  P38: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2886 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28605,31 +28654,45 @@ interface Q2887 {
 }
 
 interface Claims188 {
-  [key: string]: any;
-  P97: P976[];
-  P55: P56[];
+  P91: P9126[];
+  P97: P975[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P976 {
-  [key: string]: any;
+interface P975 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers148;
+  qualifiers: Qualifiers145;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers148 {
-  [key: string]: any;
-  P38: Mainsnak2[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers145 {
+  P24: Mainsnak2[];
+  P37?: Mainsnak2[];
+  P38?: Mainsnak2[];
+  P47?: Mainsnak2[];
 }
 
-interface Q2886 {
-  [key: string]: any;
+interface P9126 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers144;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers144 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P38: Mainsnak2[];
+}
+
+interface Q2884 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28644,45 +28707,31 @@ interface Q2886 {
 }
 
 interface Claims187 {
-  [key: string]: any;
-  P97: P975[];
+  P91: P9119[];
+  P97: P974[];
+  P89: P892[];
+  P73: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P975 {
-  [key: string]: any;
+interface P974 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers147;
+  qualifiers: Qualifiers143;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers147 {
-  [key: string]: any;
-  P37?: Mainsnak2[];
-  P38?: Mainsnak2[];
-  P47?: Mainsnak2[];
+interface Qualifiers143 {
+  P24: Mainsnak2[];
+  P30?: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface P9132 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers146;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers146 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P38: Mainsnak2[];
-}
-
-interface Q2884 {
-  [key: string]: any;
+interface Q2883 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28697,31 +28746,32 @@ interface Q2884 {
 }
 
 interface Claims186 {
-  [key: string]: any;
-  P97: P974[];
-  P89: P892[];
-  P73: P56[];
+  P91: P9118[];
+  P97: P973[];
+  P89: P89[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P974 {
-  [key: string]: any;
+interface P973 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers145;
+  qualifiers: Qualifiers142;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers145 {
-  [key: string]: any;
-  P30?: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers142 {
+  P24: Mainsnak2[];
+  P31: Mainsnak2[];
+  P30: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2883 {
-  [key: string]: any;
+interface Q2882 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28736,32 +28786,15 @@ interface Q2883 {
 }
 
 interface Claims185 {
-  [key: string]: any;
-  P97: P973[];
-  P89: P89[];
+  P91: P91[];
+  P97: P91[];
+  P55: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P973 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers144;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers144 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P30: Mainsnak2[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2882 {
-  [key: string]: any;
+interface Q2881 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28776,15 +28809,29 @@ interface Q2882 {
 }
 
 interface Claims184 {
-  [key: string]: any;
-  P97: P914[];
+  P91: P91[];
+  P97: P972[];
   P55: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2881 {
-  [key: string]: any;
+interface P972 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers141;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers141 {
+  P24: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q2880 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28799,29 +28846,15 @@ interface Q2881 {
 }
 
 interface Claims183 {
-  [key: string]: any;
-  P97: P972[];
-  P55: P56[];
+  P91: P91[];
+  P97: P91[];
+  P56: P56[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P972 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers143;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers143 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-}
-
-interface Q2880 {
-  [key: string]: any;
+interface Q2877 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28836,15 +28869,51 @@ interface Q2880 {
 }
 
 interface Claims182 {
-  [key: string]: any;
-  P97: P914[];
-  P56: P56[];
+  P58: P589[];
+  P59: P598[];
+  P107: P1073[];
   P2: P110[];
   P110: P110[];
 }
 
-interface Q2877 {
-  [key: string]: any;
+interface P1073 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers140;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers140 {
+  P107: Mainsnak2[];
+  P46: Mainsnak2[];
+  P36: Mainsnak[];
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P18: P3932[];
+  P47: Mainsnak2[];
+}
+
+interface P598 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers139;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers139 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+  P45?: Mainsnak2[];
+  P46?: Mainsnak2[];
+  P36?: Mainsnak[];
+}
+
+interface Q2876 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28859,51 +28928,29 @@ interface Q2877 {
 }
 
 interface Claims181 {
-  [key: string]: any;
-  P59: P596[];
-  P107: P1073[];
+  P58: P589[];
+  P59: P597[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P1073 {
-  [key: string]: any;
+interface P597 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers142;
+  qualifiers: Qualifiers138;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers142 {
-  [key: string]: any;
-  P46: Mainsnak2[];
-  P36: Mainsnak[];
+interface Qualifiers138 {
   P21: Mainsnak2[];
   P29: Mainsnak2[];
-  P18: P3932[];
   P47: Mainsnak2[];
 }
 
-interface P596 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers141;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers141 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P45?: Mainsnak2[];
-  P46?: Mainsnak2[];
-  P36?: Mainsnak[];
-}
-
 interface Q2875 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28918,32 +28965,45 @@ interface Q2875 {
 }
 
 interface Claims180 {
-  [key: string]: any;
-  P58: P58[];
-  P59: P595[];
+  P63: P300[];
+  P58: P5811[];
+  P59: P596[];
   P2: P110[];
   P110: P110[];
   P7: P1[];
 }
 
-interface P595 {
-  [key: string]: any;
+interface P596 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers140;
+  qualifiers: Qualifiers137;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers140 {
-  [key: string]: any;
+interface Qualifiers137 {
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P27: Mainsnak2[];
   P169: Mainsnak[];
 }
 
+interface P5811 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers136;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers136 {
+  P41: Mainsnak2[];
+}
+
 interface Q2874 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28958,30 +29018,30 @@ interface Q2874 {
 }
 
 interface Claims179 {
-  [key: string]: any;
-  P59: P594[];
+  P58: P589[];
+  P59: P595[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P594 {
-  [key: string]: any;
+interface P595 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers139;
+  qualifiers: Qualifiers135;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers139 {
-  [key: string]: any;
+interface Qualifiers135 {
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P169: Mainsnak[];
 }
 
 interface Q2873 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -28996,31 +29056,31 @@ interface Q2873 {
 }
 
 interface Claims178 {
-  [key: string]: any;
-  P59: P593[];
+  P58: P589[];
+  P59: P594[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P593 {
-  [key: string]: any;
+interface P594 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers138;
+  qualifiers: Qualifiers134;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers138 {
-  [key: string]: any;
+interface Qualifiers134 {
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P169: Mainsnak[];
   P47: Mainsnak2[];
 }
 
 interface Q2872 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29035,47 +29095,61 @@ interface Q2872 {
 }
 
 interface Claims177 {
-  [key: string]: any;
-  P59: P587[];
+  P58: P5810[];
+  P59: P593[];
   P107: P1072[];
   P2: P110[];
   P110: P110[];
 }
 
 interface P1072 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers137;
+  qualifiers: Qualifiers133;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers137 {
-  [key: string]: any;
+interface Qualifiers133 {
+  P41: Mainsnak2[];
   P39?: Mainsnak2[];
   P34: Mainsnak2[];
   P36?: Mainsnak[];
   P18?: P3932[];
 }
 
-interface P5811 {
-  [key: string]: any;
+interface P593 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers136;
+  qualifiers: Qualifiers132;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers136 {
-  [key: string]: any;
+interface Qualifiers132 {
+  P41: Mainsnak2[];
+  P34: Mainsnak2[];
+}
+
+interface P5810 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers131;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers131 {
+  P41: Mainsnak2[];
   P39: Mainsnak2[];
   P34: Mainsnak2[];
 }
 
 interface Q2871 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29090,7 +29164,7 @@ interface Q2871 {
 }
 
 interface Claims176 {
-  [key: string]: any;
+  P58: P589[];
   P59: P592[];
   P107: P107[];
   P2: P110[];
@@ -29099,16 +29173,16 @@ interface Claims176 {
 }
 
 interface P107 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers135;
+  qualifiers: Qualifiers130;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers135 {
-  [key: string]: any;
+interface Qualifiers130 {
+  P45: Mainsnak2[];
   P46: Mainsnak2[];
   P41?: Mainsnak2[];
   P18: P3932[];
@@ -29118,24 +29192,38 @@ interface Qualifiers135 {
 }
 
 interface P592 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers134;
+  qualifiers: Qualifiers129;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers134 {
-  [key: string]: any;
+interface Qualifiers129 {
+  P45: Mainsnak2[];
   P46: Mainsnak2[];
   P21: Mainsnak2[];
   P29: Mainsnak2[];
   P47: Mainsnak2[];
 }
 
+interface P589 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers128;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers128 {
+  P21: Mainsnak2[];
+  P29: Mainsnak2[];
+}
+
 interface Q2869 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29150,27 +29238,27 @@ interface Q2869 {
 }
 
 interface Claims175 {
-  [key: string]: any;
+  P68: P682[];
   P110: P110[];
   P2: P110[];
 }
 
 interface P682 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers133;
+  qualifiers: Qualifiers127;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers133 {
-  [key: string]: any;
+interface Qualifiers127 {
+  P303: Mainsnak2[];
   P302: Mainsnak[];
 }
 
 interface Q2868 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29185,31 +29273,31 @@ interface Q2868 {
 }
 
 interface Claims174 {
-  [key: string]: any;
-  P93: P93[];
-  P351: P351[];
+  P53: P533[];
+  P93: P94[];
+  P351: P3512[];
   P110: P110[];
   P2: P110[];
 }
 
-interface P351 {
-  [key: string]: any;
+interface P3512 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers132;
+  qualifiers: Qualifiers126;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers132 {
-  [key: string]: any;
+interface Qualifiers126 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
   P350?: Mainsnak2[];
   P47?: Mainsnak2[];
 }
 
 interface Q2865 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29224,15 +29312,15 @@ interface Q2865 {
 }
 
 interface Claims173 {
-  [key: string]: any;
+  P53: P533[];
   P93: P935[];
-  P351: P3103[];
+  P351: P351[];
   P110: P110[];
   P2: P110[];
 }
 
 interface Q2861 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29247,15 +29335,15 @@ interface Q2861 {
 }
 
 interface Claims172 {
-  [key: string]: any;
-  P93: P93[];
-  P351: P3103[];
+  P53: P533[];
+  P93: P94[];
+  P351: P351[];
   P110: P110[];
   P2: P110[];
 }
 
 interface Q2857 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29270,28 +29358,28 @@ interface Q2857 {
 }
 
 interface Claims171 {
-  [key: string]: any;
-  P94: P942[];
+  P108: P300[];
+  P94: P943[];
   P2: P110[];
   P110: P110[];
 }
 
-interface P942 {
-  [key: string]: any;
+interface P943 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers131;
+  qualifiers: Qualifiers125;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers131 {
-  [key: string]: any;
+interface Qualifiers125 {
+  P20: Mainsnak2[];
   P52: Mainsnak2[];
 }
 
 interface Q2856 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29306,14 +29394,14 @@ interface Q2856 {
 }
 
 interface Claims170 {
-  [key: string]: any;
+  P94: P935[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
 interface Q2855 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29328,32 +29416,32 @@ interface Q2855 {
 }
 
 interface Claims169 {
-  [key: string]: any;
+  P94: P942[];
   P72: P56[];
-  P73: P724[];
+  P73: P73[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P94 {
-  [key: string]: any;
+interface P942 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers130;
+  qualifiers: Qualifiers124;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers130 {
-  [key: string]: any;
+interface Qualifiers124 {
+  P20: Mainsnak2[];
   P31: Mainsnak2[];
   P49: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2851 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29368,15 +29456,15 @@ interface Q2851 {
 }
 
 interface Claims168 {
-  [key: string]: any;
-  P73: P724[];
+  P94: P932[];
+  P73: P73[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
 interface Q2850 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29391,32 +29479,15 @@ interface Q2850 {
 }
 
 interface Claims167 {
-  [key: string]: any;
-  P72: P724[];
+  P94: P932[];
+  P72: P73[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
-interface P724 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers129;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers129 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P48: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
 interface Q2848 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29431,15 +29502,31 @@ interface Q2848 {
 }
 
 interface Claims166 {
-  [key: string]: any;
-  P73: P73[];
+  P94: P934[];
+  P73: P735[];
   P2: P110[];
   P7: P1[];
   P110: P110[];
 }
 
+interface P735 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers123;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers123 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P48: Mainsnak2[];
+}
+
 interface Q2843 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29454,14 +29541,27 @@ interface Q2843 {
 }
 
 interface Claims165 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P94: P93[];
+  P94: P94[];
   P7: P1[];
 }
 
+interface P94 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers122;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers122 {
+  P20: Mainsnak2[];
+}
+
 interface Q2841 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29476,30 +29576,30 @@ interface Q2841 {
 }
 
 interface Claims164 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P533[];
   P93: P935[];
-  P351: P3103[];
+  P351: P351[];
   P7: P1[];
 }
 
 interface P935 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers128;
+  qualifiers: Qualifiers121;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers128 {
-  [key: string]: any;
+interface Qualifiers121 {
+  P20: Mainsnak2[];
   P49: Mainsnak2[];
 }
 
 interface Q2840 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29514,32 +29614,46 @@ interface Q2840 {
 }
 
 interface Claims163 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P533[];
-  P93: P932[];
-  P351: P3103[];
+  P93: P934[];
+  P351: P351[];
   P7: P1[];
 }
 
-interface P533 {
-  [key: string]: any;
+interface P351 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers127;
+  qualifiers: Qualifiers120;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers127 {
-  [key: string]: any;
+interface Qualifiers120 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+}
+
+interface P533 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers119;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers119 {
+  P74: Mainsnak[];
   P61: Mainsnak[];
   P62: Mainsnak[];
   P331: Mainsnak[];
 }
 
 interface Q2839 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29554,14 +29668,14 @@ interface Q2839 {
 }
 
 interface Claims162 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P934[];
+  P93: P932[];
   P72: P56[];
 }
 
 interface Q2837 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29576,14 +29690,43 @@ interface Q2837 {
 }
 
 interface Claims161 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P932[];
-  P73: P733[];
+  P93: P934[];
+  P73: P734[];
+}
+
+interface P734 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers118;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers118 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+}
+
+interface P934 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers117;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers117 {
+  P20: Mainsnak2[];
+  P31: Mainsnak2[];
 }
 
 interface Q2834 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29598,29 +29741,14 @@ interface Q2834 {
 }
 
 interface Claims160 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P934[];
+  P93: P932[];
   P89: P892[];
 }
 
-interface P934 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers126;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers126 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
 interface Q2833 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29635,13 +29763,13 @@ interface Q2833 {
 }
 
 interface Claims159 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P93: P932[];
 }
 
 interface Q2832 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29656,13 +29784,13 @@ interface Q2832 {
 }
 
 interface Claims158 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P93: P93[];
 }
 
 interface Q2657 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29677,14 +29805,14 @@ interface Q2657 {
 }
 
 interface Claims157 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P8: P110[];
 }
 
 interface Q2656 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29699,7 +29827,7 @@ interface Q2656 {
 }
 
 interface Claims156 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P8: P110[];
   P10: P1[];
@@ -29707,7 +29835,7 @@ interface Claims156 {
 }
 
 interface Q2167 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29722,16 +29850,16 @@ interface Q2167 {
 }
 
 interface Claims155 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9129[];
+  P91: P9123[];
   P55: P56[];
   P71: P71[];
   P7: P1[];
 }
 
 interface Q2166 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29746,16 +29874,16 @@ interface Q2166 {
 }
 
 interface Claims154 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9114[];
+  P91: P9110[];
   P55: P56[];
   P71: P71[];
   P7: P1[];
 }
 
 interface Q2165 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29770,48 +29898,48 @@ interface Q2165 {
 }
 
 interface Claims153 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9131[];
+  P91: P9125[];
   P55: P56[];
   P71: P712[];
   P7: P1[];
 }
 
 interface P712 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers125;
+  qualifiers: Qualifiers116;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers125 {
-  [key: string]: any;
+interface Qualifiers116 {
+  P19: Mainsnak2[];
   P24: Mainsnak2[];
   P169: Mainsnak[];
   P47: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface P9131 {
-  [key: string]: any;
+interface P9125 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers124;
+  qualifiers: Qualifiers115;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers124 {
-  [key: string]: any;
+interface Qualifiers115 {
+  P91: Mainsnak2[];
   P42: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2164 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29826,16 +29954,16 @@ interface Q2164 {
 }
 
 interface Claims152 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
+  P91: P91[];
   P55: P56[];
   P71: P56[];
   P7: P1[];
 }
 
 interface Q2163 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29850,23 +29978,23 @@ interface Q2163 {
 }
 
 interface Claims151 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9130[];
+  P91: P9124[];
   P71: P56[];
 }
 
-interface P9130 {
-  [key: string]: any;
+interface P9124 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers123;
+  qualifiers: Qualifiers114;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers123 {
-  [key: string]: any;
+interface Qualifiers114 {
+  P24: Mainsnak2[];
   P31: Mainsnak2[];
   P30: Mainsnak2[];
   P42: Mainsnak2[];
@@ -29874,7 +30002,7 @@ interface Qualifiers123 {
 }
 
 interface Q2162 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29889,15 +30017,15 @@ interface Q2162 {
 }
 
 interface Claims150 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9114[];
+  P91: P9110[];
   P56: P56[];
   P71: P56[];
 }
 
 interface Q2161 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29912,15 +30040,15 @@ interface Q2161 {
 }
 
 interface Claims149 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9114[];
+  P91: P9110[];
   P55: P56[];
   P71: P71[];
 }
 
 interface Q2160 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29935,14 +30063,14 @@ interface Q2160 {
 }
 
 interface Claims148 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
+  P91: P91[];
   P71: P56[];
 }
 
 interface Q2159 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29957,14 +30085,14 @@ interface Q2159 {
 }
 
 interface Claims147 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9121[];
+  P91: P9117[];
   P7: P1[];
 }
 
 interface Q2158 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -29979,7 +30107,7 @@ interface Q2158 {
 }
 
 interface Claims146 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P912[];
   P320: P3205[];
@@ -29988,7 +30116,7 @@ interface Claims146 {
 }
 
 interface Q2157 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30003,16 +30131,16 @@ interface Q2157 {
 }
 
 interface Claims145 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9117[];
+  P91: P9113[];
   P320: P3204[];
   P55: P56[];
   P7: P1[];
 }
 
 interface Q2156 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30027,7 +30155,7 @@ interface Q2156 {
 }
 
 interface Claims144 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P913[];
   P320: P3203[];
@@ -30036,7 +30164,7 @@ interface Claims144 {
 }
 
 interface Q2155 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30051,7 +30179,7 @@ interface Q2155 {
 }
 
 interface Claims143 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P913[];
   P320: P3202[];
@@ -30060,7 +30188,7 @@ interface Claims143 {
 }
 
 interface Q2154 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30075,33 +30203,33 @@ interface Q2154 {
 }
 
 interface Claims142 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9129[];
+  P91: P9123[];
   P55: P56[];
   P320: P320[];
   P71: P71[];
   P7: P1[];
 }
 
-interface P9129 {
-  [key: string]: any;
+interface P9123 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers122;
+  qualifiers: Qualifiers113;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers122 {
-  [key: string]: any;
+interface Qualifiers113 {
+  P24: Mainsnak2[];
   P38: Mainsnak2[];
   P42: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2153 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30116,7 +30244,7 @@ interface Q2153 {
 }
 
 interface Claims141 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P913[];
   P55: P56[];
@@ -30126,7 +30254,7 @@ interface Claims141 {
 }
 
 interface Q2151 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30141,9 +30269,9 @@ interface Q2151 {
 }
 
 interface Claims140 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9114[];
+  P91: P9110[];
   P71: P56[];
   P55: P56[];
   P97: P913[];
@@ -30151,7 +30279,7 @@ interface Claims140 {
 }
 
 interface Q2150 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30166,14 +30294,14 @@ interface Q2150 {
 }
 
 interface Claims139 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P913[];
   P71: P56[];
 }
 
 interface Q2148 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30188,7 +30316,7 @@ interface Q2148 {
 }
 
 interface Claims138 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P913[];
   P55: P56[];
@@ -30196,7 +30324,7 @@ interface Claims138 {
 }
 
 interface Q2147 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30211,31 +30339,31 @@ interface Q2147 {
 }
 
 interface Claims137 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
+  P91: P916[];
   P316: P31613[];
   P55: P56[];
 }
 
 interface P31613 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers121;
+  qualifiers: Qualifiers112;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers121 {
-  [key: string]: any;
+interface Qualifiers112 {
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P47?: Mainsnak2[];
   P440?: Mainsnak2[];
 }
 
 interface Q2146 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30250,31 +30378,31 @@ interface Q2146 {
 }
 
 interface Claims136 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
+  P91: P916[];
   P316: P31612[];
   P55: P56[];
 }
 
 interface P31612 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers120;
+  qualifiers: Qualifiers111;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers120 {
-  [key: string]: any;
+interface Qualifiers111 {
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P312: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2145 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30289,7 +30417,7 @@ interface Q2145 {
 }
 
 interface Claims135 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P912[];
   P316: P31611[];
@@ -30297,23 +30425,23 @@ interface Claims135 {
 }
 
 interface P31611 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers119;
+  qualifiers: Qualifiers110;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers119 {
-  [key: string]: any;
+interface Qualifiers110 {
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P47: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2144 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30328,9 +30456,9 @@ interface Q2144 {
 }
 
 interface Claims134 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9115[];
+  P91: P9111[];
   P310: P3102[];
   P316: P31610[];
   P55: P56[];
@@ -30339,22 +30467,22 @@ interface Claims134 {
 }
 
 interface P3208 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers118;
+  qualifiers: Qualifiers109;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers118 {
-  [key: string]: any;
+interface Qualifiers109 {
+  P317: Mainsnak2[];
   P319: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2143 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30369,7 +30497,7 @@ interface Q2143 {
 }
 
 interface Claims133 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P912[];
   P316: P31610[];
@@ -30377,23 +30505,23 @@ interface Claims133 {
 }
 
 interface P31610 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers117;
+  qualifiers: Qualifiers108;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers117 {
-  [key: string]: any;
+interface Qualifiers108 {
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P312?: Mainsnak2[];
   P440?: Mainsnak2[];
 }
 
 interface Q2142 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30408,33 +30536,33 @@ interface Q2142 {
 }
 
 interface Claims132 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9128[];
+  P91: P9122[];
   P63: P300[];
-  P97: P9128[];
+  P97: P9122[];
   P309: P300[];
   P55: P56[];
   P89: P892[];
 }
 
-interface P9128 {
-  [key: string]: any;
+interface P9122 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers116;
+  qualifiers: Qualifiers107;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers116 {
-  [key: string]: any;
+interface Qualifiers107 {
+  P24: Mainsnak2[];
   P35: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2141 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30449,9 +30577,9 @@ interface Q2141 {
 }
 
 interface Claims131 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9127[];
+  P91: P9121[];
   P63: P300[];
   P68: P68[];
   P309: P300[];
@@ -30459,37 +30587,37 @@ interface Claims131 {
 }
 
 interface P68 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers115;
+  qualifiers: Qualifiers106;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers115 {
-  [key: string]: any;
+interface Qualifiers106 {
+  P303: Mainsnak2[];
   P302: Mainsnak[];
   P440: Mainsnak2[];
 }
 
-interface P9127 {
-  [key: string]: any;
+interface P9121 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers114;
+  qualifiers: Qualifiers105;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers114 {
-  [key: string]: any;
+interface Qualifiers105 {
+  P24: Mainsnak2[];
   P33: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2140 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30504,15 +30632,15 @@ interface Q2140 {
 }
 
 interface Claims130 {
-  [key: string]: any;
-  P91: P916[];
+  P2: P110[];
+  P91: P915[];
   P310: P310[];
   P55: P56[];
   P110: P110[];
 }
 
 interface Q2139 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30527,15 +30655,15 @@ interface Q2139 {
 }
 
 interface Claims129 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P916[];
+  P91: P915[];
   P310: P310[];
   P55: P562[];
 }
 
 interface Q2138 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30550,30 +30678,14 @@ interface Q2138 {
 }
 
 interface Claims128 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9126[];
+  P91: P9117[];
   P56: P56[];
 }
 
-interface P9126 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers113;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers113 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P38: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
 interface Q2137 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30588,28 +30700,13 @@ interface Q2137 {
 }
 
 interface Claims127 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9125[];
-}
-
-interface P9125 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers112;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers112 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P30: Mainsnak2[];
+  P91: P9118[];
 }
 
 interface Q2136 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30624,29 +30721,15 @@ interface Q2136 {
 }
 
 interface Claims126 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P917[];
-  P72: P723[];
-  P73: P733[];
-}
-
-interface P723 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers111;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers111 {
-  [key: string]: any;
-  P169: Mainsnak[];
+  P91: P915[];
+  P72: P562[];
+  P73: P56[];
 }
 
 interface Q2135 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30661,9 +30744,9 @@ interface Q2135 {
 }
 
 interface Claims125 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9124[];
+  P91: P9120[];
   P310: P310[];
   P316: P310[];
   P55: P56[];
@@ -30673,38 +30756,38 @@ interface Claims125 {
 }
 
 interface P80 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers110;
+  qualifiers: Qualifiers104;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers110 {
-  [key: string]: any;
+interface Qualifiers104 {
+  P305: Mainsnak2[];
   P18: Mainsnak[];
   P440: Mainsnak2[];
 }
 
-interface P9124 {
-  [key: string]: any;
+interface P9120 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers109;
+  qualifiers: Qualifiers103;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers109 {
-  [key: string]: any;
+interface Qualifiers103 {
+  P24: Mainsnak2[];
   P37: Mainsnak2[];
   P30: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2134 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30719,30 +30802,30 @@ interface Q2134 {
 }
 
 interface Claims124 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9123[];
+  P91: P9119[];
   P89: P892[];
   P73: P562[];
 }
 
-interface P9123 {
-  [key: string]: any;
+interface P9119 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers108;
+  qualifiers: Qualifiers102;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers108 {
-  [key: string]: any;
+interface Qualifiers102 {
+  P24: Mainsnak2[];
   P30: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2133 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30757,14 +30840,14 @@ interface Q2133 {
 }
 
 interface Claims123 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9122[];
+  P91: P9118[];
   P89: P89[];
 }
 
 interface Q2131 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30779,46 +30862,46 @@ interface Q2131 {
 }
 
 interface Claims122 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9122[];
+  P91: P9118[];
   P55: P56[];
   P89: P892[];
 }
 
 interface P892 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers107;
+  qualifiers: Qualifiers101;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers107 {
-  [key: string]: any;
+interface Qualifiers101 {
+  P407: Mainsnak2[];
   P169: Mainsnak[];
   P440: Mainsnak2[];
 }
 
-interface P9122 {
-  [key: string]: any;
+interface P9118 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers106;
+  qualifiers: Qualifiers100;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers106 {
-  [key: string]: any;
+interface Qualifiers100 {
+  P24: Mainsnak2[];
   P31: Mainsnak2[];
   P30: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q2130 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30833,16 +30916,16 @@ interface Q2130 {
 }
 
 interface Claims121 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
+  P91: P91[];
   P55: P56[];
   P72: P56[];
   P7: P1[];
 }
 
 interface Q2129 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30857,30 +30940,31 @@ interface Q2129 {
 }
 
 interface Claims120 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9121[];
-  P310: P3103[];
+  P91: P9117[];
+  P310: P310[];
   P7: P1[];
 }
 
-interface P9121 {
-  [key: string]: any;
+interface P9117 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers105;
+  qualifiers: Qualifiers99;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers105 {
-  [key: string]: any;
+interface Qualifiers99 {
+  P24: Mainsnak2[];
   P31: Mainsnak2[];
   P38: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q2127 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30895,15 +30979,15 @@ interface Q2127 {
 }
 
 interface Claims119 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P91[];
-  P310: P3103[];
+  P310: P310[];
   P7: P1[];
 }
 
 interface Q2126 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30918,14 +31002,14 @@ interface Q2126 {
 }
 
 interface Claims118 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P91[];
-  P73: P733[];
+  P73: P56[];
 }
 
-interface Q2125 {
-  [key: string]: any;
+interface Q2124 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30940,14 +31024,30 @@ interface Q2125 {
 }
 
 interface Claims117 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P56: P56[];
+  P91: P915[];
+  P310: P310[];
+  P56: P562[];
 }
 
-interface Q2124 {
-  [key: string]: any;
+interface P562 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers98;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers98 {
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q2122 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -30962,30 +31062,14 @@ interface Q2124 {
 }
 
 interface Claims116 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P916[];
-  P310: P310[];
-  P56: P562[];
+  P91: P91[];
+  P56: P56[];
 }
 
-interface P562 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers104;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers104 {
-  [key: string]: any;
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface Q2122 {
-  [key: string]: any;
+interface Q2121 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31000,14 +31084,16 @@ interface Q2122 {
 }
 
 interface Claims115 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P56: P56[];
+  P91: P916[];
+  P310: P3102[];
+  P55: P56[];
+  P7: P1[];
 }
 
-interface Q2121 {
-  [key: string]: any;
+interface Q2117 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31022,16 +31108,15 @@ interface Q2121 {
 }
 
 interface Claims114 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
-  P310: P3102[];
+  P91: P91[];
   P55: P56[];
   P7: P1[];
 }
 
-interface Q2117 {
-  [key: string]: any;
+interface Q2116 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31046,15 +31131,15 @@ interface Q2117 {
 }
 
 interface Claims113 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P55: P56[];
+  P91: P91[];
+  P56: P56[];
   P7: P1[];
 }
 
-interface Q2116 {
-  [key: string]: any;
+interface Q2115 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31069,15 +31154,14 @@ interface Q2116 {
 }
 
 interface Claims112 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P91[];
-  P56: P56[];
-  P7: P1[];
+  P55: P56[];
 }
 
-interface Q2115 {
-  [key: string]: any;
+interface Q2114 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31092,14 +31176,13 @@ interface Q2115 {
 }
 
 interface Claims111 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P55: P56[];
+  P91: P91[];
 }
 
-interface Q2114 {
-  [key: string]: any;
+interface Q2111 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31114,13 +31197,31 @@ interface Q2114 {
 }
 
 interface Claims110 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
+  P65: P653[];
+  P339: P652[];
+  P93: P93[];
 }
 
-interface Q2111 {
-  [key: string]: any;
+interface P653 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers97;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers97 {
+  P294: Mainsnak2[];
+  P296: Mainsnak[];
+  P297: P297[];
+  P440: Mainsnak2[];
+}
+
+interface Q2110 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31135,15 +31236,31 @@ interface Q2111 {
 }
 
 interface Claims109 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P65: P65[];
-  P339: P652[];
-  P93: P93[];
+  P65: P652[];
+  P94: P93[];
 }
 
-interface Q2110 {
-  [key: string]: any;
+interface P652 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers96;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers96 {
+  P294: Mainsnak2[];
+  P296: Mainsnak[];
+  P297: P297[];
+  P298: P297[];
+  P440: Mainsnak2[];
+}
+
+interface Q2109 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31158,30 +31275,52 @@ interface Q2110 {
 }
 
 interface Claims108 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P65: P652[];
+  P65: P65[];
   P94: P93[];
 }
 
-interface P652 {
-  [key: string]: any;
+interface P65 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers103;
+  qualifiers: Qualifiers95;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers103 {
-  [key: string]: any;
+interface Qualifiers95 {
+  P294: Mainsnak2[];
   P296: Mainsnak[];
   P297: P297[];
-  P298: P297[];
+  P440?: Mainsnak2[];
 }
 
-interface Q2109 {
-  [key: string]: any;
+interface P297 {
+  snaktype: string;
+  property: string;
+  hash: string;
+  datavalue: Datavalue3;
+  datatype: string;
+}
+
+interface Datavalue3 {
+  value: Value2;
+  type: string;
+}
+
+interface Value2 {
+  time: string;
+  timezone: number;
+  before: number;
+  after: number;
+  precision: number;
+  calendarmodel: string;
+}
+
+interface Q2105 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31196,51 +31335,13 @@ interface Q2109 {
 }
 
 interface Claims107 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P65: P65[];
-  P94: P93[];
+  P340: P300[];
 }
 
-interface P65 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers102;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers102 {
-  [key: string]: any;
-  P296: Mainsnak[];
-  P297: P297[];
-}
-
-interface P297 {
-  [key: string]: any;
-  property: string;
-  hash: string;
-  datavalue: Datavalue3;
-  datatype: string;
-}
-
-interface Datavalue3 {
-  [key: string]: any;
-  type: string;
-}
-
-interface Value2 {
-  [key: string]: any;
-  timezone: number;
-  before: number;
-  after: number;
-  precision: number;
-  calendarmodel: string;
-}
-
-interface Q2105 {
-  [key: string]: any;
+interface Q2103 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31255,13 +31356,45 @@ interface Q2105 {
 }
 
 interface Claims106 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P340: P309[];
+  P53: P532[];
+  P344: P344[];
+  P58: P585[];
 }
 
-interface Q2103 {
-  [key: string]: any;
+interface P344 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers94;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers94 {
+  P342: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface P532 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers93;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers93 {
+  P74: Mainsnak[];
+  P61: Mainsnak[];
+  P62: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface Q2102 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31276,43 +31409,29 @@ interface Q2103 {
 }
 
 interface Claims105 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P53: P532[];
-  P344: P344[];
-  P58: P585[];
+  P101: P1013[];
 }
 
-interface P344 {
-  [key: string]: any;
+interface P1013 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers101;
+  qualifiers: Qualifiers92;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers101 {
-  [key: string]: any;
+interface Qualifiers92 {
+  P299: Mainsnak2[];
+  P150: Mainsnak2[];
+  P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface P532 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers100;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers100 {
-  [key: string]: any;
-  P61: Mainsnak[];
-  P62: Mainsnak[];
-}
-
-interface Q2102 {
-  [key: string]: any;
+interface Q2101 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31327,28 +31446,22 @@ interface Q2102 {
 }
 
 interface Claims104 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P101: P1013[];
+  P101: P1012[];
 }
 
-interface P1013 {
-  [key: string]: any;
+interface P1012 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers99;
+  qualifiers: Qualifiers76;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers99 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-  P47: Mainsnak2[];
-}
-
-interface Q2101 {
-  [key: string]: any;
+interface Q2100 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31363,22 +31476,34 @@ interface Q2101 {
 }
 
 interface Claims103 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P101: P1012[];
+  P133: P1337[];
+  P7: P1[];
 }
 
-interface P1012 {
-  [key: string]: any;
+interface P1337 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers82;
+  qualifiers: Qualifiers91;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Q2100 {
-  [key: string]: any;
+interface Qualifiers91 {
+  P135: Mainsnak2[];
+  P134: Mainsnak2[];
+  P136: Mainsnak2[];
+  P137: Mainsnak2[];
+  P138: Mainsnak2[];
+  P102: Mainsnak2[];
+  P148: Mainsnak2[];
+  P440?: Mainsnak2[];
+}
+
+interface Q2099 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31393,33 +31518,34 @@ interface Q2100 {
 }
 
 interface Claims102 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1337[];
+  P133: P1336[];
   P7: P1[];
 }
 
-interface P1337 {
-  [key: string]: any;
+interface P1336 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers98;
+  qualifiers: Qualifiers90;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers98 {
-  [key: string]: any;
+interface Qualifiers90 {
+  P135: Mainsnak2[];
   P134: Mainsnak2[];
   P136: Mainsnak2[];
   P137: Mainsnak2[];
   P138: Mainsnak2[];
-  P102: Mainsnak2[];
-  P148: Mainsnak2[];
+  P100: Mainsnak2[];
+  P150: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2099 {
-  [key: string]: any;
+interface Q2098 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31434,33 +31560,32 @@ interface Q2099 {
 }
 
 interface Claims101 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1336[];
-  P7: P1[];
+  P133: P1335[];
 }
 
-interface P1336 {
-  [key: string]: any;
+interface P1335 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers97;
+  qualifiers: Qualifiers89;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers97 {
-  [key: string]: any;
+interface Qualifiers89 {
+  P135: Mainsnak2[];
   P134: Mainsnak2[];
   P136: Mainsnak2[];
   P137: Mainsnak2[];
   P138: Mainsnak2[];
-  P100: Mainsnak2[];
-  P150: Mainsnak2[];
+  P57: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2098 {
-  [key: string]: any;
+interface Q2097 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31475,31 +31600,34 @@ interface Q2098 {
 }
 
 interface Claims100 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1335[];
+  P133: P1334[];
+  P7: P1[];
 }
 
-interface P1335 {
-  [key: string]: any;
+interface P1334 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers96;
+  qualifiers: Qualifiers88;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers96 {
-  [key: string]: any;
+interface Qualifiers88 {
+  P135: Mainsnak2[];
   P134: Mainsnak2[];
   P136: Mainsnak2[];
   P137: Mainsnak2[];
   P138: Mainsnak2[];
-  P57: Mainsnak2[];
+  P147: Mainsnak2[];
+  P102: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2097 {
-  [key: string]: any;
+interface Q2095 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31514,33 +31642,35 @@ interface Q2097 {
 }
 
 interface Claims99 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1334[];
+  P133: P1333[];
   P7: P1[];
 }
 
-interface P1334 {
-  [key: string]: any;
+interface P1333 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers95;
+  qualifiers: Qualifiers87;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers95 {
-  [key: string]: any;
-  P134: Mainsnak2[];
-  P136: Mainsnak2[];
-  P137: Mainsnak2[];
-  P138: Mainsnak2[];
-  P147: Mainsnak2[];
+interface Qualifiers87 {
+  P135: Mainsnak2[];
+  P139: Mainsnak2[];
+  P140: Mainsnak2[];
+  P141: Mainsnak2[];
+  P142: Mainsnak2[];
+  P143: Mainsnak2[];
+  P144: Mainsnak2[];
   P102: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2095 {
-  [key: string]: any;
+interface Q2094 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31555,34 +31685,35 @@ interface Q2095 {
 }
 
 interface Claims98 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1333[];
+  P133: P1332[];
   P7: P1[];
 }
 
-interface P1333 {
-  [key: string]: any;
+interface P1332 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers94;
+  qualifiers: Qualifiers86;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers94 {
-  [key: string]: any;
-  P139: Mainsnak2[];
-  P140: Mainsnak2[];
-  P141: Mainsnak2[];
-  P142: Mainsnak2[];
-  P143: Mainsnak2[];
-  P144: Mainsnak2[];
+interface Qualifiers86 {
+  P135: Mainsnak2[];
+  P134: Mainsnak2[];
+  P136: Mainsnak2[];
+  P137: Mainsnak2[];
+  P138: Mainsnak2[];
+  P57: Mainsnak2[];
   P102: Mainsnak2[];
+  P440: Mainsnak2[];
+  P315?: Mainsnak2[];
 }
 
-interface Q2094 {
-  [key: string]: any;
+interface Q2093 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31597,34 +31728,33 @@ interface Q2094 {
 }
 
 interface Claims97 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P1332[];
+  P133: P133[];
   P7: P1[];
 }
 
-interface P1332 {
-  [key: string]: any;
+interface P133 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers93;
+  qualifiers: Qualifiers85;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers93 {
-  [key: string]: any;
+interface Qualifiers85 {
+  P135: Mainsnak2[];
   P134: Mainsnak2[];
   P136: Mainsnak2[];
   P137: Mainsnak2[];
   P138: Mainsnak2[];
-  P57: Mainsnak2[];
   P102: Mainsnak2[];
-  P315?: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2093 {
-  [key: string]: any;
+interface Q2092 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31639,32 +31769,13 @@ interface Q2093 {
 }
 
 interface Claims96 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P133: P133[];
-  P7: P1[];
+  P333: P332[];
 }
 
-interface P133 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers92;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers92 {
-  [key: string]: any;
-  P134: Mainsnak2[];
-  P136: Mainsnak2[];
-  P137: Mainsnak2[];
-  P138: Mainsnak2[];
-  P102: Mainsnak2[];
-}
-
-interface Q2092 {
-  [key: string]: any;
+interface Q2090 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31679,13 +31790,27 @@ interface Q2092 {
 }
 
 interface Claims95 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P333: P332[];
+  P332: P332[];
 }
 
-interface Q2090 {
-  [key: string]: any;
+interface P332 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers84;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers84 {
+  P150: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2089 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31700,26 +31825,13 @@ interface Q2090 {
 }
 
 interface Claims94 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P332: P332[];
+  P328: P300[];
 }
 
-interface P332 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers91;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers91 {
-  [key: string]: any;
-}
-
-interface Q2089 {
-  [key: string]: any;
+interface Q2088 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31734,13 +31846,13 @@ interface Q2089 {
 }
 
 interface Claims93 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P328: P309[];
+  P108: P300[];
 }
 
-interface Q2088 {
-  [key: string]: any;
+interface Q2087 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31755,27 +31867,29 @@ interface Q2088 {
 }
 
 interface Claims92 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P108: P108[];
+  P301: P301[];
+  P355: P355[];
 }
 
-interface P108 {
-  [key: string]: any;
+interface P355 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers90;
+  qualifiers: Qualifiers83;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers90 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
+interface Qualifiers83 {
+  P335: Mainsnak[];
+  P19: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2087 {
-  [key: string]: any;
+interface Q2086 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31790,28 +31904,23 @@ interface Q2087 {
 }
 
 interface Claims91 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P301: P301[];
-  P355: P355[];
+  P93: P933[];
 }
 
-interface P355 {
-  [key: string]: any;
+interface P933 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers89;
+  qualifiers: Qualifiers34;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers89 {
-  [key: string]: any;
-  P19: Mainsnak2[];
-}
-
-interface Q2086 {
-  [key: string]: any;
+interface Q2085 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31826,23 +31935,37 @@ interface Q2086 {
 }
 
 interface Claims90 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P301: P301[];
-  P93: P933[];
+  P354: P354[];
 }
 
-interface P933 {
-  [key: string]: any;
+interface P354 {
+  mainsnak: P3932;
   type: string;
-  qualifiers: Qualifiers36;
+  qualifiers: Qualifiers82;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Q2085 {
-  [key: string]: any;
+interface Qualifiers82 {
+  P19: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P301 {
+  mainsnak: P3932;
+  type: string;
+  qualifiers: Qualifiers28;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Q2084 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31857,36 +31980,16 @@ interface Q2085 {
 }
 
 interface Claims89 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P301: P301[];
-  P354: P354[];
+  P63: P300[];
+  P91: P915[];
+  P55: P56[];
+  P7: P1[];
 }
 
-interface P354 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers88;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers88 {
-  [key: string]: any;
-}
-
-interface P301 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers34;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Q2084 {
-  [key: string]: any;
+interface Q2083 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31901,16 +32004,33 @@ interface Q2084 {
 }
 
 interface Claims88 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P91: P916[];
+  P91: P9116[];
   P55: P56[];
+  P71: P56[];
   P7: P1[];
 }
 
-interface Q2083 {
-  [key: string]: any;
+interface P9116 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers81;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers81 {
+  P24: Mainsnak2[];
+  P42: Mainsnak2[];
+  P44: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2082 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31925,33 +32045,16 @@ interface Q2083 {
 }
 
 interface Claims87 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P91: P9120[];
+  P91: P91[];
   P55: P56[];
-  P71: P56[];
   P7: P1[];
 }
 
-interface P9120 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers87;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers87 {
-  [key: string]: any;
-  P42: Mainsnak2[];
-  P44: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2082 {
-  [key: string]: any;
+interface Q2080 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31966,16 +32069,31 @@ interface Q2082 {
 }
 
 interface Claims86 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P91: P914[];
-  P55: P56[];
+  P391: P391[];
   P7: P1[];
 }
 
-interface Q2080 {
-  [key: string]: any;
+interface P391 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers80;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers80 {
+  P23: Mainsnak2[];
+  P32: Mainsnak2[];
+  P28: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2079 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -31990,30 +32108,30 @@ interface Q2080 {
 }
 
 interface Claims85 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P391: P391[];
+  P93: P932[];
   P7: P1[];
 }
 
-interface P391 {
-  [key: string]: any;
+interface P932 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers86;
+  qualifiers: Qualifiers79;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers86 {
-  [key: string]: any;
-  P32: Mainsnak2[];
-  P28: Mainsnak2[];
+interface Qualifiers79 {
+  P20: Mainsnak2[];
+  P31: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2079 {
-  [key: string]: any;
+interface Q2078 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32028,29 +32146,15 @@ interface Q2079 {
 }
 
 interface Claims84 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P93: P932[];
+  P94: P93[];
   P7: P1[];
 }
 
-interface P932 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers85;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers85 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-}
-
-interface Q2078 {
-  [key: string]: any;
+interface Q2077 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32065,15 +32169,14 @@ interface Q2078 {
 }
 
 interface Claims83 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P300[];
-  P94: P93[];
-  P7: P1[];
+  P58: P582[];
 }
 
-interface Q2077 {
-  [key: string]: any;
+interface Q2076 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32088,14 +32191,46 @@ interface Q2077 {
 }
 
 interface Claims82 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P63: P300[];
-  P58: P582[];
+  P295: P2953[];
+  P101: P101[];
+  P245: P245[];
 }
 
-interface Q2076 {
-  [key: string]: any;
+interface P245 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers78;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers78 {
+  P299: Mainsnak2[];
+  P150: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P47?: Mainsnak2[];
+}
+
+interface P2953 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers77;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers77 {
+  P66: Mainsnak2[];
+  P54: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2075 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32110,44 +32245,43 @@ interface Q2076 {
 }
 
 interface Claims81 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P295: P2953[];
+  P295: P2952[];
   P101: P101[];
-  P245: P245[];
 }
 
-interface P245 {
-  [key: string]: any;
+interface P101 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers84;
+  qualifiers: Qualifiers76;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers84 {
-  [key: string]: any;
+interface Qualifiers76 {
+  P299: Mainsnak2[];
   P150: Mainsnak2[];
-  P47?: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface P2953 {
-  [key: string]: any;
+interface P2952 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers83;
+  qualifiers: Qualifiers75;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers83 {
-  [key: string]: any;
-  P54: Mainsnak2[];
+interface Qualifiers75 {
+  P66: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2075 {
-  [key: string]: any;
+interface Q2065 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32162,41 +32296,17 @@ interface Q2075 {
 }
 
 interface Claims80 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P295: P2952[];
-  P101: P101[];
+  P91: P916[];
+  P322: P322[];
+  P97: P91[];
+  P55: P56[];
+  P7: P1[];
 }
 
-interface P101 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers82;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers82 {
-  [key: string]: any;
-  P150: Mainsnak2[];
-}
-
-interface P2952 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers81;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers81 {
-  [key: string]: any;
-}
-
-interface Q2065 {
-  [key: string]: any;
+interface Q2063 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32211,17 +32321,30 @@ interface Q2065 {
 }
 
 interface Claims79 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
+  P91: P9115[];
   P322: P322[];
-  P97: P914[];
   P55: P56[];
-  P7: P1[];
 }
 
-interface Q2063 {
-  [key: string]: any;
+interface P9115 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers74;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers74 {
+  P24: Mainsnak2[];
+  P43: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2062 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32236,30 +32359,30 @@ interface Q2063 {
 }
 
 interface Claims78 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9119[];
+  P91: P9114[];
   P322: P322[];
   P55: P56[];
 }
 
-interface P9119 {
-  [key: string]: any;
+interface P9114 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers80;
+  qualifiers: Qualifiers73;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers80 {
-  [key: string]: any;
+interface Qualifiers73 {
+  P19: Mainsnak2[];
   P43: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2062 {
-  [key: string]: any;
+interface Q2061 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32274,30 +32397,29 @@ interface Q2062 {
 }
 
 interface Claims77 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9118[];
+  P91: P916[];
   P322: P322[];
   P55: P56[];
 }
 
-interface P9118 {
-  [key: string]: any;
+interface P322 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers79;
+  qualifiers: Qualifiers72;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers79 {
-  [key: string]: any;
-  P43: Mainsnak2[];
+interface Qualifiers72 {
+  P321: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2061 {
-  [key: string]: any;
+interface Q2060 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32312,29 +32434,66 @@ interface Q2061 {
 }
 
 interface Claims76 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
-  P322: P322[];
+  P91: P9113[];
+  P97: P97[];
   P55: P56[];
+  P7: P1[];
+  P320: P3207[];
 }
 
-interface P322 {
-  [key: string]: any;
+interface P3207 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers78;
+  qualifiers: Qualifiers71;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers78 {
-  [key: string]: any;
+interface Qualifiers71 {
+  P317?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P318?: Mainsnak2[];
+  P319?: Mainsnak2[];
+}
+
+interface P97 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers70;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers70 {
+  P24: Mainsnak2[];
+  P39: Mainsnak2[];
+  P38: Mainsnak2[];
+  P43: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2060 {
-  [key: string]: any;
+interface P9113 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers69;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers69 {
+  P24: Mainsnak2[];
+  P38: Mainsnak2[];
+  P43: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2059 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32349,66 +32508,31 @@ interface Q2060 {
 }
 
 interface Claims75 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9117[];
-  P97: P97[];
+  P91: P9112[];
   P55: P56[];
+  P85: P85[];
   P7: P1[];
-  P320: P3207[];
+  P320: P3206[];
 }
 
-interface P3207 {
-  [key: string]: any;
+interface P3206 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers77;
+  qualifiers: Qualifiers68;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers77 {
-  [key: string]: any;
+interface Qualifiers68 {
+  P319: Mainsnak2[];
   P440?: Mainsnak2[];
-  P318?: Mainsnak2[];
-  P319?: Mainsnak2[];
 }
 
-interface P97 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers76;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers76 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P38: Mainsnak2[];
-  P43: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P9117 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers75;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers75 {
-  [key: string]: any;
-  P38: Mainsnak2[];
-  P43: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2059 {
-  [key: string]: any;
+interface Q2058 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32423,31 +32547,46 @@ interface Q2059 {
 }
 
 interface Claims74 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9116[];
+  P91: P9112[];
   P55: P56[];
-  P85: P85[];
-  P7: P1[];
-  P320: P3206[];
+  P320: P3205[];
 }
 
-interface P3206 {
-  [key: string]: any;
+interface P3205 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers74;
+  qualifiers: Qualifiers67;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers74 {
-  [key: string]: any;
+interface Qualifiers67 {
+  P318?: Mainsnak2[];
   P440?: Mainsnak2[];
+  P319?: Mainsnak2[];
 }
 
-interface Q2058 {
-  [key: string]: any;
+interface P9112 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers66;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers66 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P39: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2057 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32462,46 +32601,46 @@ interface Q2058 {
 }
 
 interface Claims73 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9116[];
+  P91: P9111[];
   P55: P56[];
-  P320: P3205[];
+  P320: P3204[];
 }
 
-interface P3205 {
-  [key: string]: any;
+interface P3204 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers73;
+  qualifiers: Qualifiers65;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers73 {
-  [key: string]: any;
-  P440?: Mainsnak2[];
-  P319?: Mainsnak2[];
-}
-
-interface P9116 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers72;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers72 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P39: Mainsnak2[];
+interface Qualifiers65 {
+  P319: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2057 {
-  [key: string]: any;
+interface P9111 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers64;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers64 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P38: Mainsnak2[];
+  P43: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2056 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32516,46 +32655,16 @@ interface Q2057 {
 }
 
 interface Claims72 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9115[];
+  P91: P912[];
   P55: P56[];
-  P320: P3204[];
+  P85: P85[];
+  P320: P3203[];
 }
 
-interface P3204 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers71;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers71 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P9115 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers70;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers70 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P38: Mainsnak2[];
-  P43: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2056 {
-  [key: string]: any;
+interface Q2055 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32570,16 +32679,31 @@ interface Q2056 {
 }
 
 interface Claims71 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P912[];
+  P91: P9110[];
   P55: P56[];
-  P85: P85[];
+  P71: P71[];
   P320: P3203[];
 }
 
-interface Q2055 {
-  [key: string]: any;
+interface P9110 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers63;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers63 {
+  P24: Mainsnak2[];
+  P42: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2053 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32594,31 +32718,32 @@ interface Q2055 {
 }
 
 interface Claims70 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9114[];
+  P91: P919[];
   P55: P56[];
-  P71: P71[];
   P320: P3203[];
 }
 
-interface P9114 {
-  [key: string]: any;
+interface P919 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers69;
+  qualifiers: Qualifiers62;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers69 {
-  [key: string]: any;
-  P42: Mainsnak2[];
+interface Qualifiers62 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P39: Mainsnak2[];
+  P43: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2053 {
-  [key: string]: any;
+interface Q2052 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32633,32 +32758,29 @@ interface Q2053 {
 }
 
 interface Claims69 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9113[];
+  P91: P917[];
   P55: P56[];
   P320: P3203[];
 }
 
-interface P9113 {
-  [key: string]: any;
+interface P3203 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers68;
+  qualifiers: Qualifiers61;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers68 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P39: Mainsnak2[];
-  P43: Mainsnak2[];
+interface Qualifiers61 {
+  P318: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2052 {
-  [key: string]: any;
+interface Q2051 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32673,29 +32795,17 @@ interface Q2052 {
 }
 
 interface Claims68 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9111[];
+  P91: P918[];
   P55: P56[];
-  P320: P3203[];
+  P85: P85[];
+  P7: P1[];
+  P320: P320[];
 }
 
-interface P3203 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers67;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers67 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface Q2051 {
-  [key: string]: any;
+interface Q2049 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32710,17 +32820,15 @@ interface Q2051 {
 }
 
 interface Claims67 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9112[];
+  P91: P917[];
   P55: P56[];
-  P85: P85[];
-  P7: P1[];
   P320: P320[];
 }
 
-interface Q2049 {
-  [key: string]: any;
+interface Q2047 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32735,15 +32843,16 @@ interface Q2049 {
 }
 
 interface Claims66 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9111[];
+  P91: P917[];
+  P97: P91[];
   P55: P56[];
-  P320: P320[];
+  P320: P3202[];
 }
 
-interface Q2047 {
-  [key: string]: any;
+interface Q2046 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32758,16 +32867,15 @@ interface Q2047 {
 }
 
 interface Claims65 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9111[];
-  P97: P914[];
+  P91: P917[];
   P55: P56[];
   P320: P3202[];
 }
 
-interface Q2046 {
-  [key: string]: any;
+interface Q2045 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32782,15 +32890,31 @@ interface Q2046 {
 }
 
 interface Claims64 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9111[];
+  P91: P918[];
   P55: P56[];
   P320: P3202[];
 }
 
-interface Q2045 {
-  [key: string]: any;
+interface P918 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers60;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers60 {
+  P24: Mainsnak2[];
+  P39: Mainsnak2[];
+  P43: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2044 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32805,31 +32929,29 @@ interface Q2045 {
 }
 
 interface Claims63 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9112[];
+  P91: P913[];
   P55: P56[];
   P320: P3202[];
 }
 
-interface P9112 {
-  [key: string]: any;
+interface P3202 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers66;
+  qualifiers: Qualifiers59;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers66 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P43: Mainsnak2[];
+interface Qualifiers59 {
+  P317: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2044 {
-  [key: string]: any;
+interface Q2043 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32844,29 +32966,63 @@ interface Q2044 {
 }
 
 interface Claims62 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P913[];
+  P91: P917[];
   P55: P56[];
-  P320: P3202[];
+  P71: P71[];
+  P320: P320[];
 }
 
-interface P3202 {
-  [key: string]: any;
+interface P320 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers65;
+  qualifiers: Qualifiers58;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers65 {
-  [key: string]: any;
+interface Qualifiers58 {
+  P317?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P319?: Mainsnak2[];
+}
+
+interface P71 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers57;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers57 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P47: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q2043 {
-  [key: string]: any;
+interface P917 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers56;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers56 {
+  P24: Mainsnak2[];
+  P39: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q2041 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32881,63 +33037,34 @@ interface Q2043 {
 }
 
 interface Claims61 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9111[];
+  P91: P91[];
+  P316: P3169[];
   P55: P56[];
-  P71: P71[];
-  P320: P320[];
+  P7: P1[];
 }
 
-interface P320 {
-  [key: string]: any;
+interface P3169 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers64;
+  qualifiers: Qualifiers55;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers64 {
-  [key: string]: any;
+interface Qualifiers55 {
+  P19?: Mainsnak2[];
+  P390?: Mainsnak2[];
   P440?: Mainsnak2[];
-  P319?: Mainsnak2[];
+  P313?: Mainsnak2[];
+  P47?: Mainsnak2[];
+  P314?: Mainsnak2[];
 }
 
-interface P71 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers63;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers63 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P47: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P9111 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers62;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers62 {
-  [key: string]: any;
-  P39: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2041 {
-  [key: string]: any;
+interface Q2038 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32952,34 +33079,12 @@ interface Q2041 {
 }
 
 interface Claims60 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P316: P3169[];
-  P55: P56[];
-  P7: P1[];
 }
 
-interface P3169 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers61;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers61 {
-  [key: string]: any;
-  P390?: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P313?: Mainsnak2[];
-  P47?: Mainsnak2[];
-  P314?: Mainsnak2[];
-}
-
-interface Q2038 {
-  [key: string]: any;
+interface Q2024 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -32994,12 +33099,14 @@ interface Q2038 {
 }
 
 interface Claims59 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
+  P1: P1[];
+  P295: P295[];
 }
 
-interface Q2024 {
-  [key: string]: any;
+interface Q2021 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33014,14 +33121,14 @@ interface Q2024 {
 }
 
 interface Claims58 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
-  P295: P295[];
+  P10: P1[];
 }
 
-interface Q2021 {
-  [key: string]: any;
+interface Q2017 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33036,14 +33143,29 @@ interface Q2021 {
 }
 
 interface Claims57 {
-  [key: string]: any;
-  P2: P110[];
+  P110: P110[];
   P1: P1[];
   P10: P1[];
+  P2: P110[];
+  P295: P295[];
 }
 
-interface Q2017 {
-  [key: string]: any;
+interface P295 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers54;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers54 {
+  P19: Mainsnak2[];
+  P371: Mainsnak2[];
+}
+
+interface Q2016 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33058,29 +33180,48 @@ interface Q2017 {
 }
 
 interface Claims56 {
-  [key: string]: any;
-  P1: P1[];
-  P10: P1[];
+  P110: P110[];
   P2: P110[];
-  P295: P295[];
+  P91: P916[];
+  P310: P3104[];
+  P316: P3168[];
+  P55: P56[];
+  P7: P1[];
 }
 
-interface P295 {
-  [key: string]: any;
+interface P3168 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers60;
+  qualifiers: Qualifiers53;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers60 {
-  [key: string]: any;
-  P371: Mainsnak2[];
+interface Qualifiers53 {
+  P314: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2016 {
-  [key: string]: any;
+interface P3104 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers52;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers52 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P312?: Mainsnak2[];
+  P47?: Mainsnak2[];
+}
+
+interface Q2015 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33095,64 +33236,34 @@ interface Q2016 {
 }
 
 interface Claims55 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P9110[];
-  P310: P3104[];
-  P316: P3168[];
+  P91: P912[];
+  P310: P3102[];
+  P316: P3167[];
   P55: P56[];
   P7: P1[];
 }
 
-interface P3168 {
-  [key: string]: any;
+interface P3167 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers59;
+  qualifiers: Qualifiers51;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers59 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P3104 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers58;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers58 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P440?: Mainsnak2[];
-  P312?: Mainsnak2[];
+interface Qualifiers51 {
+  P19?: Mainsnak2[];
+  P390?: Mainsnak2[];
   P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
+  P314?: Mainsnak2[];
 }
 
-interface P9110 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers57;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers57 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P43: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q2015 {
-  [key: string]: any;
+interface Q2014 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33167,34 +33278,31 @@ interface Q2015 {
 }
 
 interface Claims54 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P912[];
-  P310: P3102[];
-  P316: P3167[];
-  P55: P56[];
-  P7: P1[];
+  P91: P91[];
+  P316: P3166[];
 }
 
-interface P3167 {
-  [key: string]: any;
+interface P3166 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers56;
+  qualifiers: Qualifiers50;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers56 {
-  [key: string]: any;
+interface Qualifiers50 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
-  P47?: Mainsnak2[];
+  P311?: Mainsnak2[];
   P440?: Mainsnak2[];
-  P314?: Mainsnak2[];
+  P315?: Mainsnak2[];
 }
 
-interface Q2014 {
-  [key: string]: any;
+interface Q2013 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33209,30 +33317,32 @@ interface Q2014 {
 }
 
 interface Claims53 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P91[];
-  P316: P3166[];
+  P310: P310[];
+  P316: P3165[];
 }
 
-interface P3166 {
-  [key: string]: any;
+interface P3165 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers55;
+  qualifiers: Qualifiers49;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers55 {
-  [key: string]: any;
+interface Qualifiers49 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
-  P311?: Mainsnak2[];
+  P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P315?: Mainsnak2[];
 }
 
-interface Q2013 {
-  [key: string]: any;
+interface Q2012 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33247,31 +33357,32 @@ interface Q2013 {
 }
 
 interface Claims52 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P91[];
-  P310: P3103[];
-  P316: P3165[];
+  P316: P3164[];
 }
 
-interface P3165 {
-  [key: string]: any;
+interface P3164 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers54;
+  qualifiers: Qualifiers48;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers54 {
-  [key: string]: any;
+interface Qualifiers48 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
+  P311?: Mainsnak2[];
   P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P315?: Mainsnak2[];
 }
 
-interface Q2012 {
-  [key: string]: any;
+interface Q2011 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33286,31 +33397,35 @@ interface Q2012 {
 }
 
 interface Claims51 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P316: P3164[];
+  P91: P913[];
+  P310: P310[];
+  P316: P3163[];
 }
 
-interface P3164 {
-  [key: string]: any;
+interface P3163 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers53;
+  qualifiers: Qualifiers47;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers53 {
-  [key: string]: any;
+interface Qualifiers47 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
+  P312?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P311?: Mainsnak2[];
   P47?: Mainsnak2[];
+  P314?: Mainsnak2[];
   P315?: Mainsnak2[];
 }
 
-interface Q2011 {
-  [key: string]: any;
+interface Q2010 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33325,48 +33440,48 @@ interface Q2011 {
 }
 
 interface Claims50 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P919[];
-  P310: P3103[];
-  P316: P3163[];
+  P91: P916[];
+  P310: P310[];
+  P316: P3162[];
 }
 
-interface P3163 {
-  [key: string]: any;
+interface P3162 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers52;
+  qualifiers: Qualifiers46;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers52 {
-  [key: string]: any;
+interface Qualifiers46 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
-  P312?: Mainsnak2[];
-  P311?: Mainsnak2[];
-  P47?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P314?: Mainsnak2[];
   P315?: Mainsnak2[];
 }
 
-interface P919 {
-  [key: string]: any;
+interface P916 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers51;
+  qualifiers: Qualifiers45;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers51 {
-  [key: string]: any;
-  P38: Mainsnak2[];
+interface Qualifiers45 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
+  P43: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2010 {
-  [key: string]: any;
+interface Q2009 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33381,46 +33496,33 @@ interface Q2010 {
 }
 
 interface Claims49 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P918[];
-  P310: P3103[];
-  P316: P3162[];
+  P91: P91[];
+  P310: P310[];
+  P316: P316[];
+  P55: P56[];
 }
 
-interface P3162 {
-  [key: string]: any;
+interface P316 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers50;
+  qualifiers: Qualifiers44;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers50 {
-  [key: string]: any;
+interface Qualifiers44 {
+  P19?: Mainsnak2[];
   P390?: Mainsnak2[];
+  P312?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P314?: Mainsnak2[];
-  P315?: Mainsnak2[];
 }
 
-interface P918 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers49;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers49 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P43: Mainsnak2[];
-}
-
-interface Q2009 {
-  [key: string]: any;
+interface Q2008 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33435,33 +33537,29 @@ interface Q2009 {
 }
 
 interface Claims48 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P310: P310[];
-  P316: P316[];
-  P55: P56[];
+  P91: P915[];
+  P309: P300[];
+  P310: P3103[];
 }
 
-interface P316 {
-  [key: string]: any;
+interface P3103 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers48;
+  qualifiers: Qualifiers43;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers48 {
-  [key: string]: any;
-  P390?: Mainsnak2[];
-  P312?: Mainsnak2[];
+interface Qualifiers43 {
+  P20: Mainsnak2[];
   P440?: Mainsnak2[];
-  P314?: Mainsnak2[];
 }
 
-interface Q2008 {
-  [key: string]: any;
+interface Q2005 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33476,15 +33574,14 @@ interface Q2008 {
 }
 
 interface Claims47 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P917[];
-  P309: P309[];
-  P310: P93[];
+  P91: P915[];
+  P310: P310[];
 }
 
-interface Q2005 {
-  [key: string]: any;
+interface Q2004 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33499,14 +33596,15 @@ interface Q2005 {
 }
 
 interface Claims46 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P917[];
-  P310: P3103[];
+  P91: P915[];
+  P309: P300[];
+  P310: P310[];
 }
 
-interface Q2004 {
-  [key: string]: any;
+interface Q2003 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33521,43 +33619,15 @@ interface Q2004 {
 }
 
 interface Claims45 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P917[];
-  P309: P309[];
-  P310: P3103[];
+  P91: P91[];
+  P310: P310[];
+  P72: P56[];
 }
 
-interface P3103 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers47;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers47 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-}
-
-interface P917 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers46;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers46 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-}
-
-interface Q2003 {
-  [key: string]: any;
+interface Q2002 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33572,15 +33642,31 @@ interface Q2003 {
 }
 
 interface Claims44 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
+  P91: P91[];
   P310: P310[];
-  P72: P56[];
+  P72: P722[];
 }
 
-interface Q2002 {
-  [key: string]: any;
+interface P722 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers42;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers42 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P440?: Mainsnak2[];
+}
+
+interface Q2001 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33595,31 +33681,30 @@ interface Q2002 {
 }
 
 interface Claims43 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
+  P91: P915[];
   P310: P310[];
-  P72: P722[];
+  P72: P56[];
 }
 
-interface P722 {
-  [key: string]: any;
+interface P915 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers45;
+  qualifiers: Qualifiers41;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers45 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P440?: Mainsnak2[];
+interface Qualifiers41 {
+  P24: Mainsnak2[];
+  P31: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q2001 {
-  [key: string]: any;
+interface Q2000 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33634,30 +33719,31 @@ interface Q2001 {
 }
 
 interface Claims42 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P916[];
+  P91: P91[];
   P310: P310[];
-  P72: P56[];
+  P72: P72[];
 }
 
-interface P916 {
-  [key: string]: any;
+interface P72 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers44;
+  qualifiers: Qualifiers40;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers44 {
-  [key: string]: any;
-  P31: Mainsnak2[];
-  P440: Mainsnak2[];
+interface Qualifiers40 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P4: Mainsnak2[];
 }
 
-interface Q2000 {
-  [key: string]: any;
+interface Q1999 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33672,31 +33758,15 @@ interface Q2000 {
 }
 
 interface Claims41 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P310: P310[];
-  P72: P72[];
+  P91: P91[];
+  P55: P56[];
+  P72: P56[];
 }
 
-interface P72 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers43;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers43 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-  P4: Mainsnak2[];
-}
-
-interface Q1999 {
-  [key: string]: any;
+interface Q1998 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33711,15 +33781,31 @@ interface Q1999 {
 }
 
 interface Claims40 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P91: P914[];
+  P310: P310[];
   P55: P56[];
-  P72: P56[];
 }
 
-interface Q1998 {
-  [key: string]: any;
+interface P914 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers39;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers39 {
+  P91: Mainsnak2[];
+  P38: Mainsnak2[];
+  P42: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q1996 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33734,31 +33820,15 @@ interface Q1998 {
 }
 
 interface Claims39 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P915[];
+  P91: P91[];
   P310: P310[];
   P55: P56[];
 }
 
-interface P915 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers42;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers42 {
-  [key: string]: any;
-  P38: Mainsnak2[];
-  P42: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q1996 {
-  [key: string]: any;
+interface Q1995 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33773,29 +33843,30 @@ interface Q1996 {
 }
 
 interface Claims38 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P914[];
-  P310: P310[];
+  P91: P912[];
+  P310: P3102[];
   P55: P56[];
 }
 
-interface P914 {
-  [key: string]: any;
+interface P3102 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers41;
+  qualifiers: Qualifiers38;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers41 {
-  [key: string]: any;
-  P440: Mainsnak2[];
+interface Qualifiers38 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
-interface Q1995 {
-  [key: string]: any;
+interface Q1994 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33810,30 +33881,30 @@ interface Q1995 {
 }
 
 interface Claims37 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P912[];
-  P310: P3102[];
+  P91: P913[];
+  P310: P310[];
   P55: P56[];
 }
 
-interface P3102 {
-  [key: string]: any;
+interface P913 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers40;
+  qualifiers: Qualifiers37;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers40 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P440?: Mainsnak2[];
+interface Qualifiers37 {
+  P24: Mainsnak2[];
+  P38: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q1994 {
-  [key: string]: any;
+interface Q1990 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33848,30 +33919,46 @@ interface Q1994 {
 }
 
 interface Claims36 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P913[];
+  P91: P912[];
   P310: P310[];
   P55: P56[];
 }
 
-interface P913 {
-  [key: string]: any;
+interface P310 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers39;
+  qualifiers: Qualifiers36;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers39 {
-  [key: string]: any;
+interface Qualifiers36 {
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface P912 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers35;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers35 {
+  P24: Mainsnak2[];
+  P37: Mainsnak2[];
   P38: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface Q1990 {
-  [key: string]: any;
+interface Q1989 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33886,46 +33973,28 @@ interface Q1990 {
 }
 
 interface Claims35 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P912[];
-  P310: P310[];
-  P55: P56[];
+  P93: P93[];
+  P309: P300[];
 }
 
-interface P310 {
-  [key: string]: any;
+interface P93 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers38;
+  qualifiers: Qualifiers34;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers38 {
-  [key: string]: any;
-  P390: Mainsnak2[];
+interface Qualifiers34 {
+  P20: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
-interface P912 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers37;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers37 {
-  [key: string]: any;
-  P37: Mainsnak2[];
-  P38: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface Q1989 {
-  [key: string]: any;
+interface Q1988 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33940,27 +34009,43 @@ interface Q1989 {
 }
 
 interface Claims34 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P93: P93[];
-  P309: P309[];
+  P91: P91[];
+  P309: P300[];
+  P306: P306[];
 }
 
-interface P93 {
-  [key: string]: any;
+interface P306 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers36;
+  qualifiers: Qualifiers33;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers36 {
-  [key: string]: any;
+interface Qualifiers33 {
+  P306: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
-interface Q1988 {
-  [key: string]: any;
+interface P91 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers32;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers32 {
+  P24: Mainsnak2[];
+  P440: Mainsnak2[];
+}
+
+interface Q1986 {
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -33975,28 +34060,14 @@ interface Q1988 {
 }
 
 interface Claims33 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P91: P91[];
-  P309: P309[];
-  P306: P1[];
-}
-
-interface P91 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers35;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers35 {
-  [key: string]: any;
+  P58: P582[];
+  P309: P300[];
 }
 
 interface Q1985 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34011,27 +34082,28 @@ interface Q1985 {
 }
 
 interface Claims32 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P582[];
   P309: P309[];
 }
 
 interface P309 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers34;
+  qualifiers: Qualifiers31;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers34 {
-  [key: string]: any;
+interface Qualifiers31 {
+  P64: Mainsnak[];
+  P44: Mainsnak2[];
 }
 
 interface Q1984 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34046,10 +34118,10 @@ interface Q1984 {
 }
 
 interface Claims31 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P63[];
-  P58: P5810[];
+  P58: P582[];
   P300: P300[];
   P89: P89[];
   P72: P56[];
@@ -34058,36 +34130,21 @@ interface Claims31 {
 }
 
 interface P85 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers33;
+  qualifiers: Qualifiers30;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers33 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P5810 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers32;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers32 {
-  [key: string]: any;
-  P29: Mainsnak2[];
+interface Qualifiers30 {
+  P82: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q1983 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34102,46 +34159,16 @@ interface Q1983 {
 }
 
 interface Claims30 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P63: P63[];
-  P58: P589[];
+  P58: P583[];
   P300: P300[];
   P89: P89[];
 }
 
 interface P89 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers31;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers31 {
-  [key: string]: any;
-  P406: Mainsnak2[];
-  P169: Mainsnak[];
-  P440: Mainsnak2[];
-}
-
-interface P300 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers30;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers30 {
-  [key: string]: any;
-  P440: Mainsnak2[];
-}
-
-interface P589 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers29;
   'qualifiers-order': string[];
@@ -34150,14 +34177,14 @@ interface P589 {
 }
 
 interface Qualifiers29 {
-  [key: string]: any;
-  P29: Mainsnak2[];
-  P27: Mainsnak2[];
+  P405: Mainsnak2[];
+  P406: Mainsnak2[];
+  P169: Mainsnak[];
   P440: Mainsnak2[];
 }
 
-interface P63 {
-  [key: string]: any;
+interface P300 {
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers28;
   'qualifiers-order': string[];
@@ -34166,12 +34193,26 @@ interface P63 {
 }
 
 interface Qualifiers28 {
-  [key: string]: any;
+  P64: Mainsnak[];
+  P440: Mainsnak2[];
+}
+
+interface P63 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers27;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers27 {
+  P335: Mainsnak[];
   P440: Mainsnak2[];
 }
 
 interface Q1979 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34186,29 +34227,30 @@ interface Q1979 {
 }
 
 interface Claims29 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P90[];
-  P96: P962[];
+  P96: P963[];
   P7: P1[];
 }
 
-interface P962 {
-  [key: string]: any;
+interface P963 {
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers27;
+  qualifiers: Qualifiers26;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers27 {
-  [key: string]: any;
+interface Qualifiers26 {
+  P22: Mainsnak2[];
   P169: Mainsnak[];
+  P440: Mainsnak2[];
 }
 
 interface Q1978 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34223,30 +34265,15 @@ interface Q1978 {
 }
 
 interface Claims28 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P104[];
-  P96: P96[];
+  P96: P962[];
   P73: P733[];
 }
 
 interface P733 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers26;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers26 {
-  [key: string]: any;
-  P390: Mainsnak2[];
-  P169: Mainsnak[];
-}
-
-interface P96 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers25;
   'qualifiers-order': string[];
@@ -34255,13 +34282,30 @@ interface P96 {
 }
 
 interface Qualifiers25 {
-  [key: string]: any;
+  P19: Mainsnak2[];
+  P390: Mainsnak2[];
+  P169: Mainsnak[];
+  P44: Mainsnak2[];
+}
+
+interface P962 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers24;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers24 {
+  P22: Mainsnak2[];
   P25?: Mainsnak2[];
+  P440?: Mainsnak2[];
   P31?: Mainsnak2[];
 }
 
 interface Q1977 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34276,30 +34320,15 @@ interface Q1977 {
 }
 
 interface Claims27 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P904[];
-  P96: P904[];
+  P90: P104[];
+  P96: P104[];
   P73: P56[];
 }
 
-interface P904 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers24;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers24 {
-  [key: string]: any;
-  P25: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
 interface Q1974 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34314,14 +34343,28 @@ interface Q1974 {
 }
 
 interface Claims26 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P90[];
-  P96: P90[];
+  P96: P96[];
+}
+
+interface P96 {
+  mainsnak: Mainsnak2;
+  type: string;
+  qualifiers: Qualifiers23;
+  'qualifiers-order': string[];
+  id: string;
+  rank: string;
+}
+
+interface Qualifiers23 {
+  P22: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
 interface Q1973 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34336,7 +34379,7 @@ interface Q1973 {
 }
 
 interface Claims25 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P104: P1042[];
   P90: P104[];
@@ -34344,24 +34387,25 @@ interface Claims25 {
 }
 
 interface P1042 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
-  qualifiers: Qualifiers23;
+  qualifiers: Qualifiers22;
   'qualifiers-order': string[];
   id: string;
   rank: string;
 }
 
-interface Qualifiers23 {
-  [key: string]: any;
+interface Qualifiers22 {
+  P45: Mainsnak2[];
   P46: Mainsnak2[];
   P22: Mainsnak2[];
   P18: P3932[];
   P47: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1972 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34376,31 +34420,14 @@ interface Q1972 {
 }
 
 interface Claims24 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
-  P90: P903[];
+  P90: P902[];
   P73: P732[];
 }
 
 interface P732 {
-  [key: string]: any;
-  type: string;
-  qualifiers: Qualifiers22;
-  'qualifiers-order': string[];
-  id: string;
-  rank: string;
-}
-
-interface Qualifiers22 {
-  [key: string]: any;
-  P35: Mainsnak2[];
-  P169: Mainsnak[];
-  P48: Mainsnak2[];
-  P440: Mainsnak2[];
-}
-
-interface P903 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers21;
   'qualifiers-order': string[];
@@ -34409,13 +34436,15 @@ interface P903 {
 }
 
 interface Qualifiers21 {
-  [key: string]: any;
-  P31: Mainsnak2[];
+  P19: Mainsnak2[];
+  P35: Mainsnak2[];
+  P169: Mainsnak[];
+  P48: Mainsnak2[];
   P440: Mainsnak2[];
 }
 
 interface Q1971 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34430,14 +34459,14 @@ interface Q1971 {
 }
 
 interface Claims23 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P902[];
   P73: P73[];
 }
 
 interface P73 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers20;
   'qualifiers-order': string[];
@@ -34446,14 +34475,15 @@ interface P73 {
 }
 
 interface Qualifiers20 {
-  [key: string]: any;
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P169: Mainsnak[];
   P48: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface P902 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers19;
   'qualifiers-order': string[];
@@ -34462,12 +34492,13 @@ interface P902 {
 }
 
 interface Qualifiers19 {
-  [key: string]: any;
+  P22: Mainsnak2[];
   P31: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1958 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34482,14 +34513,14 @@ interface Q1958 {
 }
 
 interface Claims22 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P104[];
   P56: P56[];
 }
 
 interface Q1957 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34504,13 +34535,13 @@ interface Q1957 {
 }
 
 interface Claims21 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P90: P90[];
 }
 
 interface P90 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers18;
   'qualifiers-order': string[];
@@ -34519,11 +34550,12 @@ interface P90 {
 }
 
 interface Qualifiers18 {
-  [key: string]: any;
+  P22: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1922 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34538,14 +34570,14 @@ interface Q1922 {
 }
 
 interface Claims20 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P56: P56[];
   P104: P104[];
 }
 
 interface P104 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers17;
   'qualifiers-order': string[];
@@ -34554,12 +34586,13 @@ interface P104 {
 }
 
 interface Qualifiers17 {
-  [key: string]: any;
+  P22: Mainsnak2[];
   P25: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface P56 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers16;
   'qualifiers-order': string[];
@@ -34568,14 +34601,14 @@ interface P56 {
 }
 
 interface Qualifiers16 {
-  [key: string]: any;
+  P19: Mainsnak2[];
   P390: Mainsnak2[];
   P169: Mainsnak[];
   P440: Mainsnak2[];
 }
 
 interface Q1921 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34590,13 +34623,13 @@ interface Q1921 {
 }
 
 interface Claims19 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P53: P53[];
 }
 
 interface P53 {
-  [key: string]: any;
+  mainsnak: P3932;
   type: string;
   qualifiers: Qualifiers15;
   'qualifiers-order': string[];
@@ -34605,14 +34638,15 @@ interface P53 {
 }
 
 interface Qualifiers15 {
-  [key: string]: any;
+  P74: Mainsnak[];
   P61: Mainsnak[];
   P62: Mainsnak[];
+  P440: Mainsnak2[];
   P331?: Mainsnak[];
 }
 
 interface Q1920 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34627,13 +34661,13 @@ interface Q1920 {
 }
 
 interface Claims18 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P588[];
 }
 
 interface P588 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers14;
   'qualifiers-order': string[];
@@ -34642,15 +34676,16 @@ interface P588 {
 }
 
 interface Qualifiers14 {
-  [key: string]: any;
+  P41?: Mainsnak2[];
   P34: Mainsnak2[];
+  P440: Mainsnak2[];
   P39?: Mainsnak2[];
   P21?: Mainsnak2[];
   P29?: Mainsnak2[];
 }
 
 interface Q1919 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34665,13 +34700,13 @@ interface Q1919 {
 }
 
 interface Claims17 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P587[];
 }
 
 interface P587 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers13;
   'qualifiers-order': string[];
@@ -34680,12 +34715,13 @@ interface P587 {
 }
 
 interface Qualifiers13 {
-  [key: string]: any;
+  P41: Mainsnak2[];
   P34: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1918 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34700,13 +34736,13 @@ interface Q1918 {
 }
 
 interface Claims16 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P586[];
 }
 
 interface P586 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers12;
   'qualifiers-order': string[];
@@ -34715,16 +34751,17 @@ interface P586 {
 }
 
 interface Qualifiers12 {
-  [key: string]: any;
+  P41?: Mainsnak2[];
   P39: Mainsnak2[];
   P34?: Mainsnak2[];
+  P440: Mainsnak2[];
   P21?: Mainsnak2[];
   P29?: Mainsnak2[];
   P27?: Mainsnak2[];
 }
 
 interface Q1917 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34739,13 +34776,13 @@ interface Q1917 {
 }
 
 interface Claims15 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P585[];
 }
 
 interface P585 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers11;
   'qualifiers-order': string[];
@@ -34754,13 +34791,14 @@ interface P585 {
 }
 
 interface Qualifiers11 {
-  [key: string]: any;
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P34: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1916 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34775,13 +34813,13 @@ interface Q1916 {
 }
 
 interface Claims14 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P584[];
 }
 
 interface P584 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers10;
   'qualifiers-order': string[];
@@ -34790,12 +34828,13 @@ interface P584 {
 }
 
 interface Qualifiers10 {
-  [key: string]: any;
+  P41: Mainsnak2[];
   P27: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1915 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34810,13 +34849,13 @@ interface Q1915 {
 }
 
 interface Claims13 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P583[];
 }
 
 interface P583 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers9;
   'qualifiers-order': string[];
@@ -34825,13 +34864,14 @@ interface P583 {
 }
 
 interface Qualifiers9 {
-  [key: string]: any;
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P27: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1914 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34846,13 +34886,13 @@ interface Q1914 {
 }
 
 interface Claims12 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P582[];
 }
 
 interface Q1913 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34867,14 +34907,14 @@ interface Q1913 {
 }
 
 interface Claims11 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P582[];
   P59: P59[];
 }
 
 interface P59 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers8;
   'qualifiers-order': string[];
@@ -34883,13 +34923,14 @@ interface P59 {
 }
 
 interface Qualifiers8 {
-  [key: string]: any;
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
   P47: Mainsnak2[];
+  P440?: Mainsnak2[];
 }
 
 interface Q1911 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34904,14 +34945,14 @@ interface Q1911 {
 }
 
 interface Claims10 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P582[];
   P7: P1[];
 }
 
 interface P582 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers7;
   'qualifiers-order': string[];
@@ -34920,12 +34961,13 @@ interface P582 {
 }
 
 interface Qualifiers7 {
-  [key: string]: any;
+  P21: Mainsnak2[];
   P29: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1909 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34940,13 +34982,13 @@ interface Q1909 {
 }
 
 interface Claims9 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P58: P58[];
 }
 
 interface P58 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers6;
   'qualifiers-order': string[];
@@ -34955,11 +34997,12 @@ interface P58 {
 }
 
 interface Qualifiers6 {
-  [key: string]: any;
+  P41: Mainsnak2[];
+  P440: Mainsnak2[];
 }
 
 interface Q1898 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34974,7 +35017,7 @@ interface Q1898 {
 }
 
 interface Claims8 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P4[];
@@ -34983,7 +35026,7 @@ interface Claims8 {
 }
 
 interface Q1407 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -34998,14 +35041,14 @@ interface Q1407 {
 }
 
 interface Claims7 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P4[];
 }
 
 interface Q1406 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35020,7 +35063,7 @@ interface Q1406 {
 }
 
 interface Claims6 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P115: P110[];
@@ -35028,7 +35071,7 @@ interface Claims6 {
 }
 
 interface Q1395 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35043,7 +35086,7 @@ interface Q1395 {
 }
 
 interface Claims5 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P4[];
@@ -35051,7 +35094,7 @@ interface Claims5 {
 }
 
 interface P60 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
   qualifiers: Qualifiers5;
   'qualifiers-order': string[];
@@ -35060,11 +35103,11 @@ interface P60 {
 }
 
 interface Qualifiers5 {
-  [key: string]: any;
+  P8: Mainsnak[];
 }
 
 interface Q1361 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35079,7 +35122,7 @@ interface Q1361 {
 }
 
 interface Q1352 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35094,7 +35137,7 @@ interface Q1352 {
 }
 
 interface Claims4 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P4: P4[];
@@ -35102,7 +35145,7 @@ interface Claims4 {
 }
 
 interface P4 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers4;
   'qualifiers-order': string[];
@@ -35111,15 +35154,15 @@ interface P4 {
 }
 
 interface Qualifiers4 {
-  [key: string]: any;
+  P3: Mainsnak[];
 }
 
 interface Aliases2 {
-  [key: string]: any;
+  de: De[];
 }
 
 interface P413 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35134,14 +35177,14 @@ interface P413 {
 }
 
 interface Claims3 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P124: P110[];
 }
 
 interface P400 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35156,7 +35199,7 @@ interface P400 {
 }
 
 interface Claims2 {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P401: P110[];
@@ -35167,7 +35210,7 @@ interface Claims2 {
 }
 
 interface P3882 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers3;
   'qualifiers-order': string[];
@@ -35176,21 +35219,21 @@ interface P3882 {
 }
 
 interface Qualifiers3 {
-  [key: string]: any;
+  P389?: Mainsnak[];
   P393?: P3932[];
   P396?: Mainsnak[];
   P404?: Mainsnak[];
 }
 
 interface P3932 {
-  [key: string]: any;
+  snaktype: string;
   property: string;
   hash: string;
   datatype: string;
 }
 
 interface P399 {
-  [key: string]: any;
+  pageid: number;
   ns: number;
   title: string;
   lastrevid: number;
@@ -35205,7 +35248,7 @@ interface P399 {
 }
 
 interface Claims {
-  [key: string]: any;
+  P110: P110[];
   P2: P110[];
   P1: P1[];
   P402: P402[];
@@ -35216,7 +35259,7 @@ interface Claims {
 }
 
 interface P388 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers2;
   'qualifiers-order': string[];
@@ -35225,7 +35268,7 @@ interface P388 {
 }
 
 interface Qualifiers2 {
-  [key: string]: any;
+  P389?: Mainsnak[];
   P393?: P393[];
   P392?: Mainsnak[];
   P396?: Mainsnak[];
@@ -35233,7 +35276,7 @@ interface Qualifiers2 {
 }
 
 interface P393 {
-  [key: string]: any;
+  snaktype: string;
   property: string;
   hash: string;
   datatype: string;
@@ -35241,7 +35284,7 @@ interface P393 {
 }
 
 interface P402 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   qualifiers: Qualifiers;
   'qualifiers-order': string[];
@@ -35250,18 +35293,18 @@ interface P402 {
 }
 
 interface Qualifiers {
-  [key: string]: any;
+  P393: Mainsnak[];
 }
 
 interface P1 {
-  [key: string]: any;
+  mainsnak: Mainsnak2;
   type: string;
   id: string;
   rank: string;
 }
 
 interface Mainsnak2 {
-  [key: string]: any;
+  snaktype: string;
   property: string;
   hash: string;
   datavalue: Datavalue2;
@@ -35269,19 +35312,19 @@ interface Mainsnak2 {
 }
 
 interface Datavalue2 {
-  [key: string]: any;
+  value: string;
   type: string;
 }
 
 interface P110 {
-  [key: string]: any;
+  mainsnak: Mainsnak;
   type: string;
   id: string;
   rank: string;
 }
 
 interface Mainsnak {
-  [key: string]: any;
+  snaktype: string;
   property: string;
   hash: string;
   datavalue: Datavalue;
@@ -35289,24 +35332,24 @@ interface Mainsnak {
 }
 
 interface Datavalue {
-  [key: string]: any;
+  value: Value;
   type: string;
 }
 
 interface Value {
-  [key: string]: any;
+  'entity-type': string;
   'numeric-id': number;
   id: string;
 }
 
 interface Aliases {
-  [key: string]: any;
+}
 
 interface Labels {
-  [key: string]: any;
+  de: De;
 }
 
 interface De {
-  [key: string]: any;
+  language: string;
   value: string;
 }

@@ -1,5 +1,5 @@
-export interface LabelEn {
-  [key: string]: any;
+export interface LabelEn extends Indexable<LabelEn> {
+  P399: P399;
   P400: P399;
   P413: P399;
   Q1352: P399;
@@ -6552,6 +6552,10 @@ export interface LabelEn {
   Q8646: P399;
   Q8647: P399;
   Q8648: P399;
+  Q8649: P399;
+  Q8650: P399;
+  Q8651: P399;
+  Q8652: P399;
   Q315: P399;
   P173: P399;
   Q2171: P399;
@@ -7829,6 +7833,7 @@ export interface LabelEn {
   P454: P399;
   Q3399: P399;
   P11: P399;
+  P653: P399;
   P508: P399;
   P440: P399;
   P557: P399;
@@ -7836,8 +7841,8 @@ export interface LabelEn {
   P115: P399;
   P116: P399;
   P646: P399;
-  Q302: P399;
   Q1969: P399;
+  Q302: P399;
   P526: P399;
   P527: P399;
   P109: P399;
@@ -7913,13 +7918,13 @@ export interface LabelEn {
 }
 
 interface Q3445 {
-  [key: string]: any;
+  label: string;
   assignmentId: undefined;
   assignmentLabel: string;
 }
 
 interface P399 {
-  [key: string]: any;
+  label: string;
   assignmentId: string;
   assignmentLabel: string;
 }

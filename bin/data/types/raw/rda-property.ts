@@ -1,5 +1,5 @@
-export interface RdaPropertyRaw {
-  [key: string]: any;
+export interface RdaPropertyRaw extends Indexable<RdaPropertyRaw> {
+  element: Element;
   eId: Element;
   assignmentId: Element;
   elementLabel: ElementLabel;
@@ -7,12 +7,12 @@ export interface RdaPropertyRaw {
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  'xml:lang': string;
   type: string;
   value: string;
 }
 
 interface Element {
-  [key: string]: any;
+  type: string;
   value: string;
 }

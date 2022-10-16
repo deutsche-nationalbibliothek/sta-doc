@@ -1,16 +1,16 @@
-export interface RdaRuleRaw {
-  [key: string]: any;
+export interface RdaRuleRaw extends Indexable<RdaRuleRaw> {
+  element: Element;
   eId: Element;
   elementLabel: ElementLabel;
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  type: string;
   value: string;
   'xml:lang'?: string;
 }
 
 interface Element {
-  [key: string]: any;
+  type: string;
   value: string;
 }

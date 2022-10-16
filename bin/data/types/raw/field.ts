@@ -1,5 +1,5 @@
-export interface FieldRaw {
-  [key: string]: any;
+export interface FieldRaw extends Indexable<FieldRaw> {
+  P53: P53;
   P55: P55;
   P56: P56;
   P58: P58;
@@ -72,7 +72,7 @@ export interface FieldRaw {
 }
 
 interface P391 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -87,7 +87,7 @@ interface P391 {
 }
 
 interface Subfields65 {
-  [key: string]: any;
+  P23: P19;
   P31: P18;
   P26: P19;
   P32: P19;
@@ -97,7 +97,7 @@ interface Subfields65 {
 }
 
 interface P378 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -112,11 +112,11 @@ interface P378 {
 }
 
 interface Examples43 {
-  [key: string]: any;
+  Q3288: Q1921;
 }
 
 interface Subfields64 {
-  [key: string]: any;
+  P376: P19;
   P377: P19;
   P28: P19;
   P32: P19;
@@ -128,7 +128,7 @@ interface Subfields64 {
 }
 
 interface P375 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -143,19 +143,19 @@ interface P375 {
 }
 
 interface Examples42 {
-  [key: string]: any;
+  Q3286: Q1921;
   Q3287: Q1921;
 }
 
 interface Subfields63 {
-  [key: string]: any;
+  P372: P19;
   P373: P19;
   P374: P19;
   P150: P19;
 }
 
 interface P370 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -170,18 +170,18 @@ interface P370 {
 }
 
 interface Examples41 {
-  [key: string]: any;
+  Q3289: Q1921;
   Q3291: Q1921;
   Q3292: Q1921;
 }
 
 interface Subfields62 {
-  [key: string]: any;
+  P368: P35;
   P369: P35;
 }
 
 interface P367 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -196,17 +196,17 @@ interface P367 {
 }
 
 interface Examples40 {
-  [key: string]: any;
+  Q3284: Q1921;
   Q3285: Q1921;
 }
 
 interface Subfields61 {
-  [key: string]: any;
+  P365: P19;
   P366: P19;
 }
 
 interface P364 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -221,18 +221,18 @@ interface P364 {
 }
 
 interface Examples39 {
-  [key: string]: any;
+  Q3282: Q1921;
   Q3283: Q1921;
 }
 
 interface Subfields60 {
-  [key: string]: any;
+  P361: P19;
   P362: P362;
   P363: P19;
 }
 
 interface P362 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -243,12 +243,12 @@ interface P362 {
 }
 
 interface Reference2 {
-  [key: string]: any;
+  description: string;
   URL?: any;
 }
 
 interface P360 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -263,15 +263,15 @@ interface P360 {
 }
 
 interface Examples38 {
-  [key: string]: any;
+  Q3281: Q1921;
 }
 
 interface Subfields59 {
-  [key: string]: any;
+  P359: P19;
 }
 
 interface P358 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -286,7 +286,7 @@ interface P358 {
 }
 
 interface Examples37 {
-  [key: string]: any;
+  Q3085: Q1921;
   Q3086: Q1921;
   Q3087: Q1921;
   Q3088: Q1921;
@@ -298,7 +298,7 @@ interface Examples37 {
 }
 
 interface Subfields58 {
-  [key: string]: any;
+  P24: P19;
   P356: P19;
   P30: P19;
   P357: P19;
@@ -306,7 +306,7 @@ interface Subfields58 {
 }
 
 interface P355 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -321,17 +321,17 @@ interface P355 {
 }
 
 interface Examples36 {
-  [key: string]: any;
+  Q3266: Q1921;
 }
 
 interface Subfields57 {
-  [key: string]: any;
+  P335: P3352;
   P19: P19;
   P47: P19;
 }
 
 interface P3352 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues18;
@@ -342,13 +342,13 @@ interface P3352 {
 }
 
 interface AllowedValues18 {
-  [key: string]: any;
+  Q1898: string;
   Q1899: string;
   Q1900: string;
 }
 
 interface P354 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -363,16 +363,16 @@ interface P354 {
 }
 
 interface Examples35 {
-  [key: string]: any;
+  Q3265: Q1921;
 }
 
 interface Subfields56 {
-  [key: string]: any;
+  P19: P19;
   P47: P19;
 }
 
 interface P353 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -387,7 +387,7 @@ interface P353 {
 }
 
 interface P352 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -402,11 +402,11 @@ interface P352 {
 }
 
 interface Subfields55 {
-  [key: string]: any;
+  P302: P19;
 }
 
 interface P351 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -421,13 +421,13 @@ interface P351 {
 }
 
 interface Subfields54 {
-  [key: string]: any;
+  P19: P19;
   P350: P19;
   P47: P19;
 }
 
 interface P349 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -442,12 +442,12 @@ interface P349 {
 }
 
 interface Examples34 {
-  [key: string]: any;
+  Q2859: Q1921;
   Q2860: Q1921;
 }
 
 interface Subfields53 {
-  [key: string]: any;
+  P345: P19;
   P346: P346;
   P347: P19;
   P438: P19;
@@ -455,7 +455,7 @@ interface Subfields53 {
 }
 
 interface P346 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues17;
@@ -466,13 +466,13 @@ interface P346 {
 }
 
 interface AllowedValues17 {
-  [key: string]: any;
+  Q1894: string;
   Q1895: string;
   Q1896: string;
 }
 
 interface P344 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -487,17 +487,17 @@ interface P344 {
 }
 
 interface Examples33 {
-  [key: string]: any;
+  Q2103: Q1921;
 }
 
 interface Subfields52 {
-  [key: string]: any;
+  P341: P19;
   P342: P342;
   P343: P343;
 }
 
 interface P343 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues16;
@@ -508,11 +508,11 @@ interface P343 {
 }
 
 interface AllowedValues16 {
-  [key: string]: any;
+  Q1890: string;
 }
 
 interface P342 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues15;
@@ -523,13 +523,13 @@ interface P342 {
 }
 
 interface AllowedValues15 {
-  [key: string]: any;
+  Q1891: string;
   Q1892: string;
   Q1893: string;
 }
 
 interface P340 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -544,17 +544,17 @@ interface P340 {
 }
 
 interface Examples32 {
-  [key: string]: any;
+  Q2105: Q1921;
   Q2106: Q1921;
   Q2107: Q1921;
 }
 
 interface Subfields51 {
-  [key: string]: any;
+  P64: P646;
 }
 
 interface P646 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues14;
@@ -565,11 +565,11 @@ interface P646 {
 }
 
 interface AllowedValues14 {
-  [key: string]: any;
+  Q1359: string;
 }
 
 interface P339 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -584,13 +584,13 @@ interface P339 {
 }
 
 interface Examples31 {
-  [key: string]: any;
+  Q2111: Q1921;
   Q2112: Q1921;
   Q2113: Q1921;
 }
 
 interface P336 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -605,15 +605,15 @@ interface P336 {
 }
 
 interface Examples30 {
-  [key: string]: any;
+  Q2104: Q1921;
 }
 
 interface Subfields50 {
-  [key: string]: any;
+  P64: P19;
 }
 
 interface P334 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -628,17 +628,17 @@ interface P334 {
 }
 
 interface Examples29 {
-  [key: string]: any;
+  Q2091: Q1921;
 }
 
 interface Subfields49 {
-  [key: string]: any;
+  P338: P338;
   P337: P19;
   P47: P19;
 }
 
 interface P338 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues13;
@@ -649,14 +649,14 @@ interface P338 {
 }
 
 interface AllowedValues13 {
-  [key: string]: any;
+  Q3122: string;
   Q3121: string;
   Q3123: string;
   Q3124: string;
 }
 
 interface P333 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -671,11 +671,11 @@ interface P333 {
 }
 
 interface Examples28 {
-  [key: string]: any;
+  Q2092: Q1921;
 }
 
 interface P332 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -690,15 +690,15 @@ interface P332 {
 }
 
 interface Examples27 {
-  [key: string]: any;
+  Q2090: Q1921;
 }
 
 interface Subfields48 {
-  [key: string]: any;
+  P150: P19;
 }
 
 interface P328 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -713,15 +713,15 @@ interface P328 {
 }
 
 interface Examples26 {
-  [key: string]: any;
+  Q2089: Q1921;
 }
 
 interface Subfields47 {
-  [key: string]: any;
+  P64: P645;
 }
 
 interface P645 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues12;
@@ -732,7 +732,7 @@ interface P645 {
 }
 
 interface AllowedValues12 {
-  [key: string]: any;
+  Q1386: string;
   Q1387: string;
   Q1388: string;
   Q1389: string;
@@ -744,7 +744,7 @@ interface AllowedValues12 {
 }
 
 interface P327 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -759,7 +759,7 @@ interface P327 {
 }
 
 interface P326 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -774,12 +774,12 @@ interface P326 {
 }
 
 interface Subfields46 {
-  [key: string]: any;
+  P323: P19;
   P324: P19;
 }
 
 interface P325 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -794,11 +794,11 @@ interface P325 {
 }
 
 interface Subfields45 {
-  [key: string]: any;
+  P323: P19;
 }
 
 interface P322 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -813,18 +813,18 @@ interface P322 {
 }
 
 interface Examples25 {
-  [key: string]: any;
+  Q2061: Q1921;
   Q2062: Q1921;
   Q2063: Q1921;
   Q2065: Q1921;
 }
 
 interface Subfields44 {
-  [key: string]: any;
+  P321: P19;
 }
 
 interface P320 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -839,17 +839,17 @@ interface P320 {
 }
 
 interface Examples24 {
-  [key: string]: any;
+  Q2060: Q1921;
 }
 
 interface Subfields43 {
-  [key: string]: any;
+  P317: P19;
   P318: P19;
   P319: P19;
 }
 
 interface P316 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -864,7 +864,7 @@ interface P316 {
 }
 
 interface Examples23 {
-  [key: string]: any;
+  Q2009: Q1921;
   Q2010: Q1921;
   Q2011: Q1921;
   Q2012: Q1921;
@@ -877,7 +877,7 @@ interface Examples23 {
 }
 
 interface Subfields42 {
-  [key: string]: any;
+  P19: P19;
   P20: P19;
   P311: P19;
   P312: P19;
@@ -888,7 +888,7 @@ interface Subfields42 {
 }
 
 interface P310 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -903,7 +903,7 @@ interface P310 {
 }
 
 interface Examples22 {
-  [key: string]: any;
+  Q3141: Q1921;
   Q3142: Q1921;
   Q3143: Q1921;
   Q3144: Q1921;
@@ -947,12 +947,12 @@ interface Examples22 {
 }
 
 interface Subfields41 {
-  [key: string]: any;
+  P19: P19;
   P20: P19;
 }
 
 interface P309 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -967,7 +967,7 @@ interface P309 {
 }
 
 interface Examples21 {
-  [key: string]: any;
+  Q1985: Q1921;
   Q1986: Q1921;
   Q1987: Q1921;
   Q1988: Q1921;
@@ -975,11 +975,11 @@ interface Examples21 {
 }
 
 interface Subfields40 {
-  [key: string]: any;
+  P64: P644;
 }
 
 interface P644 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues11;
@@ -990,11 +990,11 @@ interface P644 {
 }
 
 interface AllowedValues11 {
-  [key: string]: any;
+  Q2168: string;
 }
 
 interface P301 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1009,17 +1009,17 @@ interface P301 {
 }
 
 interface Examples20 {
-  [key: string]: any;
+  Q2085: Q1921;
   Q2086: Q1921;
   Q2087: Q1921;
 }
 
 interface Subfields39 {
-  [key: string]: any;
+  P64: P643;
 }
 
 interface P643 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues10;
@@ -1030,7 +1030,7 @@ interface P643 {
 }
 
 interface AllowedValues10 {
-  [key: string]: any;
+  Q1352: string;
   Q1353: string;
   Q1354: string;
   Q1355: string;
@@ -1040,7 +1040,7 @@ interface AllowedValues10 {
 }
 
 interface P300 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1055,17 +1055,17 @@ interface P300 {
 }
 
 interface Examples19 {
-  [key: string]: any;
+  Q1983: Q1921;
   Q1984: Q1921;
 }
 
 interface Subfields38 {
-  [key: string]: any;
+  P335: P335;
   P47: P19;
 }
 
 interface P335 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues9;
@@ -1076,12 +1076,12 @@ interface P335 {
 }
 
 interface AllowedValues9 {
-  [key: string]: any;
+  Q258: string;
   Q259: string;
 }
 
 interface P295 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1096,13 +1096,13 @@ interface P295 {
 }
 
 interface Subfields37 {
-  [key: string]: any;
+  P66: P19;
   P54: P19;
   P47: P19;
 }
 
 interface P245 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: any[];
   definition: string;
@@ -1117,7 +1117,7 @@ interface P245 {
 }
 
 interface P133 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1132,12 +1132,12 @@ interface P133 {
 }
 
 interface Examples18 {
-  [key: string]: any;
+  Q2093: Q1921;
   Q2094: Q1921;
 }
 
 interface Subfields36 {
-  [key: string]: any;
+  P135: P19;
   P134: P19;
   P136: P19;
   P137: P19;
@@ -1160,7 +1160,7 @@ interface Subfields36 {
 }
 
 interface P108 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1175,15 +1175,15 @@ interface P108 {
 }
 
 interface Examples17 {
-  [key: string]: any;
+  Q2088: Q1921;
 }
 
 interface Subfields35 {
-  [key: string]: any;
+  P64: P642;
 }
 
 interface P642 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues8;
@@ -1194,7 +1194,7 @@ interface P642 {
 }
 
 interface AllowedValues8 {
-  [key: string]: any;
+  Q273: string;
   Q274: string;
   Q275: string;
   Q276: string;
@@ -1212,7 +1212,7 @@ interface AllowedValues8 {
 }
 
 interface P107 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1227,11 +1227,11 @@ interface P107 {
 }
 
 interface Examples16 {
-  [key: string]: any;
+  Q3267: Q1921;
 }
 
 interface Subfields34 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P41: P19;
@@ -1251,7 +1251,7 @@ interface Subfields34 {
 }
 
 interface P106 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1266,11 +1266,11 @@ interface P106 {
 }
 
 interface Examples15 {
-  [key: string]: any;
+  Q3278: Q1921;
 }
 
 interface Subfields33 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P20: P19;
@@ -1285,7 +1285,7 @@ interface Subfields33 {
 }
 
 interface P105 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1300,11 +1300,11 @@ interface P105 {
 }
 
 interface Examples14 {
-  [key: string]: any;
+  Q3274: Q1921;
 }
 
 interface Subfields32 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P23: P19;
@@ -1322,7 +1322,7 @@ interface Subfields32 {
 }
 
 interface P104 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1337,12 +1337,12 @@ interface P104 {
 }
 
 interface Examples13 {
-  [key: string]: any;
+  Q3270: Q1921;
   Q3271: Q1921;
 }
 
 interface Subfields31 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P22: P19;
@@ -1359,7 +1359,7 @@ interface Subfields31 {
 }
 
 interface P103 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1374,7 +1374,7 @@ interface P103 {
 }
 
 interface Subfields30 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P20: P19;
@@ -1389,7 +1389,7 @@ interface Subfields30 {
 }
 
 interface P101 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1404,17 +1404,17 @@ interface P101 {
 }
 
 interface Examples12 {
-  [key: string]: any;
+  Q2101: Q1921;
 }
 
 interface Subfields29 {
-  [key: string]: any;
+  P299: P19;
   P150: P19;
   P47: P19;
 }
 
 interface P99 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1429,7 +1429,7 @@ interface P99 {
 }
 
 interface Subfields28 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P20: P19;
@@ -1441,7 +1441,7 @@ interface Subfields28 {
 }
 
 interface P98 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1456,7 +1456,7 @@ interface P98 {
 }
 
 interface Subfields27 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P20: P19;
@@ -1469,7 +1469,7 @@ interface Subfields27 {
 }
 
 interface P97 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1484,14 +1484,14 @@ interface P97 {
 }
 
 interface Examples11 {
-  [key: string]: any;
+  Q2899: Q1921;
   Q2900: Q1921;
   Q2901: Q1921;
   Q2902: Q1921;
 }
 
 interface Subfields26 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P24: P19;
@@ -1510,7 +1510,7 @@ interface Subfields26 {
 }
 
 interface P96 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1525,12 +1525,12 @@ interface P96 {
 }
 
 interface Examples10 {
-  [key: string]: any;
+  Q1973: Q1921;
   Q3207: Q1921;
 }
 
 interface Subfields25 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P22: P19;
@@ -1544,7 +1544,7 @@ interface Subfields25 {
 }
 
 interface P95 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1559,7 +1559,7 @@ interface P95 {
 }
 
 interface Examples9 {
-  [key: string]: any;
+  Q3194: Q1921;
   Q3195: Q1921;
   Q3196: Q1921;
   Q3197: Q1921;
@@ -1572,7 +1572,7 @@ interface Examples9 {
 }
 
 interface Subfields24 {
-  [key: string]: any;
+  P45: P35;
   P46: P19;
   P36: P19;
   P23: P19;
@@ -1587,7 +1587,7 @@ interface Subfields24 {
 }
 
 interface P94 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1602,7 +1602,7 @@ interface P94 {
 }
 
 interface Examples8 {
-  [key: string]: any;
+  Q2843: Q1921;
   Q2844: Q1921;
   Q2845: Q1921;
   Q2846: Q1921;
@@ -1610,7 +1610,7 @@ interface Examples8 {
 }
 
 interface Subfields23 {
-  [key: string]: any;
+  P20: P19;
   P31: P19;
   P49: P19;
   P52: P19;
@@ -1618,7 +1618,7 @@ interface Subfields23 {
 }
 
 interface P93 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1633,14 +1633,14 @@ interface P93 {
 }
 
 interface Subfields22 {
-  [key: string]: any;
+  P24: P19;
   P31: P19;
   P49: P19;
   P47: P19;
 }
 
 interface P91 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1655,7 +1655,7 @@ interface P91 {
 }
 
 interface Subfields21 {
-  [key: string]: any;
+  P24: P19;
   P30: P19;
   P31: P19;
   P33: P19;
@@ -1671,7 +1671,7 @@ interface Subfields21 {
 }
 
 interface P35 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings2;
   allowedValues: any[];
@@ -1682,7 +1682,7 @@ interface P35 {
 }
 
 interface P90 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1697,7 +1697,7 @@ interface P90 {
 }
 
 interface Subfields20 {
-  [key: string]: any;
+  P22: P19;
   P25: P19;
   P39: P19;
   P31: P19;
@@ -1706,7 +1706,7 @@ interface Subfields20 {
 }
 
 interface P89 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1721,7 +1721,7 @@ interface P89 {
 }
 
 interface Examples7 {
-  [key: string]: any;
+  Q2987: Q1921;
   Q2988: Q1921;
   Q2989: Q1921;
   Q2990: Q1921;
@@ -1763,7 +1763,7 @@ interface Examples7 {
 }
 
 interface Subfields19 {
-  [key: string]: any;
+  P405: P19;
   P406: P19;
   P407: P19;
   P78: P19;
@@ -1776,7 +1776,7 @@ interface Subfields19 {
 }
 
 interface P86 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1791,11 +1791,11 @@ interface P86 {
 }
 
 interface Subfields18 {
-  [key: string]: any;
+  P308: P19;
 }
 
 interface P85 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1810,13 +1810,13 @@ interface P85 {
 }
 
 interface Subfields17 {
-  [key: string]: any;
+  P307: P19;
   P82: P19;
   P57: P19;
 }
 
 interface P84 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1831,21 +1831,21 @@ interface P84 {
 }
 
 interface Examples6 {
-  [key: string]: any;
+  Q3227: Q1921;
   Q3228: Q1921;
   Q3229: Q1921;
   Q3230: Q1921;
 }
 
 interface Subfields16 {
-  [key: string]: any;
+  P306: P19;
   P57: P19;
   P47: P19;
   P18: P19;
 }
 
 interface P83 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1860,11 +1860,11 @@ interface P83 {
 }
 
 interface Subfields15 {
-  [key: string]: any;
+  P304: P19;
 }
 
 interface P81 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1879,7 +1879,7 @@ interface P81 {
 }
 
 interface Examples5 {
-  [key: string]: any;
+  Q3067: Q1921;
   Q3068: Q1921;
   Q3069: Q1921;
   Q3070: Q1921;
@@ -1900,13 +1900,13 @@ interface Examples5 {
 }
 
 interface Subfields14 {
-  [key: string]: any;
+  P304: P19;
   P82: P19;
   P57: P19;
 }
 
 interface P80 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1921,12 +1921,12 @@ interface P80 {
 }
 
 interface Subfields13 {
-  [key: string]: any;
+  P305: P19;
   P18: P19;
 }
 
 interface P73 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1941,7 +1941,7 @@ interface P73 {
 }
 
 interface Subfields12 {
-  [key: string]: any;
+  P19: P19;
   P20: P19;
   P31: P19;
   P49: P19;
@@ -1955,7 +1955,7 @@ interface Subfields12 {
 }
 
 interface P72 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1970,7 +1970,7 @@ interface P72 {
 }
 
 interface Subfields11 {
-  [key: string]: any;
+  P19: P19;
   P20: P19;
   P31: P19;
   P49: P19;
@@ -1983,7 +1983,7 @@ interface Subfields11 {
 }
 
 interface P71 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -1998,7 +1998,7 @@ interface P71 {
 }
 
 interface Subfields10 {
-  [key: string]: any;
+  P24: P19;
   P30: P19;
   P31: P19;
   P37: P19;
@@ -2018,7 +2018,7 @@ interface Subfields10 {
 }
 
 interface P70 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2033,7 +2033,7 @@ interface P70 {
 }
 
 interface Subfields9 {
-  [key: string]: any;
+  P19: P19;
   P23: P19;
   P26: P19;
   P39: P19;
@@ -2049,7 +2049,7 @@ interface Subfields9 {
 }
 
 interface P68 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2064,17 +2064,17 @@ interface P68 {
 }
 
 interface Examples4 {
-  [key: string]: any;
+  Q2869: Q1921;
   Q2870: Q1921;
 }
 
 interface Subfields8 {
-  [key: string]: any;
+  P303: P19;
   P302: P302;
 }
 
 interface P302 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues7;
@@ -2085,7 +2085,7 @@ interface P302 {
 }
 
 interface AllowedValues7 {
-  [key: string]: any;
+  Q1361: string;
   Q1362: string;
   Q1363: string;
   Q1364: string;
@@ -2113,7 +2113,7 @@ interface AllowedValues7 {
 }
 
 interface P65 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2128,7 +2128,7 @@ interface P65 {
 }
 
 interface Subfields7 {
-  [key: string]: any;
+  P294: P19;
   P296: P296;
   P297: P19;
   P298: P19;
@@ -2136,7 +2136,7 @@ interface Subfields7 {
 }
 
 interface P296 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues6;
@@ -2147,14 +2147,14 @@ interface P296 {
 }
 
 interface AllowedValues6 {
-  [key: string]: any;
+  Q1351: string;
   Q1350: string;
   Q12: string;
   Q1349: string;
 }
 
 interface P63 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2169,7 +2169,7 @@ interface P63 {
 }
 
 interface Examples3 {
-  [key: string]: any;
+  Q2077: Q1921;
   Q2078: Q1921;
   Q2079: Q1921;
   Q2080: Q1921;
@@ -2179,11 +2179,11 @@ interface Examples3 {
 }
 
 interface Subfields6 {
-  [key: string]: any;
+  P64: P64;
 }
 
 interface P64 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues5;
@@ -2194,7 +2194,7 @@ interface P64 {
 }
 
 interface AllowedValues5 {
-  [key: string]: any;
+  Q156: string;
   Q157: string;
   Q212: string;
   Q159: string;
@@ -2249,7 +2249,7 @@ interface AllowedValues5 {
 }
 
 interface P59 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2264,7 +2264,7 @@ interface P59 {
 }
 
 interface Examples2 {
-  [key: string]: any;
+  Q2871: Q1921;
   Q2872: Q1921;
   Q2873: Q1921;
   Q2874: Q1921;
@@ -2274,7 +2274,7 @@ interface Examples2 {
 }
 
 interface Subfields5 {
-  [key: string]: any;
+  P45: P45;
   P46: P18;
   P36: P18;
   P41: P19;
@@ -2291,7 +2291,7 @@ interface Subfields5 {
 }
 
 interface P45 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings2;
   allowedValues: any[];
@@ -2302,12 +2302,12 @@ interface P45 {
 }
 
 interface Codings2 {
-  [key: string]: any;
+  'PICA+': string;
   PICA3: string;
 }
 
 interface P58 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2322,7 +2322,7 @@ interface P58 {
 }
 
 interface Subfields4 {
-  [key: string]: any;
+  P41: P18;
   P21: P19;
   P29: P19;
   P27: P18;
@@ -2334,7 +2334,7 @@ interface Subfields4 {
 }
 
 interface P56 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2349,7 +2349,7 @@ interface P56 {
 }
 
 interface Subfields3 {
-  [key: string]: any;
+  P19: P19;
   P22: P19;
   P25: P19;
   P39: P19;
@@ -2364,7 +2364,7 @@ interface Subfields3 {
 }
 
 interface P18 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -2375,12 +2375,12 @@ interface P18 {
 }
 
 interface Reference {
-  [key: string]: any;
+  description: string;
   URL: string;
 }
 
 interface P55 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2395,7 +2395,7 @@ interface P55 {
 }
 
 interface Subfields2 {
-  [key: string]: any;
+  P19: P19;
   P41: P19;
   P21: P19;
   P29: P19;
@@ -2413,7 +2413,7 @@ interface Subfields2 {
 }
 
 interface P19 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -2424,7 +2424,7 @@ interface P19 {
 }
 
 interface P53 {
-  [key: string]: any;
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -2439,24 +2439,24 @@ interface P53 {
 }
 
 interface Examples {
-  [key: string]: any;
+  Q1921: Q1921;
 }
 
 interface Q1921 {
-  [key: string]: any;
+  label: string;
   viewLink: string;
   editLink: string;
 }
 
 interface Subfields {
-  [key: string]: any;
+  P74: P74;
   P61: P61;
   P62: P62;
   P331: P331;
 }
 
 interface P331 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues4;
@@ -2467,11 +2467,11 @@ interface P331 {
 }
 
 interface AllowedValues4 {
-  [key: string]: any;
+  Q1395: string;
 }
 
 interface P62 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues3;
@@ -2482,7 +2482,7 @@ interface P62 {
 }
 
 interface AllowedValues3 {
-  [key: string]: any;
+  Q250: string;
   Q251: string;
   Q252: string;
   Q253: string;
@@ -2493,7 +2493,7 @@ interface AllowedValues3 {
 }
 
 interface P61 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues2;
@@ -2504,7 +2504,7 @@ interface P61 {
 }
 
 interface AllowedValues2 {
-  [key: string]: any;
+  Q17: string;
   Q151: string;
   Q152: string;
   Q153: string;
@@ -2513,7 +2513,7 @@ interface AllowedValues2 {
 }
 
 interface P74 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues;
@@ -2524,11 +2524,11 @@ interface P74 {
 }
 
 interface AllowedValues {
-  [key: string]: any;
+  Q1348: string;
 }
 
 interface Codings {
-  [key: string]: any;
+  'PICA+': string;
   PICA3: string;
   'MARC 21': string;
 }

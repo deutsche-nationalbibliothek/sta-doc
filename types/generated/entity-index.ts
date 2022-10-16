@@ -1,5 +1,5 @@
-export interface EntityIndex {
-  [key: string]: any;
+export interface EntityIndex extends Indexable<EntityIndex> {
+  P399: P399;
   P400: P399;
   P413: P399;
   Q1352: P399;
@@ -6552,6 +6552,10 @@ export interface EntityIndex {
   Q8646: P399;
   Q8647: P399;
   Q8648: P399;
+  Q8649: P399;
+  Q8650: P399;
+  Q8651: P399;
+  Q8652: P399;
   Q315: P399;
   P173: P399;
   Q2171: P399;
@@ -6944,8 +6948,8 @@ export interface EntityIndex {
   Q8472: P399;
   Q13: P399;
   Q8: P399;
-  Q1359: P399;
   P340: P399;
+  Q1359: P399;
   Q1905: P399;
   Q2: P399;
   Q1: P399;
@@ -7829,6 +7833,7 @@ export interface EntityIndex {
   P454: P399;
   Q3399: P399;
   P11: P399;
+  P653: P399;
   P508: P399;
   P440: P399;
   P557: P399;
@@ -7913,7 +7918,7 @@ export interface EntityIndex {
 }
 
 interface P399 {
-  [key: string]: any;
+  label: string;
   assignmentId: undefined;
   assignmentLabel: undefined;
 }

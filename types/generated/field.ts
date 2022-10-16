@@ -1,5 +1,5 @@
-export interface Field {
-  [key: string]: any;
+export interface Field extends Indexable<Field> {
+  label: string;
   description: string;
   aliases: string[];
   definition: string;
@@ -15,7 +15,7 @@ export interface Field {
 }
 
 interface Examples44 {
-  [key: string]: any;
+  Q3194: Q2987;
   Q3195: Q2987;
   Q3196: Q2987;
   Q3197: Q2987;
@@ -28,16 +28,16 @@ interface Examples44 {
 }
 
 interface Examples43 {
-  [key: string]: any;
+  Q3281: Q2987;
 }
 
 interface Examples42 {
-  [key: string]: any;
+  Q3282: Q2987;
   Q3283: Q2987;
 }
 
 interface Examples41 {
-  [key: string]: any;
+  Q2843: Q2987;
   Q2844: Q2987;
   Q2845: Q2987;
   Q2846: Q2987;
@@ -45,72 +45,72 @@ interface Examples41 {
 }
 
 interface Examples40 {
-  [key: string]: any;
+  Q2060: Q2987;
 }
 
 interface Examples39 {
-  [key: string]: any;
+  Q2061: Q2987;
   Q2062: Q2987;
   Q2063: Q2987;
   Q2065: Q2987;
 }
 
 interface Examples38 {
-  [key: string]: any;
+  Q1983: Q2987;
   Q1984: Q2987;
 }
 
 interface Examples37 {
-  [key: string]: any;
+  Q3289: Q2987;
   Q3291: Q2987;
   Q3292: Q2987;
 }
 
 interface Examples36 {
-  [key: string]: any;
+  Q3265: Q2987;
 }
 
 interface Examples35 {
-  [key: string]: any;
+  Q2091: Q2987;
 }
 
 interface Examples34 {
-  [key: string]: any;
+  Q2103: Q2987;
 }
 
 interface Examples33 {
-  [key: string]: any;
+  Q1973: Q2987;
   Q3207: Q2987;
 }
 
 interface Examples32 {
-  [key: string]: any;
+  Q3288: Q2987;
 }
 
 interface Examples31 {
-  [key: string]: any;
+  Q2085: Q2987;
   Q2086: Q2987;
   Q2087: Q2987;
 }
 
 interface Examples30 {
-  [key: string]: any;
+  Q3266: Q2987;
 }
 
 interface Examples29 {
-  [key: string]: any;
+  Q2092: Q2987;
 }
 
 interface Examples28 {
-  [key: string]: any;
+  Q3267: Q2987;
 }
 
 interface Examples27 {
-  [key: string]: any;
+  Q2090: Q2987;
 }
 
 interface Examples26 {
-  [key: string]: any;
+  Q3085: Q2987;
   Q3086: Q2987;
   Q3087: Q2987;
   Q3088: Q2987;
@@ -122,37 +122,37 @@ interface Examples26 {
 }
 
 interface Examples25 {
-  [key: string]: any;
+  Q2899: Q2987;
   Q2900: Q2987;
   Q2901: Q2987;
   Q2902: Q2987;
 }
 
 interface Examples24 {
-  [key: string]: any;
+  Q1921: Q2987;
 }
 
 interface Examples23 {
-  [key: string]: any;
+  Q2093: Q2987;
   Q2094: Q2987;
 }
 
 interface Examples22 {
-  [key: string]: any;
+  Q3284: Q2987;
   Q3285: Q2987;
 }
 
 interface Examples20 {
-  [key: string]: any;
+  Q2101: Q2987;
 }
 
 interface Examples19 {
-  [key: string]: any;
+  Q3270: Q2987;
   Q3271: Q2987;
 }
 
 interface Examples18 {
-  [key: string]: any;
+  Q3067: Q2987;
   Q3068: Q2987;
   Q3069: Q2987;
   Q3070: Q2987;
@@ -173,7 +173,7 @@ interface Examples18 {
 }
 
 interface Examples17 {
-  [key: string]: any;
+  Q2077: Q2987;
   Q2078: Q2987;
   Q2079: Q2987;
   Q2080: Q2987;
@@ -183,28 +183,28 @@ interface Examples17 {
 }
 
 interface Examples16 {
-  [key: string]: any;
+  Q3286: Q2987;
   Q3287: Q2987;
 }
 
 interface Examples15 {
-  [key: string]: any;
+  Q2111: Q2987;
   Q2112: Q2987;
   Q2113: Q2987;
 }
 
 interface Examples14 {
-  [key: string]: any;
+  Q2105: Q2987;
   Q2106: Q2987;
   Q2107: Q2987;
 }
 
 interface Examples13 {
-  [key: string]: any;
+  Q2089: Q2987;
 }
 
 interface Examples12 {
-  [key: string]: any;
+  Q2871: Q2987;
   Q2872: Q2987;
   Q2873: Q2987;
   Q2874: Q2987;
@@ -214,19 +214,19 @@ interface Examples12 {
 }
 
 interface Examples11 {
-  [key: string]: any;
+  Q3227: Q2987;
   Q3228: Q2987;
   Q3229: Q2987;
   Q3230: Q2987;
 }
 
 interface Examples10 {
-  [key: string]: any;
+  Q2869: Q2987;
   Q2870: Q2987;
 }
 
 interface Examples9 {
-  [key: string]: any;
+  Q1985: Q2987;
   Q1986: Q2987;
   Q1987: Q2987;
   Q1988: Q2987;
@@ -234,19 +234,19 @@ interface Examples9 {
 }
 
 interface Examples8 {
-  [key: string]: any;
+  Q2088: Q2987;
 }
 
 interface Examples7 {
-  [key: string]: any;
+  Q3278: Q2987;
 }
 
 interface Examples6 {
-  [key: string]: any;
+  Q2104: Q2987;
 }
 
 interface Examples5 {
-  [key: string]: any;
+  Q2009: Q2987;
   Q2010: Q2987;
   Q2011: Q2987;
   Q2012: Q2987;
@@ -259,12 +259,12 @@ interface Examples5 {
 }
 
 interface Examples4 {
-  [key: string]: any;
+  Q2859: Q2987;
   Q2860: Q2987;
 }
 
 interface Examples3 {
-  [key: string]: any;
+  Q3141: Q2987;
   Q3142: Q2987;
   Q3143: Q2987;
   Q3144: Q2987;
@@ -308,11 +308,11 @@ interface Examples3 {
 }
 
 interface Examples2 {
-  [key: string]: any;
+  Q3274: Q2987;
 }
 
 interface Example {
-  [key: string]: any;
+  Q2987: Q2987;
   Q2988: Q2987;
   Q2989: Q2987;
   Q2990: Q2987;
@@ -354,19 +354,19 @@ interface Example {
 }
 
 interface Q2987 {
-  [key: string]: any;
+  label: string;
   viewLink: string;
   editLink: string;
 }
 
 interface Codings3 {
-  [key: string]: any;
+  'PICA+': string;
   PICA3: string;
   'MARC 21'?: string;
 }
 
 interface Subfields {
-  [key: string]: any;
+  P74?: P74;
   P61?: P61;
   P62?: P62;
   P331?: P331;
@@ -485,7 +485,7 @@ interface Subfields {
 }
 
 interface P362 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -496,12 +496,12 @@ interface P362 {
 }
 
 interface Reference2 {
-  [key: string]: any;
+  description: string;
   URL?: any;
 }
 
 interface P346 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues13;
@@ -512,13 +512,13 @@ interface P346 {
 }
 
 interface AllowedValues13 {
-  [key: string]: any;
+  Q1894: string;
   Q1895: string;
   Q1896: string;
 }
 
 interface P343 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues12;
@@ -529,11 +529,11 @@ interface P343 {
 }
 
 interface AllowedValues12 {
-  [key: string]: any;
+  Q1890: string;
 }
 
 interface P342 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues11;
@@ -544,13 +544,13 @@ interface P342 {
 }
 
 interface AllowedValues11 {
-  [key: string]: any;
+  Q1891: string;
   Q1892: string;
   Q1893: string;
 }
 
 interface P338 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues10;
@@ -561,14 +561,14 @@ interface P338 {
 }
 
 interface AllowedValues10 {
-  [key: string]: any;
+  Q3122: string;
   Q3121: string;
   Q3123: string;
   Q3124: string;
 }
 
 interface P335 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues9;
@@ -579,7 +579,7 @@ interface P335 {
 }
 
 interface AllowedValues9 {
-  [key: string]: any;
+  Q258?: string;
   Q259?: string;
   Q1898?: string;
   Q1899?: string;
@@ -587,7 +587,7 @@ interface AllowedValues9 {
 }
 
 interface P35 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings2;
   allowedValues: any[];
@@ -598,7 +598,7 @@ interface P35 {
 }
 
 interface P302 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValue2 | any[];
@@ -609,7 +609,7 @@ interface P302 {
 }
 
 interface AllowedValue2 {
-  [key: string]: any;
+  Q1361: string;
   Q1362: string;
   Q1363: string;
   Q1364: string;
@@ -637,7 +637,7 @@ interface AllowedValue2 {
 }
 
 interface P296 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues8;
@@ -648,14 +648,14 @@ interface P296 {
 }
 
 interface AllowedValues8 {
-  [key: string]: any;
+  Q1351: string;
   Q1350: string;
   Q12: string;
   Q1349: string;
 }
 
 interface P64 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValue | AllowedValues22 | AllowedValues32 | any[] | AllowedValues5 | AllowedValues6 | AllowedValues7;
@@ -666,11 +666,11 @@ interface P64 {
 }
 
 interface AllowedValues7 {
-  [key: string]: any;
+  Q1359: string;
 }
 
 interface AllowedValues6 {
-  [key: string]: any;
+  Q156: string;
   Q157: string;
   Q212: string;
   Q159: string;
@@ -725,7 +725,7 @@ interface AllowedValues6 {
 }
 
 interface AllowedValues5 {
-  [key: string]: any;
+  Q273: string;
   Q274: string;
   Q275: string;
   Q276: string;
@@ -743,7 +743,7 @@ interface AllowedValues5 {
 }
 
 interface AllowedValues32 {
-  [key: string]: any;
+  Q1386: string;
   Q1387: string;
   Q1388: string;
   Q1389: string;
@@ -755,7 +755,7 @@ interface AllowedValues32 {
 }
 
 interface AllowedValues22 {
-  [key: string]: any;
+  Q1352: string;
   Q1353: string;
   Q1354: string;
   Q1355: string;
@@ -765,11 +765,11 @@ interface AllowedValues22 {
 }
 
 interface AllowedValue {
-  [key: string]: any;
+  Q2168: string;
 }
 
 interface P45 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings2;
   allowedValues: any[];
@@ -780,12 +780,12 @@ interface P45 {
 }
 
 interface Codings2 {
-  [key: string]: any;
+  'PICA+': string;
   PICA3: string;
 }
 
 interface P41 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -796,12 +796,12 @@ interface P41 {
 }
 
 interface Reference {
-  [key: string]: any;
+  description: string;
   URL: string;
 }
 
 interface P19 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: any[];
@@ -812,7 +812,7 @@ interface P19 {
 }
 
 interface P331 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues4;
@@ -823,11 +823,11 @@ interface P331 {
 }
 
 interface AllowedValues4 {
-  [key: string]: any;
+  Q1395: string;
 }
 
 interface P62 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues3;
@@ -838,7 +838,7 @@ interface P62 {
 }
 
 interface AllowedValues3 {
-  [key: string]: any;
+  Q250: string;
   Q251: string;
   Q252: string;
   Q253: string;
@@ -849,7 +849,7 @@ interface AllowedValues3 {
 }
 
 interface P61 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues2;
@@ -860,7 +860,7 @@ interface P61 {
 }
 
 interface AllowedValues2 {
-  [key: string]: any;
+  Q17: string;
   Q151: string;
   Q152: string;
   Q153: string;
@@ -869,7 +869,7 @@ interface AllowedValues2 {
 }
 
 interface P74 {
-  [key: string]: any;
+  label: string;
   description: string;
   codings: Codings;
   allowedValues: AllowedValues;
@@ -880,11 +880,11 @@ interface P74 {
 }
 
 interface AllowedValues {
-  [key: string]: any;
+  Q1348: string;
 }
 
 interface Codings {
-  [key: string]: any;
+  'PICA+': string;
   PICA3: string;
   'MARC 21': string;
 }

@@ -1,5 +1,5 @@
-export interface Description {
-  [key: string]: any;
+export interface Description extends Indexable<Description> {
+  Q1911: Q1911;
   Q1973: Q1911;
   Q1979: Q1911;
   Q1982: Q1911;
@@ -5270,6 +5270,10 @@ export interface Description {
   Q8646: Q1911;
   Q8647: Q1911;
   Q8648: Q1911;
+  Q8649: Q1911;
+  Q8650: Q1911;
+  Q8651: Q1911;
+  Q8652: Q1911;
   Q3514: Q1911;
   Q152: Q1911;
   P48: Q1911;
@@ -5301,7 +5305,7 @@ export interface Description {
 }
 
 interface Q1911 {
-  [key: string]: any;
+  label: string;
   assignmentId: undefined;
   assignmentLabel: undefined;
 }

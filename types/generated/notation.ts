@@ -1,5 +1,5 @@
-export interface Notation {
-  [key: string]: any;
+export interface Notation extends Indexable<Notation> {
+  P518: P518;
   P568: P518;
   P569: P518;
   P577: P518;
@@ -7,6 +7,6 @@ export interface Notation {
 }
 
 interface P518 {
-  [key: string]: any;
+  label: string;
   notation: string;
 }

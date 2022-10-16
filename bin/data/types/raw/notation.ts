@@ -1,16 +1,16 @@
-export interface NotationRaw {
-  [key: string]: any;
+export interface NotationRaw extends Indexable<NotationRaw> {
+  eId: EId;
   elementLabel: ElementLabel;
   notationLabel: EId;
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  'xml:lang': string;
   type: string;
   value: string;
 }
 
 interface EId {
-  [key: string]: any;
+  type: string;
   value: string;
 }

@@ -1,17 +1,17 @@
-export interface CodingRaw {
-  [key: string]: any;
+export interface CodingRaw extends Indexable<CodingRaw> {
+  coding: Coding;
   eId: Coding;
   elementLabel: ElementLabel;
   codingTypeLabel?: ElementLabel;
 }
 
 interface ElementLabel {
-  [key: string]: any;
+  'xml:lang': string;
   type: string;
   value: string;
 }
 
 interface Coding {
-  [key: string]: any;
+  type: string;
   value: string;
 }
