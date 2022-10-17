@@ -42,12 +42,13 @@
   },
   "exclude": [
     "node_modules",
-    "bin"
+    "bin",
+    "types/generated"
   ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "bin/data/types/parsed/*.ts"
+    "index.d.ts"
   ]
 }

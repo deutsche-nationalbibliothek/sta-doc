@@ -1,9 +1,10 @@
 import styles from './Examples.module.css';
 import Description from './Description';
-import {Examples as ExamplesType} from '@/types/entry';
+import {Statement} from '@/types/entry';
+import { Fragment } from 'react';
 
 interface ExamplesProps {
-  examples?: ExamplesType;
+  examples?: Statement;
 }
 
 export default function Examples({examples}: ExamplesProps) {
@@ -12,7 +13,7 @@ export default function Examples({examples}: ExamplesProps) {
       <>
         <div className={styles.examples}>
           {examples.occurrences.map((example, index) => (
-            <>
+            'id' in example && <>
               <div className={styles.example}>
                 <ExampleBox key={example.id} listId={index + 1} {...example} />
               </div>
@@ -27,7 +28,6 @@ export default function Examples({examples}: ExamplesProps) {
 }
 
 function ExampleBox(props) {
-  console.log({props});
   // Include reference to corresponding wikibase example item
   const link = 'https://doku.wikibase.wiki/wiki/item:' + props.id;
   // sorting statements for correct order
@@ -196,11 +196,11 @@ function ExampleBox(props) {
         props.statements[statement_key]?.coding?.format || undefined;
       const field_label = props.statements[statement_key]?.label || undefined;
       if (field_label !== undefined || field_format !== undefined) {
-        props.statements[statement_key].occurrences.map((occurrence) => {
+        props.statements[statement_key].occurrences.map((occurrence,index2) => {
           if (occurrence.value !== '') {
             if (occurrence.qualifiers?.formatneutrallabel) {
               montageFormatNeutral.push(
-                <p className={styles.kursiv} key={statement_key}>
+                <p className={styles.kursiv} key={index2}>
                   {
                     occurrence.qualifiers.formatneutrallabel.occurrences[0]
                       .value
@@ -211,13 +211,13 @@ function ExampleBox(props) {
             }
             if (occurrence.qualifiers?.description) {
               montageFormatNeutral.push(
-                <p className={styles.boxdescription} key={statement_key}>
+                <p className={styles.boxdescription} key={index2}>
                   {occurrence.qualifiers.description.occurrences[0].value}
                 </p>
               );
             }
             montageFormatNeutral.push(
-              <p className={styles.formatneutral} key={statement_key}>
+              <p className={styles.formatneutral} key={index2}>
                 {occurrence.value}
               </p>
             );
@@ -294,7 +294,7 @@ function ExampleBox(props) {
                   {field_format['PICA3']}
                   <span className="tooltiptext">{field_label}</span>
                 </b>{' '}
-                {subfieldMontagePica3.map((mont) => mont)}
+                {subfieldMontagePica3.map((mont,index) => <Fragment key={index}>{mont}</Fragment>)}
               </p>
             );
             montagePicaPlus.push(
@@ -303,7 +303,7 @@ function ExampleBox(props) {
                   {field_format['PICA+']}
                   <span className="tooltiptext">{field_label}</span>
                 </b>{' '}
-                {subfieldMontagePicaPlus.map((mont) => mont)}
+                {subfieldMontagePicaPlus.map((mont,index) => <Fragment key={index}>{mont}</Fragment>)}
               </p>
             );
           } else {
@@ -338,8 +338,8 @@ function ExampleBox(props) {
           &#x270E;
         </a>
       </p>
-      {description.map((descr) => descr)}
-      {montageFormatNeutral?.map((mont) => mont)}
+      {description.map((descr,index) => <Fragment key={index}>{descr}</Fragment>)}
+      {montageFormatNeutral?.map((mont,index) => <Fragment key={index}>{mont}</Fragment>)}
       {example_statements.length > 0 ? (
         <div className={styles.clearfix}>
           <div className={styles.box}>
@@ -348,7 +348,7 @@ function ExampleBox(props) {
                 <p className={styles.boxtitle}>
                   <b>PICA3</b>
                 </p>
-                {montagePica3?.map((mont) => mont)}
+                {montagePica3?.map((mont,index) => <Fragment key={index}>{mont}</Fragment>)}
               </>
             }
           </div>
@@ -358,7 +358,7 @@ function ExampleBox(props) {
                 <p className={styles.boxtitle}>
                   <b>PICA+</b>
                 </p>
-                {montagePicaPlus?.map((mont) => mont)}
+                {montagePicaPlus?.map((mont,index) => <Fragment key={index}>{mont}</Fragment>)}
               </>
             }
           </div>

@@ -17,22 +17,21 @@ const writeFile = (data: string, filePath: string) => {
 };
 
 const writeTypeDefinitionFile = (
-  data: string[],
+  types: string[],
   filePath: string,
   state: DataState
 ) => {
-  const [firstType, ...otherTypes] = data;
-  const typeWithStringKeysAndExport = [
-    firstType.replace('interface', 'export interface'),
+  const [rootType, ...otherTypes] = types;
+  const indexableType = [
+    rootType.replace(
+      /interface (.*) {/,
+      (_match, rootName) =>
+        `export interface ${rootName} extends Indexable<${rootName}> {`
+    ),
     ...otherTypes,
-  ].map((type) =>
-    type
-      .split('\n')
-      .map((line, index) => (index === 1 ? `  [key: string]: any;` : line))
-      .join('\n')
-  );
+  ];
   writeFile(
-    typeWithStringKeysAndExport.join('\n\n'),
+    indexableType.join('\n\n'),
     state === DataState.parsed
       ? `types/generated/${filePath}.ts`
       : `bin/data/types/${state}/${filePath}.ts`

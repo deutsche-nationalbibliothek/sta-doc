@@ -28,7 +28,7 @@ export default function Fields({ list }: FieldsProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const list = fields;
-  console.log(list)
+  // console.log(list)
   return {
     props: {
       list,

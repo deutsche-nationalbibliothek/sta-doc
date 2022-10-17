@@ -19,13 +19,21 @@ interface WishedEntryProps {
 }
 
 export default function Entry({entry}: EntryProps) {
+  console.log(entry);
+  // if (entry.label && entry.statements.elementof && 'label' in entry.statements.elementof.occurrences[0]) {
+  //   entry.statements.elementof.occurrences[0]
+  // }
+
   const title =
-    entry.label && entry.statements.elementof
+    entry.label &&
+    entry.statements.elementof &&
+    'label' in entry.statements.elementof.occurrences[0]
       ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
       : 'missing german entity label';
 
   const isRessourceTypePage =
     entry.statements.elements &&
+    'id' in entry.statements.elementof.occurrences[0] &&
     entry.statements.elementof.occurrences[0].id === Item['rda-ressourcetype'];
 
   return (
@@ -52,7 +60,8 @@ export const getStaticProps: GetStaticProps<
   {entryId: string}
 > = async ({params}) => {
   // get API data
-  const entry = entities[params.entryId];
+  const entry = entities[params.entryId.toUpperCase()];
+  console.log({entry});
 
   if (!entry) {
     return {

@@ -9,26 +9,25 @@ import {
   readRawData,
   readRdaProperty,
 } from './read';
-import {Property} from '../../types/property';
-import {DataState, writeJSONFileAndType} from './utils';
-import {NAMES} from './utils/names';
-import {Name} from './types/name';
-import {LabelEnRaw} from './types/raw/label-en';
-import {DescriptionRaw} from './types/raw/description';
-import {EntityIndexRaw} from './types/raw/entity-index';
-import {EntityRaw} from './types/raw/entity';
-import {EntityIndex} from '@/types-generated/entity-index';
-import {RdaProperty} from '@/types-generated/rda-property';
-import {Notation} from '@/types-generated/notation';
-import {Coding9} from '@/types-generated/coding';
-import {LabelDe} from '@/types-generated/label-de';
-import {LabelEn} from '@/types-generated/label-en';
-import {Description} from '@/types-generated/description';
-import {Entity} from '@/types-generated/entity';
-import {Field} from '@/types-generated/field';
+import { Property } from '../../types/property';
+import { DataState, writeJSONFileAndType } from './utils';
+import { NAMES } from './utils/names';
+import { Name } from './types/name';
+import { LabelEnRaw } from './types/raw/label-en';
+import { DescriptionRaw } from './types/raw/description';
+import { EntityIndexRaw } from './types/raw/entity-index';
+import { EntityRaw } from './types/raw/entity';
+import { EntityIndex } from '@/types-generated/entity-index';
+import { RdaProperty } from '@/types-generated/rda-property';
+import { Notation } from '@/types-generated/notation';
+import { Coding9 } from '@/types-generated/coding';
+import { LabelDe } from '@/types-generated/label-de';
+import { LabelEn } from '@/types-generated/label-en';
+import { Description } from '@/types-generated/description';
+import { Entity } from '@/types-generated/entity';
+// import {Field} from '@/types-generated/field';
 
 const parseDescription = () => {
-  console.log('\tParsing Description');
   return commonParseFunc<DescriptionRaw[], Description>(
     readDescriptions(),
     NAMES.description
@@ -36,7 +35,6 @@ const parseDescription = () => {
 };
 
 const parseLabelEn = () => {
-  console.log('\tParsing LabelEn');
   return commonParseFunc<LabelEnRaw[], LabelEn>(readLabelEn(), NAMES.labelEn);
 };
 
@@ -161,7 +159,8 @@ const parseEntities = (
     return {
       id: entityId,
       label: entity.labels.de?.value, //todo, strip
-      description: 'de' in entity.descriptions && entity.descriptions.de.value,
+      description:
+        'de' in entity.descriptions ? entity.descriptions.de.value : undefined,
       notation: notations[entityId]?.notation,
       statements: Object.keys(entity.claims).reduce((acc, key) => {
         const occurrences = entity.claims[key];
@@ -175,7 +174,7 @@ const parseEntities = (
               key === Property.encoding && codings[key]
                 ? codings[key].coding.format
                 : undefined,
-            coding: codings[key] && codings[key].coding,
+            coding: codings[key] ? codings[key].coding : undefined,
             occurrences:
               occurrences &&
               occurrences.map((occurrence) => {
@@ -241,9 +240,9 @@ const parseEntities = (
                                       if (
                                         (qualiKey === Property['example(s)'] ||
                                           qualiKey ===
-                                            Property['embedded(item)'] ||
+                                          Property['embedded(item)'] ||
                                           qualiKey ===
-                                            Property['embedded(property)']) &&
+                                          Property['embedded(property)']) &&
                                         occurrence2Id !== entityId
                                       ) {
                                         return parseRawEntity(occurrence2Id);
@@ -295,7 +294,7 @@ const parseEntities = (
                                 id: refKey,
                                 label: lookup_de[refKey],
                                 value:
-                                    reference.snaks[refKey][0].datavalue?.value,
+                                  reference.snaks[refKey][0].datavalue?.value,
                               },
                             };
                           },
@@ -330,7 +329,8 @@ export const entityIndex = () => {
     readEntityIndex(),
     NAMES.entityIndex
   );
-}
+};
+
 export const parseRawData = () => {
   console.log('Data parsing is starting');
   parseDescription();

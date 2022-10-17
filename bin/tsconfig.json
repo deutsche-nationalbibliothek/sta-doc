@@ -16,14 +16,26 @@
   "compilerOptions": {
     // typescript options here
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@/types-generated/*": [
         "../types/generated/*"
       ],
+      "@/types/*": [
+        "../types/*"
+      ],
+      "@/data/*": [
+        "../data/*"
+      ],
       "@/bin/*": [
         "./data/*"
       ]
     }
-  }
+  },
+  "include": [
+    "../index.d.ts",
+    "../types",
+    "./**/*.ts"
+  ]
 }

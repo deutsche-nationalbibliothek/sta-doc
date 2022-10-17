@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
 import styles from './Description.module.css';
 import Collapsible from 'react-collapsible';
 import HtmlReactParser from 'html-react-parser';

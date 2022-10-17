@@ -8,10 +8,10 @@ import { fetchEntity, fetchFields, sparqlQuery } from './wikibase';
 
 const entities = async () => {
   await fetchSparql(sparql.ENTITY_INDEX, NAMES.entityIndex);
-  const entries = Object.entries(await parseEntityIndex());
+  const entries = Object.entries(parseEntityIndex());
   let entities = {} as EntityRaw;
 
-  console.log('\tFetching', Object.keys(entities).length, 'entities separately');
+  console.log('\tFetching', Object.keys(entries).length, 'entities separately');
 
   for (let i = 0; i < (DEV ? 2 : entries.length); i++) {
     const [entryId] = entries[i];
@@ -25,7 +25,11 @@ const entities = async () => {
 const fields = async () => {
   console.log('\tFetching Fields');
 
-  return writeJSONFileAndType((await fetchFields()).fields, NAMES.fields, DataState.raw);
+  return writeJSONFileAndType(
+    (await fetchFields()).fields,
+    NAMES.fields,
+    DataState.raw
+  );
 };
 
 const fetchSparql = async (sparqlQueryString: string, name: Name) => {
