@@ -11,14 +11,14 @@ interface Props {
 
 interface WishedTableProps {
   isRdaProperty: boolean;
-  isGndDataField:boolean;
+  isGndDataField: boolean;
 }
 
 export default function Table({ entity, statements }: Props) {
-  if (entity.statements.elementof?.occurrences[0].id === Item.rdaproperty) {
+  if ('id' in entity.statements.elementof?.occurrences[0] && entity.statements.elementof?.occurrences[0].id === Item.rdaproperty) {
     return <RdaDetailTable statements={statements} />;
   } else if (
-    entity.statements.elementof?.occurrences[0].id === Item.gnddatafield
+    'id' in entity.statements.elementof?.occurrences[0] && entity.statements.elementof?.occurrences[0].id === Item.gnddatafield
   ) {
     // todo, check if prop is working
     return <CodingTable data={entity} />;

@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import Layout from '@/components/layout/layout';
-import {Item} from '@/types/item';
+import { Item } from '@/types/item';
 import EntryType from '@/types/entry';
 import Sidebar from '@/components/sidebar/sidebar';
 import labelen from '@/data/parsed/labels-en.json';
 import entities from '@/data/parsed/entities.json';
 import TopNavigation from '@/components/layout/topNavigation';
 import Details from '@/components/details';
-import {GetStaticPaths, GetStaticProps} from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 interface EntryProps {
   entry: EntryType;
@@ -18,16 +18,16 @@ interface WishedEntryProps {
   isRessourceTypePage: boolean;
 }
 
-export default function Entry({entry}: EntryProps) {
-  console.log(entry);
+export default function Entry({ entry }: EntryProps) {
+  console.log(entry)
   // if (entry.label && entry.statements.elementof && 'label' in entry.statements.elementof.occurrences[0]) {
   //   entry.statements.elementof.occurrences[0]
   // }
 
   const title =
     entry.label &&
-    entry.statements.elementof &&
-    'label' in entry.statements.elementof.occurrences[0]
+      entry.statements.elementof &&
+      'label' in entry.statements.elementof.occurrences[0]
       ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
       : 'missing german entity label';
 
@@ -57,11 +57,11 @@ export default function Entry({entry}: EntryProps) {
 
 export const getStaticProps: GetStaticProps<
   EntryProps,
-  {entryId: string}
-> = async ({params}) => {
+  { entryId: string }
+> = async ({ params }) => {
   // get API data
   const entry = entities[params.entryId.toUpperCase()];
-  console.log({entry});
+  console.log({ entry });
 
   if (!entry) {
     return {
@@ -88,7 +88,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   return {
     paths: subsetOfEntries.map((entry) => ({
-      params: {entryId: entry[0].toString()},
+      params: { entryId: entry[0].toString() },
     })),
     fallback: true,
   };

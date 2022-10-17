@@ -26,7 +26,7 @@ export default function StatementComp({
   const { query } = useRouter();
   const applicationProfile = query.path;
 
-  function handleStatementLists(statement) {
+  function handleStatementLists(statement: Statement) {
     // TODO try the reduce arr method to rearrange the occurrences array
     // const initialOcc = [];
     // const reducedOccs = statement.occurrences.reduce(
@@ -41,8 +41,8 @@ export default function StatementComp({
     const lists = {};
     let firstIndex = 0;
     statement.occurrences.map((occ, index) => {
-      if (occ.qualifiers) {
-        const currentId = occ.qualifiers?.typeoflayout?.occurrences[0].id;
+      if ('qualifiers' in occ && occ.qualifiers) {
+        const currentId = 'id' in occ.qualifiers?.typeoflayout?.occurrences[0] && occ.qualifiers?.typeoflayout?.occurrences[0].id;
         const nextId =
           statement.occurrences[index + 1]?.qualifiers?.typeoflayout
             ?.occurrences[0]?.id;
@@ -57,7 +57,7 @@ export default function StatementComp({
             firstIndex = index;
             lists[firstIndex] = [];
           }
-          lists[firstIndex].push({ value: occ.value, sublist: sublist });
+          lists[firstIndex].push({ value: 'value' in occ && occ.value, sublist: sublist });
           if (nextId !== Item['enumeration,uncounted']) {
             firstIndex = 0;
           }
@@ -66,7 +66,7 @@ export default function StatementComp({
             firstIndex = index;
             lists[firstIndex] = [];
           }
-          lists[firstIndex].push({ value: occ.value, sublist: sublist });
+          lists[firstIndex].push({ value: 'value' in occ && occ.value, sublist: sublist });
           if (nextId !== Item['enumeration,counted']) {
             firstIndex = 0;
           }
@@ -97,8 +97,8 @@ export default function StatementComp({
       )}
       {(statement.id === Property['embeddedin(property)'] ||
         statement.id === Property['embeddedin(item)']) &&
-        statement.occurrences.map((occ: any) => (
-          <p key={occ.id} className={'bold'}>
+        statement.occurrences.map((occ) => (
+          'id' in occ && 'link' in occ && <p key={occ.id} className={'bold'}>
             eingebettet in: &rArr;&ensp;
             {/* todo, fix || '#' */}
             <Link href={occ.link || '#'}>

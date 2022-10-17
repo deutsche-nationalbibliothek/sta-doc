@@ -1,27 +1,27 @@
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Statement from '@/components/details/statement';
 import Header from '@/components/layout/header';
-import Entry from '@/types/entry';
-import {Item} from '@/types/item';
-import {Property} from '@/types/property';
+import Entity, { Occurrence } from '@/types/entry';
+import { Item } from '@/types/item';
+import { Property } from '@/types/property';
 import Table from './table';
 import HtmlReactParser from 'html-react-parser';
 
 interface Props {
   embedded?: boolean;
-  entry: Entry;
+  entry: Entity;
   headerLevel?: number;
   isRessourceTypePage?: boolean;
 }
 
 interface WishedDetailProps {
   groups: {
-    table: any[];
-    rest: any[];
+    table: Property[];
+    rest: Property[];
   };
   logo?: string;
-  statementsDefinitionOccurances?: any[]; //Occurance2[];
+  statementsDefinitionOccurances?: Occurrence[]; //Occurance2[];
 }
 
 export default function Detail({
@@ -30,10 +30,10 @@ export default function Detail({
   headerLevel = 1,
   isRessourceTypePage = false,
 }: Props) {
-  const {query} = useRouter();
+  const { query } = useRouter();
   const groups = groupStatements(entry);
   const logo =
-    (entry.statements.logo && entry.statements.logo.occurrences[0].value) ||
+    (entry.statements.logo && 'value' in entry.statements.logo.occurrences[0] && entry.statements.logo.occurrences[0].value) ||
     undefined;
 
   return (
@@ -67,7 +67,7 @@ export default function Detail({
                   <Link
                     href={{
                       pathname: `${query.entryId}`,
-                      query: {view: 'application-profile'},
+                      query: { view: 'application-profile' },
                     }}
                   >
                     <a>Anwendungsprofil</a>
@@ -98,7 +98,7 @@ export default function Detail({
       {/* wishedProps.statementsDefinitionOccurances */}
       {entry.statements.definition &&
         entry.statements.definition.occurrences.map((occ, index) =>
-          HtmlReactParser(`<p key=${index}>${occ.value}</p>`)
+          'value' in occ && HtmlReactParser(`<p key=${index}>${occ.value}</p>`)
         )}
       {groups && (
         <>
@@ -118,7 +118,7 @@ export default function Detail({
   );
 }
 
-const groupsDefinition = {
+const groupsDefinition: Record<string, { tableProperties: Property[], restProperties: Property[], ignoreProperties?: Property[] }> = {
   [Item.gnddatafield]: {
     tableProperties: [
       // todo, add later
@@ -212,6 +212,9 @@ const groupsDefinition = {
     tableProperties: [
       // todo, add later
     ],
+    restProperties: [
+      //empty on purpose
+    ],
     // here no render
     ignoreProperties: [
       Property.schema,
@@ -222,8 +225,8 @@ const groupsDefinition = {
   },
 };
 
-const groupStatements = (entry: Entry) => {
-  const relevantKey = entry.statements.elementof?.occurrences[0].id;
+const groupStatements = (entry: Entity) => {
+  const relevantKey = 'id' in entry.statements.elementof?.occurrences[0] && entry.statements.elementof?.occurrences[0].id;
   if (groupsDefinition[relevantKey]) {
     return {
       table: Object.keys(entry.statements)
@@ -236,7 +239,7 @@ const groupStatements = (entry: Entry) => {
       rest: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition[relevantKey].restProperties.find(
-            (rProp: any) => entry.statements[key].id === rProp
+            (rProp) => entry.statements[key].id === rProp
           )
         )
         .map((key) => entry.statements[key]),
@@ -246,7 +249,7 @@ const groupStatements = (entry: Entry) => {
       table: Object.keys(entry.statements)
         .filter((key) =>
           groupsDefinition['default-template'].tableProperties.find(
-            (tProp: any) => entry.statements[key].id === tProp
+            (tProp) => entry.statements[key].id === tProp
           )
         )
         .map((key) => entry.statements[key]),
@@ -254,7 +257,7 @@ const groupStatements = (entry: Entry) => {
         .filter(
           (key) =>
             !groupsDefinition['default-template'].ignoreProperties.find(
-              (rProp: any) => entry.statements[key].id === rProp
+              (rProp) => entry.statements[key].id === rProp
             )
         )
         .map((key) => entry.statements[key]),

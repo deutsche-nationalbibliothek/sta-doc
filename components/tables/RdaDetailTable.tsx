@@ -10,6 +10,7 @@ interface RdaDetailTableProps {
 }
 
 export default function RdaDetailTable(props: RdaDetailTableProps) {
+  // todo, rebuild this function in a functional way to get type inference
   const buildTable = (obj) => {
     const arr = [];
     for (const entry of Object.entries(obj)) {

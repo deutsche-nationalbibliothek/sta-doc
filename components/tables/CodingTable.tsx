@@ -2,6 +2,8 @@ import { Fragment, useMemo } from 'react';
 import { useTable, useSortBy, useExpanded } from 'react-table';
 import { COLUMNS } from './FieldCodingColumns';
 import styles from './CodingTable.module.css';
+import Entity from '@/types/entry';
+import {Property} from '@/types/property';
 
 function TableCell(props) {
   // console.log("props", props);
@@ -66,15 +68,16 @@ function TableRow(props) {
   }
 }
 
-export default function CodingTable(props) {
+export default function CodingTable(props: { data: Entity }) {
   const field = props.data;
   const lines = [];
   const row0 = {
     label: field?.label ?? '',
     format: {},
-    repetition: field.statements.repetition?.occurrences[0].value,
+    repetition: 'value' in  field.statements.repetition?.occurrences[0] && field.statements.repetition?.occurrences[0].value,
   };
   if (field.statements.encoding) {
+    console.log({CodingTable:field.statements})
     for (const [key, value] of Object.entries(
       field.statements.encoding.format
     )) {
@@ -83,11 +86,11 @@ export default function CodingTable(props) {
     lines.push(row0);
     field.statements.subfields?.occurrences.map((subfield, index) => {
       const row = {
-        label: subfield.label ?? '',
+        label: ('label' in subfield && subfield.label) ?? '',
         format: {},
-        repetition: subfield.qualifiers?.repetition?.occurrences[0].value,
+        repetition: 'qualifiers' in subfield && 'value' in subfield.qualifiers?.repetition?.occurrences[0] && subfield.qualifiers?.repetition?.occurrences[0].value,
       };
-      for (const [key, value] of Object.entries(subfield.coding.format)) {
+      for (const [key, value] of Object.entries('coding' in subfield && subfield.coding.format)) {
         row['format'][key] = value;
       }
       // subfield.coding.occurrences.map((coding,index) => {

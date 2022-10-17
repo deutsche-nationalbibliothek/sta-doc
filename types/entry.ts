@@ -2,7 +2,7 @@ export interface Entries {
   [key: string]: Entry;
 }
 
-export default interface Entry extends Indexable<Entry> {
+export default interface Entry { //extends Indexable<Entry> {
   id: string;
   label: string;
   description?: string;
@@ -10,7 +10,7 @@ export default interface Entry extends Indexable<Entry> {
   notation?: string;
 }
 
-export interface Statement extends Indexable<Statement> {
+export interface Statement { // extends Indexable<Statement> {
   id: string; //Property;
   link: string;
   label: string;
