@@ -24,7 +24,7 @@ interface Props {
 }
 
 export default function Elements({ elements, headerLevel }: Props) {
-  const { query } = useRouter();
+  const router = useRouter();
   const elementsByWemi = elements.occurrences.reduce((acc, value) => {
     // Group initialization
     if (!acc[value.qualifiers?.wemilevel?.occurrences[0].label]) {
@@ -46,7 +46,7 @@ export default function Elements({ elements, headerLevel }: Props) {
 
   return (
     <>
-      {!query.view ? (
+      {!router?.query.view ? (
         Object.entries(elementsByWemi).map(
           ([label, wemi]: any, index: number) => (
             <Fragment key={index}>
@@ -78,7 +78,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                               key={index}
                               openedClassName={
                                 quali.statements.elementof.occurrences[0].id ===
-                                Item.gnddatafield
+                                  Item.gnddatafield
                                   ? 'CollapsibleOpenGnd'
                                   : 'CollapsibleOpenRda'
                               }
@@ -92,7 +92,7 @@ export default function Elements({ elements, headerLevel }: Props) {
                               triggerWhenOpen={<span>&#8743; </span>}
                               triggerClassName={
                                 quali.statements.elementof.occurrences[0].id ===
-                                Item.gnddatafield
+                                  Item.gnddatafield
                                   ? 'CollapsibleClosedGnd'
                                   : 'CollapsibleClosedRda'
                               }

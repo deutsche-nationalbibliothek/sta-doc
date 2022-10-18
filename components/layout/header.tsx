@@ -1,4 +1,4 @@
-import { useAnchor } from 'context/anchors';
+import { useAnchor } from '@/context/anchors';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import HtmlReactParser from 'html-react-parser';
@@ -28,7 +28,7 @@ export default function Header({
   const anchorId = `${label}`;
 
   useEffect(() => {
-    addAnchor({ id: anchorId, label });
+    addAnchor && addAnchor({ id: anchorId, label });
   }, [addAnchor, anchorId, label]);
 
   return (

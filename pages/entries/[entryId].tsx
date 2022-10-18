@@ -19,7 +19,7 @@ interface WishedEntryProps {
 }
 
 export default function Entry({ entry }: EntryProps) {
-  console.log(entry)
+  // console.log(entry);
   // if (entry.label && entry.statements.elementof && 'label' in entry.statements.elementof.occurrences[0]) {
   //   entry.statements.elementof.occurrences[0]
   // }
@@ -60,8 +60,9 @@ export const getStaticProps: GetStaticProps<
   { entryId: string }
 > = async ({ params }) => {
   // get API data
+  console.log({ params });
   const entry = entities[params.entryId.toUpperCase()];
-  console.log({ entry });
+  // console.log({ entry });
 
   if (!entry) {
     return {

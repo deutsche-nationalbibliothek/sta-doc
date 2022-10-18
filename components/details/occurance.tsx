@@ -4,7 +4,6 @@ import { Statement } from '@/types/entry';
 import { Property } from '@/types/property';
 import { Item } from '@/types/item';
 import Collapsible from 'react-collapsible';
-import HtmlReactParser from 'html-react-parser';
 import Detail from '.';
 import Examples from '../fields/Examples';
 import References from '../fields/References';
@@ -63,7 +62,8 @@ export default function Occurance({
           !Object.keys(occurance.qualifiers).find(
             (el) => el === 'typeoflayout'
           )) &&
-        HtmlReactParser(`<p>${occurance.value}</p>`)}
+        <p dangerouslySetInnerHTML={{ __html: occurance.value }} />
+      }
 
       {occurance.qualifiers && (
         <>
@@ -103,8 +103,8 @@ export default function Occurance({
                       <Collapsible
                         key={index}
                         openedClassName={
-                          quali.statements.elementof.occurrences[0].id ===
-                          Item.gnddatafield
+                          quali.statements?.elementof.occurrences[0].id ===
+                            Item.gnddatafield
                             ? 'CollapsibleOpenGnd'
                             : 'CollapsibleOpenRda'
                         }
@@ -115,8 +115,8 @@ export default function Occurance({
                         }
                         triggerWhenOpen={<span>&#8743; </span>}
                         triggerClassName={
-                          quali.statements.elementof.occurrences[0].id ===
-                          Item.gnddatafield
+                          quali.statements?.elementof.occurrences[0].id ===
+                            Item.gnddatafield
                             ? 'CollapsibleClosedGnd'
                             : 'CollapsibleClosedRda'
                         }
@@ -144,21 +144,21 @@ export default function Occurance({
                 )}
                 {(qualifier.id === Property.description ||
                   qualifier.id === Property['description(attheend)']) && (
-                  <>
-                    {qualifier.occurrences.map((quali: any) =>
-                      quali.id ? (
-                        <p key={quali.label} className={'bold'}>
-                          &ensp;&ensp;&rArr;&ensp;
-                          <Link href={quali.link || ''}>
-                            <a>{quali.label}</a>
-                          </Link>
-                        </p>
-                      ) : (
-                        HtmlReactParser(`<p>${quali.value}</p>`)
-                      )
-                    )}
-                  </>
-                )}
+                    <>
+                      {qualifier.occurrences.map((quali: any) =>
+                        quali.id ? (
+                          <p key={quali.label} className={'bold'}>
+                            &ensp;&ensp;&rArr;&ensp;
+                            <Link href={quali.link || ''}>
+                              <a>{quali.label}</a>
+                            </Link>
+                          </p>
+                        ) : (
+                          <p dangerouslySetInnerHTML={{ __html: occurance.value }} />
+                        )
+                      )}
+                    </>
+                  )}
                 {qualifier.id !== Property.typeoflayout &&
                   qualifier.id !== Property.introductiontext &&
                   qualifier.id !== Property['see(item)'] &&

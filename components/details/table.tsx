@@ -15,9 +15,10 @@ interface WishedTableProps {
 }
 
 export default function Table({ entity, statements }: Props) {
-  if ('id' in entity.statements.elementof?.occurrences[0] && entity.statements.elementof?.occurrences[0].id === Item.rdaproperty) {
+  if (entity.statements.elementof?.occurrences[0] && 'id' in entity.statements.elementof?.occurrences[0] && entity.statements.elementof?.occurrences[0].id === Item.rdaproperty) {
     return <RdaDetailTable statements={statements} />;
   } else if (
+    entity.statements.elementof?.occurrences[0] &&
     'id' in entity.statements.elementof?.occurrences[0] && entity.statements.elementof?.occurrences[0].id === Item.gnddatafield
   ) {
     // todo, check if prop is working

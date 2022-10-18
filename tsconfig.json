@@ -5,6 +5,9 @@
       "@/public/*": [
         "public/*"
       ],
+      "@/pages/*": [
+        "pages/*"
+      ],
       "@/components/*": [
         "components/*"
       ],
@@ -16,6 +19,9 @@
       ],
       "@/styles/*": [
         "styles/*"
+      ],
+      "@/context/*": [
+        "context/*"
       ],
       "@/types/*": [
         "types/*"

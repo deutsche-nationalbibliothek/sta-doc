@@ -20,11 +20,11 @@ interface Props {
 export default function StatementComp({
   statement,
   headerLevel,
-  // elementOf,
+}: // elementOf,
   // index,
-}: Props) {
-  const { query } = useRouter();
-  const applicationProfile = query.path;
+  Props) {
+  const router = useRouter();
+  const applicationProfile = router?.query.path;
 
   function handleStatementLists(statement: Statement) {
     // TODO try the reduce arr method to rearrange the occurrences array
@@ -42,7 +42,10 @@ export default function StatementComp({
     let firstIndex = 0;
     statement.occurrences.map((occ, index) => {
       if ('qualifiers' in occ && occ.qualifiers) {
-        const currentId = 'id' in occ.qualifiers?.typeoflayout?.occurrences[0] && occ.qualifiers?.typeoflayout?.occurrences[0].id;
+        const currentId =
+          occ.qualifiers?.typeoflayout?.occurrences &&
+          'id' in occ.qualifiers?.typeoflayout?.occurrences[0] &&
+          occ.qualifiers?.typeoflayout?.occurrences[0].id;
         const nextId =
           statement.occurrences[index + 1]?.qualifiers?.typeoflayout
             ?.occurrences[0]?.id;
@@ -57,7 +60,10 @@ export default function StatementComp({
             firstIndex = index;
             lists[firstIndex] = [];
           }
-          lists[firstIndex].push({ value: 'value' in occ && occ.value, sublist: sublist });
+          lists[firstIndex].push({
+            value: 'value' in occ && occ.value,
+            sublist: sublist,
+          });
           if (nextId !== Item['enumeration,uncounted']) {
             firstIndex = 0;
           }
@@ -66,7 +72,10 @@ export default function StatementComp({
             firstIndex = index;
             lists[firstIndex] = [];
           }
-          lists[firstIndex].push({ value: 'value' in occ && occ.value, sublist: sublist });
+          lists[firstIndex].push({
+            value: 'value' in occ && occ.value,
+            sublist: sublist,
+          });
           if (nextId !== Item['enumeration,counted']) {
             firstIndex = 0;
           }
@@ -97,15 +106,19 @@ export default function StatementComp({
       )}
       {(statement.id === Property['embeddedin(property)'] ||
         statement.id === Property['embeddedin(item)']) &&
-        statement.occurrences.map((occ) => (
-          'id' in occ && 'link' in occ && <p key={occ.id} className={'bold'}>
-            eingebettet in: &rArr;&ensp;
-            {/* todo, fix || '#' */}
-            <Link href={occ.link || '#'}>
-              <a>{occ.label}</a>
-            </Link>
-          </p>
-        ))}
+        statement.occurrences.map(
+          (occ) =>
+            'id' in occ &&
+            'link' in occ && (
+              <p key={occ.id} className={'bold'}>
+                eingebettet in: &rArr;&ensp;
+                {/* todo, fix || '#' */}
+                <Link href={occ.link || '#'}>
+                  <a>{occ.label}</a>
+                </Link>
+              </p>
+            )
+        )}
 
       {statement.id !== Property.elements &&
         statement.occurrences.map((occ: any, index: number) => (

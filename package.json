@@ -11,7 +11,9 @@
     "data:fetch": "ts-node bin/data fetch",
     "data:read": "ts-node bin/data read",
     "data:parse": "ts-node bin/data parse",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@babel/core": "^7.19.3",
@@ -51,7 +53,14 @@
     "typescript": "^4.8.4"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "13.2.0",
+    "@testing-library/user-event": "14.2.0",
+    "@types/jest": "^29.1.2",
     "@types/node-fetch": "2",
-    "@typescript-eslint/parser": "^5.39.0"
+    "@typescript-eslint/parser": "^5.39.0",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0",
+    "ts-jest": "^29.0.3"
   }
 }
