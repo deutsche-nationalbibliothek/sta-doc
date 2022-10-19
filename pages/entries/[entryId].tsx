@@ -24,22 +24,13 @@ export default function Entry({ entry }: EntryProps) {
   //   entry.statements.elementof.occurrences[0]
   // }
 
-  const title =
-    entry.label &&
-      entry.statements.elementof &&
-      'label' in entry.statements.elementof.occurrences[0]
-      ? entry.label + ' | ' + entry.statements.elementof.occurrences[0].label
-      : 'missing german entity label';
-
   const isRessourceTypePage =
-    entry.statements.elements &&
-    'id' in entry.statements.elementof.occurrences[0] &&
-    entry.statements.elementof.occurrences[0].id === Item['rda-ressourcetype'];
+    entry.pageType === Item['rda-ressourcetype'];
 
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{entry.title}</title>
       </Head>
       <TopNavigation entry={entry} />
       <section className={'entry-content'}>

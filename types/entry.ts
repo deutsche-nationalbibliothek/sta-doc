@@ -80,3 +80,14 @@ export type Occurrence = OccurrenceSpecifics & {
 interface Coding {
   format: Record<string, string>;
 }
+
+interface CodingNew extends Indexable<CodingNew> {
+  label: string;
+  PICA3: string[];
+  "PICA+": string[];
+  "MARC 21 Format für Normdaten": string[];
+  "GND-Ontologie": string[];
+}
+
+export type CodingKey = 'PICA3' | 'PICA+' | 'MARC 21 Format für Normdaten' | 'GND-Ontologie'
+export type Codings = Record<string, CodingNew>
