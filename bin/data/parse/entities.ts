@@ -33,6 +33,7 @@ export const parseEntities = (
     const entityProps = () => {
       if (!(Property.elementof in entity.claims)) {
         console.warn('no entity.claims for', entityId);
+        return {}
       }
       const elementOf: Item =
         entity.claims[Property.elementof][0].mainsnak.datavalue.value.id;
@@ -55,11 +56,18 @@ export const parseEntities = (
         }
 
         const parseStatementProps = (statement, inQualifier = false) => {
-          const keyAccess = (occ, ...propertyPath: string[]) =>
-            propertyPath.reduce(
+          const keyAccess = (occ, ...propertyPath: string[]) => {
+            // try {
+            return propertyPath.reduce(
               (acc, val) => acc[val],
               inQualifier ? occ : occ.mainsnak
-            );
+            )
+            // } catch (e) {
+            //   console.error('Key Access threw an Error on', propertyPath.join('.'), 'while using', inQualifier ? 'occ' : 'occ.mainsnak', 'with', occ)
+            //   console.error(e)
+            //   throw (e)
+            // }
+          };
 
           const parseWikibasePointer = (occ) => {
             const id = keyAccess(occ, 'datavalue', 'value', 'id');
@@ -99,13 +107,22 @@ export const parseEntities = (
             };
           };
           const parseStringValue = (occ) => {
+            let value: string;
+            try {
+              value = keyAccess(occ, 'datavalue', 'value')
+            } catch (e) {
+              console.warn('No Value in datvalue.value', occ)
+              return undefined
+            }
+            // if (keyAccess(occ, 'snaktype') === 'novalue') {
+            //   return undefined
+            // }
             return {
-              value: keyAccess(occ, 'datavalue', 'value'),
+              value,
               itemType:
                 !inQualifier &&
                 occ['qualifiers-order'] &&
-                occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue.value
-                  .id,
+                occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue?.value.id,
             };
           };
           const parseUrlValue = (occ) => {
@@ -120,13 +137,13 @@ export const parseEntities = (
               [dataType]: occs.map((occ) => {
                 return {
                   ...(dataType === 'wikibase-item' ||
-                  dataType === 'wikibase-property'
+                    dataType === 'wikibase-property'
                     ? parseWikibasePointer(occ)
                     : dataType === 'time'
-                    ? parseTimeValue(occ)
-                    : dataType === 'url'
-                    ? parseUrlValue(occ)
-                    : parseStringValue(occ)),
+                      ? parseTimeValue(occ)
+                      : dataType === 'url'
+                        ? parseUrlValue(occ)
+                        : parseStringValue(occ)),
                   occ,
                 };
               }),
@@ -211,7 +228,7 @@ export const parseEntities = (
       ...entityProps(),
     };
 
-    console.log({ parsedEntity });
+    // console.log({ parsedEntity });
 
     return parsedEntity;
   };
@@ -433,20 +450,20 @@ const itemGroups = {
       Property['biographical,historicalandotherinformation'],
       Property['instructionsforuse'],
       Property[
-        'numberandpreferrednameorpreferrednamingofthetargetdatasetincaseofdatasetredirection'
+      'numberandpreferrednameorpreferrednamingofthetargetdatasetincaseofdatasetredirection'
       ],
       Property[
-        'numberandpreferrednameorpreferrednamingofthetargetsetwhensplittingdatasets'
+      'numberandpreferrednameorpreferrednamingofthetargetsetwhensplittingdatasets'
       ],
       // Vorzugsbenennungen in anderen Datenbeständen
       Property[
-        'personorfamily-preferrednameinanotherdatabaseorinoriginalwrittenform'
+      'personorfamily-preferrednameinanotherdatabaseorinoriginalwrittenform'
       ],
       Property[
-        'corporatebody-preferrednameinanotherdatabaseororiginalwrittenform'
+      'corporatebody-preferrednameinanotherdatabaseororiginalwrittenform'
       ],
       Property[
-        'conference-preferrednameinanotherdatabaseororiginalwrittenform'
+      'conference-preferrednameinanotherdatabaseororiginalwrittenform'
       ],
       Property['subjectheading-preferredterminanotherdatabase'],
       Property['place-preferrednameinanotherdatabaseorinoriginalwrittenform'],

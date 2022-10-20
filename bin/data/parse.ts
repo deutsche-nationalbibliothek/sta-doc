@@ -158,18 +158,18 @@ export const entityIndex = () => {
 
 export const parseRawData = () => {
   console.log('Data parsing is starting');
-  // parseDescription();
-  // parseRdaProperties();
-  // parseFields();
+  parseDescription();
+  parseRdaProperties();
+  parseFields();
   parseEntities(
-    readJSONFile(NAMES.labelEn, DataState.parsed),
-    readJSONFile(NAMES.labelDe, DataState.parsed),
-    readJSONFile(NAMES.coding, DataState.parsed),
-    readJSONFile(NAMES.notation, DataState.parsed)
-    // parseLabelEn(),
-    // parseLabelDe(),
-    // parseCodings(),
-    // parseNotations()
+    // readJSONFile(NAMES.labelEn, DataState.parsed),
+    // readJSONFile(NAMES.labelDe, DataState.parsed),
+    // readJSONFile(NAMES.coding, DataState.parsed),
+    // readJSONFile(NAMES.notation, DataState.parsed)
+    parseLabelEn(),
+    parseLabelDe(),
+    parseCodings(),
+    parseNotations()
   );
   console.log('Data parsing has finished');
 };
