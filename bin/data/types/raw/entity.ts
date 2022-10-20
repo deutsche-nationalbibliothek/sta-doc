@@ -35342,8 +35342,7 @@ interface Value {
   id: string;
 }
 
-interface Aliases {
-}
+interface Aliases {}
 
 interface Labels {
   de: De;

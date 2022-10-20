@@ -4,7 +4,7 @@ const API_URL = 'http://doku.wikibase.wiki';
 const endpointUrl = '/query/proxy/wdqs/bigdata/namespace/wdq/sparql';
 
 export const sparqlQueryDispatcher = (sparqlQuery: string) => {
-  const headers = {Accept: 'application/sparql-results+json'};
+  const headers = { Accept: 'application/sparql-results+json' };
   return fetcher(`${endpointUrl}?query=${encodeURIComponent(sparqlQuery)}`, {
     headers,
   });

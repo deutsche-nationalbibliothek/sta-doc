@@ -219,7 +219,7 @@ export const LABELEN2 = `
         BIND(STRAFTER(STR(?assignment), '/entity/') as ?assignmentId)
     }
     ORDER BY ASC(?elementLabel)
-`
+`;
 
 export const LABELDE = `
   PREFIX wd: <http://www.wikidata.org/entity/>
@@ -259,7 +259,7 @@ export const LABELDE2 = `
         BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
     }
     ORDER BY ASC(?elementLabel)
-`
+`;
 
 export const EXAMPLES = `
   PREFIX wd: <http://www.wikidata.org/entity/>
