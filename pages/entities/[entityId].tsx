@@ -3,6 +3,8 @@ import entites from '@/data/parsed/entities.json';
 import type { Entities, Entity } from '@/types/entity';
 import { entityHeadlines, Headline } from 'utils/entity-headlines';
 import { useHeadlines } from '@/hooks/headlines';
+import { EntityPlaceholder } from '@/entity/components/placeholder';
+import { useEffect } from 'react';
 
 interface EntityProps {
   headlines: Headline[];
@@ -11,8 +13,10 @@ interface EntityProps {
 
 export default function Entity(props: EntityProps) {
   const { setHeadlines } = useHeadlines();
-  setHeadlines(props.headlines);
-  return <div>todo</div>;
+  useEffect(() => {
+    setHeadlines(props.headlines);
+  }, []);
+  return <EntityPlaceholder />;
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

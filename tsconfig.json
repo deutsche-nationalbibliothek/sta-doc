@@ -2,40 +2,19 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/public/*": [
-        "public/*"
-      ],
-      "@/pages/*": [
-        "pages/*"
-      ],
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/data/*": [
-        "data/*"
-      ],
-      "@/lib/*": [
-        "lib/*"
-      ],
-      "@/styles/*": [
-        "styles/*"
-      ],
-      "@/hooks/*": [
-        "hooks/*"
-      ],
-      "@/utils/*": [
-        "utils/*"
-      ],
-      "@/types/*": [
-        "types/*"
-      ]
+      "@/public/*": ["public/*"],
+      "@/pages/*": ["pages/*"],
+      "@/components/*": ["components/*"],
+      "@/data/*": ["data/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/utils/*": ["utils/*"],
+      "@/entity/*": ["features/entity/*"],
+      "@/types/*": ["types/*"]
     },
     "target": "es2015",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -49,15 +28,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": [
-    "node_modules",
-    "bin",
-    "types/generated"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "index.d.ts"
-  ]
+  "exclude": ["node_modules", "bin", "types/generated"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.d.ts"]
 }

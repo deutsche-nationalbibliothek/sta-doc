@@ -6,7 +6,6 @@ import React from 'react';
 export const Sidebar: React.FC = () => {
   const { headlines } = nestedHeadlines(useHeadlines().headlines);
 
-  console.log({ nestedHeadlines });
   return (
     <Layout.Sider theme={'light'} width={400}>
       {headlines.length > 0 && (
