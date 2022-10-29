@@ -1,3 +1,5 @@
+import { Property } from "./property";
+
 export interface Entities {
   [key: string]: Entity;
 }
@@ -23,8 +25,6 @@ export interface Statements {
   text: Statement[];
 }
 
-// type Statement = StatementValue | { noValue: true } | { unknownValue: true };
-
 interface NoValue {
   noValue: true
 }
@@ -35,7 +35,8 @@ interface UnknownValue {
 
 export interface Statement{
   label: string;
-  string?: (StringValues)[];
+  property: Property;
+  string?: StringValueContainer[];
   'wikibase-item'?: (WikiBaseValue | UnknownValue | NoValue)[];
   'wikibase-property'?: (WikiBaseValue | UnknownValue | NoValue)[];
   'wikibase-entityid'?: (WikiBaseValue | UnknownValue | NoValue)[];
@@ -49,7 +50,7 @@ interface CommonValue {
 
 export interface Reference {
   label: string;
-  string?: StringValues[];
+  string?: StringValueContainer[];
   url?: UrlValue[];
 }
 
@@ -61,7 +62,7 @@ export interface UrlValue extends CommonValue {
   value: string;
 }
 
-export interface StringValues {
+export interface StringValueContainer {
   values: (StringValue | UnknownValue | NoValue)[];
   itemType?: string | false; // 'default' | ''
   relativeHeadline?: 1 | 2 | 3;

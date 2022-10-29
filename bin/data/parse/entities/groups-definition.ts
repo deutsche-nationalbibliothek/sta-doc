@@ -53,6 +53,11 @@ export const groupsDefinition = {
       Property.applicablefortypeofentity,
     ],
   },
+  [Item['stadocumentation:example']]: {
+    header: [],
+    table: [],
+    text: [Property.description, Property['description(attheend)']],
+  },
   [Item['stadocumentation:rules']]: {
     header: [Property.definition],
     table: [

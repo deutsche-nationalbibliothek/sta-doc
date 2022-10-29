@@ -48,7 +48,7 @@ export default function Layout(props: LayoutProps) {
         <Sider width={200}>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={['sub1', '1', '2']}
             defaultOpenKeys={keys}
             style={{ height: '100%', borderRight: 0 }}
             items={items}

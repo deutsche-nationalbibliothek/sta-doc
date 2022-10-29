@@ -20,7 +20,11 @@ export const parseEntities = (
   console.log('\tParsing Entities');
   const rawEntities = readRawData();
 
-  const parseRawEntity = (entityId: keyof EntityRaw, prevParsedEntity = []) => {
+  const parseRawEntity = (
+    entityId: keyof EntityRaw,
+    prevParsedEntity = [],
+    embedded = false
+  ) => {
     const entity = rawEntities[entityId];
     if (!entity) {
       console.warn(
@@ -55,12 +59,12 @@ export const parseEntities = (
             );
         };
 
-        const parseStatementProps = (statement, inQualifier = false) => {
+        const parseStatementProps = (statement, embeddedStatement = false) => {
           const keyAccess = (occ, ...propertyPath: string[]) => {
             // try {
             return propertyPath.reduce(
               (acc, val) => acc[val],
-              inQualifier ? occ : occ.mainsnak
+              embeddedStatement ? occ : occ.mainsnak
             );
             // } catch (e) {
             //   // debugger
@@ -109,7 +113,7 @@ export const parseEntities = (
             return {
               value,
               itemType:
-                !inQualifier &&
+                !embeddedStatement &&
                 occ['qualifiers-order'] &&
                 occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue?.value
                   .id,
@@ -124,8 +128,10 @@ export const parseEntities = (
 
           const parsedStatements = statement.map((occs) => {
             const dataType = keyAccess(occs[0], 'datatype');
+            const property = keyAccess(occs[0], 'property');
             return {
-              label: lookup_de[keyAccess(occs[0], 'property')],
+              label: lookup_de[property],
+              property,
               [dataType]: occs.map((occ) => {
                 const snakType = keyAccess(occ, 'snaktype');
                 if (snakType === 'novalue') {
@@ -152,7 +158,11 @@ export const parseEntities = (
                       propertyId === Property['embedded(item)'] ||
                       propertyId === Property['embedded(property)']) &&
                     !prevParsedEntity.some((id) => id === pointerId) &&
-                    parseRawEntity(pointerId, [...prevParsedEntity, entityId]),
+                    parseRawEntity(
+                      pointerId,
+                      [...prevParsedEntity, entityId],
+                      true
+                    ),
                   qualifiers:
                     occ.qualifiers &&
                     parseStatementProps(
@@ -178,17 +188,20 @@ export const parseEntities = (
 
       return {
         id: entityId,
-        label: entity.labels.de?.value, //todo, strip
+        label: !embedded && entity.labels.de?.value, //todo, strip
         title:
-          elementOf && `${entity.labels.de?.value} | ${lookup_de[elementOf]}`,
-        pageType: elementOf && lookup_en[elementOf],
-        description:
-          'de' in entity.descriptions
-            ? entity.descriptions.de.value
-            : undefined,
+          !embedded &&
+          elementOf &&
+          `${entity.labels.de?.value} | ${lookup_de[elementOf]}`,
+        pageType: !embedded && elementOf && lookup_en[elementOf],
+        // description:
+        //   'de' in entity.descriptions
+        //     ? entity.descriptions.de.value
+        //     : undefined,
         notation: notations[entityId]?.notation,
         statements: statementProps(entity.claims),
         logo:
+          !embedded &&
           entity.claims[Property.logo] &&
           entity.claims[Property.logo][0] &&
           entity.claims[Property.logo][0]?.mainsnak?.datavalue?.value,
