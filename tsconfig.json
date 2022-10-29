@@ -20,8 +20,11 @@
       "@/styles/*": [
         "styles/*"
       ],
-      "@/context/*": [
-        "context/*"
+      "@/hooks/*": [
+        "hooks/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
       ],
       "@/types/*": [
         "types/*"

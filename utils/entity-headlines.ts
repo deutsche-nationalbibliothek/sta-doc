@@ -1,10 +1,12 @@
 import { Entity, Statement } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Property } from '@/types/property';
+import slugify from 'slugify';
 
 export interface Headline {
   label: string;
   level: number;
+  id: string;
 }
 
 export const entityHeadlines = (entity: Entity, level = 1) => {
@@ -93,11 +95,12 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
 
   return (
     entity &&
-    'label' in entity && [
+    'label' in entity &&
+    [
       { label: entity.label, level },
       ...(entity.statements && 'text' in entity.statements
         ? parseStatementHeadlines(entity.statements.text, level + 1, true)
         : []),
-    ]
+    ].map((headline) => ({ ...headline, id: slugify(headline.label) }))
   );
 };

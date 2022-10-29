@@ -1,24 +1,27 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import entites from '@/data/parsed/entities.json';
-import type {
-  Entities,
-  Entity,
-} from '@/types/entity';
+import type { Entities, Entity } from '@/types/entity';
 import { entityHeadlines, Headline } from 'utils/entity-headlines';
+import { useHeadlines } from '@/hooks/headlines';
 
 interface EntityProps {
   headlines: Headline[];
+  entityId: string;
 }
 
 export default function Entity(props: EntityProps) {
-  console.log(props.headlines);
-  return <div></div>;
+  const { setHeadlines } = useHeadlines();
+  setHeadlines(props.headlines);
+  return <div>todo</div>;
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { entityId } = context.params;
   return {
-    props: { headlines: entityHeadlines(entites[entityId as keyof Entities]) },
+    props: {
+      entityId,
+      headlines: entityHeadlines(entites[entityId as keyof Entities]),
+    },
   };
 };
 
