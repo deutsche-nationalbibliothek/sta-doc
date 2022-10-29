@@ -1,4 +1,4 @@
-import { Property } from "./property";
+import { Property } from './property';
 
 export interface Entities {
   [key: string]: Entity;
@@ -25,15 +25,15 @@ export interface Statements {
   text: Statement[];
 }
 
-interface NoValue {
-  noValue: true
+export interface NoValue {
+  noValue: true;
 }
 
-interface UnknownValue {
-  unknownValue: true
+export interface UnknownValue {
+  unknownValue: true;
 }
 
-export interface Statement{
+export interface Statement {
   label: string;
   property: Property;
   string?: StringValueContainer[];
