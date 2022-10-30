@@ -1,13 +1,12 @@
 import { Title } from '@/components/title';
 import {
-  NoValue,
-  StringValue,
-  StringValueContainer,
-  UnknownValue,
+    StringValueContainer
 } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Typography } from 'antd';
-import React from 'react';
+import React, { Fragment } from 'react';
+import { GenericStringValueMapper } from '../utils/string-value-mapper';
+import { StringValueComponent } from '../values/string';
 
 interface StringStatementProps {
   statement: StringValueContainer[];
@@ -18,89 +17,91 @@ export const StringStatement: React.FC<StringStatementProps> = ({
   statement,
   headerLevel,
 }) => {
-  const guardNoValueOrUknonwnValue = (
-    value: StringValue | UnknownValue | NoValue,
-    stringValueHandler: (stringValue: StringValue) => JSX.Element
-  ) => {
-    if ('noValue' in value) {
-      return <Typography.Text type="danger">Wert fehlt</Typography.Text>;
-    } else if ('unknownValue' in value) {
-      return <Typography.Text disabled>Wert ist unbekannt</Typography.Text>;
-    } else {
-      return stringValueHandler(value);
-    }
-  };
-
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
-      <>
-        {stringValueContainer.values.map((stringValue) =>
-          guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-            <Typography.Paragraph>{stringValue.value}</Typography.Paragraph>
-          ))
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+          <Typography.Paragraph key={stringValue.value}>
+            <StringValueComponent stringValue={stringValue} />
+          </Typography.Paragraph>
         )}
-      </>
+      </GenericStringValueMapper>
     ),
     [Item['enumeration,uncounted']]: (
       stringValueContainer: StringValueContainer
     ) => (
       <ul>
-        {stringValueContainer.values.map((stringValue) =>
-          guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-            <li>{stringValue.value}</li>
-          ))
-        )}
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+          <li key={stringValue.value}>
+            <StringValueComponent stringValue={stringValue} />
+          </li>
+      )}
+      </GenericStringValueMapper>
       </ul>
     ),
     [Item['enumeration,counted']]: (
       stringValueContainer: StringValueContainer
     ) => (
       <ol>
-        {stringValueContainer.values.map((stringValue) =>
-          guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-            <li>{stringValue.value}</li>
-          ))
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+          <li key={stringValue.value}>
+            <StringValueComponent stringValue={stringValue} />
+          </li>
         )}
+      </GenericStringValueMapper>
       </ol>
     ),
     [Item.firstordersubheading]: (stringValueContainer: StringValueContainer) =>
-      stringValueContainer.values.map((stringValue) =>
-        guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Title level={headerLevel + 1}>{stringValue.value}</Title>
-        ))
-      ),
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+        <Title level={headerLevel + 1} key={stringValue.value}>
+          <StringValueComponent stringValue={stringValue} />
+        </Title>
+        )}
+      </GenericStringValueMapper>,
     [Item.secondordersubheading]: (
       stringValueContainer: StringValueContainer
     ) =>
-      stringValueContainer.values.map((stringValue) =>
-        guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Title level={headerLevel + 2}>{stringValue.value}</Title>
-        ))
-      ),
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+        <Title level={headerLevel + 2} key={stringValue.value}>
+          <StringValueComponent stringValue={stringValue} />
+        </Title>
+        )}
+      </GenericStringValueMapper>,
     [Item.thirdordersubheading]: (stringValueContainer: StringValueContainer) =>
-      stringValueContainer.values.map((stringValue) =>
-        guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Title level={headerLevel + 3}>{stringValue.value}</Title>
-        ))
-      ),
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue) => (
+        <Title level={headerLevel + 3} key={stringValue.value}>
+          <StringValueComponent stringValue={stringValue} />
+        </Title>
+        )}
+      </GenericStringValueMapper>,
   };
 
   return (
     <>
-      {statement.map((stringValueContainer) => {
+      {statement.map((stringValueContainer, index) => {
         if (
           stringValueContainer.itemType &&
           !itemTypeMap[stringValueContainer.itemType]
         ) {
-          console.warn(
+          console.log(
             'itemType is missing in itemTypeMap',
-            stringValueContainer.itemType
+            stringValueContainer.itemType,
+            'with values',
+            stringValueContainer.values
           );
         }
         return (
-          stringValueContainer.itemType &&
-          itemTypeMap[stringValueContainer.itemType] &&
-          itemTypeMap[stringValueContainer.itemType](stringValueContainer)
+          <Fragment key={index}>
+            {stringValueContainer.itemType &&
+              itemTypeMap[stringValueContainer.itemType]
+              ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
+              : itemTypeMap.default(stringValueContainer)}
+          </Fragment>
         );
       })}
     </>
