@@ -1,5 +1,5 @@
+import { Title } from '@/components/title';
 import { Entity } from '@/types/entity';
-import { Typography } from 'antd';
 import React from 'react';
 import { Statements } from './statements';
 
@@ -12,7 +12,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({ entity, headerLeve
 
   return (
     <>
-      <Typography.Title level={headerLevel}>{entity.label}</Typography.Title>
+      <Title level={headerLevel}>{entity.label}</Title>
       <Statements statements={entity.statements.header} headerLevel={headerLevel} />
       {/* <TableStatemnts statements={entity.statements.table} /> */}
       <Statements statements={entity.statements.text} headerLevel={headerLevel} />

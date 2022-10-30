@@ -1,3 +1,4 @@
+import { Title } from '@/components/title';
 import {
   NoValue,
   StringValue,
@@ -10,12 +11,12 @@ import React from 'react';
 
 interface StringStatementProps {
   statement: StringValueContainer[];
-  headerLevel: number
+  headerLevel: number;
 }
 
 export const StringStatement: React.FC<StringStatementProps> = ({
   statement,
-  headerLevel
+  headerLevel,
 }) => {
   const guardNoValueOrUknonwnValue = (
     value: StringValue | UnknownValue | NoValue,
@@ -24,9 +25,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     if ('noValue' in value) {
       return <Typography.Text type="danger">Wert fehlt</Typography.Text>;
     } else if ('unknownValue' in value) {
-      return (
-        <Typography.Text disabled>Wert ist unbekannt</Typography.Text>
-      );
+      return <Typography.Text disabled>Wert ist unbekannt</Typography.Text>;
     } else {
       return stringValueHandler(value);
     }
@@ -67,20 +66,21 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item.firstordersubheading]: (stringValueContainer: StringValueContainer) =>
       stringValueContainer.values.map((stringValue) =>
         guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Typography.Title level={headerLevel + 1}>{stringValue.value}</Typography.Title>
+          <Title level={headerLevel + 1}>{stringValue.value}</Title>
         ))
       ),
-    [Item.secondordersubheading]: (stringValueContainer: StringValueContainer) =>
+    [Item.secondordersubheading]: (
+      stringValueContainer: StringValueContainer
+    ) =>
       stringValueContainer.values.map((stringValue) =>
         guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Typography.Title level={headerLevel + 2}>{stringValue.value}</Typography.Title>
+          <Title level={headerLevel + 2}>{stringValue.value}</Title>
         ))
       ),
     [Item.thirdordersubheading]: (stringValueContainer: StringValueContainer) =>
       stringValueContainer.values.map((stringValue) =>
-
         guardNoValueOrUknonwnValue(stringValue, (stringValue) => (
-          <Typography.Title level={headerLevel + 3}>{stringValue.value}</Typography.Title>
+          <Title level={headerLevel + 3}>{stringValue.value}</Title>
         ))
       ),
   };

@@ -1,5 +1,6 @@
+import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
-import { Skeleton, Typography } from 'antd';
+import { Skeleton } from 'antd';
 import React from 'react';
 
 export const EntityPlaceholder = () => {
@@ -8,10 +9,9 @@ export const EntityPlaceholder = () => {
     <>
       {headlines.map(({ level, label, id }) => (
         <React.Fragment key={id}>
-          {/* todo, care for higher level headlines */}
-          <Typography.Title id={id} level={level <= 4 ? level : 4}>
+          <Title id={id} level={level}>
             {label}
-          </Typography.Title>
+          </Title>
           <Skeleton active />
         </React.Fragment>
       ))}
