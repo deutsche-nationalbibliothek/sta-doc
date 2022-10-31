@@ -1,7 +1,5 @@
 import { Title } from '@/components/title';
-import {
-    StringValueContainer
-} from '@/types/entity';
+import { StringValueContainer } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Typography } from 'antd';
 import React, { Fragment } from 'react';
@@ -19,10 +17,18 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 }) => {
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
+      <GenericStringValueMapper
+        headerLevel={headerLevel}
+        stringValueContainer={stringValueContainer}
+      >
+        {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
-            <StringValueComponent stringValue={stringValue} />
+            <StringValueComponent
+              headerLevel={headerLevel}
+              stringValue={stringValue}
+            />
+            {references}
+            {qualifiers}
           </Typography.Paragraph>
         )}
       </GenericStringValueMapper>
@@ -31,54 +37,107 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       stringValueContainer: StringValueContainer
     ) => (
       <ul>
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
-          <li key={stringValue.value}>
-            <StringValueComponent stringValue={stringValue} />
-          </li>
-      )}
-      </GenericStringValueMapper>
+        <GenericStringValueMapper
+          headerLevel={headerLevel}
+          stringValueContainer={stringValueContainer}
+        >
+          {(stringValue, qualifiers, references) => (
+            <li key={stringValue.value}>
+              <StringValueComponent
+                headerLevel={headerLevel}
+                stringValue={stringValue}
+              />
+              {references}
+              {qualifiers}
+            </li>
+          )}
+        </GenericStringValueMapper>
       </ul>
     ),
     [Item['enumeration,counted']]: (
       stringValueContainer: StringValueContainer
     ) => (
       <ol>
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
-          <li key={stringValue.value}>
-            <StringValueComponent stringValue={stringValue} />
-          </li>
-        )}
-      </GenericStringValueMapper>
+        <GenericStringValueMapper
+          headerLevel={headerLevel}
+          stringValueContainer={stringValueContainer}
+        >
+          {(stringValue, qualifiers, references) => (
+            <li key={stringValue.value}>
+              <StringValueComponent
+                headerLevel={headerLevel}
+                stringValue={stringValue}
+              />
+              {references}
+              {qualifiers}
+            </li>
+          )}
+        </GenericStringValueMapper>
       </ol>
     ),
-    [Item.firstordersubheading]: (stringValueContainer: StringValueContainer) =>
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
-        <Title level={headerLevel + 1} key={stringValue.value}>
-          <StringValueComponent stringValue={stringValue} />
-        </Title>
+    [Item.firstordersubheading]: (
+      stringValueContainer: StringValueContainer
+    ) => (
+      <GenericStringValueMapper
+        headerLevel={headerLevel}
+        stringValueContainer={stringValueContainer}
+      >
+        {(stringValue, qualifiers, references) => (
+          <React.Fragment key={stringValue.value}>
+            <Title level={headerLevel + 1}>
+              <StringValueComponent
+                headerLevel={headerLevel + 1}
+                stringValue={stringValue}
+              />
+              {references}
+            </Title>
+            {qualifiers}
+          </React.Fragment>
         )}
-      </GenericStringValueMapper>,
+      </GenericStringValueMapper>
+    ),
     [Item.secondordersubheading]: (
       stringValueContainer: StringValueContainer
-    ) =>
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
-        <Title level={headerLevel + 2} key={stringValue.value}>
-          <StringValueComponent stringValue={stringValue} />
-        </Title>
+    ) => (
+      <GenericStringValueMapper
+        headerLevel={headerLevel}
+        stringValueContainer={stringValueContainer}
+      >
+        {(stringValue, qualifiers, references) => (
+          <React.Fragment key={stringValue.value}>
+            <Title level={headerLevel + 2}>
+              <StringValueComponent
+                headerLevel={headerLevel + 2}
+                stringValue={stringValue}
+              />
+              {references}
+            </Title>
+            {qualifiers}
+          </React.Fragment>
         )}
-      </GenericStringValueMapper>,
-    [Item.thirdordersubheading]: (stringValueContainer: StringValueContainer) =>
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue) => (
-        <Title level={headerLevel + 3} key={stringValue.value}>
-          <StringValueComponent stringValue={stringValue} />
-        </Title>
+      </GenericStringValueMapper>
+    ),
+    [Item.thirdordersubheading]: (
+      stringValueContainer: StringValueContainer
+    ) => (
+      <GenericStringValueMapper
+        headerLevel={headerLevel}
+        stringValueContainer={stringValueContainer}
+      >
+        {(stringValue, qualifiers, references) => (
+          <React.Fragment key={stringValue.value}>
+            <Title level={headerLevel + 3}>
+              <StringValueComponent
+                headerLevel={headerLevel + 3}
+                stringValue={stringValue}
+              />
+              {references}
+            </Title>
+            {qualifiers}
+          </React.Fragment>
         )}
-      </GenericStringValueMapper>,
+      </GenericStringValueMapper>
+    ),
   };
 
   return (

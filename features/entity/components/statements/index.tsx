@@ -1,5 +1,6 @@
 import { Title } from '@/components/title';
 import { Statement } from '@/types/entity';
+import { Property } from '@/types/property';
 import React, { Fragment } from 'react';
 import { StringStatement } from './string';
 
@@ -20,7 +21,7 @@ export const Statements: React.FC<StatementsProps> = ({
         (statement) =>
           statement.string ? (
             <Fragment key={statement.label}>
-              {showHeader && <Title level={headerLevel}>{statement.label}</Title>}
+              {showHeader && statement.property !== Property.description && <Title level={headerLevel}>{statement.label}</Title>}
               <StringStatement
                 statement={statement.string}
                 headerLevel={headerLevel + 1}
