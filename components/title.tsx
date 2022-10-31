@@ -3,7 +3,7 @@ import { TitleProps } from 'antd/lib/typography/Title';
 import React from 'react';
 import slugify from 'slugify';
 
-// todo handle level props higher than 4
+// @ts-ignore
 interface LocalTitleProps extends TitleProps {
   level: number;
   label: string;
@@ -11,10 +11,14 @@ interface LocalTitleProps extends TitleProps {
 
 export const Title: React.FC<LocalTitleProps> = (props) => {
   const { level, label, children, ...otherProps } = props;
-  const localLevel = level <= 4 ? level : 4;
+  const localLevel = (level <= 4 ? level : 4) as 1 | 2 | 3 | 4;
+  const levelsTooHigh = level - 4;
+  const style = levelsTooHigh > 0 ? { fontSize: 18 - levelsTooHigh } : {};
+
   return (
     <Typography.Title
       data-actual-level={level}
+      style={style}
       id={slugify(label)}
       level={localLevel}
       {...otherProps}
