@@ -20,7 +20,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     [Property['embeddedin(item)']]: () => <></>,
     [Property['embedded(item)']]: (qualifier: Statement) => {
       const [isOpen, setIsOpen] = useState(true);
-      return qualifier['wikibase-item'].map((wikiBaseItem, index) => (
+      return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
             <Collapse
@@ -44,8 +44,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     },
     [Property['embedded(property)']]: () => <></>,
     [Property['see(item)']]: (qualifier: Statement) =>
-      // 'wikibase-property' in qualifier &&
-      qualifier['wikibase-item'].map(
+      qualifier['wikibasePointer'].map(
         (wikiBaseItem) =>
           'link' in wikiBaseItem && (
             <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
@@ -55,8 +54,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
           )
       ),
     [Property['see(property)']]: (qualifier: Statement) =>
-      // 'wikibase-property' in qualifier &&
-      qualifier['wikibase-property'].map(
+      qualifier['wikibasePointer'].map(
         (wikiBaseItem) =>
           'link' in wikiBaseItem && (
             <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>

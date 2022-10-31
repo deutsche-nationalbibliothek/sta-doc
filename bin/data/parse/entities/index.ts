@@ -97,7 +97,7 @@ export const parseEntities = (
             return {
               id: id,
               label: lookup_de[id],
-              link: `/entries/${id}`,
+              link: `/entities/${id}`,
               coding: codings[id],
             };
           };
@@ -128,11 +128,17 @@ export const parseEntities = (
 
           const parsedStatements = statement.map((occs) => {
             const dataType = keyAccess(occs[0], 'datatype');
+            const simplifiedDataType =
+              dataType === 'wikibase-item' ||
+                dataType === 'wikibase-entityid' ||
+                dataType === 'wikibase-property'
+                ? 'wikibasePointer'
+                : dataType;
             const property = keyAccess(occs[0], 'property');
             return {
               label: lookup_de[property],
               property,
-              [dataType]: occs.map((occ) => {
+              [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess(occ, 'snaktype');
                 if (snakType === 'novalue') {
                   return { noValue: true };
@@ -143,13 +149,11 @@ export const parseEntities = (
                 const pointerId = keyAccess(occ, 'datavalue', 'value', 'id');
 
                 return {
-                  ...(dataType === 'wikibase-item' ||
-                    dataType === 'wikibase-entityid' ||
-                    dataType === 'wikibase-property'
+                  ...(simplifiedDataType === 'wikibasePointer'
                     ? parseWikibaseValue(occ)
-                    : dataType === 'time'
+                    : simplifiedDataType === 'time'
                       ? parseTimeValue(occ)
-                      : dataType === 'url'
+                      : simplifiedDataType === 'url'
                         ? parseUrlValue(occ)
                         : parseStringValue(occ)),
                   references: occ.references && parseReferences(occ.references),

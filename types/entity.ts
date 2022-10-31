@@ -37,9 +37,7 @@ export interface Statement {
   label: string;
   property: Property;
   string?: StringValueContainer[];
-  'wikibase-item'?: (WikiBaseValue | UnknownValue | NoValue)[];
-  'wikibase-property'?: (WikiBaseValue | UnknownValue | NoValue)[];
-  'wikibase-entityid'?: (WikiBaseValue | UnknownValue | NoValue)[];
+  wikibasePointer?: (WikiBaseValue | UnknownValue | NoValue)[];
 }
 
 interface CommonValue {

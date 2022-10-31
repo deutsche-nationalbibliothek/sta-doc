@@ -61,10 +61,10 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
               });
             })
             .flat();
-        } else if ('wikibase-item' in statement) {
+        } else if ('wikibasePointer' in statement) {
           return [
             topLevel && { label: statement.label, level },
-            ...statement['wikibase-item'].map((wikiBaseValue) => {
+            ...statement['wikibasePointer'].map((wikiBaseValue) => {
               if ('embedded' in wikiBaseValue && wikiBaseValue.embedded) {
                 return parseStatementHeadlines(
                   wikiBaseValue.embedded.statements.text,
