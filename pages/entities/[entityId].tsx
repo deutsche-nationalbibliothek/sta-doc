@@ -25,6 +25,7 @@ export default function EntityDetailsPage(props: EntityProps) {
 
   if (error) {
     console.error(error);
+    // todo, create error page
     return null;
   }
 

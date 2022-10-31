@@ -31,11 +31,13 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 header={isOpen ? '' : 'Weiterführende Informationen'}
                 key="1"
               >
-                <EntityDetails
-                  embedded
-                  headerLevel={headerLevel + 1}
-                  entity={wikiBaseItem.embedded}
-                />
+                {isOpen && (
+                  <EntityDetails
+                    embedded
+                    headerLevel={headerLevel + 1}
+                    entity={wikiBaseItem.embedded}
+                  />
+                )}
               </Collapse.Panel>
             </Collapse>
           )}

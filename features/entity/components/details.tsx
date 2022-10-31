@@ -6,7 +6,7 @@ import { Statements } from './statements';
 interface EntityDetailsProps {
   entity: Entity;
   headerLevel?: number;
-  embedded: boolean;
+  embedded?: boolean;
 }
 
 export const EntityDetails: React.FC<EntityDetailsProps> = ({
@@ -16,7 +16,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 }) => {
   return (
     <>
-      {!embedded && <Title level={headerLevel}>{entity.label}</Title>}
+      {!embedded && <Title label={entity.label} level={headerLevel} />}
       <Statements
         statements={entity.statements.header}
         headerLevel={headerLevel + 1}

@@ -9,9 +9,7 @@ export const EntityPlaceholder = () => {
     <>
       {headlines.map(({ level, label, id }) => (
         <React.Fragment key={id}>
-          <Title id={id} level={level}>
-            {label}
-          </Title>
+          <Title label={label} id={id} level={level} />
           <Skeleton active />
         </React.Fragment>
       ))}

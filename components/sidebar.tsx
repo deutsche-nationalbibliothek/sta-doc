@@ -1,29 +1,13 @@
 import { useHeadlines } from '@/hooks/headlines';
-import { nestedHeadlines } from '@/utils/nested-headlines';
-import { Divider, Layout, Tree } from 'antd';
-import React from 'react';
+import { Layout } from 'antd';
+import { ContentNavigation } from './content-navigation';
 
 export const Sidebar: React.FC = () => {
-  const { headlines } = nestedHeadlines(useHeadlines().headlines);
-
+  const { headlines } = useHeadlines();
   return (
     <Layout.Sider theme={'light'} width={400}>
-      {headlines.length > 0 && (
-        <>
-          <div>
-            <Divider />
-            <Tree
-              showLine
-              showIcon
-              defaultExpandAll
-              // checkable
-              height={800}
-              treeData={headlines}
-            />
-            <Divider />
-          </div>
-        </>
-      )}
+      {headlines.length && <ContentNavigation headlines={headlines} />}
     </Layout.Sider>
   );
 };
+

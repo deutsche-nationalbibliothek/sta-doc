@@ -84,7 +84,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       >
         {(stringValue, qualifiers, references) => (
           <React.Fragment key={stringValue.value}>
-            <Title level={headerLevel + 1}>
+            <Title label={stringValue.value} level={headerLevel}>
               <StringValueComponent
                 headerLevel={headerLevel + 1}
                 stringValue={stringValue}
@@ -105,7 +105,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       >
         {(stringValue, qualifiers, references) => (
           <React.Fragment key={stringValue.value}>
-            <Title level={headerLevel + 2}>
+            <Title label={stringValue.value} level={headerLevel + 1}>
               <StringValueComponent
                 headerLevel={headerLevel + 2}
                 stringValue={stringValue}
@@ -126,7 +126,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       >
         {(stringValue, qualifiers, references) => (
           <React.Fragment key={stringValue.value}>
-            <Title level={headerLevel + 3}>
+            <Title label={stringValue.value} level={headerLevel + 2}>
               <StringValueComponent
                 headerLevel={headerLevel + 3}
                 stringValue={stringValue}
@@ -147,12 +147,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           stringValueContainer.itemType &&
           !itemTypeMap[stringValueContainer.itemType]
         ) {
-          console.log(
-            'itemType is missing in itemTypeMap',
-            stringValueContainer.itemType,
-            'with values',
-            stringValueContainer.values
-          );
+          // console.log(
+          //   'itemType is missing in itemTypeMap',
+          //   stringValueContainer.itemType,
+          //   'with values',
+          //   stringValueContainer.values
+          // );
         }
         return (
           <Fragment key={index}>

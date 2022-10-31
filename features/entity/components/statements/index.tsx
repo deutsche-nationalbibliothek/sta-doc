@@ -7,7 +7,7 @@ import { StringStatement } from './string';
 interface StatementsProps {
   statements: Statement[];
   headerLevel: number;
-  showHeader?:boolean;
+  showHeader?: boolean;
 }
 
 export const Statements: React.FC<StatementsProps> = ({
@@ -17,18 +17,20 @@ export const Statements: React.FC<StatementsProps> = ({
 }) => {
   return (
     <>
-      {statements.map(
-        (statement) =>
-          statement.string ? (
-            <Fragment key={statement.label}>
-              {showHeader && statement.property !== Property.description && <Title level={headerLevel}>{statement.label}</Title>}
-              <StringStatement
-                statement={statement.string}
-                headerLevel={headerLevel + 1}
-              />
-            </Fragment>
-          ) : null // todo, care for other types
-      )}
+      {statements.map((statement) => {
+        const isDescriptionProp = statement.property === Property.description;
+        return statement.string ? (
+          <Fragment key={statement.label}>
+            {showHeader && !isDescriptionProp && (
+              <Title level={headerLevel} label={statement.label} />
+            )}
+            <StringStatement
+              statement={statement.string}
+              headerLevel={headerLevel + (isDescriptionProp ? 0 : 1)}
+            />
+          </Fragment>
+        ) : null; // todo, care for other types)
+      })}
     </>
   );
 };

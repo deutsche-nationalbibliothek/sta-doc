@@ -29,10 +29,12 @@ export const References: React.FC<ReferencesProps> = ({
               <Fragment key={index2}>
                 {reference.string &&
                   reference.string.map((stringValueContainer, index3) => (
-                    <Typography.Paragraph style={{ marginBottom: 0 }}>
+                    <Typography.Paragraph
+                      key={index3}
+                      style={{ marginBottom: 0 }}
+                    >
                       <GenericStringValueMapper
                         headerLevel={headerLevel}
-                        key={index3}
                         stringValueContainer={stringValueContainer}
                       >
                         {(stringValue) => <>{stringValue.value}</>}
