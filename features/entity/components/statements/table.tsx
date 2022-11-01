@@ -8,7 +8,6 @@ interface TableStatementsProps {
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
 }) => {
-  console.log(statements);
   const data = statements.map((statement) => {
     return {
       key: statement.label,
@@ -18,6 +17,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       ),
     };
   });
+
   return (
     <Table dataSource={data} pagination={false}>
       <Table.Column
@@ -31,7 +31,9 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         dataIndex="value"
         render={(wikibasePointers: WikiBaseValue[]) =>
           wikibasePointers.map((wikibasePointer) => (
-            <Link key={wikibasePointer.link} href={wikibasePointer.link}>{wikibasePointer.label}</Link>
+            <Link key={wikibasePointer.link} href={wikibasePointer.link}>
+              {wikibasePointer.label}
+            </Link>
           ))
         }
       />

@@ -1,11 +1,12 @@
-import { Statement } from '@/types/entity';
+import { Statement, WikiBaseValue } from '@/types/entity';
 import { Property } from '@/types/property';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Collapse, Layout } from 'antd';
+import { Collapse, Typography } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 import { useState } from 'react';
 import { EntityDetails } from '../details';
+import { Examples } from '../examples';
 
 interface QualifiersProps {
   qualifiers: Statement[];
@@ -46,34 +47,67 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     },
     [Property['embedded(property)']]: () => <></>,
     [Property['see(item)']]: (qualifier: Statement) =>
-      qualifier['wikibasePointer'].map(
-        (wikiBaseItem) =>
-          'link' in wikiBaseItem && (
-            <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
-              <ArrowRightOutlined />
-              {wikiBaseItem.label}
-            </Link>
-          )
+      qualifier['wikibasePointer'].map((wikiBaseItem) =>
+        'link' in wikiBaseItem ? (
+          <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
+            <ArrowRightOutlined />
+            {wikiBaseItem.label}
+          </Link>
+        ) : (
+          <>
+              <br />
+          <Typography.Text strong>
+            <ArrowRightOutlined />
+            Fehlender Link
+          </Typography.Text>
+          </>
+        )
       ),
     [Property['see(property)']]: (qualifier: Statement) =>
-      qualifier['wikibasePointer'].map(
-        (wikiBaseItem) =>
-          'link' in wikiBaseItem && (
-            <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
-              <ArrowRightOutlined />
-              {wikiBaseItem.label}
-            </Link>
-          )
+      qualifier['wikibasePointer'].map((wikiBaseItem) =>
+        'link' in wikiBaseItem ? (
+          <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
+            <ArrowRightOutlined />
+            {wikiBaseItem.label}
+          </Link>
+        ) : (
+          <>
+              <br />
+          <Typography.Text strong>
+            <ArrowRightOutlined />
+            Fehlender Link
+          </Typography.Text>
+          </>
+        )
       ),
+    [Property['example(s)']]: (qualifier: Statement) => {
+      return (
+        <Examples
+          examples={
+            qualifier.wikibasePointer.filter(
+              (wikibasePointer) => 'label' in wikibasePointer
+            ) as WikiBaseValue[]
+          }
+        />
+      );
+    },
+
+    default: (qualifier: Statement) => {
+      // return <>Missing {qualifier.property}</>;
+      return <></>;
+    },
   };
   return (
     <>
-      {qualifiers.map((qualifier, index) => (
-        <React.Fragment key={index}>
-          {qualifier.property in qualifierMap &&
-            qualifierMap[qualifier.property](qualifier)}
-        </React.Fragment>
-      ))}
+      {qualifiers.map((qualifier, index) => {
+        return (
+          <React.Fragment key={index}>
+            {qualifier.property in qualifierMap
+              ? qualifierMap[qualifier.property](qualifier)
+              : qualifierMap.default(qualifier)}
+          </React.Fragment>
+        );
+      })}
     </>
   );
 };
