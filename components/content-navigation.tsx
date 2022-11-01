@@ -10,6 +10,8 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
 }) => {
   const router = useRouter();
   const [checkedHeadlines, setCheckedHeadlines] = useState([]);
+  const treeRef = React.useRef<any>();
+
   const { headlines: treeStructuredHeadlines } = nestedHeadlines(headlines);
 
   const isInViewport = (
@@ -45,21 +47,18 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   }, []);
 
   useEffect(() => {
-    const treeContainer: HTMLElement = document.querySelector('div[role=tree]');
-    const selectedNodes = Array.from(
-      document.getElementsByClassName('ant-tree-node-selected')
-    );
-    const scrollContainer = document.querySelector('div[id=scrollcontainer]');
-    const headingsOutOfViewport = selectedNodes.filter(
-      (treeNode: HTMLElement) => !isInViewport(treeNode, treeContainer)
-    );
-    if (headingsOutOfViewport.length) {
-      if (scrollContainer) {
-        headingsOutOfViewport.forEach((headingEl) =>
-          headingEl.scrollIntoView({
-            block: 'center',
-            inline: 'nearest',
-          })
+    if (treeRef && treeRef.current) {
+      const treeContainer: HTMLElement =
+        document.querySelector('div[role=tree]');
+      const selectedKeys: string[] = treeRef.current.state.selectedKeys;
+
+      const headingsOutOfViewport = selectedKeys.filter(
+        (key) =>
+          !isInViewport(document.getElementById(`nav-${key}`), treeContainer)
+      );
+      if (headingsOutOfViewport.length) {
+        headingsOutOfViewport.forEach((key) =>
+          treeRef.current.scrollTo({ key, offset: 50 })
         );
       }
     }
@@ -69,19 +68,14 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
     <>
       {treeStructuredHeadlines.length > 0 && (
         <Affix>
-          <div
-            id="scrollcontainer"
-            style={{
-              overflowY: 'scroll',
-              height: window.innerHeight * 0.9,
-            }}
-          >
+          <div>
             <Divider />
             <Tree
               showLine
               showIcon
               defaultExpandAll
-              // style={{ height: '100%' }}
+              ref={treeRef}
+              height={window.innerHeight * 0.9}
               selectedKeys={checkedHeadlines}
               multiple
               titleRender={({ key, title }: { key: string; title: string }) => (
