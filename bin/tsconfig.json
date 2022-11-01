@@ -19,8 +19,8 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/types-generated/*": [
-        "../types/generated/*"
+      "@/types-parsed/*": [
+        "./data/types/parsed/*"
       ],
       "@/types/*": [
         "../types/*"

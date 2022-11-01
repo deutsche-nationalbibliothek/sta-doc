@@ -32,9 +32,7 @@ const writeTypeDefinitionFile = (
   ];
   writeFile(
     indexableType.join('\n\n'),
-    state === DataState.parsed
-      ? `types/generated/${filePath}.ts`
-      : `bin/data/types/${state}/${filePath}.ts`
+    `bin/data/types/${state}/${filePath}.ts`
   );
 };
 

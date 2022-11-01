@@ -2,19 +2,19 @@ import { readRawData } from '../../read';
 import { Property } from '../../../../types/property';
 import { DataState, writeJSONFileAndType } from '../../utils';
 import { EntityRaw } from '../../types/raw/entity';
-import { Notation } from '@/types-generated/notation';
-import { LabelDe } from '@/types-generated/label-de';
-import { LabelEn } from '@/types-generated/label-en';
-import { Entity } from '@/types-generated/entity';
+import { Notation } from '@/types-parsed/notation';
+import { LabelDe } from '@/types-parsed/label-de';
+import { LabelEn } from '@/types-parsed/label-en';
+import { Entity } from '@/types-parsed/entity';
 import { Item } from '../../../../types/item';
-import { Codings } from '@/types/entry';
+import { Coding } from '@/types-parsed/coding';
 import { NAMES } from '../../utils/names';
 import { groupsDefinition } from './groups-definition';
 
 export const parseEntities = (
   lookup_en: LabelEn,
   lookup_de: LabelDe,
-  codings: Codings,
+  codings: Coding,
   notations: Notation
 ) => {
   console.log('\tParsing Entities');

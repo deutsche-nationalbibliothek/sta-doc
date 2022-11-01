@@ -14,13 +14,13 @@ import { Name } from '../types/name';
 import { LabelEnRaw } from '../types/raw/label-en';
 import { DescriptionRaw } from '../types/raw/description';
 import { EntityIndexRaw } from '../types/raw/entity-index';
-import { EntityIndex } from '@/types-generated/entity-index';
-import { RdaProperty } from '@/types-generated/rda-property';
-import { Notation } from '@/types-generated/notation';
-import { LabelDe } from '@/types-generated/label-de';
-import { LabelEn } from '@/types-generated/label-en';
-import { Description } from '@/types-generated/description';
-import { Codings } from '@/types/entry';
+import { EntityIndex } from '@/types-parsed/entity-index';
+import { RdaProperty } from '@/types-parsed/rda-property';
+import { Notation } from '@/types-parsed/notation';
+import { LabelDe } from '@/types-parsed/label-de';
+import { LabelEn } from '@/types-parsed/label-en';
+import { Description } from '@/types-parsed/description';
+import { Coding } from '@/types-parsed/coding';
 import { parseEntities } from '../parse/entities';
 
 const parseDescription = () => {
@@ -71,7 +71,7 @@ const parseCodings = () => {
       console.warn('Coding without codingTypeLabel', coding.eId.value);
     }
     return acc;
-  }, {} as Codings);
+  }, {} as Coding);
   writeJSONFileAndType(parsedCodings, NAMES.coding, DataState.parsed);
   return parsedCodings;
 };
