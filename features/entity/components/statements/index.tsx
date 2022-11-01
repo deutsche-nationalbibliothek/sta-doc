@@ -3,6 +3,7 @@ import { Statement } from '@/types/entity';
 import { Property } from '@/types/property';
 import React, { Fragment } from 'react';
 import { StringStatement } from './string';
+import { WikiBasePointer } from './wikibase-pointer';
 
 interface StatementsProps {
   statements: Statement[];
@@ -19,17 +20,25 @@ export const Statements: React.FC<StatementsProps> = ({
     <>
       {statements.map((statement) => {
         const isDescriptionProp = statement.property === Property.description;
-        return statement.string ? (
-          <Fragment key={statement.label}>
+        return (
+          <>
             {showHeader && !isDescriptionProp && (
               <Title level={headerLevel} label={statement.label} />
             )}
-            <StringStatement
-              statement={statement.string}
-              headerLevel={headerLevel + (isDescriptionProp ? 0 : 1)}
-            />
-          </Fragment>
-        ) : null; // todo, care for other types)
+            {statement.string ? (
+              <Fragment key={statement.label}>
+                <StringStatement
+                  statement={statement.string}
+                  headerLevel={headerLevel + (isDescriptionProp ? 0 : 1)}
+                />
+              </Fragment>
+            ) : (
+              statement.wikibasePointer && (
+                <WikiBasePointer wikibaseValues={statement.wikibasePointer} />
+              )
+            )}
+          </>
+        );
       })}
     </>
   );

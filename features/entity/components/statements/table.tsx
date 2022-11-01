@@ -21,7 +21,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   return (
     <Table dataSource={data} pagination={false}>
       <Table.Column
-        title="Elementeigenscahften"
+        title="Elementeigenschaften"
         key="property"
         dataIndex="property"
       />

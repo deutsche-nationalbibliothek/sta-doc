@@ -1,4 +1,3 @@
-import { Title } from '@/components/title';
 import { NoValue, UnknownValue, WikiBaseValue } from '@/types/entity';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import Link from 'next/link';
