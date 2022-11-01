@@ -2,6 +2,7 @@ import { Title } from '@/components/title';
 import { Entity } from '@/types/entity';
 import React from 'react';
 import { Statements } from './statements';
+import { TableStatements } from './statements/table';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -17,16 +18,22 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   return (
     <>
       {!embedded && <Title label={entity.label} level={headerLevel} />}
-      <Statements
-        statements={entity.statements.header}
-        headerLevel={headerLevel + 1}
-        showHeader={false}
-      />
-      {/* <TableStatemnts statements={entity.statements.table} /> */}
-      <Statements
-        statements={entity.statements.text}
-        headerLevel={headerLevel + 1}
-      />
+      {entity.statements.header.length > 0 && (
+        <Statements
+          statements={entity.statements.header}
+          headerLevel={headerLevel + 1}
+          showHeader={false}
+        />
+      )}
+      {entity.statements.table.length > 0 && (
+        <TableStatements statements={entity.statements.table} />
+      )}
+      {entity.statements.text.length > 0 && (
+        <Statements
+          statements={entity.statements.text}
+          headerLevel={headerLevel + 1}
+        />
+      )}
     </>
   );
 };
