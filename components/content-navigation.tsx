@@ -9,7 +9,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   headlines,
 }) => {
   const router = useRouter();
-  const [checkedHeadlines, setCheckedHeadlines] = useState([]);
+  const [selectedHeadlines, setSelectedHeadlines] = useState([]);
   const treeRef = React.useRef<any>();
 
   const { headlines: treeStructuredHeadlines } = nestedHeadlines(headlines);
@@ -36,7 +36,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
         return isInViewport(document.getElementById(headline.id));
       })
       .map((headline) => headline.id);
-    setCheckedHeadlines(headlinesInViewport);
+    setSelectedHeadlines(headlinesInViewport);
   };
 
   const debouncedOnScroll = debounce(onScroll, 50);
@@ -62,7 +62,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
         );
       }
     }
-  }, [checkedHeadlines]);
+  }, [selectedHeadlines]);
 
   return (
     <>
@@ -76,7 +76,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
               defaultExpandAll
               ref={treeRef}
               height={window.innerHeight * 0.9}
-              selectedKeys={checkedHeadlines}
+              selectedKeys={selectedHeadlines}
               multiple
               titleRender={({ key, title }: { key: string; title: string }) => (
                 <span id={`nav-${key}`} onClick={() => router.push(`#${key}`)}>
