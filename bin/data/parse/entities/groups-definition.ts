@@ -56,7 +56,11 @@ export const groupsDefinition = {
   [Item['stadocumentation:example']]: {
     header: [],
     table: [],
-    text: [Property.description, Property['description(attheend)']],
+    text: [
+      Property.description,
+      Property['description(attheend)'],
+      Property['preferredname:personorfamily'],
+    ],
   },
   [Item['stadocumentation:rules']]: {
     header: [Property.definition],

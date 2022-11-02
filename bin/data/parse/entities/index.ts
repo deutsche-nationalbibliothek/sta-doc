@@ -110,8 +110,10 @@ export const parseEntities = (
 
           const parseStringValue = (occ) => {
             const value = keyAccess(occ, 'datavalue', 'value');
+            const id = keyAccess(occ, 'property');
             return {
               value,
+              coding: codings[id],
               itemType:
                 !embeddedStatement &&
                 occ['qualifiers-order'] &&
