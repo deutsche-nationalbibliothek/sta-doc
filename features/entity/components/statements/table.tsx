@@ -12,9 +12,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     return {
       key: statement.label,
       property: statement.label,
-      value: statement.wikibasePointer.filter(
-        (wikibasePointer) => 'label' in wikibasePointer
-      ),
+      value:
+        statement.wikibasePointer &&
+        statement.wikibasePointer.filter(
+          (wikibasePointer) => 'label' in wikibasePointer
+        ),
     };
   });
 
@@ -30,6 +32,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         key="value"
         dataIndex="value"
         render={(wikibasePointers: WikiBaseValue[]) =>
+          wikibasePointers &&
           wikibasePointers.map((wikibasePointer) => (
             <Link key={wikibasePointer.link} href={wikibasePointer.link}>
               {wikibasePointer.label}
