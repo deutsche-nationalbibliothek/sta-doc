@@ -1,6 +1,8 @@
+import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { Headline } from '@/utils/entity-headlines';
-import { nestedHeadlines } from '@/utils/nested-headlines';
+import { NestedHeadline, nestedHeadlines } from '@/utils/nested-headlines';
 import { Affix, Divider, Tree } from 'antd';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +12,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
 }) => {
   const router = useRouter();
   const [selectedHeadlines, setSelectedHeadlines] = useState([]);
+  const {setCurrentHeadlinesPath} =useCurrentHeadlinesPath()
   const treeRef = React.useRef<any>();
 
   const { headlines: treeStructuredHeadlines } = nestedHeadlines(headlines);
@@ -63,6 +66,32 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
       }
     }
   }, [selectedHeadlines]);
+
+  useEffect(()=>{
+    const firstSelectedHeadlineKey = selectedHeadlines[0]
+    if (firstSelectedHeadlineKey) {
+
+    const treeNodeFinder = (headline: NestedHeadline) => {
+      if (headline.key === firstSelectedHeadlineKey) {
+        return headline
+      } else if (headline.children) {
+        return headline.children.find(treeNodeFinder)
+      }
+    }
+
+    const treeNodeReducer = (acc: NestedHeadline[],headline: NestedHeadline) => {
+      const {children, ...headlineValues} = headline
+      if (headlineValues.key === firstSelectedHeadlineKey) {
+        return [...acc, headlineValues]
+      } else if (headline.children && headline.children.find(treeNodeFinder)) {
+        return headline.children.reduce(treeNodeReducer, [...acc, headlineValues])
+      } else {
+        return acc
+      }
+    }
+    setCurrentHeadlinesPath(treeStructuredHeadlines.reduce(treeNodeReducer, []))
+    }
+  }, [selectedHeadlines[0]])
 
   return (
     <>

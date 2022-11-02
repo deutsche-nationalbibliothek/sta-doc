@@ -1,6 +1,12 @@
 import type { MenuProps } from 'antd';
 import { Headline } from './entity-headlines';
 
+export interface NestedHeadline {
+  title: string;
+  key: string;
+  children?: NestedHeadline[];
+}
+
 const treeItem = (headline: Headline) => {
   return {
     title: headline.label,
@@ -39,7 +45,7 @@ export const nestedHeadlines = (headlines: Headline[]) => {
       {
         initialLevel: 2,
         lastSeenLevel: 2,
-        headlines: [] as MenuProps['items'],
+        headlines: [] as NestedHeadline[],
         currentPointer: undefined,
       }
     );

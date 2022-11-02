@@ -7,6 +7,10 @@ import { useSWR } from '@/lib/swr';
 import { EntityDetails } from '@/entity/components/details';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Entities, Entity } from '@/types/entity';
+import { Affix, Breadcrumb } from 'antd';
+import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
+import { useRouter } from 'next/router';
+import { truncate } from 'lodash';
 
 interface EntityProps {
   headlines: Headline[];
@@ -15,6 +19,9 @@ interface EntityProps {
 
 export default function EntityDetailsPage(props: EntityProps) {
   const { setHeadlines } = useHeadlines();
+  const { currentHeadlinesPath } = useCurrentHeadlinesPath();
+  const router = useRouter();
+
   useEffect(() => {
     setHeadlines(props.headlines);
   }, []);
@@ -29,7 +36,24 @@ export default function EntityDetailsPage(props: EntityProps) {
     return null;
   }
 
-  return loading ? <EntityPlaceholder /> : <EntityDetails entity={data} />;
+  return (
+    <>
+      <Affix>
+        <Breadcrumb
+          style={{ backgroundColor: 'rgb(240, 242, 245)', padding: 12 }}
+        >
+          {currentHeadlinesPath.map(({ key, title }) => (
+            <Breadcrumb.Item>
+              <span id={`nav-${key}`} onClick={() => router.push(`#${key}`)}>
+                {truncate(title, { length: 48 })}
+              </span>
+            </Breadcrumb.Item>
+          ))}
+        </Breadcrumb>
+      </Affix>
+      {loading ? <EntityPlaceholder /> : <EntityDetails entity={data} />}
+    </>
+  );
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
