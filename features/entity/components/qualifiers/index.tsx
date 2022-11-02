@@ -18,6 +18,29 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
   headerLevel,
 }) => {
+
+  const seeRef= (qualifier: Statement) => (
+      <ul>
+        {qualifier['wikibasePointer'].map((wikiBaseItem) =>
+          'link' in wikiBaseItem ? (
+            <li>
+              <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
+                <ArrowRightOutlined />
+                {wikiBaseItem.label}
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <Typography.Text strong>
+                <ArrowRightOutlined />
+                Fehlender Link
+              </Typography.Text>
+            </li>
+          )
+        )}
+      </ul>
+    )
+
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,
     [Property['embedded(item)']]: (qualifier: Statement) => {
@@ -47,40 +70,8 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
       ));
     },
     [Property['embedded(property)']]: () => <></>,
-    [Property['see(item)']]: (qualifier: Statement) =>
-      qualifier['wikibasePointer'].map((wikiBaseItem) =>
-        'link' in wikiBaseItem ? (
-          <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
-            <ArrowRightOutlined />
-            {wikiBaseItem.label}
-          </Link>
-        ) : (
-          <>
-            <br />
-            <Typography.Text strong>
-              <ArrowRightOutlined />
-              Fehlender Link
-            </Typography.Text>
-          </>
-        )
-      ),
-    [Property['see(property)']]: (qualifier: Statement) =>
-      qualifier['wikibasePointer'].map((wikiBaseItem) =>
-        'link' in wikiBaseItem ? (
-          <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
-            <ArrowRightOutlined />
-            {wikiBaseItem.label}
-          </Link>
-        ) : (
-          <>
-            <br />
-            <Typography.Text strong>
-              <ArrowRightOutlined />
-              Fehlender Link
-            </Typography.Text>
-          </>
-        )
-      ),
+    [Property['see(item)']]: seeRef,
+    [Property['see(property)']]: seeRef,
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
         <Examples
