@@ -29,9 +29,9 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
         onCancel={handleCancel}
         footer={[]}
       >
-        {examples.map((example) => {
+        {examples.map((example, index) => {
           // todo, implement examples output
-          return <Card>{example.label}</Card>;
+          return <Card key={index}>{example.label}</Card>;
         })}
       </Modal>
     </>

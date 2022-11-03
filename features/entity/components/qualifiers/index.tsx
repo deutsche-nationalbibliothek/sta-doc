@@ -18,13 +18,13 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
   headerLevel,
 }) => {
-
-  const seeRef= (qualifier: Statement) => (
-      <ul>
-        {qualifier['wikibasePointer'].map((wikiBaseItem) =>
-          'link' in wikiBaseItem ? (
+  const seeRef = (qualifier: Statement) => (
+    <ul>
+      {qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
+        <React.Fragment key={index}>
+          {'link' in wikiBaseItem ? (
             <li>
-              <Link key={wikiBaseItem.link} href={wikiBaseItem.link}>
+              <Link href={wikiBaseItem.link}>
                 <ArrowRightOutlined />
                 {wikiBaseItem.label}
               </Link>
@@ -36,10 +36,11 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 Fehlender Link
               </Typography.Text>
             </li>
-          )
-        )}
-      </ul>
-    )
+          )}
+        </React.Fragment>
+      ))}
+    </ul>
+  );
 
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,

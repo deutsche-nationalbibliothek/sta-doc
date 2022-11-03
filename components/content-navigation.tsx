@@ -1,8 +1,8 @@
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
+import { useScrollDirection } from '@/hooks/use-scroll-direction';
 import { Headline } from '@/utils/entity-headlines';
 import { NestedHeadline, nestedHeadlines } from '@/utils/nested-headlines';
 import { Affix, Divider, Tree } from 'antd';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -12,8 +12,10 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
 }) => {
   const router = useRouter();
   const [selectedHeadlines, setSelectedHeadlines] = useState([]);
-  const {setCurrentHeadlinesPath} =useCurrentHeadlinesPath()
+  const { setCurrentHeadlinesPath } = useCurrentHeadlinesPath();
   const treeRef = React.useRef<any>();
+
+  const scrollDirection = useScrollDirection();
 
   const { headlines: treeStructuredHeadlines } = nestedHeadlines(headlines);
 
@@ -60,38 +62,52 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
           !isInViewport(document.getElementById(`nav-${key}`), treeContainer)
       );
       if (headingsOutOfViewport.length) {
-        headingsOutOfViewport.forEach((key) =>
-          treeRef.current.scrollTo({ key, offset: 50 })
-        );
+        treeRef.current.scrollTo({
+          key:
+            scrollDirection === 'up'
+              ? headingsOutOfViewport[0]
+              : headingsOutOfViewport[headingsOutOfViewport.length - 1],
+          offset: 80,
+        });
       }
     }
   }, [selectedHeadlines]);
 
-  useEffect(()=>{
-    const firstSelectedHeadlineKey = selectedHeadlines[0]
+  useEffect(() => {
+    const firstSelectedHeadlineKey = selectedHeadlines[0];
     if (firstSelectedHeadlineKey) {
+      const treeNodeFinder = (headline: NestedHeadline) => {
+        if (headline.key === firstSelectedHeadlineKey) {
+          return headline;
+        } else if (headline.children) {
+          return headline.children.find(treeNodeFinder);
+        }
+      };
 
-    const treeNodeFinder = (headline: NestedHeadline) => {
-      if (headline.key === firstSelectedHeadlineKey) {
-        return headline
-      } else if (headline.children) {
-        return headline.children.find(treeNodeFinder)
-      }
+      const treeNodeReducer = (
+        acc: NestedHeadline[],
+        headline: NestedHeadline
+      ) => {
+        const { children, ...headlineValues } = headline;
+        if (headlineValues.key === firstSelectedHeadlineKey) {
+          return [...acc, headlineValues];
+        } else if (
+          headline.children &&
+          headline.children.find(treeNodeFinder)
+        ) {
+          return headline.children.reduce(treeNodeReducer, [
+            ...acc,
+            headlineValues,
+          ]);
+        } else {
+          return acc;
+        }
+      };
+      setCurrentHeadlinesPath(
+        treeStructuredHeadlines.reduce(treeNodeReducer, [])
+      );
     }
-
-    const treeNodeReducer = (acc: NestedHeadline[],headline: NestedHeadline) => {
-      const {children, ...headlineValues} = headline
-      if (headlineValues.key === firstSelectedHeadlineKey) {
-        return [...acc, headlineValues]
-      } else if (headline.children && headline.children.find(treeNodeFinder)) {
-        return headline.children.reduce(treeNodeReducer, [...acc, headlineValues])
-      } else {
-        return acc
-      }
-    }
-    setCurrentHeadlinesPath(treeStructuredHeadlines.reduce(treeNodeReducer, []))
-    }
-  }, [selectedHeadlines[0]])
+  }, [selectedHeadlines[0]]);
 
   return (
     <>

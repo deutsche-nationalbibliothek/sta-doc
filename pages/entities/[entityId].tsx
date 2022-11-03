@@ -9,7 +9,6 @@ import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Entities, Entity } from '@/types/entity';
 import { Affix, Breadcrumb } from 'antd';
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
-import { useRouter } from 'next/router';
 import { truncate } from 'lodash';
 
 interface EntityProps {
@@ -20,7 +19,6 @@ interface EntityProps {
 export default function EntityDetailsPage(props: EntityProps) {
   const { setHeadlines } = useHeadlines();
   const { currentHeadlinesPath } = useCurrentHeadlinesPath();
-  const router = useRouter();
 
   useEffect(() => {
     setHeadlines(props.headlines);
@@ -40,13 +38,15 @@ export default function EntityDetailsPage(props: EntityProps) {
     <>
       <Affix>
         <Breadcrumb
-          style={{ backgroundColor: 'rgb(240, 242, 245)', padding: 12 }}
+          style={{
+            height: 46,
+            backgroundColor: 'rgb(240, 242, 245)',
+            padding: 12,
+          }}
         >
           {currentHeadlinesPath.map(({ key, title }) => (
-            <Breadcrumb.Item>
-              <span id={`nav-${key}`} onClick={() => router.push(`#${key}`)}>
-                {truncate(title, { length: 48 })}
-              </span>
+            <Breadcrumb.Item key={key}>
+              <a href={`#${key}`}>{truncate(title, { length: 48 })}</a>
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
