@@ -28,7 +28,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
     }
     const rect = element.getBoundingClientRect();
     return (
-      rect.top >= 0 &&
+      rect.top >= -60 &&
       rect.left >= 0 &&
       rect.bottom <= (window.innerHeight || container.clientHeight) &&
       rect.right <= (window.innerWidth || container.clientWidth)

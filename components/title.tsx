@@ -20,8 +20,8 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
       data-actual-level={level}
       style={{
         ...style,
-        paddingTop: '4em',
-        marginTop: '-3em',
+        paddingTop: '3em',
+        marginTop: '-2em',
       }}
       id={slugify(label)}
       level={localLevel}
