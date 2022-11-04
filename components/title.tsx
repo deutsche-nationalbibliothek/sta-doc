@@ -18,7 +18,11 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   return (
     <Typography.Title
       data-actual-level={level}
-      style={{ ...style, marginTop: '1em' }}
+      style={{
+        ...style,
+        paddingTop: '4em',
+        marginTop: '-3em',
+      }}
       id={slugify(label)}
       level={localLevel}
       {...otherProps}

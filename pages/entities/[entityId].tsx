@@ -39,9 +39,8 @@ export default function EntityDetailsPage(props: EntityProps) {
       <Affix>
         <Breadcrumb
           style={{
-            height: 46,
             backgroundColor: 'rgb(240, 242, 245)',
-            padding: 12,
+            paddingBottom: 8,
           }}
         >
           {currentHeadlinesPath.map(({ key, title }) => (
