@@ -1,9 +1,9 @@
 import { Title } from '@/components/title';
 import { Statement } from '@/types/entity';
 import { Property } from '@/types/property';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { StringStatement } from './string';
-import { WikiBasePointer } from './wikibase-pointer';
+import { WikibasePointer } from './wikibase-pointer';
 
 interface StatementsProps {
   statements: Statement[];
@@ -32,7 +32,7 @@ export const Statements: React.FC<StatementsProps> = ({
               />
             ) : (
               statement.wikibasePointer && (
-                <WikiBasePointer wikibaseValues={statement.wikibasePointer} />
+                <WikibasePointer wikibaseValues={statement.wikibasePointer} />
               )
             )}
           </React.Fragment>

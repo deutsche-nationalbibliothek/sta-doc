@@ -1,13 +1,12 @@
 import { Statement, WikiBaseValue } from '@/types/entity';
 import { Property } from '@/types/property';
-import { ArrowRightOutlined } from '@ant-design/icons';
 import { Collapse, Typography } from 'antd';
-import Link from 'next/link';
 import React from 'react';
 import { useState } from 'react';
 import { EntityDetails } from '../details';
 import { Examples } from '../examples';
 import { StringStatement } from '../statements/string';
+import { WikibasePointer } from '../statements/wikibase-pointer';
 
 interface QualifiersProps {
   qualifiers: Statement[];
@@ -18,30 +17,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
   headerLevel,
 }) => {
-  const seeRef = (qualifier: Statement) => (
-    <ul>
-      {qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
-        <React.Fragment key={index}>
-          {'link' in wikiBaseItem ? (
-            <li>
-              <Link href={wikiBaseItem.link}>
-                <ArrowRightOutlined />
-                {wikiBaseItem.label}
-              </Link>
-            </li>
-          ) : (
-            <li>
-              <Typography.Text strong>
-                <ArrowRightOutlined />
-                Fehlender Link
-              </Typography.Text>
-            </li>
-          )}
-        </React.Fragment>
-      ))}
-    </ul>
-  );
-
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,
     [Property['embedded(item)']]: (qualifier: Statement) => {
@@ -71,8 +46,12 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
       ));
     },
     [Property['embedded(property)']]: () => <></>,
-    [Property['see(item)']]: seeRef,
-    [Property['see(property)']]: seeRef,
+    [Property['see(item)']]: (qualifier: Statement) => (
+      <WikibasePointer wikibaseValues={qualifier.wikibasePointer} />
+    ),
+    [Property['see(property)']]: (qualifier: Statement) => (
+      <WikibasePointer wikibaseValues={qualifier.wikibasePointer} />
+    ),
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
         <Examples
@@ -109,6 +88,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         .map((qualifier, index) => {
           return (
             <React.Fragment key={index}>
+              {' '}
               {qualifier.property in qualifierMap
                 ? qualifierMap[qualifier.property](qualifier)
                 : qualifierMap.default(qualifier)}
