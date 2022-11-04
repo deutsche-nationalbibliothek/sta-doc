@@ -1,8 +1,8 @@
-import { NoValue, StringValue, UnknownValue } from '@/types/entity';
+import { Maybe, StringValue } from '@/types/entity';
 import { Typography } from 'antd';
 
 interface GuardProps {
-  value: StringValue | UnknownValue | NoValue;
+  value: Maybe<StringValue>;
   children: (stringValue: StringValue) => JSX.Element;
 }
 

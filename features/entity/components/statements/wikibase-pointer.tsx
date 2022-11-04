@@ -1,20 +1,16 @@
-import { NoValue, UnknownValue, WikiBaseValue } from '@/types/entity';
+import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 
 interface WikibasePointerProps {
-  wikibaseValues: (WikiBaseValue | UnknownValue | NoValue)[];
+  wikibaseValues: Maybe<WikiBaseValue>[];
 }
 
 export const WikibasePointer: React.FC<WikibasePointerProps> = ({
   wikibaseValues,
 }) => {
-  const isWikibaseValue = (
-    wikibaseValue: WikiBaseValue | UnknownValue | NoValue
-  ): wikibaseValue is WikiBaseValue => 'label' in wikibaseValue;
-
   const isList = () => wikibaseValues.length > 1;
 
   return isList() ? (

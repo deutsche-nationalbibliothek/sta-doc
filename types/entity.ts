@@ -37,7 +37,7 @@ export interface Statement {
   label: string;
   property: Property;
   string?: StringValueContainer[];
-  wikibasePointer?: (WikiBaseValue | UnknownValue | NoValue)[];
+  wikibasePointer?: Maybe<WikiBaseValue>[];
 }
 
 interface CommonValue {
@@ -61,7 +61,7 @@ export interface UrlValue extends CommonValue {
 }
 
 export interface StringValueContainer {
-  values: (StringValue | UnknownValue | NoValue)[];
+  values: Maybe<StringValue>[];
   itemType?: string | false; // 'default' | ''
   relativeHeadline?: 1 | 2 | 3;
 }
@@ -84,3 +84,9 @@ export interface Coding {
   'MARC 21 Format für Normdaten'?: string[];
   'GND-Ontologie'?: string[];
 }
+
+export type Maybe<T> = T | UnknownValue | NoValue;
+
+export const isWikibaseValue = (
+  wikibaseValue: Maybe<WikiBaseValue>
+): wikibaseValue is WikiBaseValue => 'label' in wikibaseValue;
