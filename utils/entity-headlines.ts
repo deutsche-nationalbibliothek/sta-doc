@@ -82,6 +82,7 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
         ...acc,
         statement.label &&
         statement.property !== Property.description &&
+        statement.property !== Property.annotation &&
         'string' in statement && {
           label: statement.label,
           level: level,
