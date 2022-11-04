@@ -7,7 +7,7 @@ import { useSWR } from '@/lib/swr';
 import { EntityDetails } from '@/entity/components/details';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Entities, Entity } from '@/types/entity';
-import { Affix, Breadcrumb } from 'antd';
+import { Affix, Breadcrumb, Tooltip } from 'antd';
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { truncate } from 'lodash';
 

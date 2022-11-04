@@ -2,7 +2,7 @@ import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { useScrollDirection } from '@/hooks/use-scroll-direction';
 import { Headline } from '@/utils/entity-headlines';
 import { NestedHeadline, nestedHeadlines } from '@/utils/nested-headlines';
-import { Affix, Divider, Tree } from 'antd';
+import { Affix, Divider, Tree, Typography } from 'antd';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -12,7 +12,8 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
 }) => {
   const router = useRouter();
   const [selectedHeadlines, setSelectedHeadlines] = useState([]);
-  const { setCurrentHeadlinesPath } = useCurrentHeadlinesPath();
+  const { setCurrentHeadlinesPath, currentHeadlinesPath } =
+    useCurrentHeadlinesPath();
   const treeRef = React.useRef<any>();
 
   const scrollDirection = useScrollDirection();
@@ -124,9 +125,17 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
               selectedKeys={selectedHeadlines}
               multiple
               titleRender={({ key, title }: { key: string; title: string }) => (
-                <span id={`nav-${key}`} onClick={() => router.push(`#${key}`)}>
+                <Typography.Text
+                  id={`nav-${key}`}
+                  onClick={() => router.push(`#${key}`)}
+                  strong={
+                    currentHeadlinesPath.findIndex(
+                      (nestedHeadline) => nestedHeadline.key === key
+                    ) >= 0
+                  }
+                >
                   {title}
-                </span>
+                </Typography.Text>
               )}
               treeData={treeStructuredHeadlines}
             />
