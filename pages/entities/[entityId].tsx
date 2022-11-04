@@ -45,7 +45,9 @@ export default function EntityDetailsPage(props: EntityProps) {
         >
           {currentHeadlinesPath.map(({ key, title }) => (
             <Breadcrumb.Item key={key}>
-              <a href={`#${key}`}>{truncate(title, { length: 48 })}</a>
+              <Tooltip placement="bottom" title={title}>
+                <a href={`#${key}`}>{truncate(title, { length: 64 })}</a>
+              </Tooltip>
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
