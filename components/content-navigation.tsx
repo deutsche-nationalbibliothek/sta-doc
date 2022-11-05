@@ -113,7 +113,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   return (
     <>
       {treeStructuredHeadlines.length > 0 && (
-        <Affix>
+        <Affix offsetTop={64}>
           <div>
             <Divider />
             <Tree
@@ -121,7 +121,11 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
               showIcon
               defaultExpandAll
               ref={treeRef}
-              height={window.innerHeight * 0.9}
+              height={
+                window.innerHeight -
+                64 -
+                48 * 2 // divider height
+              }
               selectedKeys={selectedHeadlines}
               multiple
               titleRender={({ key, title }: { key: string; title: string }) => (

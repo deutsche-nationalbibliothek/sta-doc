@@ -7,7 +7,7 @@ import { useSWR } from '@/lib/swr';
 import { EntityDetails } from '@/entity/components/details';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Entities, Entity } from '@/types/entity';
-import { Affix, Breadcrumb, Tooltip } from 'antd';
+import { Affix, Breadcrumb, Divider, Tooltip } from 'antd';
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { truncate } from 'lodash';
 
@@ -36,11 +36,11 @@ export default function EntityDetailsPage(props: EntityProps) {
 
   return (
     <>
-      <Affix>
+      <Affix offsetTop={64}>
         <Breadcrumb
           style={{
             backgroundColor: 'rgb(240, 242, 245)',
-            paddingBottom: 8,
+            paddingTop: currentHeadlinesPath.length > 0 ? 4 : 26,
           }}
         >
           {currentHeadlinesPath.map(({ key, title }) => (
@@ -51,6 +51,12 @@ export default function EntityDetailsPage(props: EntityProps) {
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
+        <Divider
+          style={{
+            paddingBottom: 8,
+            marginTop: 1,
+          }}
+        />
       </Affix>
       {loading ? <EntityPlaceholder /> : <EntityDetails entity={data} />}
     </>

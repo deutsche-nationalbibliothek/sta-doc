@@ -1,1 +1,10 @@
-@import 'antd/dist/antd.css'
+@import 'antd/dist/antd.css';
+
+.ant-collapse-content {
+  background: rgb(240, 242, 245);
+}
+
+.ant-collapse-header {
+  background: rgb(240, 242, 245);
+  padding: 4px !important;
+}

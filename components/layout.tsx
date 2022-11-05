@@ -8,7 +8,10 @@ interface LayoutProps {
 export default function Layout(props: LayoutProps) {
   return (
     <AntdLayout>
-      <AntdLayout.Header className="header">
+      <AntdLayout.Header
+        style={{ position: 'fixed', zIndex: 1, width: '100%' }}
+        className="header"
+      >
         <Menu theme="dark" mode="horizontal" items={[]} />
       </AntdLayout.Header>
       <AntdLayout>
