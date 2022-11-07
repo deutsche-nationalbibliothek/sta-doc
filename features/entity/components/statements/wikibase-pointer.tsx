@@ -15,13 +15,15 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
 
   return isList() ? (
     <UnorderedList>
-      {wikibaseValues.map((wikibaseValue, index) =>
-        isWikibaseValue(wikibaseValue) ? (
-          <WikiBaseLink key={index} wikibaseValue={wikibaseValue} />
-        ) : (
-          <MissingLink key={index} />
-        )
-      )}
+      {wikibaseValues.map((wikibaseValue, index) => (
+        <li key={index}>
+          {isWikibaseValue(wikibaseValue) ? (
+            <WikiBaseLink wikibaseValue={wikibaseValue} />
+          ) : (
+            <MissingLink />
+          )}
+        </li>
+      ))}
     </UnorderedList>
   ) : isWikibaseValue(wikibaseValues[0]) ? (
     <WikiBaseLink wikibaseValue={wikibaseValues[0]} />
