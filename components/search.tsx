@@ -1,21 +1,22 @@
 import { SearchOutlined } from "@ant-design/icons"
-import { Button, Drawer, Input, Menu, Space } from "antd"
-import { useEffect, useState } from "react"
+import { Drawer, Input, Menu } from "antd"
+import { useState } from "react"
 
 export const Search: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const onClose = () => setIsSearchOpen(false)
 
-  // useEffect(() => { isSearchOpen && setTimeout(onClose, 6000) }, [isSearchOpen])
-
-  const onSearch = (e) => {
+  const onSearch = (e: string) => {
     console.log(e)
   }
 
   return (
-    <Menu theme="dark"
+    <Menu
+      theme="dark"
       style={{ position: 'fixed', right: 50, width: 64, display: 'inline-block' }}
-      mode="horizontal" items={[
+      mode="horizontal"
+      selectedKeys={[]}
+      items={[
         {
           label:
             <>
