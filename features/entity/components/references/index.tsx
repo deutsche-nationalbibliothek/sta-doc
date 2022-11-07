@@ -56,7 +56,7 @@ export const References: React.FC<ReferencesProps> = ({
         // open // <- good for debugging
         trigger="hover"
       >
-        <QuestionCircleOutlined />
+        <QuestionCircleOutlined style={{ color: 'var(--link-color)', fontSize: 16 }} />
       </Popover>
     </>
   );
