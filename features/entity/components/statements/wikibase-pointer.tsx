@@ -1,8 +1,10 @@
-import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
+import { useSWR } from '@/lib/swr';
+import { Entity, isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Typography } from 'antd';
+import { Popover, Spin, Typography } from 'antd';
 import Link from 'next/link';
 import React from 'react';
+import { EntityDetails } from '../details';
 
 interface WikibasePointerProps {
   wikibaseValues: Maybe<WikiBaseValue>[];
@@ -38,10 +40,12 @@ const UnorderedList = ({ children }) => {
 
 const WikiBaseLink = ({ wikibaseValue }) => {
   return (
-    <Link href={wikibaseValue.link}>
-      <ArrowRightOutlined />
-      {wikibaseValue.label}
-    </Link>
+    <Popover placement='bottomRight' title={<Typography.Text strong>{wikibaseValue.label}</Typography.Text>} content={<WikibasePreview entityId={wikibaseValue.id} />} trigger="hover" >
+      <Link href={wikibaseValue.link}>
+        <ArrowRightOutlined />
+        {wikibaseValue.label}
+      </Link>
+    </Popover>
   );
 };
 
@@ -53,3 +57,23 @@ const MissingLink = () => {
     </Typography.Text>
   );
 };
+
+
+interface WikibasePreviewProps {
+  entityId: string
+}
+const WikibasePreview: React.FC<WikibasePreviewProps> = ({ entityId }) => {
+  const { data, loading } = useSWR<Entity>(
+    `/api/entities/${entityId}`
+  );
+
+  if (loading) {
+    return <Spin />
+  }
+
+  return (
+    <div style={{ width: 720, maxHeight: 480, overflowY: 'scroll', backgroundColor: 'var(--background-color)' }}>
+      <EntityDetails entity={data} embedded headerLevel={4} />
+    </div>
+  )
+}
