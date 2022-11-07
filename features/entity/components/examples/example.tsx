@@ -1,13 +1,16 @@
+import { CodingsPreference, useCodingsPreference } from '@/hooks/use-codings-preference';
 import { Coding, isStringValue, StringValue, WikiBaseValue } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Card, Tag, Typography } from 'antd';
 import React from 'react';
+import { useLocalStorage } from 'react-use';
 
 interface ExampleProps {
   example: WikiBaseValue;
+  codingsPreferences: CodingsPreference[]
 }
 
-export const Example: React.FC<ExampleProps> = ({ example }) => {
+export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences }) => {
   return (
     <>
       {example.embedded && (
@@ -52,7 +55,7 @@ export const Example: React.FC<ExampleProps> = ({ example }) => {
                                 {' '}
                                 <Typography.Text style={{ fontSize: 12 }} italic>{stringValue.qualifiers?.find(qualifier => qualifier.property === 'P7')?.string[0].values[0].value}</Typography.Text>
                               </Typography.Paragraph>
-                              {['PICA3', 'PICA+'].map(coding => <ExampleCodingCard coding={coding} key={coding} stringValue={stringValue} />)}
+                              {['PICA3', 'PICA+'].filter(coding => codingsPreferences.some(codingsPreference => codingsPreference === coding)).map(coding => <ExampleCodingCard coding={coding} key={coding} stringValue={stringValue} />)}
                             </div>
                           )
                         }
@@ -77,9 +80,14 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({ coding, stringVal
   // if(!(stringValue.coding && stringValue.coding[coding])) {
   //   return null;
   // }
+  const { codingsPreferences } = useCodingsPreference()
+
+  if (!codingsPreferences.some(codingsPreference => codingsPreference === coding)) {
+    return null;
+  }
 
   return (
-    <Card style={{ backgroundColor: 'var(--primary-3)', transform: 'translateX(0) ' }}>
+    <Card style={{ backgroundColor: 'var(--primary-3)', transform: 'translateX(0)' }}>
       <Tag style={{ position: 'fixed', top: 4, right: 0, color: 'var(--link-color )' }}>{coding}</Tag>
       <Typography.Text code strong>{stringValue.coding[coding]}</Typography.Text>
       {stringValue.qualifiers.map(qualifier => (

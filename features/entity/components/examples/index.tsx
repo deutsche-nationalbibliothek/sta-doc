@@ -1,6 +1,7 @@
 import { Modal } from '@/components/modal';
+import { useCodingsPreference } from '@/hooks/use-codings-preference';
 import { WikiBaseValue } from '@/types/entity';
-import { Card } from 'antd';
+import { Card, Select } from 'antd';
 import { Example } from './example';
 
 interface ExamplesProps {
@@ -8,11 +9,27 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
+  const label = examples.length > 1 ? 'Beispiele' : 'Beispiel'
+  const {codingsPreferences, onChange, codingsOptions } = useCodingsPreference()
+
   return (
     <>
-      <Modal title={examples.length > 1 ? 'Beispiele' : 'Beispiel'}>
+      <Modal label={label} title={(
+        <div style={{ height: 24, transform: 'translateX(0)' }}>
+          {label}
+          <Select
+            mode="multiple"
+            // todo, value only reads on mount -> does not get updated
+            value={codingsPreferences}
+            onChange={onChange}
+            size="small"
+            style={{ width: 160, position: 'fixed', right: 24 }}
+            options={codingsOptions.map((codingsOption, index) => ({label: codingsOption, value: codingsOption, key: index}))}
+          />
+        </div>
+      )}>
         {examples.map((example, index) => {
-          return <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}><Example example={example} /></Card>;
+          return <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}><Example example={example} codingsPreferences={codingsPreferences} /></Card>;
         })}
       </Modal>
     </>
