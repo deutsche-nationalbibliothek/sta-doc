@@ -36,27 +36,27 @@ export default function EntityDetailsPage(props: EntityProps) {
 
   return (
     <>
-      <Affix offsetTop={64}>
-        <Breadcrumb
-          style={{
-            backgroundColor: 'rgb(240, 242, 245)',
-            paddingTop: currentHeadlinesPath.length > 0 ? 4 : 26,
-          }}
-        >
-          {currentHeadlinesPath.map(({ key, title }) => (
-            <Breadcrumb.Item key={key}>
-              <Tooltip placement="bottom" title={title}>
-                <a href={`#${key}`}>{truncate(title, { length: 64 })}</a>
-              </Tooltip>
-            </Breadcrumb.Item>
-          ))}
-        </Breadcrumb>
-        <Divider
-          style={{
-            paddingBottom: 8,
-            marginTop: 1,
-          }}
-        />
+      <Affix offsetTop={64 /* topbar-height */}>
+        <div>
+          <Breadcrumb
+            style={{
+              paddingTop: currentHeadlinesPath.length > 0 ? 4 : 'var(--topbar-padding-bottom)',
+            }}
+          >
+            {currentHeadlinesPath.map(({ key, title }) => (
+              <Breadcrumb.Item key={key}>
+                <Tooltip placement="bottom" title={title}>
+                  <a href={`#${key}`}>{truncate(title, { length: 64 })}</a>
+                </Tooltip>
+              </Breadcrumb.Item>
+            ))}
+          </Breadcrumb>
+          <Divider
+            style={{
+              margin: 1,
+            }}
+          />
+        </div>
       </Affix>
       {loading ? <EntityPlaceholder /> : <EntityDetails entity={data} />}
     </>

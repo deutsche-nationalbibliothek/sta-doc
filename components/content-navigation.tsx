@@ -113,9 +113,12 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   return (
     <>
       {treeStructuredHeadlines.length > 0 && (
-        <Affix offsetTop={64}>
+        <Affix offsetTop={64 /* topbar-height */}>
           <div>
-            <Divider />
+            <Divider style={{
+              marginTop: 'var(--topbar-padding-bottom)',
+              marginBottom: 'var(--topbar-padding-bottom)',
+            }} />
             <Tree
               showLine
               showIcon

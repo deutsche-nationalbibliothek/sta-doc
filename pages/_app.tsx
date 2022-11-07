@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/globals.less';
 import type { AppProps } from 'next/app';
 import HeadlinesProvider from 'hooks/headlines';
 import Layout from '@/components/layout';

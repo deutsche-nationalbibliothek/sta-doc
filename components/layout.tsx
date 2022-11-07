@@ -16,14 +16,12 @@ export default function Layout(props: LayoutProps) {
       </AntdLayout.Header>
       <AntdLayout>
         <Sidebar />
-        <AntdLayout style={{ padding: '0 24px 24px' }}>
-          <AntdLayout.Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
+        <AntdLayout style={{
+          paddingLeft: 26,
+          paddingRight: 26,
+          paddingTop: 'var(--topbar-height)'
+        }}>
+          <AntdLayout.Content>
             {props.children}
           </AntdLayout.Content>
         </AntdLayout>
