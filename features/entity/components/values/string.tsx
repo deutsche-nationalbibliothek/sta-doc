@@ -1,18 +1,20 @@
 import { StringValue } from '@/types/entity';
+import { Typography } from 'antd';
 import { References } from '../references';
 
 interface StringValueProps {
   stringValue: StringValue;
-  headerLevel: number
 }
 
 export const StringValueComponent: React.FC<StringValueProps> = ({
   stringValue,
-  headerLevel
 }) => {
   return (
     <>
-      {stringValue.value}{' '}
+      <Typography.Text>
+        <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
+      </Typography.Text>
+      {' '}
     </>
   );
 };

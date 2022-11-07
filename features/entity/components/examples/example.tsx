@@ -26,7 +26,7 @@ export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences })
                           <Typography.Text
                             italic={stringStatement.itemType === Item.italic}
                           >
-                            {stringValue.value}
+                            <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
                           </Typography.Text>
                           <br />
                         </React.Fragment>

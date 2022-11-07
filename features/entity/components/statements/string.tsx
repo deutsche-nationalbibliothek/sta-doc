@@ -24,7 +24,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent
-              headerLevel={headerLevel}
               stringValue={stringValue}
             />
             {references}
@@ -44,7 +43,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
               <StringValueComponent
-                headerLevel={headerLevel}
                 stringValue={stringValue}
               />
               {references}
@@ -65,7 +63,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
               <StringValueComponent
-                headerLevel={headerLevel}
                 stringValue={stringValue}
               />
               {references}
@@ -86,7 +83,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           <React.Fragment key={stringValue.value}>
             <Title label={stringValue.value} level={headerLevel}>
               <StringValueComponent
-                headerLevel={headerLevel + 1}
                 stringValue={stringValue}
               />
               {references}
@@ -107,7 +103,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           <React.Fragment key={stringValue.value}>
             <Title label={stringValue.value} level={headerLevel + 1}>
               <StringValueComponent
-                headerLevel={headerLevel + 2}
                 stringValue={stringValue}
               />
               {references}
@@ -128,7 +123,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           <React.Fragment key={stringValue.value}>
             <Title label={stringValue.value} level={headerLevel + 2}>
               <StringValueComponent
-                headerLevel={headerLevel + 3}
                 stringValue={stringValue}
               />
               {references}
