@@ -1,5 +1,6 @@
-import { Layout as AntdLayout, Menu } from 'antd';
+import { Layout as AntdLayout} from 'antd';
 import { Sidebar } from './sidebar';
+import { TopBar } from './top-bar';
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -8,12 +9,7 @@ interface LayoutProps {
 export default function Layout(props: LayoutProps) {
   return (
     <AntdLayout>
-      <AntdLayout.Header
-        style={{ position: 'fixed', zIndex: 1, width: '100%' }}
-        className="header"
-      >
-        <Menu theme="dark" mode="horizontal" items={[]} />
-      </AntdLayout.Header>
+      <TopBar />
       <AntdLayout>
         <Sidebar />
         <AntdLayout style={{
