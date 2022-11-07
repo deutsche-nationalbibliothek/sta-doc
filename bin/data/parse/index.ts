@@ -65,7 +65,7 @@ const parseCodings = () => {
         (codingValue) => codingValue === coding.coding.value
       ) ||
         acc[coding.eId.value][coding.codingTypeLabel.value as CodingKey].push(
-          coding.coding.value
+          coding.coding.value === '-ohne-' ? '' : coding.coding.value
         );
     } else {
       console.warn('Coding without codingTypeLabel', coding.eId.value);

@@ -20,8 +20,9 @@ export const Modal: React.FC<Omit<ModalProps, 'open' | 'onCancel'>> = (props) =>
         open={isOpen}
         onCancel={onCancel}
         footer={[]}
+        width={720}
         {...props}
-        />
+      />
     </>
   );
 };

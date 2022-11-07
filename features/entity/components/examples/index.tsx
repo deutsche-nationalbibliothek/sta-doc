@@ -12,8 +12,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
     <>
       <Modal title={examples.length > 1 ? 'Beispiele' : 'Beispiel'}>
         {examples.map((example, index) => {
-          // todo, implement examples output
-          return <Card key={index}><Example example={example} /></Card>;
+          return <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}><Example example={example} /></Card>;
         })}
       </Modal>
     </>

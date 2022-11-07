@@ -68,6 +68,7 @@ export interface StringValueContainer {
 
 export interface StringValue extends CommonValue {
   value: string;
+  coding: Coding;
 }
 
 export interface WikiBaseValue extends CommonValue {
@@ -90,3 +91,7 @@ export type Maybe<T> = T | UnknownValue | NoValue;
 export const isWikibaseValue = (
   wikibaseValue: Maybe<WikiBaseValue>
 ): wikibaseValue is WikiBaseValue => 'label' in wikibaseValue;
+
+export const isStringValue = (
+  stringValue: Maybe<StringValue>
+): stringValue is StringValue => 'value' in stringValue;
