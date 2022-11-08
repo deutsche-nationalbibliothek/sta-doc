@@ -518,9 +518,9 @@ export interface Entity extends Indexable<Entity> {
   Q1891: Q1352;
   Q1892: Q1352;
   Q1893: Q1352;
-  Q1898: Q1352;
-  Q1899: Q1352;
-  Q1900: Q1352;
+  Q1898: Q1898;
+  Q1899: Q1898;
+  Q1900: Q1898;
   Q1909: Q1909;
   Q1910: Q1909;
   Q1911: Q1911;
@@ -579,20 +579,20 @@ export interface Entity extends Indexable<Entity> {
   Q2015: Q1973;
   Q2016: Q1973;
   Q2017: Q2017;
-  Q2021: P413;
+  Q2021: Q2021;
   Q2022: Q2017;
   Q2023: Q2017;
-  Q2024: Q2017;
-  Q2025: Q2017;
+  Q2024: Q2024;
+  Q2025: Q2024;
   Q2026: Q2017;
-  Q2027: Q2017;
-  Q2028: Q2017;
-  Q2029: Q2017;
-  Q2030: Q2017;
+  Q2027: Q2024;
+  Q2028: Q2024;
+  Q2029: Q2024;
+  Q2030: Q2024;
   Q2031: Q2017;
-  Q2033: Q2017;
-  Q2034: Q2017;
-  Q2035: Q2017;
+  Q2033: Q2024;
+  Q2034: Q2024;
+  Q2035: Q2024;
   Q2038: Q2038;
   Q2039: Q2038;
   Q2041: Q1973;
@@ -703,164 +703,164 @@ export interface Entity extends Indexable<Entity> {
   Q2165: Q1973;
   Q2166: Q1973;
   Q2167: Q1973;
-  Q2656: P413;
+  Q2656: Q2021;
   Q2657: P413;
   Q2659: Q2017;
   Q2660: Q2017;
-  Q2661: Q2017;
-  Q2662: Q2017;
-  Q2663: Q2017;
+  Q2661: Q2024;
+  Q2662: Q2024;
+  Q2663: Q2024;
   Q2664: Q2017;
-  Q2665: Q2017;
-  Q2666: Q2017;
+  Q2665: Q2024;
+  Q2666: Q2024;
   Q2667: Q2017;
   Q2668: Q2017;
-  Q2669: Q2017;
+  Q2669: Q2024;
   Q2670: Q2017;
-  Q2671: Q2017;
-  Q2672: Q2017;
+  Q2671: Q2024;
+  Q2672: Q2024;
   Q2673: Q2017;
-  Q2674: Q2017;
-  Q2675: Q2017;
-  Q2676: Q2017;
-  Q2677: Q2017;
+  Q2674: Q2024;
+  Q2675: Q2024;
+  Q2676: Q2024;
+  Q2677: Q2024;
   Q2678: Q2017;
-  Q2679: Q2017;
-  Q2680: Q2017;
-  Q2681: Q2017;
+  Q2679: Q2024;
+  Q2680: Q2024;
+  Q2681: Q2024;
   Q2682: Q2017;
-  Q2683: Q2017;
-  Q2684: Q2017;
+  Q2683: Q2024;
+  Q2684: Q2024;
   Q2685: Q2017;
-  Q2686: Q2017;
-  Q2687: Q2017;
+  Q2686: Q2024;
+  Q2687: Q2024;
   Q2688: Q2017;
   Q2689: Q2017;
   Q2690: Q2017;
-  Q2691: Q2017;
+  Q2691: Q2024;
   Q2692: Q2017;
-  Q2693: Q2017;
-  Q2694: Q2017;
+  Q2693: Q2024;
+  Q2694: Q2024;
   Q2695: Q2017;
   Q2696: Q2017;
-  Q2697: Q2017;
+  Q2697: Q2024;
   Q2698: Q2017;
   Q2699: Q2017;
-  Q2700: Q2017;
-  Q2701: Q2017;
-  Q2704: Q2017;
-  Q2705: Q2017;
+  Q2700: Q2024;
+  Q2701: Q2024;
+  Q2704: Q2024;
+  Q2705: Q2024;
   Q2706: Q2017;
-  Q2707: Q2017;
-  Q2708: Q2017;
+  Q2707: Q2024;
+  Q2708: Q2024;
   Q2709: Q2017;
-  Q2710: Q2017;
-  Q2711: Q2017;
+  Q2710: Q2024;
+  Q2711: Q2024;
   Q2712: Q2017;
-  Q2713: Q2017;
+  Q2713: Q2024;
   Q2714: Q2017;
-  Q2715: Q2017;
-  Q2716: Q2017;
-  Q2717: Q2017;
-  Q2718: Q2017;
-  Q2719: Q2017;
-  Q2720: Q2017;
-  Q2721: Q2017;
+  Q2715: Q2024;
+  Q2716: Q2024;
+  Q2717: Q2024;
+  Q2718: Q2024;
+  Q2719: Q2024;
+  Q2720: Q2024;
+  Q2721: Q2024;
   Q2722: Q2017;
   Q2723: Q2017;
   Q2724: Q2017;
   Q2725: Q2017;
   Q2726: Q2017;
-  Q2727: Q2017;
+  Q2727: Q2024;
   Q2729: Q2017;
   Q2730: Q2017;
-  Q2731: Q2017;
-  Q2732: Q2017;
-  Q2733: Q2017;
+  Q2731: Q2024;
+  Q2732: Q2024;
+  Q2733: Q2024;
   Q2734: Q2017;
   Q2735: Q2017;
   Q2736: Q2017;
   Q2737: Q2017;
-  Q2738: Q2017;
+  Q2738: Q2024;
   Q2739: Q2017;
-  Q2740: Q2017;
+  Q2740: Q2024;
   Q2741: Q2017;
-  Q2742: Q2017;
+  Q2742: Q2024;
   Q2743: Q2017;
   Q2744: Q2017;
-  Q2745: Q2017;
+  Q2745: Q2024;
   Q2746: Q2017;
-  Q2748: Q2017;
-  Q2749: Q2017;
+  Q2748: Q2024;
+  Q2749: Q2024;
   Q2750: Q2017;
-  Q2751: Q2017;
-  Q2752: Q2017;
-  Q2753: Q2017;
+  Q2751: Q2024;
+  Q2752: Q2024;
+  Q2753: Q2024;
   Q2754: Q2017;
   Q2755: Q2017;
-  Q2756: Q2017;
-  Q2759: Q2017;
-  Q2760: Q2017;
-  Q2761: Q2017;
+  Q2756: Q2024;
+  Q2759: Q2024;
+  Q2760: Q2024;
+  Q2761: Q2024;
   Q2762: Q2017;
-  Q2763: Q2017;
-  Q2764: Q2017;
-  Q2765: Q2017;
+  Q2763: Q2024;
+  Q2764: Q2024;
+  Q2765: Q2024;
   Q2766: Q2017;
   Q2767: Q2017;
-  Q2768: Q2017;
+  Q2768: Q2024;
   Q2769: Q2017;
   Q2770: Q2017;
-  Q2771: Q2017;
-  Q2772: Q2017;
-  Q2773: Q2017;
-  Q2774: Q2017;
-  Q2775: Q2017;
-  Q2776: Q2017;
-  Q2777: Q2017;
+  Q2771: Q2024;
+  Q2772: Q2024;
+  Q2773: Q2024;
+  Q2774: Q2024;
+  Q2775: Q2024;
+  Q2776: Q2024;
+  Q2777: Q2024;
   Q2778: Q2017;
   Q2779: Q2017;
-  Q2780: Q2017;
+  Q2780: Q2024;
   Q2781: Q2017;
   Q2782: Q2017;
-  Q2783: Q2017;
-  Q2784: Q2017;
-  Q2786: Q2017;
-  Q2787: Q2017;
-  Q2788: Q2017;
-  Q2789: Q2017;
-  Q2791: Q2017;
-  Q2792: Q2017;
-  Q2793: Q2017;
+  Q2783: Q2024;
+  Q2784: Q2024;
+  Q2786: Q2024;
+  Q2787: Q2024;
+  Q2788: Q2024;
+  Q2789: Q2024;
+  Q2791: Q2024;
+  Q2792: Q2024;
+  Q2793: Q2024;
   Q2795: Q2017;
   Q2796: Q2017;
-  Q2797: Q2017;
+  Q2797: Q2024;
   Q2798: Q2017;
   Q2799: Q2017;
   Q2800: Q2017;
-  Q2801: Q2017;
-  Q2803: Q2017;
+  Q2801: Q2024;
+  Q2803: Q2024;
   Q2804: Q2017;
   Q2805: Q2017;
   Q2806: Q2017;
-  Q2808: Q2017;
-  Q2809: Q2017;
+  Q2808: Q2024;
+  Q2809: Q2024;
   Q2810: Q2017;
   Q2811: Q2017;
-  Q2812: Q2017;
+  Q2812: Q2024;
   Q2813: Q2017;
   Q2816: Q2017;
   Q2817: Q2017;
-  Q2818: Q2017;
-  Q2819: Q2017;
-  Q2820: Q2017;
+  Q2818: Q2024;
+  Q2819: Q2024;
+  Q2820: Q2024;
   Q2821: Q2017;
   Q2822: P413;
-  Q2823: Q2017;
-  Q2825: Q2017;
-  Q2826: Q2017;
-  Q2827: Q2017;
-  Q2828: Q2017;
+  Q2823: Q2024;
+  Q2825: Q2024;
+  Q2826: Q2024;
+  Q2827: Q2024;
+  Q2828: Q2024;
   Q2829: Q1921;
   Q2830: Q1921;
   Q2831: Q1921;
@@ -6367,27 +6367,27 @@ export interface Entity extends Indexable<Entity> {
   Q8444: Q1973;
   Q8445: Q1921;
   Q8446: Q8446;
-  Q8448: Q1409;
-  Q8449: Q1409;
+  Q8448: Q8448;
+  Q8449: Q8448;
   Q8450: Q8450;
-  Q8451: P413;
+  Q8451: Q8451;
   Q8452: Q1973;
   Q8453: Q1973;
   Q8454: Q1973;
-  Q8455: P413;
+  Q8455: Q8451;
   Q8456: Q1973;
-  Q8457: Q1409;
-  Q8458: Q1409;
-  Q8459: P413;
-  Q8460: P413;
+  Q8457: Q8448;
+  Q8458: Q8448;
+  Q8459: Q8451;
+  Q8460: Q8451;
   Q8461: Q8461;
-  Q8462: P413;
-  Q8463: P413;
-  Q8464: P413;
-  Q8465: P413;
-  Q8466: P413;
+  Q8462: Q8451;
+  Q8463: Q8451;
+  Q8464: Q8451;
+  Q8465: Q8451;
+  Q8466: Q8451;
   Q8467: Q8467;
-  Q8468: P413;
+  Q8468: Q8451;
   Q8469: Q8469;
   Q8474: Q8474;
   Q8475: Q2038;
@@ -6449,15 +6449,15 @@ export interface Entity extends Indexable<Entity> {
   Q8535: Q1921;
   Q8536: Q1921;
   Q8537: Q1921;
-  Q8541: Q1409;
-  Q8542: Q1409;
-  Q8543: Q1409;
-  Q8544: Q1409;
-  Q8545: Q1409;
-  Q8546: Q1409;
-  Q8547: Q1409;
-  Q8548: Q1409;
-  Q8549: Q1409;
+  Q8541: Q8448;
+  Q8542: Q8448;
+  Q8543: Q8448;
+  Q8544: Q8448;
+  Q8545: Q8448;
+  Q8546: Q8448;
+  Q8547: Q8448;
+  Q8548: Q8448;
+  Q8549: Q8448;
   Q8550: Q8550;
   Q8551: Q2945;
   Q8552: Q3393;
@@ -6474,9 +6474,9 @@ export interface Entity extends Indexable<Entity> {
   Q8563: Q1921;
   Q8564: Q1921;
   Q8565: Q1921;
-  Q8566: P413;
-  Q8567: P413;
-  Q8568: P413;
+  Q8566: Q2021;
+  Q8567: Q2021;
+  Q8568: Q2021;
   Q8569: Q1921;
   Q8570: Q1921;
   Q8571: Q8571;
@@ -6492,55 +6492,55 @@ export interface Entity extends Indexable<Entity> {
   Q8581: Q1921;
   Q8582: Q1921;
   Q8583: Q1921;
-  Q8584: Q1409;
-  Q8585: Q1409;
-  Q8586: Q1409;
-  Q8587: Q1409;
-  Q8588: Q1409;
-  Q8589: Q1409;
-  Q8590: Q1409;
-  Q8591: P413;
-  Q8592: Q1409;
-  Q8593: Q1409;
-  Q8594: Q1409;
-  Q8595: Q1409;
-  Q8596: Q1409;
-  Q8597: Q1409;
-  Q8598: Q1409;
-  Q8599: Q1409;
-  Q8600: Q1409;
-  Q8601: Q1409;
-  Q8602: Q1409;
-  Q8603: Q1409;
-  Q8604: Q1409;
-  Q8605: Q1409;
+  Q8584: Q8448;
+  Q8585: Q8448;
+  Q8586: Q8448;
+  Q8587: Q8448;
+  Q8588: Q8448;
+  Q8589: Q8448;
+  Q8590: Q8448;
+  Q8591: Q8451;
+  Q8592: Q8448;
+  Q8593: Q8448;
+  Q8594: Q8448;
+  Q8595: Q8448;
+  Q8596: Q8448;
+  Q8597: Q8448;
+  Q8598: Q8448;
+  Q8599: Q8448;
+  Q8600: Q8448;
+  Q8601: Q8448;
+  Q8602: Q8448;
+  Q8603: Q8448;
+  Q8604: Q8448;
+  Q8605: Q8448;
   Q8606: Q8606;
-  Q8607: Q1409;
-  Q8608: Q1409;
-  Q8609: Q1409;
-  Q8610: Q1409;
-  Q8611: Q1409;
-  Q8612: Q1409;
-  Q8613: Q1409;
-  Q8614: Q1409;
-  Q8615: Q1409;
-  Q8616: Q1409;
-  Q8617: Q1409;
-  Q8618: Q1409;
-  Q8619: Q1409;
-  Q8620: Q1409;
-  Q8621: Q1409;
-  Q8622: Q1409;
-  Q8623: Q1409;
-  Q8624: Q1409;
-  Q8625: Q1409;
-  Q8626: Q1409;
-  Q8627: Q1409;
-  Q8628: Q1409;
-  Q8629: Q1409;
-  Q8630: Q1409;
-  Q8631: Q1409;
-  Q8632: Q1409;
+  Q8607: Q8448;
+  Q8608: Q8448;
+  Q8609: Q8448;
+  Q8610: Q8448;
+  Q8611: Q8448;
+  Q8612: Q8448;
+  Q8613: Q8448;
+  Q8614: Q8448;
+  Q8615: Q8448;
+  Q8616: Q8448;
+  Q8617: Q8448;
+  Q8618: Q8448;
+  Q8619: Q8448;
+  Q8620: Q8448;
+  Q8621: Q8448;
+  Q8622: Q8448;
+  Q8623: Q8448;
+  Q8624: Q8448;
+  Q8625: Q8448;
+  Q8626: Q8448;
+  Q8627: Q8448;
+  Q8628: Q8448;
+  Q8629: Q8448;
+  Q8630: Q8448;
+  Q8631: Q8448;
+  Q8632: Q8448;
   Q8633: Q1973;
   Q8634: Q8634;
   Q8635: Q8635;
@@ -6654,7 +6654,7 @@ export interface Entity extends Indexable<Entity> {
   Q2236: Q1409;
   P85: P85;
   Q2225: Q1409;
-  Q2648: Q1409;
+  Q2648: Q2648;
   P209: P173;
   P201: P173;
   Q214: Q214;
@@ -6692,15 +6692,15 @@ export interface Entity extends Indexable<Entity> {
   P341: P341;
   Q2241: Q1409;
   Q2242: Q1409;
-  P288: P173;
+  P288: P288;
   Q2243: Q1409;
-  Q2238: Q1409;
+  Q2238: Q2648;
   Q2247: Q1409;
   Q2258: Q1409;
   Q2244: Q1409;
   P301: P301;
   P286: P286;
-  P194: Q1395;
+  P194: P194;
   Q2246: Q1409;
   Q2254: Q1409;
   Q2257: Q1409;
@@ -6794,7 +6794,7 @@ export interface Entity extends Indexable<Entity> {
   Q2275: Q1409;
   P139: Q3393;
   P140: Q3393;
-  P181: P179;
+  P181: P181;
   P306: P307;
   P84: P84;
   P516: P466;
@@ -6873,7 +6873,7 @@ export interface Entity extends Indexable<Entity> {
   Q2295: Q1409;
   Q2296: Q1409;
   Q215: Q214;
-  P258: P173;
+  P258: P288;
   Q2321: Q1409;
   Q230: Q214;
   P645: Q2038;
@@ -6881,7 +6881,7 @@ export interface Entity extends Indexable<Entity> {
   Q2297: Q1409;
   Q2298: Q1409;
   P166: P173;
-  P284: Q1395;
+  P284: P194;
   Q2108: Q1921;
   Q2096: Q1973;
   Q2091: Q1921;
@@ -7024,7 +7024,7 @@ export interface Entity extends Indexable<Entity> {
   Q2354: Q1409;
   P302: P302;
   P303: P307;
-  P118: P413;
+  P118: Q8451;
   Q311: Q2038;
   P366: P341;
   P100: P33;
@@ -7036,7 +7036,7 @@ export interface Entity extends Indexable<Entity> {
   P357: P307;
   Q1968: Q2038;
   P525: P466;
-  Q2358: Q1409;
+  Q2358: Q2648;
   Q2356: Q1409;
   Q2360: Q1409;
   P214: P173;
@@ -7115,7 +7115,7 @@ export interface Entity extends Indexable<Entity> {
   Q2410: Q1409;
   Q2407: Q1409;
   Q2396: Q1409;
-  P117: P413;
+  P117: Q8451;
   Q2412: Q1409;
   Q2413: Q1409;
   Q2414: Q1409;
@@ -7209,7 +7209,7 @@ export interface Entity extends Indexable<Entity> {
   Q2449: Q1409;
   Q2450: Q1409;
   Q2464: Q1409;
-  Q2451: Q1409;
+  Q2451: Q2648;
   P556: P556;
   P505: P466;
   Q2458: Q1409;
@@ -7220,7 +7220,7 @@ export interface Entity extends Indexable<Entity> {
   Q2259: Q1409;
   Q2460: Q1409;
   P517: P466;
-  Q2461: Q1409;
+  Q2461: Q2648;
   Q2462: Q1409;
   Q169: Q163;
   Q183: Q163;
@@ -7239,8 +7239,8 @@ export interface Entity extends Indexable<Entity> {
   P506: P466;
   P612: P466;
   P147: Q3393;
-  P246: Q1395;
-  P247: Q1395;
+  P246: P194;
+  P247: P194;
   Q160: Q212;
   P409: P409;
   Q2471: Q1409;
@@ -7258,11 +7258,11 @@ export interface Entity extends Indexable<Entity> {
   Q2480: Q1409;
   Q2576: Q1409;
   Q2481: Q1409;
-  Q2654: Q1409;
+  Q2654: Q2648;
   Q2484: Q1409;
   Q238: Q214;
   Q201: Q3412;
-  Q2469: Q1409;
+  Q2469: Q2648;
   Q2310: Q1409;
   Q2558: Q1409;
   Q2488: Q1409;
@@ -7359,7 +7359,7 @@ export interface Entity extends Indexable<Entity> {
   Q277: Q3175;
   Q278: Q3175;
   Q279: Q3175;
-  Q280: Q1409;
+  Q280: Q8448;
   Q281: Q3175;
   Q282: Q3175;
   Q283: Q3175;
@@ -7443,7 +7443,7 @@ export interface Entity extends Indexable<Entity> {
   Q3326: Q2038;
   Q2528: Q1409;
   Q2524: Q1409;
-  P125: P413;
+  P125: Q8451;
   Q2525: Q1409;
   Q2526: Q1409;
   P249: P173;
@@ -7467,7 +7467,7 @@ export interface Entity extends Indexable<Entity> {
   Q172: Q163;
   P12: Q303;
   P252: P156;
-  Q2522: Q1409;
+  Q2522: Q2648;
   P457: P466;
   Q8520: Q8520;
   Q8487: Q8487;
@@ -7590,7 +7590,7 @@ export interface Entity extends Indexable<Entity> {
   P338: P307;
   P81: P81;
   P402: Q2038;
-  Q2537: Q1409;
+  Q2537: Q2648;
   Q2557: Q1409;
   Q2571: Q1409;
   P469: P466;
@@ -7622,7 +7622,7 @@ export interface Entity extends Indexable<Entity> {
   Q154: Q3175;
   P25: P33;
   P26: P33;
-  P127: P413;
+  P127: Q8451;
   P128: Q2038;
   P157: P156;
   P159: P159;
@@ -7702,7 +7702,7 @@ export interface Entity extends Indexable<Entity> {
   Q2611: Q1409;
   Q2616: Q1409;
   Q2618: Q1409;
-  Q2617: Q1409;
+  Q2617: Q2648;
   P3: Q303;
   P310: P84;
   P389: Q303;
@@ -7718,13 +7718,13 @@ export interface Entity extends Indexable<Entity> {
   Q2621: Q1409;
   Q2622: Q1409;
   Q2623: Q1409;
-  P291: Q1395;
+  P291: P194;
   Q219: Q214;
   Q166: Q163;
   Q225: Q214;
-  P120: P413;
+  P120: Q8451;
   Q8540: Q303;
-  Q2624: Q1409;
+  Q2624: Q2648;
   P604: P466;
   Q8471: Q2038;
   Q2352: Q1409;
@@ -7818,7 +7818,7 @@ export interface Entity extends Indexable<Entity> {
   P1: Q2038;
   P7: Q2038;
   P642: Q2038;
-  Q3218: Q8637;
+  Q3218: Q3218;
   P545: P545;
   P546: P546;
   P547: P547;
@@ -7849,7 +7849,7 @@ export interface Entity extends Indexable<Entity> {
   Q3121: Q1352;
   Q3127: Q303;
   P536: P454;
-  P132: P413;
+  P132: Q8451;
   P544: P544;
   P542: P541;
   Q1966: Q2038;
@@ -7872,7 +7872,7 @@ export interface Entity extends Indexable<Entity> {
   P500: P412;
   P8: Q303;
   P168: Q303;
-  P382: Q8637;
+  P382: Q3218;
   P431: P412;
   P522: P522;
   P423: P412;
@@ -7892,7 +7892,7 @@ export interface Entity extends Indexable<Entity> {
   P419: P412;
   P435: P412;
   P555: P553;
-  P383: Q8637;
+  P383: Q3218;
   P548: P548;
   P550: P553;
   P549: P546;
@@ -7912,7 +7912,7 @@ export interface Entity extends Indexable<Entity> {
   Q301: Q2038;
   P415: P412;
   P647: Q303;
-  P129: P413;
+  P129: Q8451;
   P528: P454;
   P533: P454;
 }
@@ -7923,37 +7923,37 @@ interface P548 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements338;
+  statements: Statements347;
   logo: undefined;
 }
 
-interface Statements338 {
+interface Statements347 {
   header: Header[];
   table: Table[];
-  text: Text248[];
+  text: Text245[];
 }
 
-interface Text248 {
+interface Text245 {
   label: string;
   property: string;
-  string: String209[];
+  string: String207[];
 }
 
-interface String209 {
+interface String207 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value202[];
+  values: Value200[];
 }
 
-interface Value202 {
+interface Value200 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier129[] | Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: Qualifier131[] | Qualifier39[] | Qualifiers219[] | undefined;
 }
 
-interface Qualifier129 {
+interface Qualifier131 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer236[];
@@ -7975,7 +7975,7 @@ interface Embedded218 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements140;
+  statements: Statements143;
   logo: boolean;
 }
 
@@ -7985,35 +7985,35 @@ interface P554 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements337;
+  statements: Statements346;
   logo: undefined;
 }
 
-interface Statements337 {
+interface Statements346 {
   header: Header[];
   table: Table[];
-  text: Text247[];
+  text: Text244[];
 }
 
-interface Text247 {
+interface Text244 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String208[];
+  string?: String206[];
 }
 
-interface String208 {
+interface String206 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value201[];
+  values: Value199[];
 }
 
-interface Value201 {
+interface Value199 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers218[] | Qualifiers310[] | Qualifiers221[] | undefined;
+  qualifiers: Qualifiers217[] | Qualifiers310[] | Qualifiers220[] | undefined;
 }
 
 interface P553 {
@@ -8022,21 +8022,21 @@ interface P553 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements336;
+  statements: Statements345;
   logo: undefined;
 }
 
-interface Statements336 {
+interface Statements345 {
   header: Header[];
   table: Table[];
-  text: Text246[];
+  text: Text243[];
 }
 
-interface Text246 {
+interface Text243 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String197[];
+  string?: String195[];
 }
 
 interface P558 {
@@ -8045,38 +8045,38 @@ interface P558 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements335;
+  statements: Statements344;
   logo: undefined;
 }
 
-interface Statements335 {
+interface Statements344 {
   header: Header[];
   table: Table[];
-  text: Text245[];
+  text: Text242[];
 }
 
-interface Text245 {
+interface Text242 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String207[];
+  string?: String205[];
 }
 
-interface String207 {
+interface String205 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value200[];
+  values: Value198[];
 }
 
-interface Value200 {
+interface Value198 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier128[] | Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: Qualifier130[] | Qualifier39[] | Qualifiers219[] | undefined;
 }
 
-interface Qualifier128 {
+interface Qualifier130 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer235[];
@@ -8098,7 +8098,7 @@ interface Embedded99 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements141;
+  statements: Statements144;
   logo: boolean;
 }
 
@@ -8108,38 +8108,38 @@ interface P470 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements334;
+  statements: Statements343;
   logo: undefined;
 }
 
-interface Statements334 {
+interface Statements343 {
   header: Header[];
   table: Table[];
-  text: Text244[];
+  text: Text241[];
 }
 
-interface Text244 {
+interface Text241 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String206[];
+  string?: String204[];
 }
 
-interface String206 {
+interface String204 {
   relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value199[];
+  values: Value197[];
 }
 
-interface Value199 {
+interface Value197 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: (Qualifier127 | Qualifiers220 | Table[] | undefined)[];
+  qualifiers: (Qualifier129 | Qualifiers219 | Table[] | undefined)[];
 }
 
-interface Qualifier127 {
+interface Qualifier129 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer234[];
@@ -8161,7 +8161,7 @@ interface Embedded217 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements116;
+  statements: Statements119;
   logo: boolean;
 }
 
@@ -8171,37 +8171,37 @@ interface P522 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements333;
+  statements: Statements342;
   logo: undefined;
 }
 
-interface Statements333 {
+interface Statements342 {
   header: Header[];
   table: Table[];
-  text: Text243[];
+  text: Text240[];
 }
 
-interface Text243 {
+interface Text240 {
   label: string;
   property: string;
-  string: String205[];
+  string: String203[];
 }
 
-interface String205 {
+interface String203 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value198[];
+  values: Value196[];
 }
 
-interface Value198 {
+interface Value196 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier126[] | Qualifiers218[] | Qualifiers310[] | undefined;
+  qualifiers: Qualifier128[] | Qualifiers217[] | Qualifiers310[] | undefined;
 }
 
-interface Qualifier126 {
+interface Qualifier128 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer233[];
@@ -8223,90 +8223,17 @@ interface P561 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements332;
+  statements: Statements341;
   logo: undefined;
 }
 
-interface Statements332 {
+interface Statements341 {
   header: Header[];
   table: Table[];
-  text: Text242[];
+  text: Text239[];
 }
 
-interface Text242 {
-  label: string;
-  property: string;
-  string: String204[];
-}
-
-interface String204 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value197[];
-}
-
-interface Value197 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier39[] | Qualifier41[] | undefined;
-}
-
-interface P473 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements331;
-  logo: undefined;
-}
-
-interface Statements331 {
-  header: Header[];
-  table: Table[];
-  text: Text241[];
-}
-
-interface Text241 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String203[];
-}
-
-interface String203 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value196[];
-}
-
-interface Value196 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifiers310[] | Qualifier41[] | undefined;
-}
-
-interface P544 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements330;
-  logo: undefined;
-}
-
-interface Statements330 {
-  header: Header[];
-  table: Table[];
-  text: Text240[];
-}
-
-interface Text240 {
+interface Text239 {
   label: string;
   property: string;
   string: String202[];
@@ -8323,29 +8250,30 @@ interface Value195 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier40[] | Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: Qualifier39[] | Qualifier41[] | undefined;
 }
 
-interface P527 {
+interface P473 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements329;
+  statements: Statements340;
   logo: undefined;
 }
 
-interface Statements329 {
+interface Statements340 {
   header: Header[];
   table: Table[];
-  text: Text239[];
+  text: Text238[];
 }
 
-interface Text239 {
+interface Text238 {
   label: string;
   property: string;
-  string: String201[];
+  wikibasePointer?: WikibasePointer[];
+  string?: String201[];
 }
 
 interface String201 {
@@ -8359,10 +8287,82 @@ interface Value194 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier125[] | Qualifiers218[] | Qualifier39[] | undefined;
+  qualifiers: Qualifiers310[] | Qualifier41[] | undefined;
 }
 
-interface Qualifier125 {
+interface P544 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements339;
+  logo: undefined;
+}
+
+interface Statements339 {
+  header: Header[];
+  table: Table[];
+  text: Text237[];
+}
+
+interface Text237 {
+  label: string;
+  property: string;
+  string: String200[];
+}
+
+interface String200 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value193[];
+}
+
+interface Value193 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier40[] | Qualifier39[] | Qualifiers219[] | undefined;
+}
+
+interface P527 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements338;
+  logo: undefined;
+}
+
+interface Statements338 {
+  header: Header[];
+  table: Table[];
+  text: Text236[];
+}
+
+interface Text236 {
+  label: string;
+  property: string;
+  string: String199[];
+}
+
+interface String199 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value192[];
+}
+
+interface Value192 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier127[] | Qualifiers217[] | Qualifier39[] | undefined;
+}
+
+interface Qualifier127 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer232[];
@@ -8384,29 +8384,29 @@ interface P557 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements328;
+  statements: Statements337;
   logo: undefined;
 }
 
-interface Statements328 {
+interface Statements337 {
   header: Header[];
   table: Table[];
-  text: Text238[];
+  text: Text235[];
 }
 
-interface Text238 {
+interface Text235 {
   label: string;
   property: string;
-  string: String200[];
+  string: String198[];
 }
 
-interface String200 {
+interface String198 {
   relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value193[];
+  values: Value191[];
 }
 
-interface Value193 {
+interface Value191 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -8420,93 +8420,11 @@ interface P508 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements327;
+  statements: Statements336;
   logo: undefined;
 }
 
-interface Statements327 {
-  header: Header[];
-  table: Table[];
-  text: Text237[];
-}
-
-interface Text237 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String130[];
-}
-
-interface P454 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements326;
-  logo: undefined;
-}
-
-interface Statements326 {
-  header: Header[];
-  table: Table[];
-  text: Text236[];
-}
-
-interface Text236 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String188[];
-}
-
-interface P537 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements325;
-  logo: undefined;
-}
-
-interface Statements325 {
-  header: Text29[];
-  table: Table[];
-  text: Text235[];
-}
-
-interface Text235 {
-  label: string;
-  property: string;
-  string: String199[];
-}
-
-interface String199 {
-  relativeHeadline: number | number | undefined;
-  itemType: string;
-  values: Value192[];
-}
-
-interface Value192 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: (Qualifier124 | Qualifiers218 | Qualifier39 | Table[] | undefined)[];
-}
-
-interface P547 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements324;
-  logo: undefined;
-}
-
-interface Statements324 {
+interface Statements336 {
   header: Header[];
   table: Table[];
   text: Text234[];
@@ -8515,24 +8433,106 @@ interface Statements324 {
 interface Text234 {
   label: string;
   property: string;
-  string: String198[];
+  wikibasePointer?: WikibasePointer[];
+  string?: String131[];
 }
 
-interface String198 {
-  relativeHeadline: number | undefined;
+interface P454 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements335;
+  logo: undefined;
+}
+
+interface Statements335 {
+  header: Header[];
+  table: Table[];
+  text: Text233[];
+}
+
+interface Text233 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String186[];
+}
+
+interface P537 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements334;
+  logo: undefined;
+}
+
+interface Statements334 {
+  header: Text31[];
+  table: Table[];
+  text: Text232[];
+}
+
+interface Text232 {
+  label: string;
+  property: string;
+  string: String197[];
+}
+
+interface String197 {
+  relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value191[];
+  values: Value190[];
 }
 
-interface Value191 {
+interface Value190 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier124[] | Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: (Qualifier126 | Qualifiers217 | Qualifier39 | Table[] | undefined)[];
 }
 
-interface Qualifier124 {
+interface P547 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements333;
+  logo: undefined;
+}
+
+interface Statements333 {
+  header: Header[];
+  table: Table[];
+  text: Text231[];
+}
+
+interface Text231 {
+  label: string;
+  property: string;
+  string: String196[];
+}
+
+interface String196 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value189[];
+}
+
+interface Value189 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier126[] | Qualifier39[] | Qualifiers219[] | undefined;
+}
+
+interface Qualifier126 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer231[];
@@ -8554,34 +8554,34 @@ interface P546 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements323;
+  statements: Statements332;
   logo: undefined;
 }
 
-interface Statements323 {
+interface Statements332 {
   header: Header[];
   table: Table[];
-  text: Text233[];
+  text: Text230[];
 }
 
-interface Text233 {
+interface Text230 {
   label: string;
   property: string;
-  string: String197[];
+  string: String195[];
 }
 
-interface String197 {
+interface String195 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value190[];
+  values: Value188[];
 }
 
-interface Value190 {
+interface Value188 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers218[] | Qualifier39[] | undefined;
+  qualifiers: Qualifiers217[] | Qualifier39[] | undefined;
 }
 
 interface P545 {
@@ -8590,37 +8590,37 @@ interface P545 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements322;
+  statements: Statements331;
   logo: undefined;
 }
 
-interface Statements322 {
+interface Statements331 {
   header: Header[];
   table: Table[];
-  text: Text232[];
+  text: Text229[];
 }
 
-interface Text232 {
+interface Text229 {
   label: string;
   property: string;
-  string: String196[];
+  string: String194[];
 }
 
-interface String196 {
+interface String194 {
   relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value189[];
+  values: Value187[];
 }
 
-interface Value189 {
+interface Value187 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: (Qualifiers218 | Qualifiers222 | Table[] | undefined)[];
+  qualifiers: (Qualifiers217 | Qualifiers221 | Table[] | undefined)[];
 }
 
-interface Qualifiers222 {
+interface Qualifiers221 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer230[];
@@ -8642,8 +8642,18 @@ interface Embedded216 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements139;
+  statements: Statements142;
   logo: boolean;
+}
+
+interface Q3218 {
+  id: string;
+  label: string;
+  title: undefined;
+  pageType: undefined;
+  notation: undefined;
+  statements: Statements38;
+  logo: undefined;
 }
 
 interface P484 {
@@ -8652,140 +8662,11 @@ interface P484 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements321;
+  statements: Statements330;
   logo: undefined;
 }
 
-interface Statements321 {
-  header: Header[];
-  table: Table[];
-  text: Text231[];
-}
-
-interface Text231 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String195[];
-}
-
-interface String195 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value188[];
-}
-
-interface Value188 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier39[] | Qualifiers221[] | Qualifiers220[] | undefined;
-}
-
-interface Qualifiers221 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer229[];
-}
-
-interface WikibasePointer229 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded213 | Embedded27 | boolean)[];
-  qualifiers: undefined;
-}
-
-interface P513 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements320;
-  logo: undefined;
-}
-
-interface Statements320 {
-  header: Header[];
-  table: Table[];
-  text: Text230[];
-}
-
-interface Text230 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String194[];
-}
-
-interface String194 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value187[];
-}
-
-interface Value187 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier123[] | Qualifier91[] | undefined;
-}
-
-interface Qualifier123 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer228[];
-}
-
-interface WikibasePointer228 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded82 | Embedded213 | boolean)[];
-  qualifiers: undefined;
-}
-
-interface P539 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements319;
-  logo: undefined;
-}
-
-interface Statements319 {
-  header: Header[];
-  table: Table[];
-  text: Text229[];
-}
-
-interface Text229 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String189[];
-}
-
-interface P531 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements318;
-  logo: undefined;
-}
-
-interface Statements318 {
+interface Statements330 {
   header: Header[];
   table: Table[];
   text: Text228[];
@@ -8809,7 +8690,136 @@ interface Value186 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers218[] | Qualifier39[] | Qualifiers312[] | undefined;
+  qualifiers: Qualifier39[] | Qualifiers220[] | Qualifiers219[] | undefined;
+}
+
+interface Qualifiers220 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer229[];
+}
+
+interface WikibasePointer229 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded213 | Embedded27 | boolean)[];
+  qualifiers: undefined;
+}
+
+interface P513 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements329;
+  logo: undefined;
+}
+
+interface Statements329 {
+  header: Header[];
+  table: Table[];
+  text: Text227[];
+}
+
+interface Text227 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String192[];
+}
+
+interface String192 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value185[];
+}
+
+interface Value185 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier125[] | Qualifier91[] | undefined;
+}
+
+interface Qualifier125 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer228[];
+}
+
+interface WikibasePointer228 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded82 | Embedded213 | boolean)[];
+  qualifiers: undefined;
+}
+
+interface P539 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements328;
+  logo: undefined;
+}
+
+interface Statements328 {
+  header: Header[];
+  table: Table[];
+  text: Text226[];
+}
+
+interface Text226 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String187[];
+}
+
+interface P531 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements327;
+  logo: undefined;
+}
+
+interface Statements327 {
+  header: Header[];
+  table: Table[];
+  text: Text225[];
+}
+
+interface Text225 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String191[];
+}
+
+interface String191 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value184[];
+}
+
+interface Value184 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifiers217[] | Qualifier39[] | Qualifiers312[] | undefined;
 }
 
 interface Qualifiers312 {
@@ -8834,34 +8844,34 @@ interface P538 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements317;
+  statements: Statements326;
   logo: undefined;
 }
 
-interface Statements317 {
+interface Statements326 {
   header: Header[];
   table: Table[];
-  text: Text227[];
+  text: Text224[];
 }
 
-interface Text227 {
+interface Text224 {
   label: string;
   property: string;
-  string: String192[];
+  string: String190[];
 }
 
-interface String192 {
+interface String190 {
   relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value185[];
+  values: Value183[];
 }
 
-interface Value185 {
+interface Value183 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: (Qualifiers218 | Qualifier39 | Table[] | undefined)[];
+  qualifiers: (Qualifiers217 | Qualifier39 | Table[] | undefined)[];
 }
 
 interface P535 {
@@ -8870,37 +8880,37 @@ interface P535 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements316;
+  statements: Statements325;
   logo: undefined;
 }
 
-interface Statements316 {
+interface Statements325 {
   header: Header[];
   table: Table[];
-  text: Text226[];
+  text: Text223[];
 }
 
-interface Text226 {
+interface Text223 {
   label: string;
   property: string;
-  string: String191[];
+  string: String189[];
 }
 
-interface String191 {
+interface String189 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value184[];
+  values: Value182[];
 }
 
-interface Value184 {
+interface Value182 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier122[] | Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: Qualifier124[] | Qualifier39[] | Qualifiers219[] | undefined;
 }
 
-interface Qualifier122 {
+interface Qualifier124 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer226[];
@@ -8922,14 +8932,14 @@ interface P534 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements315;
+  statements: Statements324;
   logo: undefined;
 }
 
-interface Statements315 {
-  header: Text29[];
+interface Statements324 {
+  header: Text31[];
   table: Table[];
-  text: Text222[];
+  text: Text219[];
 }
 
 interface P483 {
@@ -8938,35 +8948,35 @@ interface P483 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements314;
+  statements: Statements323;
   logo: undefined;
 }
 
-interface Statements314 {
+interface Statements323 {
   header: Header[];
   table: Table[];
-  text: Text225[];
+  text: Text222[];
 }
 
-interface Text225 {
+interface Text222 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String190[];
+  string?: String188[];
 }
 
-interface String190 {
+interface String188 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value183[];
+  values: Value181[];
 }
 
-interface Value183 {
+interface Value181 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier91[] | Qualifiers218[] | Qualifier39[] | undefined;
+  qualifiers: Qualifier91[] | Qualifiers217[] | Qualifier39[] | undefined;
 }
 
 interface P529 {
@@ -8975,29 +8985,29 @@ interface P529 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements313;
+  statements: Statements322;
   logo: undefined;
 }
 
-interface Statements313 {
+interface Statements322 {
   header: Header[];
   table: Table[];
-  text: Text224[];
+  text: Text221[];
 }
 
-interface Text224 {
+interface Text221 {
   label: string;
   property: string;
-  string: String189[];
+  string: String187[];
 }
 
-interface String189 {
+interface String187 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value182[];
+  values: Value180[];
 }
 
-interface Value182 {
+interface Value180 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -9011,17 +9021,17 @@ interface P99 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements312;
+  statements: Statements321;
   logo: undefined;
 }
 
-interface Statements312 {
+interface Statements321 {
   header: Header[];
   table: Header[];
-  text: Text223[];
+  text: Text220[];
 }
 
-interface Text223 {
+interface Text220 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer225[];
@@ -9044,37 +9054,37 @@ interface P541 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements311;
+  statements: Statements320;
   logo: undefined;
 }
 
-interface Statements311 {
+interface Statements320 {
   header: Header[];
   table: Table[];
-  text: Text222[];
+  text: Text219[];
 }
 
-interface Text222 {
+interface Text219 {
   label: string;
   property: string;
-  string: String188[];
+  string: String186[];
 }
 
-interface String188 {
+interface String186 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value181[];
+  values: Value179[];
 }
 
-interface Value181 {
+interface Value179 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier39[] | Qualifiers220[] | undefined;
+  qualifiers: Qualifier39[] | Qualifiers219[] | undefined;
 }
 
-interface Qualifiers220 {
+interface Qualifiers219 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer224[];
@@ -9096,17 +9106,17 @@ interface Q266 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements310;
+  statements: Statements319;
   logo: undefined;
 }
 
-interface Statements310 {
+interface Statements319 {
   header: any[];
   table: any[];
-  text: Text221[];
+  text: Text218[];
 }
 
-interface Text221 {
+interface Text218 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
@@ -9119,14 +9129,14 @@ interface P441 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements309;
+  statements: Statements318;
   logo: undefined;
 }
 
-interface Statements309 {
+interface Statements318 {
   header: any[];
   table: Table[];
-  text: Text47[];
+  text: Text48[];
 }
 
 interface P98 {
@@ -9135,17 +9145,17 @@ interface P98 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements308;
+  statements: Statements317;
   logo: undefined;
 }
 
-interface Statements308 {
+interface Statements317 {
   header: Header[];
   table: Header[];
-  text: Text220[];
+  text: Text217[];
 }
 
-interface Text220 {
+interface Text217 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer223[];
@@ -9159,10 +9169,10 @@ interface WikibasePointer223 {
   coding: Coding6;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier121[];
+  qualifiers: Qualifier123[];
 }
 
-interface Qualifier121 {
+interface Qualifier123 {
   label: string;
   property: string;
   string?: String[];
@@ -9185,17 +9195,17 @@ interface P96 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements307;
+  statements: Statements316;
   logo: undefined;
 }
 
-interface Statements307 {
+interface Statements316 {
   header: Header[];
   table: Header[];
-  text: Text219[];
+  text: Text216[];
 }
 
-interface Text219 {
+interface Text216 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer221[];
@@ -9209,10 +9219,10 @@ interface WikibasePointer221 {
   coding: Coding6 | undefined;
   references: undefined;
   embedded: Embedded27 | boolean;
-  qualifiers: Qualifier120[] | undefined;
+  qualifiers: Qualifier122[] | undefined;
 }
 
-interface Qualifier120 {
+interface Qualifier122 {
   label: string;
   property: string;
   string?: String[];
@@ -9235,17 +9245,17 @@ interface P95 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements306;
+  statements: Statements315;
   logo: undefined;
 }
 
-interface Statements306 {
+interface Statements315 {
   header: Header[];
   table: Header[];
-  text: Text218[];
+  text: Text215[];
 }
 
-interface Text218 {
+interface Text215 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer219[];
@@ -9259,7 +9269,7 @@ interface WikibasePointer219 {
   coding: Coding6 | undefined;
   references: undefined;
   embedded: boolean | Embedded212;
-  qualifiers: Qualifier106[] | undefined;
+  qualifiers: Qualifier108[] | undefined;
 }
 
 interface P59 {
@@ -9268,17 +9278,17 @@ interface P59 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements305;
+  statements: Statements314;
   logo: undefined;
 }
 
-interface Statements305 {
+interface Statements314 {
   header: Header[];
   table: Header[];
-  text: Text217[];
+  text: Text214[];
 }
 
-interface Text217 {
+interface Text214 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer218[];
@@ -9292,10 +9302,10 @@ interface WikibasePointer218 {
   coding: Coding5 | undefined;
   references: Reference[] | undefined | undefined;
   embedded: Embedded98 | boolean;
-  qualifiers: Qualifier119[] | undefined;
+  qualifiers: Qualifier121[] | undefined;
 }
 
-interface Qualifier119 {
+interface Qualifier121 {
   label: string;
   property: string;
   string?: String[];
@@ -9318,11 +9328,11 @@ interface Embedded98 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements304;
+  statements: Statements313;
   logo: boolean;
 }
 
-interface Statements304 {
+interface Statements313 {
   header: any[];
   table: Table43[];
   text: Header[];
@@ -9331,28 +9341,28 @@ interface Statements304 {
 interface Table43 {
   label: string;
   property: string;
-  string: String187[];
+  string: String185[];
 }
 
-interface String187 {
+interface String185 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value180[];
+  values: Value178[];
 }
 
-interface Value180 {
+interface Value178 {
   value: string;
   coding: Coding2;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier118[];
+  qualifiers: Qualifier120[];
 }
 
-interface Qualifier118 {
+interface Qualifier120 {
   label: string;
   property: string;
-  string?: String50[];
-  wikibasePointer?: WikibasePointer48[];
+  string?: String51[];
+  wikibasePointer?: WikibasePointer140[];
 }
 
 interface P53 {
@@ -9361,14 +9371,14 @@ interface P53 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements303;
+  statements: Statements312;
   logo: undefined;
 }
 
-interface Statements303 {
+interface Statements312 {
   header: Header[];
   table: any[];
-  text: Text130[];
+  text: Text129[];
 }
 
 interface P274 {
@@ -9377,21 +9387,21 @@ interface P274 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements302;
+  statements: Statements311;
   logo: undefined;
 }
 
-interface Statements302 {
-  header: any[];
+interface Statements311 {
+  header: Header[];
   table: any[];
-  text: Text216[];
+  text: Text213[];
 }
 
-interface Text216 {
+interface Text213 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer216[];
-  string?: String148[];
+  string?: String149[];
 }
 
 interface WikibasePointer216 {
@@ -9401,7 +9411,7 @@ interface WikibasePointer216 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier99[] | undefined;
+  qualifiers: Qualifier101[] | undefined;
 }
 
 interface P632 {
@@ -9410,38 +9420,38 @@ interface P632 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements301;
+  statements: Statements310;
   logo: undefined;
 }
 
-interface Statements301 {
+interface Statements310 {
   header: Header[];
   table: Table[];
-  text: Text215[];
+  text: Text212[];
 }
 
-interface Text215 {
+interface Text212 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String186[];
+  string?: String184[];
 }
 
-interface String186 {
+interface String184 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value179[];
+  values: Value177[];
 }
 
-interface Value179 {
+interface Value177 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier117[] | undefined;
+  qualifiers: Qualifier119[] | undefined;
 }
 
-interface Qualifier117 {
+interface Qualifier119 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer215[];
@@ -9463,7 +9473,7 @@ interface Embedded413 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements88;
+  statements: Statements91;
   logo: boolean;
 }
 
@@ -9473,7 +9483,7 @@ interface Embedded315 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements86;
+  statements: Statements89;
   logo: boolean;
 }
 
@@ -9483,7 +9493,7 @@ interface Embedded97 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements87;
+  statements: Statements90;
   logo: boolean;
 }
 
@@ -9493,17 +9503,17 @@ interface P159 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements300;
+  statements: Statements309;
   logo: undefined;
 }
 
-interface Statements300 {
-  header: any[];
+interface Statements309 {
+  header: Text32[];
   table: any[];
-  text: Text214[];
+  text: Text209[];
 }
 
-interface Text214 {
+interface Text209 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer179[];
@@ -9516,17 +9526,17 @@ interface P103 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements299;
+  statements: Statements308;
   logo: undefined;
 }
 
-interface Statements299 {
+interface Statements308 {
   header: Header[];
   table: Header[];
-  text: Text213[];
+  text: Text208[];
 }
 
-interface Text213 {
+interface Text208 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer214[];
@@ -9549,17 +9559,17 @@ interface P81 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements298;
+  statements: Statements307;
   logo: undefined;
 }
 
-interface Statements298 {
+interface Statements307 {
   header: Header[];
   table: Header[];
-  text: Text212[];
+  text: Text207[];
 }
 
-interface Text212 {
+interface Text207 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer213[];
@@ -9582,11 +9592,11 @@ interface Embedded96 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements297;
+  statements: Statements306;
   logo: boolean;
 }
 
-interface Statements297 {
+interface Statements306 {
   header: any[];
   table: Table14[];
   text: Header[];
@@ -9598,20 +9608,20 @@ interface P325 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements296;
+  statements: Statements305;
   logo: undefined;
 }
 
-interface Statements296 {
+interface Statements305 {
   header: Header[];
   table: Header[];
-  text: Text209[];
+  text: Text206[];
 }
 
-interface Text209 {
+interface Text206 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer119[];
+  wikibasePointer?: WikibasePointer118[];
   string?: String[];
 }
 
@@ -9621,21 +9631,20 @@ interface Q1970 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements295;
+  statements: Statements304;
   logo: undefined;
 }
 
-interface Statements295 {
-  header: any[];
+interface Statements304 {
+  header: Header[];
   table: any[];
-  text: Text208[];
+  text: Text205[];
 }
 
-interface Text208 {
+interface Text205 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer212[];
-  string?: String[];
+  wikibasePointer: WikibasePointer212[];
 }
 
 interface WikibasePointer212 {
@@ -9654,38 +9663,38 @@ interface Q1934 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements294;
+  statements: Statements303;
   logo: undefined;
 }
 
-interface Statements294 {
-  header: any[];
+interface Statements303 {
+  header: Header[];
   table: any[];
-  text: Text207[];
+  text: Text204[];
 }
 
-interface Text207 {
+interface Text204 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String185[];
+  string?: String183[];
 }
 
-interface String185 {
-  relativeHeadline: number | undefined;
+interface String183 {
+  relativeHeadline: number;
   itemType: string;
-  values: Value178[];
+  values: Value176[];
 }
 
-interface Value178 {
+interface Value176 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier116[] | undefined;
+  qualifiers: Qualifier118[];
 }
 
-interface Qualifier116 {
+interface Qualifier118 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer211[];
@@ -9707,38 +9716,38 @@ interface Q1933 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements293;
+  statements: Statements302;
   logo: undefined;
 }
 
-interface Statements293 {
-  header: any[];
+interface Statements302 {
+  header: Header6[];
   table: any[];
-  text: Text206[];
+  text: Text203[];
 }
 
-interface Text206 {
+interface Text203 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String184[];
+  string?: String182[];
 }
 
-interface String184 {
-  relativeHeadline: number | undefined | undefined;
+interface String182 {
+  relativeHeadline: number | undefined;
   itemType: string;
-  values: Value177[];
+  values: Value175[];
 }
 
-interface Value177 {
+interface Value175 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: (Qualifier115 | Table[] | Qualifier24[] | undefined)[];
+  qualifiers: Qualifier117[];
 }
 
-interface Qualifier115 {
+interface Qualifier117 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer210[];
@@ -9760,8 +9769,28 @@ interface Embedded95 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements81;
+  statements: Statements84;
   logo: boolean;
+}
+
+interface Header6 {
+  label: string;
+  property: string;
+  string: String181[];
+}
+
+interface String181 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value174[];
+}
+
+interface Value174 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Table[] | Qualifier24[] | undefined;
 }
 
 interface Q1937 {
@@ -9770,21 +9799,20 @@ interface Q1937 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements292;
+  statements: Statements301;
   logo: undefined;
 }
 
-interface Statements292 {
-  header: any[];
+interface Statements301 {
+  header: Header[];
   table: any[];
-  text: Text205[];
+  text: Text202[];
 }
 
-interface Text205 {
+interface Text202 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer209[];
-  string?: String[];
+  wikibasePointer: WikibasePointer209[];
 }
 
 interface WikibasePointer209 {
@@ -9794,10 +9822,10 @@ interface WikibasePointer209 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier114[] | undefined;
+  qualifiers: Qualifier116[] | undefined;
 }
 
-interface Qualifier114 {
+interface Qualifier116 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer208[];
@@ -9819,17 +9847,17 @@ interface Q222 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements291;
+  statements: Statements300;
   logo: undefined;
 }
 
-interface Statements291 {
+interface Statements300 {
   header: Header[];
   table: any[];
-  text: Text204[];
+  text: Text201[];
 }
 
-interface Text204 {
+interface Text201 {
   label: string;
   property: string;
   string?: String9[];
@@ -9852,11 +9880,11 @@ interface Q8487 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements290;
+  statements: Statements299;
   logo: undefined;
 }
 
-interface Statements290 {
+interface Statements299 {
   header: Header[];
   table: Table42[];
   text: Table42[];
@@ -9875,7 +9903,7 @@ interface WikibasePointer206 {
   coding: Coding12 | Coding | Coding32 | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Text21[];
+  qualifiers: Text28[];
 }
 
 interface Q8520 {
@@ -9884,30 +9912,30 @@ interface Q8520 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements289;
+  statements: Statements298;
   logo: undefined;
 }
 
-interface Statements289 {
+interface Statements298 {
   header: Header[];
   table: Table41[];
-  text: Text203[];
+  text: Text200[];
 }
 
-interface Text203 {
+interface Text200 {
   label: string;
   property: string;
-  string?: String183[];
+  string?: String180[];
   wikibasePointer?: WikibasePointer205[];
 }
 
-interface String183 {
+interface String180 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value176[];
+  values: Value173[];
 }
 
-interface Value176 {
+interface Value173 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -9928,10 +9956,10 @@ interface WikibasePointer205 {
   coding: Coding12 | Coding | Coding32 | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier113[];
+  qualifiers: Qualifier115[];
 }
 
-interface Qualifier113 {
+interface Qualifier115 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer45[];
@@ -9961,17 +9989,17 @@ interface P71 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements288;
+  statements: Statements297;
   logo: undefined;
 }
 
-interface Statements288 {
+interface Statements297 {
   header: Header[];
   table: Header[];
-  text: Text202[];
+  text: Text199[];
 }
 
-interface Text202 {
+interface Text199 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer204[];
@@ -9985,10 +10013,10 @@ interface WikibasePointer204 {
   coding: Coding22;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier112[];
+  qualifiers: Qualifier114[];
 }
 
-interface Qualifier112 {
+interface Qualifier114 {
   label: string;
   property: string;
   string?: String[];
@@ -10011,14 +10039,14 @@ interface Embedded94 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements287;
+  statements: Statements296;
   logo: boolean;
 }
 
-interface Statements287 {
+interface Statements296 {
   header: any[];
   table: Table7[];
-  text: (Text29 | Header)[];
+  text: (Text31 | Header)[];
 }
 
 interface P89 {
@@ -10027,17 +10055,17 @@ interface P89 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements286;
+  statements: Statements295;
   logo: undefined;
 }
 
-interface Statements286 {
+interface Statements295 {
   header: Header[];
   table: Header[];
-  text: Text201[];
+  text: Text198[];
 }
 
-interface Text201 {
+interface Text198 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer202[];
@@ -10051,10 +10079,10 @@ interface WikibasePointer202 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded93 | boolean;
-  qualifiers: Qualifier111[] | undefined;
+  qualifiers: Qualifier113[] | undefined;
 }
 
-interface Qualifier111 {
+interface Qualifier113 {
   label: string;
   property: string;
   string?: String[];
@@ -10077,14 +10105,14 @@ interface Embedded93 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements285;
+  statements: Statements294;
   logo: boolean;
 }
 
-interface Statements285 {
+interface Statements294 {
   header: any[];
   table: (Table7 | Table5)[];
-  text: (Text29 | Header | Text28 | Text30)[];
+  text: (Text31 | Header | Text30 | Text32)[];
 }
 
 interface P72 {
@@ -10093,17 +10121,17 @@ interface P72 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements284;
+  statements: Statements293;
   logo: undefined;
 }
 
-interface Statements284 {
+interface Statements293 {
   header: Header[];
   table: Header[];
-  text: Text200[];
+  text: Text197[];
 }
 
-interface Text200 {
+interface Text197 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer200[];
@@ -10117,10 +10145,10 @@ interface WikibasePointer200 {
   coding: Coding22;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier110[];
+  qualifiers: Qualifier112[];
 }
 
-interface Qualifier110 {
+interface Qualifier112 {
   label: string;
   property: string;
   string?: String[];
@@ -10143,17 +10171,17 @@ interface P73 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements283;
+  statements: Statements292;
   logo: undefined;
 }
 
-interface Statements283 {
+interface Statements292 {
   header: Header[];
   table: Header[];
-  text: Text199[];
+  text: Text196[];
 }
 
-interface Text199 {
+interface Text196 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer198[];
@@ -10167,10 +10195,10 @@ interface WikibasePointer198 {
   coding: Coding22;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier109[];
+  qualifiers: Qualifier111[];
 }
 
-interface Qualifier109 {
+interface Qualifier111 {
   label: string;
   property: string;
   string?: String[];
@@ -10193,17 +10221,17 @@ interface P55 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements282;
+  statements: Statements291;
   logo: undefined;
 }
 
-interface Statements282 {
+interface Statements291 {
   header: Header[];
   table: Header[];
-  text: Text198[];
+  text: Text195[];
 }
 
-interface Text198 {
+interface Text195 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer196[];
@@ -10217,10 +10245,10 @@ interface WikibasePointer196 {
   coding: Coding2;
   references: Qualifier27[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier108[];
+  qualifiers: Qualifier110[];
 }
 
-interface Qualifier108 {
+interface Qualifier110 {
   label: string;
   property: string;
   string?: String[];
@@ -10243,11 +10271,11 @@ interface Embedded91 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements281;
+  statements: Statements290;
   logo: boolean;
 }
 
-interface Statements281 {
+interface Statements290 {
   header: any[];
   table: Table5[];
   text: Header[];
@@ -10259,17 +10287,17 @@ interface P56 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements280;
+  statements: Statements289;
   logo: undefined;
 }
 
-interface Statements280 {
+interface Statements289 {
   header: Header[];
   table: Header[];
-  text: Text197[];
+  text: Text194[];
 }
 
-interface Text197 {
+interface Text194 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer194[];
@@ -10283,10 +10311,10 @@ interface WikibasePointer194 {
   coding: Coding22;
   references: Reference[] | Qualifier27[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier107[];
+  qualifiers: Qualifier109[];
 }
 
-interface Qualifier107 {
+interface Qualifier109 {
   label: string;
   property: string;
   string?: String[];
@@ -10309,14 +10337,14 @@ interface Embedded412 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements279;
+  statements: Statements288;
   logo: boolean;
 }
 
-interface Statements279 {
+interface Statements288 {
   header: any[];
   table: Table5[];
-  text: Text28[];
+  text: Text30[];
 }
 
 interface P70 {
@@ -10325,17 +10353,17 @@ interface P70 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements278;
+  statements: Statements287;
   logo: undefined;
 }
 
-interface Statements278 {
+interface Statements287 {
   header: Header[];
   table: Header[];
-  text: Text196[];
+  text: Text193[];
 }
 
-interface Text196 {
+interface Text193 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer192[];
@@ -10349,10 +10377,10 @@ interface WikibasePointer192 {
   coding: Coding22;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier106[];
+  qualifiers: Qualifier108[];
 }
 
-interface Qualifier106 {
+interface Qualifier108 {
   label: string;
   property: string;
   string?: String[];
@@ -10375,20 +10403,20 @@ interface P276 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements277;
+  statements: Statements286;
   logo: undefined;
 }
 
-interface Statements277 {
-  header: any[];
+interface Statements286 {
+  header: Header[];
   table: any[];
-  text: Text195[];
+  text: Text192[];
 }
 
-interface Text195 {
+interface Text192 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer110[];
+  wikibasePointer?: WikibasePointer109[];
   string?: String9[];
 }
 
@@ -10398,34 +10426,14 @@ interface Q223 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements276;
+  statements: Statements285;
   logo: undefined;
 }
 
-interface Statements276 {
+interface Statements285 {
   header: Header3[];
   table: any[];
-  text: Text106[];
-}
-
-interface Header3 {
-  label: string;
-  property: string;
-  string: String182[];
-}
-
-interface String182 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value175[];
-}
-
-interface Value175 {
-  value: string;
-  coding: undefined;
-  references: Reference[] | undefined;
-  embedded: boolean;
-  qualifiers: undefined;
+  text: Text108[];
 }
 
 interface P299 {
@@ -10434,17 +10442,17 @@ interface P299 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements275;
+  statements: Statements284;
   logo: undefined;
 }
 
-interface Statements275 {
+interface Statements284 {
   header: Header[];
   table: any[];
-  text: Text194[];
+  text: Text191[];
 }
 
-interface Text194 {
+interface Text191 {
   label: string;
   property: string;
   string?: String41[];
@@ -10457,17 +10465,17 @@ interface P91 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements274;
+  statements: Statements283;
   logo: undefined;
 }
 
-interface Statements274 {
+interface Statements283 {
   header: Header[];
   table: Header[];
-  text: Text193[];
+  text: Text190[];
 }
 
-interface Text193 {
+interface Text190 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer190[];
@@ -10481,10 +10489,10 @@ interface WikibasePointer190 {
   coding: Coding6;
   references: Qualifier27[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier105[];
+  qualifiers: Qualifier107[];
 }
 
-interface Qualifier105 {
+interface Qualifier107 {
   label: string;
   property: string;
   string?: String[];
@@ -10507,17 +10515,17 @@ interface P93 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements273;
+  statements: Statements282;
   logo: undefined;
 }
 
-interface Statements273 {
+interface Statements282 {
   header: Header[];
   table: Header[];
-  text: Text192[];
+  text: Text189[];
 }
 
-interface Text192 {
+interface Text189 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer188[];
@@ -10531,10 +10539,10 @@ interface WikibasePointer188 {
   coding: Coding22;
   references: Qualifier27[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier104[];
+  qualifiers: Qualifier106[];
 }
 
-interface Qualifier104 {
+interface Qualifier106 {
   label: string;
   property: string;
   string?: String[];
@@ -10557,11 +10565,11 @@ interface Embedded90 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements272;
+  statements: Statements281;
   logo: boolean;
 }
 
-interface Statements272 {
+interface Statements281 {
   header: any[];
   table: any[];
   text: (Header | Header)[];
@@ -10573,38 +10581,38 @@ interface P94 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements271;
+  statements: Statements280;
   logo: undefined;
 }
 
-interface Statements271 {
+interface Statements280 {
   header: Header[];
   table: Header[];
-  text: Text191[];
+  text: Text188[];
 }
 
-interface Text191 {
+interface Text188 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer185[];
-  string?: String181[];
+  string?: String179[];
 }
 
-interface String181 {
+interface String179 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value174[];
+  values: Value172[];
 }
 
-interface Value174 {
+interface Value172 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier103[] | undefined | undefined;
+  qualifiers: Qualifier105[] | undefined | undefined;
 }
 
-interface Qualifier103 {
+interface Qualifier105 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer186[];
@@ -10627,10 +10635,10 @@ interface WikibasePointer185 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded27 | boolean;
-  qualifiers: Qualifier102[] | undefined;
+  qualifiers: Qualifier104[] | undefined;
 }
 
-interface Qualifier102 {
+interface Qualifier104 {
   label: string;
   property: string;
   string?: String[];
@@ -10653,17 +10661,17 @@ interface P58 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements270;
+  statements: Statements279;
   logo: undefined;
 }
 
-interface Statements270 {
+interface Statements279 {
   header: Header[];
   table: Header[];
-  text: Text190[];
+  text: Text187[];
 }
 
-interface Text190 {
+interface Text187 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer183[];
@@ -10677,10 +10685,10 @@ interface WikibasePointer183 {
   coding: Coding2;
   references: Reference[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier101[];
+  qualifiers: Qualifier103[];
 }
 
-interface Qualifier101 {
+interface Qualifier103 {
   label: string;
   property: string;
   string?: String[];
@@ -10703,115 +10711,17 @@ interface Embedded92 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements269;
+  statements: Statements278;
   logo: boolean;
 }
 
-interface Statements269 {
+interface Statements278 {
   header: any[];
   table: Table40[];
   text: any[];
 }
 
 interface Table40 {
-  label: string;
-  property: string;
-  string: String180[];
-}
-
-interface String180 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value173[];
-}
-
-interface Value173 {
-  value: string;
-  coding: Coding;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier14[];
-}
-
-interface Embedded810 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements268;
-  logo: boolean;
-}
-
-interface Statements268 {
-  header: any[];
-  table: Table18[];
-  text: Text16[];
-}
-
-interface Embedded411 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements267;
-  logo: boolean;
-}
-
-interface Statements267 {
-  header: any[];
-  table: any[];
-  text: Text189[];
-}
-
-interface Text189 {
-  label: string;
-  property: string;
-  string: String179[];
-}
-
-interface String179 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value172[];
-}
-
-interface Value172 {
-  value: string;
-  coding: undefined;
-  references: Reference[] | undefined | undefined | undefined;
-  embedded: boolean;
-  qualifiers: (Qualifiers2[] | Qualifiers4 | Qualifiers5 | Qualifiers6[] | Qualifiers23[] | Table | undefined)[][];
-}
-
-interface Embedded314 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements46;
-  logo: boolean;
-}
-
-interface Embedded215 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements266;
-  logo: boolean;
-}
-
-interface Statements266 {
-  header: any[];
-  table: Table39[];
-  text: Header[];
-}
-
-interface Table39 {
   label: string;
   property: string;
   string: String178[];
@@ -10825,25 +10735,123 @@ interface String178 {
 
 interface Value171 {
   value: string;
-  coding: Coding3;
+  coding: Coding;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier100[];
+  qualifiers: Qualifier14[];
 }
 
-interface Qualifier100 {
+interface Embedded810 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements277;
+  logo: boolean;
+}
+
+interface Statements277 {
+  header: any[];
+  table: Table18[];
+  text: Text16[];
+}
+
+interface Embedded411 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements276;
+  logo: boolean;
+}
+
+interface Statements276 {
+  header: any[];
+  table: any[];
+  text: Text186[];
+}
+
+interface Text186 {
   label: string;
   property: string;
   string: String177[];
 }
 
 interface String177 {
-  relativeHeadline: undefined;
+  relativeHeadline: number | undefined;
   itemType: string;
   values: Value170[];
 }
 
 interface Value170 {
+  value: string;
+  coding: undefined;
+  references: Reference[] | undefined | undefined | undefined;
+  embedded: boolean;
+  qualifiers: (Qualifiers2[] | Qualifiers4 | Qualifiers5 | Qualifiers6[] | Qualifiers23[] | Table | undefined)[][];
+}
+
+interface Embedded314 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements47;
+  logo: boolean;
+}
+
+interface Embedded215 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements275;
+  logo: boolean;
+}
+
+interface Statements275 {
+  header: any[];
+  table: Table39[];
+  text: Header[];
+}
+
+interface Table39 {
+  label: string;
+  property: string;
+  string: String176[];
+}
+
+interface String176 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value169[];
+}
+
+interface Value169 {
+  value: string;
+  coding: Coding3;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier102[];
+}
+
+interface Qualifier102 {
+  label: string;
+  property: string;
+  string: String175[];
+}
+
+interface String175 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value168[];
+}
+
+interface Value168 {
   value: string;
   coding: (Coding2 | Coding22 | Coding22 | Coding | Coding | undefined | undefined)[];
   references: undefined;
@@ -10857,30 +10865,30 @@ interface P90 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements265;
+  statements: Statements274;
   logo: undefined;
 }
 
-interface Statements265 {
+interface Statements274 {
   header: Header[];
   table: Header[];
-  text: Text188[];
+  text: Text185[];
 }
 
-interface Text188 {
+interface Text185 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer181[];
-  string?: String176[];
+  string?: String174[];
 }
 
-interface String176 {
+interface String174 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value169[];
+  values: Value167[];
 }
 
-interface Value169 {
+interface Value167 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined | undefined;
@@ -10904,17 +10912,17 @@ interface P391 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements264;
+  statements: Statements273;
   logo: undefined;
 }
 
-interface Statements264 {
+interface Statements273 {
   header: Header[];
   table: Header[];
-  text: Text187[];
+  text: Text184[];
 }
 
-interface Text187 {
+interface Text184 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer180[];
@@ -10937,35 +10945,21 @@ interface P182 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements263;
+  statements: Statements272;
   logo: undefined;
 }
 
-interface Statements263 {
-  header: any[];
+interface Statements272 {
+  header: Header5[];
   table: any[];
-  text: Text186[];
+  text: Text183[];
 }
 
-interface Text186 {
+interface Text183 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer179[];
-  string?: String175[];
-}
-
-interface String175 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value168[];
-}
-
-interface Value168 {
-  value: string;
-  coding: undefined;
-  references: Reference[] | undefined | undefined;
-  embedded: boolean;
-  qualifiers: (Qualifier74 | Reference[] | undefined)[];
+  string?: String156[];
 }
 
 interface WikibasePointer179 {
@@ -10975,10 +10969,10 @@ interface WikibasePointer179 {
   coding: Coding22 | Coding | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier99[] | undefined;
+  qualifiers: Qualifier101[] | undefined;
 }
 
-interface Qualifier99 {
+interface Qualifier101 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer178[];
@@ -10994,44 +10988,64 @@ interface WikibasePointer178 {
   qualifiers: undefined;
 }
 
+interface Header5 {
+  label: string;
+  property: string;
+  string: String173[];
+}
+
+interface String173 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value166[];
+}
+
+interface Value166 {
+  value: string;
+  coding: undefined;
+  references: Reference[] | undefined;
+  embedded: boolean;
+  qualifiers: Reference[] | undefined;
+}
+
 interface P27 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements262;
+  statements: Statements271;
   logo: undefined;
 }
 
-interface Statements262 {
+interface Statements271 {
   header: Header[];
   table: any[];
-  text: Text185[];
+  text: Text182[];
 }
 
-interface Text185 {
+interface Text182 {
   label: string;
   property: string;
-  string?: String174[];
-  wikibasePointer?: WikibasePointer111[];
+  string?: String172[];
+  wikibasePointer?: WikibasePointer110[];
 }
 
-interface String174 {
+interface String172 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value167[];
+  values: Value165[];
 }
 
-interface Value167 {
+interface Value165 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier98[];
+  qualifiers: Qualifier100[];
 }
 
-interface Qualifier98 {
+interface Qualifier100 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer177[];
@@ -11053,38 +11067,38 @@ interface P488 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements261;
+  statements: Statements270;
   logo: undefined;
 }
 
-interface Statements261 {
+interface Statements270 {
   header: Header[];
   table: Table[];
-  text: Text184[];
+  text: Text181[];
 }
 
-interface Text184 {
+interface Text181 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String173[];
+  string?: String171[];
 }
 
-interface String173 {
+interface String171 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value166[];
+  values: Value164[];
 }
 
-interface Value166 {
+interface Value164 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier97[] | Qualifiers310[] | Qualifier39[] | undefined;
+  qualifiers: Qualifier99[] | Qualifiers310[] | Qualifier39[] | undefined;
 }
 
-interface Qualifier97 {
+interface Qualifier99 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer176[];
@@ -11106,7 +11120,7 @@ interface Embedded89 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements126;
+  statements: Statements129;
   logo: boolean;
 }
 
@@ -11116,21 +11130,21 @@ interface P106 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements260;
+  statements: Statements269;
   logo: undefined;
 }
 
-interface Statements260 {
+interface Statements269 {
   header: Header[];
   table: Header[];
-  text: Text183[];
+  text: Text180[];
 }
 
-interface Text183 {
+interface Text180 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer135[];
-  string?: String97[];
+  wikibasePointer?: WikibasePointer134[];
+  string?: String98[];
 }
 
 interface P107 {
@@ -11139,21 +11153,21 @@ interface P107 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements259;
+  statements: Statements268;
   logo: undefined;
 }
 
-interface Statements259 {
+interface Statements268 {
   header: Header[];
   table: Header[];
-  text: Text182[];
+  text: Text179[];
 }
 
-interface Text182 {
+interface Text179 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer175[];
-  string?: String68[];
+  string?: String69[];
 }
 
 interface WikibasePointer175 {
@@ -11163,10 +11177,10 @@ interface WikibasePointer175 {
   coding: Coding5 | undefined;
   references: undefined;
   embedded: Embedded87 | boolean;
-  qualifiers: Qualifier96[] | undefined;
+  qualifiers: Qualifier98[] | undefined;
 }
 
-interface Qualifier96 {
+interface Qualifier98 {
   label: string;
   property: string;
   string?: String[];
@@ -11189,7 +11203,7 @@ interface Embedded88 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements59;
+  statements: Statements62;
   logo: boolean;
 }
 
@@ -11199,7 +11213,7 @@ interface Embedded87 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements73;
+  statements: Statements76;
   logo: boolean;
 }
 
@@ -11209,35 +11223,21 @@ interface Q17 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements258;
+  statements: Statements267;
   logo: undefined;
 }
 
-interface Statements258 {
-  header: any[];
+interface Statements267 {
+  header: Header3[];
   table: any[];
-  text: Text181[];
+  text: Text178[];
 }
 
-interface Text181 {
+interface Text178 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer173[];
-  string?: String172[];
-}
-
-interface String172 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value165[];
-}
-
-interface Value165 {
-  value: string;
-  coding: undefined;
-  references: Reference[] | undefined | undefined;
-  embedded: boolean;
-  qualifiers: Table[] | undefined;
+  string?: String41[];
 }
 
 interface WikibasePointer173 {
@@ -11247,7 +11247,13 @@ interface WikibasePointer173 {
   coding: Coding5 | undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers28[] | Qualifier24[] | undefined | undefined;
+  qualifiers: Qualifier97[] | Qualifier24[] | undefined | undefined;
+}
+
+interface Qualifier97 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer140[];
 }
 
 interface P108 {
@@ -11256,17 +11262,17 @@ interface P108 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements257;
+  statements: Statements266;
   logo: undefined;
 }
 
-interface Statements257 {
+interface Statements266 {
   header: any[];
   table: Header[];
-  text: Text180[];
+  text: Text177[];
 }
 
-interface Text180 {
+interface Text177 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer172[];
@@ -11280,10 +11286,10 @@ interface WikibasePointer172 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded39 | boolean;
-  qualifiers: Qualifier95[] | undefined;
+  qualifiers: Qualifier96[] | undefined;
 }
 
-interface Qualifier95 {
+interface Qualifier96 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer171[];
@@ -11305,21 +11311,14 @@ interface Q285 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements256;
+  statements: Statements265;
   logo: undefined;
 }
 
-interface Statements256 {
+interface Statements265 {
   header: any[];
   table: any[];
-  text: Text179[];
-}
-
-interface Text179 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer33[];
-  string?: String41[];
+  text: Text21[];
 }
 
 interface P339 {
@@ -11328,17 +11327,17 @@ interface P339 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements255;
+  statements: Statements264;
   logo: undefined;
 }
 
-interface Statements255 {
+interface Statements264 {
   header: Header[];
   table: Header[];
-  text: Text178[];
+  text: Text176[];
 }
 
-interface Text178 {
+interface Text176 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer145[];
@@ -11351,7 +11350,7 @@ interface P596 {
   title: string;
   pageType: PageType;
   notation: string;
-  statements: Statements165;
+  statements: Statements170;
   logo: undefined;
 }
 
@@ -11361,30 +11360,30 @@ interface P334 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements254;
+  statements: Statements263;
   logo: undefined;
 }
 
-interface Statements254 {
+interface Statements263 {
   header: Header[];
   table: Header[];
-  text: Text177[];
+  text: Text175[];
 }
 
-interface Text177 {
+interface Text175 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer170[];
-  string?: String171[];
+  string?: String170[];
 }
 
-interface String171 {
+interface String170 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value164[];
+  values: Value163[];
 }
 
-interface Value164 {
+interface Value163 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -11399,7 +11398,14 @@ interface WikibasePointer170 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded39 | boolean;
-  qualifiers: Text152[] | undefined;
+  qualifiers: Qualifier95[] | undefined;
+}
+
+interface Qualifier95 {
+  label: string;
+  property: string;
+  string?: String[];
+  wikibasePointer?: WikibasePointer33[];
 }
 
 interface P375 {
@@ -11408,17 +11414,17 @@ interface P375 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements253;
+  statements: Statements262;
   logo: undefined;
 }
 
-interface Statements253 {
+interface Statements262 {
   header: Header[];
   table: Header[];
-  text: Text176[];
+  text: Text174[];
 }
 
-interface Text176 {
+interface Text174 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer169[];
@@ -11441,17 +11447,17 @@ interface P320 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements252;
+  statements: Statements261;
   logo: undefined;
 }
 
-interface Statements252 {
+interface Statements261 {
   header: Header[];
   table: Header[];
-  text: Text175[];
+  text: Text173[];
 }
 
-interface Text175 {
+interface Text173 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer168[];
@@ -11491,11 +11497,11 @@ interface Embedded86 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements251;
+  statements: Statements260;
   logo: boolean;
 }
 
-interface Statements251 {
+interface Statements260 {
   header: any[];
   table: any[];
   text: Header[][];
@@ -11507,21 +11513,21 @@ interface P354 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements250;
+  statements: Statements259;
   logo: undefined;
 }
 
-interface Statements250 {
+interface Statements259 {
   header: Header[];
   table: Header[];
-  text: Text174[];
+  text: Text172[];
 }
 
-interface Text174 {
+interface Text172 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer120[];
-  string?: String68[];
+  wikibasePointer?: WikibasePointer119[];
+  string?: String69[];
 }
 
 interface P83 {
@@ -11530,17 +11536,17 @@ interface P83 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements249;
+  statements: Statements258;
   logo: undefined;
 }
 
-interface Statements249 {
+interface Statements258 {
   header: Header[];
   table: Header[];
-  text: Text173[];
+  text: Text171[];
 }
 
-interface Text173 {
+interface Text171 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer166[];
@@ -11570,30 +11576,30 @@ interface P409 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements248;
+  statements: Statements257;
   logo: undefined;
 }
 
-interface Statements248 {
+interface Statements257 {
   header: Text[];
   table: Table[];
-  text: Text172[];
+  text: Text170[];
 }
 
-interface Text172 {
+interface Text170 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer165[];
-  string?: String170[];
+  string?: String169[];
 }
 
-interface String170 {
+interface String169 {
   relativeHeadline: number | number | undefined;
   itemType: string;
-  values: Value163[];
+  values: Value162[];
 }
 
-interface Value163 {
+interface Value162 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -11617,35 +11623,35 @@ interface P395 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements247;
+  statements: Statements256;
   logo: undefined;
 }
 
-interface Statements247 {
+interface Statements256 {
   header: Header[];
   table: Table[];
-  text: Text171[];
+  text: Text169[];
 }
 
-interface Text171 {
+interface Text169 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String169[];
+  string?: String168[];
 }
 
-interface String169 {
+interface String168 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value162[];
+  values: Value161[];
 }
 
-interface Value162 {
+interface Value161 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined | undefined;
   embedded: boolean;
-  qualifiers: (Qualifier92[] | Qualifiers219 | Qualifiers311[] | Qualifiers47[] | Table[] | undefined)[];
+  qualifiers: (Qualifier92[] | Qualifiers218 | Qualifiers311[] | Qualifiers47[] | Table[] | undefined)[];
 }
 
 interface Qualifiers47 {
@@ -11670,7 +11676,7 @@ interface Embedded85 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements62;
+  statements: Statements65;
   logo: boolean;
 }
 
@@ -11696,11 +11702,11 @@ interface Embedded84 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements63;
+  statements: Statements66;
   logo: boolean;
 }
 
-interface Qualifiers219 {
+interface Qualifiers218 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer162[];
@@ -11739,7 +11745,7 @@ interface Embedded313 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements65;
+  statements: Statements68;
   logo: boolean;
 }
 
@@ -11749,7 +11755,7 @@ interface Embedded214 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements64;
+  statements: Statements67;
   logo: boolean;
 }
 
@@ -11759,7 +11765,7 @@ interface Embedded83 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements246;
+  statements: Statements255;
   logo: boolean;
 }
 
@@ -11769,57 +11775,20 @@ interface Q3106 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements246;
+  statements: Statements255;
   logo: undefined;
 }
 
-interface Statements246 {
+interface Statements255 {
   header: any[];
   table: any[];
-  text: Text170[];
+  text: Text168[];
 }
 
-interface Text170 {
+interface Text168 {
   label: string;
   property: string;
-  string: String168[];
-}
-
-interface String168 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value161[];
-}
-
-interface Value161 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier2[] | Qualifiers3[] | Qualifiers7[] | Qualifiers23[] | Qualifiers11[] | Qualifiers12[] | Qualifiers13[] | Table[] | Qualifiers8[] | undefined | undefined;
-}
-
-interface P556 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements245;
-  logo: undefined;
-}
-
-interface Statements245 {
-  header: Header[];
-  table: Table[];
-  text: Text169[];
-}
-
-interface Text169 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String167[];
+  string: String167[];
 }
 
 interface String167 {
@@ -11833,7 +11802,44 @@ interface Value160 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier91[] | Qualifiers218[] | Qualifiers310[] | undefined;
+  qualifiers: Qualifier2[] | Qualifiers3[] | Qualifiers7[] | Qualifiers23[] | Qualifiers11[] | Qualifiers12[] | Qualifiers13[] | Table[] | Qualifiers8[] | undefined | undefined;
+}
+
+interface P556 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements254;
+  logo: undefined;
+}
+
+interface Statements254 {
+  header: Header[];
+  table: Table[];
+  text: Text167[];
+}
+
+interface Text167 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String166[];
+}
+
+interface String166 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value159[];
+}
+
+interface Value159 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier91[] | Qualifiers217[] | Qualifiers310[] | undefined;
 }
 
 interface Qualifiers310 {
@@ -11852,7 +11858,7 @@ interface WikibasePointer160 {
   qualifiers: undefined;
 }
 
-interface Qualifiers218 {
+interface Qualifiers217 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer159[];
@@ -11890,7 +11896,7 @@ interface Embedded410 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements85;
+  statements: Statements88;
   logo: boolean;
 }
 
@@ -11900,7 +11906,7 @@ interface Embedded213 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements112;
+  statements: Statements115;
   logo: boolean;
 }
 
@@ -11910,7 +11916,7 @@ interface Embedded82 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements113;
+  statements: Statements116;
   logo: boolean;
 }
 
@@ -11920,11 +11926,11 @@ interface P352 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements244;
+  statements: Statements253;
   logo: undefined;
 }
 
-interface Statements244 {
+interface Statements253 {
   header: Header[];
   table: Header[];
   text: Qualifier75[];
@@ -11936,21 +11942,21 @@ interface P364 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements243;
+  statements: Statements252;
   logo: undefined;
 }
 
-interface Statements243 {
+interface Statements252 {
   header: Header[];
   table: Header[];
-  text: Text168[];
+  text: Text166[];
 }
 
-interface Text168 {
+interface Text166 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer157[];
-  string?: String68[];
+  string?: String69[];
 }
 
 interface WikibasePointer157 {
@@ -11969,24 +11975,24 @@ interface P309 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements242;
+  statements: Statements251;
   logo: undefined;
 }
 
-interface Statements242 {
+interface Statements251 {
   header: Header[];
   table: Header[];
-  text: Text167[];
+  text: Text165[];
 }
 
-interface Text167 {
+interface Text165 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer156[];
-  string?: String166[];
+  string?: String165[];
 }
 
-interface String166 {
+interface String165 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
   values: Value9[];
@@ -11999,7 +12005,7 @@ interface WikibasePointer156 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded81 | boolean;
-  qualifiers: Text21[] | undefined;
+  qualifiers: Text28[] | undefined;
 }
 
 interface Embedded81 {
@@ -12008,11 +12014,11 @@ interface Embedded81 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements241;
+  statements: Statements250;
   logo: boolean;
 }
 
-interface Statements241 {
+interface Statements250 {
   header: any[];
   table: Table5[];
   text: any[];
@@ -12024,17 +12030,17 @@ interface P322 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements240;
+  statements: Statements249;
   logo: undefined;
 }
 
-interface Statements240 {
+interface Statements249 {
   header: Header[];
   table: Header[];
-  text: Text166[];
+  text: Text164[];
 }
 
-interface Text166 {
+interface Text164 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer155[];
@@ -12057,14 +12063,14 @@ interface Q212 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements239;
+  statements: Statements248;
   logo: undefined;
 }
 
-interface Statements239 {
+interface Statements248 {
   header: Header[];
   table: any[];
-  text: Text111[];
+  text: Text113[];
 }
 
 interface P86 {
@@ -12073,17 +12079,17 @@ interface P86 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements238;
+  statements: Statements247;
   logo: undefined;
 }
 
-interface Statements238 {
+interface Statements247 {
   header: Header[];
   table: Header[];
-  text: Text165[];
+  text: Text163[];
 }
 
-interface Text165 {
+interface Text163 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer150[];
@@ -12095,17 +12101,17 @@ interface P302 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements237;
+  statements: Statements246;
   logo: undefined;
 }
 
-interface Statements237 {
+interface Statements246 {
   header: Header[];
   table: any[];
-  text: Text164[];
+  text: Text162[];
 }
 
-interface Text164 {
+interface Text162 {
   label: string;
   property: string;
   string?: String41[];
@@ -12128,11 +12134,11 @@ interface Q1334 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements236;
+  statements: Statements245;
   logo: undefined;
 }
 
-interface Statements236 {
+interface Statements245 {
   header: any[];
   table: Table20[];
   text: any[];
@@ -12144,17 +12150,17 @@ interface Q226 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements235;
+  statements: Statements244;
   logo: undefined;
 }
 
-interface Statements235 {
+interface Statements244 {
   header: Header[];
   table: any[];
-  text: Text163[];
+  text: Text161[];
 }
 
-interface Text163 {
+interface Text161 {
   label: string;
   property: string;
   string?: String153[];
@@ -12167,34 +12173,20 @@ interface P29 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements234;
+  statements: Statements243;
   logo: undefined;
 }
 
-interface Statements234 {
+interface Statements243 {
   header: Header[];
   table: any[];
-  text: Text162[];
+  text: Text160[];
 }
 
-interface Text162 {
+interface Text160 {
   label: string;
   property: string;
-  string: String165[];
-}
-
-interface String165 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value159[];
-}
-
-interface Value159 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier74[];
+  string: String156[];
 }
 
 interface Q228 {
@@ -12203,17 +12195,17 @@ interface Q228 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements233;
+  statements: Statements242;
   logo: undefined;
 }
 
-interface Statements233 {
+interface Statements242 {
   header: Header[];
   table: any[];
-  text: Text161[];
+  text: Text159[];
 }
 
-interface Text161 {
+interface Text159 {
   label: string;
   property: string;
   string?: String41[];
@@ -12236,17 +12228,17 @@ interface P133 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements232;
+  statements: Statements241;
   logo: undefined;
 }
 
-interface Statements232 {
+interface Statements241 {
   header: Header[];
   table: any[];
-  text: Text160[];
+  text: Text158[];
 }
 
-interface Text160 {
+interface Text158 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer152[];
@@ -12259,7 +12251,7 @@ interface WikibasePointer152 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded27 | boolean;
-  qualifiers: Header[] | Qualifiers29[] | Qualifier35[] | undefined | undefined;
+  qualifiers: Header[] | Qualifiers28[] | Qualifier35[] | undefined | undefined;
 }
 
 interface P300 {
@@ -12268,17 +12260,17 @@ interface P300 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements231;
+  statements: Statements240;
   logo: undefined;
 }
 
-interface Statements231 {
+interface Statements240 {
   header: Header[];
   table: any[];
-  text: Text159[];
+  text: Text157[];
 }
 
-interface Text159 {
+interface Text157 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer151[];
@@ -12301,11 +12293,11 @@ interface Embedded80 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements230;
+  statements: Statements239;
   logo: boolean;
 }
 
-interface Statements230 {
+interface Statements239 {
   header: any[];
   table: Table5[];
   text: Header[];
@@ -12317,11 +12309,11 @@ interface P101 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements229;
+  statements: Statements238;
   logo: undefined;
 }
 
-interface Statements229 {
+interface Statements238 {
   header: any[];
   table: Header[];
   text: Text141[];
@@ -12333,17 +12325,17 @@ interface P295 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements228;
+  statements: Statements237;
   logo: undefined;
 }
 
-interface Statements228 {
+interface Statements237 {
   header: Header[];
   table: Header[];
-  text: Text158[];
+  text: Text156[];
 }
 
-interface Text158 {
+interface Text156 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer150[];
@@ -12366,21 +12358,20 @@ interface Q1902 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements227;
+  statements: Statements236;
   logo: undefined;
 }
 
-interface Statements227 {
-  header: any[];
+interface Statements236 {
+  header: Header[];
   table: any[];
-  text: Text157[];
+  text: Text155[];
 }
 
-interface Text157 {
+interface Text155 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer149[];
-  string?: String[];
+  wikibasePointer: WikibasePointer149[];
 }
 
 interface WikibasePointer149 {
@@ -12399,21 +12390,20 @@ interface Q6 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements226;
+  statements: Statements235;
   logo: undefined;
 }
 
-interface Statements226 {
-  header: any[];
+interface Statements235 {
+  header: Header[];
   table: any[];
-  text: Text156[];
+  text: Text154[];
 }
 
-interface Text156 {
+interface Text154 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer148[];
-  string?: String[];
+  wikibasePointer: WikibasePointer148[];
 }
 
 interface WikibasePointer148 {
@@ -12432,21 +12422,20 @@ interface Q2 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements225;
+  statements: Statements234;
   logo: undefined;
 }
 
-interface Statements225 {
-  header: any[];
+interface Statements234 {
+  header: Header[];
   table: any[];
-  text: Text155[];
+  text: Text153[];
 }
 
-interface Text155 {
+interface Text153 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer147[];
-  string?: String[];
+  wikibasePointer: WikibasePointer147[];
 }
 
 interface WikibasePointer147 {
@@ -12465,21 +12454,20 @@ interface Q1905 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements224;
+  statements: Statements233;
   logo: undefined;
 }
 
-interface Statements224 {
-  header: any[];
+interface Statements233 {
+  header: Header[];
   table: any[];
-  text: Text154[];
+  text: Text152[];
 }
 
-interface Text154 {
+interface Text152 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer146[];
-  string?: String[];
+  wikibasePointer: WikibasePointer146[];
 }
 
 interface WikibasePointer146 {
@@ -12498,7 +12486,7 @@ interface Q1359 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements222;
+  statements: Statements231;
   logo: undefined;
 }
 
@@ -12508,17 +12496,17 @@ interface P340 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements223;
+  statements: Statements232;
   logo: undefined;
 }
 
-interface Statements223 {
+interface Statements232 {
   header: Header[];
   table: Header[];
-  text: Text153[];
+  text: Text151[];
 }
 
-interface Text153 {
+interface Text151 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer145[];
@@ -12546,7 +12534,7 @@ interface WikibasePointer145 {
   coding: Coding22 | undefined;
   references: undefined;
   embedded: Embedded39 | boolean;
-  qualifiers: Text21[] | undefined;
+  qualifiers: Text28[] | undefined;
 }
 
 interface Q8 {
@@ -12555,21 +12543,14 @@ interface Q8 {
   title: undefined;
   pageType: undefined;
   notation: undefined;
-  statements: Statements222;
+  statements: Statements231;
   logo: undefined;
 }
 
-interface Statements222 {
-  header: any[];
+interface Statements231 {
+  header: Header[];
   table: any[];
-  text: Text152[];
-}
-
-interface Text152 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer33[];
-  string?: String[];
+  text: Text37[];
 }
 
 interface P253 {
@@ -12578,21 +12559,21 @@ interface P253 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements221;
+  statements: Statements230;
   logo: undefined;
 }
 
-interface Statements221 {
-  header: any[];
+interface Statements230 {
+  header: Header[];
   table: any[];
-  text: Text151[];
+  text: Text150[];
 }
 
-interface Text151 {
+interface Text150 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer126[];
-  string?: String148[];
+  wikibasePointer?: WikibasePointer125[];
+  string?: String149[];
 }
 
 interface Q221 {
@@ -12601,17 +12582,17 @@ interface Q221 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements220;
+  statements: Statements229;
   logo: undefined;
 }
 
-interface Statements220 {
-  header: Text30[];
+interface Statements229 {
+  header: Text32[];
   table: any[];
-  text: Text150[];
+  text: Text149[];
 }
 
-interface Text150 {
+interface Text149 {
   label: string;
   property: string;
   string?: String153[];
@@ -12659,35 +12640,14 @@ interface P185 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements219;
+  statements: Statements228;
   logo: undefined;
 }
 
-interface Statements219 {
-  header: any[];
+interface Statements228 {
+  header: Header4[];
   table: any[];
-  text: Text149[];
-}
-
-interface Text149 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer35[];
-  string?: String163[];
-}
-
-interface String163 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value157[];
-}
-
-interface Value157 {
-  value: string;
-  coding: undefined;
-  references: Qualifier27[] | undefined;
-  embedded: boolean;
-  qualifiers: Qualifier74[] | undefined;
+  text: Text107[];
 }
 
 interface P369 {
@@ -12696,11 +12656,11 @@ interface P369 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements218;
+  statements: Statements227;
   logo: undefined;
 }
 
-interface Statements218 {
+interface Statements227 {
   header: Header[];
   table: any[];
   text: Text148[];
@@ -12710,7 +12670,7 @@ interface Text148 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer125[];
+  wikibasePointer?: WikibasePointer124[];
 }
 
 interface P370 {
@@ -12719,11 +12679,11 @@ interface P370 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements217;
+  statements: Statements226;
   logo: undefined;
 }
 
-interface Statements217 {
+interface Statements226 {
   header: Header[];
   table: Header[];
   text: Text147[];
@@ -12752,11 +12712,11 @@ interface Q1325 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements216;
+  statements: Statements225;
   logo: undefined;
 }
 
-interface Statements216 {
+interface Statements225 {
   header: any[];
   table: Table38[];
   text: any[];
@@ -12765,16 +12725,16 @@ interface Statements216 {
 interface Table38 {
   label: string;
   property: string;
-  string: String162[];
+  string: String163[];
 }
 
-interface String162 {
+interface String163 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value156[];
+  values: Value157[];
 }
 
-interface Value156 {
+interface Value157 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -12788,11 +12748,11 @@ interface P63 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements215;
+  statements: Statements224;
   logo: undefined;
 }
 
-interface Statements215 {
+interface Statements224 {
   header: Header[];
   table: Header[];
   text: Text146[];
@@ -12819,7 +12779,17 @@ interface Qualifier89 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer48[];
+  wikibasePointer?: WikibasePointer140[];
+}
+
+interface WikibasePointer140 {
+  id: string;
+  label: string;
+  link: string;
+  coding: Coding2;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: undefined;
 }
 
 interface Embedded79 {
@@ -12828,11 +12798,11 @@ interface Embedded79 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements214;
+  statements: Statements223;
   logo: boolean;
 }
 
-interface Statements214 {
+interface Statements223 {
   header: any[];
   table: Table5[];
   text: Header[];
@@ -12844,11 +12814,11 @@ interface P406 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements213;
+  statements: Statements222;
   logo: undefined;
 }
 
-interface Statements213 {
+interface Statements222 {
   header: Header[];
   table: any[];
   text: Text[];
@@ -12860,11 +12830,11 @@ interface P80 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements212;
+  statements: Statements221;
   logo: undefined;
 }
 
-interface Statements212 {
+interface Statements221 {
   header: Header[];
   table: Header[];
   text: Text145[];
@@ -12873,11 +12843,11 @@ interface Statements212 {
 interface Text145 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer140[];
+  wikibasePointer?: WikibasePointer139[];
   string?: String[];
 }
 
-interface WikibasePointer140 {
+interface WikibasePointer139 {
   id: string;
   label: string;
   link: string;
@@ -12891,10 +12861,10 @@ interface Qualifier88 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer139[];
+  wikibasePointer?: WikibasePointer138[];
 }
 
-interface WikibasePointer139 {
+interface WikibasePointer138 {
   id: string;
   label: string;
   link: string;
@@ -12910,17 +12880,37 @@ interface Embedded78 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements211;
+  statements: Statements220;
   logo: boolean;
 }
 
-interface Statements211 {
+interface Statements220 {
   header: any[];
   table: Table37[][];
   text: Header[][];
 }
 
 interface Table37 {
+  label: string;
+  property: string;
+  string: String162[];
+}
+
+interface String162 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value156[];
+}
+
+interface Value156 {
+  value: string;
+  coding: Coding;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier87[];
+}
+
+interface Qualifier87 {
   label: string;
   property: string;
   string: String161[];
@@ -12933,26 +12923,6 @@ interface String161 {
 }
 
 interface Value155 {
-  value: string;
-  coding: Coding;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier87[];
-}
-
-interface Qualifier87 {
-  label: string;
-  property: string;
-  string: String160[];
-}
-
-interface String160 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value154[];
-}
-
-interface Value154 {
   value: string;
   coding: Coding10;
   references: undefined;
@@ -12974,11 +12944,11 @@ interface P48 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements210;
+  statements: Statements219;
   logo: undefined;
 }
 
-interface Statements210 {
+interface Statements219 {
   header: Header[];
   table: any[];
   text: Text144[];
@@ -12987,16 +12957,16 @@ interface Statements210 {
 interface Text144 {
   label: string;
   property: string;
-  string: String159[];
+  string: String160[];
 }
 
-interface String159 {
+interface String160 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value153[];
+  values: Value154[];
 }
 
-interface Value153 {
+interface Value154 {
   value: string;
   coding: undefined;
   references: Qualifier27[] | undefined | undefined;
@@ -13010,12 +12980,12 @@ interface Q1351 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements209;
+  statements: Statements218;
   logo: undefined;
 }
 
-interface Statements209 {
-  header: any[];
+interface Statements218 {
+  header: Header[];
   table: any[];
   text: Text143[];
 }
@@ -13023,11 +12993,10 @@ interface Statements209 {
 interface Text143 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer138[];
-  string?: String[];
+  wikibasePointer: WikibasePointer137[];
 }
 
-interface WikibasePointer138 {
+interface WikibasePointer137 {
   id: string;
   label: string;
   link: string;
@@ -13043,11 +13012,11 @@ interface P296 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements208;
+  statements: Statements217;
   logo: undefined;
 }
 
-interface Statements208 {
+interface Statements217 {
   header: Header[];
   table: any[];
   text: Text142[];
@@ -13057,10 +13026,10 @@ interface Text142 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer137[];
+  wikibasePointer?: WikibasePointer136[];
 }
 
-interface WikibasePointer137 {
+interface WikibasePointer136 {
   id: string;
   label: string;
   link: string;
@@ -13076,11 +13045,11 @@ interface P84 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements207;
+  statements: Statements216;
   logo: undefined;
 }
 
-interface Statements207 {
+interface Statements216 {
   header: Header[];
   table: Header[];
   text: Text141[];
@@ -13089,8 +13058,24 @@ interface Statements207 {
 interface Text141 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer120[];
+  wikibasePointer?: WikibasePointer119[];
   string?: String[];
+}
+
+interface P181 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements215;
+  logo: undefined;
+}
+
+interface Statements215 {
+  header: Text32[];
+  table: any[];
+  text: Text128[];
 }
 
 interface P30 {
@@ -13099,11 +13084,11 @@ interface P30 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements206;
+  statements: Statements214;
   logo: undefined;
 }
 
-interface Statements206 {
+interface Statements214 {
   header: Header[];
   table: any[];
   text: Text140[];
@@ -13115,11 +13100,11 @@ interface P32 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements205;
+  statements: Statements213;
   logo: undefined;
 }
 
-interface Statements205 {
+interface Statements213 {
   header: any[];
   table: any[];
   text: Text140[];
@@ -13129,7 +13114,7 @@ interface Text140 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer109[];
+  wikibasePointer?: WikibasePointer108[];
 }
 
 interface P65 {
@@ -13138,11 +13123,11 @@ interface P65 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements204;
+  statements: Statements212;
   logo: undefined;
 }
 
-interface Statements204 {
+interface Statements212 {
   header: Header[];
   table: Header[];
   text: Text139[];
@@ -13151,11 +13136,11 @@ interface Statements204 {
 interface Text139 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer136[];
+  wikibasePointer?: WikibasePointer135[];
   string?: String[];
 }
 
-interface WikibasePointer136 {
+interface WikibasePointer135 {
   id: string;
   label: string;
   link: string;
@@ -13169,7 +13154,7 @@ interface Qualifier86 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer99[];
+  wikibasePointer?: WikibasePointer98[];
 }
 
 interface P336 {
@@ -13178,11 +13163,11 @@ interface P336 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements203;
+  statements: Statements211;
   logo: undefined;
 }
 
-interface Statements203 {
+interface Statements211 {
   header: Header[];
   table: Header[];
   text: Text138[];
@@ -13191,17 +13176,17 @@ interface Statements203 {
 interface Text138 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer120[];
-  string?: String158[];
+  wikibasePointer?: WikibasePointer119[];
+  string?: String159[];
 }
 
-interface String158 {
+interface String159 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value152[];
+  values: Value153[];
 }
 
-interface Value152 {
+interface Value153 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined;
@@ -13215,11 +13200,11 @@ interface P104 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements202;
+  statements: Statements210;
   logo: undefined;
 }
 
-interface Statements202 {
+interface Statements210 {
   header: Header[];
   table: Header[];
   text: Text137[];
@@ -13228,11 +13213,11 @@ interface Statements202 {
 interface Text137 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer135[];
+  wikibasePointer?: WikibasePointer134[];
   string?: String[];
 }
 
-interface WikibasePointer135 {
+interface WikibasePointer134 {
   id: string;
   label: string;
   link: string;
@@ -13255,12 +13240,12 @@ interface Q151 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements201;
+  statements: Statements209;
   logo: undefined;
 }
 
-interface Statements201 {
-  header: any[];
+interface Statements209 {
+  header: Header[];
   table: any[];
   text: Text136[];
 }
@@ -13268,11 +13253,11 @@ interface Statements201 {
 interface Text136 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer134[];
-  string?: String9[];
+  wikibasePointer?: WikibasePointer133[];
+  string?: String41[];
 }
 
-interface WikibasePointer134 {
+interface WikibasePointer133 {
   id: string;
   label: string;
   link: string;
@@ -13288,11 +13273,11 @@ interface P33 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements200;
+  statements: Statements208;
   logo: undefined;
 }
 
-interface Statements200 {
+interface Statements208 {
   header: Header[];
   table: any[];
   text: Text17[];
@@ -13304,11 +13289,11 @@ interface P68 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements199;
+  statements: Statements207;
   logo: undefined;
 }
 
-interface Statements199 {
+interface Statements207 {
   header: any[];
   table: any[];
   text: Text135[];
@@ -13317,11 +13302,11 @@ interface Statements199 {
 interface Text135 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer133[];
+  wikibasePointer?: WikibasePointer132[];
   string?: String[];
 }
 
-interface WikibasePointer133 {
+interface WikibasePointer132 {
   id: string;
   label: string;
   link: string;
@@ -13334,10 +13319,10 @@ interface WikibasePointer133 {
 interface Qualifier84 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer132[];
+  wikibasePointer: WikibasePointer131[];
 }
 
-interface WikibasePointer132 {
+interface WikibasePointer131 {
   id: string;
   label: string;
   link: string;
@@ -13361,11 +13346,11 @@ interface P105 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements198;
+  statements: Statements206;
   logo: undefined;
 }
 
-interface Statements198 {
+interface Statements206 {
   header: Header[];
   table: Header[];
   text: Text134[];
@@ -13374,11 +13359,11 @@ interface Statements198 {
 interface Text134 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer131[];
-  string?: String97[];
+  wikibasePointer?: WikibasePointer130[];
+  string?: String98[];
 }
 
-interface WikibasePointer131 {
+interface WikibasePointer130 {
   id: string;
   label: string;
   link: string;
@@ -13392,7 +13377,7 @@ interface Qualifier83 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer50[];
+  wikibasePointer?: WikibasePointer49[];
 }
 
 interface Q152 {
@@ -13401,12 +13386,12 @@ interface Q152 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements197;
+  statements: Statements205;
   logo: undefined;
 }
 
-interface Statements197 {
-  header: any[];
+interface Statements205 {
+  header: Header[];
   table: any[];
   text: Text133[];
 }
@@ -13414,31 +13399,31 @@ interface Statements197 {
 interface Text133 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer129[];
-  string?: String157[];
+  wikibasePointer?: WikibasePointer128[];
+  string?: String158[];
 }
 
-interface String157 {
+interface String158 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value151[];
+  values: Value152[];
 }
 
-interface Value151 {
+interface Value152 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier82[] | Table[] | Table[] | Qualifier24[] | undefined | undefined;
+  qualifiers: (Qualifier82[] | Table | Table[] | Qualifier24[] | undefined)[];
 }
 
 interface Qualifier82 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer130[];
+  wikibasePointer: WikibasePointer129[];
 }
 
-interface WikibasePointer130 {
+interface WikibasePointer129 {
   id: string;
   label: string;
   link: string;
@@ -13454,11 +13439,11 @@ interface Embedded77 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements157;
+  statements: Statements162;
   logo: boolean;
 }
 
-interface WikibasePointer129 {
+interface WikibasePointer128 {
   id: string;
   label: string;
   link: string;
@@ -13472,10 +13457,10 @@ interface Qualifier81 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer128[];
+  wikibasePointer?: WikibasePointer127[];
 }
 
-interface WikibasePointer128 {
+interface WikibasePointer127 {
   id: string;
   label: string;
   link: string;
@@ -13491,11 +13476,11 @@ interface Embedded76 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements196;
+  statements: Statements204;
   logo: boolean;
 }
 
-interface Statements196 {
+interface Statements204 {
   header: any[];
   table: any[];
   text: (Text17 | Text211)[];
@@ -13504,16 +13489,16 @@ interface Statements196 {
 interface Text211 {
   label: string;
   property: string;
-  string: String156[];
+  string: String157[];
 }
 
-interface String156 {
+interface String157 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value150[];
+  values: Value151[];
 }
 
-interface Value150 {
+interface Value151 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -13527,11 +13512,11 @@ interface Q246 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements195;
+  statements: Statements203;
   logo: undefined;
 }
 
-interface Statements195 {
+interface Statements203 {
   header: Header[];
   table: any[];
   text: Text132[];
@@ -13541,23 +13526,46 @@ interface Text132 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer127[];
+  wikibasePointer?: WikibasePointer126[];
 }
 
-interface WikibasePointer127 {
+interface WikibasePointer126 {
   id: string;
   label: string;
   link: string;
   coding: Coding7;
   references: undefined;
   embedded: boolean;
-  qualifiers: Header[] | Qualifiers217[] | Qualifier24[] | undefined | undefined;
+  qualifiers: Header[] | Qualifiers216[] | Qualifier24[] | undefined | undefined;
 }
 
-interface Qualifiers217 {
+interface Qualifiers216 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer7[];
+}
+
+interface P194 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements202;
+  logo: undefined;
+}
+
+interface Statements202 {
+  header: Header[];
+  table: any[];
+  text: Text131[];
+}
+
+interface Text131 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer35[];
+  string?: String9[];
 }
 
 interface P286 {
@@ -13566,24 +13574,24 @@ interface P286 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements194;
+  statements: Statements201;
   logo: undefined;
 }
 
-interface Statements194 {
-  header: any[];
+interface Statements201 {
+  header: Header[];
   table: any[];
-  text: Text131[];
+  text: Text130[];
 }
 
-interface Text131 {
+interface Text130 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer126[];
+  wikibasePointer?: WikibasePointer125[];
   string?: String9[];
 }
 
-interface WikibasePointer126 {
+interface WikibasePointer125 {
   id: string;
   label: string;
   link: string;
@@ -13596,10 +13604,10 @@ interface WikibasePointer126 {
 interface Qualifier80 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer125[];
+  wikibasePointer: WikibasePointer124[];
 }
 
-interface WikibasePointer125 {
+interface WikibasePointer124 {
   id: string;
   label: string;
   link: string;
@@ -13623,60 +13631,11 @@ interface P301 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements193;
+  statements: Statements200;
   logo: undefined;
 }
 
-interface Statements193 {
-  header: Header[];
-  table: Header[];
-  text: Text130[];
-}
-
-interface Text130 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer124[];
-  string?: String[];
-}
-
-interface WikibasePointer124 {
-  id: string;
-  label: string;
-  link: string;
-  coding: Coding22 | undefined;
-  references: undefined;
-  embedded: Embedded39 | boolean;
-  qualifiers: Qualifier75[] | undefined;
-}
-
-interface P341 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements192;
-  logo: undefined;
-}
-
-interface Statements192 {
-  header: Header[];
-  table: any[];
-  text: Text125[];
-}
-
-interface P344 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements191;
-  logo: undefined;
-}
-
-interface Statements191 {
+interface Statements200 {
   header: Header[];
   table: Header[];
   text: Text129[];
@@ -13695,6 +13654,92 @@ interface WikibasePointer123 {
   link: string;
   coding: Coding22 | undefined;
   references: undefined;
+  embedded: Embedded39 | boolean;
+  qualifiers: Qualifier75[] | undefined;
+}
+
+interface P288 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements199;
+  logo: undefined;
+}
+
+interface Statements199 {
+  header: Header[];
+  table: any[];
+  text: Text128[];
+}
+
+interface Text128 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer35[];
+  string?: String156[];
+}
+
+interface String156 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value150[];
+}
+
+interface Value150 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier74[];
+}
+
+interface P341 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements198;
+  logo: undefined;
+}
+
+interface Statements198 {
+  header: Header[];
+  table: any[];
+  text: Text124[];
+}
+
+interface P344 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements197;
+  logo: undefined;
+}
+
+interface Statements197 {
+  header: Header[];
+  table: Header[];
+  text: Text127[];
+}
+
+interface Text127 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer122[];
+  string?: String[];
+}
+
+interface WikibasePointer122 {
+  id: string;
+  label: string;
+  link: string;
+  coding: Coding22 | undefined;
+  references: undefined;
   embedded: Embedded4 | boolean;
   qualifiers: Qualifier75[] | undefined;
 }
@@ -13705,21 +13750,14 @@ interface Q255 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements190;
+  statements: Statements196;
   logo: undefined;
 }
 
-interface Statements190 {
+interface Statements196 {
   header: any[];
   table: any[];
-  text: Text128[];
-}
-
-interface Text128 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer35[];
-  string?: String41[];
+  text: Text22[];
 }
 
 interface Q253 {
@@ -13728,24 +13766,24 @@ interface Q253 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements189;
+  statements: Statements195;
   logo: undefined;
 }
 
-interface Statements189 {
+interface Statements195 {
   header: any[];
   table: any[];
-  text: Text127[];
+  text: Text126[];
 }
 
-interface Text127 {
+interface Text126 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer122[];
+  wikibasePointer?: WikibasePointer121[];
   string?: String155[];
 }
 
-interface WikibasePointer122 {
+interface WikibasePointer121 {
   id: string;
   label: string;
   link: string;
@@ -13761,17 +13799,17 @@ interface Q251 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements188;
+  statements: Statements194;
   logo: undefined;
 }
 
-interface Statements188 {
+interface Statements194 {
   header: any[];
   table: any[];
-  text: Text126[];
+  text: Text125[];
 }
 
-interface Text126 {
+interface Text125 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer35[];
@@ -13789,7 +13827,7 @@ interface Value149 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Text21[];
+  qualifiers: Text28[];
 }
 
 interface Q250 {
@@ -13798,24 +13836,24 @@ interface Q250 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements187;
+  statements: Statements193;
   logo: undefined;
 }
 
-interface Statements187 {
+interface Statements193 {
   header: any[];
   table: any[];
-  text: Text125[];
+  text: Text124[];
 }
 
-interface Text125 {
+interface Text124 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer121[];
+  wikibasePointer?: WikibasePointer120[];
 }
 
-interface WikibasePointer121 {
+interface WikibasePointer120 {
   id: string;
   label: string;
   link: string;
@@ -13831,20 +13869,20 @@ interface P367 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements186;
+  statements: Statements192;
   logo: undefined;
 }
 
-interface Statements186 {
+interface Statements192 {
   header: Header[];
   table: Header[];
-  text: Text124[];
+  text: Text123[];
 }
 
-interface Text124 {
+interface Text123 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer120[];
+  wikibasePointer?: WikibasePointer119[];
   string?: String154[];
 }
 
@@ -13862,7 +13900,7 @@ interface Value148 {
   qualifiers: Header[] | undefined | undefined;
 }
 
-interface WikibasePointer120 {
+interface WikibasePointer119 {
   id: string;
   label: string;
   link: string;
@@ -13878,23 +13916,23 @@ interface P353 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements185;
+  statements: Statements191;
   logo: undefined;
 }
 
-interface Statements185 {
+interface Statements191 {
   header: Header[];
   table: Header[];
-  text: Text123[];
+  text: Text122[];
 }
 
-interface Text123 {
+interface Text122 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer119[];
+  wikibasePointer: WikibasePointer118[];
 }
 
-interface WikibasePointer119 {
+interface WikibasePointer118 {
   id: string;
   label: string;
   link: string;
@@ -13910,24 +13948,24 @@ interface Q156 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements184;
+  statements: Statements190;
   logo: undefined;
 }
 
-interface Statements184 {
-  header: Header2[];
+interface Statements190 {
+  header: Header4[];
   table: any[];
-  text: Text122[];
+  text: Text121[];
 }
 
-interface Text122 {
+interface Text121 {
   label: string;
   property: string;
   string?: String153[];
-  wikibasePointer?: WikibasePointer118[];
+  wikibasePointer?: WikibasePointer117[];
 }
 
-interface WikibasePointer118 {
+interface WikibasePointer117 {
   id: string;
   label: string;
   link: string;
@@ -13972,7 +14010,7 @@ interface Reference4 {
   url: Url[];
 }
 
-interface Header2 {
+interface Header4 {
   label: string;
   property: string;
   string: String152[];
@@ -13998,14 +14036,30 @@ interface Q214 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements183;
+  statements: Statements189;
   logo: undefined;
 }
 
-interface Statements183 {
+interface Statements189 {
   header: any[];
   table: any[];
-  text: Text106[];
+  text: Text108[];
+}
+
+interface Q2648 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements188;
+  logo: undefined;
+}
+
+interface Statements188 {
+  header: Header[];
+  table: any[];
+  text: Text88[];
 }
 
 interface P85 {
@@ -14014,24 +14068,24 @@ interface P85 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements182;
+  statements: Statements187;
   logo: undefined;
 }
 
-interface Statements182 {
+interface Statements187 {
   header: Header[];
   table: Header[];
-  text: Text121[];
+  text: Text120[];
 }
 
-interface Text121 {
+interface Text120 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer117[];
+  wikibasePointer?: WikibasePointer116[];
   string?: String[];
 }
 
-interface WikibasePointer117 {
+interface WikibasePointer116 {
   id: string;
   label: string;
   link: string;
@@ -14045,10 +14099,10 @@ interface Qualifier78 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer116[];
+  wikibasePointer?: WikibasePointer115[];
 }
 
-interface WikibasePointer116 {
+interface WikibasePointer115 {
   id: string;
   label: string;
   link: string;
@@ -14064,11 +14118,11 @@ interface Embedded75 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements181;
+  statements: Statements186;
   logo: boolean;
 }
 
-interface Statements181 {
+interface Statements186 {
   header: any[];
   table: Table14[];
   text: Header[];
@@ -14080,24 +14134,24 @@ interface P358 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements180;
+  statements: Statements185;
   logo: undefined;
 }
 
-interface Statements180 {
+interface Statements185 {
   header: Header[];
   table: Header[];
-  text: Text120[];
+  text: Text119[];
 }
 
-interface Text120 {
+interface Text119 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer115[];
+  wikibasePointer?: WikibasePointer114[];
   string?: String[];
 }
 
-interface WikibasePointer115 {
+interface WikibasePointer114 {
   id: string;
   label: string;
   link: string;
@@ -14113,11 +14167,11 @@ interface Embedded74 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements179;
+  statements: Statements184;
   logo: boolean;
 }
 
-interface Statements179 {
+interface Statements184 {
   header: any[];
   table: Table14[];
   text: any[];
@@ -14129,21 +14183,21 @@ interface P323 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements178;
+  statements: Statements183;
   logo: undefined;
 }
 
-interface Statements178 {
+interface Statements183 {
   header: Header[];
   table: any[];
-  text: Text119[];
+  text: Text118[];
 }
 
-interface Text119 {
+interface Text118 {
   label: string;
   property: string;
   string?: String9[];
-  wikibasePointer?: WikibasePointer109[];
+  wikibasePointer?: WikibasePointer108[];
 }
 
 interface P186 {
@@ -14152,21 +14206,37 @@ interface P186 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements177;
+  statements: Statements182;
   logo: undefined;
 }
 
-interface Statements177 {
-  header: any[];
+interface Statements182 {
+  header: Header3[];
   table: any[];
-  text: Text118[];
+  text: Text117[];
 }
 
-interface Text118 {
+interface Text117 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer114[];
-  string?: String151[];
+  wikibasePointer?: WikibasePointer113[];
+  string?: String149[];
+}
+
+interface WikibasePointer113 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier76[] | undefined;
+}
+
+interface Header3 {
+  label: string;
+  property: string;
+  string: String151[];
 }
 
 interface String151 {
@@ -14178,19 +14248,9 @@ interface String151 {
 interface Value145 {
   value: string;
   coding: undefined;
-  references: Reference[] | undefined | undefined;
+  references: Reference[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier74[] | undefined;
-}
-
-interface WikibasePointer114 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier76[] | undefined;
+  qualifiers: undefined;
 }
 
 interface P184 {
@@ -14199,21 +14259,20 @@ interface P184 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements176;
+  statements: Statements181;
   logo: undefined;
 }
 
-interface Statements176 {
-  header: any[];
+interface Statements181 {
+  header: Header2[];
   table: any[];
-  text: Text117[];
+  text: Text107[];
 }
 
-interface Text117 {
+interface Header2 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer35[];
-  string?: String150[];
+  string: String150[];
 }
 
 interface String150 {
@@ -14225,9 +14284,9 @@ interface String150 {
 interface Value144 {
   value: string;
   coding: undefined;
-  references: Qualifier27[] | undefined | undefined;
+  references: Qualifier27[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier74[] | undefined;
+  qualifiers: undefined;
 }
 
 interface P180 {
@@ -14236,21 +14295,14 @@ interface P180 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements175;
+  statements: Statements180;
   logo: undefined;
 }
 
-interface Statements175 {
-  header: any[];
+interface Statements180 {
+  header: Text32[];
   table: any[];
-  text: Text116[];
-}
-
-interface Text116 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer110[];
-  string?: String149[];
+  text: Text114[];
 }
 
 interface P179 {
@@ -14259,35 +14311,14 @@ interface P179 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements174;
+  statements: Statements179;
   logo: undefined;
 }
 
-interface Statements174 {
-  header: any[];
+interface Statements179 {
+  header: Text32[];
   table: any[];
-  text: Text115[];
-}
-
-interface Text115 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer35[];
-  string?: String149[];
-}
-
-interface String149 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value143[];
-}
-
-interface Value143 {
-  value: string;
-  coding: undefined;
-  references: Reference[] | undefined;
-  embedded: boolean;
-  qualifiers: Qualifier74[] | undefined;
+  text: Text107[];
 }
 
 interface P97 {
@@ -14296,24 +14327,24 @@ interface P97 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements173;
+  statements: Statements178;
   logo: undefined;
 }
 
-interface Statements173 {
+interface Statements178 {
   header: Header[];
   table: Header[];
-  text: Text114[];
+  text: Text116[];
 }
 
-interface Text114 {
+interface Text116 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer113[];
+  wikibasePointer?: WikibasePointer112[];
   string?: String[];
 }
 
-interface WikibasePointer113 {
+interface WikibasePointer112 {
   id: string;
   label: string;
   link: string;
@@ -14327,10 +14358,10 @@ interface Qualifier77 {
   label: string;
   property: string;
   string?: String[];
-  wikibasePointer?: WikibasePointer112[];
+  wikibasePointer?: WikibasePointer111[];
 }
 
-interface WikibasePointer112 {
+interface WikibasePointer111 {
   id: string;
   label: string;
   link: string;
@@ -14346,11 +14377,11 @@ interface Embedded212 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements172;
+  statements: Statements177;
   logo: boolean;
 }
 
-interface Statements172 {
+interface Statements177 {
   header: any[];
   table: any[];
   text: Header[];
@@ -14362,24 +14393,24 @@ interface P31 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements171;
+  statements: Statements176;
   logo: undefined;
 }
 
-interface Statements171 {
+interface Statements176 {
   header: Header[];
   table: any[];
-  text: Text113[];
+  text: Text115[];
 }
 
-interface Text113 {
+interface Text115 {
   label: string;
   property: string;
   string?: String41[];
-  wikibasePointer?: WikibasePointer111[];
+  wikibasePointer?: WikibasePointer110[];
 }
 
-interface WikibasePointer111 {
+interface WikibasePointer110 {
   id: string;
   label: string;
   link: string;
@@ -14395,24 +14426,24 @@ interface P156 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements170;
+  statements: Statements175;
   logo: undefined;
 }
 
-interface Statements170 {
-  header: any[];
+interface Statements175 {
+  header: Header[];
   table: any[];
-  text: Text112[];
+  text: Text114[];
 }
 
-interface Text112 {
+interface Text114 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer110[];
-  string?: String148[];
+  wikibasePointer?: WikibasePointer109[];
+  string?: String149[];
 }
 
-interface WikibasePointer110 {
+interface WikibasePointer109 {
   id: string;
   label: string;
   link: string;
@@ -14425,10 +14456,10 @@ interface WikibasePointer110 {
 interface Qualifier76 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer109[];
+  wikibasePointer: WikibasePointer108[];
 }
 
-interface WikibasePointer109 {
+interface WikibasePointer108 {
   id: string;
   label: string;
   link: string;
@@ -14452,17 +14483,17 @@ interface Q163 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements169;
+  statements: Statements174;
   logo: undefined;
 }
 
-interface Statements169 {
+interface Statements174 {
   header: any[];
   table: any[];
-  text: Text111[];
+  text: Text113[];
 }
 
-interface Text111 {
+interface Text113 {
   label: string;
   property: string;
   string?: String9[];
@@ -14475,24 +14506,24 @@ interface P175 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements168;
+  statements: Statements173;
   logo: undefined;
 }
 
-interface Statements168 {
-  header: any[];
+interface Statements173 {
+  header: Header[];
   table: any[];
-  text: Text110[];
+  text: Text112[];
 }
 
-interface Text110 {
+interface Text112 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer108[];
-  string?: String148[];
+  wikibasePointer?: WikibasePointer107[];
+  string?: String149[];
 }
 
-interface WikibasePointer108 {
+interface WikibasePointer107 {
   id: string;
   label: string;
   link: string;
@@ -14508,21 +14539,21 @@ interface P224 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements167;
+  statements: Statements172;
   logo: undefined;
 }
 
-interface Statements167 {
-  header: any[];
+interface Statements172 {
+  header: Header[];
   table: any[];
-  text: Text109[];
+  text: Text111[];
 }
 
-interface Text109 {
+interface Text111 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String148[];
+  string?: String149[];
 }
 
 interface P188 {
@@ -14531,24 +14562,24 @@ interface P188 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements166;
+  statements: Statements171;
   logo: undefined;
 }
 
-interface Statements166 {
-  header: any[];
+interface Statements171 {
+  header: Header[];
   table: any[];
-  text: Text108[];
+  text: Text110[];
 }
 
-interface Text108 {
+interface Text110 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer107[];
-  string?: String148[];
+  wikibasePointer?: WikibasePointer106[];
+  string?: String149[];
 }
 
-interface WikibasePointer107 {
+interface WikibasePointer106 {
   id: string;
   label: string;
   link: string;
@@ -14564,11 +14595,11 @@ interface P466 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements165;
+  statements: Statements170;
   logo: undefined;
 }
 
-interface Statements165 {
+interface Statements170 {
   header: any[];
   table: Table[];
   text: any[];
@@ -14580,24 +14611,24 @@ interface P177 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements164;
+  statements: Statements169;
   logo: undefined;
 }
 
-interface Statements164 {
-  header: any[];
+interface Statements169 {
+  header: Header[];
   table: any[];
-  text: Text107[];
+  text: Text109[];
 }
 
-interface Text107 {
+interface Text109 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer106[];
-  string?: String148[];
+  wikibasePointer?: WikibasePointer105[];
+  string?: String149[];
 }
 
-interface WikibasePointer106 {
+interface WikibasePointer105 {
   id: string;
   label: string;
   link: string;
@@ -14620,11 +14651,11 @@ interface P412 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements163;
+  statements: Statements168;
   logo: undefined;
 }
 
-interface Statements163 {
+interface Statements168 {
   header: Header[];
   table: Table[];
   text: any[];
@@ -14636,17 +14667,17 @@ interface P307 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements162;
+  statements: Statements167;
   logo: undefined;
 }
 
-interface Statements162 {
+interface Statements167 {
   header: Header[];
   table: any[];
-  text: Text106[];
+  text: Text108[];
 }
 
-interface Text106 {
+interface Text108 {
   label: string;
   property: string;
   string?: String41[];
@@ -14659,30 +14690,30 @@ interface P173 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements161;
+  statements: Statements166;
   logo: undefined;
 }
 
-interface Statements161 {
-  header: any[];
+interface Statements166 {
+  header: Header[];
   table: any[];
-  text: Text105[];
+  text: Text107[];
 }
 
-interface Text105 {
+interface Text107 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer35[];
-  string?: String148[];
+  string?: String149[];
 }
 
-interface String148 {
+interface String149 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value142[];
+  values: Value143[];
 }
 
-interface Value142 {
+interface Value143 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -14703,7 +14734,7 @@ interface Q8637 {
   title: undefined;
   pageType: undefined;
   notation: undefined;
-  statements: Statements38;
+  statements: Statements146;
   logo: undefined;
 }
 
@@ -14713,21 +14744,21 @@ interface Q8635 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements160;
+  statements: Statements165;
   logo: undefined;
 }
 
-interface Statements160 {
+interface Statements165 {
   header: any[];
   table: any[];
-  text: Text104[];
+  text: Text106[];
 }
 
-interface Text104 {
+interface Text106 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String55[];
+  string?: String56[];
 }
 
 interface Q8634 {
@@ -14736,29 +14767,29 @@ interface Q8634 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements159;
+  statements: Statements164;
   logo: undefined;
 }
 
-interface Statements159 {
+interface Statements164 {
   header: any[];
   table: any[];
-  text: Text103[];
+  text: Text105[];
 }
 
-interface Text103 {
+interface Text105 {
   label: string;
   property: string;
-  string: String147[];
+  string: String148[];
 }
 
-interface String147 {
+interface String148 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value141[];
+  values: Value142[];
 }
 
-interface Value141 {
+interface Value142 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined;
@@ -14772,41 +14803,41 @@ interface Q8606 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements158;
+  statements: Statements163;
   logo: undefined;
 }
 
-interface Statements158 {
+interface Statements163 {
   header: any[];
   table: any[];
-  text: Text102[];
+  text: Text104[];
 }
 
-interface Text102 {
+interface Text104 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String146[];
+  string?: String147[];
 }
 
-interface String146 {
+interface String147 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value140[];
+  values: Value141[];
 }
 
-interface Value140 {
+interface Value141 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined;
   embedded: boolean;
-  qualifiers: Qualifiers39[] | Qualifiers216[] | Table[] | Text21[] | undefined;
+  qualifiers: Qualifiers39[] | Qualifiers215[] | Table[] | Text28[] | undefined;
 }
 
-interface Qualifiers216 {
+interface Qualifiers215 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer105[];
+  wikibasePointer?: WikibasePointer104[];
   string?: String[];
 }
 
@@ -14816,26 +14847,26 @@ interface Q8571 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements157;
+  statements: Statements162;
   logo: undefined;
 }
 
-interface Statements157 {
+interface Statements162 {
   header: any[];
   table: any[];
-  text: Text101[];
+  text: Text103[];
 }
 
-interface Text101 {
+interface Text103 {
   label: string;
   property: string;
-  string: String145[];
+  string: String146[];
 }
 
-interface String145 {
+interface String146 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value128[];
+  values: Value129[];
 }
 
 interface Q8550 {
@@ -14844,7 +14875,7 @@ interface Q8550 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements150;
+  statements: Statements155;
   logo: undefined;
 }
 
@@ -14854,11 +14885,72 @@ interface Q8492 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements156;
+  statements: Statements161;
   logo: undefined;
 }
 
-interface Statements156 {
+interface Statements161 {
+  header: any[];
+  table: any[];
+  text: Text102[];
+}
+
+interface Text102 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String145[];
+}
+
+interface String145 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value140[];
+}
+
+interface Value140 {
+  value?: string;
+  coding?: undefined;
+  references?: undefined;
+  embedded?: boolean;
+  qualifiers?: undefined;
+  noValue?: boolean;
+}
+
+interface Q8489 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements160;
+  logo: undefined;
+}
+
+interface Statements160 {
+  header: any[];
+  table: any[];
+  text: Text101[];
+}
+
+interface Text101 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String57[];
+}
+
+interface Q8481 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements159;
+  logo: undefined;
+}
+
+interface Statements159 {
   header: any[];
   table: any[];
   text: Text100[];
@@ -14878,54 +14970,30 @@ interface String144 {
 }
 
 interface Value139 {
-  value?: string;
-  coding?: undefined;
-  references?: undefined;
-  embedded?: boolean;
-  qualifiers?: undefined;
-  noValue?: boolean;
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifiers214[] | Qualifiers39[] | Table[] | undefined;
 }
 
-interface Q8489 {
+interface Q8480 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements155;
+  statements: Statements158;
   logo: undefined;
 }
 
-interface Statements155 {
-  header: any[];
+interface Statements158 {
+  header: Header[];
   table: any[];
   text: Text99[];
 }
 
 interface Text99 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String56[];
-}
-
-interface Q8481 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements154;
-  logo: undefined;
-}
-
-interface Statements154 {
-  header: any[];
-  table: any[];
-  text: Text98[];
-}
-
-interface Text98 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
@@ -14943,53 +15011,16 @@ interface Value138 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers215[] | Qualifiers39[] | Table[] | undefined;
+  qualifiers: Qualifier73[] | Qualifiers214[] | Table[] | undefined;
 }
 
-interface Q8480 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements153;
-  logo: undefined;
-}
-
-interface Statements153 {
-  header: any[];
-  table: any[];
-  text: Text97[];
-}
-
-interface Text97 {
+interface Qualifiers214 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String142[];
+  wikibasePointer: WikibasePointer104[];
 }
 
-interface String142 {
-  relativeHeadline: number | undefined | undefined;
-  itemType: string;
-  values: Value137[];
-}
-
-interface Value137 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier73[] | Qualifiers215[] | Table[] | undefined | undefined;
-}
-
-interface Qualifiers215 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer105[];
-}
-
-interface WikibasePointer105 {
+interface WikibasePointer104 {
   id: string;
   label: string;
   link: string;
@@ -15002,10 +15033,10 @@ interface WikibasePointer105 {
 interface Qualifier73 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer104[];
+  wikibasePointer: WikibasePointer103[];
 }
 
-interface WikibasePointer104 {
+interface WikibasePointer103 {
   id: string;
   label: string;
   link: string;
@@ -15021,21 +15052,21 @@ interface Embedded73 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements152;
+  statements: Statements157;
   logo: boolean;
 }
 
-interface Statements152 {
+interface Statements157 {
   header: any[];
   table: any[];
-  text: Text96[];
+  text: Text98[];
 }
 
-interface Text96 {
+interface Text98 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String98[];
+  string?: String99[];
 }
 
 interface Q8477 {
@@ -15044,44 +15075,44 @@ interface Q8477 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements151;
+  statements: Statements156;
   logo: undefined;
 }
 
-interface Statements151 {
+interface Statements156 {
   header: any[];
   table: any[];
-  text: Text95[];
+  text: Text97[];
 }
 
-interface Text95 {
+interface Text97 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String141[];
+  string?: String142[];
 }
 
-interface String141 {
+interface String142 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value136[];
+  values: Value137[];
 }
 
-interface Value136 {
+interface Value137 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifiers39[] | Qualifiers214[] | Table[] | undefined;
+  qualifiers: Qualifiers39[] | Qualifiers213[] | Table[] | undefined;
 }
 
-interface Qualifiers214 {
+interface Qualifiers213 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer103[];
+  wikibasePointer: WikibasePointer102[];
 }
 
-interface WikibasePointer103 {
+interface WikibasePointer102 {
   id: string;
   label: string;
   link: string;
@@ -15097,30 +15128,30 @@ interface Embedded72 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements150;
+  statements: Statements155;
   logo: boolean;
 }
 
-interface Statements150 {
+interface Statements155 {
   header: any[];
   table: any[];
-  text: Text94[];
+  text: Text96[];
 }
 
-interface Text94 {
+interface Text96 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String140[];
+  string?: String141[];
 }
 
-interface String140 {
+interface String141 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value135[];
+  values: Value136[];
 }
 
-interface Value135 {
+interface Value136 {
   value: string;
   coding: undefined;
   references: Reference3[] | undefined | undefined;
@@ -15131,11 +15162,11 @@ interface Value135 {
 interface Reference3 {
   label: string;
   property: string;
-  string?: String139[];
+  string?: String140[];
   url?: Url[];
 }
 
-interface String139 {
+interface String140 {
   relativeHeadline: undefined;
   itemType: string;
   values: WikibasePointer11[];
@@ -15147,30 +15178,30 @@ interface Q8474 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements149;
+  statements: Statements154;
   logo: undefined;
 }
 
-interface Statements149 {
+interface Statements154 {
   header: any[];
   table: any[];
-  text: Text93[];
+  text: Text95[];
 }
 
-interface Text93 {
+interface Text95 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String138[];
+  string?: String139[];
 }
 
-interface String138 {
+interface String139 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value134[];
+  values: Value135[];
 }
 
-interface Value134 {
+interface Value135 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -15184,17 +15215,55 @@ interface Q8469 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements148;
+  statements: Statements153;
   logo: string;
 }
 
-interface Statements148 {
+interface Statements153 {
   header: any[];
   table: any[];
-  text: Text92[];
+  text: Text94[];
 }
 
-interface Text92 {
+interface Text94 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String138[];
+}
+
+interface String138 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value134[];
+}
+
+interface Value134 {
+  value?: string;
+  coding?: undefined;
+  references?: undefined;
+  embedded?: boolean;
+  qualifiers?: Table[] | Text28[] | undefined;
+  unknownValue?: boolean;
+}
+
+interface Q8467 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements152;
+  logo: undefined;
+}
+
+interface Statements152 {
+  header: any[];
+  table: any[];
+  text: Text93[];
+}
+
+interface Text93 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
@@ -15208,31 +15277,30 @@ interface String137 {
 }
 
 interface Value133 {
-  value?: string;
-  coding?: undefined;
-  references?: undefined;
-  embedded?: boolean;
-  qualifiers?: Table[] | Text21[] | undefined;
-  unknownValue?: boolean;
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier72[] | Table[] | undefined;
 }
 
-interface Q8467 {
+interface Q8461 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements147;
+  statements: Statements151;
   logo: undefined;
 }
 
-interface Statements147 {
+interface Statements151 {
   header: any[];
   table: any[];
-  text: Text91[];
+  text: Text92[];
 }
 
-interface Text91 {
+interface Text92 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
@@ -15250,10 +15318,10 @@ interface Value132 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier72[] | Table[] | undefined;
+  qualifiers: Qualifier72[] | Qualifiers23[] | Qualifiers23[] | Table[] | undefined | undefined;
 }
 
-interface Q8461 {
+interface Q8451 {
   id: string;
   label: string;
   title: string;
@@ -15263,7 +15331,50 @@ interface Q8461 {
   logo: undefined;
 }
 
-interface Statements146 {
+interface Q8450 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements150;
+  logo: undefined;
+}
+
+interface Statements150 {
+  header: any[];
+  table: any[];
+  text: Text91[];
+}
+
+interface Text91 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String17[];
+}
+
+interface Q8448 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements147;
+  logo: undefined;
+}
+
+interface Q8446 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements149;
+  logo: undefined;
+}
+
+interface Statements149 {
   header: any[];
   table: any[];
   text: Text90[];
@@ -15287,76 +15398,16 @@ interface Value131 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier72[] | Qualifiers23[] | Qualifiers23[] | Table[] | undefined | undefined;
-}
-
-interface Q8450 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements145;
-  logo: undefined;
-}
-
-interface Statements145 {
-  header: any[];
-  table: any[];
-  text: Text89[];
-}
-
-interface Text89 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String17[];
-}
-
-interface Q8446 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements144;
-  logo: undefined;
-}
-
-interface Statements144 {
-  header: any[];
-  table: any[];
-  text: Text88[];
-}
-
-interface Text88 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String134[];
-}
-
-interface String134 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value130[];
-}
-
-interface Value130 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier72[] | Qualifier35[] | Qualifiers39[] | Qualifiers46[] | Qualifiers23[] | Table[] | undefined;
 }
 
 interface Qualifiers46 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer102[];
+  wikibasePointer: WikibasePointer101[];
 }
 
-interface WikibasePointer102 {
+interface WikibasePointer101 {
   id: string;
   label: string;
   link: string;
@@ -15372,30 +15423,30 @@ interface Embedded71 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements143;
+  statements: Statements148;
   logo: boolean;
 }
 
-interface Statements143 {
+interface Statements148 {
   header: any[];
   table: any[];
-  text: Text87[];
+  text: Text89[];
 }
 
-interface Text87 {
+interface Text89 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String133[];
+  string?: String134[];
 }
 
-interface String133 {
+interface String134 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value129[];
+  values: Value130[];
 }
 
-interface Value129 {
+interface Value130 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -15406,10 +15457,10 @@ interface Value129 {
 interface Qualifiers39 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer101[];
+  wikibasePointer: WikibasePointer100[];
 }
 
-interface WikibasePointer101 {
+interface WikibasePointer100 {
   id: string;
   label: string;
   link: string;
@@ -15425,17 +15476,30 @@ interface Embedded70 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements42;
+  statements: Statements147;
   logo: boolean;
+}
+
+interface Statements147 {
+  header: any[];
+  table: any[];
+  text: Text88[];
+}
+
+interface Text88 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String9[];
 }
 
 interface Qualifier72 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer100[];
+  wikibasePointer: WikibasePointer99[];
 }
 
-interface WikibasePointer100 {
+interface WikibasePointer99 {
   id: string;
   label: string;
   link: string;
@@ -15451,8 +15515,14 @@ interface Embedded69 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements38;
+  statements: Statements146;
   logo: boolean;
+}
+
+interface Statements146 {
+  header: any[];
+  table: any[];
+  text: Text28[];
 }
 
 interface Q8346 {
@@ -15461,11 +15531,11 @@ interface Q8346 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements142;
+  statements: Statements145;
   logo: undefined;
 }
 
-interface Statements142 {
+interface Statements145 {
   header: any[];
   table: any[];
   text: Text210[];
@@ -15477,11 +15547,63 @@ interface Q6097 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements141;
+  statements: Statements144;
   logo: undefined;
 }
 
-interface Statements141 {
+interface Statements144 {
+  header: any[];
+  table: any[];
+  text: Text87[];
+}
+
+interface Text87 {
+  label: string;
+  property: string;
+  string: String133[];
+}
+
+interface String133 {
+  relativeHeadline: number;
+  itemType: string;
+  values: Value129[];
+}
+
+interface Value129 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier71[];
+}
+
+interface Qualifier71 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer98[];
+}
+
+interface WikibasePointer98 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: Embedded39 | boolean;
+  qualifiers: undefined;
+}
+
+interface Q5943 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements143;
+  logo: undefined;
+}
+
+interface Statements143 {
   header: any[];
   table: any[];
   text: Text86[];
@@ -15504,68 +15626,16 @@ interface Value128 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier71[];
-}
-
-interface Qualifier71 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer99[];
-}
-
-interface WikibasePointer99 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: Embedded39 | boolean;
-  qualifiers: undefined;
-}
-
-interface Q5943 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements140;
-  logo: undefined;
-}
-
-interface Statements140 {
-  header: any[];
-  table: any[];
-  text: Text85[];
-}
-
-interface Text85 {
-  label: string;
-  property: string;
-  string: String131[];
-}
-
-interface String131 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value127[];
-}
-
-interface Value127 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier70[];
 }
 
 interface Qualifier70 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer98[];
+  wikibasePointer: WikibasePointer97[];
 }
 
-interface WikibasePointer98 {
+interface WikibasePointer97 {
   id: string;
   label: string;
   link: string;
@@ -15581,11 +15651,47 @@ interface Q5900 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements139;
+  statements: Statements142;
   logo: undefined;
 }
 
-interface Statements139 {
+interface Statements142 {
+  header: any[];
+  table: any[];
+  text: Text85[];
+}
+
+interface Text85 {
+  label: string;
+  property: string;
+  string: String131[];
+}
+
+interface String131 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value127[];
+}
+
+interface Value127 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier39[] | undefined;
+}
+
+interface Q5631 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements141;
+  logo: undefined;
+}
+
+interface Statements141 {
   header: any[];
   table: any[];
   text: Text84[];
@@ -15608,52 +15714,16 @@ interface Value126 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier39[] | undefined;
-}
-
-interface Q5631 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements138;
-  logo: undefined;
-}
-
-interface Statements138 {
-  header: any[];
-  table: any[];
-  text: Text83[];
-}
-
-interface Text83 {
-  label: string;
-  property: string;
-  string: String129[];
-}
-
-interface String129 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value125[];
-}
-
-interface Value125 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier69[] | undefined;
 }
 
 interface Qualifier69 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer97[];
+  wikibasePointer: WikibasePointer96[];
 }
 
-interface WikibasePointer97 {
+interface WikibasePointer96 {
   id: string;
   label: string;
   link: string;
@@ -15669,7 +15739,7 @@ interface Q5532 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements136;
+  statements: Statements139;
   logo: undefined;
 }
 
@@ -15679,29 +15749,29 @@ interface Q5531 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements137;
+  statements: Statements140;
   logo: undefined;
 }
 
-interface Statements137 {
+interface Statements140 {
   header: any[];
   table: any[];
-  text: Text82[];
+  text: Text83[];
 }
 
-interface Text82 {
+interface Text83 {
   label: string;
   property: string;
-  string: String128[];
+  string: String129[];
 }
 
-interface String128 {
+interface String129 {
   relativeHeadline: number;
   itemType: string;
-  values: Value124[];
+  values: Value125[];
 }
 
-interface Value124 {
+interface Value125 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -15712,10 +15782,10 @@ interface Value124 {
 interface Qualifier68 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer96[];
+  wikibasePointer: WikibasePointer95[];
 }
 
-interface WikibasePointer96 {
+interface WikibasePointer95 {
   id: string;
   label: string;
   link: string;
@@ -15731,11 +15801,63 @@ interface Embedded68 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements136;
+  statements: Statements139;
   logo: boolean;
 }
 
-interface Statements136 {
+interface Statements139 {
+  header: any[];
+  table: any[];
+  text: Text82[];
+}
+
+interface Text82 {
+  label: string;
+  property: string;
+  string: String128[];
+}
+
+interface String128 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value124[];
+}
+
+interface Value124 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier67[] | Table[] | undefined;
+}
+
+interface Qualifier67 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer94[];
+}
+
+interface WikibasePointer94 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded27 | boolean | Embedded312)[];
+  qualifiers: undefined;
+}
+
+interface Embedded312 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements138;
+  logo: boolean;
+}
+
+interface Statements138 {
   header: any[];
   table: any[];
   text: Text81[];
@@ -15758,36 +15880,20 @@ interface Value123 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier67[] | Table[] | undefined;
+  qualifiers: Qualifier48[] | Table[] | undefined;
 }
 
-interface Qualifier67 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer95[];
-}
-
-interface WikibasePointer95 {
+interface Q5507 {
   id: string;
   label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded27 | boolean | Embedded312)[];
-  qualifiers: undefined;
-}
-
-interface Embedded312 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
+  title: string;
+  pageType: PageType;
   notation: undefined;
-  statements: Statements135;
-  logo: boolean;
+  statements: Statements137;
+  logo: undefined;
 }
 
-interface Statements135 {
+interface Statements137 {
   header: any[];
   table: any[];
   text: Text80[];
@@ -15800,7 +15906,7 @@ interface Text80 {
 }
 
 interface String126 {
-  relativeHeadline: number | undefined;
+  relativeHeadline: number;
   itemType: string;
   values: Value122[];
 }
@@ -15810,20 +15916,46 @@ interface Value122 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier48[] | Table[] | undefined;
+  qualifiers: Qualifier66[];
 }
 
-interface Q5507 {
+interface Qualifier66 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer93[];
+}
+
+interface WikibasePointer93 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded65 | Embedded27 | boolean | Embedded38)[];
+  qualifiers: undefined;
+}
+
+interface Q5301 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements134;
+  statements: Statements135;
   logo: undefined;
 }
 
-interface Statements134 {
+interface Q5299 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements136;
+  logo: undefined;
+}
+
+interface Statements136 {
   header: any[];
   table: any[];
   text: Text79[];
@@ -15846,46 +15978,36 @@ interface Value121 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier66[];
+  qualifiers: Qualifier65[];
 }
 
-interface Qualifier66 {
+interface Qualifier65 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer94[];
+  wikibasePointer: WikibasePointer92[];
 }
 
-interface WikibasePointer94 {
+interface WikibasePointer92 {
   id: string;
   label: string;
   link: string;
   coding: undefined;
   references: undefined;
-  embedded: (Embedded65 | Embedded27 | boolean | Embedded38)[];
+  embedded: (Embedded39 | boolean | Embedded311)[];
   qualifiers: undefined;
 }
 
-interface Q5301 {
+interface Embedded311 {
   id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
   notation: undefined;
-  statements: Statements132;
-  logo: undefined;
+  statements: Statements135;
+  logo: boolean;
 }
 
-interface Q5299 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements133;
-  logo: undefined;
-}
-
-interface Statements133 {
+interface Statements135 {
   header: any[];
   table: any[];
   text: Text78[];
@@ -15908,36 +16030,56 @@ interface Value120 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier65[];
+  qualifiers: Qualifier64[];
 }
 
-interface Qualifier65 {
+interface Qualifier64 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer93[];
+  wikibasePointer: WikibasePointer91[];
 }
 
-interface WikibasePointer93 {
+interface WikibasePointer91 {
   id: string;
   label: string;
   link: string;
   coding: undefined;
   references: undefined;
-  embedded: (Embedded39 | boolean | Embedded311)[];
+  embedded: Embedded67 | boolean;
   qualifiers: undefined;
 }
 
-interface Embedded311 {
+interface Embedded67 {
   id: string;
   label: boolean;
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements132;
+  statements: Statements56;
   logo: boolean;
 }
 
-interface Statements132 {
+interface Q5283 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements133;
+  logo: undefined;
+}
+
+interface Q5279 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements134;
+  logo: undefined;
+}
+
+interface Statements134 {
   header: any[];
   table: any[];
   text: Text77[];
@@ -15960,88 +16102,16 @@ interface Value119 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier64[];
-}
-
-interface Qualifier64 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer92[];
-}
-
-interface WikibasePointer92 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: Embedded67 | boolean;
-  qualifiers: undefined;
-}
-
-interface Embedded67 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements53;
-  logo: boolean;
-}
-
-interface Q5283 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements130;
-  logo: undefined;
-}
-
-interface Q5279 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements131;
-  logo: undefined;
-}
-
-interface Statements131 {
-  header: any[];
-  table: any[];
-  text: Text76[];
-}
-
-interface Text76 {
-  label: string;
-  property: string;
-  string: String122[];
-}
-
-interface String122 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value118[];
-}
-
-interface Value118 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier63[];
 }
 
 interface Qualifier63 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer91[];
+  wikibasePointer: WikibasePointer90[];
 }
 
-interface WikibasePointer91 {
+interface WikibasePointer90 {
   id: string;
   label: string;
   link: string;
@@ -16057,11 +16127,63 @@ interface Embedded310 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements130;
+  statements: Statements133;
   logo: boolean;
 }
 
-interface Statements130 {
+interface Statements133 {
+  header: any[];
+  table: any[];
+  text: Text76[];
+}
+
+interface Text76 {
+  label: string;
+  property: string;
+  string: String122[];
+}
+
+interface String122 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value118[];
+}
+
+interface Value118 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier62[] | Table[] | undefined;
+}
+
+interface Qualifier62 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer89[];
+}
+
+interface WikibasePointer89 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded66 | Embedded27 | boolean | Embedded38)[];
+  qualifiers: undefined;
+}
+
+interface Embedded66 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements132;
+  logo: boolean;
+}
+
+interface Statements132 {
   header: any[];
   table: any[];
   text: Text75[];
@@ -16084,68 +16206,16 @@ interface Value117 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier62[] | Table[] | undefined;
-}
-
-interface Qualifier62 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer90[];
-}
-
-interface WikibasePointer90 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded66 | Embedded27 | boolean | Embedded38)[];
-  qualifiers: undefined;
-}
-
-interface Embedded66 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements129;
-  logo: boolean;
-}
-
-interface Statements129 {
-  header: any[];
-  table: any[];
-  text: Text74[];
-}
-
-interface Text74 {
-  label: string;
-  property: string;
-  string: String120[];
-}
-
-interface String120 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value116[];
-}
-
-interface Value116 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier61[] | Table[] | undefined;
 }
 
 interface Qualifier61 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer89[];
+  wikibasePointer: WikibasePointer88[];
 }
 
-interface WikibasePointer89 {
+interface WikibasePointer88 {
   id: string;
   label: string;
   link: string;
@@ -16161,11 +16231,63 @@ interface Q5269 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements128;
+  statements: Statements131;
   logo: undefined;
 }
 
-interface Statements128 {
+interface Statements131 {
+  header: any[];
+  table: any[];
+  text: Text74[];
+}
+
+interface Text74 {
+  label: string;
+  property: string;
+  string: String120[];
+}
+
+interface String120 {
+  relativeHeadline: number;
+  itemType: string;
+  values: Value116[];
+}
+
+interface Value116 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier60[];
+}
+
+interface Qualifier60 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer87[];
+}
+
+interface WikibasePointer87 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded39 | boolean | Embedded38)[];
+  qualifiers: undefined;
+}
+
+interface Q5177 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements130;
+  logo: undefined;
+}
+
+interface Statements130 {
   header: any[];
   table: any[];
   text: Text73[];
@@ -16188,36 +16310,46 @@ interface Value115 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier60[];
+  qualifiers: Qualifier59[];
 }
 
-interface Qualifier60 {
+interface Qualifier59 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer88[];
+  wikibasePointer: WikibasePointer86[];
 }
 
-interface WikibasePointer88 {
+interface WikibasePointer86 {
   id: string;
   label: string;
   link: string;
   coding: undefined;
   references: undefined;
-  embedded: (Embedded39 | boolean | Embedded38)[];
+  embedded: (Embedded62 | boolean | Embedded38)[];
   qualifiers: undefined;
 }
 
-interface Q5177 {
+interface Q5094 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements127;
+  statements: Statements128;
   logo: undefined;
 }
 
-interface Statements127 {
+interface Q5092 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements129;
+  logo: undefined;
+}
+
+interface Statements129 {
   header: any[];
   table: any[];
   text: Text72[];
@@ -16240,78 +16372,16 @@ interface Value114 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier59[];
-}
-
-interface Qualifier59 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer87[];
-}
-
-interface WikibasePointer87 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded62 | boolean | Embedded38)[];
-  qualifiers: undefined;
-}
-
-interface Q5094 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements125;
-  logo: undefined;
-}
-
-interface Q5092 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements126;
-  logo: undefined;
-}
-
-interface Statements126 {
-  header: any[];
-  table: any[];
-  text: Text71[];
-}
-
-interface Text71 {
-  label: string;
-  property: string;
-  string: String117[];
-}
-
-interface String117 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value113[];
-}
-
-interface Value113 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier58[];
 }
 
 interface Qualifier58 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer86[];
+  wikibasePointer: WikibasePointer85[];
 }
 
-interface WikibasePointer86 {
+interface WikibasePointer85 {
   id: string;
   label: string;
   link: string;
@@ -16327,11 +16397,63 @@ interface Embedded65 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements125;
+  statements: Statements128;
   logo: boolean;
 }
 
-interface Statements125 {
+interface Statements128 {
+  header: any[];
+  table: any[];
+  text: Text71[];
+}
+
+interface Text71 {
+  label: string;
+  property: string;
+  string: String117[];
+}
+
+interface String117 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value113[];
+}
+
+interface Value113 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier57[] | undefined;
+}
+
+interface Qualifier57 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer84[];
+}
+
+interface WikibasePointer84 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (boolean | Embedded211 | Embedded38)[];
+  qualifiers: undefined;
+}
+
+interface Embedded211 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements127;
+  logo: boolean;
+}
+
+interface Statements127 {
   header: any[];
   table: any[];
   text: Text70[];
@@ -16354,36 +16476,30 @@ interface Value112 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier57[] | undefined;
+  qualifiers: Qualifier54[] | undefined;
 }
 
-interface Qualifier57 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer85[];
-}
-
-interface WikibasePointer85 {
+interface Q5058 {
   id: string;
   label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (boolean | Embedded211 | Embedded38)[];
-  qualifiers: undefined;
-}
-
-interface Embedded211 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
+  title: string;
+  pageType: PageType;
   notation: undefined;
-  statements: Statements124;
-  logo: boolean;
+  statements: Statements125;
+  logo: undefined;
 }
 
-interface Statements124 {
+interface Q5057 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements126;
+  logo: undefined;
+}
+
+interface Statements126 {
   header: any[];
   table: any[];
   text: Text69[];
@@ -16396,58 +16512,12 @@ interface Text69 {
 }
 
 interface String115 {
-  relativeHeadline: number | undefined;
+  relativeHeadline: number;
   itemType: string;
   values: Value111[];
 }
 
 interface Value111 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier54[] | undefined;
-}
-
-interface Q5058 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements122;
-  logo: undefined;
-}
-
-interface Q5057 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements123;
-  logo: undefined;
-}
-
-interface Statements123 {
-  header: any[];
-  table: any[];
-  text: Text68[];
-}
-
-interface Text68 {
-  label: string;
-  property: string;
-  string: String114[];
-}
-
-interface String114 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value110[];
-}
-
-interface Value110 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16458,10 +16528,10 @@ interface Value110 {
 interface Qualifier56 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer84[];
+  wikibasePointer: WikibasePointer83[];
 }
 
-interface WikibasePointer84 {
+interface WikibasePointer83 {
   id: string;
   label: string;
   link: string;
@@ -16477,11 +16547,63 @@ interface Embedded64 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements122;
+  statements: Statements125;
   logo: boolean;
 }
 
-interface Statements122 {
+interface Statements125 {
+  header: any[];
+  table: any[];
+  text: Text68[];
+}
+
+interface Text68 {
+  label: string;
+  property: string;
+  string: String114[];
+}
+
+interface String114 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value110[];
+}
+
+interface Value110 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier55[] | Table[] | undefined;
+}
+
+interface Qualifier55 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer82[];
+}
+
+interface WikibasePointer82 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded63 | boolean | Embedded38)[];
+  qualifiers: undefined;
+}
+
+interface Embedded63 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements124;
+  logo: boolean;
+}
+
+interface Statements124 {
   header: any[];
   table: any[];
   text: Text67[];
@@ -16504,68 +16626,16 @@ interface Value109 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier55[] | Table[] | undefined;
-}
-
-interface Qualifier55 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer83[];
-}
-
-interface WikibasePointer83 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded63 | boolean | Embedded38)[];
-  qualifiers: undefined;
-}
-
-interface Embedded63 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements121;
-  logo: boolean;
-}
-
-interface Statements121 {
-  header: any[];
-  table: any[];
-  text: Text66[];
-}
-
-interface Text66 {
-  label: string;
-  property: string;
-  string: String112[];
-}
-
-interface String112 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value108[];
-}
-
-interface Value108 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier54[] | Table[] | undefined;
 }
 
 interface Qualifier54 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer82[];
+  wikibasePointer: WikibasePointer81[];
 }
 
-interface WikibasePointer82 {
+interface WikibasePointer81 {
   id: string;
   label: string;
   link: string;
@@ -16581,7 +16651,7 @@ interface Q5042 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements119;
+  statements: Statements122;
   logo: undefined;
 }
 
@@ -16591,29 +16661,29 @@ interface Q5041 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements120;
+  statements: Statements123;
   logo: undefined;
 }
 
-interface Statements120 {
+interface Statements123 {
   header: any[];
   table: any[];
-  text: Text65[];
+  text: Text66[];
 }
 
-interface Text65 {
+interface Text66 {
   label: string;
   property: string;
-  string: String111[];
+  string: String112[];
 }
 
-interface String111 {
+interface String112 {
   relativeHeadline: number;
   itemType: string;
-  values: Value107[];
+  values: Value108[];
 }
 
-interface Value107 {
+interface Value108 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16624,10 +16694,10 @@ interface Value107 {
 interface Qualifier53 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer81[];
+  wikibasePointer: WikibasePointer80[];
 }
 
-interface WikibasePointer81 {
+interface WikibasePointer80 {
   id: string;
   label: string;
   link: string;
@@ -16643,29 +16713,29 @@ interface Embedded62 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements119;
+  statements: Statements122;
   logo: boolean;
 }
 
-interface Statements119 {
+interface Statements122 {
   header: any[];
   table: any[];
-  text: Text64[];
+  text: Text65[];
 }
 
-interface Text64 {
+interface Text65 {
   label: string;
   property: string;
-  string: String110[];
+  string: String111[];
 }
 
-interface String110 {
+interface String111 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value106[];
+  values: Value107[];
 }
 
-interface Value106 {
+interface Value107 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16679,7 +16749,7 @@ interface Q5037 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements117;
+  statements: Statements120;
   logo: undefined;
 }
 
@@ -16689,29 +16759,29 @@ interface Q5036 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements118;
+  statements: Statements121;
   logo: undefined;
 }
 
-interface Statements118 {
+interface Statements121 {
   header: any[];
   table: any[];
-  text: Text63[];
+  text: Text64[];
 }
 
-interface Text63 {
+interface Text64 {
   label: string;
   property: string;
-  string: String109[];
+  string: String110[];
 }
 
-interface String109 {
+interface String110 {
   relativeHeadline: number;
   itemType: string;
-  values: Value105[];
+  values: Value106[];
 }
 
-interface Value105 {
+interface Value106 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16722,10 +16792,10 @@ interface Value105 {
 interface Qualifier52 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer80[];
+  wikibasePointer: WikibasePointer79[];
 }
 
-interface WikibasePointer80 {
+interface WikibasePointer79 {
   id: string;
   label: string;
   link: string;
@@ -16741,29 +16811,29 @@ interface Embedded61 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements117;
+  statements: Statements120;
   logo: boolean;
 }
 
-interface Statements117 {
+interface Statements120 {
   header: any[];
   table: any[];
-  text: Text62[];
+  text: Text63[];
 }
 
-interface Text62 {
+interface Text63 {
   label: string;
   property: string;
-  string: String108[];
+  string: String109[];
 }
 
-interface String108 {
+interface String109 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value104[];
+  values: Value105[];
 }
 
-interface Value104 {
+interface Value105 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16777,11 +16847,63 @@ interface Q4271 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements116;
+  statements: Statements119;
   logo: undefined;
 }
 
-interface Statements116 {
+interface Statements119 {
+  header: any[];
+  table: any[];
+  text: Text62[];
+}
+
+interface Text62 {
+  label: string;
+  property: string;
+  string: String108[];
+}
+
+interface String108 {
+  relativeHeadline: number;
+  itemType: string;
+  values: Value104[];
+}
+
+interface Value104 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier51[];
+}
+
+interface Qualifier51 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer78[];
+}
+
+interface WikibasePointer78 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: (Embedded39 | Embedded27 | boolean)[];
+  qualifiers: undefined;
+}
+
+interface Q4137 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements118;
+  logo: undefined;
+}
+
+interface Statements118 {
   header: any[];
   table: any[];
   text: Text61[];
@@ -16804,68 +16926,16 @@ interface Value103 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier51[];
-}
-
-interface Qualifier51 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer79[];
-}
-
-interface WikibasePointer79 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: (Embedded39 | Embedded27 | boolean)[];
-  qualifiers: undefined;
-}
-
-interface Q4137 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements115;
-  logo: undefined;
-}
-
-interface Statements115 {
-  header: any[];
-  table: any[];
-  text: Text60[];
-}
-
-interface Text60 {
-  label: string;
-  property: string;
-  string: String106[];
-}
-
-interface String106 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value102[];
-}
-
-interface Value102 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier50[];
 }
 
 interface Qualifier50 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer78[];
+  wikibasePointer: WikibasePointer77[];
 }
 
-interface WikibasePointer78 {
+interface WikibasePointer77 {
   id: string;
   label: string;
   link: string;
@@ -16881,29 +16951,29 @@ interface Q3757 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements114;
+  statements: Statements117;
   logo: undefined;
 }
 
-interface Statements114 {
+interface Statements117 {
   header: any[];
   table: any[];
-  text: Text59[];
+  text: Text60[];
 }
 
-interface Text59 {
+interface Text60 {
   label: string;
   property: string;
-  string: String105[];
+  string: String106[];
 }
 
-interface String105 {
+interface String106 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value101[];
+  values: Value102[];
 }
 
-interface Value101 {
+interface Value102 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -16914,10 +16984,10 @@ interface Value101 {
 interface Qualifier49 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer77[];
+  wikibasePointer: WikibasePointer76[];
 }
 
-interface WikibasePointer77 {
+interface WikibasePointer76 {
   id: string;
   label: string;
   link: string;
@@ -16933,7 +17003,7 @@ interface Embedded60 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements79;
+  statements: Statements82;
   logo: boolean;
 }
 
@@ -16943,11 +17013,47 @@ interface Q3623 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements113;
+  statements: Statements116;
   logo: undefined;
 }
 
-interface Statements113 {
+interface Statements116 {
+  header: any[];
+  table: any[];
+  text: Text59[];
+}
+
+interface Text59 {
+  label: string;
+  property: string;
+  string: String105[];
+}
+
+interface String105 {
+  relativeHeadline: number;
+  itemType: string;
+  values: Value101[];
+}
+
+interface Value101 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier41[];
+}
+
+interface Q3615 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements115;
+  logo: undefined;
+}
+
+interface Statements115 {
   header: any[];
   table: any[];
   text: Text58[];
@@ -16970,20 +17076,20 @@ interface Value100 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier41[];
+  qualifiers: Qualifier40[];
 }
 
-interface Q3615 {
+interface Q3604 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements112;
+  statements: Statements114;
   logo: undefined;
 }
 
-interface Statements112 {
+interface Statements114 {
   header: any[];
   table: any[];
   text: Text57[];
@@ -17006,52 +17112,16 @@ interface Value99 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier40[];
-}
-
-interface Q3604 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements111;
-  logo: undefined;
-}
-
-interface Statements111 {
-  header: any[];
-  table: any[];
-  text: Text56[];
-}
-
-interface Text56 {
-  label: string;
-  property: string;
-  string: String102[];
-}
-
-interface String102 {
-  relativeHeadline: number;
-  itemType: string;
-  values: Value98[];
-}
-
-interface Value98 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier48[];
 }
 
 interface Qualifier48 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer76[];
+  wikibasePointer: WikibasePointer75[];
 }
 
-interface WikibasePointer76 {
+interface WikibasePointer75 {
   id: string;
   label: string;
   link: string;
@@ -17067,11 +17137,11 @@ interface Q3572 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements110;
+  statements: Statements113;
   logo: undefined;
 }
 
-interface Statements110 {
+interface Statements113 {
   header: any[];
   table: Table36[];
   text: Text17[];
@@ -17080,10 +17150,10 @@ interface Statements110 {
 interface Table36 {
   label: string;
   property: string;
-  string: String101[];
+  string: String102[];
 }
 
-interface String101 {
+interface String102 {
   relativeHeadline: undefined;
   itemType: string;
   values: WikibasePointer21[];
@@ -17095,44 +17165,44 @@ interface Q3570 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements109;
+  statements: Statements112;
   logo: undefined;
 }
 
-interface Statements109 {
+interface Statements112 {
   header: any[];
   table: any[];
-  text: Text55[];
+  text: Text56[];
 }
 
-interface Text55 {
+interface Text56 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String100[];
+  string?: String101[];
 }
 
-interface String100 {
+interface String101 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value97[];
+  values: Value98[];
 }
 
-interface Value97 {
+interface Value98 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined;
   embedded: boolean;
-  qualifiers: Qualifier47[] | Qualifiers213[] | Qualifiers38[] | Qualifiers45[] | Qualifiers54[] | Qualifiers62[] | Qualifiers73[] | Qualifiers82[] | Qualifier35[] | Qualifiers10[] | Qualifiers112[] | Qualifiers122[] | Qualifiers23[] | Qualifiers23[] | Table[] | undefined | undefined | undefined;
+  qualifiers: Qualifier47[] | Qualifiers212[] | Qualifiers38[] | Qualifiers45[] | Qualifiers54[] | Qualifiers62[] | Qualifiers73[] | Qualifiers82[] | Qualifier35[] | Qualifiers10[] | Qualifiers112[] | Qualifiers122[] | Qualifiers23[] | Qualifiers23[] | Table[] | undefined | undefined | undefined;
 }
 
 interface Qualifiers122 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer75[];
+  wikibasePointer: WikibasePointer74[];
 }
 
-interface WikibasePointer75 {
+interface WikibasePointer74 {
   id: string;
   label: string;
   link: string;
@@ -17145,10 +17215,10 @@ interface WikibasePointer75 {
 interface Qualifiers112 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer74[];
+  wikibasePointer: WikibasePointer73[];
 }
 
-interface WikibasePointer74 {
+interface WikibasePointer73 {
   id: string;
   label: string;
   link: string;
@@ -17164,11 +17234,11 @@ interface Embedded59 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements108;
+  statements: Statements111;
   logo: boolean;
 }
 
-interface Statements108 {
+interface Statements111 {
   header: any[];
   table: Table35[];
   text: Text17[];
@@ -17177,10 +17247,10 @@ interface Statements108 {
 interface Qualifiers10 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer73[];
+  wikibasePointer: WikibasePointer72[];
 }
 
-interface WikibasePointer73 {
+interface WikibasePointer72 {
   id: string;
   label: string;
   link: string;
@@ -17196,11 +17266,11 @@ interface Embedded58 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements107;
+  statements: Statements110;
   logo: boolean;
 }
 
-interface Statements107 {
+interface Statements110 {
   header: any[];
   table: Table35[];
   text: Text[];
@@ -17209,16 +17279,16 @@ interface Statements107 {
 interface Table35 {
   label: string;
   property: string;
-  string: String99[];
+  string: String100[];
 }
 
-interface String99 {
+interface String100 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value96[];
+  values: Value97[];
 }
 
-interface Value96 {
+interface Value97 {
   noValue?: boolean;
   value?: string;
   coding?: Coding;
@@ -17230,10 +17300,10 @@ interface Value96 {
 interface Qualifiers82 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer72[];
+  wikibasePointer: WikibasePointer71[];
 }
 
-interface WikibasePointer72 {
+interface WikibasePointer71 {
   id: string;
   label: string;
   link: string;
@@ -17246,10 +17316,10 @@ interface WikibasePointer72 {
 interface Qualifiers73 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer71[];
+  wikibasePointer: WikibasePointer70[];
 }
 
-interface WikibasePointer71 {
+interface WikibasePointer70 {
   id: string;
   label: string;
   link: string;
@@ -17265,35 +17335,35 @@ interface Embedded57 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements106;
+  statements: Statements109;
   logo: boolean;
 }
 
-interface Statements106 {
+interface Statements109 {
   header: any[];
   table: any[];
-  text: Text54[];
+  text: Text55[];
 }
 
-interface Text54 {
+interface Text55 {
   label: string;
   property: string;
-  string: String98[];
+  string: String99[];
 }
 
-interface String98 {
+interface String99 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value66[];
+  values: Value67[];
 }
 
 interface Qualifiers62 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer70[];
+  wikibasePointer: WikibasePointer69[];
 }
 
-interface WikibasePointer70 {
+interface WikibasePointer69 {
   id: string;
   label: string;
   link: string;
@@ -17309,11 +17379,11 @@ interface Embedded56 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements105;
+  statements: Statements108;
   logo: boolean;
 }
 
-interface Statements105 {
+interface Statements108 {
   header: any[];
   table: any[];
   text: (Header | Text)[];
@@ -17322,10 +17392,10 @@ interface Statements105 {
 interface Qualifiers54 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer69[];
+  wikibasePointer: WikibasePointer68[];
 }
 
-interface WikibasePointer69 {
+interface WikibasePointer68 {
   unknownValue?: boolean;
   id?: string;
   label?: string;
@@ -17342,11 +17412,11 @@ interface Embedded55 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements104;
+  statements: Statements107;
   logo: boolean;
 }
 
-interface Statements104 {
+interface Statements107 {
   header: any[];
   table: any[];
   text: Text17[];
@@ -17355,10 +17425,10 @@ interface Statements104 {
 interface Qualifiers45 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer68[];
+  wikibasePointer: WikibasePointer67[];
 }
 
-interface WikibasePointer68 {
+interface WikibasePointer67 {
   unknownValue?: boolean;
   id?: string;
   label?: string;
@@ -17375,11 +17445,11 @@ interface Embedded54 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements103;
+  statements: Statements106;
   logo: boolean;
 }
 
-interface Statements103 {
+interface Statements106 {
   header: any[];
   table: any[];
   text: (Header | Text210)[];
@@ -17388,16 +17458,16 @@ interface Statements103 {
 interface Text210 {
   label: string;
   property: string;
-  string: String97[];
+  string: String98[];
 }
 
-interface String97 {
+interface String98 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value95[];
+  values: Value96[];
 }
 
-interface Value95 {
+interface Value96 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -17411,13 +17481,13 @@ interface Qualifiers38 {
   wikibasePointer: WikibasePointer36[];
 }
 
-interface Qualifiers213 {
+interface Qualifiers212 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer67[];
+  wikibasePointer: WikibasePointer66[];
 }
 
-interface WikibasePointer67 {
+interface WikibasePointer66 {
   id: string;
   label: string;
   link: string;
@@ -17430,10 +17500,10 @@ interface WikibasePointer67 {
 interface Qualifier47 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer66[];
+  wikibasePointer: WikibasePointer65[];
 }
 
-interface WikibasePointer66 {
+interface WikibasePointer65 {
   unknownValue?: boolean;
   id?: string;
   label?: string;
@@ -17450,11 +17520,11 @@ interface Embedded51 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements102;
+  statements: Statements105;
   logo: boolean;
 }
 
-interface Statements102 {
+interface Statements105 {
   header: any[];
   table: any[];
   text: (Text17 | Header)[];
@@ -17466,11 +17536,11 @@ interface Q3568 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements101;
+  statements: Statements104;
   logo: undefined;
 }
 
-interface Statements101 {
+interface Statements104 {
   header: any[];
   table: Table9[];
   text: Header[];
@@ -17482,17 +17552,37 @@ interface Q3567 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements100;
+  statements: Statements103;
   logo: undefined;
 }
 
-interface Statements100 {
+interface Statements103 {
   header: any[];
   table: Table34[];
   text: any[];
 }
 
 interface Table34 {
+  label: string;
+  property: string;
+  string: String97[];
+}
+
+interface String97 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value95[];
+}
+
+interface Value95 {
+  value: string;
+  coding: Coding22;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier46[];
+}
+
+interface Qualifier46 {
   label: string;
   property: string;
   string: String96[];
@@ -17506,26 +17596,6 @@ interface String96 {
 
 interface Value94 {
   value: string;
-  coding: Coding22;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier46[];
-}
-
-interface Qualifier46 {
-  label: string;
-  property: string;
-  string: String95[];
-}
-
-interface String95 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value93[];
-}
-
-interface Value93 {
-  value: string;
   coding: Coding22 | Coding22 | undefined;
   references: undefined;
   embedded: boolean;
@@ -17538,44 +17608,44 @@ interface Q3501 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements99;
+  statements: Statements102;
   logo: undefined;
 }
 
-interface Statements99 {
+interface Statements102 {
   header: any[];
   table: any[];
-  text: Text53[];
+  text: Text54[];
 }
 
-interface Text53 {
+interface Text54 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer63[];
-  string?: String94[];
+  wikibasePointer?: WikibasePointer62[];
+  string?: String95[];
 }
 
-interface String94 {
+interface String95 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value92[];
+  values: Value93[];
 }
 
-interface Value92 {
+interface Value93 {
   value: string;
   coding: undefined;
   references: Header[] | undefined | undefined;
   embedded: boolean;
-  qualifiers: Qualifier5[] | Qualifiers212[] | Qualifiers35[] | Qualifiers43[] | Qualifiers53[] | Qualifiers23[] | Table[] | undefined;
+  qualifiers: Qualifier5[] | Qualifiers211[] | Qualifiers35[] | Qualifiers43[] | Qualifiers53[] | Qualifiers23[] | Table[] | undefined;
 }
 
 interface Qualifiers53 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer65[];
+  wikibasePointer: WikibasePointer64[];
 }
 
-interface WikibasePointer65 {
+interface WikibasePointer64 {
   id: string;
   label: string;
   link: string;
@@ -17591,17 +17661,37 @@ interface Embedded50 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements98;
+  statements: Statements101;
   logo: boolean;
 }
 
-interface Statements98 {
+interface Statements101 {
   header: any[];
   table: Table33[];
   text: any[];
 }
 
 interface Table33 {
+  label: string;
+  property: string;
+  string: String94[];
+}
+
+interface String94 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value92[];
+}
+
+interface Value92 {
+  value: string;
+  coding: Coding3;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier45[];
+}
+
+interface Qualifier45 {
   label: string;
   property: string;
   string: String93[];
@@ -17615,39 +17705,19 @@ interface String93 {
 
 interface Value91 {
   value: string;
-  coding: Coding3;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier45[];
-}
-
-interface Qualifier45 {
-  label: string;
-  property: string;
-  string: String92[];
-}
-
-interface String92 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value90[];
-}
-
-interface Value90 {
-  value: string;
   coding: (Coding22 | Coding22 | Coding | Coding | undefined | undefined)[];
   references: undefined;
   embedded: boolean;
   qualifiers: undefined;
 }
 
-interface Qualifiers212 {
+interface Qualifiers211 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer64[];
+  wikibasePointer: WikibasePointer63[];
 }
 
-interface WikibasePointer64 {
+interface WikibasePointer63 {
   id: string;
   label: string;
   link: string;
@@ -17663,11 +17733,11 @@ interface Embedded49 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements97;
+  statements: Statements100;
   logo: boolean;
 }
 
-interface Statements97 {
+interface Statements100 {
   header: any[];
   table: Table32[];
   text: any[];
@@ -17676,16 +17746,16 @@ interface Statements97 {
 interface Table32 {
   label: string;
   property: string;
-  string: String91[];
+  string: String92[];
 }
 
-interface String91 {
+interface String92 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value89[];
+  values: Value90[];
 }
 
-interface Value89 {
+interface Value90 {
   value: string;
   coding: Coding22;
   references: undefined;
@@ -17693,7 +17763,7 @@ interface Value89 {
   qualifiers: Qualifier32[];
 }
 
-interface WikibasePointer63 {
+interface WikibasePointer62 {
   id: string;
   label: string;
   link: string;
@@ -17709,11 +17779,11 @@ interface Embedded48 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements96;
+  statements: Statements99;
   logo: boolean;
 }
 
-interface Statements96 {
+interface Statements99 {
   header: any[];
   table: Table22[];
   text: Header[];
@@ -17725,7 +17795,7 @@ interface Q3496 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements93;
+  statements: Statements96;
   logo: undefined;
 }
 
@@ -17735,11 +17805,11 @@ interface Q3490 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements95;
+  statements: Statements98;
   logo: undefined;
 }
 
-interface Statements95 {
+interface Statements98 {
   header: any[];
   table: Table31[];
   text: Header[];
@@ -17748,16 +17818,16 @@ interface Statements95 {
 interface Table31 {
   label: string;
   property: string;
-  string: String90[];
+  string: String91[];
 }
 
-interface String90 {
+interface String91 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value88[];
+  values: Value89[];
 }
 
-interface Value88 {
+interface Value89 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -17771,44 +17841,44 @@ interface Q3486 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements94;
+  statements: Statements97;
   logo: undefined;
 }
 
-interface Statements94 {
+interface Statements97 {
   header: any[];
   table: any[];
-  text: Text52[];
+  text: Text53[];
 }
 
-interface Text52 {
+interface Text53 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String89[];
+  string?: String90[];
 }
 
-interface String89 {
+interface String90 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value87[];
+  values: Value88[];
 }
 
-interface Value87 {
+interface Value88 {
   value: string;
   coding: undefined;
   references: Reference2[] | undefined | undefined;
   embedded: boolean;
-  qualifiers: Qualifier5[] | Qualifiers211[] | Qualifiers37[] | Qualifier7[] | Table[] | undefined;
+  qualifiers: Qualifier5[] | Qualifiers210[] | Qualifiers37[] | Qualifier7[] | Table[] | undefined;
 }
 
 interface Qualifiers37 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer62[];
+  wikibasePointer: WikibasePointer61[];
 }
 
-interface WikibasePointer62 {
+interface WikibasePointer61 {
   id: string;
   label: string;
   link: string;
@@ -17824,11 +17894,11 @@ interface Embedded47 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements93;
+  statements: Statements96;
   logo: boolean;
 }
 
-interface Statements93 {
+interface Statements96 {
   header: any[];
   table: Table30[];
   text: any[];
@@ -17837,16 +17907,16 @@ interface Statements93 {
 interface Table30 {
   label: string;
   property: string;
-  string: String88[];
+  string: String89[];
 }
 
-interface String88 {
+interface String89 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value86[];
+  values: Value87[];
 }
 
-interface Value86 {
+interface Value87 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -17861,13 +17931,13 @@ interface Qualifier44 {
   wikibasePointer?: WikibasePointer7[];
 }
 
-interface Qualifiers211 {
+interface Qualifiers210 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer61[];
+  wikibasePointer: WikibasePointer60[];
 }
 
-interface WikibasePointer61 {
+interface WikibasePointer60 {
   id: string;
   label: string;
   link: string;
@@ -17883,11 +17953,11 @@ interface Embedded46 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements92;
+  statements: Statements95;
   logo: boolean;
 }
 
-interface Statements92 {
+interface Statements95 {
   header: any[];
   table: Table29[];
   text: Header[];
@@ -17896,16 +17966,16 @@ interface Statements92 {
 interface Table29 {
   label: string;
   property: string;
-  string: String87[];
+  string: String88[];
 }
 
-interface String87 {
+interface String88 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value85[];
+  values: Value86[];
 }
 
-interface Value85 {
+interface Value86 {
   value: string;
   coding: Coding3;
   references: undefined;
@@ -17933,7 +18003,7 @@ interface Q3483 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements90;
+  statements: Statements93;
   logo: undefined;
 }
 
@@ -17943,11 +18013,202 @@ interface Q3482 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements89;
+  statements: Statements92;
   logo: undefined;
 }
 
 interface Q3481 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements94;
+  logo: undefined;
+}
+
+interface Statements94 {
+  header: any[];
+  table: any[];
+  text: Text52[];
+}
+
+interface Text52 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer57[];
+  string?: String87[];
+}
+
+interface String87 {
+  relativeHeadline: number | undefined;
+  itemType: string;
+  values: Value85[];
+}
+
+interface Value85 {
+  value: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifiers35[] | Qualifiers29[] | Qualifiers36[] | Qualifiers23[] | Table[] | undefined;
+}
+
+interface Qualifiers36 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer59[];
+}
+
+interface WikibasePointer59 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: Embedded45;
+  qualifiers: undefined;
+}
+
+interface Embedded45 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements93;
+  logo: boolean;
+}
+
+interface Statements93 {
+  header: any[];
+  table: Table28[];
+  text: any[];
+}
+
+interface Table28 {
+  label: string;
+  property: string;
+  string: String86[];
+}
+
+interface String86 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value84[];
+}
+
+interface Value84 {
+  value: string;
+  coding: Coding22;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier8[];
+}
+
+interface Qualifiers29 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer58[];
+}
+
+interface WikibasePointer58 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: Embedded41;
+  qualifiers: undefined;
+}
+
+interface Embedded41 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements92;
+  logo: boolean;
+}
+
+interface Statements92 {
+  header: any[];
+  table: Table27[];
+  text: any[];
+}
+
+interface Table27 {
+  label: string;
+  property: string;
+  string: String85[];
+}
+
+interface String85 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value83[];
+}
+
+interface Value83 {
+  value: string;
+  coding: Coding;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier42[];
+}
+
+interface Qualifier42 {
+  label: string;
+  property: string;
+  string: String84[];
+}
+
+interface String84 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value82[];
+}
+
+interface Value82 {
+  value: string;
+  coding: Coding22 | Coding22 | Coding | undefined;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: undefined;
+}
+
+interface WikibasePointer57 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean | Embedded210;
+  qualifiers: undefined;
+}
+
+interface Embedded210 {
+  id: string;
+  label: boolean;
+  title: boolean;
+  pageType: boolean;
+  notation: undefined;
+  statements: Statements54;
+  logo: boolean;
+}
+
+interface Q3478 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements85;
+  logo: undefined;
+}
+
+interface Q3429 {
   id: string;
   label: string;
   title: string;
@@ -17966,189 +18227,34 @@ interface Statements91 {
 interface Text51 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer58[];
-  string?: String86[];
-}
-
-interface String86 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value84[];
-}
-
-interface Value84 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifiers35[] | Qualifiers210[] | Qualifiers36[] | Qualifiers23[] | Table[] | undefined;
-}
-
-interface Qualifiers36 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer60[];
-}
-
-interface WikibasePointer60 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: Embedded45;
-  qualifiers: undefined;
-}
-
-interface Embedded45 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements90;
-  logo: boolean;
-}
-
-interface Statements90 {
-  header: any[];
-  table: Table28[];
-  text: any[];
-}
-
-interface Table28 {
-  label: string;
-  property: string;
-  string: String85[];
-}
-
-interface String85 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value83[];
-}
-
-interface Value83 {
-  value: string;
-  coding: Coding22;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier8[];
-}
-
-interface Qualifiers210 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer59[];
-}
-
-interface WikibasePointer59 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: Embedded41;
-  qualifiers: undefined;
-}
-
-interface Embedded41 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements89;
-  logo: boolean;
-}
-
-interface Statements89 {
-  header: any[];
-  table: Table27[];
-  text: any[];
-}
-
-interface Table27 {
-  label: string;
-  property: string;
-  string: String84[];
-}
-
-interface String84 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value82[];
-}
-
-interface Value82 {
-  value: string;
-  coding: Coding;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier42[];
-}
-
-interface Qualifier42 {
-  label: string;
-  property: string;
   string: String83[];
 }
 
 interface String83 {
-  relativeHeadline: undefined;
+  relativeHeadline: number | undefined;
   itemType: string;
   values: Value81[];
 }
 
 interface Value81 {
   value: string;
-  coding: Coding22 | Coding22 | Coding | undefined;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: undefined;
-}
-
-interface WikibasePointer58 {
-  id: string;
-  label: string;
-  link: string;
   coding: undefined;
   references: undefined;
-  embedded: boolean | Embedded210;
-  qualifiers: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier41[] | undefined;
 }
 
-interface Embedded210 {
-  id: string;
-  label: boolean;
-  title: boolean;
-  pageType: boolean;
-  notation: undefined;
-  statements: Statements51;
-  logo: boolean;
-}
-
-interface Q3478 {
+interface Q3426 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements82;
+  statements: Statements90;
   logo: undefined;
 }
 
-interface Q3429 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements88;
-  logo: undefined;
-}
-
-interface Statements88 {
+interface Statements90 {
   header: any[];
   table: any[];
   text: Text50[];
@@ -18171,20 +18277,36 @@ interface Value80 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier41[] | undefined;
+  qualifiers: Qualifier41[] | Table[] | undefined;
 }
 
-interface Q3426 {
+interface Qualifier41 {
+  label: string;
+  property: string;
+  wikibasePointer: WikibasePointer56[];
+}
+
+interface WikibasePointer56 {
+  id: string;
+  label: string;
+  link: string;
+  coding: undefined;
+  references: undefined;
+  embedded: boolean | Embedded38;
+  qualifiers: undefined;
+}
+
+interface Q3423 {
   id: string;
   label: string;
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements87;
+  statements: Statements89;
   logo: undefined;
 }
 
-interface Statements87 {
+interface Statements89 {
   header: any[];
   table: any[];
   text: Text49[];
@@ -18207,68 +18329,16 @@ interface Value79 {
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier41[] | Table[] | undefined;
-}
-
-interface Qualifier41 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer57[];
-}
-
-interface WikibasePointer57 {
-  id: string;
-  label: string;
-  link: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean | Embedded38;
-  qualifiers: undefined;
-}
-
-interface Q3423 {
-  id: string;
-  label: string;
-  title: string;
-  pageType: PageType;
-  notation: undefined;
-  statements: Statements86;
-  logo: undefined;
-}
-
-interface Statements86 {
-  header: any[];
-  table: any[];
-  text: Text48[];
-}
-
-interface Text48 {
-  label: string;
-  property: string;
-  string: String80[];
-}
-
-interface String80 {
-  relativeHeadline: number | undefined;
-  itemType: string;
-  values: Value78[];
-}
-
-interface Value78 {
-  value: string;
-  coding: undefined;
-  references: undefined;
-  embedded: boolean;
   qualifiers: Qualifier40[] | undefined;
 }
 
 interface Qualifier40 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer56[];
+  wikibasePointer: WikibasePointer55[];
 }
 
-interface WikibasePointer56 {
+interface WikibasePointer55 {
   id: string;
   label: string;
   link: string;
@@ -18284,29 +18354,29 @@ interface Q3422 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements85;
+  statements: Statements88;
   logo: undefined;
 }
 
-interface Statements85 {
+interface Statements88 {
   header: any[];
   table: any[];
-  text: Text47[];
+  text: Text48[];
 }
 
-interface Text47 {
+interface Text48 {
   label: string;
   property: string;
-  string: String79[];
+  string: String80[];
 }
 
-interface String79 {
+interface String80 {
   relativeHeadline: number;
   itemType: string;
-  values: Value77[];
+  values: Value78[];
 }
 
-interface Value77 {
+interface Value78 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -18317,10 +18387,10 @@ interface Value77 {
 interface Qualifier39 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer55[];
+  wikibasePointer: WikibasePointer54[];
 }
 
-interface WikibasePointer55 {
+interface WikibasePointer54 {
   id: string;
   label: string;
   link: string;
@@ -18336,29 +18406,29 @@ interface Q3421 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements84;
+  statements: Statements87;
   logo: undefined;
 }
 
-interface Statements84 {
+interface Statements87 {
   header: any[];
   table: any[];
-  text: Text46[];
+  text: Text47[];
 }
 
-interface Text46 {
+interface Text47 {
   label: string;
   property: string;
-  string: String78[];
+  string: String79[];
 }
 
-interface String78 {
+interface String79 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value76[];
+  values: Value77[];
 }
 
-interface Value76 {
+interface Value77 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -18372,44 +18442,44 @@ interface Q3419 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements83;
+  statements: Statements86;
   logo: undefined;
 }
 
-interface Statements83 {
+interface Statements86 {
   header: any[];
   table: any[];
-  text: Text45[];
+  text: Text46[];
 }
 
-interface Text45 {
+interface Text46 {
   label: string;
   property: string;
-  wikibasePointer?: WikibasePointer51[];
-  string?: String77[];
+  wikibasePointer?: WikibasePointer50[];
+  string?: String78[];
 }
 
-interface String77 {
+interface String78 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value75[];
+  values: Value76[];
 }
 
-interface Value75 {
+interface Value76 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: (Qualifier38[] | Qualifier24 | Qualifiers35[] | Qualifiers29[] | Qualifiers52[] | Qualifiers23[] | Table[] | undefined)[];
+  qualifiers: (Qualifier38[] | Qualifier24 | Qualifiers35[] | Qualifiers28[] | Qualifiers52[] | Qualifiers23[] | Table[] | undefined)[];
 }
 
 interface Qualifiers52 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer54[];
+  wikibasePointer: WikibasePointer53[];
 }
 
-interface WikibasePointer54 {
+interface WikibasePointer53 {
   id: string;
   label: string;
   link: string;
@@ -18425,11 +18495,11 @@ interface Embedded40 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements82;
+  statements: Statements85;
   logo: boolean;
 }
 
-interface Statements82 {
+interface Statements85 {
   header: any[];
   table: Table26[];
   text: any[];
@@ -18438,16 +18508,16 @@ interface Statements82 {
 interface Table26 {
   label: string;
   property: string;
-  string: String76[];
+  string: String77[];
 }
 
-interface String76 {
+interface String77 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value74[];
+  values: Value75[];
 }
 
-interface Value74 {
+interface Value75 {
   value: string;
   coding: Coding22;
   references: undefined;
@@ -18458,10 +18528,10 @@ interface Value74 {
 interface Qualifiers35 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer53[];
+  wikibasePointer: WikibasePointer52[];
 }
 
-interface WikibasePointer53 {
+interface WikibasePointer52 {
   id: string;
   label: string;
   link: string;
@@ -18474,10 +18544,10 @@ interface WikibasePointer53 {
 interface Qualifier38 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer52[];
+  wikibasePointer: WikibasePointer51[];
 }
 
-interface WikibasePointer52 {
+interface WikibasePointer51 {
   id: string;
   label: string;
   link: string;
@@ -18487,7 +18557,7 @@ interface WikibasePointer52 {
   qualifiers: undefined;
 }
 
-interface WikibasePointer51 {
+interface WikibasePointer50 {
   id: string;
   label: string;
   link: string;
@@ -18503,7 +18573,7 @@ interface Q3412 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements80;
+  statements: Statements83;
   logo: undefined;
 }
 
@@ -18513,43 +18583,43 @@ interface Q3400 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements81;
+  statements: Statements84;
   logo: undefined;
 }
 
-interface Statements81 {
+interface Statements84 {
   header: any[];
   table: any[];
-  text: Text44[];
+  text: Text45[];
 }
 
-interface Text44 {
+interface Text45 {
   label: string;
   property: string;
-  string: String75[];
+  string: String76[];
 }
 
-interface String75 {
+interface String76 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value73[];
+  values: Value74[];
 }
 
-interface Value73 {
+interface Value74 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier37[] | Qualifiers29[] | Table[] | undefined;
+  qualifiers: Qualifier37[] | Qualifiers28[] | Table[] | undefined;
 }
 
-interface Qualifiers29 {
+interface Qualifiers28 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer50[];
+  wikibasePointer: WikibasePointer49[];
 }
 
-interface WikibasePointer50 {
+interface WikibasePointer49 {
   id: string;
   label: string;
   link: string;
@@ -18565,17 +18635,17 @@ interface Embedded39 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements47;
+  statements: Statements48;
   logo: boolean;
 }
 
 interface Qualifier37 {
   label: string;
   property: string;
-  wikibasePointer: WikibasePointer49[];
+  wikibasePointer: WikibasePointer48[];
 }
 
-interface WikibasePointer49 {
+interface WikibasePointer48 {
   id: string;
   label: string;
   link: string;
@@ -18591,11 +18661,11 @@ interface Embedded38 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements80;
+  statements: Statements83;
   logo: boolean;
 }
 
-interface Statements80 {
+interface Statements83 {
   header: any[];
   table: any[];
   text: Text[];
@@ -18607,11 +18677,11 @@ interface Q3393 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements79;
+  statements: Statements82;
   logo: undefined;
 }
 
-interface Statements79 {
+interface Statements82 {
   header: any[];
   table: any[];
   text: Text17[];
@@ -18683,7 +18753,7 @@ interface Q3368 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements77;
+  statements: Statements80;
   logo: undefined;
 }
 
@@ -18693,51 +18763,35 @@ interface Q3367 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements78;
+  statements: Statements81;
   logo: undefined;
 }
 
-interface Statements78 {
-  header: any[];
+interface Statements81 {
+  header: Header[];
   table: any[];
-  text: Text43[];
+  text: Text44[];
 }
 
-interface Text43 {
+interface Text44 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String74[];
+  string?: String75[];
 }
 
-interface String74 {
+interface String75 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value72[];
+  values: Value73[];
 }
 
-interface Value72 {
+interface Value73 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier36[] | Qualifiers28[] | undefined;
-}
-
-interface Qualifiers28 {
-  label: string;
-  property: string;
-  wikibasePointer: WikibasePointer48[];
-}
-
-interface WikibasePointer48 {
-  id: string;
-  label: string;
-  link: string;
-  coding: Coding2;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: undefined;
+  qualifiers: Qualifier36[];
 }
 
 interface Qualifier36 {
@@ -18750,9 +18804,9 @@ interface WikibasePointer47 {
   id: string;
   label: string;
   link: string;
-  coding: Coding22 | undefined;
+  coding: Coding2 | Coding22 | undefined;
   references: undefined;
-  embedded: Embedded37 | Embedded27 | boolean;
+  embedded: Embedded37 | Embedded27 | boolean | boolean;
   qualifiers: undefined;
 }
 
@@ -18762,29 +18816,29 @@ interface Embedded37 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements77;
+  statements: Statements80;
   logo: boolean;
 }
 
-interface Statements77 {
+interface Statements80 {
   header: any[];
   table: any[];
-  text: Text42[];
+  text: Text43[];
 }
 
-interface Text42 {
+interface Text43 {
   label: string;
   property: string;
-  string: String73[];
+  string: String74[];
 }
 
-interface String73 {
+interface String74 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value71[];
+  values: Value72[];
 }
 
-interface Value71 {
+interface Value72 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined;
@@ -18824,11 +18878,11 @@ interface Q3337 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements76;
+  statements: Statements79;
   logo: undefined;
 }
 
-interface Statements76 {
+interface Statements79 {
   header: any[];
   table: Table25[];
   text: any[];
@@ -18837,16 +18891,16 @@ interface Statements76 {
 interface Table25 {
   label: string;
   property: string;
-  string: String72[];
+  string: String73[];
 }
 
-interface String72 {
+interface String73 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value70[];
+  values: Value71[];
 }
 
-interface Value70 {
+interface Value71 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -18890,35 +18944,35 @@ interface Q3310 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements75;
+  statements: Statements78;
   logo: undefined;
 }
 
-interface Statements75 {
-  header: any[];
+interface Statements78 {
+  header: Header[];
   table: any[];
-  text: Text41[];
+  text: Text42[];
 }
 
-interface Text41 {
+interface Text42 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String71[];
+  string?: String72[];
 }
 
-interface String71 {
+interface String72 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value69[];
+  values: Value70[];
 }
 
-interface Value69 {
+interface Value70 {
   value: string;
   coding: undefined;
   references: undefined;
   embedded: boolean;
-  qualifiers: Qualifier24[] | undefined | undefined;
+  qualifiers: Qualifier24[] | undefined;
 }
 
 interface Q3309 {
@@ -18947,11 +19001,11 @@ interface Q3304 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements74;
+  statements: Statements77;
   logo: undefined;
 }
 
-interface Statements74 {
+interface Statements77 {
   header: any[];
   table: Table13[];
   text: Text[];
@@ -18963,11 +19017,11 @@ interface Q3267 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements73;
+  statements: Statements76;
   logo: undefined;
 }
 
-interface Statements73 {
+interface Statements76 {
   header: any[];
   table: Table19[];
   text: any[];
@@ -18979,7 +19033,7 @@ interface Q3256 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements69;
+  statements: Statements72;
   logo: undefined;
 }
 
@@ -18989,7 +19043,7 @@ interface Q3210 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements71;
+  statements: Statements74;
   logo: undefined;
 }
 
@@ -18999,29 +19053,29 @@ interface Q3209 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements72;
+  statements: Statements75;
   logo: undefined;
 }
 
-interface Statements72 {
+interface Statements75 {
   header: any[];
   table: any[];
-  text: Text40[];
+  text: Text41[];
 }
 
-interface Text40 {
+interface Text41 {
   label: string;
   property: string;
-  string: String70[];
+  string: String71[];
 }
 
-interface String70 {
+interface String71 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value68[];
+  values: Value69[];
 }
 
-interface Value68 {
+interface Value69 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -19067,29 +19121,29 @@ interface Embedded36 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements71;
+  statements: Statements74;
   logo: boolean;
 }
 
-interface Statements71 {
+interface Statements74 {
   header: any[];
   table: any[];
-  text: Text39[];
+  text: Text40[];
 }
 
-interface Text39 {
+interface Text40 {
   label: string;
   property: string;
-  string: String69[];
+  string: String70[];
 }
 
-interface String69 {
+interface String70 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value67[];
+  values: Value68[];
 }
 
-interface Value67 {
+interface Value68 {
   value: string;
   coding: undefined;
   references: Header[] | undefined;
@@ -19119,29 +19173,29 @@ interface Embedded35 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements70;
+  statements: Statements73;
   logo: boolean;
 }
 
-interface Statements70 {
+interface Statements73 {
   header: any[];
   table: any[];
-  text: Text38[];
+  text: Text39[];
 }
 
-interface Text38 {
+interface Text39 {
   label: string;
   property: string;
-  string: String68[];
+  string: String69[];
 }
 
-interface String68 {
+interface String69 {
   relativeHeadline: number | undefined | undefined;
   itemType: string;
-  values: Value66[];
+  values: Value67[];
 }
 
-interface Value66 {
+interface Value67 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -19171,29 +19225,29 @@ interface Embedded31 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements69;
+  statements: Statements72;
   logo: boolean;
 }
 
-interface Statements69 {
+interface Statements72 {
   header: any[];
   table: any[];
-  text: Text37[];
+  text: Text38[];
 }
 
-interface Text37 {
+interface Text38 {
   label: string;
   property: string;
-  string: String67[];
+  string: String68[];
 }
 
-interface String67 {
+interface String68 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value65[];
+  values: Value66[];
 }
 
-interface Value65 {
+interface Value66 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -19223,7 +19277,7 @@ interface Embedded30 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements55;
+  statements: Statements58;
   logo: boolean;
 }
 
@@ -19233,21 +19287,14 @@ interface Q3175 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements68;
+  statements: Statements71;
   logo: undefined;
 }
 
-interface Statements68 {
+interface Statements71 {
   header: any[];
   table: any[];
-  text: Text36[];
-}
-
-interface Text36 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String41[];
+  text: Text24[];
 }
 
 interface Q3137 {
@@ -19266,17 +19313,37 @@ interface Q3132 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements67;
+  statements: Statements70;
   logo: undefined;
 }
 
-interface Statements67 {
+interface Statements70 {
   header: any[];
   table: Table24[];
   text: any[];
 }
 
 interface Table24 {
+  label: string;
+  property: string;
+  string: String67[];
+}
+
+interface String67 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value65[];
+}
+
+interface Value65 {
+  value: string;
+  coding: Coding2;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier32[];
+}
+
+interface Qualifier32 {
   label: string;
   property: string;
   string: String66[];
@@ -19289,26 +19356,6 @@ interface String66 {
 }
 
 interface Value64 {
-  value: string;
-  coding: Coding2;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier32[];
-}
-
-interface Qualifier32 {
-  label: string;
-  property: string;
-  string: String65[];
-}
-
-interface String65 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value63[];
-}
-
-interface Value63 {
   value: string;
   coding: (Coding22 | undefined)[];
   references: undefined;
@@ -19342,17 +19389,17 @@ interface Q3123 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements66;
+  statements: Statements69;
   logo: undefined;
 }
 
-interface Statements66 {
+interface Statements69 {
   header: any[];
   table: any[];
-  text: Text35[];
+  text: Text37[];
 }
 
-interface Text35 {
+interface Text37 {
   label: string;
   property: string;
   wikibasePointer: WikibasePointer33[];
@@ -19414,29 +19461,29 @@ interface Q3102 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements65;
+  statements: Statements68;
   logo: undefined;
 }
 
-interface Statements65 {
+interface Statements68 {
   header: any[];
   table: any[];
-  text: Text34[];
+  text: Text36[];
 }
 
-interface Text34 {
+interface Text36 {
   label: string;
   property: string;
-  string: String64[];
+  string: String65[];
 }
 
-interface String64 {
+interface String65 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value62[];
+  values: Value63[];
 }
 
-interface Value62 {
+interface Value63 {
   value: string;
   coding: undefined;
   references: Reference[] | undefined | undefined;
@@ -19450,29 +19497,29 @@ interface Q3101 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements64;
+  statements: Statements67;
   logo: undefined;
 }
 
-interface Statements64 {
+interface Statements67 {
   header: any[];
   table: any[];
-  text: Text33[];
+  text: Text35[];
 }
 
-interface Text33 {
+interface Text35 {
   label: string;
   property: string;
-  string: String63[];
+  string: String64[];
 }
 
-interface String63 {
+interface String64 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value61[];
+  values: Value62[];
 }
 
-interface Value61 {
+interface Value62 {
   value: string;
   coding: undefined;
   references: undefined;
@@ -19526,29 +19573,29 @@ interface Q3096 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements63;
+  statements: Statements66;
   logo: undefined;
 }
 
-interface Statements63 {
+interface Statements66 {
   header: any[];
   table: any[];
-  text: Text32[];
+  text: Text34[];
 }
 
-interface Text32 {
+interface Text34 {
   label: string;
   property: string;
-  string: String62[];
+  string: String63[];
 }
 
-interface String62 {
+interface String63 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value60[];
+  values: Value61[];
 }
 
-interface Value60 {
+interface Value61 {
   value?: string;
   coding?: undefined;
   references?: undefined;
@@ -19563,29 +19610,29 @@ interface Q3094 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements62;
+  statements: Statements65;
   logo: undefined;
 }
 
-interface Statements62 {
+interface Statements65 {
   header: any[];
   table: any[];
-  text: Text31[];
+  text: Text33[];
 }
 
-interface Text31 {
+interface Text33 {
   label: string;
   property: string;
-  string: String61[];
+  string: String62[];
 }
 
-interface String61 {
+interface String62 {
   relativeHeadline: number | undefined;
   itemType: string;
-  values: Value59[];
+  values: Value60[];
 }
 
-interface Value59 {
+interface Value60 {
   value: string;
   coding: undefined;
   references: Reference[] | Reference[] | undefined | undefined;
@@ -19631,11 +19678,11 @@ interface Embedded29 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements61;
+  statements: Statements64;
   logo: boolean;
 }
 
-interface Statements61 {
+interface Statements64 {
   header: any[];
   table: Table23[];
   text: any[];
@@ -19644,16 +19691,16 @@ interface Statements61 {
 interface Table23 {
   label: string;
   property: string;
-  string: String60[];
+  string: String61[];
 }
 
-interface String60 {
+interface String61 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value58[];
+  values: Value59[];
 }
 
-interface Value58 {
+interface Value59 {
   value: string;
   coding: Coding3;
   references: undefined;
@@ -19683,17 +19730,37 @@ interface Embedded28 {
   title: boolean;
   pageType: boolean;
   notation: undefined;
-  statements: Statements60;
+  statements: Statements63;
   logo: boolean;
 }
 
-interface Statements60 {
+interface Statements63 {
   header: any[];
   table: Table22[];
   text: any[];
 }
 
 interface Table22 {
+  label: string;
+  property: string;
+  string: String60[];
+}
+
+interface String60 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value58[];
+}
+
+interface Value58 {
+  value: string;
+  coding: Coding2;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier31[];
+}
+
+interface Qualifier31 {
   label: string;
   property: string;
   string: String59[];
@@ -19706,26 +19773,6 @@ interface String59 {
 }
 
 interface Value57 {
-  value: string;
-  coding: Coding2;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier31[];
-}
-
-interface Qualifier31 {
-  label: string;
-  property: string;
-  string: String58[];
-}
-
-interface String58 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value56[];
-}
-
-interface Value56 {
   value: string;
   coding: (Coding22 | Coding22 | undefined | undefined)[];
   references: undefined;
@@ -19759,11 +19806,11 @@ interface Q3048 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements59;
+  statements: Statements62;
   logo: undefined;
 }
 
-interface Statements59 {
+interface Statements62 {
   header: any[];
   table: Table14[];
   text: Header[];
@@ -19775,7 +19822,7 @@ interface Q303 {
   title: undefined;
   pageType: undefined;
   notation: undefined;
-  statements: Statements49;
+  statements: Statements52;
   logo: undefined;
 }
 
@@ -19785,29 +19832,29 @@ interface Q2996 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements58;
+  statements: Statements61;
   logo: undefined;
 }
 
-interface Statements58 {
+interface Statements61 {
   header: any[];
   table: Table5[];
-  text: Text30[];
+  text: Text32[];
 }
 
-interface Text30 {
+interface Text32 {
   label: string;
   property: string;
-  string: String57[];
+  string: String58[];
 }
 
-interface String57 {
+interface String58 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value55[];
+  values: Value56[];
 }
 
-interface Value55 {
+interface Value56 {
   value: string;
   coding: undefined;
   references: Reference[];
@@ -19821,14 +19868,14 @@ interface Q2994 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements57;
+  statements: Statements60;
   logo: undefined;
 }
 
-interface Statements57 {
+interface Statements60 {
   header: any[];
   table: Table5[];
-  text: Text29[];
+  text: Text31[];
 }
 
 interface Q2957 {
@@ -19837,11 +19884,11 @@ interface Q2957 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements56;
+  statements: Statements59;
   logo: undefined;
 }
 
-interface Statements56 {
+interface Statements59 {
   header: any[];
   table: Table7[];
   text: Header[];
@@ -19853,23 +19900,23 @@ interface Q2945 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements55;
+  statements: Statements58;
   logo: undefined;
 }
 
-interface Statements55 {
+interface Statements58 {
   header: any[];
   table: any[];
-  text: Text29[];
+  text: Text31[];
 }
 
-interface Text29 {
+interface Text31 {
   label: string;
   property: string;
-  string: String56[];
+  string: String57[];
 }
 
-interface String56 {
+interface String57 {
   relativeHeadline: number | undefined;
   itemType: string;
   values: Value9[];
@@ -19881,14 +19928,14 @@ interface Q2935 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements54;
+  statements: Statements57;
   logo: undefined;
 }
 
-interface Statements54 {
+interface Statements57 {
   header: any[];
   table: Table5[];
-  text: Text28[];
+  text: Text30[];
 }
 
 interface Q2934 {
@@ -19897,23 +19944,23 @@ interface Q2934 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements53;
+  statements: Statements56;
   logo: undefined;
 }
 
-interface Statements53 {
+interface Statements56 {
   header: any[];
   table: any[];
-  text: Text28[];
+  text: Text30[];
 }
 
-interface Text28 {
+interface Text30 {
   label: string;
   property: string;
-  string: String55[];
+  string: String56[];
 }
 
-interface String55 {
+interface String56 {
   relativeHeadline: number;
   itemType: string;
   values: Value41[];
@@ -19925,11 +19972,11 @@ interface Q2877 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements52;
+  statements: Statements55;
   logo: undefined;
 }
 
-interface Statements52 {
+interface Statements55 {
   header: any[];
   table: Table21[];
   text: any[];
@@ -19938,16 +19985,16 @@ interface Statements52 {
 interface Table21 {
   label: string;
   property: string;
-  string: String54[];
+  string: String55[];
 }
 
-interface String54 {
+interface String55 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value54[];
+  values: Value55[];
 }
 
-interface Value54 {
+interface Value55 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -19958,17 +20005,17 @@ interface Value54 {
 interface Qualifier30 {
   label: string;
   property: string;
-  string?: String53[];
+  string?: String54[];
   wikibasePointer?: WikibasePointer34[];
 }
 
-interface String53 {
+interface String54 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value53[];
+  values: Value54[];
 }
 
-interface Value53 {
+interface Value54 {
   value: string;
   coding: Coding5;
   references: undefined;
@@ -20000,11 +20047,11 @@ interface Q2873 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements51;
+  statements: Statements54;
   logo: undefined;
 }
 
-interface Statements51 {
+interface Statements54 {
   header: any[];
   table: Table20[];
   text: Header[];
@@ -20013,16 +20060,16 @@ interface Statements51 {
 interface Table20 {
   label: string;
   property: string;
-  string: String52[];
+  string: String53[];
 }
 
-interface String52 {
+interface String53 {
   relativeHeadline: undefined;
   itemType: string;
-  values: Value52[];
+  values: Value53[];
 }
 
-interface Value52 {
+interface Value53 {
   value: string;
   coding: Coding2;
   references: undefined;
@@ -20053,17 +20100,37 @@ interface Q2871 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements50;
+  statements: Statements53;
   logo: undefined;
 }
 
-interface Statements50 {
+interface Statements53 {
   header: any[];
   table: Table19[];
   text: Header[];
 }
 
 interface Table19 {
+  label: string;
+  property: string;
+  string: String52[];
+}
+
+interface String52 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value52[];
+}
+
+interface Value52 {
+  value: string;
+  coding: Coding2;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier28[];
+}
+
+interface Qualifier28 {
   label: string;
   property: string;
   string: String51[];
@@ -20076,26 +20143,6 @@ interface String51 {
 }
 
 interface Value51 {
-  value: string;
-  coding: Coding2;
-  references: undefined;
-  embedded: boolean;
-  qualifiers: Qualifier28[];
-}
-
-interface Qualifier28 {
-  label: string;
-  property: string;
-  string: String50[];
-}
-
-interface String50 {
-  relativeHeadline: undefined;
-  itemType: string;
-  values: Value50[];
-}
-
-interface Value50 {
   value: string;
   coding: Coding4;
   references: undefined;
@@ -20117,14 +20164,74 @@ interface Q2038 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements49;
+  statements: Statements52;
   logo: undefined;
 }
 
-interface Statements49 {
+interface Statements52 {
   header: any[];
   table: any[];
   text: Table[];
+}
+
+interface Q2024 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements51;
+  logo: undefined;
+}
+
+interface Statements51 {
+  header: Header[];
+  table: any[];
+  text: Text29[];
+}
+
+interface Text29 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String50[];
+}
+
+interface String50 {
+  relativeHeadline: undefined;
+  itemType: string;
+  values: Value50[];
+}
+
+interface Value50 {
+  value: string;
+  coding: Coding22;
+  references: undefined;
+  embedded: boolean;
+  qualifiers: Qualifier27[];
+}
+
+interface Q2021 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements50;
+  logo: undefined;
+}
+
+interface Statements50 {
+  header: Header[];
+  table: any[];
+  text: Text28[];
+}
+
+interface Text28 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer[];
+  string?: String[];
 }
 
 interface Q2017 {
@@ -20133,12 +20240,12 @@ interface Q2017 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements48;
+  statements: Statements49;
   logo: undefined;
 }
 
-interface Statements48 {
-  header: any[];
+interface Statements49 {
+  header: Header[];
   table: any[];
   text: Text27[];
 }
@@ -20187,11 +20294,11 @@ interface Q1921 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements47;
+  statements: Statements48;
   logo: undefined;
 }
 
-interface Statements47 {
+interface Statements48 {
   header: any[];
   table: any[];
   text: any[];
@@ -20203,11 +20310,11 @@ interface Q1918 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements46;
+  statements: Statements47;
   logo: undefined;
 }
 
-interface Statements46 {
+interface Statements47 {
   header: any[];
   table: Table18[];
   text: any[];
@@ -20269,11 +20376,11 @@ interface Q1913 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements45;
+  statements: Statements46;
   logo: undefined;
 }
 
-interface Statements45 {
+interface Statements46 {
   header: any[];
   table: Table17[];
   text: any[];
@@ -20325,11 +20432,11 @@ interface Q1911 {
   title: string;
   pageType: PageType;
   notation: undefined;
-  statements: Statements44;
+  statements: Statements45;
   logo: undefined;
 }
 
-interface Statements44 {
+interface Statements45 {
   header: any[];
   table: Table5[];
   text: Header[];
@@ -20345,6 +20452,29 @@ interface Q1909 {
   logo: undefined;
 }
 
+interface Q1898 {
+  id: string;
+  label: string;
+  title: string;
+  pageType: PageType;
+  notation: undefined;
+  statements: Statements44;
+  logo: undefined;
+}
+
+interface Statements44 {
+  header: Header[];
+  table: any[];
+  text: Text26[];
+}
+
+interface Text26 {
+  label: string;
+  property: string;
+  wikibasePointer?: WikibasePointer33[];
+  string?: String9[];
+}
+
 interface Q1411 {
   id: string;
   label: string;
@@ -20356,16 +20486,16 @@ interface Q1411 {
 }
 
 interface Statements43 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text26[];
+  text: Text25[];
 }
 
-interface Text26 {
+interface Text25 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer37[];
-  string?: String9[];
+  string?: String41[];
 }
 
 interface WikibasePointer37 {
@@ -20389,16 +20519,16 @@ interface Q1409 {
 }
 
 interface Statements42 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text25[];
+  text: Text24[];
 }
 
-interface Text25 {
+interface Text24 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer[];
-  string?: String9[];
+  string?: String41[];
 }
 
 interface Q1407 {
@@ -20412,16 +20542,16 @@ interface Q1407 {
 }
 
 interface Statements41 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text24[];
+  text: Text23[];
 }
 
-interface Text24 {
+interface Text23 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer36[];
-  string?: String9[];
+  string?: String41[];
 }
 
 interface WikibasePointer36 {
@@ -20445,16 +20575,16 @@ interface Q1395 {
 }
 
 interface Statements40 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text23[];
+  text: Text22[];
 }
 
-interface Text23 {
+interface Text22 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer35[];
-  string?: String9[];
+  string?: String41[];
 }
 
 interface WikibasePointer35 {
@@ -20494,16 +20624,16 @@ interface Q1352 {
 }
 
 interface Statements39 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text22[];
+  text: Text21[];
 }
 
-interface Text22 {
+interface Text21 {
   label: string;
   property: string;
   wikibasePointer?: WikibasePointer33[];
-  string?: String9[];
+  string?: String41[];
 }
 
 interface WikibasePointer33 {
@@ -20527,16 +20657,9 @@ interface P413 {
 }
 
 interface Statements38 {
-  header: any[];
+  header: Header[];
   table: any[];
-  text: Text21[];
-}
-
-interface Text21 {
-  label: string;
-  property: string;
-  wikibasePointer?: WikibasePointer[];
-  string?: String[];
+  text: Table[];
 }
 
 interface P400 {
