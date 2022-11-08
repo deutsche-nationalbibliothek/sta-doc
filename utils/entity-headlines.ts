@@ -70,6 +70,31 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
                   wikiBaseValue.embedded.statements.text,
                   level + 1
                 );
+              } else if (
+                'qualifiers' in wikiBaseValue &&
+                wikiBaseValue.qualifiers
+              ) {
+                return [
+                  { label: wikiBaseValue.label, level: level + 1 },
+                  // {label: wikiBaseValue2.label, level: level + 0},
+                  ...wikiBaseValue.qualifiers.map(
+                    (qualifier) =>
+                      qualifier.wikibasePointer &&
+                      qualifier.wikibasePointer.map((wikiBaseValue2) => {
+                        if (
+                          'embedded' in wikiBaseValue2 &&
+                          wikiBaseValue2.embedded
+                        ) {
+                          return [
+                            ...parseStatementHeadlines(
+                              wikiBaseValue2.embedded.statements.text,
+                              level + 1
+                            ),
+                          ];
+                        }
+                      })
+                  ),
+                ];
               }
             }),
           ];
