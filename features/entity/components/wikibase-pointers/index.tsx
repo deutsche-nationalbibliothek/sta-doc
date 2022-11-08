@@ -37,10 +37,11 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   return hasEmbedded() ? (
     <>
       {wikibasePointers.map(
-        (wikibasePointer) =>
+        (wikibasePointer, index) =>
           isWikibaseValue(wikibasePointer) &&
           wikibasePointer.embedded && (
             <Embedded
+              key={index}
               entity={wikibasePointer.embedded}
               headerLevel={headerLevel}
             />
@@ -50,9 +51,9 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   ) : hasQualifiers() ? (
     <>
       {wikibasePointers.map(
-        (wikibasePointer) =>
+        (wikibasePointer, index) =>
           isWikibaseValue(wikibasePointer) && (
-            <>
+            <React.Fragment key={index}>
               <Title level={headerLevel} label={wikibasePointer.label}>
                 <EntityPreview
                   link={wikibasePointer.link}
@@ -75,7 +76,7 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                 qualifiers={wikibasePointer.qualifiers}
                 headerLevel={headerLevel + 1}
               />
-            </>
+            </React.Fragment>
           )
       )}
     </>
