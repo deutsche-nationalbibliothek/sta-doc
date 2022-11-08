@@ -104,7 +104,7 @@ export const groupsDefinition = {
     ],
   },
   ['default-template']: {
-    header: [],
+    header: [Property['definition']],
     // default renders tableProps, but NOT restProps like above
     table: [
       // todo, add later
@@ -116,7 +116,6 @@ export const groupsDefinition = {
       Property['haselement(item)'],
       Property['haselement(property)'],
       // Eigenschaften für den Namensraum DACH-Dokumentation
-      Property['definition'],
       Property['encoding'],
       Property['entitytype/domain'],
       Property['subclassof'],
