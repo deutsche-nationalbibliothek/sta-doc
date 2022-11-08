@@ -1,12 +1,11 @@
 import { Statement, WikiBaseValue } from '@/types/entity';
 import { Property } from '@/types/property';
-import { Collapse, Typography } from 'antd';
+import { Typography } from 'antd';
 import React from 'react';
-import { useState } from 'react';
-import { EntityDetails } from '../details';
+import { Embedded } from '../embedded';
 import { Examples } from '../examples';
 import { StringStatement } from '../statements/string';
-import { WikibasePointer } from '../statements/wikibase-pointer';
+import { WikibasePointers } from '../wikibase-pointers';
 
 interface QualifiersProps {
   qualifiers: Statement[];
@@ -20,37 +19,29 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,
     [Property['embedded(item)']]: (qualifier: Statement) => {
-      const [isOpen, setIsOpen] = useState(true);
       return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
-            <Collapse
-              onChange={(keys) => setIsOpen(!!keys.length)}
-              defaultActiveKey={['1']}
-            >
-              <Collapse.Panel
-                header={isOpen ? '' : 'Weiterführende Informationen'}
-                key="1"
-              >
-                {isOpen && (
-                  <EntityDetails
-                    embedded
-                    headerLevel={headerLevel + 1}
-                    entity={wikiBaseItem.embedded}
-                  />
-                )}
-              </Collapse.Panel>
-            </Collapse>
+            <Embedded
+              entity={wikiBaseItem.embedded}
+              headerLevel={headerLevel}
+            />
           )}
         </React.Fragment>
       ));
     },
     [Property['embedded(property)']]: () => <></>,
     [Property['see(item)']]: (qualifier: Statement) => (
-      <WikibasePointer wikibaseValues={qualifier.wikibasePointer} />
+      <WikibasePointers
+        headerLevel={headerLevel}
+        wikibasePointers={qualifier.wikibasePointer}
+      />
     ),
     [Property['see(property)']]: (qualifier: Statement) => (
-      <WikibasePointer wikibaseValues={qualifier.wikibasePointer} />
+      <WikibasePointers
+        headerLevel={headerLevel}
+        wikibasePointers={qualifier.wikibasePointer}
+      />
     ),
     [Property['example(s)']]: (qualifier: Statement) => {
       return (

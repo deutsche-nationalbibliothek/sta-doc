@@ -90,8 +90,8 @@ export type Maybe<T> = T | UnknownValue | NoValue;
 
 export const isWikibaseValue = (
   wikibaseValue: Maybe<WikiBaseValue>
-): wikibaseValue is WikiBaseValue => 'label' in wikibaseValue;
+): wikibaseValue is WikiBaseValue => wikibaseValue && 'label' in wikibaseValue;
 
 export const isStringValue = (
   stringValue: Maybe<StringValue>
-): stringValue is StringValue => 'value' in stringValue;
+): stringValue is StringValue => stringValue && 'value' in stringValue;
