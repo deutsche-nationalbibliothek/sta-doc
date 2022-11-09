@@ -16,17 +16,18 @@ interface EntityProps {
   entityId: string;
 }
 
-export default function EntityDetailsPage(props: EntityProps) {
+export default function EntityDetailsPage({
+  headlines,
+  entityId,
+}: EntityProps) {
   const { setHeadlines } = useHeadlines();
   const { currentHeadlinesPath } = useCurrentHeadlinesPath();
 
   useEffect(() => {
-    setHeadlines(props.headlines);
-  }, []);
+    setHeadlines(headlines);
+  }, [headlines]);
 
-  const { data, error, loading } = useSWR<Entity>(
-    `/api/entities/${props.entityId}`
-  );
+  const { data, error, loading } = useSWR<Entity>(`/api/entities/${entityId}`);
 
   if (error) {
     console.error(error);
@@ -40,7 +41,10 @@ export default function EntityDetailsPage(props: EntityProps) {
         <div>
           <Breadcrumb
             style={{
-              paddingTop: currentHeadlinesPath.length > 0 ? 4 : 'var(--topbar-padding-bottom)',
+              paddingTop:
+                currentHeadlinesPath.length > 0
+                  ? 4
+                  : 'var(--topbar-padding-bottom)',
             }}
           >
             {currentHeadlinesPath.map(({ key, title }) => (
