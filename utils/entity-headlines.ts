@@ -1,7 +1,7 @@
 import { Entity, Statement } from '@/types/entity';
 import { Item } from '@/types/item';
-import { Property } from '@/types/property';
 import slugify from 'slugify';
+import { isPropertyBlacklisted } from './constants';
 
 export interface Headline {
   label: string;
@@ -63,7 +63,11 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
             .flat();
         } else if ('wikibasePointer' in statement) {
           return [
-            topLevel && { label: statement.label, level },
+            topLevel &&
+            !isPropertyBlacklisted(statement.property) && {
+              label: statement.label,
+              level,
+            },
             ...statement['wikibasePointer'].map((wikiBaseValue) => {
               if ('embedded' in wikiBaseValue && wikiBaseValue.embedded) {
                 return parseStatementHeadlines(
@@ -76,7 +80,6 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
               ) {
                 return [
                   { label: wikiBaseValue.label, level: level + 1 },
-                  // {label: wikiBaseValue2.label, level: level + 0},
                   ...wikiBaseValue.qualifiers.map(
                     (qualifier) =>
                       qualifier.wikibasePointer &&
@@ -86,6 +89,7 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
                           wikiBaseValue2.embedded
                         ) {
                           return [
+                            // { label: wikiBaseValue2.label, level: level + 1 },
                             ...parseStatementHeadlines(
                               wikiBaseValue2.embedded.statements.text,
                               level + 1
@@ -106,8 +110,7 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
       return [
         ...acc,
         statement.label &&
-        statement.property !== Property.description &&
-        statement.property !== Property.annotation &&
+        !isPropertyBlacklisted(statement.property) &&
         'string' in statement && {
           label: statement.label,
           level: level,

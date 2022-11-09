@@ -1,6 +1,6 @@
 import { Title } from '@/components/title';
 import { Statement } from '@/types/entity';
-import { Property } from '@/types/property';
+import { isPropertyBlacklisted } from '@/utils/constants';
 import React from 'react';
 import { WikibasePointers } from '../wikibase-pointers';
 import { StringStatement } from './string';
@@ -11,8 +11,6 @@ interface StatementsProps {
   showHeader?: boolean;
 }
 
-const propertyBlacklist = [Property.schema, Property.elementof];
-
 export const Statements: React.FC<StatementsProps> = ({
   statements,
   headerLevel,
@@ -21,12 +19,10 @@ export const Statements: React.FC<StatementsProps> = ({
   return (
     <>
       {statements
-        .filter((statement) => !propertyBlacklist.includes(statement.property))
+        .filter((statement) => !isPropertyBlacklisted(statement.property, 'property'))
         .map((statement, index) => {
           const isShowingHeader =
-            showHeader &&
-            statement.property !== Property.description &&
-            statement.property !== Property['embedded(item)'];
+            showHeader && !isPropertyBlacklisted(statement.property, 'headlines')
           return (
             <React.Fragment key={index}>
               {isShowingHeader && (
