@@ -83,12 +83,12 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
               {qualifier.property in qualifierMap
                 ? qualifierMap[qualifier.property](qualifier)
                 : qualifierMap.default(qualifier)}
-              {qualifier.wikibasePointer && (
-                <WikibasePointers
-                  wikibasePointers={qualifier.wikibasePointer}
-                  headerLevel={headerLevel}
-                />
-              )}
+              {/* {qualifier.wikibasePointer && ( */}
+              {/*   <WikibasePointers */}
+              {/*     wikibasePointers={qualifier.wikibasePointer} */}
+              {/*     headerLevel={headerLevel} */}
+              {/*   /> */}
+              {/* )} */}
             </React.Fragment>
           );
         })}
