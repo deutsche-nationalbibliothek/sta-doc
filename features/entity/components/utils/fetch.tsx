@@ -16,12 +16,11 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   showSpinner = true,
 }) => {
   const { data, loading, error } = useSWR<Entity>(`/api/entities/${entityId}`);
-  const {setIsLoading, isLoading} = useIsLoading()
+  const { setIsLoading, isLoading } = useIsLoading();
 
   useEffect(() => {
-    console.log({loading})
-    setIsLoading(loading)
-  }, [loading, isLoading])
+    setIsLoading(loading);
+  }, [loading, isLoading]);
 
   if (showSpinner && loading) {
     return <Spin />;
