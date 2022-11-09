@@ -19,3 +19,29 @@
   --primary-9: @primary-9;
   --link-color: @link-color;
 }
+
+.progress-bar {
+  height: 2px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 11;
+  background: linear-gradient(80deg, #f3efef, @primary-color, @link-color);
+  background-size: 600% 600%;
+  animation: AnimationName 1s ease infinite;
+}
+
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 51%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 51%;
+  }
+}

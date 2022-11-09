@@ -1,9 +1,9 @@
 import { NestedHeadline } from '@/utils/nested-headlines';
-import { createContext, useContext, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext, useState } from 'react';
 
 interface CurrentHeadlinesPathContext {
   currentHeadlinesPath: NestedHeadline[];
-  setCurrentHeadlinesPath: (headlines: NestedHeadline[]) => void;
+  setCurrentHeadlinesPath: Dispatch<SetStateAction<NestedHeadline[]>>;
 }
 
 // param is only used for typing context

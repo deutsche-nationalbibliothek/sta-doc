@@ -1,8 +1,7 @@
-import { useSWR } from '@/lib/swr';
-import { Entity } from '@/types/entity';
-import { Popover, Spin, Typography } from 'antd';
+import { Popover, Typography } from 'antd';
 import Link from 'next/link';
 import { EntityDetails } from './details';
+import { FetchEntity } from './utils/fetch';
 
 interface EntityPreviewProps {
   entityId: string;
@@ -33,20 +32,19 @@ interface PreviewProps {
 }
 
 const PreviewContent: React.FC<PreviewProps> = ({ entityId }) => {
-  const { data, loading } = useSWR<Entity>(`/api/entities/${entityId}`);
-
-  if (loading) {
-    return <Spin />;
-  }
   return (
+    <FetchEntity entityId={entityId}>
+      {(entity) =>
     <div
       style={{
-        width: 720,
+        maxWidth: Math.min(window.innerWidth, 960),
         maxHeight: 480,
         overflowY: 'scroll',
       }}
     >
-      <EntityDetails entity={data} embedded headerLevel={4} />
+      <EntityDetails entity={entity} embedded headerLevel={4} />
     </div>
+    }
+    </FetchEntity>
   );
 };
