@@ -1,6 +1,6 @@
 import { Property } from './property';
 
-export interface Entities {
+export interface Entities extends Indexable<Entities> {
   [key: string]: Entity;
 }
 export interface Entity {

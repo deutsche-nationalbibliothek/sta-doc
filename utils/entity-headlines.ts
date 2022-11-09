@@ -9,18 +9,12 @@ export interface Headline {
   id: string;
 }
 
-export const entityHeadlines = (entity: Entity, level = 1) => {
+export const entityHeadlines = (entity: Entity, level = 1): Headline[] => {
   const headings = [
     Item.firstordersubheading,
     Item.secondordersubheading,
     Item.thirdordersubheading,
   ];
-
-  // const embeddedQualifiers = [
-  //   Property['example(s)'],
-  //   Property['embedded(item)'],
-  //   Property['embedded(property)'],
-  // ];
 
   const parseStatementHeadlines = (
     statements: Statement[],
@@ -130,6 +124,13 @@ export const entityHeadlines = (entity: Entity, level = 1) => {
       ...(entity.statements && 'text' in entity.statements
         ? parseStatementHeadlines(entity.statements.text, level + 1, true)
         : []),
-    ].map((headline) => ({ ...headline, id: slugify(headline.label) }))
+    ]
+      // todo, improve algorithm to make flat call not needed
+      .flat(9)
+      .filter((a) => a)
+      .map((headline) => {
+        return { ...headline, id: slugify(headline.label) };
+      })
+      .filter((a) => a)
   );
 };

@@ -1,16 +1,22 @@
-import { CodingsPreference, useCodingsPreference } from '@/hooks/use-codings-preference';
-import { Coding, isStringValue, StringValue, WikiBaseValue } from '@/types/entity';
+import {
+  CodingsPreference,
+  useCodingsPreference,
+} from '@/hooks/use-codings-preference';
+import { Property } from '@/types/property';
+import { isStringValue, StringValue, WikiBaseValue } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Card, Tag, Typography } from 'antd';
 import React from 'react';
-import { useLocalStorage } from 'react-use';
 
 interface ExampleProps {
   example: WikiBaseValue;
-  codingsPreferences: CodingsPreference[]
+  codingsPreferences: CodingsPreference[];
 }
 
-export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences }) => {
+export const Example: React.FC<ExampleProps> = ({
+  example,
+  codingsPreferences,
+}) => {
   return (
     <>
       {example.embedded && (
@@ -26,7 +32,11 @@ export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences })
                           <Typography.Text
                             italic={stringStatement.itemType === Item.italic}
                           >
-                            <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: stringValue.value,
+                              }}
+                            />
                           </Typography.Text>
                           <br />
                         </React.Fragment>
@@ -42,26 +52,52 @@ export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences })
               <br />
               {statement.string &&
                 statement.string.map((stringStatement) =>
-                  stringStatement.values.map(
-                    (stringValue, index2) => (
+                  stringStatement.values.map((stringValue, index2) => {
+                    const descriptionQualifierString =
+                      isStringValue(stringValue) &&
+                      stringValue.qualifiers?.find(
+                        (qualifier) =>
+                          qualifier.property === Property.description
+                      )?.string[0].values[0];
+                    const exampleLabel =
+                      isStringValue(descriptionQualifierString) &&
+                      descriptionQualifierString.value;
+                    return (
                       <React.Fragment key={index2}>
-                        {
-                          isStringValue(stringValue) && stringValue.coding && (
-                            <div style={{ paddingBottom: 20 }}>
-                              <Typography.Paragraph>
-                                <Typography.Text strong>
-                                  {stringValue.value}
+                        {isStringValue(stringValue) && stringValue.coding && (
+                          <div style={{ paddingBottom: 20 }}>
+                            <Typography.Paragraph>
+                              <Typography.Text strong>
+                                {stringValue.value}
+                              </Typography.Text>{' '}
+                              {exampleLabel && (
+                                <Typography.Text
+                                  style={{ fontSize: 12 }}
+                                  italic
+                                >
+                                  {exampleLabel}
                                 </Typography.Text>
-                                {' '}
-                                <Typography.Text style={{ fontSize: 12 }} italic>{stringValue.qualifiers?.find(qualifier => qualifier.property === 'P7')?.string[0].values[0].value}</Typography.Text>
-                              </Typography.Paragraph>
-                              {['PICA3', 'PICA+'].filter(coding => codingsPreferences.some(codingsPreference => codingsPreference === coding)).map(coding => <ExampleCodingCard coding={coding} key={coding} stringValue={stringValue} />)}
-                            </div>
-                          )
-                        }
+                              )}
+                            </Typography.Paragraph>
+                            {['PICA3', 'PICA+']
+                              .filter((coding) =>
+                                codingsPreferences.some(
+                                  (codingsPreference) =>
+                                    codingsPreference === coding
+                                )
+                              )
+                              .map((coding: CodingsPreference) => (
+                                <ExampleCodingCard
+                                  coding={coding}
+                                  key={coding}
+                                  stringValue={stringValue}
+                                />
+                              ))}
+                          </div>
+                        )}
                       </React.Fragment>
-                    )
-                  )
+                    );
+                  })
                 )}
             </Typography.Paragraph>
           ))}
@@ -72,37 +108,65 @@ export const Example: React.FC<ExampleProps> = ({ example, codingsPreferences })
 };
 
 interface ExampleCodingCardProps {
-  coding: 'PICA3' | 'PICA+'
-  stringValue: StringValue
+  coding: CodingsPreference;
+  stringValue: StringValue;
 }
 
-const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({ coding, stringValue }) => {
-  // if(!(stringValue.coding && stringValue.coding[coding])) {
-  //   return null;
-  // }
-  const { codingsPreferences } = useCodingsPreference()
+const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
+  coding,
+  stringValue,
+}) => {
+  const { codingsPreferences } = useCodingsPreference();
 
-  if (!codingsPreferences.some(codingsPreference => codingsPreference === coding)) {
+  if (
+    !codingsPreferences.some(
+      (codingsPreference) => codingsPreference === coding
+    )
+  ) {
     return null;
   }
 
   return (
-    <Card style={{ backgroundColor: 'var(--primary-3)', transform: 'translateX(0)' }}>
-      <Tag style={{ position: 'fixed', top: 4, right: 0, color: 'var(--link-color )' }}>{coding}</Tag>
-      <Typography.Text code strong>{stringValue.coding[coding]}</Typography.Text>
-      {stringValue.qualifiers.map(qualifier => (
-        'string' in qualifier && qualifier.string.map(stringValueContainer => (
-          stringValueContainer.values.map((qualifierValue, index) => {
-            return isStringValue(qualifierValue) && 'coding' in qualifierValue && (
-              <React.Fragment key={index}>
-                {qualifierValue.coding[coding][0] && <Typography.Text code strong>{qualifierValue.coding[coding][0]}</Typography.Text>}
-                <Typography.Text>{qualifierValue.value}</Typography.Text>
-              </React.Fragment>
-            )
-          })
-        ))
-      ))}
+    <Card
+      style={{
+        backgroundColor: 'var(--primary-3)',
+        transform: 'translateX(0)',
+      }}
+    >
+      <Tag
+        style={{
+          position: 'fixed',
+          top: 4,
+          right: 0,
+          color: 'var(--link-color )',
+        }}
+      >
+        {coding}
+      </Tag>
+      <Typography.Text code strong>
+        {stringValue.coding[coding]}
+      </Typography.Text>
+      {stringValue.qualifiers.map(
+        (qualifier) =>
+          'string' in qualifier &&
+          qualifier.string.map((stringValueContainer) =>
+            stringValueContainer.values.map((qualifierValue, index) => {
+              return (
+                isStringValue(qualifierValue) &&
+                'coding' in qualifierValue && (
+                  <React.Fragment key={index}>
+                    {qualifierValue.coding[coding][0] && (
+                      <Typography.Text code strong>
+                        {qualifierValue.coding[coding][0]}
+                      </Typography.Text>
+                    )}
+                    <Typography.Text>{qualifierValue.value}</Typography.Text>
+                  </React.Fragment>
+                )
+              );
+            })
+          )
+      )}
     </Card>
-  )
-
-}
+  );
+};

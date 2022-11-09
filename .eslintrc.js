@@ -12,6 +12,8 @@ module.exports = {
   },
   root: true,
   rules: {
+    '@typescript-eslint/no-unsafe-assignment': 0,
+    '@typescript-eslint/no-misused-promises': 0,
     'no-debugger': 'warn', // instead of default error
     indent: ['warn', 2, { SwitchCase: 1 }], // instead of default 4
     'no-undef': 'off',

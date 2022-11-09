@@ -3,18 +3,21 @@ import { useScrollDirection } from '@/hooks/use-scroll-direction';
 import { Headline } from '@/utils/entity-headlines';
 import { NestedHeadline, nestedHeadlines } from '@/utils/nested-headlines';
 import { Affix, Divider, Tree, Typography } from 'antd';
+import { DataNode } from 'antd/lib/tree';
 import { debounce } from 'lodash';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import RcTree from 'rc-tree';
+import React, { useCallback, useEffect, useState } from 'react';
 
 export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   headlines,
 }) => {
   const router = useRouter();
-  const [selectedHeadlines, setSelectedHeadlines] = useState([]);
+  const [selectedHeadlines, setSelectedHeadlines] = useState<string[]>([]);
   const { setCurrentHeadlinesPath, currentHeadlinesPath } =
     useCurrentHeadlinesPath();
-  const treeRef = React.useRef<any>();
+  // const treeRef = React.useRef<{state: {selectedKeys: string[]}, scrollTo: (options: {key: string, offset: number}) => void}>();
+  const treeRef = React.useRef<RcTree<DataNode>>();
 
   const scrollDirection = useScrollDirection();
 
@@ -36,27 +39,27 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
     );
   };
 
-  const onScroll = () => {
-    const headlinesInViewport = headlines
+  const onScroll = useCallback(() => {
+    const headlinesInViewport: string[] = headlines
       .filter((headline) => {
         return isInViewport(document.getElementById(headline.id));
       })
       .map((headline) => headline.id);
     setSelectedHeadlines(headlinesInViewport);
-  };
+  }, [setSelectedHeadlines, headlines]);
 
-  const debouncedOnScroll = debounce(onScroll, 50);
+  const debouncedOnScroll = useCallback(debounce(onScroll, 50), [onScroll]);
   useEffect(onScroll, [headlines]);
   useEffect(() => {
     window.addEventListener('scroll', debouncedOnScroll);
     return () => window.removeEventListener('scroll', debouncedOnScroll);
-  }, []);
+  }, [debouncedOnScroll]);
 
   useEffect(() => {
     if (treeRef && treeRef.current) {
       const treeContainer: HTMLElement =
         document.querySelector('div[role=tree]');
-      const selectedKeys: string[] = treeRef.current.state.selectedKeys;
+      const selectedKeys = treeRef.current.state.selectedKeys;
 
       const headingsOutOfViewport = selectedKeys.filter(
         (key) =>
@@ -72,7 +75,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
         });
       }
     }
-  }, [selectedHeadlines]);
+  }, [selectedHeadlines, scrollDirection]);
 
   useEffect(() => {
     const firstSelectedHeadlineKey = selectedHeadlines[0];
@@ -88,7 +91,7 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
       const treeNodeReducer = (
         acc: NestedHeadline[],
         headline: NestedHeadline
-      ) => {
+      ): { title: string; key: string }[] => {
         const { children, ...headlineValues } = headline;
         if (headlineValues.key === firstSelectedHeadlineKey) {
           return [...acc, headlineValues];
@@ -115,19 +118,19 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
       {treeStructuredHeadlines.length > 0 && (
         <Affix offsetTop={64 /* topbar-height */}>
           <div>
-            <Divider style={{
-              marginTop: 'var(--topbar-padding-bottom)',
-              marginBottom: 'var(--topbar-padding-bottom)',
-            }} />
+            <Divider
+              style={{
+                marginTop: 'var(--topbar-padding-bottom)',
+                marginBottom: 'var(--topbar-padding-bottom)',
+              }}
+            />
             <Tree
               showLine
               showIcon
               defaultExpandAll
               ref={treeRef}
               height={
-                window.innerHeight -
-                64 -
-                48 * 2 // divider height
+                window.innerHeight - 64 - 48 * 2 // topbar- and divider-height
               }
               selectedKeys={selectedHeadlines}
               multiple

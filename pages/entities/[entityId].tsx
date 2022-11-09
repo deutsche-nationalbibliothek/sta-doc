@@ -1,15 +1,15 @@
-import entites from '@/data/parsed/entities.json';
+import entities from '@/data/parsed/entities.json';
 import { entityHeadlines, Headline } from 'utils/entity-headlines';
 import { useHeadlines } from '@/hooks/headlines';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { useEffect } from 'react';
 import { EntityDetails } from '@/entity/components/details';
 import type { GetStaticProps, GetStaticPaths } from 'next';
-import type { Entities } from '@/types/entity';
 import { Affix, Breadcrumb, Divider, Tooltip } from 'antd';
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { truncate } from 'lodash';
 import { FetchEntity } from '@/entity/components/utils/fetch';
+import { Entities, Entity } from '@/types/entity';
 
 interface EntityProps {
   headlines: Headline[];
@@ -25,7 +25,7 @@ export default function EntityDetailsPage({
 
   useEffect(() => {
     setHeadlines(headlines);
-  }, [headlines]);
+  }, [headlines, setHeadlines]);
 
   return (
     <>
@@ -71,18 +71,24 @@ export default function EntityDetailsPage({
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = (context) => {
   const { entityId } = context.params;
-  return {
-    props: {
-      entityId,
-      headlines: entityHeadlines(entites[entityId as keyof Entities]),
-    },
-  };
+  const entity: Entity =
+    !Array.isArray(entityId) &&
+    entityId in entities &&
+    entities[entityId as keyof Entities];
+  return (
+    entity && {
+      props: {
+        entityId,
+        headlines: entityHeadlines(entity),
+      },
+    }
+  );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: Object.keys(entites).map((entityId) => ({
+export const getStaticPaths: GetStaticPaths = () => ({
+  paths: Object.keys(entities).map((entityId) => ({
     params: { entityId },
   })),
   fallback: true,

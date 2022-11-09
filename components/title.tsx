@@ -3,8 +3,7 @@ import { TitleProps } from 'antd/lib/typography/Title';
 import React from 'react';
 import slugify from 'slugify';
 
-// @ts-ignore
-interface LocalTitleProps extends TitleProps {
+interface LocalTitleProps extends Omit<TitleProps, 'level'> {
   level: number;
   label: string;
 }
