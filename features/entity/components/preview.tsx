@@ -17,30 +17,36 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
   children,
   label,
 }) => {
+  return (
+    <Popover
+      placement="bottomRight"
+      title={<Typography.Text strong>{label}</Typography.Text>}
+      content={<PreviewContent entityId={entityId} />}
+      trigger="hover"
+    >
+      <Link href={link}>{children}</Link>
+    </Popover>
+  );
+};
+interface PreviewProps {
+  entityId: string;
+}
+
+const PreviewContent: React.FC<PreviewProps> = ({ entityId }) => {
   const { data, loading } = useSWR<Entity>(`/api/entities/${entityId}`);
 
   if (loading) {
     return <Spin />;
   }
-
   return (
-    <Popover
-      placement="bottomRight"
-      title={<Typography.Text strong>{label}</Typography.Text>}
-      content={
-        <div
-          style={{
-            width: 720,
-            maxHeight: 480,
-            overflowY: 'scroll',
-          }}
-        >
-          <EntityDetails entity={data} embedded headerLevel={4} />
-        </div>
-      }
-      trigger="hover"
+    <div
+      style={{
+        width: 720,
+        maxHeight: 480,
+        overflowY: 'scroll',
+      }}
     >
-      <Link href={link}>{children}</Link>
-    </Popover>
+      <EntityDetails entity={data} embedded headerLevel={4} />
+    </div>
   );
 };
