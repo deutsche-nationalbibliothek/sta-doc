@@ -1,4 +1,5 @@
 import { Title } from '@/components/title';
+import { useInitialScroll } from '@/hooks/use-inital-scroll';
 import { Entity } from '@/types/entity';
 import React from 'react';
 import { Statements } from './statements';
@@ -15,6 +16,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   embedded = false,
   headerLevel = 1,
 }) => {
+  useInitialScroll(!embedded);
   return (
     <>
       {!embedded && <Title label={entity.label} level={headerLevel} />}

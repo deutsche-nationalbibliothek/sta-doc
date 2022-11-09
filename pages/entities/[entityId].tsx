@@ -32,7 +32,6 @@ export default function EntityDetailsPage({
     <>
       <FetchEntity entityId={entityId} showSpinner={false}>
         {(entity, loading) => {
-          useInitialScroll()
           return (
             <>
               <Affix offsetTop={64 /* topbar-height */}>
