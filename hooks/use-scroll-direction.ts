@@ -1,7 +1,12 @@
 import { debounce } from 'lodash';
 import { useEffect, useState } from 'react';
 
-export const useScrollDirection = (): 'up' | 'down' => {
+export enum ScrollDirection {
+  up = 'up',
+  down = 'down',
+}
+
+export const useScrollDirection = (): ScrollDirection => {
   const [scrollPosition, setScrollPosition] = useState({
     current: window.scrollY,
     prev: 0,
@@ -20,5 +25,7 @@ export const useScrollDirection = (): 'up' | 'down' => {
     return () => window.removeEventListener('scroll', debouncedOnScroll);
   }, []);
 
-  return scrollPosition.current < scrollPosition.prev ? 'up' : 'down';
+  return scrollPosition.current < scrollPosition.prev
+    ? ScrollDirection.up
+    : ScrollDirection.down;
 };

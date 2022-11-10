@@ -45,8 +45,18 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
         return isInViewport(document.getElementById(headline.id));
       })
       .map((headline) => headline.id);
-    setSelectedHeadlines(headlinesInViewport);
-  }, [setSelectedHeadlines, headlines]);
+
+    setSelectedHeadlines((currentSelectedHeadlines) => {
+      if (headlinesInViewport.length) {
+        return headlinesInViewport;
+      } else {
+        // todo, logic breaks if scrolling up and no headline is in viewport
+        const currentLastHeadline =
+          currentSelectedHeadlines[currentSelectedHeadlines.length - 1];
+        return [currentLastHeadline];
+      }
+    });
+  }, [setSelectedHeadlines, headlines, scrollDirection]);
 
   const debouncedOnScroll = useCallback(debounce(onScroll, 50), [onScroll]);
   useEffect(onScroll, [headlines]);
