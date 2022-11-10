@@ -27,9 +27,12 @@
   top: 0;
   width: 100vw;
   z-index: 11;
-  background: linear-gradient(80deg, #f3efef, @primary-color, @link-color);
+  background: linear-gradient(120deg,
+    @background-color,
+    @primary-color,
+    color(~`colorPalette('@{link-color}', 3) `));
   background-size: 600% 600%;
-  animation: AnimationName 1s ease infinite;
+  animation: AnimationName 2s ease infinite;
 }
 
 @keyframes AnimationName {
