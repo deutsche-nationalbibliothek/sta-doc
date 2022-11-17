@@ -9,27 +9,41 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
-  const label = examples.length > 1 ? 'Beispiele' : 'Beispiel'
-  const {codingsPreferences, onChange, codingsOptions } = useCodingsPreference()
+  const label = examples.length > 1 ? 'Beispiele' : 'Beispiel';
+  const { codingsPreferences, onChange, codingsOptions } =
+    useCodingsPreference();
 
   return (
     <>
-      <Modal label={label} title={(
-        <div style={{ height: 24, transform: 'translateX(0)' }}>
-          {label}
-          <Select
-            mode="multiple"
-            // todo, value only reads on mount -> does not get updated
-            value={codingsPreferences}
-            onChange={onChange}
-            size="small"
-            style={{ width: 160, position: 'fixed', right: 24 }}
-            options={codingsOptions.map((codingsOption, index) => ({label: codingsOption, value: codingsOption, key: index}))}
-          />
-        </div>
-      )}>
+      <Modal
+        label={label}
+        title={
+          <div style={{ height: 24, transform: 'translateX(0)' }}>
+            {label}
+            <Select
+              mode="multiple"
+              value={codingsPreferences}
+              onChange={onChange}
+              size="small"
+              style={{ width: 160, position: 'fixed', right: 24 }}
+              options={codingsOptions.map((codingsOption, index) => ({
+                label: codingsOption,
+                value: codingsOption,
+                key: index,
+              }))}
+            />
+          </div>
+        }
+      >
         {examples.map((example, index) => {
-          return <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}><Example example={example} codingsPreferences={codingsPreferences} /></Card>;
+          return (
+            <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}>
+              <Example
+                example={example}
+                codingsPreferences={codingsPreferences}
+              />
+            </Card>
+          );
         })}
       </Modal>
     </>
