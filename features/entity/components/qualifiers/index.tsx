@@ -9,12 +9,10 @@ import { WikibasePointers } from '../wikibase-pointers';
 
 interface QualifiersProps {
   qualifiers: Statement[];
-  headerLevel: number;
 }
 
 export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
-  headerLevel,
 }) => {
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,
@@ -24,7 +22,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
             <Embedded
               entity={wikiBaseItem.embedded}
-              headerLevel={headerLevel}
             />
           )}
         </React.Fragment>
@@ -33,13 +30,11 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     [Property['embedded(property)']]: () => <></>,
     [Property['see(item)']]: (qualifier: Statement) => (
       <WikibasePointers
-        headerLevel={headerLevel}
         wikibasePointers={qualifier.wikibasePointer}
       />
     ),
     [Property['see(property)']]: (qualifier: Statement) => (
       <WikibasePointers
-        headerLevel={headerLevel}
         wikibasePointers={qualifier.wikibasePointer}
       />
     ),
@@ -61,7 +56,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
             <Typography.Text strong>{qualifier.label}:</Typography.Text>
             <StringStatement
               statement={qualifier.string}
-              headerLevel={headerLevel}
             />
           </Typography.Paragraph>
         )
@@ -86,7 +80,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
               {/* {qualifier.wikibasePointer && ( */}
               {/*   <WikibasePointers */}
               {/*     wikibasePointers={qualifier.wikibasePointer} */}
-              {/*     headerLevel={headerLevel} */}
               {/*   /> */}
               {/* )} */}
             </React.Fragment>

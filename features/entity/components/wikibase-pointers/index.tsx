@@ -11,12 +11,10 @@ import { References } from '../references';
 
 interface WikibasePointerProps {
   wikibasePointers: Maybe<WikiBaseValue>[];
-  headerLevel: number;
 }
 
 export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   wikibasePointers,
-  headerLevel,
 }) => {
   const isList = () => wikibasePointers.length > 1;
   const hasQualifiers = () =>
@@ -43,7 +41,6 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
             <Embedded
               key={index}
               entity={wikibasePointer.embedded}
-              headerLevel={headerLevel}
             />
           )
       )}
@@ -68,13 +65,11 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                 {wikibasePointer.references && (
                   <References
                     references={wikibasePointer.references}
-                    headerLevel={headerLevel + 1}
                   />
                 )}
               </Title>
               <Qualifiers
                 qualifiers={wikibasePointer.qualifiers}
-                headerLevel={headerLevel + 1}
               />
             </React.Fragment>
           )

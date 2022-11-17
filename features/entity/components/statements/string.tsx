@@ -8,18 +8,15 @@ import { StringValueComponent } from '../values/string';
 
 interface StringStatementProps {
   statement: StringValueContainer[];
-  headerLevel: number;
 }
 
 export const StringStatement: React.FC<StringStatementProps> = ({
   statement,
-  headerLevel,
 }) => {
   const renderHeadline = (
       stringValueContainer: StringValueContainer
     ) => (
       <GenericStringValueMapper
-        headerLevel={headerLevel}
         stringValueContainer={stringValueContainer}
       >
         {(stringValue, qualifiers, references) => (
@@ -37,7 +34,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
       <GenericStringValueMapper
-        headerLevel={headerLevel}
         stringValueContainer={stringValueContainer}
       >
         {(stringValue, qualifiers, references) => (
@@ -54,7 +50,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     ) => (
       <ul>
         <GenericStringValueMapper
-          headerLevel={headerLevel}
           stringValueContainer={stringValueContainer}
         >
           {(stringValue, qualifiers, references) => (
@@ -72,7 +67,6 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     ) => (
       <ol>
         <GenericStringValueMapper
-          headerLevel={headerLevel}
           stringValueContainer={stringValueContainer}
         >
           {(stringValue, qualifiers, references) => (

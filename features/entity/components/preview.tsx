@@ -34,17 +34,17 @@ interface PreviewProps {
 const PreviewContent: React.FC<PreviewProps> = ({ entityId }) => {
   return (
     <FetchEntity entityId={entityId}>
-      {(entity) =>
-    <div
-      style={{
-        maxWidth: Math.min(window.innerWidth, 960),
-        maxHeight: 480,
-        overflowY: 'scroll',
-      }}
-    >
-      <EntityDetails entity={entity} embedded headerLevel={4} />
-    </div>
-    }
+      {(entity) => (
+        <div
+          style={{
+            maxWidth: Math.min(window.innerWidth, 960),
+            maxHeight: 480,
+            overflowY: 'scroll',
+          }}
+        >
+          <EntityDetails entity={entity} embedded />
+        </div>
+      )}
     </FetchEntity>
   );
 };

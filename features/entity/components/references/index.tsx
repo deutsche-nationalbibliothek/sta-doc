@@ -8,12 +8,8 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 
 interface ReferencesProps {
   references: Reference[];
-  headerLevel: number;
 }
-export const References: React.FC<ReferencesProps> = ({
-  references,
-  headerLevel,
-}) => {
+export const References: React.FC<ReferencesProps> = ({ references }) => {
   // todo, data structure not ideal
   const groupedReferences = references.reduce((acc, val, index) => {
     index % 2 === 0 ? acc.push([val]) : acc[acc.length - 1].push(val);
@@ -34,7 +30,6 @@ export const References: React.FC<ReferencesProps> = ({
                       style={{ marginBottom: 0 }}
                     >
                       <GenericStringValueMapper
-                        headerLevel={headerLevel}
                         stringValueContainer={stringValueContainer}
                       >
                         {(stringValue) => <>{stringValue.value}</>}

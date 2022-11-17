@@ -7,13 +7,11 @@ import { StringStatement } from './string';
 
 interface StatementsProps {
   statements: Statement[];
-  headerLevel: number;
   showHeader?: boolean;
 }
 
 export const Statements: React.FC<StatementsProps> = ({
   statements,
-  headerLevel,
   showHeader = true,
 }) => {
   return (
@@ -33,13 +31,11 @@ export const Statements: React.FC<StatementsProps> = ({
               {statement.string ? (
                 <StringStatement
                   statement={statement.string}
-                  headerLevel={headerLevel + (isShowingHeader ? 0 : 1)}
                 />
               ) : (
                 statement.wikibasePointer && (
                   <WikibasePointers
                     wikibasePointers={statement.wikibasePointer}
-                    headerLevel={headerLevel + (isShowingHeader ? 0 : 1)}
                   />
                 )
               )}

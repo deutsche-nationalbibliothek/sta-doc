@@ -11,12 +11,11 @@ interface GenericStringValueMapperProps {
     qualifiers: JSX.Element,
     references: JSX.Element
   ) => JSX.Element;
-  headerLevel: number;
 }
 
 export const GenericStringValueMapper: React.FC<
   GenericStringValueMapperProps
-> = ({ stringValueContainer, children, headerLevel }) => (
+> = ({ stringValueContainer, children }) => (
   <>
     {stringValueContainer.values.map((stringValue, index) => (
       <Fragment key={index}>
@@ -27,13 +26,11 @@ export const GenericStringValueMapper: React.FC<
                 stringValue,
                 stringValue.qualifiers && (
                   <Qualifiers
-                    headerLevel={headerLevel}
                     qualifiers={stringValue.qualifiers}
                   />
                 ),
                 stringValue.references && (
                   <References
-                    headerLevel={headerLevel}
                     references={stringValue.references}
                   />
                 )

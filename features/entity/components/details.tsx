@@ -7,14 +7,12 @@ import { TableStatements } from './statements/table';
 
 interface EntityDetailsProps {
   entity: Entity;
-  headerLevel?: number;
   embedded?: boolean;
 }
 
 export const EntityDetails: React.FC<EntityDetailsProps> = ({
   entity,
   embedded = false,
-  headerLevel = 1,
 }) => {
   useInitialScroll(!embedded);
 
@@ -24,7 +22,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
       {entity.statements.header.length > 0 && (
         <Statements
           statements={entity.statements.header}
-          headerLevel={headerLevel + 1}
           showHeader={false}
         />
       )}
@@ -34,7 +31,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
       {entity.statements.text.length > 0 && (
         <Statements
           statements={entity.statements.text}
-          headerLevel={headerLevel + 1}
         />
       )}
     </>

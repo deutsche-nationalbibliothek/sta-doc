@@ -5,10 +5,9 @@ import { EntityDetails } from './details';
 
 interface EmbeddedProps {
   entity: Entity;
-  headerLevel: number;
 }
 
-export const Embedded: React.FC<EmbeddedProps> = ({ entity, headerLevel }) => {
+export const Embedded: React.FC<EmbeddedProps> = ({ entity }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Collapse
@@ -22,7 +21,6 @@ export const Embedded: React.FC<EmbeddedProps> = ({ entity, headerLevel }) => {
         {isOpen && (
           <EntityDetails
             embedded
-            headerLevel={headerLevel + 1}
             entity={entity}
           />
         )}
