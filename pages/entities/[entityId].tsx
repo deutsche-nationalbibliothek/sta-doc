@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { EntityDetails } from '@/entity/components/details';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import { Affix, Breadcrumb, Divider, Tooltip } from 'antd';
-import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { truncate } from 'lodash';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { Entities, Entity } from '@/types/entity';
@@ -20,8 +19,7 @@ export default function EntityDetailsPage({
   headlines,
   entityId,
 }: EntityProps) {
-  const { setHeadlines } = useHeadlines();
-  const { currentHeadlinesPath } = useCurrentHeadlinesPath();
+  const { setHeadlines, currentHeadlinesPath } = useHeadlines();
 
   useEffect(() => {
     setHeadlines(headlines);
@@ -43,11 +41,13 @@ export default function EntityDetailsPage({
                           : 'var(--topbar-padding-bottom)',
                     }}
                   >
-                    {currentHeadlinesPath.map(({ key, title }) => (
+                    {currentHeadlinesPath.map(({ key, title }, index) => (
                       <Breadcrumb.Item key={key}>
                         <Tooltip placement="bottom" title={title}>
                           <a href={`#${key}`}>
-                            {truncate(title, { length: 64 })}
+                            {index === currentHeadlinesPath.length - 1
+                              ? title
+                              : truncate(title, { length: 64 })}
                           </a>
                         </Tooltip>
                       </Breadcrumb.Item>

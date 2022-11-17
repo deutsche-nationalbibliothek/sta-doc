@@ -1,11 +1,11 @@
 export interface Headline {
-  label: string;
+  title: string;
   level: number;
   key: string;
 }
 
-export interface NestedHeadline {
+export interface NestedHeadlines {
   title: string;
   key: string;
-  children?: NestedHeadline[];
+  children?: NestedHeadlines[];
 }

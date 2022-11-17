@@ -9,7 +9,7 @@ interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
 
 export const Title: React.FC<LocalTitleProps> = (props) => {
   const { headline, children, ...otherProps } = props;
-  const { level, label, key } = headline;
+  const { level, title, key } = headline;
 
   const localLevel = (level <= 4 ? level : 4) as 1 | 2 | 3 | 4;
   const levelsTooHigh = level - 4;
@@ -27,7 +27,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
       level={localLevel}
       {...otherProps}
     >
-      {children ?? label}
+      {children ?? title}
     </Typography.Title>
   );
 };

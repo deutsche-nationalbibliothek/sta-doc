@@ -46,7 +46,7 @@ export const parseEntities = (
       return {};
     }
 
-    const addHeadline = (label: string, level: number) => {
+    const addHeadline = (title: string, level: number) => {
       const isHeadlineAlreadyInCollection = (key: string) =>
         headlines.some((headline) => headline.key === key);
 
@@ -59,9 +59,9 @@ export const parseEntities = (
         }
       };
 
-      const sluggedLabel = slugify(label);
+      const sluggedLabel = slugify(title);
       const headline = {
-        label,
+        title,
         key: isHeadlineAlreadyInCollection(sluggedLabel)
           ? findAvailableKey(sluggedLabel, 1)
           : sluggedLabel,

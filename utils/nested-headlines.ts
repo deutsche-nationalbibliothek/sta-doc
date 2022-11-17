@@ -1,15 +1,19 @@
-import { Headline, NestedHeadline } from '@/types/headline';
+import { Headline, NestedHeadlines } from '@/types/headline';
 
-const treeItem = ({ label, key }: Headline) => {
+const treeItem = ({ title, key }: Headline) => {
   return {
-    title: label,
-    key: key,
+    title,
+    key,
   };
 };
 
 export const nestedHeadlines = (headlines: Headline[]) => {
   // filter top-level headline
   const filteredHeadlines = headlines.filter((headline) => headline.level > 1);
+
+  if (filteredHeadlines.length === 0) {
+    return [];
+  }
 
   return filteredHeadlines.reduce(
     (acc, headline) => {
@@ -41,8 +45,8 @@ export const nestedHeadlines = (headlines: Headline[]) => {
       // quickfix, since some entities have wrong headline parsing
       initialLevel: filteredHeadlines[0].level,
       lastSeenLevel: filteredHeadlines[0].level,
-      headlines: [] as NestedHeadline[],
+      headlines: [] as NestedHeadlines[],
       currentPointer: undefined,
     }
-  );
+  ).headlines;
 };
