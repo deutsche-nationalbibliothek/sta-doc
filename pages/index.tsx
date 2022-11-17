@@ -1,3 +1,5 @@
+import { Title } from '@/components/title';
+import { Divider, Typography } from 'antd';
 import Head from 'next/head';
 
 export default function Home() {
@@ -6,11 +8,15 @@ export default function Home() {
       <Head>
         <title>DACH Dokumentationsplattform</title>
       </Head>
-      <section>
-        <h1>DACH Dokumentationsplattform</h1>
-        <hr />
-        <p>Herzlich willkommen!</p>
-      </section>
+      <Title
+        headline={{
+          title: 'DACH Dokumentationsplattform',
+          key: 'DACH-Dokumentationsplattform',
+          level: 1,
+        }}
+      />
+      <Divider />
+      <Typography.Paragraph>Herzlich willkommen!</Typography.Paragraph>
     </>
   );
 }
