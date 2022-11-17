@@ -9,6 +9,7 @@ import { truncate } from 'lodash';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { Entities, Entity } from '@/types/entity';
 import { Headline } from '@/types/headline';
+import Head from 'next/head';
 
 interface EntityProps {
   headlines: Headline[];
@@ -31,6 +32,11 @@ export default function EntityDetailsPage({
         {(entity, loading) => {
           return (
             <>
+              <Head>
+                {!loading && (
+                  <title>{entity.title ?? entity.headline.title}</title>
+                )}
+              </Head>
               <Affix offsetTop={64 /* topbar-height */}>
                 <div>
                   <Breadcrumb
