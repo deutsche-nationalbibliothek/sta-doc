@@ -54,7 +54,7 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
         (wikibasePointer, index) =>
           isWikibaseValue(wikibasePointer) && (
             <React.Fragment key={index}>
-              <Title level={headerLevel} label={wikibasePointer.label}>
+              <Title headline={wikibasePointer.headline}>
                 <EntityPreview
                   link={wikibasePointer.link}
                   label={wikibasePointer.label}
@@ -122,6 +122,7 @@ const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
 };
 
 const MissingLink = () => {
+  // todo, distinct between noValue and missingValue
   return (
     <Typography.Text strong>
       <ArrowRightOutlined />

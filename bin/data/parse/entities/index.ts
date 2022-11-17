@@ -1,15 +1,24 @@
-import { readRawData } from '../../read';
-import { Property } from '../../../../types/property';
-import { DataState, writeJSONFileAndType } from '../../utils';
-import { EntityRaw } from '../../types/raw/entity';
-import { Notation } from '@/types-parsed/notation';
+import { Coding } from '@/types-parsed/coding';
+import { Entity } from '@/types-parsed/entity';
 import { LabelDe } from '@/types-parsed/label-de';
 import { LabelEn } from '@/types-parsed/label-en';
-import { Entity } from '@/types-parsed/entity';
+import { Notation } from '@/types-parsed/notation';
+import { Headline } from '@/types/headline';
+import slugify from 'slugify';
 import { Item } from '../../../../types/item';
-import { Coding } from '@/types-parsed/coding';
+import { Property } from '../../../../types/property';
+import { isPropertyBlacklisted } from '../../../../utils/constants';
+import { readRawData } from '../../read';
+import { EntityRaw } from '../../types/raw/entity';
+import { DataState, writeJSONFileAndType } from '../../utils';
 import { NAMES } from '../../utils/names';
 import { groupsDefinition } from './groups-definition';
+
+const headings = [
+  Item.firstordersubheading,
+  Item.secondordersubheading,
+  Item.thirdordersubheading,
+];
 
 export const parseEntities = (
   lookup_en: LabelEn,
@@ -22,6 +31,8 @@ export const parseEntities = (
 
   const parseRawEntity = (
     entityId: keyof EntityRaw,
+    headlines: Headline[],
+    currentHeadlineLevel: number,
     prevParsedEntity = [],
     embedded = false
   ) => {
@@ -34,6 +45,31 @@ export const parseEntities = (
       );
       return {};
     }
+
+    const addHeadline = (label: string, level: number) => {
+      const isHeadlineAlreadyInCollection = (key: string) =>
+        headlines.some((headline) => headline.key === key);
+
+      const findAvailableKey = (key: string, index: number): string => {
+        const nextHeadline = `${key}-${index}`;
+        if (isHeadlineAlreadyInCollection(nextHeadline)) {
+          return findAvailableKey(key, index + 1);
+        } else {
+          return nextHeadline;
+        }
+      };
+
+      const sluggedLabel = slugify(label);
+      const headline = {
+        label,
+        key: isHeadlineAlreadyInCollection(sluggedLabel)
+          ? findAvailableKey(sluggedLabel, 1)
+          : sluggedLabel,
+        level,
+      };
+      headlines.push(headline);
+      return headline;
+    };
 
     const entityProps = () => {
       if (!(Property.elementof in entity.claims)) {
@@ -59,7 +95,11 @@ export const parseEntities = (
             );
         };
 
-        const parseStatementProps = (statement, embeddedStatement = false) => {
+        const parseStatementProps = (
+          statement,
+          currentHeadlineLevel,
+          { embeddedStatement = false, isTopLevel = false, isTextGroup = false }
+        ) => {
           const keyAccess = (occ, ...propertyPath: string[]) => {
             // try {
             return propertyPath.reduce(
@@ -88,14 +128,35 @@ export const parseEntities = (
                   Object.keys(ref.snaks).map((refKey) => ref.snaks[refKey])
                 )
                 .flat(),
-              true
+              currentHeadlineLevel + 1,
+              { embeddedStatement: true, isTextGroup }
             );
           };
 
           const parseWikibaseValue = (occ) => {
             const id = keyAccess(occ, 'datavalue', 'value', 'id');
+            const property = keyAccess(occ, 'property');
+            const value = lookup_de[property];
+            const hasHeadline =
+              isTopLevel &&
+              isTextGroup &&
+              !isPropertyBlacklisted(property) &&
+              occ.qualifiers;
+            // if (hasHeadline) {
+            //   console.log(
+            //     'headline parseWikibaseValue',
+            //     lookup_de[id],
+            //     currentHeadlineLevel + (isTopLevel ? 1 : 0)
+            //   );
+            // }
             return {
               id: id,
+              headline: hasHeadline
+                ? addHeadline(
+                  lookup_de[id],
+                  currentHeadlineLevel + (isTopLevel ? 1 : 0)
+                )
+                : undefined,
               label: lookup_de[id],
               link: `/entities/${id}`,
               coding: codings[id],
@@ -111,14 +172,31 @@ export const parseEntities = (
           const parseStringValue = (occ) => {
             const value = keyAccess(occ, 'datavalue', 'value');
             const id = keyAccess(occ, 'property');
+            const itemType =
+              !embeddedStatement &&
+              occ['qualifiers-order'] &&
+              occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue?.value.id;
+            const headingIndex = headings.findIndex(
+              (heading) => heading === itemType
+            );
+            // if (headingIndex >= 0) {
+            //   console.log(
+            //     'headline stringValue',
+            //     value,
+            //     currentHeadlineLevel + headingIndex + (isTopLevel ? 1 : 0)
+            //   );
+            // }
             return {
               value,
+              headline:
+                headingIndex >= 0 && isTextGroup
+                  ? addHeadline(
+                    value,
+                    currentHeadlineLevel + headingIndex + (isTopLevel ? 1 : 0)
+                  )
+                  : undefined,
               coding: codings[id],
-              itemType:
-                !embeddedStatement &&
-                occ['qualifiers-order'] &&
-                occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue?.value
-                  .id,
+              itemType,
             };
           };
 
@@ -128,7 +206,7 @@ export const parseEntities = (
             };
           };
 
-          const parsedStatements = statement.map((occs) => {
+          const parsedStatements = statement.map((occs, index) => {
             const dataType = keyAccess(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -137,8 +215,17 @@ export const parseEntities = (
                 ? 'wikibasePointer'
                 : dataType;
             const property = keyAccess(occs[0], 'property');
+            const label = lookup_de[property];
+            const hasHeadline =
+              isTopLevel && isTextGroup && !isPropertyBlacklisted(property);
+            // if (hasHeadline) {
+            //   console.log('top level headline', label, currentHeadlineLevel);
+            // }
             return {
-              label: lookup_de[property],
+              label,
+              headline: hasHeadline
+                ? addHeadline(label, currentHeadlineLevel)
+                : undefined,
               property,
               [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess(occ, 'snaktype');
@@ -150,6 +237,12 @@ export const parseEntities = (
                 const propertyId = keyAccess(occ, 'property');
                 const pointerId = keyAccess(occ, 'datavalue', 'value', 'id');
 
+                const hasEmbedding =
+                  (propertyId === Property['example(s)'] ||
+                    propertyId === Property['embedded(item)'] ||
+                    propertyId === Property['embedded(property)']) &&
+                  !prevParsedEntity.some((id) => id === pointerId);
+
                 return {
                   ...(simplifiedDataType === 'wikibasePointer'
                     ? parseWikibaseValue(occ)
@@ -160,22 +253,22 @@ export const parseEntities = (
                         : parseStringValue(occ)),
                   references: occ.references && parseReferences(occ.references),
                   embedded:
-                    (propertyId === Property['example(s)'] ||
-                      propertyId === Property['embedded(item)'] ||
-                      propertyId === Property['embedded(property)']) &&
-                    !prevParsedEntity.some((id) => id === pointerId) &&
+                    hasEmbedding &&
                     parseRawEntity(
                       pointerId,
+                      headlines,
+                      currentHeadlineLevel + 1,
                       [...prevParsedEntity, entityId],
                       true
-                    ),
+                    ).parsedEntity,
                   qualifiers:
                     occ.qualifiers &&
                     parseStatementProps(
                       Object.keys(occ.qualifiers).map(
                         (qualiKey) => occ.qualifiers[qualiKey]
                       ),
-                      true
+                      currentHeadlineLevel + (hasEmbedding ? 1 : 0),
+                      { embeddedStatement: true, isTextGroup }
                     ),
                 };
               }),
@@ -185,15 +278,45 @@ export const parseEntities = (
         };
 
         const enrichedParsedStatementProps = {
-          header: parseStatementProps(filterSort('header')),
-          table: parseStatementProps(filterSort('table')),
-          text: parseStatementProps(filterSort('text')),
+          header: parseStatementProps(
+            filterSort('header'),
+            currentHeadlineLevel + 1,
+            {
+              isTopLevel: !embedded,
+            }
+          ),
+          table: parseStatementProps(
+            filterSort('table'),
+            currentHeadlineLevel + 1,
+            {
+              isTopLevel: !embedded,
+            }
+          ),
+          text: parseStatementProps(
+            filterSort('text'),
+            currentHeadlineLevel + 1,
+            {
+              isTextGroup: true,
+              isTopLevel: !embedded,
+            }
+          ),
         };
         return enrichedParsedStatementProps;
       };
 
+      // if (!embedded) {
+      //   console.log(
+      //     'Top level headline',
+      //     entity.labels.de?.value,
+      //     currentHeadlineLevel
+      //   );
+      // }
+
       return {
         id: entityId,
+        headline: !embedded
+          ? addHeadline(entity.labels.de?.value, currentHeadlineLevel)
+          : undefined,
         label: !embedded && entity.labels.de?.value, //todo, strip
         title:
           !embedded &&
@@ -220,13 +343,19 @@ export const parseEntities = (
 
     // console.log({ parsedEntity });
 
-    return parsedEntity;
+    return { parsedEntity, headlines };
   };
 
   const entitiesParsed = Object.entries(rawEntities).reduce(
     (acc, [entityId]) => {
       // console.log('parseRawEntity Toplevel entry', entityId);
-      acc[entityId] = parseRawEntity(entityId as keyof Entity);
+      const { parsedEntity, headlines } = parseRawEntity(
+        entityId as keyof Entity,
+        [],
+        1
+      );
+      // console.log(headlines, headlines.length);
+      acc[entityId] = { entity: parsedEntity, headlines };
       return acc;
     },
     {} as Entity
@@ -258,26 +387,7 @@ const stringMapper = (val) => {
       }
     }, []);
 
-    const headings = [
-      Item.firstordersubheading,
-      Item.secondordersubheading,
-      Item.thirdordersubheading,
-    ];
-    const relativeHeadlineEnhancement = groupedContent.reduce((acc, value) => {
-      const currenHeadingIndex = headings.indexOf(value.itemType);
-      acc = [
-        ...acc,
-        {
-          relativeHeadline:
-            currenHeadingIndex >= 0 ? currenHeadingIndex + 1 : undefined,
-          ...value,
-        },
-      ];
-      return acc;
-    }, []);
-
-    // console.log({relativeHeadlineEnhancement})
-    return relativeHeadlineEnhancement;
+    return groupedContent;
   };
   return val.string ? { ...val, string: stringTransform() } : val;
 };

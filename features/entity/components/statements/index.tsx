@@ -19,15 +19,17 @@ export const Statements: React.FC<StatementsProps> = ({
   return (
     <>
       {statements
-        .filter((statement) => !isPropertyBlacklisted(statement.property, 'property'))
+        .filter(
+          (statement) => !isPropertyBlacklisted(statement.property, 'property')
+        )
         .map((statement, index) => {
           const isShowingHeader =
-            showHeader && !isPropertyBlacklisted(statement.property, 'headlines')
+            showHeader &&
+            !isPropertyBlacklisted(statement.property, 'headlines');
+
           return (
             <React.Fragment key={index}>
-              {isShowingHeader && (
-                <Title level={headerLevel} label={statement.label} />
-              )}
+              {isShowingHeader && <Title headline={statement.headline} />}
               {statement.string ? (
                 <StringStatement
                   statement={statement.string}

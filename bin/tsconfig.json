@@ -36,6 +36,7 @@
   "include": [
     "../index.d.ts",
     "../types",
+    "../utils",
     "./**/*.ts"
   ]
 }

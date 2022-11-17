@@ -1,3 +1,4 @@
+import { Headline } from './headline';
 import { Property } from './property';
 
 export interface Entities extends Indexable<Entities> {
@@ -7,6 +8,7 @@ export interface Entity {
   id: string;
   label: string;
   title: string; // only top level
+  headline: Headline;
   description?: string;
   logo?: string;
   pageType: PageType;
@@ -38,12 +40,14 @@ export interface Statement {
   property: Property;
   string?: StringValueContainer[];
   wikibasePointer?: Maybe<WikiBaseValue>[];
+  headline?: Headline;
 }
 
 interface CommonValue {
   references?: Reference[];
   embedded: false | Entity;
   qualifiers?: Statement[];
+  headline?: Headline;
 }
 
 export interface Reference {

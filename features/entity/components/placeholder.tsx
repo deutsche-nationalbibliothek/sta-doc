@@ -5,11 +5,12 @@ import React from 'react';
 
 export const EntityPlaceholder = () => {
   const { headlines } = useHeadlines();
+
   return (
     <>
-      {headlines.map(({ level, label, id }) => (
-        <React.Fragment key={id}>
-          <Title label={label} id={id} level={level} />
+      {headlines.map((headline) => (
+        <React.Fragment key={headline.key}>
+          <Title headline={headline} />
           <Skeleton active />
         </React.Fragment>
       ))}

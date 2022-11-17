@@ -17,9 +17,10 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   headerLevel = 1,
 }) => {
   useInitialScroll(!embedded);
+
   return (
     <>
-      {!embedded && <Title label={entity.label} level={headerLevel} />}
+      {!embedded && <Title headline={entity.headline} />}
       {entity.statements.header.length > 0 && (
         <Statements
           statements={entity.statements.header}

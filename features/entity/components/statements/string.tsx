@@ -15,6 +15,25 @@ export const StringStatement: React.FC<StringStatementProps> = ({
   statement,
   headerLevel,
 }) => {
+  const renderHeadline = (
+      stringValueContainer: StringValueContainer
+    ) => (
+      <GenericStringValueMapper
+        headerLevel={headerLevel}
+        stringValueContainer={stringValueContainer}
+      >
+        {(stringValue, qualifiers, references) => (
+          <React.Fragment key={stringValue.value}>
+            <Title headline={stringValue.headline}>
+              <StringValueComponent stringValue={stringValue} />
+              {references}
+            </Title>
+            {qualifiers}
+          </React.Fragment>
+        )}
+      </GenericStringValueMapper>
+    )
+
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
       <GenericStringValueMapper
@@ -23,9 +42,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       >
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
-            <StringValueComponent
-              stringValue={stringValue}
-            />
+            <StringValueComponent stringValue={stringValue} />
             {references}
             {qualifiers}
           </Typography.Paragraph>
@@ -42,9 +59,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         >
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent
-                stringValue={stringValue}
-              />
+              <StringValueComponent stringValue={stringValue} />
               {references}
               {qualifiers}
             </li>
@@ -62,9 +77,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         >
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent
-                stringValue={stringValue}
-              />
+              <StringValueComponent stringValue={stringValue} />
               {references}
               {qualifiers}
             </li>
@@ -72,66 +85,9 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       </ol>
     ),
-    [Item.firstordersubheading]: (
-      stringValueContainer: StringValueContainer
-    ) => (
-      <GenericStringValueMapper
-        headerLevel={headerLevel}
-        stringValueContainer={stringValueContainer}
-      >
-        {(stringValue, qualifiers, references) => (
-          <React.Fragment key={stringValue.value}>
-            <Title label={stringValue.value} level={headerLevel}>
-              <StringValueComponent
-                stringValue={stringValue}
-              />
-              {references}
-            </Title>
-            {qualifiers}
-          </React.Fragment>
-        )}
-      </GenericStringValueMapper>
-    ),
-    [Item.secondordersubheading]: (
-      stringValueContainer: StringValueContainer
-    ) => (
-      <GenericStringValueMapper
-        headerLevel={headerLevel}
-        stringValueContainer={stringValueContainer}
-      >
-        {(stringValue, qualifiers, references) => (
-          <React.Fragment key={stringValue.value}>
-            <Title label={stringValue.value} level={headerLevel + 1}>
-              <StringValueComponent
-                stringValue={stringValue}
-              />
-              {references}
-            </Title>
-            {qualifiers}
-          </React.Fragment>
-        )}
-      </GenericStringValueMapper>
-    ),
-    [Item.thirdordersubheading]: (
-      stringValueContainer: StringValueContainer
-    ) => (
-      <GenericStringValueMapper
-        headerLevel={headerLevel}
-        stringValueContainer={stringValueContainer}
-      >
-        {(stringValue, qualifiers, references) => (
-          <React.Fragment key={stringValue.value}>
-            <Title label={stringValue.value} level={headerLevel + 2}>
-              <StringValueComponent
-                stringValue={stringValue}
-              />
-              {references}
-            </Title>
-            {qualifiers}
-          </React.Fragment>
-        )}
-      </GenericStringValueMapper>
-    ),
+    [Item.firstordersubheading]: renderHeadline,
+    [Item.secondordersubheading]: renderHeadline,
+    [Item.thirdordersubheading]: renderHeadline,
   };
 
   return (

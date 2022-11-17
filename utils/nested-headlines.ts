@@ -1,16 +1,9 @@
-import type { MenuProps } from 'antd';
-import { Headline } from './entity-headlines';
+import { Headline, NestedHeadline } from "@/types/headline";
 
-export interface NestedHeadline {
-  title: string;
-  key: string;
-  children?: NestedHeadline[];
-}
-
-const treeItem = (headline: Headline) => {
+const treeItem = ({ label, key }: Headline) => {
   return {
-    title: headline.label,
-    key: headline.id,
+    title: label,
+    key: key,
   };
 };
 

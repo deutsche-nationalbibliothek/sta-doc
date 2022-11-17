@@ -1,5 +1,4 @@
 import entities from '@/data/parsed/entities.json';
-import { entityHeadlines, Headline } from 'utils/entity-headlines';
 import { useHeadlines } from '@/hooks/headlines';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { useEffect } from 'react';
@@ -10,7 +9,7 @@ import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { truncate } from 'lodash';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { Entities, Entity } from '@/types/entity';
-import { useInitialScroll } from '@/hooks/use-inital-scroll';
+import { Headline } from '@/types/headline';
 
 interface EntityProps {
   headlines: Headline[];
@@ -76,15 +75,16 @@ export default function EntityDetailsPage({
 
 export const getStaticProps: GetStaticProps = (context) => {
   const { entityId } = context.params;
-  const entity: Entity =
+  const entityEntry: { entity: Entity; headlines: Headline[] } =
     !Array.isArray(entityId) &&
     entityId in entities &&
     entities[entityId as keyof Entities];
   return (
-    entity && {
+    entityEntry &&
+    entityEntry.headlines && {
       props: {
         entityId,
-        headlines: entityHeadlines(entity),
+        headlines: entityEntry.headlines,
       },
     }
   );

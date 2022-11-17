@@ -1,7 +1,7 @@
 import { useCurrentHeadlinesPath } from '@/hooks/current-headline-path';
 import { useScrollDirection } from '@/hooks/use-scroll-direction';
-import { Headline } from '@/utils/entity-headlines';
-import { NestedHeadline, nestedHeadlines } from '@/utils/nested-headlines';
+import { Headline, NestedHeadline } from '@/types/headline';
+import { nestedHeadlines } from '@/utils/nested-headlines';
 import { Affix, Divider, Tree, Typography } from 'antd';
 import { DataNode } from 'antd/lib/tree';
 import { debounce } from 'lodash';
@@ -16,7 +16,6 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   const [selectedHeadlines, setSelectedHeadlines] = useState<string[]>([]);
   const { setCurrentHeadlinesPath, currentHeadlinesPath } =
     useCurrentHeadlinesPath();
-  // const treeRef = React.useRef<{state: {selectedKeys: string[]}, scrollTo: (options: {key: string, offset: number}) => void}>();
   const treeRef = React.useRef<RcTree<DataNode>>();
 
   const scrollDirection = useScrollDirection();
@@ -42,9 +41,9 @@ export const ContentNavigation: React.FC<{ headlines: Headline[] }> = ({
   const onScroll = useCallback(() => {
     const headlinesInViewport: string[] = headlines
       .filter((headline) => {
-        return isInViewport(document.getElementById(headline.id));
+        return isInViewport(document.getElementById(headline.key));
       })
-      .map((headline) => headline.id);
+      .map((headline) => headline.key);
 
     setSelectedHeadlines((currentSelectedHeadlines) => {
       if (headlinesInViewport.length) {
