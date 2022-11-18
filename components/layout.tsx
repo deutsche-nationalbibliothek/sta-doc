@@ -1,4 +1,4 @@
-import { useHeadlines } from '@/hooks/headlines';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { Layout as AntdLayout } from 'antd';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';

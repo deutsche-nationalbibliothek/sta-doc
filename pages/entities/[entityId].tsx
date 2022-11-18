@@ -1,5 +1,5 @@
 import entities from '@/data/parsed/entities.json';
-import { useHeadlines } from '@/hooks/headlines';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { useEffect } from 'react';
 import { EntityDetails } from '@/entity/components/details';

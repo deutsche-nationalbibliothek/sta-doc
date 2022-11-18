@@ -1,5 +1,5 @@
 import { Title } from '@/components/title';
-import { useHeadlines } from '@/hooks/headlines';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { Skeleton } from 'antd';
 import React from 'react';
 

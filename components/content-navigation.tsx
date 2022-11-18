@@ -1,4 +1,4 @@
-import { useHeadlines } from '@/hooks/headlines';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { useScroll } from '@/hooks/use-scroll';
 import { Affix, Divider, Tree, Typography } from 'antd';
 import { DataNode } from 'antd/lib/tree';

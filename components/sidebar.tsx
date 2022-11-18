@@ -1,4 +1,4 @@
-import { useHeadlines } from '@/hooks/headlines';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { Layout } from 'antd';
 import { ContentNavigation } from './content-navigation';
 

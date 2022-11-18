@@ -11,32 +11,24 @@ interface QualifiersProps {
   qualifiers: Statement[];
 }
 
-export const Qualifiers: React.FC<QualifiersProps> = ({
-  qualifiers,
-}) => {
+export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
   const qualifierMap = {
     [Property['embeddedin(item)']]: () => <></>,
     [Property['embedded(item)']]: (qualifier: Statement) => {
       return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
-            <Embedded
-              entity={wikiBaseItem.embedded}
-            />
+            <Embedded entity={wikiBaseItem.embedded} />
           )}
         </React.Fragment>
       ));
     },
     [Property['embedded(property)']]: () => <></>,
     [Property['see(item)']]: (qualifier: Statement) => (
-      <WikibasePointers
-        wikibasePointers={qualifier.wikibasePointer}
-      />
+      <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
     ),
     [Property['see(property)']]: (qualifier: Statement) => (
-      <WikibasePointers
-        wikibasePointers={qualifier.wikibasePointer}
-      />
+      <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
     ),
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
@@ -54,9 +46,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         qualifier.string && (
           <Typography.Paragraph>
             <Typography.Text strong>{qualifier.label}:</Typography.Text>
-            <StringStatement
-              statement={qualifier.string}
-            />
+            <StringStatement statement={qualifier.string} />
           </Typography.Paragraph>
         )
       );
