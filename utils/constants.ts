@@ -1,4 +1,4 @@
-import { Item } from '@/types/item';
+import { Item } from '../types/item';
 import { Property } from '../types/property';
 
 export const blacklist = {
@@ -34,6 +34,7 @@ export const dataSources = {
     Item.rdaproperty,
     Item['rda-example'],
     Item['rda-documentation'],
+    Item['rda-ressourcetype'],
   ],
   GND: [
     Item.gndcataloginglevel,
@@ -56,5 +57,9 @@ export const dataSources = {
     Item.gndtypeofproperty,
     Item.gndusageindicator,
     Item.gndusercommunity,
+    Item.gnddatafield,
+    Item.gnddatamodel,
+    Item.gnddefaultvalue,
+    Item.gnddetermination,
   ],
 };

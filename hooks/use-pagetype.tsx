@@ -1,34 +1,49 @@
-import { Item } from '@/types/item';
+import { DataSource, PageType } from '@/types/entity';
+import { dataSources } from '@/utils/constants';
 import { useRouter } from 'next/router';
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-interface PageTypeContext {
-  pageType: { id?: Item };
-  setPagetType: Dispatch<SetStateAction<{ id: Item }>>;
+interface DataSourceContext {
+  dataSource: DataSource;
+  onSetDataSource: (pageTaype: PageType) => void;
 }
 
-const PageTypeContext = createContext({} as PageTypeContext);
+const DataSourceContext = createContext({} as DataSourceContext);
 
-export const PageTypeProvider = ({ children }) => {
-  const [pageType, setPagetType] = useState<{ id: Item }>();
+export const DataSourceProvider = ({ children }) => {
+  const [dataSource, setDataSource] = useState<DataSource>();
   const router = useRouter();
 
   useEffect(() => {
-    setPagetType(undefined);
-  }, [router.asPath]);
+    const onResetDataSource = () => setDataSource(undefined);
+    router.events.on('routeChangeStart', onResetDataSource);
+    return () => {
+      router.events.off('routeChangeStart', onResetDataSource);
+    };
+  }, []);
+
+  const onSetDataSource = (pageType: PageType) => {
+    const nextDataSource = Object.entries(dataSources).reduce(
+      (acc: DataSource | undefined, [key, val]) => {
+        if (
+          pageType &&
+          pageType.id &&
+          val.findIndex((item) => item === pageType.id) >= 0
+        ) {
+          return key as DataSource;
+        }
+        return acc;
+      },
+      undefined
+    );
+    setDataSource(nextDataSource);
+  };
 
   return (
-    <PageTypeContext.Provider value={{ pageType, setPagetType }}>
+    <DataSourceContext.Provider value={{ dataSource, onSetDataSource }}>
       {children}
-    </PageTypeContext.Provider>
+    </DataSourceContext.Provider>
   );
 };
 
-export const usePageType = () => useContext(PageTypeContext);
+export const useDataSource = () => useContext(DataSourceContext);

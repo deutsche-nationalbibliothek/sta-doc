@@ -28,7 +28,18 @@ export const useScroll = (
 
     setHeadlineKeysInViewport((currentSelectedHeadlines) => {
       if (headlinesInViewport.length) {
-        return headlinesInViewport;
+        if (
+          currentSelectedHeadlines.length === headlinesInViewport.length &&
+          currentSelectedHeadlines.every(
+            (currentSelectedHeadline, index) =>
+              currentSelectedHeadline === headlinesInViewport[index]
+          )
+        ) {
+          // return same identiy to prevent effect triggers
+          return currentSelectedHeadlines;
+        } else {
+          return headlinesInViewport;
+        }
       } else {
         // todo, logic breaks if scrolling up and no headline is in viewport
         const currentLastHeadline =
@@ -58,7 +69,7 @@ export const useScroll = (
         // }
       }
     });
-  }, [setHeadlineKeysInViewport, headlines, scrollDirection]);
+  }, []);
 
   const debouncedOnScroll = useCallback(debounce(onScroll, 50), [onScroll]);
 

@@ -1,28 +1,12 @@
-import { usePageType } from '@/hooks/use-pagetype';
-import { DataSource } from '@/types/entity';
-import { dataSources } from '@/utils/constants';
+import { useDataSource } from '@/hooks/use-pagetype';
 import { Layout as AntdLayout, Menu } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Search } from './search';
 
 export const TopBar: React.FC = () => {
-  const { pageType } = usePageType();
+  const { dataSource } = useDataSource();
   const router = useRouter();
-
-  const selectedGroupKey = Object.entries(dataSources).reduce(
-    (acc: DataSource | undefined, [key, val]) => {
-      if (
-        pageType &&
-        pageType.id &&
-        val.findIndex((item) => item === pageType.id) >= 0
-      ) {
-        return key as DataSource;
-      }
-      return acc;
-    },
-    undefined
-  );
 
   return (
     <AntdLayout.Header
@@ -33,7 +17,7 @@ export const TopBar: React.FC = () => {
         theme="dark"
         style={{ width: 260, display: 'inline-block' }}
         mode="horizontal"
-        selectedKeys={[selectedGroupKey, router.asPath]}
+        selectedKeys={[dataSource, router.asPath.match(/.*(?=\#.*)|.*/)[0]]}
         items={[
           { label: <Link href="/">Home</Link>, key: '/' },
           {

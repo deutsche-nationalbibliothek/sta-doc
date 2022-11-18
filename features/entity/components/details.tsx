@@ -1,6 +1,6 @@
 import { Title } from '@/components/title';
 import { useInitialScroll } from '@/hooks/use-inital-scroll';
-import { usePageType } from '@/hooks/use-pagetype';
+import { useDataSource } from '@/hooks/use-pagetype';
 import { Entity } from '@/types/entity';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
@@ -15,14 +15,14 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   entity,
   embedded = false,
 }) => {
-  const { setPagetType } = usePageType();
+  const { onSetDataSource } = useDataSource();
   useInitialScroll(!embedded);
 
   useEffect(() => {
-    if (!embedded && entity.pageType.id) {
-      setPagetType({ id: entity.pageType.id });
+    if (!embedded && entity.pageType?.id) {
+      onSetDataSource(entity.pageType);
     }
-  }, [embedded, entity.pageType.id]);
+  }, [embedded, entity.pageType?.id]);
 
   return (
     <>

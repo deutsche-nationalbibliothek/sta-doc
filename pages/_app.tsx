@@ -4,22 +4,22 @@ import HeadlinesProvider from '@/hooks/use-headlines';
 import Layout from '@/components/layout';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
 import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
-import { PageTypeProvider } from '@/hooks/use-pagetype';
+import { DataSourceProvider } from '@/hooks/use-pagetype';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <HeadlinesProvider>
-        <IsLoadingContextProvider>
-          <PageTypeProvider>
+      <DataSourceProvider>
+        <HeadlinesProvider>
+          <IsLoadingContextProvider>
             <CodingsPreferencesProvider>
               <Layout>
                 <Component {...pageProps} />
               </Layout>
             </CodingsPreferencesProvider>
-          </PageTypeProvider>
-        </IsLoadingContextProvider>
-      </HeadlinesProvider>
+          </IsLoadingContextProvider>
+        </HeadlinesProvider>
+      </DataSourceProvider>
     </>
   );
 }

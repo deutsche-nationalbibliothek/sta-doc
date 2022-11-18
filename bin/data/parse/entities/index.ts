@@ -3,6 +3,7 @@ import { Entity } from '@/types-parsed/entity';
 import { LabelDe } from '@/types-parsed/label-de';
 import { LabelEn } from '@/types-parsed/label-en';
 import { Notation } from '@/types-parsed/notation';
+import { DataSource } from '@/types/entity';
 import { Headline } from '@/types/headline';
 import slugify from 'slugify';
 import { Item } from '../../../../types/item';
@@ -46,7 +47,7 @@ export const parseEntities = (
       return {};
     }
 
-    const addHeadline = (title: string, level: number) => {
+    const addHeadline = (title: string, level: number, dataSource?: DataSource) => {
       const isHeadlineAlreadyInCollection = (key: string) =>
         headlines.some((headline) => headline.key === key);
 
@@ -67,7 +68,7 @@ export const parseEntities = (
           : sluggedLabel,
         level,
       };
-      headlines.push(headline);
+      headlines.push(dataSource ? {...headline, dataSource} : headline);
       return headline;
     };
 

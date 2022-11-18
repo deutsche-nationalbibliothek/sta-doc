@@ -1,12 +1,15 @@
 import { Headline, NestedHeadlines } from '@/types/headline';
-import { nestedHeadlines } from '@/utils/nested-headlines';
+import { nestedHeadlines as nestedHeadlinesCalculation } from '@/utils/nested-headlines';
+import { useRouter } from 'next/router';
 import {
   createContext,
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react';
+import { useDataSource } from './use-pagetype';
 
 interface HeadlinesContext {
   // headlines in document, flat structure
@@ -30,6 +33,15 @@ const HeadlineContext = createContext({} as HeadlinesContext);
 
 export default function HeadlinesProvider({ children }) {
   const [headlines, setHeadlines] = useState<Headline[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const onResetHeadlines = () => setHeadlines([]);
+    router.events.on('routeChangeStart', onResetHeadlines);
+    return () => {
+      router.events.off('routeChangeStart', onResetHeadlines);
+    };
+  }, []);
 
   const [currentHeadlinesPath, setCurrentHeadlinesPath] = useState<Headline[]>(
     []
@@ -39,12 +51,20 @@ export default function HeadlinesProvider({ children }) {
     string[]
   >([]);
 
+  const { dataSource } = useDataSource();
+
+  const [nestedHeadlines, setNestedHeadlines] = useState<NestedHeadlines[]>([]);
+
+  useEffect(() => {
+    setNestedHeadlines(nestedHeadlinesCalculation(headlines, dataSource));
+  }, [headlines, dataSource]);
+
   return (
     <HeadlineContext.Provider
       value={{
         headlines,
         setHeadlines,
-        nestedHeadlines: nestedHeadlines(headlines),
+        nestedHeadlines,
         currentHeadlinesPath,
         setCurrentHeadlinesPath,
         headlineKeysInViewport,
