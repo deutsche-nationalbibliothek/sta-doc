@@ -24,12 +24,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
       ));
     },
     [Property['embedded(property)']]: () => <></>,
-    [Property['see(item)']]: (qualifier: Statement) => (
-      <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
-    ),
-    [Property['see(property)']]: (qualifier: Statement) => (
-      <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
-    ),
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
         <Examples
@@ -42,12 +36,14 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
       );
     },
     default: (qualifier: Statement) => {
-      return (
-        qualifier.string && (
-          <Typography.Paragraph>
-            <Typography.Text strong>{qualifier.label}:</Typography.Text>
-            <StringStatement statement={qualifier.string} />
-          </Typography.Paragraph>
+      return qualifier.string ? (
+        <Typography.Paragraph>
+          <Typography.Text strong>{qualifier.label}:</Typography.Text>
+          <StringStatement statement={qualifier.string} />
+        </Typography.Paragraph>
+      ) : (
+        qualifier.wikibasePointer && (
+          <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
         )
       );
     },
@@ -67,11 +63,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
               {qualifier.property in qualifierMap
                 ? qualifierMap[qualifier.property](qualifier)
                 : qualifierMap.default(qualifier)}
-              {/* {qualifier.wikibasePointer && ( */}
-              {/*   <WikibasePointers */}
-              {/*     wikibasePointers={qualifier.wikibasePointer} */}
-              {/*   /> */}
-              {/* )} */}
             </React.Fragment>
           );
         })}
