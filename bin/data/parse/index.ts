@@ -97,6 +97,7 @@ const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
       label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
       assignmentId: entry.assignmentId?.value,
       assignmentLabel: entry.assignmentLabel?.value,
+      id: entry.eId.value,
     };
     return acc;
   }, {});

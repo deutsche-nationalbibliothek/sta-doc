@@ -1,5 +1,8 @@
 import { Headline } from './headline';
+import { Item } from './item';
 import { Property } from './property';
+
+export type DataSource = 'GND' | 'RDA';
 
 export interface Entities extends Indexable<Entities> {
   [key: string]: Entity;
@@ -19,6 +22,7 @@ export interface PageType {
   label: string;
   assignmentId: string;
   assignmentLabel: string;
+  id: Item;
 }
 
 export interface Statements {
