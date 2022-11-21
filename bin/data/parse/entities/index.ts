@@ -323,7 +323,10 @@ export const parseEntities = (
           !embedded &&
           elementOf &&
           `${entity.labels.de?.value} | ${lookup_de[elementOf]}`,
-        pageType: !embedded && elementOf && lookup_en[elementOf],
+        pageType: elementOf ? {
+          ...lookup_en[elementOf],
+          deLabel: lookup_de[elementOf]
+        } : undefined,
         // description:
         //   'de' in entity.descriptions
         //     ? entity.descriptions.de.value

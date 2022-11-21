@@ -7,21 +7,27 @@ import { Search } from './search';
 export const TopBar: React.FC = () => {
   const { dataSource } = useDataSource();
   const router = useRouter();
+  const dataSourceDomain = router.query.domain as string | undefined;
 
   return (
-    <AntdLayout.Header
-      style={{ position: 'fixed', zIndex: 1, width: '100%' }}
-      className="header"
-    >
+    <AntdLayout.Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <Menu
         theme="dark"
-        style={{ width: 260, display: 'inline-block' }}
+        style={{ width: '66%', display: 'inline-block' }}
         mode="horizontal"
-        selectedKeys={[dataSource, router.asPath.match(/.*(?=\#.*)|.*/)[0]]}
+        selectedKeys={[
+          dataSource,
+          router.asPath.match(/.*(?=#.*)|.*/)[0],
+          dataSourceDomain,
+        ]}
         items={[
           { label: <Link href="/">Home</Link>, key: '/' },
           {
-            label: 'RDA',
+            label: (
+              <span onClick={() => router.push('/entities?domain=RDA')}>
+                RDA
+              </span>
+            ),
             key: 'RDA',
             children: [
               {
@@ -47,7 +53,11 @@ export const TopBar: React.FC = () => {
             ],
           },
           {
-            label: 'GND',
+            label: (
+              <span onClick={() => router.push('/entities?domain=GND')}>
+                GND
+              </span>
+            ),
             key: 'GND',
             children: [
               {

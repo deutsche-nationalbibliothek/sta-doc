@@ -7,11 +7,11 @@ import type { GetStaticProps, GetStaticPaths } from 'next';
 import { Affix, Breadcrumb, Divider, Tooltip } from 'antd';
 import { truncate } from 'lodash';
 import { FetchEntity } from '@/entity/components/utils/fetch';
-import { Entities, Entity } from '@/types/entity';
+import { Entities, EntityEntry } from '@/types/entity';
 import { Headline } from '@/types/headline';
 import Head from 'next/head';
 
-interface EntityProps {
+interface EntityDetailsProps {
   headlines: Headline[];
   entityId: string;
 }
@@ -19,7 +19,7 @@ interface EntityProps {
 export default function EntityDetailsPage({
   headlines,
   entityId,
-}: EntityProps) {
+}: EntityDetailsProps) {
   const { setHeadlines, currentHeadlinesPath } = useHeadlines();
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function EntityDetailsPage({
 
 export const getStaticProps: GetStaticProps = (context) => {
   const { entityId } = context.params;
-  const entityEntry: { entity: Entity; headlines: Headline[] } =
+  const entityEntry: EntityEntry =
     !Array.isArray(entityId) &&
     entityId in entities &&
     entities[entityId as keyof Entities];

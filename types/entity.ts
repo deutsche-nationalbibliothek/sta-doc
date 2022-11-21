@@ -18,8 +18,14 @@ export interface Entity {
   statements: Statements;
 }
 
+export interface EntityEntry {
+  entity: Entity;
+  headlines: Headline[];
+}
+
 export interface PageType {
   label: string;
+  deLabel: string;
   assignmentId: string;
   assignmentLabel: string;
   id: Item;
@@ -76,7 +82,7 @@ export interface StringValueContainer {
 
 export interface StringValue extends CommonValue {
   value: string;
-  coding: Coding;
+  coding?: Coding;
 }
 
 export interface WikiBaseValue extends CommonValue {
