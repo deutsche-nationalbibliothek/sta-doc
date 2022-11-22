@@ -504,23 +504,6 @@ interface P346 {
   label: string;
   description: string;
   codings: Codings;
-  allowedValues: AllowedValues13;
-  references: any[];
-  repeatable: boolean;
-  viewLink: string;
-  editLink: string;
-}
-
-interface AllowedValues13 {
-  Q1894: string;
-  Q1895: string;
-  Q1896: string;
-}
-
-interface P343 {
-  label: string;
-  description: string;
-  codings: Codings;
   allowedValues: AllowedValues12;
   references: any[];
   repeatable: boolean;
@@ -529,10 +512,12 @@ interface P343 {
 }
 
 interface AllowedValues12 {
-  Q1890: string;
+  Q1894: string;
+  Q1895: string;
+  Q1896: string;
 }
 
-interface P342 {
+interface P343 {
   label: string;
   description: string;
   codings: Codings;
@@ -544,12 +529,10 @@ interface P342 {
 }
 
 interface AllowedValues11 {
-  Q1891: string;
-  Q1892: string;
-  Q1893: string;
+  Q1890: string;
 }
 
-interface P338 {
+interface P342 {
   label: string;
   description: string;
   codings: Codings;
@@ -561,13 +544,12 @@ interface P338 {
 }
 
 interface AllowedValues10 {
-  Q3122: string;
-  Q3121: string;
-  Q3123: string;
-  Q3124: string;
+  Q1891: string;
+  Q1892: string;
+  Q1893: string;
 }
 
-interface P335 {
+interface P338 {
   label: string;
   description: string;
   codings: Codings;
@@ -579,6 +561,24 @@ interface P335 {
 }
 
 interface AllowedValues9 {
+  Q3122: string;
+  Q3121: string;
+  Q3123: string;
+  Q3124: string;
+}
+
+interface P335 {
+  label: string;
+  description: string;
+  codings: Codings;
+  allowedValues: AllowedValues8;
+  references: any[];
+  repeatable: boolean;
+  viewLink: string;
+  editLink: string;
+}
+
+interface AllowedValues8 {
   Q258?: string;
   Q259?: string;
   Q1898?: string;
@@ -640,14 +640,14 @@ interface P296 {
   label: string;
   description: string;
   codings: Codings;
-  allowedValues: AllowedValues8;
+  allowedValues: AllowedValues5;
   references: any[];
   repeatable: boolean;
   viewLink: string;
   editLink: string;
 }
 
-interface AllowedValues8 {
+interface AllowedValues5 {
   Q1351: string;
   Q1350: string;
   Q12: string;
@@ -658,7 +658,7 @@ interface P64 {
   label: string;
   description: string;
   codings: Codings;
-  allowedValues: AllowedValue | AllowedValues22 | AllowedValues32 | any[] | AllowedValues5 | AllowedValues6 | AllowedValues7;
+  allowedValues: AllowedValue | AllowedValues22 | AllowedValues32 | AllowedValues42 | any[] | AllowedValues6 | AllowedValues7;
   references: any[];
   repeatable: boolean;
   viewLink: string;
@@ -670,7 +670,37 @@ interface AllowedValues7 {
 }
 
 interface AllowedValues6 {
-  Q156: string;
+  Q273: string;
+  Q274: string;
+  Q275: string;
+  Q276: string;
+  Q277: string;
+  Q278: string;
+  Q279: string;
+  Q280: string;
+  Q281: string;
+  Q282: string;
+  Q283: string;
+  Q284: string;
+  Q285: string;
+  Q286: string;
+  Q3367: string;
+}
+
+interface AllowedValues42 {
+  Q1386: string;
+  Q1387: string;
+  Q1388: string;
+  Q1389: string;
+  Q1390: string;
+  Q1391: string;
+  Q1392: string;
+  Q1393: string;
+  Q1394: string;
+}
+
+interface AllowedValues32 {
+  Q8662: string;
   Q157: string;
   Q212: string;
   Q159: string;
@@ -722,36 +752,6 @@ interface AllowedValues6 {
   Q247: string;
   Q248: string;
   Q249: string;
-}
-
-interface AllowedValues5 {
-  Q273: string;
-  Q274: string;
-  Q275: string;
-  Q276: string;
-  Q277: string;
-  Q278: string;
-  Q279: string;
-  Q280: string;
-  Q281: string;
-  Q282: string;
-  Q283: string;
-  Q284: string;
-  Q285: string;
-  Q286: string;
-  Q3367: string;
-}
-
-interface AllowedValues32 {
-  Q1386: string;
-  Q1387: string;
-  Q1388: string;
-  Q1389: string;
-  Q1390: string;
-  Q1391: string;
-  Q1392: string;
-  Q1393: string;
-  Q1394: string;
 }
 
 interface AllowedValues22 {

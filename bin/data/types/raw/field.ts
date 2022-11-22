@@ -1449,7 +1449,7 @@ interface P98 {
   subfields: Subfields27;
   codings: Codings;
   validation: string[];
-  rulesOfUse: any[];
+  rulesOfUse: string[];
   examples: any[];
   viewLink: string;
   editLink: string;
@@ -2194,7 +2194,7 @@ interface P64 {
 }
 
 interface AllowedValues5 {
-  Q156: string;
+  Q8662: string;
   Q157: string;
   Q212: string;
   Q159: string;

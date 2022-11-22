@@ -1,8 +1,14 @@
 export interface LabelEnRaw extends Indexable<LabelEnRaw> {
   eId: EId;
-  assignmentId?: EId;
+  assignmentId: EId;
   elementLabel: ElementLabel;
-  assignmentLabel: ElementLabel;
+  assignmentLabel: AssignmentLabel;
+}
+
+interface AssignmentLabel {
+  'xml:lang': string;
+  type: string;
+  value: string;
 }
 
 interface ElementLabel {
