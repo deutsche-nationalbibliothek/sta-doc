@@ -7,7 +7,7 @@ export const Sidebar: React.FC = () => {
 
   return (
     headlines.length > 1 && (
-      <Layout.Sider theme={'light'} width={400}>
+      <Layout.Sider theme={'light'} width={'15%'}>
         <ContentNavigation />
       </Layout.Sider>
     )

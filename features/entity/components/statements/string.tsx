@@ -13,29 +13,23 @@ interface StringStatementProps {
 export const StringStatement: React.FC<StringStatementProps> = ({
   statement,
 }) => {
-  const renderHeadline = (
-      stringValueContainer: StringValueContainer
-    ) => (
-      <GenericStringValueMapper
-        stringValueContainer={stringValueContainer}
-      >
-        {(stringValue, qualifiers, references) => (
-          <React.Fragment key={stringValue.value}>
-            <Title headline={stringValue.headline}>
-              <StringValueComponent stringValue={stringValue} />
-              {references}
-            </Title>
-            {qualifiers}
-          </React.Fragment>
-        )}
-      </GenericStringValueMapper>
-    )
+  const renderHeadline = (stringValueContainer: StringValueContainer) => (
+    <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+      {(stringValue, qualifiers, references) => (
+        <React.Fragment key={stringValue.value}>
+          <Title headline={stringValue.headline}>
+            <StringValueComponent stringValue={stringValue} />
+            {references}
+          </Title>
+          {qualifiers}
+        </React.Fragment>
+      )}
+    </GenericStringValueMapper>
+  );
 
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
-      <GenericStringValueMapper
-        stringValueContainer={stringValueContainer}
-      >
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent stringValue={stringValue} />
@@ -49,9 +43,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       stringValueContainer: StringValueContainer
     ) => (
       <ul>
-        <GenericStringValueMapper
-          stringValueContainer={stringValueContainer}
-        >
+        <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
               <StringValueComponent stringValue={stringValue} />
@@ -66,9 +58,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       stringValueContainer: StringValueContainer
     ) => (
       <ol>
-        <GenericStringValueMapper
-          stringValueContainer={stringValueContainer}
-        >
+        <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
               <StringValueComponent stringValue={stringValue} />
@@ -101,7 +91,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-              itemTypeMap[stringValueContainer.itemType]
+            itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}
           </Fragment>

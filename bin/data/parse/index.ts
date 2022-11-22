@@ -156,11 +156,11 @@ export const parseRawData = () => {
   // parseRdaProperties();
   // parseFields();
   parseEntities(
-    readJSONFile(NAMES.labelEn, DataState.parsed),
+    // readJSONFile(NAMES.labelEn, DataState.parsed),
+    parseLabelEn(),
     readJSONFile(NAMES.labelDe, DataState.parsed),
     readJSONFile(NAMES.coding, DataState.parsed),
     readJSONFile(NAMES.notation, DataState.parsed)
-    // parseLabelEn(),
     // parseLabelDe(),
     // parseCodings(),
     // parseNotations()

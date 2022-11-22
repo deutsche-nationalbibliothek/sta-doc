@@ -1,8 +1,15 @@
 import { Item } from '../types/item';
 import { Property } from '../types/property';
 
-export const blacklist = {
-  property: [Property.schema, Property.elementof],
+export const blacklist: {
+  property: (Item | Property)[];
+  headlines: (Item | Property)[];
+} = {
+  property: [
+    Property.schema,
+    Property.elementof,
+    Item['collapsible-collapsed'],
+  ],
   headlines: [
     Property.annotation,
     Property.description,
@@ -17,7 +24,7 @@ export const blacklist = {
 };
 
 export const isPropertyBlacklisted = (
-  property: Property,
+  property: Property | Item,
   list: '' | keyof typeof blacklist = ''
 ) => {
   if (list) {

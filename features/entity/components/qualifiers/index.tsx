@@ -12,8 +12,12 @@ interface QualifiersProps {
 }
 
 export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
+  const noOp = () => null
+
   const qualifierMap = {
-    [Property['embeddedin(item)']]: () => <></>,
+    [Property.typeoflayout]: noOp,
+    [Property['embeddedin(item)']]: noOp,
+    [Property['embedded(property)']]: noOp,
     [Property['embedded(item)']]: (qualifier: Statement) => {
       return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
@@ -23,7 +27,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
         </React.Fragment>
       ));
     },
-    [Property['embedded(property)']]: () => <></>,
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
         <Examples

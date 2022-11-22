@@ -1,5 +1,7 @@
 import { Title } from '@/components/title';
 import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
+import { Item } from '@/types/item';
+import { isPropertyBlacklisted } from '@/utils/constants';
 import { ArrowRightOutlined, LinkOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Link from 'next/link';
@@ -38,10 +40,7 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
         (wikibasePointer, index) =>
           isWikibaseValue(wikibasePointer) &&
           wikibasePointer.embedded && (
-            <Embedded
-              key={index}
-              entity={wikibasePointer.embedded}
-            />
+            <Embedded key={index} entity={wikibasePointer.embedded} />
           )
       )}
     </>
@@ -53,7 +52,6 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
             <React.Fragment key={index}>
               <Title headline={wikibasePointer.headline}>
                 <EntityPreview
-                  link={wikibasePointer.link}
                   label={wikibasePointer.label}
                   entityId={wikibasePointer.id}
                 >
@@ -63,14 +61,10 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                 </EntityPreview>{' '}
                 {wikibasePointer.label}{' '}
                 {wikibasePointer.references && (
-                  <References
-                    references={wikibasePointer.references}
-                  />
+                  <References references={wikibasePointer.references} />
                 )}
               </Title>
-              <Qualifiers
-                qualifiers={wikibasePointer.qualifiers}
-              />
+              <Qualifiers qualifiers={wikibasePointer.qualifiers} />
             </React.Fragment>
           )
       )}
@@ -102,16 +96,15 @@ interface WikibaseLinkProps {
   wikibasePointer: WikiBaseValue;
 }
 const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
+  if (isPropertyBlacklisted(wikibasePointer.id as Item)) {
+    return null;
+  }
   return (
-    <EntityPreview
-      entityId={wikibasePointer.id}
-      label={wikibasePointer.label}
-      link={wikibasePointer.link}
-    >
-      <>
+    <EntityPreview entityId={wikibasePointer.id} label={wikibasePointer.label}>
+      <Link href={`/entities/${wikibasePointer.id}`}>
         <ArrowRightOutlined />
         {wikibasePointer.label}
-      </>
+      </Link>
     </EntityPreview>
   );
 };

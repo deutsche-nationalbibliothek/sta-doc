@@ -47,7 +47,11 @@ export const parseEntities = (
       return {};
     }
 
-    const addHeadline = (title: string, level: number, dataSource?: DataSource) => {
+    const addHeadline = (
+      title: string,
+      level: number,
+      dataSource?: DataSource
+    ) => {
       const isHeadlineAlreadyInCollection = (key: string) =>
         headlines.some((headline) => headline.key === key);
 
@@ -68,7 +72,7 @@ export const parseEntities = (
           : sluggedLabel,
         level,
       };
-      headlines.push(dataSource ? {...headline, dataSource} : headline);
+      headlines.push(dataSource ? { ...headline, dataSource } : headline);
       return headline;
     };
 
@@ -129,7 +133,7 @@ export const parseEntities = (
                   Object.keys(ref.snaks).map((refKey) => ref.snaks[refKey])
                 )
                 .flat(),
-              currentHeadlineLevel + 1,
+              currentHeadlineLevel, // + 1,
               { embeddedStatement: true, isTextGroup }
             );
           };
@@ -153,10 +157,7 @@ export const parseEntities = (
             return {
               id: id,
               headline: hasHeadline
-                ? addHeadline(
-                  lookup_de[id],
-                  currentHeadlineLevel + (isTopLevel ? 1 : 0)
-                )
+                ? addHeadline(lookup_de[id], currentHeadlineLevel + 1)
                 : undefined,
               label: lookup_de[id],
               link: `/entities/${id}`,
@@ -236,13 +237,18 @@ export const parseEntities = (
                   return { unknownValue: true };
                 }
                 const propertyId = keyAccess(occ, 'property');
-                const pointerId = keyAccess(occ, 'datavalue', 'value', 'id');
+                const embeddedEntityId = keyAccess(
+                  occ,
+                  'datavalue',
+                  'value',
+                  'id'
+                );
 
                 const hasEmbedding =
                   (propertyId === Property['example(s)'] ||
                     propertyId === Property['embedded(item)'] ||
                     propertyId === Property['embedded(property)']) &&
-                  !prevParsedEntity.some((id) => id === pointerId);
+                  !prevParsedEntity.some((id) => id === embeddedEntityId);
 
                 return {
                   ...(simplifiedDataType === 'wikibasePointer'
@@ -256,7 +262,7 @@ export const parseEntities = (
                   embedded:
                     hasEmbedding &&
                     parseRawEntity(
-                      pointerId,
+                      embeddedEntityId,
                       headlines,
                       currentHeadlineLevel + 1,
                       [...prevParsedEntity, entityId],
@@ -316,17 +322,23 @@ export const parseEntities = (
       return {
         id: entityId,
         headline: !embedded
-          ? addHeadline(entity.labels.de?.value, currentHeadlineLevel)
+          ? addHeadline(
+            entity.labels.de?.value,
+            currentHeadlineLevel,
+            elementOf && lookup_en[elementOf]
+          )
           : undefined,
         label: !embedded && entity.labels.de?.value, //todo, strip
         title:
           !embedded &&
           elementOf &&
           `${entity.labels.de?.value} | ${lookup_de[elementOf]}`,
-        pageType: elementOf ? {
-          ...lookup_en[elementOf],
-          deLabel: lookup_de[elementOf]
-        } : undefined,
+        pageType: elementOf
+          ? {
+            ...lookup_en[elementOf],
+            deLabel: lookup_de[elementOf],
+          }
+          : undefined,
         // description:
         //   'de' in entity.descriptions
         //     ? entity.descriptions.de.value

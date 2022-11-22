@@ -138,7 +138,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
           position: 'fixed',
           top: 4,
           right: 0,
-          color: 'var(--link-color )',
+          color: 'var(--link-color)',
         }}
       >
         {coding}

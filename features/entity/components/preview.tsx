@@ -1,18 +1,15 @@
 import { Popover, Typography } from 'antd';
-import Link from 'next/link';
 import { EntityDetails } from './details';
 import { FetchEntity } from './utils/fetch';
 
 interface EntityPreviewProps {
   entityId: string;
-  link: string;
   children: JSX.Element;
   label: string;
 }
 
 export const EntityPreview: React.FC<EntityPreviewProps> = ({
   entityId,
-  link,
   children,
   label,
 }) => {
@@ -23,10 +20,11 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
       content={<PreviewContent entityId={entityId} />}
       trigger="hover"
     >
-      <Link href={link}>{children}</Link>
+      {children}
     </Popover>
   );
 };
+
 interface PreviewProps {
   entityId: string;
 }

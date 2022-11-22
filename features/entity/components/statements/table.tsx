@@ -1,10 +1,12 @@
 import { Statement, WikiBaseValue } from '@/types/entity';
 import { Table } from 'antd';
 import Link from 'next/link';
+import { WikibasePointers } from '../wikibase-pointers';
 
 interface TableStatementsProps {
   statements: Statement[];
 }
+
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
 }) => {
@@ -31,13 +33,13 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         title="Wert"
         key="value"
         dataIndex="value"
-        render={(wikibasePointers: WikiBaseValue[]) =>
-          wikibasePointers &&
-          wikibasePointers.map((wikibasePointer) => (
-            <Link key={wikibasePointer.link} href={wikibasePointer.link}>
-              {wikibasePointer.label}
-            </Link>
-          ))
+        render={(wikibasePointers: WikiBaseValue[]) => {
+          return  wikibasePointers &&
+            <WikibasePointers wikibasePointers={wikibasePointers.map(wikibasePointer => {
+              const {qualifiers, ...otherWikibasePointerValues} = wikibasePointer
+              return otherWikibasePointerValues;
+            })} />
+        }
         }
       />
     </Table>

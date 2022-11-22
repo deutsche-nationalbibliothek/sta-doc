@@ -37,7 +37,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
       >
         {examples.map((example, index) => {
           return (
-            <Card style={{ backgroundColor: 'var(--primary-2) ' }} key={index}>
+            <Card style={{ backgroundColor: 'var(--primary-2)' }} key={index}>
               <Example
                 example={example}
                 codingsPreferences={codingsPreferences}
