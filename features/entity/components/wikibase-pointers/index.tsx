@@ -2,7 +2,7 @@ import { Title } from '@/components/title';
 import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
 import { Item } from '@/types/item';
 import { isPropertyBlacklisted } from '@/utils/constants';
-import { ArrowRightOutlined, LinkOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Link from 'next/link';
 import React from 'react';
@@ -56,14 +56,13 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                   entityId={wikibasePointer.id}
                 >
                   <Link href={wikibasePointer.link}>
-                    <LinkOutlined />
+                    {wikibasePointer.label}{' '}
                   </Link>
-                </EntityPreview>{' '}
-                {wikibasePointer.label}{' '}
-                {wikibasePointer.references && (
-                  <References references={wikibasePointer.references} />
-                )}
+                </EntityPreview>
               </Title>
+              {wikibasePointer.references && (
+                <References references={wikibasePointer.references} />
+              )}
               <Qualifiers qualifiers={wikibasePointer.qualifiers} />
             </React.Fragment>
           )
