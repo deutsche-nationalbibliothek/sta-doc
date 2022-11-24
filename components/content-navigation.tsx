@@ -1,6 +1,6 @@
 import { useHeadlines } from '@/hooks/use-headlines';
 import { useScroll } from '@/hooks/use-scroll';
-import { Affix, Divider, Tree, Typography } from 'antd';
+import { Divider, Tree, Typography } from 'antd';
 import { DataNode } from 'antd/lib/tree';
 import { useRouter } from 'next/router';
 import RcTree from 'rc-tree';
@@ -9,49 +9,71 @@ import React from 'react';
 export const ContentNavigation: React.FC = () => {
   const { nestedHeadlines, currentHeadlinesPath, headlineKeysInViewport } =
     useHeadlines();
+
   const router = useRouter();
   const treeRef = React.useRef<RcTree<DataNode>>();
+  const containerRef = React.useRef<HTMLDivElement>();
+  const dividerRef = React.useRef<HTMLDivElement>();
   useScroll(treeRef);
+
+  const containerHeight = containerRef.current?.getBoundingClientRect().height;
+  const dividerHeight = dividerRef.current?.getBoundingClientRect().height;
+  // const headerHeight = document ? document.querySelector('.ant-layout-header').getBoundingClientRect().height : 64
 
   return (
     <>
       {nestedHeadlines.length > 0 && (
-        <Affix offsetTop={64 /* topbar-height */}>
-          <div>
+        <div
+          ref={containerRef}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+            // height: 'calc(100vh - var(--topbar-height))',
+          }}
+        >
+          <div ref={dividerRef}>
             <Divider
               style={{
-                marginTop: 'var(--topbar-padding-bottom)',
-                marginBottom: 'var(--topbar-padding-bottom)',
+                marginTop: 'var(--topbar-padding-y)',
+                marginBottom: 'var(--topbar-padding-y)',
               }}
             />
-            <Tree
-              showLine
-              showIcon
-              defaultExpandAll
-              ref={treeRef}
-              height={
-                window.innerHeight - 64 - 48 * 2 // topbar- and divider-height
-              }
-              selectedKeys={headlineKeysInViewport}
-              multiple
-              titleRender={({ key, title }: { key: string; title: string }) => (
-                <Typography.Text
-                  id={`nav-${key}`}
-                  onClick={() => router.push(`#${key}`)}
-                  strong={
-                    currentHeadlinesPath.findIndex(
-                      (nestedHeadline) => nestedHeadline.key === key
-                    ) >= 0
-                  }
-                >
-                  {title}
-                </Typography.Text>
-              )}
-              treeData={nestedHeadlines}
-            />
-            <Divider />
           </div>
-        </Affix>
+          <Tree
+            showLine
+            showIcon
+            defaultExpandAll
+            ref={treeRef}
+            style={{ flex: 1 }}
+            height={
+              containerHeight - dividerHeight * 2
+              // window.innerHeight - 64 - 53 * 2 // topbar- and divider-height
+            }
+            selectedKeys={headlineKeysInViewport}
+            multiple
+            titleRender={({ key, title }: { key: string; title: string }) => (
+              <Typography.Text
+                id={`nav-${key}`}
+                onClick={() => router.push(`#${key}`)}
+                strong={
+                  currentHeadlinesPath.findIndex(
+                    (nestedHeadline) => nestedHeadline.key === key
+                  ) >= 0
+                }
+              >
+                {title}
+              </Typography.Text>
+            )}
+            treeData={nestedHeadlines}
+          />
+          <Divider
+            style={{
+              marginTop: 'var(--topbar-padding-y)',
+              marginBottom: 'var(--topbar-padding-y)',
+            }}
+          />
+        </div>
       )}
     </>
   );

@@ -1,15 +1,13 @@
 import entities from '@/data/parsed/entities.json';
-import { useHeadlines } from '@/hooks/use-headlines';
-import { EntityPlaceholder } from '@/entity/components/placeholder';
-import { Fragment, useEffect } from 'react';
 import { EntityDetails } from '@/entity/components/details';
-import type { GetStaticProps, GetStaticPaths } from 'next';
-import { Affix, Breadcrumb, Divider, Tooltip } from 'antd';
-import { truncate } from 'lodash';
+import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
+import { useHeadlines } from '@/hooks/use-headlines';
 import { Entities, EntityEntry } from '@/types/entity';
 import { Headline } from '@/types/headline';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 interface EntityDetailsProps {
   headlines: Headline[];
@@ -20,7 +18,7 @@ export default function EntityDetailsPage({
   headlines,
   entityId,
 }: EntityDetailsProps) {
-  const { setHeadlines, currentHeadlinesPath } = useHeadlines();
+  const { setHeadlines } = useHeadlines();
 
   useEffect(() => {
     setHeadlines(headlines);
@@ -37,51 +35,6 @@ export default function EntityDetailsPage({
                   <title>{entity.title ?? entity.headline.title}</title>
                 )}
               </Head>
-              <Affix offsetTop={64 /* topbar-height */}>
-                <div>
-                  <Breadcrumb
-                    style={{
-                      paddingTop:
-                        currentHeadlinesPath.length > 0
-                          ? 4
-                          : 'var(--topbar-padding-bottom)',
-                    }}
-                    separator=""
-                  >
-                    {currentHeadlinesPath.map(
-                      ({ key, title, dataSource }, index) => {
-                        const isLastIndex =
-                          index === currentHeadlinesPath.length - 1;
-                        return (
-                          <Fragment key={key}>
-                            <Breadcrumb.Item>
-                              <Tooltip placement="bottom" title={title}>
-                                <a href={`#${key}`}>
-                                  {isLastIndex
-                                    ? title
-                                    : truncate(title, { length: 64 })}
-                                </a>
-                              </Tooltip>
-                            </Breadcrumb.Item>
-                            {!isLastIndex && (
-                              <Breadcrumb.Separator key={`${key}-seperator`}>
-                                <span className={`${dataSource}-seperator`}>
-                                  /
-                                </span>
-                              </Breadcrumb.Separator>
-                            )}
-                          </Fragment>
-                        );
-                      }
-                    )}
-                  </Breadcrumb>
-                  <Divider
-                    style={{
-                      margin: 1,
-                    }}
-                  />
-                </div>
-              </Affix>
               {loading ? (
                 <EntityPlaceholder />
               ) : (

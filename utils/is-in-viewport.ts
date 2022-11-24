@@ -1,15 +1,13 @@
-export const isInViewport = (
-  element: HTMLElement,
-  container = document.documentElement
-) => {
-  if (!element) {
+export const isInViewport = (element: HTMLElement, container: HTMLElement) => {
+  if (!element ?? !container) {
+    console.debug('no element or container in isInViewport');
     return false;
   }
-  const rect = element.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+
   return (
-    rect.top >= -60 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || container.clientHeight) &&
-    rect.right <= (window.innerWidth || container.clientWidth)
+    elementRect.y + elementRect.height / 2 >= containerRect.y &&
+    elementRect.y + elementRect.height <= containerRect.y + containerRect.height
   );
 };

@@ -3,11 +3,11 @@
 
 @topbar-height: 64px;
 
-@topbar-padding-bottom: 26px; // also size for breadcrumb height
+@topbar-padding-y: 26px; // also size for breadcrumb height
 
 :root {
   --topbar-height: @topbar-height;
-  --topbar-padding-bottom: @topbar-padding-bottom;
+  --topbar-padding-y: @topbar-padding-y;
   --primary-1: @primary-1;
   --primary-2: @primary-2;
   --primary-3: @primary-3;
@@ -69,4 +69,8 @@
   .ant-breadcrumb {
     display: none;
   }
+}
+
+.ant-layout-content>* {
+  padding-left: 24px;
 }

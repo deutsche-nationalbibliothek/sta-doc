@@ -13,11 +13,6 @@ export const Search: React.FC = () => {
   return (
     <Menu
       theme="dark"
-      style={{
-        position: 'fixed',
-        right: 50,
-        display: 'inline-block',
-      }}
       mode="horizontal"
       selectedKeys={[]}
       items={[

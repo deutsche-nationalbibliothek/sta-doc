@@ -21,8 +21,6 @@ interface EntitiesListProps {
 export default function EntitiesList({ entities, domain }: EntitiesListProps) {
   const dataSource: Item[] = domain && dataSources[domain.toUpperCase()];
 
-  console.log({ entities, domain });
-
   const columns: ColumnsType<LocalEntity> = [
     {
       title: 'Eintrag',
@@ -62,8 +60,9 @@ export default function EntitiesList({ entities, domain }: EntitiesListProps) {
       <Title
         headline={{
           key: 'Entity-Index',
-          title: `${domain && dataSource ? domain.toUpperCase() + ' ' : ''
-            }Index`,
+          title: `${
+            domain && dataSource ? domain.toUpperCase() + ' ' : ''
+          }Index`,
           level: 1,
         }}
       />

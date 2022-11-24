@@ -22,7 +22,10 @@ export const useScroll = (
   const onScroll = useCallback(() => {
     const headlinesInViewport: string[] = headlines
       .filter((headline) => {
-        return isInViewport(document.getElementById(headline.key));
+        return isInViewport(
+          document.getElementById(headline.key),
+          document.getElementById('main-scroll-container')
+        );
       })
       .map((headline) => headline.key);
 
@@ -76,8 +79,13 @@ export const useScroll = (
   useEffect(debouncedOnScroll, [debouncedOnScroll]);
 
   useEffect(() => {
-    window.addEventListener('scroll', debouncedOnScroll);
-    return () => window.removeEventListener('scroll', debouncedOnScroll);
+    document
+      .getElementById('main-scroll-container')
+      .addEventListener('scroll', debouncedOnScroll);
+    return () =>
+      document
+        .getElementById('main-scroll-container')
+        .removeEventListener('scroll', debouncedOnScroll);
   }, [debouncedOnScroll]);
 
   useEffect(() => {
