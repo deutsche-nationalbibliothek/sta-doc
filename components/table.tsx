@@ -154,11 +154,12 @@ export function Table<T extends object>(props: TableProps<T>) {
           return {
             sorter: (a, b) =>
               a[column.dataIndex] > b[column.dataIndex] ? 1 : -1,
-            onFilter: (value, record) =>
-              record[column.dataIndex]
+            onFilter: (value, record) => {
+              return record[column.dataIndex]
                 .toString()
                 .toLowerCase()
-                .includes((value as string).toLowerCase()),
+                .includes((value as string).toLowerCase())
+            },
             ...columnProps,
           };
         })}

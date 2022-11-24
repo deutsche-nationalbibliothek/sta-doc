@@ -1,15 +1,36 @@
-import { Statement, WikiBaseValue } from '@/types/entity';
-import { Table } from 'antd';
+import { ColumnsType, Table } from '@/components/table';
+import {
+  isWikibaseValue,
+  PageType,
+  Statement,
+  WikiBaseValue,
+} from '@/types/entity';
+import { Item } from '@/types/item';
+import { Property } from '@/types/property';
+import { Table as AntdTable } from 'antd';
 import Link from 'next/link';
+import { EntityPreview } from '../preview';
 import { WikibasePointers } from '../wikibase-pointers';
 
 interface TableStatementsProps {
   statements: Statement[];
+  pageType: PageType;
 }
 
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
+  pageType,
 }) => {
+  if (pageType.id === Item['rda-ressourcetype']) {
+    return (
+      <RessourceTypeTable
+        statement={statements.find(
+          (statement) => statement.property === Property.elements
+        )}
+      />
+    );
+  }
+
   const data = statements.map((statement) => {
     return {
       key: statement.label,
@@ -23,25 +44,149 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   });
 
   return (
-    <Table dataSource={data} pagination={false}>
-      <Table.Column
+    <AntdTable dataSource={data} pagination={false}>
+      <AntdTable.Column
         title="Elementeigenschaften"
         key="property"
         dataIndex="property"
       />
-      <Table.Column
+      <AntdTable.Column
         title="Wert"
         key="value"
         dataIndex="value"
         render={(wikibasePointers: WikiBaseValue[]) => {
-          return  wikibasePointers &&
-            <WikibasePointers wikibasePointers={wikibasePointers.map(wikibasePointer => {
-              const {qualifiers, ...otherWikibasePointerValues} = wikibasePointer
-              return otherWikibasePointerValues;
-            })} />
-        }
-        }
+          return (
+            wikibasePointers && (
+              <WikibasePointers
+                wikibasePointers={wikibasePointers.map((wikibasePointer) => {
+                  const { qualifiers, ...otherWikibasePointerValues } =
+                    wikibasePointer;
+                  return otherWikibasePointerValues;
+                })}
+              />
+            )
+          );
+        }}
       />
-    </Table>
+    </AntdTable>
   );
+};
+
+interface RessourceTypeTableProps {
+  statement: Statement;
+}
+interface RessourceTypeTableData {
+  id: string;
+  label: string;
+  wemi: { link: string; label: string; id: string };
+  status: { link: string; label: string; id: string };
+}
+
+const RessourceTypeTable: React.FC<RessourceTypeTableProps> = ({
+  statement,
+}) => {
+  const data: RessourceTypeTableData[] = statement.wikibasePointer.map(
+    (wikibasePointer) => {
+      if (isWikibaseValue(wikibasePointer)) {
+        const qualifierProps: any = {};
+        const { label, id, qualifiers } = wikibasePointer;
+        const wemi = qualifiers.find((q) => q.label === 'WEMI-Ebene');
+        const status = qualifiers.find((q) => q.label === 'Status');
+        if (wemi && isWikibaseValue(wemi.wikibasePointer[0])) {
+          qualifierProps.wemi = wemi.wikibasePointer[0];
+        } else {
+          qualifierProps.wemi = { label: 'kein Wert' };
+        }
+        if (status && isWikibaseValue(status.wikibasePointer[0])) {
+          qualifierProps.status = status.wikibasePointer[0];
+        } else {
+          qualifierProps.status = { label: 'kein Wert' };
+        }
+        return {
+          label,
+          id,
+          key: id,
+          ...qualifierProps,
+        };
+      }
+    }
+  );
+
+  const columns: ColumnsType<RessourceTypeTableData> = [
+    {
+      title: 'Ressourcentyp',
+      dataIndex: 'label',
+      key: 'label',
+      width: '30%',
+      isSearchable: true,
+      render: (
+        label: string,
+        entity,
+        _index: number,
+        children: JSX.Element
+      ) => {
+        return (
+          <EntityPreview entityId={entity.id} label={label}>
+            <Link href={`/entities/${entity.id}`}>{children}</Link>
+          </EntityPreview>
+        );
+      },
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'statusLabel',
+      width: '20%',
+      render: (status) => {
+        return 'id' in status ? (
+          <EntityPreview entityId={status.id} label={status.label}>
+            <Link href={`/entities/${status.id}`}>{status.label}</Link>
+          </EntityPreview>
+        ) : (
+          status.label
+        );
+      },
+      filters: data
+        .reduce((acc, date) => {
+          const key = date.status.label;
+          return acc.includes(key) ? [...acc] : [...acc, key];
+        }, [] as string[])
+        .map((key) => ({ text: key, value: key })),
+      sorter: (a, b) => (a.status.label > b.status.label ? 1 : -1),
+      onFilter: (value, record) => {
+        return record.status.label
+          .toString()
+          .toLowerCase()
+          .includes((value as string).toLowerCase());
+      },
+    },
+    {
+      title: 'WEMI-Ebene',
+      dataIndex: 'wemi',
+      key: 'wemiLabel',
+      width: '20%',
+      render: (wemi) => {
+        return (
+          <EntityPreview entityId={wemi.id} label={wemi.label}>
+            <Link href={`/entities/${wemi.id}`}>{wemi.label}</Link>
+          </EntityPreview>
+        );
+      },
+      filters: data
+        .reduce((acc, date) => {
+          const key = date.wemi.label;
+          return acc.includes(key) ? [...acc] : [...acc, key];
+        }, [] as string[])
+        .map((key) => ({ text: key, value: key })),
+      sorter: (a, b) => (a.wemi.label > b.wemi.label ? 1 : -1),
+      onFilter: (value, record) => {
+        return record.wemi.label
+          .toString()
+          .toLowerCase()
+          .includes((value as string).toLowerCase());
+      },
+    },
+  ];
+
+  return <Table<RessourceTypeTableData> dataSource={data} columns={columns} />;
 };
