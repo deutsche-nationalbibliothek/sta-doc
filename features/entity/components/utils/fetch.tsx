@@ -23,7 +23,11 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   }, [loading, isLoading]);
 
   if (showSpinner && loading) {
-    return <Spin />;
+    return (
+      <div style={{ paddingTop: '1em', textAlign: 'center' }}>
+        <Spin />
+      </div>
+    );
   }
 
   if (error) {
