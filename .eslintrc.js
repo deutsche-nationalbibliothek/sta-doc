@@ -20,6 +20,7 @@ module.exports = {
     'prefer-const': 0,
     '@typescript-eslint/no-unsafe-argument': 0,
     '@typescript-eslint/no-unsafe-call': 0,
+    '@typescript-eslint/no-floating-promises': 0,
     'no-debugger': 'warn', // instead of default error
     indent: ['warn', 2, { SwitchCase: 1 }], // instead of default 4
     'no-undef': 'off',
