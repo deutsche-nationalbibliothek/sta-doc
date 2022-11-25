@@ -12,7 +12,7 @@ export const TopBar: React.FC = () => {
   return (
     <AntdLayout.Header style={{ zIndex: 1, width: '100%' }}>
       <Row justify={'space-between'}>
-        <Col span={3}>
+        <Col span={6}>
           <Menu
             theme="dark"
             style={{ minWidth: 240 }}
@@ -26,8 +26,8 @@ export const TopBar: React.FC = () => {
               { label: <Link href="/">Home</Link>, key: '/' },
               {
                 label: (
-                  <span onClick={() => router.push('/entities?domain=RDA')}>
-                    RDA
+                  <span className="ant-menu-item" style={{ padding: 0 }}>
+                    <Link href="/entities/Q8469">RDA</Link>
                   </span>
                 ),
                 key: 'RDA',
@@ -56,12 +56,16 @@ export const TopBar: React.FC = () => {
                     ),
                     key: '/entities/Q8568',
                   },
+                  {
+                    label: <Link href="/entities?domain=RDA">Index</Link>,
+                    key: '/entities?domain=RDA',
+                  },
                 ],
               },
               {
                 label: (
-                  <span onClick={() => router.push('/entities?domain=GND')}>
-                    GND
+                  <span className="ant-menu-item" style={{ padding: 0 }}>
+                    <Link href="/gnd">GND</Link>
                   </span>
                 ),
                 key: 'GND',
@@ -69,6 +73,10 @@ export const TopBar: React.FC = () => {
                   {
                     label: <Link href="/gnd/fields">Datenfelder</Link>,
                     key: '/gnd/fields',
+                  },
+                  {
+                    label: <Link href="/entities?domain=GND">Index</Link>,
+                    key: '/entities?domain=GND',
                   },
                 ],
               },

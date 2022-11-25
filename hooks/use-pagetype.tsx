@@ -1,11 +1,19 @@
 import { DataSource, PageType } from '@/types/entity';
 import { dataSources } from '@/utils/constants';
 import { useRouter } from 'next/router';
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 interface DataSourceContext {
   dataSource: DataSource;
-  onSetDataSource: (pageTaype: PageType) => void;
+  onSetByPageType: (pageTaype: PageType) => void;
+  setDataSource: Dispatch<SetStateAction<DataSource>>;
 }
 
 const DataSourceContext = createContext({} as DataSourceContext);
@@ -22,7 +30,7 @@ export const DataSourceProvider = ({ children }) => {
     };
   }, []);
 
-  const onSetDataSource = (pageType: PageType) => {
+  const onSetByPageType = (pageType: PageType) => {
     const nextDataSource = Object.entries(dataSources).reduce(
       (acc: DataSource | undefined, [key, val]) => {
         if (
@@ -40,7 +48,9 @@ export const DataSourceProvider = ({ children }) => {
   };
 
   return (
-    <DataSourceContext.Provider value={{ dataSource, onSetDataSource }}>
+    <DataSourceContext.Provider
+      value={{ dataSource, setDataSource, onSetByPageType }}
+    >
       {children}
     </DataSourceContext.Provider>
   );

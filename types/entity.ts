@@ -2,7 +2,10 @@ import { Headline } from './headline';
 import { Item } from './item';
 import { Property } from './property';
 
-export type DataSource = 'GND' | 'RDA';
+export enum DataSource {
+  GND = 'GND',
+  RDA = 'RDA',
+}
 
 export interface Entities extends Indexable<Entities> {
   [key: string]: Entity;
