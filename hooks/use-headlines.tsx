@@ -36,7 +36,10 @@ export default function HeadlinesProvider({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    const onResetHeadlines = () => setHeadlines([]);
+    const onResetHeadlines = () => {
+      setHeadlines([]);
+      setCurrentHeadlinesPath([]);
+    };
     router.events.on('routeChangeStart', onResetHeadlines);
     return () => {
       router.events.off('routeChangeStart', onResetHeadlines);
