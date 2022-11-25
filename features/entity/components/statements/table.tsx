@@ -21,14 +21,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
   pageType,
 }) => {
-  if (pageType.id === Item['rda-ressourcetype']) {
-    return (
-      <RessourceTypeTable
-        statement={statements.find(
-          (statement) => statement.property === Property.elements
-        )}
-      />
-    );
+  const elementsStatement = statements.find(
+    (statement) => statement.property === Property.elements
+  );
+  if (pageType.id === Item['rda-ressourcetype'] && elementsStatement) {
+    return <RessourceTypeTable statement={elementsStatement} />;
   }
 
   const data = statements.map((statement) => {
@@ -114,7 +111,7 @@ const RessourceTypeTable: React.FC<RessourceTypeTableProps> = ({
 
   const columns: ColumnsType<RessourceTypeTableData> = [
     {
-      title: 'Ressourcentyp',
+      title: 'Elemente',
       dataIndex: 'label',
       key: 'label',
       width: '30%',
