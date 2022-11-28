@@ -1,5 +1,7 @@
 @import 'antd/dist/antd.less';
 @import './antd-override.less';
+@import './react-split.less';
+@import './loading-bar.less';
 
 @topbar-height: 64px;
 
@@ -18,59 +20,6 @@
   --primary-8: @primary-8;
   --primary-9: @primary-9;
   --link-color: @link-color;
-}
-
-.progress-bar {
-  height: 2px;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  z-index: 11;
-  background: linear-gradient(120deg,
-    @background-color,
-    @primary-color,
-    color(~`colorPalette('@{link-color}', 3) `));
-  background-size: 600% 600%;
-  animation: AnimationName 2s ease infinite;
-}
-
-@keyframes AnimationName {
-  0% {
-    background-position: 0% 51%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 51%;
-  }
-}
-
-.ant-breadcrumb-separator>.RDA-seperator {
-  color: @primary-color;
-}
-
-.ant-breadcrumb-separator>.GND-seperator {
-  color: @link-color;
-}
-
-.ant-layout-content>* {
-  padding-left: 24px;
-}
-
-.ant-table-thead .anticon {
-  font-size: 18px;
-}
-
-.ant-table-thead {
-  font-size: 16px;
-}
-
-.ant-page-header {
-  padding-left: 0px;
 }
 
 // clarify, needed for http://localhost:3000/entities/Q8469??

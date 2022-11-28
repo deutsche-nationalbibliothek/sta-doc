@@ -45,9 +45,9 @@ export const ContentNavigation: React.FC = () => {
             showIcon
             defaultExpandAll
             ref={treeRef}
-            style={{ flex: 1 }}
             height={
               containerHeight - dividerHeight * 2
+              // document ? document.querySelector('.tile').getBoundingClientRect().height - dividerHeight * 2 - 20 : containerHeight - dividerHeight * 2
               // window.innerHeight - 64 - 53 * 2 // topbar- and divider-height
             }
             selectedKeys={headlineKeysInViewport}

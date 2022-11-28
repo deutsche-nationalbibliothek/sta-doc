@@ -1,0 +1,59 @@
+.custom-gutter-vertical {
+  padding: 0 1px;
+  height: 1px;
+  width: 100%;
+}
+
+.custom-gutter-horizontal {
+  // margin: 0 2px !important;
+  padding: 0 2px !important;
+  height: calc(100vh - var(--topbar-height));
+  // border: 0px solid #d9d9d9;
+  width: 1px;
+
+  &:hover {
+    padding: 0 0px !important;
+    // margin: 0 0px !important;
+    border: 2px solid #d9d9d9;
+    // width: 3px;
+  }
+}
+
+.custom-gutter:hover {
+  cursor: col-resize;
+}
+
+.custom-gutter {
+  background: rgb(217, 217, 217);
+}
+
+.custom-dragger {
+  display: none;
+}
+
+.tile {
+  height: calc(100vh - var(--topbar-height));
+  width: 100%;
+  // padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-top;
+
+  // border-radius: 8px;
+  // background: #121114;
+}
+
+// .splitter {
+//   padding-top:var(--topbar-height)
+// }
+
+// .bla {
+//       width: 4px;
+//     height: 24px;
+//     background: #434252;
+//     border-radius: 2px
+// }
+
+section>.Horizontal {
+  overflow: inherit;
+}

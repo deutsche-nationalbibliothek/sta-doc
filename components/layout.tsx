@@ -3,6 +3,7 @@ import { useHeadlines } from '@/hooks/use-headlines';
 import { Layout as AntdLayout } from 'antd';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
+import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
 
 interface LayoutProps {
@@ -10,7 +11,30 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-  const { nestedHeadlines } = useHeadlines();
+  const { nestedHeadlines, headlines } = useHeadlines();
+
+  const layout = (
+    <AntdLayout
+      style={{
+        paddingLeft: nestedHeadlines.length === 0 ? '10%' : 26,
+        paddingRight: nestedHeadlines.length === 0 ? '10%' : 26,
+      }}
+    >
+      <AntdLayout.Content>
+        <Breadcrumb />
+        <div
+          id="main-scroll-container"
+          style={{
+            height: 'calc(100vh - var(--topbar-height) - 52px)', //window.innerHeight - 64 - 4 , //- 48 * 2, // topbar- and divider-height
+            overflowY: 'auto',
+            padding: '0px 25px',
+          }}
+        >
+          {props.children}
+        </div>
+      </AntdLayout.Content>
+    </AntdLayout>
+  );
 
   return (
     <AntdLayout>
@@ -21,27 +45,14 @@ export default function Layout(props: LayoutProps) {
           height: 'calc(100vh - var(--topbar-height))',
         }}
       >
-        <Sidebar />
-        <AntdLayout
-          style={{
-            paddingLeft: nestedHeadlines.length === 0 ? '10%' : 26,
-            paddingRight: nestedHeadlines.length === 0 ? '10%' : 26,
-          }}
-        >
-          <AntdLayout.Content>
-            <Breadcrumb />
-            <div
-              id="main-scroll-container"
-              style={{
-                height: 'calc(100vh - var(--topbar-height) - 52px)', //window.innerHeight - 64 - 4 , //- 48 * 2, // topbar- and divider-height
-                overflowY: 'auto',
-                padding: '0px 25px',
-              }}
-            >
-              {props.children}
-            </div>
-          </AntdLayout.Content>
-        </AntdLayout>
+        {headlines.length > 0 ? (
+          <Splitter>
+            <Sidebar />
+            {layout}
+          </Splitter>
+        ) : (
+          layout
+        )}
       </AntdLayout>
     </AntdLayout>
   );
