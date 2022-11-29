@@ -138,7 +138,7 @@ export const parseEntities = (
             );
           };
 
-          const parseWikibaseValue = (occ) => {
+          const parseWikibaseValue = (occ, currentHeadlineLevel) => {
             const id = keyAccess(occ, 'datavalue', 'value', 'id');
             const property = keyAccess(occ, 'property');
             const value = lookup_de[property];
@@ -147,17 +147,10 @@ export const parseEntities = (
               isTextGroup &&
               !isPropertyBlacklisted(property) &&
               occ.qualifiers;
-            // if (hasHeadline) {
-            //   console.log(
-            //     'headline parseWikibaseValue',
-            //     lookup_de[id],
-            //     currentHeadlineLevel + (isTopLevel ? 1 : 0)
-            //   );
-            // }
             return {
               id: id,
               headline: hasHeadline
-                ? addHeadline(lookup_de[id], currentHeadlineLevel + 1)
+                ? addHeadline(lookup_de[id], currentHeadlineLevel)
                 : undefined,
               label: lookup_de[id],
               link: `/entities/${id}`,
@@ -171,7 +164,7 @@ export const parseEntities = (
             };
           };
 
-          const parseStringValue = (occ) => {
+          const parseStringValue = (occ, currentHeadlineLevel) => {
             const value = keyAccess(occ, 'datavalue', 'value');
             const id = keyAccess(occ, 'property');
             const itemType =
@@ -181,21 +174,11 @@ export const parseEntities = (
             const headingIndex = headings.findIndex(
               (heading) => heading === itemType
             );
-            // if (headingIndex >= 0) {
-            //   console.log(
-            //     'headline stringValue',
-            //     value,
-            //     currentHeadlineLevel + headingIndex + (isTopLevel ? 1 : 0)
-            //   );
-            // }
             return {
               value,
               headline:
                 headingIndex >= 0 && isTextGroup
-                  ? addHeadline(
-                    value,
-                    currentHeadlineLevel + headingIndex + (isTopLevel ? 1 : 0)
-                  )
+                  ? addHeadline(value, currentHeadlineLevel + headingIndex)
                   : undefined,
               coding: codings[id],
               itemType,
@@ -208,7 +191,7 @@ export const parseEntities = (
             };
           };
 
-          const parsedStatements = statement.map((occs, index) => {
+          const parsedStatements = statement.map((occs) => {
             const dataType = keyAccess(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -250,21 +233,24 @@ export const parseEntities = (
                     propertyId === Property['embedded(property)']) &&
                   !prevParsedEntity.some((id) => id === embeddedEntityId);
 
+                const nextHeaderLevel =
+                  currentHeadlineLevel + (hasHeadline ? 1 : 0);
+
                 return {
                   ...(simplifiedDataType === 'wikibasePointer'
-                    ? parseWikibaseValue(occ)
+                    ? parseWikibaseValue(occ, nextHeaderLevel)
                     : simplifiedDataType === 'time'
                       ? parseTimeValue(occ)
                       : simplifiedDataType === 'url'
                         ? parseUrlValue(occ)
-                        : parseStringValue(occ)),
+                        : parseStringValue(occ, nextHeaderLevel)),
                   references: occ.references && parseReferences(occ.references),
                   embedded:
                     hasEmbedding &&
                     parseRawEntity(
                       embeddedEntityId,
                       headlines,
-                      currentHeadlineLevel + 1,
+                      nextHeaderLevel,
                       [...prevParsedEntity, entityId],
                       true
                     ).parsedEntity,
@@ -274,7 +260,7 @@ export const parseEntities = (
                       Object.keys(occ.qualifiers).map(
                         (qualiKey) => occ.qualifiers[qualiKey]
                       ),
-                      currentHeadlineLevel + (hasEmbedding ? 1 : 0),
+                      nextHeaderLevel,
                       { embeddedStatement: true, isTextGroup }
                     ),
                 };
@@ -311,14 +297,6 @@ export const parseEntities = (
         return enrichedParsedStatementProps;
       };
 
-      // if (!embedded) {
-      //   console.log(
-      //     'Top level headline',
-      //     entity.labels.de?.value,
-      //     currentHeadlineLevel
-      //   );
-      // }
-
       return {
         id: entityId,
         headline: !embedded
@@ -339,10 +317,6 @@ export const parseEntities = (
             deLabel: lookup_de[elementOf],
           }
           : undefined,
-        // description:
-        //   'de' in entity.descriptions
-        //     ? entity.descriptions.de.value
-        //     : undefined,
         notation: notations[entityId]?.notation,
         statements: statementProps(entity.claims),
         logo:
