@@ -1,5 +1,6 @@
 import { ColumnsType, Table } from '@/components/table';
 import {
+  isStringValue,
   isWikibaseValue,
   PageType,
   Statement,
@@ -32,11 +33,28 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     return {
       key: statement.label,
       property: statement.label,
-      value:
-        statement.wikibasePointer &&
-        statement.wikibasePointer.filter(
-          (wikibasePointer) => 'label' in wikibasePointer
-        ),
+      value: statement.wikibasePointer ? (
+        <WikibasePointers
+          wikibasePointers={statement.wikibasePointer
+            .filter(
+              (wikibasePointer) =>
+                isWikibaseValue(wikibasePointer)
+            )
+          .map((wikibasePointer: WikiBaseValue) => {
+              const { qualifiers, ...otherWikibasePointerValues } =
+                wikibasePointer;
+              return otherWikibasePointerValues;
+            })}
+        />
+      ) : (
+        statement.string &&
+        statement.string.map(
+          (stringStatement) =>
+            stringStatement.values.map((stringValue) =>
+              isStringValue(stringValue) && stringValue.value
+            )
+        )
+      ),
     };
   });
 
@@ -51,19 +69,6 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         title="Wert"
         key="value"
         dataIndex="value"
-        render={(wikibasePointers: WikiBaseValue[]) => {
-          return (
-            wikibasePointers && (
-              <WikibasePointers
-                wikibasePointers={wikibasePointers.map((wikibasePointer) => {
-                  const { qualifiers, ...otherWikibasePointerValues } =
-                    wikibasePointer;
-                  return otherWikibasePointerValues;
-                })}
-              />
-            )
-          );
-        }}
       />
     </AntdTable>
   );
