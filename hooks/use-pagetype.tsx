@@ -14,21 +14,15 @@ interface DataSourceContext {
   dataSource: DataSource;
   onSetByPageType: (pageTaype: PageType) => void;
   setDataSource: Dispatch<SetStateAction<DataSource>>;
+  onResetDataSource: () => void;
 }
 
 const DataSourceContext = createContext({} as DataSourceContext);
 
 export const DataSourceProvider = ({ children }) => {
   const [dataSource, setDataSource] = useState<DataSource>();
-  const router = useRouter();
 
-  useEffect(() => {
-    const onResetDataSource = () => setDataSource(undefined);
-    router.events.on('routeChangeStart', onResetDataSource);
-    return () => {
-      router.events.off('routeChangeStart', onResetDataSource);
-    };
-  }, []);
+  const onResetDataSource = () => setDataSource(undefined);
 
   const onSetByPageType = (pageType: PageType) => {
     const nextDataSource = Object.entries(dataSources).reduce(
@@ -49,7 +43,7 @@ export const DataSourceProvider = ({ children }) => {
 
   return (
     <DataSourceContext.Provider
-      value={{ dataSource, setDataSource, onSetByPageType }}
+      value={{ dataSource, setDataSource, onSetByPageType, onResetDataSource }}
     >
       {children}
     </DataSourceContext.Provider>

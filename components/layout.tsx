@@ -1,5 +1,6 @@
 import { Breadcrumb } from '@/entity/components/breadcrumb';
-import { useHeadlines } from '@/hooks/use-headlines';
+import { useHeadlines } from '@/hooks/headlines';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Layout as AntdLayout } from 'antd';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
@@ -11,13 +12,36 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-  const { nestedHeadlines, headlines } = useHeadlines();
+  const { nestedHeadlines } = useHeadlines();
+  return (
+    <AntdLayout>
+      <LoadingIndicator />
+      <TopBar />
+      <AntdLayout
+        style={{
+          height: 'calc(100vh - var(--topbar-height))',
+        }}
+      >
+        {nestedHeadlines.length > 1 ? (
+          <Splitter>
+            {nestedHeadlines.length > 1 && <Sidebar />}
+            <Content>{props.children}</Content>
+          </Splitter>
+        ) : (
+            <Content>{props.children}</Content>
+        )}
+      </AntdLayout>
+    </AntdLayout>
+  );
+}
 
-  const layout = (
+const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
+  const { headlines } = useInitialHeadlines();
+  return (
     <AntdLayout
       style={{
-        paddingLeft: nestedHeadlines.length === 0 ? '10%' : 26,
-        paddingRight: nestedHeadlines.length === 0 ? '10%' : 26,
+        paddingLeft: headlines.length > 1 ? 26 : '10%',
+        paddingRight: headlines.length > 1 ? 26 : '10%',
       }}
     >
       <AntdLayout.Content>
@@ -30,30 +54,9 @@ export default function Layout(props: LayoutProps) {
             padding: '0px 25px',
           }}
         >
-          {props.children}
+          {children}
         </div>
       </AntdLayout.Content>
     </AntdLayout>
   );
-
-  return (
-    <AntdLayout>
-      <LoadingIndicator />
-      <TopBar />
-      <AntdLayout
-        style={{
-          height: 'calc(100vh - var(--topbar-height))',
-        }}
-      >
-        {headlines.length > 0 ? (
-          <Splitter>
-            <Sidebar />
-            {layout}
-          </Splitter>
-        ) : (
-          layout
-        )}
-      </AntdLayout>
-    </AntdLayout>
-  );
-}
+};

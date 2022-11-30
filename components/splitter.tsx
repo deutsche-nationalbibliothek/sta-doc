@@ -6,18 +6,19 @@ interface SplitterProps {
 }
 
 export const Splitter: React.FC<SplitterProps> = ({ children }) => {
-  console.log(children)
-  const childs = children.filter(a=>a)
-  const [sizes, setSizes] =  useState<[number,number]>([20, 80])
-  // const [sizes, setSizes] =  useState<[number,number]>(childs.lentgh === 2 ? [20, 80] : [100])
-  const direction: SplitDirection = SplitDirection.Horizontal
+  const childs = children.filter((a) => a);
+  const [sizes, setSizes] = useState<[number, number]>([20, 80]);
+  // const [sizes, setSizes] = useState<[number, number]>(
+  //   childs.length === 2 ? [20, 80] : [100, 0]
+  // );
+  const direction: SplitDirection = SplitDirection.Horizontal;
   // const cssClass = direction === SplitDirection.Vertical ? 'custom-gutter-vertical' : 'custom-gutter-horizontal'
-  const cssClass = 'custom-gutter-horizontal'
+  const cssClass = 'custom-gutter-horizontal';
 
-  const onResizeFinished = (a,b: [number,number]) => {
-    setSizes(b)
+  const onResizeFinished = (_pairIdx: number, newSizes: [number, number]) => {
+    setSizes(newSizes);
+  };
 
-  }
   return (
     <ReactSplit
       classes={['splitter', 'splitter']}
@@ -29,9 +30,8 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
     >
       {childs.map((child, index) => (
         <React.Fragment key={index}>
-        <Tile>{child}</Tile>
-          {/* <div className="bla" /> */}
-          </React.Fragment>
+          <Tile>{child}</Tile>
+        </React.Fragment>
       ))}
     </ReactSplit>
   );
@@ -42,7 +42,5 @@ interface TileProps {
 }
 
 function Tile({ children }: TileProps) {
-  return <div className="tile">
-    {children}
-  </div>;
+  return <div className="tile">{children}</div>;
 }

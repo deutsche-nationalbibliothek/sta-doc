@@ -2,12 +2,14 @@ import entities from '@/data/parsed/entities.json';
 import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
-import { useHeadlines } from '@/hooks/use-headlines';
+import { useHeadlines } from '@/hooks/headlines';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Entities, EntityEntry } from '@/types/entity';
 import { Headline } from '@/types/headline';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 interface EntityDetailsProps {
   headlines: Headline[];
@@ -18,10 +20,22 @@ export default function EntityDetailsPage({
   headlines,
   entityId,
 }: EntityDetailsProps) {
-  const { setHeadlines } = useHeadlines();
+  const { setHeadlines, headlines: initialHeadlines } = useInitialHeadlines();
+  const router = useRouter();
 
   useEffect(() => {
-    setHeadlines(headlines);
+    const onResetHeadlines = () => {
+      setHeadlines([]);
+    };
+    const onSetHeadlines = () => {
+      setHeadlines(headlines);
+    };
+    router.events.on('routeChangeStart', onResetHeadlines);
+    router.events.on('routeChangeComplete', onSetHeadlines);
+    return () => {
+      router.events.off('routeChangeStart', onResetHeadlines);
+      router.events.off('routeChangeComplete', onSetHeadlines);
+    };
   }, [headlines, setHeadlines]);
 
   return (

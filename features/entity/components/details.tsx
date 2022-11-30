@@ -17,13 +17,14 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   entity,
   embedded = false,
 }) => {
-  const { dataSource, onSetByPageType } = useDataSource();
+  const { dataSource, onSetByPageType, onResetDataSource } = useDataSource();
   useInitialScroll(!embedded);
 
   useEffect(() => {
     if (!embedded && entity.pageType?.id) {
       onSetByPageType(entity.pageType);
     }
+    return onResetDataSource;
   }, [embedded, entity.pageType?.id]);
 
   return (

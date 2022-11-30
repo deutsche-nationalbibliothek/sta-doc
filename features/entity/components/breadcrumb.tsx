@@ -1,5 +1,5 @@
 import { CopyHeadlineAnchorLink } from '@/components/copy-headline-anchor-link';
-import { useHeadlines } from '@/hooks/use-headlines';
+import { useHeadlines } from '@/hooks/headlines';
 import { Breadcrumb as AntdBreadcrumb, Divider, Tooltip } from 'antd';
 import { truncate } from 'lodash';
 import { Fragment } from 'react';
@@ -18,7 +18,6 @@ export const Breadcrumb: React.FC = () => {
       >
         {currentHeadlinesPath.map(({ key, title, dataSource }, index) => {
           const isLastIndex = index === currentHeadlinesPath.length - 1;
-          console.log({ key });
           return (
             <Fragment key={key}>
               <AntdBreadcrumb.Item>

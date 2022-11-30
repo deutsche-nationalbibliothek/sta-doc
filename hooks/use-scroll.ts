@@ -4,13 +4,14 @@ import { DataNode } from 'antd/lib/tree';
 import { debounce } from 'lodash';
 import RcTree from 'rc-tree';
 import { useCallback, useEffect, useState } from 'react';
-import { useHeadlines } from './use-headlines';
+import { useHeadlines } from './headlines';
+import { useInitialHeadlines } from './initial-headlines';
 
 export const useScroll = (
   treeRef: React.MutableRefObject<RcTree<DataNode>>
 ) => {
+  const { headlines } = useInitialHeadlines();
   const {
-    headlines,
     nestedHeadlines,
     setCurrentHeadlinesPath,
     headlineKeysInViewport,

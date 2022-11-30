@@ -1,10 +1,10 @@
 import { Title } from '@/components/title';
-import { useHeadlines } from '@/hooks/use-headlines';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Skeleton } from 'antd';
 import React from 'react';
 
 export const EntityPlaceholder = () => {
-  const { headlines } = useHeadlines();
+  const { headlines } = useInitialHeadlines();
 
   return (
     <>

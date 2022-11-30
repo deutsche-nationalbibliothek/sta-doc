@@ -9,13 +9,10 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useInitialHeadlines } from './initial-headlines';
 import { useDataSource } from './use-pagetype';
 
 interface HeadlinesContext {
-  // headlines in document, flat structure
-  headlines: Headline[];
-  setHeadlines: Dispatch<SetStateAction<Headline[]>>;
-
   // headlines in document, nested structure
   nestedHeadlines: NestedHeadlines[];
 
@@ -23,7 +20,7 @@ interface HeadlinesContext {
   currentHeadlinesPath: Omit<Headline, 'level'>[];
   setCurrentHeadlinesPath: Dispatch<SetStateAction<Omit<Headline, 'level'>[]>>;
 
-  // headlines which are currently in viewport
+  // headline keys which are currently in viewport
   headlineKeysInViewport: string[];
   setHeadlineKeysInViewport: Dispatch<SetStateAction<string[]>>;
 }
@@ -32,7 +29,7 @@ interface HeadlinesContext {
 const HeadlineContext = createContext({} as HeadlinesContext);
 
 export default function HeadlinesProvider({ children }) {
-  const [headlines, setHeadlines] = useState<Headline[]>([]);
+  const { headlines, setHeadlines } = useInitialHeadlines();
   const router = useRouter();
 
   useEffect(() => {
@@ -65,8 +62,6 @@ export default function HeadlinesProvider({ children }) {
   return (
     <HeadlineContext.Provider
       value={{
-        headlines,
-        setHeadlines,
         nestedHeadlines,
         currentHeadlinesPath,
         setCurrentHeadlinesPath,
