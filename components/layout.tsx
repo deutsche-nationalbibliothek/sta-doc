@@ -28,7 +28,7 @@ export default function Layout(props: LayoutProps) {
             <Content>{props.children}</Content>
           </Splitter>
         ) : (
-            <Content>{props.children}</Content>
+          <Content>{props.children}</Content>
         )}
       </AntdLayout>
     </AntdLayout>
@@ -40,8 +40,8 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
   return (
     <AntdLayout
       style={{
-        paddingLeft: headlines.length > 1 ? 26 : '10%',
-        paddingRight: headlines.length > 1 ? 26 : '10%',
+        paddingLeft: headlines && headlines.length > 1 ? 26 : '10%',
+        paddingRight: headlines && headlines.length > 1 ? 26 : '10%',
       }}
     >
       <AntdLayout.Content>

@@ -2,14 +2,13 @@ import entities from '@/data/parsed/entities.json';
 import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
-import { useHeadlines } from '@/hooks/headlines';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Entities, EntityEntry } from '@/types/entity';
 import { Headline } from '@/types/headline';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface EntityDetailsProps {
   headlines: Headline[];
@@ -30,6 +29,11 @@ export default function EntityDetailsPage({
     const onSetHeadlines = () => {
       setHeadlines(headlines);
     };
+
+    if (!initialHeadlines) {
+      onSetHeadlines();
+    }
+
     router.events.on('routeChangeStart', onResetHeadlines);
     router.events.on('routeChangeComplete', onSetHeadlines);
     return () => {

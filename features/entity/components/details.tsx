@@ -23,6 +23,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   useEffect(() => {
     if (!embedded && entity.pageType?.id) {
       onSetByPageType(entity.pageType);
+      return onResetDataSource;
     }
     return onResetDataSource;
   }, [embedded, entity.pageType?.id]);

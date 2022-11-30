@@ -16,6 +16,9 @@ export const nestedHeadlines = (
   headlines: Headline[],
   entityDataSource?: DataSource
 ) => {
+  if (!headlines) {
+    return [];
+  }
   // filter top-level headline
   const filteredHeadlines = headlines.filter((headline) => headline.level > 1);
 

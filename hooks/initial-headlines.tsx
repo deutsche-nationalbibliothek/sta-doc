@@ -1,17 +1,15 @@
 import { Headline } from '@/types/headline';
-import { useRouter } from 'next/router';
 import {
   createContext,
   Dispatch,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 
 interface InitialHeadlinesContext {
   // headlines in document, flat structure
-  headlines: Headline[];
+  headlines?: Headline[];
   setHeadlines: Dispatch<SetStateAction<Headline[]>>;
 }
 
@@ -19,7 +17,7 @@ interface InitialHeadlinesContext {
 const InitialHeadlineContext = createContext({} as InitialHeadlinesContext);
 
 export default function InitialHeadlinesProvider({ children }) {
-  const [headlines, setHeadlines] = useState<Headline[]>([]);
+  const [headlines, setHeadlines] = useState<Headline[]>();
 
   return (
     <InitialHeadlineContext.Provider
