@@ -1,4 +1,4 @@
-export interface Field extends Indexable<Field> {
+export interface Field {
   id: string;
   label: string;
   description: string;

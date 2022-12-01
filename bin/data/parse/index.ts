@@ -129,15 +129,26 @@ const parseRdaProperties = (): RdaProperty[] => {
   return parsedRdaProperties;
 };
 
-// todo improve data structure
 const parseFields = () => {
-  console.log('\tParsing Fields');
   const fields = readFields();
-  const rows = [];
-  Object.keys(fields).map((key) => {
-    // every field needs a Property ID
-    fields[key]['id'] = key;
-    rows.push(fields[key]);
+  const rows = Object.entries(fields).map(([key, field]) => {
+    return {
+      id: key,
+      ...field,
+      examples: Object.entries(field.examples).map(([key, example]) => ({
+        id: key,
+        ...example,
+      })),
+      subfields: Object.entries(field.subfields).map(([key, subfield]) => ({
+        id: key,
+        ...subfield,
+        allowedValues: subfield.allowedValues?.length
+          ? Object.entries(subfield.allowedValues).map(
+            ([key, allowedValue]) => ({ id: key, ...allowedValue })
+          )
+          : undefined,
+      })),
+    };
   });
   writeJSONFileAndType(rows, NAMES.fields, DataState.parsed);
   return rows;
