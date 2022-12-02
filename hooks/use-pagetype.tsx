@@ -21,8 +21,16 @@ const DataSourceContext = createContext({} as DataSourceContext);
 
 export const DataSourceProvider = ({ children }) => {
   const [dataSource, setDataSource] = useState<DataSource>();
+  const router = useRouter();
 
   const onResetDataSource = () => setDataSource(undefined);
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', onResetDataSource);
+    return () => {
+      router.events.off('routeChangeStart', onResetDataSource);
+    };
+  }, []);
 
   const onSetByPageType = (pageType: PageType) => {
     const nextDataSource = Object.entries(dataSources).reduce(

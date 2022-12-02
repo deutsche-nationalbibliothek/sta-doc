@@ -130,24 +130,29 @@ const parseRdaProperties = (): RdaProperty[] => {
 };
 
 const parseFields = () => {
+  console.log('\tParsing Fields');
   const fields = readFields();
   const rows = Object.entries(fields).map(([key, field]) => {
+    const { codings, description, editLink, label, subfields, viewLink } =
+      field;
     return {
       id: key,
-      ...field,
-      examples: Object.entries(field.examples).map(([key, example]) => ({
-        id: key,
-        ...example,
-      })),
-      subfields: Object.entries(field.subfields).map(([key, subfield]) => ({
-        id: key,
-        ...subfield,
-        allowedValues: subfield.allowedValues?.length
-          ? Object.entries(subfield.allowedValues).map(
-            ([key, allowedValue]) => ({ id: key, ...allowedValue })
-          )
-          : undefined,
-      })),
+      codings,
+      description,
+      editLink,
+      label,
+      viewLink,
+      subfields: Object.entries(subfields).map(([key, subfield]) => {
+        const { codings, description, editLink, label, viewLink } = subfield;
+        return {
+          id: key,
+          codings,
+          description,
+          editLink,
+          label,
+          viewLink,
+        };
+      }),
     };
   });
   writeJSONFileAndType(rows, NAMES.fields, DataState.parsed);

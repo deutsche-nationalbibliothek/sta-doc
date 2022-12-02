@@ -101,7 +101,6 @@ const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
   return (
     <EntityPreview entityId={wikibasePointer.id} label={wikibasePointer.label}>
       <Link href={`/entities/${wikibasePointer.id}`}>
-        <ArrowRightOutlined />
         {wikibasePointer.label}
       </Link>
     </EntityPreview>

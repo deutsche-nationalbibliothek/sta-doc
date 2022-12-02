@@ -83,7 +83,7 @@ export const TopBar: React.FC = () => {
             ]}
           />
         </Col>
-        <Col style={{ flex: '0 0 0' }} span={2}>
+        <Col style={{ flex: '0 0 0' }} span={6}>
           <Search />
         </Col>
       </Row>

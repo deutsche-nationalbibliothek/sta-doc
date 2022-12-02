@@ -6,9 +6,12 @@ import {
   ColumnType as AntdColumnType,
   FilterConfirmProps,
 } from 'antd/lib/table/interface';
-import { DataIndex, RenderedCell } from 'rc-table/lib/interface';
+import { get } from 'lodash';
+import { RenderedCell } from 'rc-table/lib/interface';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
+
+export declare type DataIndex = string;
 
 interface TableProps<T> extends Omit<AntdTableProps<T>, 'columns'> {
   columns?: ColumnsType<T>;
@@ -16,6 +19,7 @@ interface TableProps<T> extends Omit<AntdTableProps<T>, 'columns'> {
 
 interface ColumnType<T> extends Omit<AntdColumnType<T>, 'render'> {
   isSearchable?: boolean;
+  noSort?: boolean;
   render?: (
     value: any,
     record: T,
@@ -24,8 +28,11 @@ interface ColumnType<T> extends Omit<AntdColumnType<T>, 'render'> {
   ) => React.ReactNode | RenderedCell<T>;
 }
 
-interface ColumnGroupType<T> extends Omit<AntdColumnGroupType<T>, 'render'> {
+interface ColumnGroupType<T>
+  extends Omit<AntdColumnGroupType<T>, 'render' | 'children'> {
+  children: ColumnsType<T>;
   isSearchable?: boolean;
+  noSort?: boolean;
   render?: (
     value: any,
     record: T,
@@ -40,8 +47,7 @@ export declare type ColumnsType<T = unknown> = (
 )[];
 
 export function Table<T extends object>(props: TableProps<T>) {
-  const [searchText, setSearchText] = useState('');
-  const [searchedColumn, setSearchedColumn] = useState<DataIndex>('');
+  const [searchTexts, setSearchTexts] = useState<Record<string, DataIndex>>({});
   const searchInput = useRef<InputRef>(null);
 
   const handleSearch = (
@@ -50,13 +56,15 @@ export function Table<T extends object>(props: TableProps<T>) {
     dataIndex: DataIndex
   ) => {
     confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
+    setSearchTexts((searchTexts) => ({
+      ...searchTexts,
+      [dataIndex]: selectedKeys[0],
+    }));
   };
 
-  const handleReset = (clearFilters: () => void) => {
+  const handleReset = (clearFilters: () => void, dataIndex: DataIndex) => {
     clearFilters();
-    setSearchText('');
+    setSearchTexts((searchTexts) => ({ ...searchTexts, [dataIndex]: '' }));
   };
 
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<T> => ({
@@ -92,7 +100,7 @@ export function Table<T extends object>(props: TableProps<T>) {
             Suchen
           </Button>
           <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
+            onClick={() => clearFilters && handleReset(clearFilters, dataIndex)}
             size="small"
             style={{ width: 100 }}
           >
@@ -108,10 +116,10 @@ export function Table<T extends object>(props: TableProps<T>) {
       }
     },
     render: (text: DataIndex) => {
-      return searchedColumn === dataIndex ? (
+      return searchTexts[dataIndex] ? (
         <Highlighter
           highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-          searchWords={[searchText]}
+          searchWords={[searchTexts[dataIndex]]}
           autoEscape
           textToHighlight={text ? text.toString() : ''}
         />
@@ -121,49 +129,63 @@ export function Table<T extends object>(props: TableProps<T>) {
     },
   });
 
+  const columnsMapper = (column: any) => {
+    let { render, isSearchable, noSort, ...columnProps } = column;
+    if (isSearchable && 'dataIndex' in column) {
+      columnProps = {
+        ...columnProps,
+        ...getColumnSearchProps(column.dataIndex),
+      };
+    }
+    if (render && 'dataIndex' in column && 'render' in column) {
+      columnProps.render = (value: any, record: T, index: number) => {
+        return render(
+          value,
+          record,
+          index,
+          searchTexts[column.dataIndex] ? (
+            <Highlighter
+              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+              searchWords={[searchTexts[column.dataIndex]]}
+              autoEscape
+              textToHighlight={value ? value.toString() : ''}
+            />
+          ) : (
+            value
+          )
+        );
+      };
+    }
+
+    return {
+      sorter:
+        !noSort && !columnProps.children
+          ? (a, b) => (a[column.dataIndex] > b[column.dataIndex] ? 1 : -1)
+          : undefined,
+      onFilter: (value, record) => {
+        const relevantValue = get(record, column.dataIndex);
+        return (
+          relevantValue &&
+          relevantValue
+            .toString()
+            .toLowerCase()
+            .includes((value as string).toLowerCase())
+        );
+      },
+      ...columnProps,
+      children: columnProps.children
+        ? columnProps.children.map(columnsMapper)
+        : undefined,
+    };
+  };
+
   return (
     <>
       <AntdTable
-        columns={props.columns.map((column: any) => {
-          let { render, isSearchable, ...columnProps } = column;
-          if (isSearchable && 'dataIndex' in column) {
-            columnProps = {
-              ...columnProps,
-              ...getColumnSearchProps(column.dataIndex),
-            };
-          }
-          if (render && 'dataIndex' in column && 'render' in column) {
-            columnProps.render = (value: any, record: T, index: number) => {
-              return render(
-                value,
-                record,
-                index,
-                searchedColumn === column.dataIndex ? (
-                  <Highlighter
-                    highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-                    searchWords={[searchText]}
-                    autoEscape
-                    textToHighlight={value ? value.toString() : ''}
-                  />
-                ) : (
-                  value
-                )
-              );
-            };
-          }
-          return {
-            sorter: (a, b) =>
-              a[column.dataIndex] > b[column.dataIndex] ? 1 : -1,
-            onFilter: (value, record) => {
-              return record[column.dataIndex]
-                .toString()
-                .toLowerCase()
-                .includes((value as string).toLowerCase())
-            },
-            ...columnProps,
-          };
-        })}
-        dataSource={props.dataSource}
+        bordered
+        sticky
+        {...props}
+        columns={props.columns.map(columnsMapper)}
       />
     </>
   );

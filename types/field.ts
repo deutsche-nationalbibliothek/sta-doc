@@ -1,41 +1,20 @@
 export interface Field {
   id: string;
-  label: string;
+  codings: Codings;
   description: string;
-  aliases: string[];
-  definition: string;
-  repeatable: boolean;
+  editLink: string;
+  label: string;
+  viewLink: string;
   subfields: Subfield[];
-  codings: Codings;
-  validation: string[];
-  rulesOfUse: string[];
-  examples: Example[];
-  viewLink: string;
-  editLink: string;
 }
 
-interface Example {
+export interface Subfield {
   id: string;
+  codings: Codings;
+  description: string;
+  editLink: string;
   label: string;
   viewLink: string;
-  editLink: string;
-}
-
-interface Subfield {
-  id: string;
-  label: string;
-  description: string;
-  codings: Codings;
-  allowedValues: undefined;
-  references: Reference[][];
-  repeatable: boolean;
-  viewLink: string;
-  editLink: string;
-}
-
-interface Reference {
-  description: string;
-  URL?: string;
 }
 
 interface Codings {

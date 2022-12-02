@@ -25,14 +25,10 @@ export const GenericStringValueMapper: React.FC<
               {children(
                 stringValue,
                 stringValue.qualifiers && (
-                  <Qualifiers
-                    qualifiers={stringValue.qualifiers}
-                  />
+                  <Qualifiers qualifiers={stringValue.qualifiers} />
                 ),
                 stringValue.references && (
-                  <References
-                    references={stringValue.references}
-                  />
+                  <References references={stringValue.references} />
                 )
               )}
             </>

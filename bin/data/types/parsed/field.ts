@@ -1,41 +1,20 @@
 export interface Field extends Indexable<Field> {
   id: string;
-  label: string;
-  description: string;
-  aliases: string[];
-  definition: string;
-  repeatable: boolean;
-  subfields: Subfield[];
   codings: Codings;
-  validation: string[];
-  rulesOfUse: string[];
-  examples: Example[];
-  viewLink: string;
+  description: string;
   editLink: string;
-}
-
-interface Example {
-  id: string;
   label: string;
   viewLink: string;
-  editLink: string;
+  subfields: Subfield[];
 }
 
 interface Subfield {
   id: string;
-  label: string;
-  description: string;
   codings: Codings;
-  allowedValues: undefined;
-  references: Reference[][];
-  repeatable: boolean;
-  viewLink: string;
-  editLink: string;
-}
-
-interface Reference {
   description: string;
-  URL?: string;
+  editLink: string;
+  label: string;
+  viewLink: string;
 }
 
 interface Codings {
