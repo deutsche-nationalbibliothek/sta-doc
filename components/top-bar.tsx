@@ -57,8 +57,8 @@ export const TopBar: React.FC = () => {
                     key: '/entities/Q8568',
                   },
                   {
-                    label: <Link href="/entities?domain=RDA">Index</Link>,
-                    key: '/entities?domain=RDA',
+                    label: <Link href="/entities/rda">Index</Link>,
+                    key: '/entities/rda',
                   },
                 ],
               },
@@ -75,8 +75,8 @@ export const TopBar: React.FC = () => {
                     key: '/gnd/fields',
                   },
                   {
-                    label: <Link href="/entities?domain=GND">Index</Link>,
-                    key: '/entities?domain=GND',
+                    label: <Link href="/entities/gnd">Index</Link>,
+                    key: '/entities/gnd',
                   },
                 ],
               },
