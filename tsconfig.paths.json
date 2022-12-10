@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/public/*": ["public/*"],
+      "@/pages/*": ["pages/*"],
+      "@/components/*": ["components/*"],
+      "@/data/*": ["data/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/utils/*": ["utils/*"],
+      "@/entity/*": ["features/entity/*"],
+      "@/types/*": ["types/*"],
+      "@/bin/*": ["bin/*"],
+      "@/bin-types/*": ["bin/data/types/*"]
+    }
+  }
+}

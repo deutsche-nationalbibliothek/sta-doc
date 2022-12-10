@@ -1,4 +1,4 @@
-import { DataSource } from '@/types/entity';
+import { DataSource } from '@/types/data-source';
 import { Headline, NestedHeadlines } from '@/types/headline';
 
 const treeItem = (

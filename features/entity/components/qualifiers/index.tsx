@@ -1,4 +1,4 @@
-import { Statement, WikiBaseValue } from '@/types/entity';
+import { Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Typography } from 'antd';
 import React from 'react';
@@ -12,7 +12,7 @@ interface QualifiersProps {
 }
 
 export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
-  const noOp = () => null
+  const noOp = () => null;
 
   const qualifierMap = {
     [Property.typeoflayout]: noOp,

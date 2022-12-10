@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entites from '@/data/parsed/entities.json';
-import { Entities } from '@/types/entity';
+import { Entities } from '@/types/parsed/entity';
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const { entityId } = req.query;

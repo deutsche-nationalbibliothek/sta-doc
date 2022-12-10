@@ -1,6 +1,8 @@
 {
-  // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
-  "extends": "ts-node/node16/tsconfig.json",
+  "extends": "./../tsconfig.paths.json",
+  // copied values from https://github.com/tsconfig/bases/blob/main/bases/node16.json
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 16",
   // Most ts-node options can be specified here using their programmatic names.
   "ts-node": {
     // It is faster to skip typechecking.
@@ -14,29 +16,31 @@
     }
   },
   "compilerOptions": {
+    "lib": ["es2021"],
+    "module": "commonjs",
+    "target": "es2021",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
     // typescript options here
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/types-parsed/*": [
-        "./data/types/parsed/*"
-      ],
-      "@/types/*": [
-        "../types/*"
-      ],
-      "@/data/*": [
-        "../data/*"
-      ],
-      "@/bin/*": [
-        "./data/*"
-      ]
-    }
+    "baseUrl": "."
+    // "paths": {
+    //   "@/types-parsed/*": [
+    //     "./data/types/parsed/*"
+    //   ],
+    //   "@/types/*": [
+    //     "../types/*"
+    //   ],
+    //   "@/data/*": [
+    //     "../data/*"
+    //   ],
+    //   "@/bin/*": [
+    //     "./data/*"
+    //   ]
+    // }
   },
-  "include": [
-    "../index.d.ts",
-    "../types",
-    "../utils",
-    "./**/*.ts"
-  ]
+  "include": ["../index.d.ts", "../types", "../utils", "./**/*.ts"]
 }

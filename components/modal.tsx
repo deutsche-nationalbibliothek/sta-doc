@@ -2,13 +2,13 @@ import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
 import { useState } from 'react';
 
 interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
-  label: string
+  label: string;
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { label, ...otherProps } = props
+  const { label, ...otherProps } = props;
 
   const showModal = () => {
     setIsOpen(true);

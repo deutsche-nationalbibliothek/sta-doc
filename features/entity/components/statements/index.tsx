@@ -1,5 +1,5 @@
 import { Title } from '@/components/title';
-import { Statement } from '@/types/entity';
+import { Statement } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import React from 'react';
 import { WikibasePointers } from '../wikibase-pointers';
@@ -29,9 +29,7 @@ export const Statements: React.FC<StatementsProps> = ({
             <React.Fragment key={index}>
               {isShowingHeader && <Title headline={statement.headline} />}
               {statement.string ? (
-                <StringStatement
-                  statement={statement.string}
-                />
+                <StringStatement statement={statement.string} />
               ) : (
                 statement.wikibasePointer && (
                   <WikibasePointers

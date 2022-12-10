@@ -2,7 +2,7 @@ import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { EntityPreview } from '@/entity/components/preview';
 import { useDataSource } from '@/hooks/use-pagetype';
-import { DataSource } from '@/types/entity';
+import { DataSource } from '@/types/data-source';
 import { Item } from '@/types/item';
 import { dataSources } from '@/utils/constants';
 import { PageHeader } from 'antd';
@@ -74,10 +74,11 @@ export default function EntityIndex({
         title={
           <Title
             headline={{
-              title: `${dataSource && dataSourceItems
+              title: `${
+                dataSource && dataSourceItems
                   ? dataSource.toUpperCase() + ' '
                   : ''
-                }Index`,
+              }Index`,
               level: 1,
               key: 'GndIndex',
             }}

@@ -1,4 +1,4 @@
-import { Maybe, StringValue } from '@/types/entity';
+import { Maybe, StringValue } from '@/types/parsed/entity';
 import { Typography } from 'antd';
 
 interface GuardProps {

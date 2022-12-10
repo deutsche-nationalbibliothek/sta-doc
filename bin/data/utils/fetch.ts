@@ -1,22 +1,31 @@
 import fetch from 'node-fetch';
+import { API_URL } from '../fetcher';
 
-const API_URL = 'http://doku.wikibase.wiki';
-const endpointUrl = '/query/proxy/wdqs/bigdata/namespace/wdq/sparql';
+export const fetchWithSparql = (apiUrl: API_URL) => {
+  const sparqlQueryDispatcher = (sparqlQuery: string) => {
+    const headers = { Accept: 'application/sparql-results+json' };
+    return fetcher(
+      `/query/proxy/wdqs/bigdata/namespace/wdq/sparql?query=${encodeURIComponent(
+        sparqlQuery
+      )}`,
+      {
+        headers,
+      }
+    );
+  };
 
-export const sparqlQueryDispatcher = (sparqlQuery: string) => {
-  const headers = { Accept: 'application/sparql-results+json' };
-  return fetcher(`${endpointUrl}?query=${encodeURIComponent(sparqlQuery)}`, {
-    headers,
-  });
-};
-
-export const fetcher = async (url: string, options = {}) => {
-  const res = await fetch(`${API_URL}/${url}`, options).then((response) =>
-    response.json()
-  );
-  if (res.errors) {
-    console.error(res.errors);
-    throw new Error('Failed to fetch Wikibase API');
-  }
-  return res;
+  const fetcher = async (path: string, options = {}) => {
+    const res = await fetch(`${apiUrl}/${path}`, options).then((response) =>
+      response.json()
+    );
+    if (res.errors) {
+      console.error(res.errors);
+      throw new Error('Failed to fetch Wikibase API');
+    }
+    return res;
+  };
+  return {
+    sparqlQueryDispatcher,
+    fetcher,
+  };
 };

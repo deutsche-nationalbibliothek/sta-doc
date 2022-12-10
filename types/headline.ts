@@ -1,4 +1,4 @@
-import { DataSource } from './entity';
+import { DataSource } from './data-source';
 
 export interface Headline {
   title: string;

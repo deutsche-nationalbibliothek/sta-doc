@@ -1,7 +1,8 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
 import { EntityPreview } from '@/entity/components/preview';
-import { Field, Subfield } from '@/types/field';
+import { Field, Subfield } from '@/types/parsed/field';
+// import { Field, Subfield } from '@/types/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Link from 'next/link';
@@ -18,7 +19,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
           dataIndex: ['codings', 'PICA3'],
           key: 'PICA3',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );
@@ -30,7 +31,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
           dataIndex: ['codings', 'PICA+'],
           key: 'PICA+',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );
@@ -42,7 +43,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
           width: '14%',
           key: 'PICA3',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );

@@ -1,24 +1,33 @@
-import { fetchAndWriteRawData } from './fetch';
-import { parseRawData } from './parse';
-import { readRawData } from './read';
+import { fetcher } from './fetch';
+import { parser } from './parse';
+import { reader } from './read';
+import { DataState } from './utils';
+import { writer } from './write';
 
 export const DEV = false;
 
 (async () => {
+  const fetchRawAndWrite = async () => {
+    const data = await fetcher().fetchAll();
+    writer(data, DataState.raw).writeAll();
+  };
+
+  const parseRawAndWriteParsed = () => {
+    const data = parser(reader(DataState.raw)).parseAll();
+    writer(data, DataState.parsed).writeAll();
+  };
+
   if (process.argv.length === 2) {
-    await fetchAndWriteRawData();
-    parseRawData();
+    await fetchRawAndWrite();
+    parseRawAndWriteParsed();
   } else if (process.argv[2]) {
     switch (process.argv[2]) {
-      case 'fetch': {
-        return await fetchAndWriteRawData();
-      }
-      case 'read': {
-        return readRawData();
-      }
-      case 'parse': {
-        return parseRawData();
-      }
+      case 'fetch':
+        await fetchRawAndWrite();
+        break;
+      case 'parse':
+        parseRawAndWriteParsed();
+        break;
     }
   }
 })();

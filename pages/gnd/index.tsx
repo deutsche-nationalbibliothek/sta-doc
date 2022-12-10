@@ -1,7 +1,7 @@
 import { Title } from '@/components/title';
 import { DataSourceImage } from '@/entity/components/datasource-image';
 import { useDataSource } from '@/hooks/use-pagetype';
-import { DataSource } from '@/types/entity';
+import { DataSource } from '@/types/data-source';
 import { PageHeader, Typography } from 'antd';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';

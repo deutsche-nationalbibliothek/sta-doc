@@ -3,10 +3,14 @@ import {
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
 import { Property } from '@/types/property';
-import { isStringValue, StringValue, WikiBaseValue } from '@/types/entity';
 import { Item } from '@/types/item';
 import { Card, Tag, Typography } from 'antd';
 import React from 'react';
+import {
+  WikiBaseValue,
+  isStringValue,
+  StringValue,
+} from '@/types/parsed/entity';
 
 interface ExampleProps {
   example: WikiBaseValue;

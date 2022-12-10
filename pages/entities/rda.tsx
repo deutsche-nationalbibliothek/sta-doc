@@ -1,6 +1,6 @@
 import { Fetch } from '@/components/fetch';
 import EntitiesIndex, { EntityIndexModel } from '@/entity/components';
-import { DataSource } from '@/types/entity';
+import { DataSource } from '@/types/data-source';
 
 export default function RDAEntitiesIndex() {
   return (

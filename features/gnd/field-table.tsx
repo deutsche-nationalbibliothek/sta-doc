@@ -2,14 +2,13 @@ import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
 import { EntityPreview } from '@/entity/components/preview';
 import { GndFieldsProps } from '@/pages/gnd/fields';
-import { Field } from '@/types/field';
+import { Field } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Link from 'next/link';
 import { GndSubFieldTable } from './subfield-table';
 
 export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
-  console.log(fields);
   const columns: ColumnsType<Field> = [
     {
       title: 'Codings',
@@ -20,7 +19,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
           dataIndex: ['codings', 'PICA3'],
           key: 'PICA3',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );
@@ -32,7 +31,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
           dataIndex: ['codings', 'PICA+'],
           key: 'PICA+',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );
@@ -44,7 +43,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
           width: '14%',
           key: 'PICA3',
           isSearchable: true,
-          render: (coding, record, index, highlighted) => {
+          render: (coding, _record, _index, highlighted) => {
             return (
               coding && <Typography.Text code>{highlighted}</Typography.Text>
             );
@@ -61,7 +60,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
           key: 'label',
           width: '25%',
           isSearchable: true,
-          render: (_data, record, index, highlightedContent) => {
+          render: (_data, record, _index, highlightedContent) => {
             return (
               <EntityPreview entityId={record.id} label={record.label}>
                 <Link href={`/entities/${record.id}`}>

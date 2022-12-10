@@ -3,7 +3,7 @@ import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
 import { EntityPreview } from '@/entity/components/preview';
 import { Headline } from '@/types/headline';
-import { RdaProperty } from '@/types/rda-property';
+import { RdaProperty } from '@/types/parsed/rda-property';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 

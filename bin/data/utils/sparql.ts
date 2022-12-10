@@ -1,12 +1,14 @@
+import { API_URL } from "../fetch";
+
 // ---ENTRIES--- all wikibase entities, which are nessecary to render DOKU pages
-export const ENTITY_INDEX = `
+export const ENTITY_INDEX = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel WHERE {
     { ?element p:P110 ?assignment . } #Schema
@@ -16,14 +18,14 @@ export const ENTITY_INDEX = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const RDAPROPERTIES = `
+export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel ?assignmentId ?assignmentLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P2 item:Q264 . } #Element von: RDA-Eigenschaft
@@ -35,7 +37,7 @@ export const RDAPROPERTIES = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const RDARULES = `
+export const RDARULES = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -44,11 +46,11 @@ export const RDARULES = `
   PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P2 item:Q3095 . } #Element von: RDA-Regeltext
@@ -58,7 +60,7 @@ export const RDARULES = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const FIELDS = `
+export const FIELDS = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -67,11 +69,11 @@ export const FIELDS = `
   PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P2 item:Q2 . } #Element von: GND-Field
@@ -81,7 +83,7 @@ export const FIELDS = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const SUBFIELDS = `
+export const SUBFIELDS = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -90,11 +92,11 @@ export const SUBFIELDS = `
   PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P2 item:Q3 . } #Element von: GND-Subfield
@@ -104,14 +106,14 @@ export const SUBFIELDS = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const CODINGS = `
+export const CODINGS = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?eId ?elementLabel ?codingTypeLabel ?coding  WHERE { # ?element
     { ?element p:P4 ?codingProp . }
@@ -122,14 +124,14 @@ export const CODINGS = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const CODINGSEXTRA = `
+export const CODINGSEXTRA = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?eId ?elementLabel ?elementOfId ?elementOfLabel ?formatId ?formatLabel ?coding  WHERE { # ?element
     { ?element p:P4 ?codingProp . }
@@ -146,7 +148,7 @@ export const CODINGSEXTRA = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const NOTATIONS = `
+export const NOTATIONS = (apiUrl: API_URL) => `
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -156,11 +158,11 @@ PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX bd: <http://www.bigdata.com/rdf#>
 
-PREFIX p: <https://doku.wikibase.wiki/prop/>
-PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-PREFIX item: <https://doku.wikibase.wiki/entity/>
-PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+PREFIX p: <${apiUrl}/prop/>
+PREFIX prop: <${apiUrl}/prop/direct/>
+PREFIX item: <${apiUrl}/entity/>
+PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+PREFIX statement: <${apiUrl}/prop/statement/>
 
 SELECT ?eId ?elementLabel ?notationLabel  WHERE { # ?element ?codingTypeLabel ?coding
 ?element prop:P643 ?notation .
@@ -173,7 +175,7 @@ BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
 }
 ORDER BY ASC(?elementLabel)`;
 
-export const LABELEN = `
+export const LABELEN = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -183,11 +185,11 @@ export const LABELEN = `
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
 
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?eId ?elementLabel ?assignmentId ?assignmentLabel WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P110 ?assignment . } #Schema
@@ -201,14 +203,14 @@ export const LABELEN = `
   ORDER BY ASC(?elementLabel) #LABELEN
 `;
 
-export const LABELEN2 = `
+export const LABELEN2 = (apiUrl: API_URL) => `
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
-    PREFIX p: <https://doku.wikibase.wiki/prop/>
-    PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-    PREFIX item: <https://doku.wikibase.wiki/entity/>
-    PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-    PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+    PREFIX p: <${apiUrl}/prop/>
+    PREFIX prop: <${apiUrl}/prop/direct/>
+    PREFIX item: <${apiUrl}/entity/>
+    PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+    PREFIX statement: <${apiUrl}/prop/statement/>
     SELECT ?eId ?elementLabel ?assignmentId ?assignmentLabel WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
         ?element rdfs:label ?type .
         OPTIONAL
@@ -221,7 +223,7 @@ export const LABELEN2 = `
     ORDER BY ASC(?elementLabel)
 `;
 
-export const LABELDE = `
+export const LABELDE = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -231,11 +233,11 @@ export const LABELDE = `
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
 
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P110 ?assignment . } #Schema: datamodel documentation
@@ -245,14 +247,14 @@ export const LABELDE = `
   ORDER BY ASC(?elementLabel) #LABELDE
 `;
 
-export const LABELDE2 = `
+export const LABELDE2 = (apiUrl: API_URL) => `
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
-    PREFIX p: <https://doku.wikibase.wiki/prop/>
-    PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-    PREFIX item: <https://doku.wikibase.wiki/entity/>
-    PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-    PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+    PREFIX p: <${apiUrl}/prop/>
+    PREFIX prop: <${apiUrl}/prop/direct/>
+    PREFIX item: <${apiUrl}/entity/>
+    PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+    PREFIX statement: <${apiUrl}/prop/statement/>
     SELECT ?eId ?elementLabel WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
         ?element rdfs:label ?type .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
@@ -261,7 +263,7 @@ export const LABELDE2 = `
     ORDER BY ASC(?elementLabel)
 `;
 
-export const EXAMPLES = `
+export const EXAMPLES = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -270,11 +272,11 @@ export const EXAMPLES = `
   PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P2 item:Q14 . } #Element von: DACH-Dokumentation: Beispiel
@@ -284,7 +286,7 @@ export const EXAMPLES = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const DESCRIPTIONS = `
+export const DESCRIPTIONS = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -293,11 +295,11 @@ export const DESCRIPTIONS = `
   PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
   PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <https://doku.wikibase.wiki/prop/>
-  PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-  PREFIX item: <https://doku.wikibase.wiki/entity/>
-  PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-  PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
   SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
     { ?element prop:P7 ?statements . } #Aussage mit Beschreibung (P7)
@@ -307,7 +309,7 @@ export const DESCRIPTIONS = `
   }
   ORDER BY ASC(?elementLabel)
 `;
-// export export const LABELEN = `
+// export export const LABELEN = (apiUrl: API_URL) => `
 // PREFIX wd: <http://www.wikidata.org/entity/>
 // PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 // PREFIX wikibase: <http://wikiba.se/ontology#>
@@ -317,11 +319,11 @@ export const DESCRIPTIONS = `
 // PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 // PREFIX bd: <http://www.bigdata.com/rdf#>
 
-// PREFIX p: <https://doku.wikibase.wiki/prop/>
-// PREFIX prop: <https://doku.wikibase.wiki/prop/direct/>
-// PREFIX item: <https://doku.wikibase.wiki/entity/>
-// PREFIX qualifier: <https://doku.wikibase.wiki/prop/qualifier/>
-// PREFIX statement: <https://doku.wikibase.wiki/prop/statement/>
+// PREFIX p: <${apiUrl}/prop/>
+// PREFIX prop: <${apiUrl}/prop/direct/>
+// PREFIX item: <${apiUrl}/entity/>
+// PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+// PREFIX statement: <${apiUrl}/prop/statement/>
 
 // SELECT ?element ?eId ?elementLabel  WHERE { # ?coding ?codingTypeLabel ?definition ?subfields ?subfieldsLabel
 // { ?element prop:P114 item:Q296 . } #Instance of schema

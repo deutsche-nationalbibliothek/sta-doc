@@ -1,4 +1,4 @@
-import { StringValue, StringValueContainer } from '@/types/entity';
+import { StringValueContainer, StringValue } from '@/types/parsed/entity';
 import { Fragment } from 'react';
 import { Qualifiers } from '../qualifiers';
 import { References } from '../references';

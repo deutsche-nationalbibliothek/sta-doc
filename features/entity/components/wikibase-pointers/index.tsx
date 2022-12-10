@@ -1,6 +1,6 @@
 import { Title } from '@/components/title';
-import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/entity';
 import { Item } from '@/types/item';
+import { Maybe, WikiBaseValue, isWikibaseValue } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';

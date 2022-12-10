@@ -1,12 +1,12 @@
 import { Title } from '@/components/title';
 import { useInitialScroll } from '@/hooks/use-inital-scroll';
 import { useDataSource } from '@/hooks/use-pagetype';
-import { Entity } from '@/types/entity';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
 import { DataSourceImage } from './datasource-image';
 import { PageHeader } from 'antd';
+import { Entity } from '@/types/parsed/entity';
 
 interface EntityDetailsProps {
   entity: Entity;

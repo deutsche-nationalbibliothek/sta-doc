@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
-import { DataSource, EntityEntry } from '@/types/entity';
 import { Item } from '@/types/item';
 import { dataSources } from '@/utils/constants';
+import { DataSource } from '@/types/data-source';
+import { EntityEntry } from '@/types/parsed/entity';
 
 export default (_req: NextApiRequest, res: NextApiResponse) => {
   const dataSource = DataSource.GND;

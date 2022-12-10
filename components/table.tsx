@@ -160,16 +160,16 @@ export function Table<T extends object>(props: TableProps<T>) {
     return {
       sorter:
         !noSort && !columnProps.children
-          ? (a, b) => (a[column.dataIndex] > b[column.dataIndex] ? 1 : -1)
+        ? (a: ColumnsType<T>, b: ColumnsType<T>) => (a[column.dataIndex] > b[column.dataIndex] ? 1 : -1)
           : undefined,
-      onFilter: (value, record) => {
+      onFilter: (value: string, record: ColumnsType<T>) => {
         const relevantValue = get(record, column.dataIndex);
         return (
           relevantValue &&
           relevantValue
             .toString()
             .toLowerCase()
-            .includes((value as string).toLowerCase())
+            .includes((value).toLowerCase())
         );
       },
       ...columnProps,

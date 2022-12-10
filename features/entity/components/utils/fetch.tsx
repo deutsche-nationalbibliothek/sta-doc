@@ -1,5 +1,5 @@
 import { Fetch } from '@/components/fetch';
-import { Entity } from '@/types/entity';
+import { Entity } from '@/types/parsed/entity';
 
 interface FetchEntityProps {
   entityId: string;

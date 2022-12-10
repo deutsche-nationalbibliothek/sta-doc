@@ -220,20 +220,20 @@ export const groupsDefinition = {
       Property['biographical,historicalandotherinformation'],
       Property['instructionsforuse'],
       Property[
-      'numberandpreferrednameorpreferrednamingofthetargetdatasetincaseofdatasetredirection'
+        'numberandpreferrednameorpreferrednamingofthetargetdatasetincaseofdatasetredirection'
       ],
       Property[
-      'numberandpreferrednameorpreferrednamingofthetargetsetwhensplittingdatasets'
+        'numberandpreferrednameorpreferrednamingofthetargetsetwhensplittingdatasets'
       ],
       // Vorzugsbenennungen in anderen Datenbeständen
       Property[
-      'personorfamily-preferrednameinanotherdatabaseorinoriginalwrittenform'
+        'personorfamily-preferrednameinanotherdatabaseorinoriginalwrittenform'
       ],
       Property[
-      'corporatebody-preferrednameinanotherdatabaseororiginalwrittenform'
+        'corporatebody-preferrednameinanotherdatabaseororiginalwrittenform'
       ],
       Property[
-      'conference-preferrednameinanotherdatabaseororiginalwrittenform'
+        'conference-preferrednameinanotherdatabaseororiginalwrittenform'
       ],
       Property['subjectheading-preferredterminanotherdatabase'],
       Property['place-preferrednameinanotherdatabaseorinoriginalwrittenform'],

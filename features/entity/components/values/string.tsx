@@ -1,6 +1,5 @@
-import { StringValue } from '@/types/entity';
+import { StringValue } from '@/types/parsed/entity';
 import { Typography } from 'antd';
-import { References } from '../references';
 
 interface StringValueProps {
   stringValue: StringValue;
@@ -13,8 +12,7 @@ export const StringValueComponent: React.FC<StringValueProps> = ({
     <>
       <Typography.Text>
         <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
-      </Typography.Text>
-      {' '}
+      </Typography.Text>{' '}
     </>
   );
 };

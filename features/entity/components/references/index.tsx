@@ -1,4 +1,4 @@
-import { Reference } from '@/types/entity';
+import { Reference } from '@/types/parsed/entity';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Popover, Typography } from 'antd';
 import { truncate } from 'lodash';

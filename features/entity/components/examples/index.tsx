@@ -1,6 +1,6 @@
 import { Modal } from '@/components/modal';
 import { useCodingsPreference } from '@/hooks/use-codings-preference';
-import { WikiBaseValue } from '@/types/entity';
+import { WikiBaseValue } from '@/types/parsed/entity';
 import { Card, Select } from 'antd';
 import { Example } from './example';
 

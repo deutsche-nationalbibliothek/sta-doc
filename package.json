@@ -9,7 +9,7 @@
     "start": "next start",
     "data": "ts-node bin/data",
     "data:fetch": "ts-node bin/data fetch",
-    "data:read": "ts-node bin/data read",
+    "data:fetch:debug": "NODE_OPTIONS='--inspect' ts-node bin/data fetch",
     "data:parse": "ts-node bin/data parse",
     "data:parse:debug": "NODE_OPTIONS='--inspect' ts-node bin/data parse",
     "lint": "next lint",

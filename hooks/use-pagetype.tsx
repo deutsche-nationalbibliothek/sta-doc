@@ -1,4 +1,5 @@
-import { DataSource, PageType } from '@/types/entity';
+import { DataSource } from '@/types/data-source';
+import { PageType } from '@/types/parsed/entity';
 import { dataSources } from '@/utils/constants';
 import { useRouter } from 'next/router';
 import {

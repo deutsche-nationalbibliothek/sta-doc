@@ -1,12 +1,12 @@
 import { ColumnsType, Table } from '@/components/table';
-import {
-  isStringValue,
-  isWikibaseValue,
-  PageType,
-  Statement,
-  WikiBaseValue,
-} from '@/types/entity';
 import { Item } from '@/types/item';
+import {
+  PageType,
+  isWikibaseValue,
+  WikiBaseValue,
+  isStringValue,
+  Statement,
+} from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Table as AntdTable } from 'antd';
 import Link from 'next/link';
@@ -36,11 +36,8 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       value: statement.wikibasePointer ? (
         <WikibasePointers
           wikibasePointers={statement.wikibasePointer
-            .filter(
-              (wikibasePointer) =>
-                isWikibaseValue(wikibasePointer)
-            )
-          .map((wikibasePointer: WikiBaseValue) => {
+            .filter((wikibasePointer) => isWikibaseValue(wikibasePointer))
+            .map((wikibasePointer: WikiBaseValue) => {
               const { qualifiers, ...otherWikibasePointerValues } =
                 wikibasePointer;
               return otherWikibasePointerValues;
@@ -48,11 +45,10 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         />
       ) : (
         statement.string &&
-        statement.string.map(
-          (stringStatement) =>
-            stringStatement.values.map((stringValue) =>
-              isStringValue(stringValue) && stringValue.value
-            )
+        statement.string.map((stringStatement) =>
+          stringStatement.values.map(
+            (stringValue) => isStringValue(stringValue) && stringValue.value
+          )
         )
       ),
     };
@@ -65,11 +61,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         key="property"
         dataIndex="property"
       />
-      <AntdTable.Column
-        title="Wert"
-        key="value"
-        dataIndex="value"
-      />
+      <AntdTable.Column title="Wert" key="value" dataIndex="value" />
     </AntdTable>
   );
 };

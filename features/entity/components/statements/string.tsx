@@ -1,6 +1,6 @@
 import { Title } from '@/components/title';
-import { StringValueContainer } from '@/types/entity';
 import { Item } from '@/types/item';
+import { StringValueContainer } from '@/types/parsed/entity';
 import { Typography } from 'antd';
 import React, { Fragment } from 'react';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
