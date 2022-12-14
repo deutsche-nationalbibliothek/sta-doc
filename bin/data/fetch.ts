@@ -1,7 +1,7 @@
 import { DEV } from '.';
 import { EntityId } from '../../types/entity-id';
 import { EntitiesRaw } from '../../types/raw/entity';
-import { parser } from './parse';
+import { parseAllFromRead } from './parse';
 import { reader } from './read';
 import { DataState, sparql, writeJSONFileAndType } from './utils';
 import { fetchWithSparql } from './utils/fetch';
@@ -25,11 +25,10 @@ export const fetcher = (apiUrl = API_URL.prod) => {
       writeJSONFileAndType(entityIndexRaw, NAMES.entityIndex, DataState.raw);
 
       // reader raw or parsed?
-      const parse = parser(reader(DataState.raw));
-      const entitiesIndex = parse.entities.index();
+      const parse = parseAllFromRead(reader(DataState.raw));
+      const entitiesIndex = parse.entities.index;
       writeJSONFileAndType(entitiesIndex, NAMES.entityIndex, DataState.parsed);
 
-      console.log({ entityIndex: entitiesIndex, entries: entitiesIndex });
       let entities = {} as EntitiesRaw;
 
       console.log(
@@ -66,12 +65,12 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
-      entities: { all: await entities.all() },
-      fields: await fields(),
       labels: {
         de: await labels.de(),
         en: await labels.en(),
       },
+      entities: { all: await entities.all() },
+      fields: await fields(),
       notations: await notations(),
       codings: await codings(),
       descriptions: await descriptions(),

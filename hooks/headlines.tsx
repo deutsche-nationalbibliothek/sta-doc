@@ -1,6 +1,6 @@
+import { useRouter } from '@/lib/next-use-router';
 import { Headline, NestedHeadlines } from '@/types/headline';
 import { nestedHeadlines as nestedHeadlinesCalculation } from '@/utils/nested-headlines';
-import { useRouter } from 'next/router';
 import {
   createContext,
   Dispatch,

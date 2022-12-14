@@ -1,13 +1,13 @@
 import { EntityId } from '../../types/entity-id';
 import { CodingRaw } from '../../types/raw/coding';
-import { DescriptionRaw } from '../../types/raw/description';
+import { DescriptionRaws } from '../../types/raw/description';
 import { EntitiesRaw } from '../../types/raw/entity';
-import { EntityIndexRaw } from '../../types/raw/entity-index';
+import { EntitiesIndexRaw } from '../../types/raw/entity-index';
 import { FieldsRaw } from '../../types/raw/field';
 import { LabelDeRaws } from '../../types/raw/label-de';
 import { LabelEnRaws } from '../../types/raw/label-en';
-import { NotationRaw } from '../../types/raw/notation';
-import { RdaPropertyRaw } from '../../types/raw/rda-property';
+import { NotationsRaw } from '../../types/raw/notation';
+import { RdaPropertiesRaw } from '../../types/raw/rda-property';
 import { DataState, readJSONFile } from './utils';
 import { NAMES } from './utils/names';
 
@@ -20,7 +20,7 @@ export const reader = (dataState: DataState) => {
       // entityId
     },
     index: () =>
-      readJSONFile<EntityIndexRaw[]>(NAMES.entityIndex, DataState.raw),
+      readJSONFile<EntitiesIndexRaw>(NAMES.entityIndex, DataState.raw),
   };
 
   const fields = () => readJSONFile<FieldsRaw>(NAMES.fields, dataState);
@@ -31,13 +31,13 @@ export const reader = (dataState: DataState) => {
   };
 
   const notations = () =>
-    readJSONFile<NotationRaw[]>(NAMES.notation, dataState);
+    readJSONFile<NotationsRaw>(NAMES.notation, dataState);
   const codings = () => readJSONFile<CodingRaw[]>(NAMES.coding, dataState);
   const descriptions = () =>
-    readJSONFile<DescriptionRaw[]>(NAMES.description, dataState);
+    readJSONFile<DescriptionRaws>(NAMES.description, dataState);
   const rdaRules = () => readJSONFile(NAMES.rdaRule, dataState);
   const rdaProperties = () =>
-    readJSONFile<RdaPropertyRaw[]>(NAMES.rdaProperty, dataState);
+    readJSONFile<RdaPropertiesRaw>(NAMES.rdaProperty, dataState);
 
   return {
     entities,

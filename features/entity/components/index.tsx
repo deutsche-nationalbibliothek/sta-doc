@@ -2,11 +2,11 @@ import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { EntityPreview } from '@/entity/components/preview';
 import { useDataSource } from '@/hooks/use-pagetype';
+import { Link } from '@/lib/next-link';
 import { DataSource } from '@/types/data-source';
 import { Item } from '@/types/item';
 import { dataSources } from '@/utils/constants';
 import { PageHeader } from 'antd';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { DataSourceImage } from './datasource-image';
 

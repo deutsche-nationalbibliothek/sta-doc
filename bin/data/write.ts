@@ -1,12 +1,12 @@
 import type { fetcher } from './fetch';
-import type { parser } from './parse';
+import type { parseAllFromRead } from './parse';
 import { DataState, writeJSONFileAndType } from './utils';
 import { NAMES } from './utils/names';
 
 export const writer = (
   data:
     | Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>
-    | Awaited<ReturnType<ReturnType<typeof parser>['parseAll']>>,
+    | ReturnType<typeof parseAllFromRead>,
   dataState: DataState
 ) => {
   const entities = {
@@ -35,8 +35,8 @@ export const writer = (
   }
   const descriptions = () =>
     writeJSONFileAndType(data.descriptions, NAMES.description, dataState);
-  const rdaRules = () =>
-    writeJSONFileAndType(data.rdaRules, NAMES.rdaRule, dataState);
+  // const rdaRules = () =>
+  //   writeJSONFileAndType(data.rdaRules, NAMES.rdaRule, dataState);
   const rdaProperties = () =>
     writeJSONFileAndType(data.rdaProperties, NAMES.rdaProperty, dataState);
 
@@ -48,7 +48,7 @@ export const writer = (
     notations();
     codings();
     descriptions();
-    rdaRules();
+    // rdaRules();
     rdaProperties();
   };
 
@@ -59,7 +59,7 @@ export const writer = (
     notations,
     codings,
     descriptions,
-    rdaRules,
+    // rdaRules,
     rdaProperties,
     writeAll,
   };

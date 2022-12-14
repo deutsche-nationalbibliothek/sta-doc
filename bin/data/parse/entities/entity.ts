@@ -41,7 +41,7 @@ interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
   embedded?: boolean;
 }
 
-export const parseRawEntity = ({
+export const parseRawEntity = async ({
   entityId,
   data,
   getRawEntityById,
@@ -49,9 +49,9 @@ export const parseRawEntity = ({
   currentHeadlineLevel = 1,
   prevParsedEntities = [],
   embedded = false,
-}: ParseEntityProps): EntityEntry | undefined => {
+}: ParseEntityProps): Promise<EntityEntry | undefined> => {
   const { lookup_de, lookup_en, codings, notations } = data;
-  const entity = getRawEntityById(entityId);
+  const entity = await getRawEntityById(entityId);
 
   if (!entity) {
     console.warn(
@@ -59,7 +59,6 @@ export const parseRawEntity = ({
       entityId,
       '. But referenced in the dataset'
     );
-    // todo fix type error
     return;
   }
 
@@ -92,7 +91,7 @@ export const parseRawEntity = ({
     return headline;
   };
 
-  const entityProps = (): Entity => {
+  const entityProps = async (): Promise<Entity> => {
     const elementOfId: Item =
       entity &&
       entity.claims[Property.elementof] &&
@@ -103,9 +102,9 @@ export const parseRawEntity = ({
       // return {};
     }
 
-    const statementProps = (
+    const statementProps = async (
       occurrences: Record<EntityId, Claim[]>
-    ): StatementsByGroup => {
+    ): Promise<StatementsByGroup> => {
       const filterSort = (group: 'header' | 'table' | 'text') => {
         const itemGroup =
           elementOfId in groupsDefinition
@@ -126,11 +125,11 @@ export const parseRawEntity = ({
         );
       };
 
-      const parseStatementProps = (
+      const parseStatementProps = async (
         statements: StatementRaw[][] | Claim[][],
         currentHeadlineLevel: number,
         { embeddedStatement = false, isTopLevel = false, isTextGroup = false }
-      ): Statement[] => {
+      ): Promise<Statement[]> => {
         const keyAccess = <T>(
           occ: any, //Claim | StatementRaw,
           ...propertyPath: string[]
@@ -155,7 +154,7 @@ export const parseRawEntity = ({
           // }
         };
 
-        const parseReferences = (references: Reference[]) => {
+        const parseReferences = async (references: Reference[]) => {
           const o = references
             .map((ref) =>
               Object.keys(ref.snaks).map(
@@ -163,7 +162,7 @@ export const parseRawEntity = ({
               )
             )
             .flat() as StatementRaw[][];
-          return parseStatementProps(
+          return await parseStatementProps(
             o,
             currentHeadlineLevel, // + 1,
             { embeddedStatement: true, isTextGroup }
@@ -244,8 +243,8 @@ export const parseRawEntity = ({
           };
         };
 
-        const parsedStatements: PreMappedStatement[] = statements.map(
-          (occs) => {
+        const parsedStatements: PreMappedStatement[] = await Promise.all(statements.map(
+          async (occs) => {
             const dataType = keyAccess<string>(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -266,7 +265,7 @@ export const parseRawEntity = ({
                 ? addHeadline(label, currentHeadlineLevel)
                 : undefined,
               property,
-              [simplifiedDataType]: occs.map((occ) => {
+              [simplifiedDataType]: await Promise.all(occs.map(async (occ) => {
                 const snakType = keyAccess<string>(occ, 'snaktype');
                 if (snakType === 'novalue') {
                   return { noValue: true };
@@ -303,10 +302,10 @@ export const parseRawEntity = ({
                   ...dataTypeSpecifics,
                   references:
                     'references' in occ && occ.references
-                      ? parseReferences(occ.references)
+                      ? await parseReferences(occ.references)
                       : undefined,
                   embedded: hasEmbedding
-                    ? parseRawEntity({
+                    ? (await parseRawEntity({
                         entityId: embeddedEntityId,
                         headlines,
                         currentHeadlineLevel: nextHeaderLevel,
@@ -314,11 +313,11 @@ export const parseRawEntity = ({
                         embedded: true,
                         data,
                         getRawEntityById,
-                      })?.entity
+                      }))?.entity
                     : undefined,
                   qualifiers:
                     'qualifiers' in occ && occ.qualifiers
-                      ? parseStatementProps(
+                      ? await parseStatementProps(
                           (Object.keys(occ.qualifiers) as Property[]).map(
                             (qualiKey) =>
                               (occ as Required<Claim>).qualifiers[qualiKey]
@@ -329,29 +328,29 @@ export const parseRawEntity = ({
                       : undefined,
                 };
                 return j;
-              }),
+              })),
             };
           }
-        );
+        ));
         return parsedStatements.map(stringMapper);
       };
 
       const enrichedParsedStatementProps = {
-        header: parseStatementProps(
+        header: await parseStatementProps(
           filterSort('header'),
           currentHeadlineLevel + 1,
           {
             isTopLevel: !embedded,
           }
         ),
-        table: parseStatementProps(
+        table: await parseStatementProps(
           filterSort('table'),
           currentHeadlineLevel + 1,
           {
             isTopLevel: !embedded,
           }
         ),
-        text: parseStatementProps(
+        text: await parseStatementProps(
           filterSort('text'),
           currentHeadlineLevel + 1,
           {
@@ -384,7 +383,7 @@ export const parseRawEntity = ({
           } as PageType)
         : undefined,
       notation: notations[entityId]?.notation,
-      statements: statementProps(entity.claims),
+      statements: await statementProps(entity.claims),
       // logo:
       //   !embedded &&
       //   entity.claims[Property.logo],
@@ -392,7 +391,7 @@ export const parseRawEntity = ({
   };
 
   const parsedEntity = {
-    ...entityProps(),
+    ...(await entityProps()),
   };
 
   // console.log({ parsedEntity });

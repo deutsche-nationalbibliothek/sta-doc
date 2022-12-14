@@ -7,131 +7,142 @@ import { LabelDes } from '../../../types/parsed/label-de';
 import { LabelEns } from '../../../types/parsed/label-en';
 import { Notations } from '../../../types/parsed/notation';
 import { RdaProperties } from '../../../types/parsed/rda-property';
-import { RdaRules } from '../../../types/parsed/rda-rule';
 import { Property } from '../../../types/property';
+import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaw } from '../../../types/raw/description';
-import { EntityIndexRaw } from '../../../types/raw/entity-index';
+import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
+import {
+  EntitiesIndexRaw,
+} from '../../../types/raw/entity-index';
+import { FieldsRaw } from '../../../types/raw/field';
+import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
-import { RdaRuleRaw } from '../../../types/raw/rda-rule';
+import { NotationsRaw } from '../../../types/raw/notation';
+import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
-import { parseEntities } from './entities';
+import { parseEntities, ParseEntitiesData } from './entities';
 
-export const parser = (read: ReturnType<typeof reader>) => {
-  const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
-    console.log('\tParsing', name.type);
-    const parsedData = data.reduce((acc: any, entry: any) => {
-      acc[entry.eId.value] = {
-        label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
-        assignmentId: entry.assignmentId?.value,
-        assignmentLabel: entry.assignmentLabel?.value,
-        id: entry.eId.value,
-      };
-      return acc;
-    }, {});
-    return parsedData;
-  };
+export type GetRawEntityById = (
+  entityId: EntityId
+) => Promise<EntityRaw | void>;
 
-  const getRawEntityById = (entityId: EntityId) => {
-    return read.entities.single(entityId);
-  };
+const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
+  console.log('\tParsing', name.type);
+  const parsedData = data.reduce((acc: any, entry: any) => {
+    acc[entry.eId.value] = {
+      label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
+      assignmentId: entry.assignmentId?.value,
+      assignmentLabel: entry.assignmentLabel?.value,
+      id: entry.eId.value,
+    };
+    return acc;
+  }, {});
+  return parsedData;
+};
 
-  const entities = {
-    all: () => {
-      // return [undefined]
-      return parseEntities({
-        rawEntities: read.entities.all(),
-        getRawEntityById,
-        data: {
-          lookup_en: labels.en(),
-          lookup_de: labels.de(),
-          notations: notations(),
-          codings: codings(),
-        },
-      });
-    },
-    single: (entityId: EntityId) => {
-      const entity = read.entities.single(entityId);
-      if (entity) {
-        parseEntities({
-          rawEntities: { [entityId]: entity },
-          getRawEntityById,
-          data: {
-            lookup_en: labels.en(),
-            lookup_de: labels.de(),
-            notations: notations(),
-            codings: codings(),
-          },
-        });
-      } else {
-        console.warn('Entity not found', entityId);
-      }
-
-      // parseEntity(read.entities.single(entityId))
-      return [] as any;
-    },
-    index: () =>
-      commonParseFunc<EntityIndexRaw[], EntitiesIndex>(
-        read.entities.index(),
-        NAMES.entityIndex
-      ),
-  };
-
-  const fields = () =>
-    Object.entries(read.fields()).map(([key, field]) => {
-      const { codings, description, editLink, label, subfields, viewLink } =
-        field;
-      return {
-        id: key,
-        codings,
-        description,
-        editLink,
-        label,
-        viewLink,
-        subfields: Object.entries(subfields).map(([key, subfield]) => {
-          const { codings, description, editLink, label, viewLink } = subfield;
-          return {
-            id: key,
-            codings,
-            description,
-            editLink,
-            label,
-            viewLink,
-          };
-        }),
-      };
+export const entitiesParser = {
+  all: (
+    rawEntities: EntitiesRaw,
+    getRawEntityById: GetRawEntityById,
+    data: ParseEntitiesData
+  ) => {
+    // return [undefined]
+    return parseEntities({
+      rawEntities,
+      getRawEntityById,
+      data,
     });
+  },
+  single: (
+    entityId: EntityId,
+    entity: EntityRaw,
+    getRawEntityById: GetRawEntityById,
+    data: ParseEntitiesData
+  ) => {
+    // const entity = read.entities.single(entityId);
+    if (entity) {
+      return parseEntities({
+        rawEntities: { [entityId]: entity },
+        getRawEntityById,
+        data,
+      });
+    } else {
+      console.warn('Entity not found', entityId);
+    }
 
-  const labels = {
-    de: () =>
-      read.labels.de().reduce((acc, label) => {
-        acc[label.eId.value as keyof LabelDes] = label.elementLabel.value
-          .split(' - ')
-          .pop() as string;
-        return acc;
-      }, {} as LabelDes),
-    en: () =>
-      commonParseFunc<LabelEnRaws, LabelEns>(read.labels.en(), NAMES.labelEn),
-  };
+    // parseEntity(read.entities.single(entityId))
+    return [] as any;
+  },
+  index: (entitiesIndex: EntitiesIndexRaw) =>
+    commonParseFunc<EntitiesIndexRaw, EntitiesIndex>(
+      entitiesIndex,
+      NAMES.entityIndex
+    ),
+};
 
-  const notations = () =>
-    read.notations().reduce((acc, notation) => {
-      acc[notation.eId.value as Property | Item] = {
-        label: notation.elementLabel.value,
-        notation: notation.notationLabel.value,
-      };
+export const fieldsParser = (fields: FieldsRaw) =>
+  Object.entries(fields).map(([key, field]) => {
+    const { codings, description, editLink, label, subfields, viewLink } =
+      field;
+    return {
+      id: key,
+      codings,
+      description,
+      editLink,
+      label,
+      viewLink,
+      subfields: Object.entries(subfields).map(([key, subfield]) => {
+        const { codings, description, editLink, label, viewLink } = subfield;
+        return {
+          id: key,
+          codings,
+          description,
+          editLink,
+          label,
+          viewLink,
+        };
+      }),
+    };
+  });
+
+export const labelsParser = {
+  de: (deLabels: LabelDeRaws) =>
+    deLabels.reduce((acc, label) => {
+      acc[label.eId.value as keyof LabelDes] = label.elementLabel.value
+        .split(' - ')
+        .pop() as string;
       return acc;
-    }, {} as Notations);
+    }, {} as LabelDes),
+  en: (enLabels: LabelEnRaws) =>
+    commonParseFunc<LabelEnRaws, LabelEns>(enLabels, NAMES.labelEn),
+};
 
-  const codings = () => {
-    const codingLabels: CodingLabel[] =[ 'PICA3', 'PICA+', 'MARC 21', 'GND-Ontologie']
-    return read.codings().reduce((acc, coding) => {
-      if (coding.codingTypeLabel) {
-        const codingKey = coding.eId.value as EntityId;
-        const codingLabelValue = coding.codingTypeLabel.value;
-        const codingLabel: CodingLabel | undefined = codingLabels.find(label => codingLabelValue.includes(label))
-        if (codingLabel) {
+export const notationsParser = (notations: NotationsRaw) =>
+  notations.reduce((acc, notation) => {
+    acc[notation.eId.value as Property | Item] = {
+      label: notation.elementLabel.value,
+      notation: notation.notationLabel.value,
+    };
+    return acc;
+  }, {} as Notations);
+
+export const codingsParser = (codings: CodingsRaw) => {
+  const codingLabels: CodingLabel[] = [
+    'PICA3',
+    'PICA+',
+    'MARC 21',
+    'GND-Ontologie',
+  ];
+  return codings.reduce((acc, coding) => {
+    if (coding.codingTypeLabel) {
+      const codingKey = coding.eId.value as EntityId;
+      const codingLabelValue = coding.codingTypeLabel.value;
+      const codingLabel: CodingLabel | undefined = codingLabels.find((label) =>
+        codingLabelValue.includes(label)
+      );
+      if (codingLabel) {
         acc[codingKey] = acc[codingKey] || {
           label: coding.elementLabel.value,
           PICA3: [],
@@ -146,68 +157,68 @@ export const parser = (read: ReturnType<typeof reader>) => {
           acc[codingKey][codingLabel].push(
             coding.coding.value === '-ohne-' ? '' : coding.coding.value
           );
-        }
-      } else {
-        console.warn('Coding without codingTypeLabel', coding.eId.value);
       }
-      return acc;
-    }, {} as Codings);
-  };
-
-  const descriptions = () => {
-    return commonParseFunc<DescriptionRaw[], Description[]>(
-      read.descriptions(),
-      NAMES.description
-    );
-  };
-
-  const rdaRules = () =>
-    commonParseFunc<RdaRuleRaw[], RdaRules>(
-      read.descriptions(),
-      NAMES.description
-    );
-
-  const rdaProperties = () =>
-    read.rdaProperties().reduce((acc, rdaProperty) => {
-      return [
-        ...acc,
-        {
-          id: rdaProperty.eId.value,
-          label: rdaProperty.elementLabel.value,
-          domainId: rdaProperty.assignmentId?.value,
-          domainLabel: rdaProperty.assignmentLabel?.value
-            .split(' - ')
-            .pop() as string,
-        },
-      ];
-    }, [] as RdaProperties);
-
-  const parseAll = () => ({
-    labels: {
-      de: labels.de(),
-      en: labels.en(),
-    },
-    entities: {
-      all: entities.all(),
-      index: entities.index(),
-    },
-    fields: fields(),
-    notations: notations(),
-    codings: codings(),
-    descriptions: descriptions(),
-    rdaRules: rdaRules(),
-    rdaProperties: rdaProperties(),
-  });
-
-  return {
-    entities,
-    fields,
-    labels,
-    notations,
-    codings,
-    descriptions,
-    // rdaRules,
-    rdaProperties,
-    parseAll,
-  };
+    } else {
+      console.warn('Coding without codingTypeLabel', coding.eId.value);
+    }
+    return acc;
+  }, {} as Codings);
 };
+
+export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
+  return commonParseFunc<DescriptionRaw[], Description[]>(
+    descriptions,
+    NAMES.description
+  );
+};
+
+// todo, needed?
+// export const rdaRulesParser = () =>
+//   commonParseFunc<RdaRuleRaw[], RdaRules>(
+//     read.descriptions(),
+//     NAMES.description
+//   );
+
+export const rdaPropertiesParser = (rdaProperties: RdaPropertiesRaw) =>
+  rdaProperties.reduce((acc, rdaProperty) => {
+    return [
+      ...acc,
+      {
+        id: rdaProperty.eId.value,
+        label: rdaProperty.elementLabel.value,
+        domainId: rdaProperty.assignmentId?.value,
+        domainLabel: rdaProperty.assignmentLabel?.value
+          .split(' - ')
+          .pop() as string,
+      },
+    ];
+  }, [] as RdaProperties);
+
+export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
+  labels: {
+    de: labelsParser.de(read.labels.de()),
+    en: labelsParser.en(read.labels.en()),
+  },
+  entities: {
+    all: entitiesParser.all(
+      read.entities.all(),
+      (entityId: EntityId) => {
+        return Promise.resolve(read.entities.single(entityId));
+      },
+      {
+        lookup_de: labelsParser.de(read.labels.de()),
+        lookup_en: labelsParser.en(read.labels.en()),
+        codings: codingsParser(read.codings()),
+        notations: notationsParser(read.notations()),
+      }
+      // LabelDeRaw[] LabelEnRaw[] CodingRaw[] NotationRaw[]
+    ),
+    index: entitiesParser.index(read.entities.index()),
+  },
+  fields: fieldsParser(read.fields()),
+  notations: notationsParser(read.notations()),
+  codings: codingsParser(read.codings()),
+  descriptions: descriptionsParser(read.descriptions()),
+  // rdaRules: rdaRulesParser(read.rdaRules()),
+  rdaProperties: rdaPropertiesParser(read.rdaProperties()),
+});

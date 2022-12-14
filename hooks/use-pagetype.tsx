@@ -1,7 +1,7 @@
+import { useRouter } from '@/lib/next-use-router';
 import { DataSource } from '@/types/data-source';
 import { PageType } from '@/types/parsed/entity';
 import { dataSources } from '@/utils/constants';
-import { useRouter } from 'next/router';
 import {
   createContext,
   Dispatch,

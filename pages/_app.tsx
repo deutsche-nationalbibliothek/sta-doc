@@ -8,24 +8,31 @@ import { DataSourceProvider } from '@/hooks/use-pagetype';
 import { ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
+import { NextAdapter } from 'next-query-params';
+import { QueryParamProvider } from 'use-query-params';
+import FetchingQueryParamProvider from '@/hooks/fetching-query-param-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ConfigProvider locale={deDE}>
-        <DataSourceProvider>
-          <InitialHeadlinesProvider>
-            <HeadlinesProvider>
-              <IsLoadingContextProvider>
-                <CodingsPreferencesProvider>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </CodingsPreferencesProvider>
-              </IsLoadingContextProvider>
-            </HeadlinesProvider>
-          </InitialHeadlinesProvider>
-        </DataSourceProvider>
+        <QueryParamProvider adapter={NextAdapter}>
+          <FetchingQueryParamProvider>
+            <DataSourceProvider>
+              <InitialHeadlinesProvider>
+                <HeadlinesProvider>
+                  <IsLoadingContextProvider>
+                    <CodingsPreferencesProvider>
+                      <Layout>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </CodingsPreferencesProvider>
+                  </IsLoadingContextProvider>
+                </HeadlinesProvider>
+              </InitialHeadlinesProvider>
+            </DataSourceProvider>
+          </FetchingQueryParamProvider>
+        </QueryParamProvider>
       </ConfigProvider>
     </>
   );

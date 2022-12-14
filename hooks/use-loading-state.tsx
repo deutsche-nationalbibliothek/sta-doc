@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from '@/lib/next-use-router';
 import {
   createContext,
   Dispatch,

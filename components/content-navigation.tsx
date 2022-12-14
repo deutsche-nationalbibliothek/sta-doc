@@ -1,8 +1,8 @@
 import { useHeadlines } from '@/hooks/headlines';
 import { useScroll } from '@/hooks/use-scroll';
+import { useRouter } from '@/lib/next-use-router';
 import { Divider, Tree, Typography } from 'antd';
 import { DataNode } from 'antd/lib/tree';
-import { useRouter } from 'next/router';
 import RcTree from 'rc-tree';
 import React from 'react';
 

@@ -30,6 +30,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": ["node_modules", "bin", "types/generated"],
+  "exclude": ["node_modules", "types/generated"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.d.ts"]
 }

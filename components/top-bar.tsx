@@ -1,7 +1,7 @@
 import { useDataSource } from '@/hooks/use-pagetype';
+import { Link } from '@/lib/next-link';
+import { useRouter } from '@/lib/next-use-router';
 import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { Search } from './search';
 
 export const TopBar: React.FC = () => {

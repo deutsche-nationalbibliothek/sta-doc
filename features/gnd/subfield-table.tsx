@@ -1,11 +1,11 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
 import { EntityPreview } from '@/entity/components/preview';
+import { Link } from '@/lib/next-link';
 import { Field, Subfield } from '@/types/parsed/field';
 // import { Field, Subfield } from '@/types/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
-import Link from 'next/link';
 
 export const GndSubFieldTable: React.FC<Field> = (props) => {
   const columns: ColumnsType<Subfield> = [

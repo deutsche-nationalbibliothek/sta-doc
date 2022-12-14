@@ -3,11 +3,11 @@ import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import { useRouter } from '@/lib/next-use-router';
 import { Headline } from '@/types/headline';
 import { EntityEntry, Entities } from '@/types/parsed/entity';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 interface EntityDetailsProps {

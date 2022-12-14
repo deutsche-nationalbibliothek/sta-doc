@@ -1,5 +1,5 @@
 import { fetcher } from './fetch';
-import { parser } from './parse';
+import { parseAllFromRead } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
 import { writer } from './write';
@@ -13,7 +13,7 @@ export const DEV = false;
   };
 
   const parseRawAndWriteParsed = () => {
-    const data = parser(reader(DataState.raw)).parseAll();
+    const data = parseAllFromRead(reader(DataState.raw));
     writer(data, DataState.parsed).writeAll();
   };
 

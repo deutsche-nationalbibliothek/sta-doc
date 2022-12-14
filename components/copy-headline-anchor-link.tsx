@@ -1,7 +1,7 @@
+import { useRouter } from '@/lib/next-use-router';
 import { CopyOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import copy from 'copy-to-clipboard';
-import { useRouter } from 'next/router';
 import React, { CSSProperties } from 'react';
 
 interface CopyIconProps {

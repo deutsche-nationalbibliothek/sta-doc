@@ -1,4 +1,5 @@
 import { ColumnsType, Table } from '@/components/table';
+import { Link } from '@/lib/next-link';
 import { Item } from '@/types/item';
 import {
   PageType,
@@ -9,7 +10,6 @@ import {
 } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Table as AntdTable } from 'antd';
-import Link from 'next/link';
 import { EntityPreview } from '../preview';
 import { WikibasePointers } from '../wikibase-pointers';
 

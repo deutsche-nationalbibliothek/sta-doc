@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from "@/lib/next-link";
 
 interface ExternalLinkProps {
   href: string;

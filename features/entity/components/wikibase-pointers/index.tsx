@@ -1,10 +1,10 @@
 import { Title } from '@/components/title';
+import { Link } from '@/lib/next-link';
 import { Item } from '@/types/item';
 import { Maybe, WikiBaseValue, isWikibaseValue } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
-import Link from 'next/link';
 import React from 'react';
 import { Embedded } from '../embedded';
 import { EntityPreview } from '../preview';

@@ -1,8 +1,8 @@
+import { Link } from '@/lib/next-link';
 import { Reference } from '@/types/parsed/entity';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Popover, Typography } from 'antd';
 import { truncate } from 'lodash';
-import Link from 'next/link';
 import React, { Fragment } from 'react';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
 
