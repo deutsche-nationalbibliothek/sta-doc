@@ -7,7 +7,7 @@ export enum DataState {
   parsed = 'parsed',
 }
 
-const writeFile = (data: string, filePath: string) => {
+export const writeFile = (data: string, filePath: string) => {
   const path = initial(filePath.split('/')).join('/');
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);

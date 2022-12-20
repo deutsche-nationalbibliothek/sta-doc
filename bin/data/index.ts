@@ -1,8 +1,8 @@
-import { fetcher } from './fetch';
-import { parseAllFromRead } from './parse';
+import { API_URL, fetcher } from './fetch';
+import { parseAllFromRead, propertyItemList as propertyItemListParser  } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
-import { writer } from './write';
+import { propertiesItemsList as propertiesItemsListWriter, writer } from './write';
 
 export const DEV = false;
 
@@ -27,6 +27,9 @@ export const DEV = false;
         break;
       case 'parse':
         parseRawAndWriteParsed();
+        break;
+      case 'fetch-properties-items':
+        propertiesItemsListWriter(propertyItemListParser(await fetcher(API_URL.prod).propertyItemList()))
         break;
     }
   }

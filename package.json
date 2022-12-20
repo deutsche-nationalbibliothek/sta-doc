@@ -8,10 +8,10 @@
     "build": "next build && next export",
     "start": "next start",
     "data": "ts-node bin/data",
+    "data:debug": "NODE_OPTIONS='--inspect' ts-node bin/data",
     "data:fetch": "ts-node bin/data fetch",
-    "data:fetch:debug": "NODE_OPTIONS='--inspect' ts-node bin/data fetch",
     "data:parse": "ts-node bin/data parse",
-    "data:parse:debug": "NODE_OPTIONS='--inspect' ts-node bin/data parse",
+    "data:fetch:properties-items": "ts-node bin/data fetch-properties-items",
     "lint": "next lint",
     "test": "jest --watch",
     "test:ci": "jest --ci"

@@ -15,7 +15,7 @@ export const fetchWikibase = ({
   const fetchFields = async () =>
     await fetcher('/w/rest.php/gnd/doku/v1/datafields');
 
-  const sparqlQuery = async (sparqlQueryString: string) => {
+  const sparqlQuery = async <T>(sparqlQueryString: string): Promise<T> => {
     const response = await sparqlQueryDispatcher(sparqlQueryString);
     return response.results.bindings;
   };

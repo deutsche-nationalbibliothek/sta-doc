@@ -19,10 +19,13 @@ import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
 import { NotationsRaw } from '../../../types/raw/notation';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
+import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
+import { groupBy, sortBy, uniqBy } from 'lodash';
+import slugify from 'slugify';
 
 export type GetRawEntityById = (
   entityId: EntityId
@@ -222,3 +225,31 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
   // rdaRules: rdaRulesParser(read.rdaRules()),
   rdaProperties: rdaPropertiesParser(read.rdaProperties()),
 });
+
+export const propertyItemList = (
+  propertiesItemsListRaw: PropertiesItemsListRaw
+) => {
+  const groups = groupBy(
+    propertiesItemsListRaw,
+    (b) => b.eId.value.split('')[0]
+  );
+
+  const createEnum = (name: String, data: PropertiesItemsListRaw) => {
+    return [
+      `export enum ${name} {`,
+      sortBy(
+        uniqBy(data, (x) => x.eId.value),
+        (x) => Number(x.eId.value.match(/\d+/))
+      )
+        .map((b) => {
+          return `\t'${'xml:lang' in b.elementLabel ? slugify(b.elementLabel.value.replace('\'', '')) : b.eId.value}' = '${b.eId.value}',`;
+        })
+        .join('\n'),
+      '}',
+    ].join('\n');
+  };
+
+  const properties = createEnum('Property', groups.P);
+  const items = createEnum('Item', groups.Q);
+  return { properties, items };
+};

@@ -1,6 +1,7 @@
 import { DEV } from '.';
 import { EntityId } from '../../types/entity-id';
 import { EntitiesRaw } from '../../types/raw/entity';
+import { PropertiesItemsListRaw } from '../../types/raw/property-item-list';
 import { parseAllFromRead } from './parse';
 import { reader } from './read';
 import { DataState, sparql, writeJSONFileAndType } from './utils';
@@ -61,7 +62,9 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   const descriptions = async () => await sparqlQuery(sparql.DESCRIPTIONS(apiUrl));
   const rdaRules = async () => await sparqlQuery(sparql.RDARULES(apiUrl));
   const rdaProperties = async () => await sparqlQuery(sparql.RDAPROPERTIES(apiUrl));
+  const propertyItemList = async () => await sparqlQuery<PropertiesItemsListRaw>(sparql.propertyItemList(apiUrl));
 
+  // no propertyItemList as a single exception, it's exported
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
@@ -85,5 +88,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     entities,
     fields,
     fetchAll,
+    propertyItemList
   };
 };

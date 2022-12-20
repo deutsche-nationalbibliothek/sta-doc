@@ -203,7 +203,7 @@ export const LABELEN = (apiUrl: API_URL) => `
   ORDER BY ASC(?elementLabel) #LABELEN
 `;
 
-export const LABELEN2 = (apiUrl: API_URL) => `
+export const propertyItemList = (apiUrl: API_URL) => `
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
     PREFIX p: <${apiUrl}/prop/>

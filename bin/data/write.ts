@@ -1,6 +1,8 @@
+import { PropertiesItemsList } from '../../types/parsed/property-item-list';
 import type { fetcher } from './fetch';
 import type { parseAllFromRead } from './parse';
 import { DataState, writeJSONFileAndType } from './utils';
+import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
 export const writer = (
@@ -30,9 +32,8 @@ export const writer = (
   const notations = () =>
     writeJSONFileAndType(data.notations, NAMES.notation, dataState);
   const codings = () => {
-    debugger
     writeJSONFileAndType(data.codings, NAMES.coding, dataState);
-  }
+  };
   const descriptions = () =>
     writeJSONFileAndType(data.descriptions, NAMES.description, dataState);
   // const rdaRules = () =>
@@ -62,5 +63,13 @@ export const writer = (
     // rdaRules,
     rdaProperties,
     writeAll,
+    propertiesItemsList,
   };
+};
+
+export const propertiesItemsList = (
+  propertiesItemsList_: PropertiesItemsList
+) => {
+  writeFile(propertiesItemsList_.items, './types/item.ts');
+  writeFile(propertiesItemsList_.properties, './types/property.ts');
 };
