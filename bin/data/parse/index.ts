@@ -242,7 +242,25 @@ export const propertyItemList = (
         (x) => Number(x.eId.value.match(/\d+/))
       )
         .map((b) => {
-          return `\t'${'xml:lang' in b.elementLabel ? slugify(b.elementLabel.value.replace('\'', '')) : b.eId.value}' = '${b.eId.value}',`;
+          // return `\t'${'xml:lang' in b.elementLabel ? slugify(b.elementLabel.value.replace('\'', '')) : b.eId.value}' = '${b.eId.value}',`;
+          return {
+            label: 'xml:lang' in b.elementLabel
+              ? slugify(b.elementLabel.value.replace("'", ''))
+              : b.eId.value,
+          value: b.eId.value
+          };
+        })
+        .map((b, index, arr) => {
+          const withSameLabel = arr.map((b, index) => ({...b, index})).filter(
+            (ib) => ib.label === b.label
+          );
+
+          if (withSameLabel.length > 1) {
+          console.log({labelLength: withSameLabel.length})
+          return `\t'${slugify(`${b.label}-${withSameLabel.find((ib) => ib.index === index)?.index}`.replace('\'', ''))}' = '${b.value}',`;
+          } else {
+          return `\t'${b.label}' = '${b.value}',`;
+          }
         })
         .join('\n'),
       '}',
