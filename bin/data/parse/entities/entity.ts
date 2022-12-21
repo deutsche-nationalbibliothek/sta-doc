@@ -429,5 +429,5 @@ const stringMapper = (val: PreMappedStatement): Statement => {
         ...val,
         string: stringTransform(val.string),
       }
-    : (val as Statement);
+    : (val as unknown as Statement);
 };
