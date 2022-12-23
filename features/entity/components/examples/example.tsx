@@ -34,7 +34,7 @@ export const Example: React.FC<ExampleProps> = ({
                       'value' in stringValue && (
                         <React.Fragment key={index2}>
                           <Typography.Text
-                            italic={stringStatement.itemType === Item.italic}
+                            italic={stringStatement.itemType === Item['italic-(type-of-layout)']}
                           >
                             <span
                               dangerouslySetInnerHTML={{

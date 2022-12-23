@@ -1,6 +1,14 @@
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
+import { EntitiesIndex } from '../../../types/parsed/entity-index';
+import { CodingsRaw } from '../../../types/raw/coding';
+import { DescriptionRaws } from '../../../types/raw/description';
 import { EntityRaw } from '../../../types/raw/entity';
+import { LabelDeRaws } from '../../../types/raw/label-de';
+import { LabelEnRaws } from '../../../types/raw/label-en';
+import { NotationsRaw } from '../../../types/raw/notation';
+import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
+import { RdaRulesRaw } from '../../../types/raw/rda-rule';
 import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from '../wikibase';
@@ -18,7 +26,7 @@ const wikiBase = (apiUrl: API_URL) => {
 export const entitiesFetcher = {
   single: async (entityId: EntityId, apiUrl: API_URL) => await wikiBase(apiUrl).fetchEntity(entityId),
   all: async (apiUrl: API_URL) => {
-    const entitiesIndex = await wikiBase(apiUrl).sparqlQuery(sparql.ENTITY_INDEX(apiUrl));
+    const entitiesIndex = await wikiBase(apiUrl).sparqlQuery<EntitiesIndex>(sparql.ENTITY_INDEX(apiUrl));
     const entries = Object.entries(entitiesIndex);
     let entities = {} as EntityRaw;
 
@@ -42,15 +50,15 @@ export const fieldsFetcher = async (apiUrl: API_URL) => {
 };
 
 export const labelsFetcher = {
-  de: async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.LABELDE(apiUrl)),
-  en: async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.LABELEN(apiUrl)),
+  de: async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
+  en: async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<LabelEnRaws>(sparql.LABELEN(apiUrl)),
 };
 
-export const notationsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.NOTATIONS(apiUrl));
-export const codingsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.CODINGS(apiUrl));
-export const descriptionsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.DESCRIPTIONS(apiUrl));
-export const rdaRulesFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.RDARULES(apiUrl));
-export const rdaPropertiesFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery(sparql.RDAPROPERTIES(apiUrl));
+export const notationsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.NOTATIONS(apiUrl));
+export const codingsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(sparql.CODINGS(apiUrl));
+export const descriptionsFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<DescriptionRaws>(sparql.DESCRIPTIONS(apiUrl));
+export const rdaRulesFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<RdaRulesRaw>(sparql.RDARULES(apiUrl));
+export const rdaPropertiesFetcher = async (apiUrl: API_URL) => await wikiBase(apiUrl).sparqlQuery<RdaPropertiesRaw>(sparql.RDAPROPERTIES(apiUrl));
 
 export const fetcher = (apiUrl = API_URL.prod) => {
   const entities = {

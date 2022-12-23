@@ -69,9 +69,9 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       </ol>
     ),
-    [Item.firstordersubheading]: renderHeadline,
-    [Item.secondordersubheading]: renderHeadline,
-    [Item.thirdordersubheading]: renderHeadline,
+    [Item['First-order-subheading-(type-of-layout)']]: renderHeadline,
+    [Item['Second-order-subheading-(type-of-layout)']]: renderHeadline,
+    [Item['Third-order-subheading-(type-of-layout)']]: renderHeadline,
   };
 
   return (

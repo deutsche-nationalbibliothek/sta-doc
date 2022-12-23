@@ -23,7 +23,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   pageType,
 }) => {
   const elementsStatement = statements.find(
-    (statement) => statement.property === Property.elements
+    (statement) => statement.property === Property.Elements
   );
   if (pageType.id === Item['rda-ressourcetype'] && elementsStatement) {
     return <RessourceTypeTable statement={elementsStatement} />;

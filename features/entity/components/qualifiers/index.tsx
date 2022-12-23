@@ -15,10 +15,10 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
   const noOp = () => null;
 
   const qualifierMap = {
-    [Property.typeoflayout]: noOp,
-    [Property['embeddedin(item)']]: noOp,
-    [Property['embedded(property)']]: noOp,
-    [Property['embedded(item)']]: (qualifier: Statement) => {
+    [Property['Type-of-layout']]: noOp,
+    [Property['embedded-in-(item)']]: noOp,
+    [Property['embedded-(property)']]: noOp,
+    [Property['embedded-(item)']]: (qualifier: Statement) => {
       return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (

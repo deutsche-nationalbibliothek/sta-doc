@@ -28,9 +28,9 @@ type PreMappedStatement = Omit<Statement, 'string'> & {
 };
 
 const headings = [
-  Item.firstordersubheading,
-  Item.secondordersubheading,
-  Item.thirdordersubheading,
+  Item['First-order-subheading-(type-of-layout)'],
+  Item['Second-order-subheading-(type-of-layout)'],
+  Item['Third-order-subheading-(type-of-layout)']
 ];
 
 interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
@@ -94,8 +94,8 @@ export const parseRawEntity = async ({
   const entityProps = async (): Promise<Entity> => {
     const elementOfId: Item =
       entity &&
-      entity.claims[Property.elementof] &&
-      entity.claims[Property.elementof][0].mainsnak.datavalue?.value.id;
+      entity.claims[Property['Element-of']] &&
+      entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id;
 
     if (!elementOfId) {
       console.warn('no entity.claims with Property.elementof for', entityId);
