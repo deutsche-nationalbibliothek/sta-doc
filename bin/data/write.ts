@@ -12,8 +12,8 @@ export const writer = (
   dataState: DataState
 ) => {
   const entities = {
-    all: () => {
-      writeJSONFileAndType(data.entities.all, NAMES.entity, dataState);
+    all: async () => {
+      writeJSONFileAndType(await data.entities.all, NAMES.entity, dataState);
     },
     // index: () => {
     //   writeJSONFileAndType(data.entities.index, NAMES.entity, dataState);

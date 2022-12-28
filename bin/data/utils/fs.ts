@@ -27,21 +27,6 @@ export const writeJSONFileAndType = <T>(
 ): void => {
   const jsonFilePathPostfix = `${state}/${fileName(name)}`;
   writeFile(JSON.stringify(data), `data/${jsonFilePathPostfix}.json`);
-  // try {
-  //   // lib does not work well with Entity dataset
-  //   if (name.type !== 'Entity') {
-  //     writeTypeDefinitionFile(
-  //       JsonToTs(data, {
-  //         rootName: state === DataState.raw ? `${name.type}Raw` : name.type,
-  //       }),
-  //       `${fileName(name, true)}`,
-  //       state
-  //     );
-  //   }
-  // } catch {
-  //   const d = data;
-  //   debugger;
-  // }
 };
 
 export const readJSONFile = <T>(name: Name, state: DataState): T => {

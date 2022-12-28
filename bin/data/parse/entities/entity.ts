@@ -20,7 +20,7 @@ import {
 import { Property } from '../../../../types/property';
 import { Claim, Reference, StatementRaw } from '../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../utils/constants';
-import { groupsDefinition } from './groups-definition';
+import { Group, groupsDefinition } from './groups-definition';
 
 type DataType = 'string' | 'wikibasePointer' | 'time' | 'url';
 type PreMappedStatement = Omit<Statement, 'string'> & {
@@ -30,7 +30,7 @@ type PreMappedStatement = Omit<Statement, 'string'> & {
 const headings = [
   Item['First-order-subheading-(type-of-layout)'],
   Item['Second-order-subheading-(type-of-layout)'],
-  Item['Third-order-subheading-(type-of-layout)']
+  Item['Third-order-subheading-(type-of-layout)'],
 ];
 
 interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
@@ -105,25 +105,19 @@ export const parseRawEntity = async ({
     const statementProps = async (
       occurrences: Record<EntityId, Claim[]>
     ): Promise<StatementsByGroup> => {
-      const filterSort = (group: 'header' | 'table' | 'text') => {
-        const itemGroup =
-          elementOfId in groupsDefinition
-            ? groupsDefinition[elementOfId as keyof typeof groupsDefinition]
-            : groupsDefinition['default-template'];
-        return (
-          (
-            itemGroup[group]
-              .map((propertyKey) => occurrences[propertyKey])
-              // .map((propertyKey) => occurrences[propertyKey])
-              .filter((a) => a) as unknown as Claim[][]
-          ).sort((occ1, occ2) =>
-            itemGroup[group].indexOf(occ1[0].mainsnak.property) >
-            itemGroup[group].indexOf(occ2[0].mainsnak.property)
-              ? 1
-              : -1
-          )
+
+      const filterByGroup = (group: Group) =>
+        groupsDefinition[group]
+          .map((propertyKey) => occurrences[propertyKey])
+          .filter((a) => a); // as unknown as Claim[];
+
+      const sortByProperties = (claims: Claim[][], group: Group) =>
+        claims.sort((occ1, occ2) =>
+          groupsDefinition[group].indexOf(occ1[0].mainsnak.property) >
+          groupsDefinition[group].indexOf(occ2[0].mainsnak.property)
+            ? 1
+            : -1
         );
-      };
 
       const parseStatementProps = async (
         statements: StatementRaw[][] | Claim[][],
@@ -243,8 +237,8 @@ export const parseRawEntity = async ({
           };
         };
 
-        const parsedStatements: PreMappedStatement[] = await Promise.all(statements.map(
-          async (occs) => {
+        const parsedStatements: PreMappedStatement[] = await Promise.all(
+          statements.map(async (occs) => {
             const dataType = keyAccess<string>(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -265,93 +259,108 @@ export const parseRawEntity = async ({
                 ? addHeadline(label, currentHeadlineLevel)
                 : undefined,
               property,
-              [simplifiedDataType]: await Promise.all(occs.map(async (occ) => {
-                const snakType = keyAccess<string>(occ, 'snaktype');
-                if (snakType === 'novalue') {
-                  return { noValue: true };
-                } else if (snakType === 'somevalue') {
-                  return { unknownValue: true };
-                }
-                const propertyId = keyAccess<Property>(occ, 'property');
-                const embeddedEntityId = keyAccess<EntityId>(
-                  occ,
-                  'datavalue',
-                  'value',
-                  'id'
-                );
+              [simplifiedDataType]: await Promise.all(
+                occs.map(async (occ) => {
+                  const snakType = keyAccess<string>(occ, 'snaktype');
+                  if (snakType === 'novalue') {
+                    return { noValue: true };
+                  } else if (snakType === 'somevalue') {
+                    return { unknownValue: true };
+                  }
+                  const propertyId = keyAccess<Property>(occ, 'property');
+                  const embeddedEntityId = keyAccess<EntityId>(
+                    occ,
+                    'datavalue',
+                    'value',
+                    'id'
+                  );
 
-                const hasEmbedding =
-                  (propertyId === Property['example(s)'] ||
-                    propertyId === Property['embedded(item)'] ||
-                    propertyId === Property['embedded(property)']) &&
-                  !prevParsedEntities.some((id) => id === embeddedEntityId);
+                  const hasEmbedding =
+                    (propertyId === Property['example(s)'] ||
+                      propertyId === Property['embedded-(item)'] ||
+                      propertyId === Property['embedded-(property)']) &&
+                    !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-                const nextHeaderLevel =
-                  currentHeadlineLevel + (hasHeadline ? 1 : 0);
+                  const nextHeaderLevel =
+                    currentHeadlineLevel + (hasHeadline ? 1 : 0);
 
-                const dataTypeSpecifics =
-                  simplifiedDataType === 'wikibasePointer'
-                    ? parseWikibaseValue(occ, nextHeaderLevel)
-                    : simplifiedDataType === 'time'
-                    ? parseTimeValue(occ)
-                    : simplifiedDataType === 'url'
-                    ? parseUrlValue(occ)
-                    : parseStringValue(occ, nextHeaderLevel);
+                  const dataTypeSpecifics =
+                    simplifiedDataType === 'wikibasePointer'
+                      ? parseWikibaseValue(occ, nextHeaderLevel)
+                      : simplifiedDataType === 'time'
+                      ? parseTimeValue(occ)
+                      : simplifiedDataType === 'url'
+                      ? parseUrlValue(occ)
+                      : parseStringValue(occ, nextHeaderLevel);
 
-                const j = {
-                  ...dataTypeSpecifics,
-                  references:
-                    'references' in occ && occ.references
-                      ? await parseReferences(occ.references)
+                  return {
+                    ...dataTypeSpecifics,
+                    references:
+                      'references' in occ && occ.references
+                        ? await parseReferences(occ.references)
+                        : undefined,
+                    embedded: hasEmbedding
+                      ? (
+                          await parseRawEntity({
+                            entityId: embeddedEntityId,
+                            headlines,
+                            currentHeadlineLevel: nextHeaderLevel,
+                            prevParsedEntities: [
+                              ...prevParsedEntities,
+                              entityId,
+                            ],
+                            embedded: true,
+                            data,
+                            getRawEntityById,
+                          })
+                        )?.entity
                       : undefined,
-                  embedded: hasEmbedding
-                    ? (await parseRawEntity({
-                        entityId: embeddedEntityId,
-                        headlines,
-                        currentHeadlineLevel: nextHeaderLevel,
-                        prevParsedEntities: [...prevParsedEntities, entityId],
-                        embedded: true,
-                        data,
-                        getRawEntityById,
-                      }))?.entity
-                    : undefined,
-                  qualifiers:
-                    'qualifiers' in occ && occ.qualifiers
-                      ? await parseStatementProps(
-                          (Object.keys(occ.qualifiers) as Property[]).map(
-                            (qualiKey) =>
-                              (occ as Required<Claim>).qualifiers[qualiKey]
-                          ),
-                          nextHeaderLevel,
-                          { embeddedStatement: true, isTextGroup }
-                        )
-                      : undefined,
-                };
-                return j;
-              })),
+                    qualifiers:
+                      'qualifiers' in occ && occ.qualifiers
+                        ? await parseStatementProps(
+                            (Object.keys(occ.qualifiers) as Property[]).map(
+                              (qualiKey) =>
+                                (occ as Required<Claim>).qualifiers[qualiKey]
+                            ),
+                            nextHeaderLevel,
+                            { embeddedStatement: true, isTextGroup }
+                          )
+                        : undefined,
+                  };
+                })
+              ),
             };
-          }
-        ));
+          })
+        );
         return parsedStatements.map(stringMapper);
       };
 
       const enrichedParsedStatementProps = {
         header: await parseStatementProps(
-          filterSort('header'),
+          sortByProperties(filterByGroup('header'), 'header'),
           currentHeadlineLevel + 1,
           {
             isTopLevel: !embedded,
           }
         ),
         table: await parseStatementProps(
-          filterSort('table'),
+          sortByProperties(filterByGroup('table'), 'table'),
           currentHeadlineLevel + 1,
           {
             isTopLevel: !embedded,
           }
         ),
         text: await parseStatementProps(
-          filterSort('text'),
+          sortByProperties(
+          // filter props from groupsDefinition header
+          Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
+            if (!groupsDefinition.header.includes(occ[0].mainsnak.property)) {
+              acc.push(occ);
+            }
+            return acc;
+          }, [] as Claim[][]),
+            'text'
+          ),
           currentHeadlineLevel + 1,
           {
             isTextGroup: true,
@@ -393,8 +402,6 @@ export const parseRawEntity = async ({
   const parsedEntity = {
     ...(await entityProps()),
   };
-
-  // console.log({ parsedEntity });
 
   return { entity: parsedEntity, headlines };
 };

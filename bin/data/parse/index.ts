@@ -26,6 +26,7 @@ import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
 import { groupBy, sortBy, uniqBy } from 'lodash';
 import slugify from 'slugify';
+import { DataState } from '../utils';
 
 export type GetRawEntityById = (
   entityId: EntityId
@@ -197,6 +198,7 @@ export const rdaPropertiesParser = (rdaProperties: RdaPropertiesRaw) =>
     ];
   }, [] as RdaProperties);
 
+  // const readParsed = reader(DataState.parsed)
 export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
   labels: {
     de: labelsParser.de(read.labels.de()),
@@ -256,7 +258,6 @@ export const propertyItemList = (
           );
 
           if (withSameLabel.length > 1) {
-          console.log({labelLength: withSameLabel.length})
           return `\t'${slugify(`${b.label}-${withSameLabel.find((ib) => ib.index === index)?.index}`.replace('\'', ''))}' = '${b.value}',`;
           } else {
           return `\t'${b.label}' = '${b.value}',`;

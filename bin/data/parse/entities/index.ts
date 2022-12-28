@@ -40,7 +40,7 @@ export const parseEntities = async ({
         nextAcc[entityId] = entityEntry;
         return nextAcc;
       }
-      return acc;
+      return await acc;
     },
     {} as Promise<EntitiesEntries>
   );
