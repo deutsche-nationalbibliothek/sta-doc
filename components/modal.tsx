@@ -26,6 +26,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
         onCancel={onCancel}
         footer={[]}
         width={720}
+        title={otherProps.title ?? label}
         {...otherProps}
       />
     </>

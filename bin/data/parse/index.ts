@@ -26,7 +26,6 @@ import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
 import { groupBy, sortBy, uniqBy } from 'lodash';
 import slugify from 'slugify';
-import { DataState } from '../utils';
 
 export type GetRawEntityById = (
   entityId: EntityId

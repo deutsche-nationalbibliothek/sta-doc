@@ -1,8 +1,10 @@
 import { Title } from '@/components/title';
 import { Item } from '@/types/item';
 import { StringValueContainer } from '@/types/parsed/entity';
-import { Typography } from 'antd';
+import { Card, Typography } from 'antd';
+import { Modal } from '@/components/modal';
 import React, { Fragment } from 'react';
+import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 
@@ -72,6 +74,31 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item['First-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Second-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Third-order-subheading-(type-of-layout)']]: renderHeadline,
+    [Item['example-(type-of-layout)']]: (
+      stringValueContainer: StringValueContainer
+    ) => (
+      <>
+        <Modal
+          label={
+            stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel'
+          }
+        >
+          <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
+            <GenericStringValueMapper
+              stringValueContainer={stringValueContainer}
+            >
+              {(stringValue, _qualifiers, _references) => (
+                  <StringValueExamples
+                    stringValue={stringValue}
+                    // qualifiers={qualifiers}
+                    // references={references}
+                  />
+                )}
+            </GenericStringValueMapper>
+          </Card>
+        </Modal>
+      </>
+    ),
   };
 
   return (

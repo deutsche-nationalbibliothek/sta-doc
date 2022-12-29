@@ -42,5 +42,5 @@
     //   ]
     // }
   },
-  "include": ["../index.d.ts", "../types", "../utils", "./**/*.ts"]
+  "include": ["../index.d.ts", "../types", "../utils", "bin/**/*.ts"]
 }
