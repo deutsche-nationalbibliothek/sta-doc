@@ -37,7 +37,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
         />
       )}
       {entity.statements.header.length > 0 && (
-        <Statements statements={entity.statements.header} showHeader={false} />
+        <Statements statements={entity.statements.header} />
       )}
       {entity.statements.table.length > 0 && (
         <TableStatements

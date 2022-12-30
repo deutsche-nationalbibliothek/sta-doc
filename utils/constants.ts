@@ -1,3 +1,4 @@
+import { EntityId } from '@/types/entity-id';
 import { Item } from '../types/item';
 import { Property } from '../types/property';
 
@@ -13,6 +14,7 @@ export const blacklist: {
   headlines: [
     Property.Annotation,
     Property.description,
+    Property.definition,
     Property['embedded(item)'],
     Property['see(item)'],
     Property['see(property)'],
@@ -24,7 +26,7 @@ export const blacklist: {
 };
 
 export const isPropertyBlacklisted = (
-  property: Property | Item,
+  property: EntityId,
   list: '' | keyof typeof blacklist = ''
 ) => {
   if (list) {

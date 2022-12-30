@@ -114,8 +114,7 @@ export const labelsParser = {
   de: (deLabels: LabelDeRaws) =>
     deLabels.reduce((acc, label) => {
       acc[label.eId.value as keyof LabelDes] = label.elementLabel.value
-        .split(' - ')
-        .pop() as string;
+        .split(' | ')[0] as string;
       return acc;
     }, {} as LabelDes),
   en: (enLabels: LabelEnRaws) =>
