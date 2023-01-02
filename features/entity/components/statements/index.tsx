@@ -23,13 +23,16 @@ export const Statements: React.FC<StatementsProps> = ({
         .map((statement, index) => {
           const isShowingHeader =
             showHeader &&
+            statement.headline &&
             !isPropertyBlacklisted(statement.property, 'headlines');
 
           return (
             <React.Fragment key={index}>
               {isShowingHeader && <Title headline={statement.headline} />}
               {statement.string ? (
-                <StringStatement statement={statement.string} />
+                <>
+                  <StringStatement statement={statement.string} />
+                </>
               ) : (
                 statement.wikibasePointer && (
                   <WikibasePointers
