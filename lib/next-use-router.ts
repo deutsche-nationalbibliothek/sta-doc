@@ -12,9 +12,15 @@ export const useRouter = (): UseRouter => {
 
   const fetchingQueryParamString = useFetchingQueryParam();
 
-  const push = useCallback(async (url: Url, options: PushOptions) => {
-    return await router.push(url.toString() + fetchingQueryParamString, options);
-  }, [fetchingQueryParamString]);
+  const push = useCallback(
+    async (url: Url, options: PushOptions) => {
+      return await router.push(
+        url.toString() + fetchingQueryParamString,
+        options
+      );
+    },
+    [fetchingQueryParamString]
+  );
 
   return {
     ...router,

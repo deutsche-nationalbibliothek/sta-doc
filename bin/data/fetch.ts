@@ -59,10 +59,13 @@ export const fetcher = (apiUrl = API_URL.prod) => {
 
   const notations = async () => await sparqlQuery(sparql.NOTATIONS(apiUrl));
   const codings = async () => await sparqlQuery(sparql.CODINGS(apiUrl));
-  const descriptions = async () => await sparqlQuery(sparql.DESCRIPTIONS(apiUrl));
+  const descriptions = async () =>
+    await sparqlQuery(sparql.DESCRIPTIONS(apiUrl));
   const rdaRules = async () => await sparqlQuery(sparql.RDARULES(apiUrl));
-  const rdaProperties = async () => await sparqlQuery(sparql.RDAPROPERTIES(apiUrl));
-  const propertyItemList = async () => await sparqlQuery<PropertiesItemsListRaw>(sparql.propertyItemList(apiUrl));
+  const rdaProperties = async () =>
+    await sparqlQuery(sparql.RDAPROPERTIES(apiUrl));
+  const propertyItemList = async () =>
+    await sparqlQuery<PropertiesItemsListRaw>(sparql.propertyItemList(apiUrl));
 
   // no propertyItemList as a single exception, it's exported
   const fetchAll = async () => {
@@ -88,6 +91,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     entities,
     fields,
     fetchAll,
-    propertyItemList
+    propertyItemList,
   };
 };

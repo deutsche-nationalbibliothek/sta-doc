@@ -1,4 +1,4 @@
-import { API_URL } from "../fetch";
+import { API_URL } from '../fetch';
 
 // ---ENTRIES--- all wikibase entities, which are nessecary to render DOKU pages
 export const ENTITY_INDEX = (apiUrl: API_URL) => `

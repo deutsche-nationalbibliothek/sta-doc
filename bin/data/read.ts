@@ -30,8 +30,7 @@ export const reader = (dataState: DataState) => {
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, dataState),
   };
 
-  const notations = () =>
-    readJSONFile<NotationsRaw>(NAMES.notation, dataState);
+  const notations = () => readJSONFile<NotationsRaw>(NAMES.notation, dataState);
   const codings = () => readJSONFile<CodingRaw[]>(NAMES.coding, dataState);
   const descriptions = () =>
     readJSONFile<DescriptionRaws>(NAMES.description, dataState);

@@ -71,7 +71,7 @@ export const parseRawEntity = async ({
     dataSource?: DataSource
   ) => {
     if (isPropertyBlacklisted(id, 'headlines')) {
-      return undefined
+      return undefined;
     }
     const isHeadlineAlreadyInCollection = (key: string) =>
       headlines.some((headline) => headline.key === key);
@@ -127,10 +127,7 @@ export const parseRawEntity = async ({
       const parseStatementProps = async (
         statements: StatementRaw[][] | Claim[][],
         currentHeadlineLevel: number,
-        {
-          embeddedStatement = false,
-          isTopLevel = false,
-        }
+        { embeddedStatement = false, isTopLevel = false }
       ): Promise<Statement[]> => {
         const keyAccess = <T>(
           occ: any, //Claim | StatementRaw,
@@ -164,13 +161,9 @@ export const parseRawEntity = async ({
               )
             )
             .flat() as StatementRaw[][];
-          return await parseStatementProps(
-            o,
-            currentHeadlineLevel,
-            {
-              embeddedStatement: true,
-            }
-          );
+          return await parseStatementProps(o, currentHeadlineLevel, {
+            embeddedStatement: true,
+          });
         };
 
         const parseWikibaseValue = (
@@ -261,9 +254,7 @@ export const parseRawEntity = async ({
                 : (dataType as DataType);
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
-            const hasHeadline =
-              isTopLevel &&
-              !isPropertyBlacklisted(property);
+            const hasHeadline = isTopLevel && !isPropertyBlacklisted(property);
 
             return {
               label,
@@ -394,7 +385,9 @@ export const parseRawEntity = async ({
               (lookup_en[elementOfId] as unknown as DataSource | undefined)
           )
         : undefined,
-      label: !embedded ? (lookup_de[entityId] ?? entity.labels.de?.value) : undefined, //todo, strip
+      label: !embedded
+        ? lookup_de[entityId] ?? entity.labels.de?.value
+        : undefined, //todo, strip
       title:
         !embedded && elementOfId
           ? `${entity.labels.de?.value} | ${lookup_de[elementOfId]}`

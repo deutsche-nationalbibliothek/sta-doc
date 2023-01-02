@@ -88,12 +88,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
               stringValueContainer={stringValueContainer}
             >
               {(stringValue, _qualifiers, _references) => (
-                  <StringValueExamples
-                    stringValue={stringValue}
-                    // qualifiers={qualifiers}
-                    // references={references}
-                  />
-                )}
+                <StringValueExamples
+                  stringValue={stringValue}
+                  // qualifiers={qualifiers}
+                  // references={references}
+                />
+              )}
             </GenericStringValueMapper>
           </Card>
         </Modal>

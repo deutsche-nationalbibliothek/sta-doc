@@ -27,7 +27,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       if (entitiesEntries) {
         res.status(200).json(entitiesEntries[entityId].entity);
       } else {
-        console.error('Live fetching did not work for entity-id', entityId, 'with live query', live);
+        console.error(
+          'Live fetching did not work for entity-id',
+          entityId,
+          'with live query',
+          live
+        );
       }
       return;
     }

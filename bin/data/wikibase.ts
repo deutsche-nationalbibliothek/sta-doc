@@ -20,7 +20,10 @@ export const fetchWikibase = ({
     return response.results.bindings;
   };
 
-  const fetchEntity = async (entityId: string, count = 1): Promise<EntityRaw | void> => {
+  const fetchEntity = async (
+    entityId: string,
+    count = 1
+  ): Promise<EntityRaw | void> => {
     try {
       if (count <= 3) {
         return await fetchWikiBaseRawData(entityId);

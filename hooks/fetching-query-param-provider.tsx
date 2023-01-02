@@ -12,7 +12,7 @@ export enum FetchingParam {
   test = 'test',
 }
 
-type FetchingQueryParamContext = string
+type FetchingQueryParamContext = string;
 type SetterFunc<T> = ReturnType<typeof useQueryParam<T>>[1];
 
 // param is only used for typing context
@@ -21,21 +21,22 @@ const FetchingQueryParamContext = createContext(
 );
 
 export default function FetchingQueryParamProvider({ children }) {
-  const [live, setLive] = useQueryParam(
-    'live',
-  ) as [FetchingParam | undefined, SetterFunc<FetchingParam | undefined>];
+  const [live, setLive] = useQueryParam('live') as [
+    FetchingParam | undefined,
+    SetterFunc<FetchingParam | undefined>
+  ];
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!('data' in window)) {
-        window.data  = (fetchingParam?: FetchingParam) => setLive(fetchingParam)
+        window.data = (fetchingParam?: FetchingParam) => setLive(fetchingParam);
       }
     }
-  }, [])
+  }, []);
 
   const fetchingQueryParamString = live
-    ? `?${new URLSearchParams({live}).toString()}`
-      : ''
+    ? `?${new URLSearchParams({ live }).toString()}`
+    : '';
 
   return (
     <FetchingQueryParamContext.Provider value={fetchingQueryParamString}>

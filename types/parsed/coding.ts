@@ -13,4 +13,4 @@ interface CodingData {
   'GND-Ontologie': string[];
 }
 
-export type CodingLabel = keyof CodingData
+export type CodingLabel = keyof CodingData;

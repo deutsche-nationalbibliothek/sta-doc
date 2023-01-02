@@ -12,7 +12,7 @@ interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
 export const Title: React.FC<LocalTitleProps> = (props) => {
   const { headline, children, ...otherProps } = props;
   if (!headline) {
-    return <>No Headline</>
+    return <>No Headline</>;
   }
   const { level, title, key } = headline;
 

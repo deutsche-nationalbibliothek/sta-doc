@@ -11,9 +11,7 @@ import { Property } from '../../../types/property';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaw } from '../../../types/raw/description';
 import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
-import {
-  EntitiesIndexRaw,
-} from '../../../types/raw/entity-index';
+import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { FieldsRaw } from '../../../types/raw/field';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
@@ -113,8 +111,9 @@ export const fieldsParser = (fields: FieldsRaw) =>
 export const labelsParser = {
   de: (deLabels: LabelDeRaws) =>
     deLabels.reduce((acc, label) => {
-      acc[label.eId.value as keyof LabelDes] = label.elementLabel.value
-        .split(' | ')[0] as string;
+      acc[label.eId.value as keyof LabelDes] = label.elementLabel.value.split(
+        ' | '
+      )[0] as string;
       return acc;
     }, {} as LabelDes),
   en: (enLabels: LabelEnRaws) =>
@@ -196,7 +195,7 @@ export const rdaPropertiesParser = (rdaProperties: RdaPropertiesRaw) =>
     ];
   }, [] as RdaProperties);
 
-  // const readParsed = reader(DataState.parsed)
+// const readParsed = reader(DataState.parsed)
 export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
   labels: {
     de: labelsParser.de(read.labels.de()),
@@ -244,21 +243,26 @@ export const propertyItemList = (
         .map((b) => {
           // return `\t'${'xml:lang' in b.elementLabel ? slugify(b.elementLabel.value.replace('\'', '')) : b.eId.value}' = '${b.eId.value}',`;
           return {
-            label: 'xml:lang' in b.elementLabel
-              ? slugify(b.elementLabel.value.replace("'", ''))
-              : b.eId.value,
-          value: b.eId.value
+            label:
+              'xml:lang' in b.elementLabel
+                ? slugify(b.elementLabel.value.replace("'", ''))
+                : b.eId.value,
+            value: b.eId.value,
           };
         })
         .map((b, index, arr) => {
-          const withSameLabel = arr.map((b, index) => ({...b, index})).filter(
-            (ib) => ib.label === b.label
-          );
+          const withSameLabel = arr
+            .map((b, index) => ({ ...b, index }))
+            .filter((ib) => ib.label === b.label);
 
           if (withSameLabel.length > 1) {
-          return `\t'${slugify(`${b.label}-${withSameLabel.find((ib) => ib.index === index)?.index}`.replace('\'', ''))}' = '${b.value}',`;
+            return `\t'${slugify(
+              `${b.label}-${
+                withSameLabel.find((ib) => ib.index === index)?.index
+              }`.replace("'", '')
+            )}' = '${b.value}',`;
           } else {
-          return `\t'${b.label}' = '${b.value}',`;
+            return `\t'${b.label}' = '${b.value}',`;
           }
         })
         .join('\n'),
