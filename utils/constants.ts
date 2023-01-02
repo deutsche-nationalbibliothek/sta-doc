@@ -10,10 +10,12 @@ export const blacklist: {
     Property.Schema,
     Property['Element-of'],
     Item['collapsible-collapsed'],
+    Property['STA-Notation'],
   ],
   headlines: [
     Property.Annotation,
     Property.description,
+    Property['description-(at-the-end)'],
     Property.definition,
     Property['embedded(item)'],
     Property['see(item)'],

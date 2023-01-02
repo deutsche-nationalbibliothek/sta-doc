@@ -42,7 +42,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
       return qualifier.string ? (
         <Typography.Paragraph>
           <Typography.Text strong>{qualifier.label}:</Typography.Text>
-          <StringStatement statement={qualifier.string} />
+          <StringStatement property={qualifier.property} statement={qualifier.string} />
         </Typography.Paragraph>
       ) : (
         qualifier.wikibasePointer && (

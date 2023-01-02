@@ -127,7 +127,7 @@ export const parseRawEntity = async ({
       const parseStatementProps = async (
         statements: StatementRaw[][] | Claim[][],
         currentHeadlineLevel: number,
-        { embeddedStatement = false, isTopLevel = false }
+        { embeddedStatement = false, isTopLevel = false, noHeadline = false }
       ): Promise<Statement[]> => {
         const keyAccess = <T>(
           occ: any, //Claim | StatementRaw,
@@ -174,6 +174,7 @@ export const parseRawEntity = async ({
           const property = keyAccess<Property>(occ, 'property');
           const hasHeadline =
             isTopLevel &&
+            !noHeadline &&
             !isPropertyBlacklisted(property) &&
             'qualifiers' in occ &&
             occ.qualifiers;
@@ -223,7 +224,8 @@ export const parseRawEntity = async ({
           return {
             value,
             headline:
-              headingIndex >= 0
+              headingIndex >= 0 &&
+            !noHeadline
                 ? addHeadline(
                     value,
                     currentHeadlineLevel + headingIndex,
@@ -254,7 +256,7 @@ export const parseRawEntity = async ({
                 : (dataType as DataType);
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
-            const hasHeadline = isTopLevel && !isPropertyBlacklisted(property);
+            const hasHeadline = isTopLevel && !noHeadline && !isPropertyBlacklisted(property);
 
             return {
               label,
@@ -353,13 +355,17 @@ export const parseRawEntity = async ({
           currentHeadlineLevel + 1,
           {
             isTopLevel: !embedded,
+            noHeadline: true,
           }
         ),
         text: await parseStatementProps(
           sortByProperties(
             // filter props from groupsDefinition header
             Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
-              if (!groupsDefinition.header.includes(occ[0].mainsnak.property)) {
+              if (
+                !groupsDefinition.header.includes(occ[0].mainsnak.property) &&
+                !groupsDefinition.table.includes(occ[0].mainsnak.property)
+              ) {
                 acc.push(occ);
               }
               return acc;

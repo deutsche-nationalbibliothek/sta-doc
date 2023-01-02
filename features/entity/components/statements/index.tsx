@@ -31,7 +31,10 @@ export const Statements: React.FC<StatementsProps> = ({
               {isShowingHeader && <Title headline={statement.headline} />}
               {statement.string ? (
                 <>
-                  <StringStatement statement={statement.string} />
+                  <StringStatement
+                    property={statement.property}
+                    statement={statement.string}
+                  />
                 </>
               ) : (
                 statement.wikibasePointer && (

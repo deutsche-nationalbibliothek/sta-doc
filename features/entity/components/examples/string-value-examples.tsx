@@ -10,8 +10,8 @@ interface StringValueExamplesProps {
 
 export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
   stringValue,
-  references,
-  qualifiers,
+  // references,
+  // qualifiers,
 }) => {
   return (
     <>
@@ -21,7 +21,10 @@ export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
           transform: 'translateX(0)',
         }}
       >
-        <StringValueComponent stringValue={stringValue} />
+        <StringValueComponent
+          property={stringValue.property}
+          stringValue={stringValue}
+        />
       </Card>
     </>
   );

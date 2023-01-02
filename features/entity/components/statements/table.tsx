@@ -11,6 +11,8 @@ import {
 import { Property } from '@/types/property';
 import { Table as AntdTable } from 'antd';
 import { EntityPreview } from '../preview';
+import { Qualifiers } from '../qualifiers';
+import { StringValueComponent } from '../values/string';
 import { WikibasePointers } from '../wikibase-pointers';
 
 interface TableStatementsProps {
@@ -46,9 +48,24 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       ) : (
         statement.string &&
         statement.string.map((stringStatement) =>
-          stringStatement.values.map(
-            (stringValue) => isStringValue(stringValue) && stringValue.value
-          )
+          stringStatement.values.map((stringValue) => {
+            return (
+              isStringValue(stringValue) && (
+                <>
+                  <StringValueComponent
+                    property={statement.property}
+                    stringValue={stringValue}
+                  />
+                  {stringValue.qualifiers && (
+                    <>
+                      <Qualifiers qualifiers={stringValue.qualifiers} />
+                    </>
+                  )}
+                  <br />
+                </>
+              )
+            );
+          })
         )
       ),
     };
