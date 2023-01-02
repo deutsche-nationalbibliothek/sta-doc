@@ -5,8 +5,9 @@ import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
 import { DataSourceImage } from './datasource-image';
-import { PageHeader } from 'antd';
-import { Entity } from '@/types/parsed/entity';
+import { PageHeader, Typography } from 'antd';
+import { Entity, isStringValue } from '@/types/parsed/entity';
+import { Property } from '@/types/property';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -28,12 +29,37 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     return onResetDataSource;
   }, [embedded, entity.pageType?.id]);
 
+  const staNotation = entity.statements.header.find(
+    (s) => s.property === Property['STA-Notation']
+  );
+
+  const staNotationInfo = staNotation &&
+    isStringValue(staNotation.string[0].values[0]) && {
+      label: staNotation.label,
+      value: staNotation.string[0].values[0].value,
+    };
+
   return (
     <>
       {!embedded && (
         <PageHeader
           title={<Title headline={entity.headline} />}
-          extra={dataSource && <DataSourceImage />}
+          extra={
+            <>
+              <div>
+                {dataSource && <DataSourceImage />}
+                {staNotationInfo && (
+                  <>
+                    <br />
+                    <Typography.Text strong>
+                      {staNotationInfo.label}:{' '}
+                    </Typography.Text>
+                    <Typography.Text>{staNotationInfo.value}</Typography.Text>
+                  </>
+                )}
+              </div>
+            </>
+          }
         />
       )}
       {entity.statements.header.length > 0 && (
