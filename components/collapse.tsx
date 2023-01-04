@@ -20,7 +20,11 @@ export const Collapse = (props: CollapseProps) => {
       defaultActiveKey={['1']}
     >
       <AntdCollapse.Panel
-        header={isOpen ? props.labelOpen : props.labelClosed}
+        header={
+          isOpen
+            ? props.labelOpen ?? ''
+            : props.labelClosed ?? 'Weiterführende Informationen'
+        }
         key="1"
       >
         {props.children}
