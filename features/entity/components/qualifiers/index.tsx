@@ -1,3 +1,4 @@
+import { Collapse } from '@/components/collapse';
 import { Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Typography } from 'antd';
@@ -37,6 +38,15 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
           }
         />
       );
+    },
+    [Property['Introduction-text']]: (qualifier:Statement) => {
+      return (
+      <Collapse
+          labelClosed={qualifier.label}
+        >
+          <StringStatement property={qualifier.property} statement={qualifier.string} />
+      </Collapse>
+      )
     },
     default: (qualifier: Statement) => {
       return qualifier.string ? (

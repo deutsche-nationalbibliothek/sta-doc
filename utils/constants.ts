@@ -11,6 +11,7 @@ export const blacklist: {
     Property['Element-of'],
     Item['collapsible-collapsed'],
     Property['STA-Notation'],
+    Item['collapsible-collapsed-(type-of-layout)'],
   ],
   headlines: [
     Property.Annotation,

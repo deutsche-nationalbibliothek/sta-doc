@@ -1,13 +1,18 @@
+import { Modal } from '@/components/modal';
 import { Title } from '@/components/title';
 import { Item } from '@/types/item';
-import { StringValueContainer } from '@/types/parsed/entity';
+import {
+  StringValueContainer,
+  StringValue,
+  isStringValue,
+} from '@/types/parsed/entity';
+import { Property } from '@/types/property';
 import { Card, Typography } from 'antd';
-import { Modal } from '@/components/modal';
 import React, { Fragment } from 'react';
 import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
-import { Property } from '@/types/property';
+import { Collapse } from '@/components/collapse';
 
 interface StringStatementProps {
   statement: StringValueContainer[];
@@ -114,6 +119,43 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </Modal>
       </>
     ),
+    [Item['collapsible-collapsed-(type-of-layout)']]: (
+      stringValueContainer: StringValueContainer,
+    ) => {
+      const stringValueWithIntroduction = stringValueContainer.values
+        .filter((x) => isStringValue(x))
+        .find((x: StringValue) =>
+          x.qualifiers.find((x) => x.property === Property['Introduction-text'])
+        ) as StringValue | undefined;
+
+      const introductionTextStatementLabel =
+        stringValueWithIntroduction &&
+        stringValueWithIntroduction.qualifiers.find(
+          (x) => x.property === Property['Introduction-text']
+        )?.label;
+
+      return (
+        <Collapse
+          labelClosed={
+            introductionTextStatementLabel ?? 'Weiterführende Informationen'
+          }
+          labelOpen={''}
+        >
+          <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+            {(stringValue, qualifiers, references) => (
+              <Typography.Paragraph key={stringValue.value}>
+                <StringValueComponent
+                  property={property}
+                  stringValue={stringValue}
+                />
+                {references}
+                {qualifiers}
+              </Typography.Paragraph>
+            )}
+          </GenericStringValueMapper>
+        </Collapse>
+      );
+    },
   };
 
   return (
@@ -133,7 +175,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-            itemTypeMap[stringValueContainer.itemType]
+              itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}
           </Fragment>
