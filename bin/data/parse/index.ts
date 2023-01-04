@@ -111,9 +111,10 @@ export const fieldsParser = (fields: FieldsRaw) =>
 export const labelsParser = {
   de: (deLabels: LabelDeRaws) =>
     deLabels.reduce((acc, label) => {
-      acc[label.eId.value as keyof LabelDes] = label.elementLabel.value.split(
-        ' | '
-      )[0] as string;
+      const strippedLabelMatch = label.elementLabel.value.match(/^[^|(]+/);
+      acc[label.eId.value as keyof LabelDes] = strippedLabelMatch
+        ? strippedLabelMatch[0]
+        : label.elementLabel.value;
       return acc;
     }, {} as LabelDes),
   en: (enLabels: LabelEnRaws) =>
@@ -213,7 +214,6 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
         codings: codingsParser(read.codings()),
         notations: notationsParser(read.notations()),
       }
-      // LabelDeRaw[] LabelEnRaw[] CodingRaw[] NotationRaw[]
     ),
     index: entitiesParser.index(read.entities.index()),
   },

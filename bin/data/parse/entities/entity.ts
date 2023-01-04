@@ -71,7 +71,9 @@ export const parseRawEntity = async ({
     dataSource?: DataSource
   ) => {
     if (isPropertyBlacklisted(id, 'headlines')) {
-      return undefined;
+      // return undefined; // todo, this breaks something
+      console.debug('add Headline got blacklisted prop', { title, level, id });
+      // debugger;
     }
     const isHeadlineAlreadyInCollection = (key: string) =>
       headlines.some((headline) => headline.key === key);
@@ -203,14 +205,6 @@ export const parseRawEntity = async ({
         ): Omit<StringValue, keyof CommonValue> => {
           const value = keyAccess<string>(occ, 'datavalue', 'value');
           const property = keyAccess<Property>(occ, 'property');
-          // try {
-          //   !embeddedStatement &&
-          //     occ['qualifiers-order'] &&
-          //     occ.qualifiers[occ['qualifiers-order'][0]][0].datavalue
-          //       ?.value?.id;
-          // } catch {
-          //   debugger;
-          // }
           const itemType =
             !embeddedStatement &&
             'qualifiers-order' in occ &&
@@ -224,8 +218,7 @@ export const parseRawEntity = async ({
           return {
             value,
             headline:
-              headingIndex >= 0 &&
-            !noHeadline
+              headingIndex >= 0 && !noHeadline
                 ? addHeadline(
                     value,
                     currentHeadlineLevel + headingIndex,
@@ -256,7 +249,8 @@ export const parseRawEntity = async ({
                 : (dataType as DataType);
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
-            const hasHeadline = isTopLevel && !noHeadline && !isPropertyBlacklisted(property);
+            const hasHeadline =
+              isTopLevel && !noHeadline && !isPropertyBlacklisted(property);
 
             return {
               label,
@@ -380,20 +374,19 @@ export const parseRawEntity = async ({
       };
       return enrichedParsedStatementProps;
     };
+    const label = lookup_de[entityId] ?? entity.labels.de?.value;
     return {
       id: entityId,
       headline: !embedded
         ? addHeadline(
-            entity.labels.de?.value,
+            label,
             currentHeadlineLevel,
             entityId,
             elementOfId &&
               (lookup_en[elementOfId] as unknown as DataSource | undefined)
           )
         : undefined,
-      label: !embedded
-        ? lookup_de[entityId] ?? entity.labels.de?.value
-        : undefined, //todo, strip
+      label: !embedded ? label : undefined,
       title:
         !embedded && elementOfId
           ? `${entity.labels.de?.value} | ${lookup_de[elementOfId]}`
