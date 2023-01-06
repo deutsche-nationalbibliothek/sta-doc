@@ -55,7 +55,9 @@ export const ContentNavigation: React.FC = () => {
             titleRender={({ key, title }: { key: string; title: string }) => (
               <Typography.Text
                 id={`nav-${key}`}
-                onClick={() => router.push(`#${key}`)}
+                onClick={() => {
+                  router.push(window.location.pathname, `#${key}`)
+                }}
                 strong={
                   currentHeadlinesPath.findIndex(
                     (nestedHeadline) => nestedHeadline.key === key

@@ -1,6 +1,6 @@
+import { Namespace } from '@/types/namespace';
 import slugify from 'slugify';
 import { ParseEntitiesProps } from '.';
-import { DataSource } from '../../../../types/data-source';
 import { EntityId } from '../../../../types/entity-id';
 import { Headline } from '../../../../types/headline';
 import { Item } from '../../../../types/item';
@@ -67,14 +67,9 @@ export const parseRawEntity = async ({
   const addHeadline = (
     title: string,
     level: number,
-    id: EntityId,
-    dataSource?: DataSource
+    ignore = false,
+    namespace?: Namespace
   ) => {
-    if (isPropertyBlacklisted(id, 'headlines')) {
-      // return undefined; // todo, this breaks something
-      console.debug('add Headline got blacklisted prop', { title, level, id });
-      // debugger;
-    }
     const isHeadlineAlreadyInCollection = (key: string) =>
       headlines.some((headline) => headline.key === key);
 
@@ -95,7 +90,11 @@ export const parseRawEntity = async ({
         : sluggedLabel,
       level,
     };
-    headlines.push(dataSource ? { ...headline, dataSource } : headline);
+
+    if (!ignore) {
+      headlines.push(namespace ? { ...headline, namespace } : headline);
+    }
+
     return headline;
   };
 
@@ -109,6 +108,8 @@ export const parseRawEntity = async ({
       console.warn('no entity.claims with Property.elementof for', entityId);
       // return {};
     }
+
+    const entityHasHeadline = !embedded && !isPropertyBlacklisted(entityId);
 
     const statementProps = async (
       occurrences: Record<EntityId, Claim[]>
@@ -135,24 +136,10 @@ export const parseRawEntity = async ({
           occ: any, //Claim | StatementRaw,
           ...propertyPath: string[]
         ): T => {
-          // try {
           return propertyPath.reduce(
             (acc, val) => acc[val as keyof typeof acc],
             'mainsnak' in occ ? occ.mainsnak : occ
           ) as T;
-          // } catch (e) {
-          //   // debugger
-          //   console.error(
-          //     'Key Access threw an Error on',
-          //     propertyPath.join('.'),
-          //     'while using',
-          //     inQualifier ? 'occ' : 'occ.mainsnak',
-          //     'with',
-          //     occ
-          //   );
-          //   console.error(e);
-          //   throw e;
-          // }
         };
 
         const parseReferences = async (references: Reference[]) => {
@@ -165,6 +152,8 @@ export const parseRawEntity = async ({
             .flat() as StatementRaw[][];
           return await parseStatementProps(o, currentHeadlineLevel, {
             embeddedStatement: true,
+            isTopLevel,
+            noHeadline,
           });
         };
 
@@ -173,17 +162,16 @@ export const parseRawEntity = async ({
           currentHeadlineLevel: number
         ): Omit<WikiBaseValue, keyof CommonValue> => {
           const id = keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
-          const property = keyAccess<Property>(occ, 'property');
           const hasHeadline =
             isTopLevel &&
-            !noHeadline &&
-            !isPropertyBlacklisted(property) &&
+            !isPropertyBlacklisted(id) &&
             'qualifiers' in occ &&
             occ.qualifiers;
+
           return {
             id,
             headline: hasHeadline
-              ? addHeadline(lookup_de[id], currentHeadlineLevel, id)
+              ? addHeadline(lookup_de[id], currentHeadlineLevel, noHeadline)
               : undefined,
             label: lookup_de[id],
             link: `/entities/${id}`,
@@ -215,16 +203,19 @@ export const parseRawEntity = async ({
           const headingIndex = headings.findIndex(
             (heading) => heading === itemType
           );
+          const hasHeadline =
+            headingIndex >= 0 &&
+            !isPropertyBlacklisted(itemType ?? property, 'headlines');
+
           return {
             value,
-            headline:
-              headingIndex >= 0 && !noHeadline
-                ? addHeadline(
-                    value,
-                    currentHeadlineLevel + headingIndex,
-                    property
-                  )
-                : undefined,
+            headline: hasHeadline
+              ? addHeadline(
+                  value,
+                  currentHeadlineLevel + headingIndex,
+                  noHeadline
+                )
+              : undefined,
             coding: codings[property],
             itemType,
           };
@@ -249,13 +240,12 @@ export const parseRawEntity = async ({
                 : (dataType as DataType);
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
-            const hasHeadline =
-              isTopLevel && !noHeadline && !isPropertyBlacklisted(property);
+            const hasHeadline = isTopLevel && !isPropertyBlacklisted(property);
 
             return {
               label,
               headline: hasHeadline
-                ? addHeadline(label, currentHeadlineLevel, property)
+                ? addHeadline(label, currentHeadlineLevel, noHeadline)
                 : undefined,
               property,
               [simplifiedDataType]: await Promise.all(
@@ -324,6 +314,8 @@ export const parseRawEntity = async ({
                             nextHeaderLevel,
                             {
                               embeddedStatement: true,
+                              isTopLevel,
+                              noHeadline,
                             }
                           )
                         : undefined,
@@ -336,17 +328,20 @@ export const parseRawEntity = async ({
         return parsedStatements.map(stringMapper);
       };
 
+      const nextHeaderLevel =
+        currentHeadlineLevel + (entityHasHeadline ? 1 : 0);
+
       const enrichedParsedStatementProps = {
         header: await parseStatementProps(
           sortByProperties(filterByGroup('header'), 'header'),
-          currentHeadlineLevel + 1,
+          nextHeaderLevel,
           {
             isTopLevel: !embedded,
           }
         ),
         table: await parseStatementProps(
           sortByProperties(filterByGroup('table'), 'table'),
-          currentHeadlineLevel + 1,
+          nextHeaderLevel,
           {
             isTopLevel: !embedded,
             noHeadline: true,
@@ -366,7 +361,7 @@ export const parseRawEntity = async ({
             }, [] as Claim[][]),
             'text'
           ),
-          currentHeadlineLevel + 1,
+          nextHeaderLevel,
           {
             isTopLevel: !embedded,
           }
@@ -375,15 +370,16 @@ export const parseRawEntity = async ({
       return enrichedParsedStatementProps;
     };
     const label = lookup_de[entityId] ?? entity.labels.de?.value;
+
     return {
       id: entityId,
-      headline: !embedded
+      headline: entityHasHeadline
         ? addHeadline(
             label,
             currentHeadlineLevel,
-            entityId,
+            false,
             elementOfId &&
-              (lookup_en[elementOfId] as unknown as DataSource | undefined)
+              (lookup_en[elementOfId] as unknown as Namespace | undefined)
           )
         : undefined,
       label: !embedded ? label : undefined,

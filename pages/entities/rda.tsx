@@ -1,12 +1,12 @@
 import { Fetch } from '@/components/fetch';
 import EntitiesIndex, { EntityIndexModel } from '@/entity/components';
-import { DataSource } from '@/types/data-source';
+import { Namespace } from '@/types/namespace';
 
 export default function RDAEntitiesIndex() {
   return (
     <Fetch<EntityIndexModel[]> url="/api/entities/rda">
       {(entities) => (
-        <EntitiesIndex entities={entities} dataSource={DataSource.RDA} />
+        <EntitiesIndex entities={entities} namespace={Namespace.RDA} />
       )}
     </Fetch>
   );

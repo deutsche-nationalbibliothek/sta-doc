@@ -12,7 +12,11 @@ export enum FetchingParam {
   test = 'test',
 }
 
-type FetchingQueryParamContext = string;
+type FetchingQueryParamContext = {
+  fetchingQueryParamString: string
+  fetchingQueryParam: Record<'live', FetchingParam>
+};
+
 type SetterFunc<T> = ReturnType<typeof useQueryParam<T>>[1];
 
 // param is only used for typing context
@@ -38,8 +42,10 @@ export default function FetchingQueryParamProvider({ children }) {
     ? `?${new URLSearchParams({ live }).toString()}`
     : '';
 
+  const fetchingQueryParam = live ? {live} : {}
+
   return (
-    <FetchingQueryParamContext.Provider value={fetchingQueryParamString}>
+    <FetchingQueryParamContext.Provider value={{fetchingQueryParamString, fetchingQueryParam}}>
       {children}
     </FetchingQueryParamContext.Provider>
   );

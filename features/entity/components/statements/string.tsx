@@ -25,18 +25,20 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 }) => {
   const renderHeadline = (stringValueContainer: StringValueContainer) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-      {(stringValue, qualifiers, references) => (
-        <React.Fragment key={stringValue.value}>
-          <Title headline={stringValue.headline}>
-            <StringValueComponent
-              property={property}
-              stringValue={stringValue}
-            />
-            {references}
-          </Title>
-          {qualifiers}
-        </React.Fragment>
-      )}
+      {(stringValue, qualifiers, references) => {
+        if (!stringValue.headline) {
+          console.debug('headline missing in', stringValueContainer);
+        }
+        return (
+          <React.Fragment key={stringValue.value}>
+            <Title headline={stringValue.headline}>
+              <StringValueComponent stringValue={stringValue} />
+              {references}
+            </Title>
+            {qualifiers}
+          </React.Fragment>
+        );
+      }}
     </GenericStringValueMapper>
   );
 
@@ -46,7 +48,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent
-              property={property}
+              code={property === Property.Encoding}
               stringValue={stringValue}
             />
             {references}
@@ -62,10 +64,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent
-                property={property}
-                stringValue={stringValue}
-              />
+              <StringValueComponent stringValue={stringValue} />
               {references}
               {qualifiers}
             </li>
@@ -80,10 +79,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent
-                property={property}
-                stringValue={stringValue}
-              />
+              <StringValueComponent stringValue={stringValue} />
               {references}
               {qualifiers}
             </li>
@@ -120,7 +116,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       </>
     ),
     [Item['collapsible-collapsed-(type-of-layout)']]: (
-      stringValueContainer: StringValueContainer,
+      stringValueContainer: StringValueContainer
     ) => {
       const stringValueWithIntroduction = stringValueContainer.values
         .filter((x) => isStringValue(x))
@@ -144,10 +140,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           <GenericStringValueMapper stringValueContainer={stringValueContainer}>
             {(stringValue, qualifiers, references) => (
               <Typography.Paragraph key={stringValue.value}>
-                <StringValueComponent
-                  property={property}
-                  stringValue={stringValue}
-                />
+                <StringValueComponent stringValue={stringValue} />
                 {references}
                 {qualifiers}
               </Typography.Paragraph>
@@ -161,23 +154,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
   return (
     <>
       {statement.map((stringValueContainer, index) => {
-        if (
-          stringValueContainer.itemType &&
-          !itemTypeMap[stringValueContainer.itemType]
-        ) {
-          // console.log(
-          //   'itemType is missing in itemTypeMap',
-          //   stringValueContainer.itemType,
-          //   'with values',
-          //   stringValueContainer.values
-          // );
-        }
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-              itemTypeMap[stringValueContainer.itemType]
+            itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
-              : itemTypeMap.default(stringValueContainer)}
+              : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
         );
       })}

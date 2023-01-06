@@ -16,7 +16,7 @@ export const Breadcrumb: React.FC = () => {
         }}
         separator=""
       >
-        {currentHeadlinesPath.map(({ key, title, dataSource }, index) => {
+        {currentHeadlinesPath.map(({ key, title, namespace }, index) => {
           const isLastIndex = index === currentHeadlinesPath.length - 1;
           return (
             <Fragment key={key}>
@@ -36,7 +36,7 @@ export const Breadcrumb: React.FC = () => {
               </AntdBreadcrumb.Item>
               {!isLastIndex && (
                 <AntdBreadcrumb.Separator key={`${key}-seperator`}>
-                  <span className={`${dataSource}-seperator`}>/</span>
+                  <span className={`${namespace}-seperator`}>/</span>
                 </AntdBreadcrumb.Separator>
               )}
             </Fragment>

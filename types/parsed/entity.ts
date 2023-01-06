@@ -85,7 +85,7 @@ export interface StringValue extends CommonValue {
   value: string;
   coding?: Coding;
   headline?: Headline;
-  itemType?: EntityId;
+  itemType?: EntityId | 'default';
 }
 
 export interface WikiBaseValue extends CommonValue {

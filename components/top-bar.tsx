@@ -1,13 +1,13 @@
-import { useDataSource } from '@/hooks/use-pagetype';
+import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
 import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
 import { Search } from './search';
 
 export const TopBar: React.FC = () => {
-  const { dataSource } = useDataSource();
+  const { namespace } = useNamespace();
   const router = useRouter();
-  const dataSourceDomain = router.query.domain as string | undefined;
+  const namespaceDomain = router.query.domain as string | undefined;
 
   return (
     <AntdLayout.Header style={{ zIndex: 1, width: '100%' }}>
@@ -18,9 +18,9 @@ export const TopBar: React.FC = () => {
             style={{ minWidth: 240 }}
             mode="horizontal"
             selectedKeys={[
-              dataSource,
+              namespace,
               router.asPath.match(/.*(?=#.*)|.*/)[0],
-              dataSourceDomain,
+              namespaceDomain,
             ]}
             items={[
               { label: <Link href="/">Home</Link>, key: '/' },
@@ -77,6 +77,20 @@ export const TopBar: React.FC = () => {
                   {
                     label: <Link href="/entities/gnd">Index</Link>,
                     key: '/entities/gnd',
+                  },
+                ],
+              },
+              {
+                label: (
+                  <span className="ant-menu-item" style={{ padding: 0 }}>
+                    <Link href="/gnd">STA</Link>
+                  </span>
+                ),
+                key: 'STA',
+                children: [
+                  {
+                    label: <Link href="/entities/sta">Index</Link>,
+                    key: '/entities/sta',
                   },
                 ],
               },

@@ -21,10 +21,7 @@ export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
           transform: 'translateX(0)',
         }}
       >
-        <StringValueComponent
-          property={stringValue.property}
-          stringValue={stringValue}
-        />
+        <StringValueComponent stringValue={stringValue} />
       </Card>
     </>
   );

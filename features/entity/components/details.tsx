@@ -1,10 +1,10 @@
 import { Title } from '@/components/title';
 import { useInitialScroll } from '@/hooks/use-inital-scroll';
-import { useDataSource } from '@/hooks/use-pagetype';
+import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
-import { DataSourceImage } from './datasource-image';
+import { NamespaceImage } from './namespace-image';
 import { PageHeader, Typography } from 'antd';
 import { Entity, isStringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
@@ -18,15 +18,14 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   entity,
   embedded = false,
 }) => {
-  const { dataSource, onSetByPageType, onResetDataSource } = useDataSource();
+  const { namespace, onSetByPageType, onResetNamespace } = useNamespace();
   useInitialScroll(!embedded);
 
   useEffect(() => {
     if (!embedded && entity.pageType?.id) {
       onSetByPageType(entity.pageType);
-      return onResetDataSource;
     }
-    return onResetDataSource;
+    return onResetNamespace;
   }, [embedded, entity.pageType?.id]);
 
   const staNotation = entity.statements.header.find(
@@ -35,9 +34,9 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const staNotationInfo = staNotation &&
     isStringValue(staNotation.string[0].values[0]) && {
-      label: staNotation.label,
-      value: staNotation.string[0].values[0].value,
-    };
+    label: staNotation.label,
+    value: staNotation.string[0].values[0].value,
+  };
 
   return (
     <>
@@ -47,14 +46,16 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
           extra={
             <>
               <div>
-                {dataSource && <DataSourceImage />}
+                {namespace && <NamespaceImage />}
                 {staNotationInfo && (
                   <>
-                    <br />
-                    <Typography.Text strong>
-                      {staNotationInfo.label}:{' '}
-                    </Typography.Text>
-                    <Typography.Text>{staNotationInfo.value}</Typography.Text>
+                    <Typography.Paragraph style={{ textAlign: 'center' }}>
+                      <Typography.Text strong>
+                        {staNotationInfo.label}:
+                      </Typography.Text>
+                      <br />
+                      <Typography.Text>{staNotationInfo.value}</Typography.Text>
+                    </Typography.Paragraph>
                   </>
                 )}
               </div>

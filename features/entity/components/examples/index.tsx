@@ -9,7 +9,7 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
-  const label = examples.length > 1 ? 'Beispiele' : 'Beispiel';
+  const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
 

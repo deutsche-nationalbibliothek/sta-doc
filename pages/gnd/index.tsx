@@ -1,14 +1,15 @@
 import { Title } from '@/components/title';
-import { DataSourceImage } from '@/entity/components/datasource-image';
-import { useDataSource } from '@/hooks/use-pagetype';
-import { DataSource } from '@/types/data-source';
+import { NamespaceImage } from '@/entity/components/namespace-image';
+import { useNamespace } from '@/hooks/use-namespace';
+import { Namespace } from '@/types/namespace';
 import { PageHeader, Typography } from 'antd';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 export default function GndIndex() {
-  const { dataSource, setDataSource } = useDataSource();
+  const { namespace, setNamespace } = useNamespace();
   const [html, setHtml] = useState<string>();
+
   useEffect(() => {
     const fetch = async () => {
       const payload = await window
@@ -21,7 +22,7 @@ export default function GndIndex() {
       }
     };
     fetch();
-    setDataSource(DataSource.GND);
+    setNamespace(Namespace.GND);
   }, []);
 
   return (
@@ -42,7 +43,7 @@ export default function GndIndex() {
                 }}
               />
             }
-            extra={dataSource && <DataSourceImage />}
+            extra={namespace && <NamespaceImage />}
           />
           <Typography.Text>
             <span dangerouslySetInnerHTML={{ __html: html }} />

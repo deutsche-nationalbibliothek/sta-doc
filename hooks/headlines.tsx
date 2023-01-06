@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 import { useInitialHeadlines } from './initial-headlines';
-import { useDataSource } from './use-pagetype';
+import { useNamespace } from './use-namespace';
 
 interface HeadlinesContext {
   // headlines in document, nested structure
@@ -51,13 +51,14 @@ export default function HeadlinesProvider({ children }) {
     string[]
   >([]);
 
-  const { dataSource } = useDataSource();
+  const { namespace } = useNamespace();
 
   const [nestedHeadlines, setNestedHeadlines] = useState<NestedHeadlines[]>([]);
 
   useEffect(() => {
-    setNestedHeadlines(nestedHeadlinesCalculation(headlines, dataSource));
-  }, [headlines, dataSource]);
+    console.log(headlines,namespace)
+    setNestedHeadlines(nestedHeadlinesCalculation(headlines, namespace));
+  }, [headlines, namespace]);
 
   return (
     <HeadlineContext.Provider

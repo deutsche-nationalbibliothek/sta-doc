@@ -2,11 +2,11 @@ import { useFetchingQueryParam } from '@/hooks/fetching-query-param-provider';
 import useSWRLib from 'swr';
 
 export const useSWR = <T>(url: string) => {
-  const fetchingQueryParam = useFetchingQueryParam();
+  const { fetchingQueryParamString } = useFetchingQueryParam();
   const swr = useSWRLib<T>(
-    [url, fetchingQueryParam],
+    [url, fetchingQueryParamString],
     (apiUrl: string) =>
-      fetch(apiUrl + fetchingQueryParam).then((res) => res.json()),
+      fetch(apiUrl + fetchingQueryParamString).then((res) => res.json()),
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,

@@ -1,14 +1,14 @@
 import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { EntityPreview } from '@/entity/components/preview';
-import { useDataSource } from '@/hooks/use-pagetype';
+import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
-import { DataSource } from '@/types/data-source';
 import { Item } from '@/types/item';
-import { dataSources } from '@/utils/constants';
+import { Namespace } from '@/types/namespace';
+import { namepsaceClassification } from '@/utils/constants';
 import { PageHeader } from 'antd';
 import { useEffect } from 'react';
-import { DataSourceImage } from './datasource-image';
+import { NamespaceImage } from './namespace-image';
 
 export interface EntityIndexModel {
   label: string;
@@ -18,21 +18,18 @@ export interface EntityIndexModel {
 
 interface EntityIndexProps {
   entities: EntityIndexModel[];
-  dataSource?: DataSource;
+  namespace?: Namespace;
 }
 
-export default function EntityIndex({
-  entities,
-  dataSource,
-}: EntityIndexProps) {
-  const { setDataSource } = useDataSource();
+export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
+  const { setNamespace } = useNamespace();
 
   useEffect(() => {
-    setDataSource(dataSource);
+    setNamespace(namespace);
   }, []);
 
-  const dataSourceItems: Item[] =
-    dataSource && dataSources[dataSource.toUpperCase()];
+  const namespaceItems: Item[] =
+    namespace && namepsaceClassification[namespace.toUpperCase()];
 
   const columns: ColumnsType<EntityIndexModel> = [
     {
@@ -68,23 +65,23 @@ export default function EntityIndex({
     },
   ];
 
+  const title = `${
+    namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
+  }Index`;
+
   return (
     <>
       <PageHeader
         title={
           <Title
             headline={{
-              title: `${
-                dataSource && dataSourceItems
-                  ? dataSource.toUpperCase() + ' '
-                  : ''
-              }Index`,
+              title,
               level: 1,
-              key: 'GndIndex',
+              key: title,
             }}
           />
         }
-        extra={dataSource && <DataSourceImage />}
+        extra={namespace && <NamespaceImage />}
       />
       <Table
         columns={columns}

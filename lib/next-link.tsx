@@ -5,10 +5,11 @@ export const Link: React.FC<
   LinkProps & { children: React.ReactNode; target?: string }
 > = (props) => {
   const { children, href, ...nextLinkProps } = props;
+  const { fetchingQueryParamString } = useFetchingQueryParam();
 
   return (
     <NextLink
-      href={href.toString() + useFetchingQueryParam()}
+      href={href.toString() + fetchingQueryParamString}
       {...nextLinkProps}
     >
       {children}

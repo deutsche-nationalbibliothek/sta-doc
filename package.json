@@ -33,7 +33,6 @@
     "copy-to-clipboard": "^3.3.3",
     "jest": "29.3.1",
     "jest-environment-jsdom": "29.3.1",
-    "json-to-ts": "^1.7.0",
     "lodash": "^4.17.21",
     "next": "^13.0.5",
     "next-query-params": "^4.1.0",

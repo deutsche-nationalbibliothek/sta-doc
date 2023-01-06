@@ -1,4 +1,5 @@
 import { EntityId } from '@/types/entity-id';
+import { Namespace } from '@/types/namespace';
 import { Item } from '../types/item';
 import { Property } from '../types/property';
 
@@ -9,7 +10,6 @@ export const blacklist: {
   property: [
     Property.Schema,
     Property['Element-of'],
-    Item['collapsible-collapsed'],
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
   ],
@@ -18,10 +18,12 @@ export const blacklist: {
     Property.description,
     Property['description-(at-the-end)'],
     Property.definition,
-    Property['embedded(item)'],
-    Property['see(item)'],
-    Property['see(property)'],
-    Property['typeoflayout(embeddedelement)'],
+    Property['embedded-(item)'],
+    Property['embedded-in-(item)'],
+    Property['embedded-in-(property)'],
+    Property['see-(Item)'],
+    Property['see-(property)'],
+    Property['Type-of-layout-(embedded-element)'],
     Property['Type-of-layout'],
     Property['example(s)'],
     Property.URL,
@@ -39,7 +41,7 @@ export const isPropertyBlacklisted = (
   }
 };
 
-export const dataSources = {
+export const namepsaceClassification: Record<Namespace, Item[]> = {
   RDA: [
     Item['RDA-Guidance'],
     Item['RDA-default-value'],
@@ -73,5 +75,12 @@ export const dataSources = {
     Item['GND-data-model'],
     Item['GND-default-value'],
     Item['GND-determination'],
+  ],
+  STA: [
+    Item['STA-documentation:-rules'],
+    Item['STA-documentation:-example'],
+    Item['STA-documentation:-class'],
+    Item['STA-documentation:-Example-RDA'],
+    Item.Q9071,
   ],
 };

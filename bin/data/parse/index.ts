@@ -22,7 +22,7 @@ import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
-import { groupBy, sortBy, uniqBy } from 'lodash';
+import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
 
 export type GetRawEntityById = (
@@ -112,9 +112,9 @@ export const labelsParser = {
   de: (deLabels: LabelDeRaws) =>
     deLabels.reduce((acc, label) => {
       const strippedLabelMatch = label.elementLabel.value.match(/^[^|(]+/);
-      acc[label.eId.value as keyof LabelDes] = strippedLabelMatch
-        ? strippedLabelMatch[0]
-        : label.elementLabel.value;
+      acc[label.eId.value as keyof LabelDes] = trim(
+        strippedLabelMatch ? strippedLabelMatch[0] : label.elementLabel.value
+      );
       return acc;
     }, {} as LabelDes),
   en: (enLabels: LabelEnRaws) =>

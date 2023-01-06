@@ -1,19 +1,18 @@
 import { StringValue } from '@/types/parsed/entity';
-import { Property } from '@/types/property';
 import { Typography } from 'antd';
 
 interface StringValueProps {
   stringValue: StringValue;
-  property?: Property;
+  code?: boolean;
 }
 
 export const StringValueComponent: React.FC<StringValueProps> = ({
+  code,
   stringValue,
-  property,
 }) => {
   return (
     <>
-      <Typography.Text code={property && property === Property.Encoding}>
+      <Typography.Text code={code}>
         <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
       </Typography.Text>{' '}
     </>

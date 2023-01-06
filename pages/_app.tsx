@@ -4,7 +4,7 @@ import HeadlinesProvider from '@/hooks/headlines';
 import Layout from '@/components/layout';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
 import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
-import { DataSourceProvider } from '@/hooks/use-pagetype';
+import { NamespaceProvider } from '@/hooks/use-namespace';
 import { ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ConfigProvider locale={deDE}>
         <QueryParamProvider adapter={NextAdapter}>
           <FetchingQueryParamProvider>
-            <DataSourceProvider>
+            <NamespaceProvider>
               <InitialHeadlinesProvider>
                 <HeadlinesProvider>
                   <IsLoadingContextProvider>
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   </IsLoadingContextProvider>
                 </HeadlinesProvider>
               </InitialHeadlinesProvider>
-            </DataSourceProvider>
+            </NamespaceProvider>
           </FetchingQueryParamProvider>
         </QueryParamProvider>
       </ConfigProvider>

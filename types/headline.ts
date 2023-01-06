@@ -1,15 +1,15 @@
-import { DataSource } from './data-source';
+import { Namespace } from './namespace';
 
 export interface Headline {
   title: string;
   level: number;
   key: string;
-  dataSource?: DataSource;
+  namespace?: Namespace;
 }
 
 export interface NestedHeadlines {
   title: string;
   key: string;
-  dataSource?: DataSource;
+  namespace?: Namespace;
   children?: NestedHeadlines[];
 }

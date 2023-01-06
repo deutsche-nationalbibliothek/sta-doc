@@ -10,6 +10,7 @@ import {
 } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Table as AntdTable } from 'antd';
+import React from 'react';
 import { EntityPreview } from '../preview';
 import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
@@ -48,12 +49,12 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       ) : (
         statement.string &&
         statement.string.map((stringStatement) =>
-          stringStatement.values.map((stringValue) => {
+          stringStatement.values.map((stringValue, index) => {
             return (
               isStringValue(stringValue) && (
-                <>
+                <React.Fragment key={index}>
                   <StringValueComponent
-                    property={statement.property}
+                    code={statement.property === Property.Encoding}
                     stringValue={stringValue}
                   />
                   {stringValue.qualifiers && (
@@ -62,7 +63,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                     </>
                   )}
                   <br />
-                </>
+                </React.Fragment>
               )
             );
           })
