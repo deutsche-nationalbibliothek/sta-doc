@@ -9,12 +9,12 @@ type Url = useRouterPushParams[0];
 export const useRouter = (): UseRouter => {
   const router = useNextRouter();
 
-  const {fetchingQueryParamString} = useFetchingQueryParam();
+  const { fetchingQueryParamString } = useFetchingQueryParam();
 
   const push = useCallback(
     async (url: Url, fragment?: string) => {
       return await router.push(
-        `${url}${fetchingQueryParamString}${fragment ?? ''}`
+        `${url.toString()}${fetchingQueryParamString}${fragment ?? ''}`
       );
     },
     [fetchingQueryParamString]

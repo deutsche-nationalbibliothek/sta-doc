@@ -1,9 +1,9 @@
 import { Fetch } from '@/components/fetch';
-import { Entity } from '@/types/parsed/entity';
+import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
 
 interface FetchEntityProps {
   entityId: string;
-  children: (entity: Entity, loading: boolean) => JSX.Element;
+  children: (entityEntry: EntityEntryWithOptionalHeadlines, loading: boolean) => JSX.Element;
   showSpinner?: boolean;
 }
 
@@ -13,7 +13,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   showSpinner,
 }) => {
   return (
-    <Fetch<Entity> url={`/api/entities/${entityId}`} showSpinner={showSpinner}>
+    <Fetch<EntityEntryWithOptionalHeadlines> url={`/api/entities/${entityId}`} showSpinner={showSpinner}>
       {children}
     </Fetch>
   );

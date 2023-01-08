@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import entites from '@/data/parsed/entities.json';
+import entities from '@/data/parsed/entities.json';
 import { Entities, EntitiesEntries } from '@/types/parsed/entity';
 import { FetchingParam } from '@/hooks/fetching-query-param-provider';
 import { fetcher } from '@/bin/data/fetcher';
@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         );
       }
       if (entitiesEntries) {
-        res.status(200).json(entitiesEntries[entityId].entity);
+        res.status(200).json(entitiesEntries[entityId]);
       } else {
         console.error(
           'Live fetching did not work for entity-id',
@@ -36,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    res.status(200).json(entites[entityId as keyof Entities].entity);
+    res.status(200).json({entity: entities[entityId as keyof Entities].entity});
   }
   res.status(404);
 };

@@ -6,3 +6,5 @@ interface Indexable<T> {
 }
 
 type EmptyObject = Record<string, never>;
+
+type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;

@@ -32,7 +32,7 @@ interface PreviewProps {
 export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
   return (
     <FetchEntity entityId={entityId}>
-      {(entity) => (
+      {({entity}) => (
         <div
           style={{
             maxWidth: Math.min(window.innerWidth, 960),

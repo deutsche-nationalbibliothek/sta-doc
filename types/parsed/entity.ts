@@ -23,6 +23,8 @@ export interface EntityEntry {
   headlines: Headline[];
 }
 
+export type EntityEntryWithOptionalHeadlines = PartialBy<EntityEntry, 'headlines'>
+
 export interface PageType {
   label?: string;
   deLabel: string;

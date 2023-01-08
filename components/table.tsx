@@ -161,7 +161,7 @@ export function Table<T extends object>(props: TableProps<T>) {
       sorter:
         !noSort && !columnProps.children
           ? (a: ColumnsType<T>, b: ColumnsType<T>) =>
-              a[column.dataIndex] > b[column.dataIndex] ? 1 : -1
+            a[column.dataIndex] > b[column.dataIndex] ? 1 : -1
           : undefined,
       onFilter: (value: string, record: ColumnsType<T>) => {
         const relevantValue = get(record, column.dataIndex);

@@ -5,10 +5,15 @@ import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useRouter } from '@/lib/next-use-router';
 import { Headline } from '@/types/headline';
-import { EntityEntry, Entities } from '@/types/parsed/entity';
+import {
+  Entities,
+  EntityEntry,
+  EntityEntryWithOptionalHeadlines,
+} from '@/types/parsed/entity';
+import { isEqual } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
 interface EntityDetailsProps {
   headlines: Headline[];
@@ -45,26 +50,58 @@ export default function EntityDetailsPage({
   return (
     <>
       <FetchEntity entityId={entityId} showSpinner={false}>
-        {(entity, loading) => {
-          return (
-            <>
-              <Head>
-                {!loading && (
-                  <title>{entity.title ?? entity.headline.title}</title>
-                )}
-              </Head>
-              {loading ? (
-                <EntityPlaceholder />
-              ) : (
-                <EntityDetails entity={entity} />
-              )}
-            </>
-          );
-        }}
+        {(entityEntry, loading) => (
+          <FetchedEntity
+            entityEntry={entityEntry}
+            loading={loading}
+            setHeadlines={setHeadlines}
+          />
+        )}
       </FetchEntity>
     </>
   );
 }
+
+interface FetchedEntityProps {
+  entityEntry: EntityEntryWithOptionalHeadlines;
+  loading: boolean;
+  setHeadlines: Dispatch<SetStateAction<Headline[]>>;
+}
+
+const FetchedEntity = ({
+  entityEntry,
+  loading,
+  setHeadlines,
+}: FetchedEntityProps) => {
+  useEffect(() => {
+    if (!loading && entityEntry?.headlines) {
+      setHeadlines((currentHeadlines) => {
+        if (!isEqual(entityEntry.headlines, currentHeadlines)) {
+          return entityEntry.headlines;
+        } else {
+          return currentHeadlines;
+        }
+      });
+    }
+  }, [entityEntry?.headlines, loading]);
+
+  return (
+    <>
+      <Head>
+        {!loading && (
+          <title>
+            {entityEntry.entity.title ?? entityEntry.entity.headline.title}
+          </title>
+        )}
+      </Head>
+      {loading ? (
+        <EntityPlaceholder />
+      ) : (
+        <EntityDetails entity={entityEntry.entity} />
+      )}
+    </>
+  );
+};
 
 export const getStaticProps: GetStaticProps = (context) => {
   const { entityId } = context.params;
@@ -72,6 +109,7 @@ export const getStaticProps: GetStaticProps = (context) => {
     !Array.isArray(entityId) &&
     entityId in entities &&
     entities[entityId as keyof Entities];
+
   return (
     entityEntry &&
     entityEntry.headlines && {
