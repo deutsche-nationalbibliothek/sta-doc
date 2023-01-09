@@ -59,7 +59,10 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                   />
                   {stringValue.qualifiers && (
                     <>
-                      <Qualifiers qualifiers={stringValue.qualifiers} />
+                      <Qualifiers
+                        showHeadline={false}
+                        qualifiers={stringValue.qualifiers}
+                      />
                     </>
                   )}
                   <br />

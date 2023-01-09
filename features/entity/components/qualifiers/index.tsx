@@ -1,4 +1,5 @@
 import { Collapse } from '@/components/collapse';
+import { Title } from '@/components/title';
 import { Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Typography } from 'antd';
@@ -10,9 +11,10 @@ import { WikibasePointers } from '../wikibase-pointers';
 
 interface QualifiersProps {
   qualifiers: Statement[];
+  showHeadline?: boolean
 }
 
-export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
+export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers, showHeadline = true }) => {
   const noOp = () => null;
 
   const qualifierMap = {
@@ -39,25 +41,34 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers }) => {
         />
       );
     },
-    [Property['Introduction-text']]: (qualifier:Statement) => {
+    [Property['Introduction-text']]: (qualifier: Statement) => {
       return (
-      <Collapse
-          labelClosed={qualifier.label}
-        >
-          <StringStatement property={qualifier.property} statement={qualifier.string} />
-      </Collapse>
-      )
+        <Collapse labelClosed={qualifier.label}>
+          <StringStatement
+            property={qualifier.property}
+            statement={qualifier.string}
+          />
+        </Collapse>
+      );
     },
     default: (qualifier: Statement) => {
-      return qualifier.string ? (
-        <Typography.Paragraph>
-          <Typography.Text strong>{qualifier.label}:</Typography.Text>
-          <StringStatement property={qualifier.property} statement={qualifier.string} />
-        </Typography.Paragraph>
-      ) : (
-        qualifier.wikibasePointer && (
-          <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
-        )
+      return (
+        <>
+          {showHeadline && qualifier.headline && <Title headline={qualifier.headline} />}
+          {qualifier.string ? (
+            <Typography.Paragraph>
+              <Typography.Text strong>{qualifier.label}:</Typography.Text>
+              <StringStatement
+                property={qualifier.property}
+                statement={qualifier.string}
+              />
+            </Typography.Paragraph>
+          ) : (
+            qualifier.wikibasePointer && (
+              <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
+            )
+          )}
+        </>
       );
     },
   };
