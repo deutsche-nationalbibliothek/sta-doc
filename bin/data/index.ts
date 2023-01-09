@@ -1,5 +1,10 @@
+import { EntityId } from '../../types/entity-id';
 import { API_URL, fetcher } from './fetch';
 import {
+  codingsParser,
+  entitiesParser,
+  labelsParser,
+  notationsParser,
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
 } from './parse';
@@ -23,6 +28,26 @@ export const DEV = false;
     writer(data, DataState.parsed).writeAll();
   };
 
+  const parseSingleEntity = (entityId: EntityId) => {
+    console.log(
+      'parsed Values will not get written, used just for runtime debugging'
+    );
+    const read = reader(DataState.raw);
+    entitiesParser.single(
+      entityId,
+      read.entities.single(entityId),
+      (entityId: EntityId) => {
+        return Promise.resolve(read.entities.single(entityId));
+      },
+      {
+        lookup_de: labelsParser.de(read.labels.de()),
+        lookup_en: labelsParser.en(read.labels.en()),
+        codings: codingsParser(read.codings()),
+        notations: notationsParser(read.notations()),
+      }
+    );
+  };
+
   if (process.argv.length === 2) {
     await fetchRawAndWrite();
     parseRawAndWriteParsed();
@@ -32,7 +57,11 @@ export const DEV = false;
         await fetchRawAndWrite();
         break;
       case 'parse':
-        parseRawAndWriteParsed();
+        if (process.argv[3]) {
+          parseSingleEntity(process.argv[3] as EntityId);
+        } else {
+          parseRawAndWriteParsed();
+        }
         break;
       case 'fetch-properties-items':
         propertiesItemsListWriter(
