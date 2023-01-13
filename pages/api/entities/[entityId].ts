@@ -51,7 +51,7 @@ const getLiveEntity = async (
   const prefetched = {};
 
   await prefetchEmbeddedEntities({
-    entityId: entityId as EntityId,
+    entityId,
     getRawEntityById: async (entityId: EntityId) => {
       const fetchedEntity = await fetch.entities.single(entityId);
       prefetched[entityId] = fetchedEntity;
@@ -59,7 +59,7 @@ const getLiveEntity = async (
     },
   });
 
-  const entity = prefetched[entityId]
+  const entity = prefetched[entityId];
   if (entity) {
     const lookup_en = labelsParser.en(await fetch.labels.en());
     const lookup_de = labelsParser.de(await fetch.labels.de());

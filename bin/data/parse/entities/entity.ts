@@ -331,8 +331,7 @@ export const parseRawEntity = ({
         return parsedStatements.map(stringMapper);
       };
 
-      const nextHeaderLevel =
-        currentHeadlineLevel + (entityHasHeadline ? 1 : 0);
+      const nextHeaderLevel = currentHeadlineLevel + 1;
 
       const enrichedParsedStatementProps = {
         header: parseStatementProps(
