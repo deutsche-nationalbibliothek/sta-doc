@@ -36,9 +36,7 @@ export const DEV = false;
     entitiesParser.single(
       entityId,
       read.entities.single(entityId),
-      (entityId: EntityId) => {
-        return Promise.resolve(read.entities.single(entityId));
-      },
+      (entityId: EntityId) => read.entities.single(entityId),
       {
         lookup_de: labelsParser.de(read.labels.de()),
         lookup_en: labelsParser.en(read.labels.en()),

@@ -7,6 +7,7 @@ import { API_URL } from '@/bin/data/fetch';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import { codingsParser, labelsParser, notationsParser } from '@/bin/data/parse';
+import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { entityId, live } = req.query;
@@ -36,7 +37,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    res.status(200).json({entity: entities[entityId as keyof Entities].entity});
+    res
+      .status(200)
+      .json({ entity: entities[entityId as keyof Entities].entity });
   }
   res.status(404);
 };
@@ -45,9 +48,18 @@ const getLiveEntity = async (
   fetch: ReturnType<typeof fetcher>,
   entityId: EntityId
 ) => {
-  const getRawEntityById = async (id: EntityId) =>
-    await fetch.entities.single(id);
-  const entity = await getRawEntityById(entityId);
+  const prefetched = {};
+
+  await prefetchEmbeddedEntities({
+    entityId: entityId as EntityId,
+    getRawEntityById: async (entityId: EntityId) => {
+      const fetchedEntity = await fetch.entities.single(entityId);
+      prefetched[entityId] = fetchedEntity;
+      return fetchedEntity;
+    },
+  });
+
+  const entity = prefetched[entityId]
   if (entity) {
     const lookup_en = labelsParser.en(await fetch.labels.en());
     const lookup_de = labelsParser.de(await fetch.labels.de());
@@ -56,7 +68,7 @@ const getLiveEntity = async (
 
     return await parseEntities({
       rawEntities: { [entityId]: entity },
-      getRawEntityById,
+      getRawEntityById: (id: EntityId) => prefetched[id],
       data: {
         lookup_en,
         lookup_de,

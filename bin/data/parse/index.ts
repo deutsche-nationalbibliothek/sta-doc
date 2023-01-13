@@ -25,9 +25,7 @@ import { parseEntities, ParseEntitiesData } from './entities';
 import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
 
-export type GetRawEntityById = (
-  entityId: EntityId
-) => Promise<EntityRaw | void>;
+export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
 const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
   console.log('\tParsing', name.type);
@@ -161,7 +159,7 @@ export const codingsParser = (codings: CodingsRaw) => {
           );
       }
     } else {
-      console.warn('Coding without codingTypeLabel', coding.eId.value);
+      // console.warn('Coding without codingTypeLabel', coding.eId.value);
     }
     return acc;
   }, {} as Codings);
@@ -205,9 +203,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
   entities: {
     all: entitiesParser.all(
       read.entities.all(),
-      (entityId: EntityId) => {
-        return Promise.resolve(read.entities.single(entityId));
-      },
+      (entityId: EntityId) => read.entities.single(entityId),
       {
         lookup_de: labelsParser.de(read.labels.de()),
         lookup_en: labelsParser.en(read.labels.en()),

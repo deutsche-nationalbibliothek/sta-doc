@@ -1,4 +1,4 @@
-import { Namespace } from '@/types/namespace';
+import { Namespace } from '../../../../types/namespace';
 import slugify from 'slugify';
 import { ParseEntitiesProps } from '.';
 import { EntityId } from '../../../../types/entity-id';
@@ -41,7 +41,7 @@ interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
   embedded?: boolean;
 }
 
-export const parseRawEntity = async ({
+export const parseRawEntity = ({
   entityId,
   data,
   getRawEntityById,
@@ -49,10 +49,12 @@ export const parseRawEntity = async ({
   currentHeadlineLevel = 1,
   prevParsedEntities = [],
   embedded = false,
-}: ParseEntityProps): Promise<EntityEntry | undefined> => {
+}: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
+
   const { lookup_de, lookup_en, codings, notations } = data;
-  const entity = await getRawEntityById(entityId);
+
+  const entity = getRawEntityById(entityId);
 
   if (!entity) {
     console.warn(
@@ -98,7 +100,7 @@ export const parseRawEntity = async ({
     return headline;
   };
 
-  const entityProps = async (): Promise<Entity> => {
+  const entityProps = (): Entity => {
     const elementOfId: Item =
       entity &&
       entity.claims[Property['Element-of']] &&
@@ -111,9 +113,9 @@ export const parseRawEntity = async ({
 
     const entityHasHeadline = !embedded && !isPropertyBlacklisted(entityId);
 
-    const statementProps = async (
+    const statementProps = (
       occurrences: Record<EntityId, Claim[]>
-    ): Promise<StatementsByGroup> => {
+    ): StatementsByGroup => {
       const filterByGroup = (group: Group) =>
         groupsDefinition[group]
           .map((propertyKey) => occurrences[propertyKey])
@@ -127,11 +129,11 @@ export const parseRawEntity = async ({
             : -1
         );
 
-      const parseStatementProps = async (
+      const parseStatementProps = (
         statements: StatementRaw[][] | Claim[][],
         currentHeadlineLevel: number,
         { embeddedStatement = false, isTopLevel = false, noHeadline = false }
-      ): Promise<Statement[]> => {
+      ): Statement[] => {
         const keyAccess = <T>(
           occ: any, //Claim | StatementRaw,
           ...propertyPath: string[]
@@ -142,7 +144,7 @@ export const parseRawEntity = async ({
           ) as T;
         };
 
-        const parseReferences = async (references: Reference[]) => {
+        const parseReferences = (references: Reference[]) => {
           const o = references
             .map((ref) =>
               Object.keys(ref.snaks).map(
@@ -150,7 +152,7 @@ export const parseRawEntity = async ({
               )
             )
             .flat() as StatementRaw[][];
-          return await parseStatementProps(o, currentHeadlineLevel, {
+          return parseStatementProps(o, currentHeadlineLevel, {
             embeddedStatement: true,
             isTopLevel,
             noHeadline,
@@ -162,6 +164,7 @@ export const parseRawEntity = async ({
           currentHeadlineLevel: number
         ): Omit<WikiBaseValue, keyof CommonValue> => {
           const id = keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
+          // console.log('parseWikibaseValue', id);
           const hasHeadline =
             isTopLevel &&
             !isPropertyBlacklisted(id) &&
@@ -200,6 +203,7 @@ export const parseRawEntity = async ({
             occ['qualifiers-order'] &&
             occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
               ?.value?.id;
+
           const headingIndex = headings.findIndex(
             (heading) => heading === itemType
           );
@@ -229,8 +233,8 @@ export const parseRawEntity = async ({
           };
         };
 
-        const parsedStatements: PreMappedStatement[] = await Promise.all(
-          statements.map(async (occs) => {
+        const parsedStatements: PreMappedStatement[] = statements.map(
+          (occs) => {
             const dataType = keyAccess<string>(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -248,82 +252,81 @@ export const parseRawEntity = async ({
                 ? addHeadline(label, currentHeadlineLevel, noHeadline)
                 : undefined,
               property,
-              [simplifiedDataType]: await Promise.all(
-                occs.map(async (occ) => {
-                  const snakType = keyAccess<string>(occ, 'snaktype');
-                  if (snakType === 'novalue') {
-                    return { noValue: true };
-                  } else if (snakType === 'somevalue') {
-                    return { unknownValue: true };
-                  }
-                  const propertyId = keyAccess<Property>(occ, 'property');
-                  const embeddedEntityId = keyAccess<EntityId>(
-                    occ,
-                    'datavalue',
-                    'value',
-                    'id'
-                  );
+              [simplifiedDataType]: occs.map((occ) => {
+                const snakType = keyAccess<string>(occ, 'snaktype');
+                if (snakType === 'novalue') {
+                  return { noValue: true };
+                } else if (snakType === 'somevalue') {
+                  return { unknownValue: true };
+                }
 
-                  const hasEmbedding =
-                    (propertyId === Property['example(s)'] ||
-                      propertyId === Property['embedded-(item)'] ||
-                      propertyId === Property['embedded-(property)']) &&
-                    !prevParsedEntities.some((id) => id === embeddedEntityId);
+                const value = keyAccess<string>(occ, 'datavalue', 'value');
+                const propertyId = keyAccess<Property>(occ, 'property');
+                const embeddedEntityId = keyAccess<EntityId>(
+                  occ,
+                  'datavalue',
+                  'value',
+                  'id'
+                );
 
-                  const nextHeaderLevel =
-                    currentHeadlineLevel + (hasHeadline ? 1 : 0);
+                const hasEmbedding =
+                  (propertyId === Property['example(s)'] ||
+                    propertyId === Property['embedded-(item)'] ||
+                    propertyId === Property['embedded-(property)']) &&
+                  !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-                  const dataTypeSpecifics =
-                    simplifiedDataType === 'wikibasePointer'
-                      ? parseWikibaseValue(occ, nextHeaderLevel)
-                      : simplifiedDataType === 'time'
-                      ? parseTimeValue(occ)
-                      : simplifiedDataType === 'url'
-                      ? parseUrlValue(occ)
-                      : parseStringValue(occ, nextHeaderLevel);
+                const nextHeaderLevel =
+                  currentHeadlineLevel + (hasHeadline ? 1 : 0);
 
-                  return {
-                    ...dataTypeSpecifics,
-                    references:
-                      'references' in occ && occ.references
-                        ? await parseReferences(occ.references)
-                        : undefined,
-                    embedded: hasEmbedding
-                      ? (
-                          await parseRawEntity({
-                            entityId: embeddedEntityId,
-                            headlines,
-                            currentHeadlineLevel: nextHeaderLevel,
-                            prevParsedEntities: [
-                              ...prevParsedEntities,
-                              entityId,
-                            ],
-                            embedded: true,
-                            data,
-                            getRawEntityById,
-                          })
-                        )?.entity
+                const embedded = hasEmbedding
+                  ? parseRawEntity({
+                      entityId: embeddedEntityId,
+                      headlines,
+                      currentHeadlineLevel: nextHeaderLevel,
+                      prevParsedEntities: [...prevParsedEntities, entityId],
+                      embedded: true,
+                      data,
+                      getRawEntityById,
+                    })?.entity
+                  : undefined;
+
+                const dataTypeSpecifics =
+                  simplifiedDataType === 'wikibasePointer'
+                    ? parseWikibaseValue(occ, nextHeaderLevel)
+                    : simplifiedDataType === 'time'
+                    ? parseTimeValue(occ)
+                    : simplifiedDataType === 'url'
+                    ? parseUrlValue(occ)
+                    : parseStringValue(occ, nextHeaderLevel);
+
+                const qualifiers =
+                  'qualifiers' in occ && occ.qualifiers
+                    ? parseStatementProps(
+                        (Object.keys(occ.qualifiers) as Property[]).map(
+                          (qualiKey) =>
+                            (occ as Required<Claim>).qualifiers[qualiKey]
+                        ),
+                        nextHeaderLevel,
+                        {
+                          embeddedStatement: true,
+                          isTopLevel,
+                          noHeadline,
+                        }
+                      )
+                    : undefined;
+
+                return {
+                  ...dataTypeSpecifics,
+                  references:
+                    'references' in occ && occ.references
+                      ? parseReferences(occ.references)
                       : undefined,
-                    qualifiers:
-                      'qualifiers' in occ && occ.qualifiers
-                        ? await parseStatementProps(
-                            (Object.keys(occ.qualifiers) as Property[]).map(
-                              (qualiKey) =>
-                                (occ as Required<Claim>).qualifiers[qualiKey]
-                            ),
-                            nextHeaderLevel,
-                            {
-                              embeddedStatement: true,
-                              isTopLevel,
-                              noHeadline,
-                            }
-                          )
-                        : undefined,
-                  };
-                })
-              ),
+                  embedded,
+                  qualifiers,
+                };
+              }),
             };
-          })
+          }
         );
         return parsedStatements.map(stringMapper);
       };
@@ -332,14 +335,14 @@ export const parseRawEntity = async ({
         currentHeadlineLevel + (entityHasHeadline ? 1 : 0);
 
       const enrichedParsedStatementProps = {
-        header: await parseStatementProps(
+        header: parseStatementProps(
           sortByProperties(filterByGroup('header'), 'header'),
           nextHeaderLevel,
           {
             isTopLevel: !embedded,
           }
         ),
-        table: await parseStatementProps(
+        table: parseStatementProps(
           sortByProperties(filterByGroup('table'), 'table'),
           nextHeaderLevel,
           {
@@ -347,7 +350,7 @@ export const parseRawEntity = async ({
             noHeadline: true,
           }
         ),
-        text: await parseStatementProps(
+        text: parseStatementProps(
           sortByProperties(
             // filter props from groupsDefinition header
             Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
@@ -394,7 +397,7 @@ export const parseRawEntity = async ({
           } as PageType)
         : undefined,
       notation: notations[entityId]?.notation,
-      statements: await statementProps(entity.claims),
+      statements: statementProps(entity.claims),
       // logo:
       //   !embedded &&
       //   entity.claims[Property.logo],
@@ -402,7 +405,7 @@ export const parseRawEntity = async ({
   };
 
   const parsedEntity = {
-    ...(await entityProps()),
+    ...entityProps(),
   };
 
   return { entity: parsedEntity, headlines };

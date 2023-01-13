@@ -1,3 +1,4 @@
+import { EntityId } from '../../../types/entity-id';
 import { API_URL } from '../fetch';
 
 // ---ENTRIES--- all wikibase entities, which are nessecary to render DOKU pages
@@ -18,6 +19,7 @@ export const ENTITY_INDEX = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -37,6 +39,7 @@ export const RDAPROPERTIES = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const RDARULES = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -60,6 +63,7 @@ export const RDARULES = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const FIELDS = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -83,6 +87,7 @@ export const FIELDS = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const SUBFIELDS = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -106,6 +111,7 @@ export const SUBFIELDS = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const CODINGS = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -124,6 +130,7 @@ export const CODINGS = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const CODINGSEXTRA = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -148,6 +155,7 @@ export const CODINGSEXTRA = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 export const NOTATIONS = (apiUrl: API_URL) => `
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -309,6 +317,7 @@ export const DESCRIPTIONS = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+
 // export export const LABELEN = (apiUrl: API_URL) => `
 // PREFIX wd: <http://www.wikidata.org/entity/>
 // PREFIX wdt: <http://www.wikidata.org/prop/direct/>

@@ -30,7 +30,7 @@ export const parseEntities = async ({
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = await keys.reduce(
     async (acc, entityId: EntityId) => {
-      const entityEntry = await parseRawEntity({
+      const entityEntry = parseRawEntity({
         entityId,
         data,
         getRawEntityById,
