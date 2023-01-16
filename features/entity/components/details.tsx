@@ -8,6 +8,8 @@ import { NamespaceImage } from './namespace-image';
 import { PageHeader, Typography } from 'antd';
 import { Entity, isStringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { Item } from '@/types/item';
+import { RdaRessourceTypeEntity } from './rda-ressource-type';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -28,15 +30,19 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     return onResetNamespace;
   }, [embedded, entity.pageType?.id]);
 
-  const staNotation = entity.statements.header.find(
+  const staNotationStatement = entity.statements.header.find(
     (s) => s.property === Property['STA-Notation']
   );
 
-  const staNotationInfo = staNotation &&
-    isStringValue(staNotation.string[0].values[0]) && {
-    label: staNotation.label,
-    value: staNotation.string[0].values[0].value,
+  const staNotationInfo = staNotationStatement &&
+    isStringValue(staNotationStatement.string[0].values[0]) && {
+    label: staNotationStatement.label,
+    value: staNotationStatement.string[0].values[0].value,
   };
+
+  const elementsStatement = entity.statements.text.find(
+    (statement) => statement.property === Property.Elements
+  );
 
   return (
     <>
@@ -63,17 +69,24 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
           }
         />
       )}
-      {entity.statements.header.length > 0 && (
-        <Statements statements={entity.statements.header} />
-      )}
-      {entity.statements.table.length > 0 && (
-        <TableStatements
-          pageType={entity.pageType}
-          statements={entity.statements.table}
-        />
-      )}
-      {entity.statements.text.length > 0 && (
-        <Statements statements={entity.statements.text} />
+
+      {entity.pageType.id === Item['RDA-Ressource-Type'] &&
+        elementsStatement ? (
+        <RdaRessourceTypeEntity entity={entity} />
+      ) : (
+        <>
+          {entity.statements.header.length > 0 && (
+            <Statements statements={entity.statements.header} />
+          )}
+          {entity.statements.table.length > 0 && (
+            <TableStatements
+              statements={entity.statements.table}
+            />
+          )}
+          {entity.statements.text.length > 0 && (
+            <Statements statements={entity.statements.text} />
+          )}
+        </>
       )}
     </>
   );
