@@ -46,9 +46,9 @@ export const namepsaceClassification: Record<Namespace, Item[]> = {
     Item['RDA-Guidance'],
     Item['RDA-default-value'],
     Item['RDA-property'],
-    Item['rda-example'],
-    Item['rda-documentation'],
-    Item['rda-ressourcetype'],
+    Item['RDA-Example'],
+    Item['RDA-documentation'],
+    Item['RDA-Ressource-Type'],
   ],
   GND: [
     Item['GND-cataloging-level'],

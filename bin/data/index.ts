@@ -5,6 +5,7 @@ import {
   entitiesParser,
   labelsParser,
   notationsParser,
+  staNotationsParser,
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
 } from './parse';
@@ -42,6 +43,7 @@ export const DEV = false;
         lookup_en: labelsParser.en(read.labels.en()),
         codings: codingsParser(read.codings()),
         notations: notationsParser(read.notations()),
+        staNotations: staNotationsParser(read.staNotations()),
       }
     );
   };

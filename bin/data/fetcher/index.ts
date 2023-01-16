@@ -1,3 +1,4 @@
+import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
@@ -59,6 +60,10 @@ export const labelsFetcher = {
     await wikiBase(apiUrl).sparqlQuery<LabelEnRaws>(sparql.LABELEN(apiUrl)),
 };
 
+export const staNotationsFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
+    sparql.STA_NOTATIONS(apiUrl)
+  );
 export const notationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.NOTATIONS(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
@@ -88,6 +93,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     en: async () => await labelsFetcher.en(apiUrl),
   };
 
+  const staNotations = async () => await staNotationsFetcher(apiUrl);
   const notations = async () => await notationsFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
   const descriptions = async () => await descriptionsFetcher(apiUrl);
@@ -103,6 +109,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
         de: await labels.de(),
         en: await labels.en(),
       },
+      staNotations: await staNotations(),
       notations: await notations(),
       codings: await codings(),
       descriptions: await descriptions(),
@@ -117,6 +124,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     entities,
     fields,
     labels,
+    staNotations,
     notations,
     codings,
     fetchAll,

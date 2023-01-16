@@ -52,7 +52,7 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, notations } = data;
+  const { lookup_de, lookup_en, codings, notations, staNotations } = data;
 
   const entity = getRawEntityById(entityId);
 
@@ -161,7 +161,8 @@ export const parseRawEntity = ({
 
         const parseWikibaseValue = (
           occ: Claim | StatementRaw,
-          currentHeadlineLevel: number
+          currentHeadlineLevel: number,
+          addStaStatement = false
         ): Omit<WikiBaseValue, keyof CommonValue> => {
           const id = keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
           // console.log('parseWikibaseValue', id);
@@ -178,6 +179,10 @@ export const parseRawEntity = ({
               : undefined,
             label: lookup_de[id],
             link: `/entities/${id}`,
+            staNotationLabel:
+              addStaStatement && id in staNotations
+                ? staNotations[id].label.toUpperCase()
+                : undefined,
             coding: codings[id],
           };
         };
@@ -246,6 +251,7 @@ export const parseRawEntity = ({
             const label = lookup_de[property];
             const hasHeadline = isTopLevel && !isPropertyBlacklisted(property);
 
+            console.log('parseStatement property', property);
             return {
               label,
               headline: hasHeadline
@@ -292,7 +298,11 @@ export const parseRawEntity = ({
 
                 const dataTypeSpecifics =
                   simplifiedDataType === 'wikibasePointer'
-                    ? parseWikibaseValue(occ, nextHeaderLevel)
+                    ? parseWikibaseValue(
+                        occ,
+                        nextHeaderLevel,
+                        property === Property.Elements
+                      )
                     : simplifiedDataType === 'time'
                     ? parseTimeValue(occ)
                     : simplifiedDataType === 'url'

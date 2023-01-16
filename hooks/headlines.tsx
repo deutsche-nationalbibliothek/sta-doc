@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import { useInitialHeadlines } from './initial-headlines';
+import { useApplicationProfileQueryParam } from './use-application-profile-query-param-provider';
 import { useNamespace } from './use-namespace';
 
 interface HeadlinesContext {
@@ -23,6 +24,9 @@ interface HeadlinesContext {
   // headline keys which are currently in viewport
   headlineKeysInViewport: string[];
   setHeadlineKeysInViewport: Dispatch<SetStateAction<string[]>>;
+
+  showHeadlines: boolean;
+  setShowHeadlines: Dispatch<SetStateAction<boolean>>;
 }
 
 // param is only used for typing context
@@ -51,12 +55,15 @@ export default function HeadlinesProvider({ children }) {
     string[]
   >([]);
 
+  const { view } = useApplicationProfileQueryParam();
+  const [showHeadlines, setShowHeadlines] = useState(!view);
+
   const { namespace } = useNamespace();
 
   const [nestedHeadlines, setNestedHeadlines] = useState<NestedHeadlines[]>([]);
 
   useEffect(() => {
-    console.log(headlines,namespace)
+    console.log(headlines, namespace);
     setNestedHeadlines(nestedHeadlinesCalculation(headlines, namespace));
   }, [headlines, namespace]);
 
@@ -68,6 +75,8 @@ export default function HeadlinesProvider({ children }) {
         setCurrentHeadlinesPath,
         headlineKeysInViewport,
         setHeadlineKeysInViewport,
+        showHeadlines,
+        setShowHeadlines,
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 import { Title } from '@/components/title';
+import { useHeadlines } from '@/hooks/headlines';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import {
   Entity,
@@ -12,11 +13,13 @@ import { groupBy } from 'lodash';
 import Link from 'next/link';
 import React from 'react';
 import { useEffect } from 'react';
+import { ApplicationProfile } from './application-profile';
 import { EntityPreview } from './preview';
 import { Qualifiers } from './qualifiers';
 
 interface RdaRessourceTypeEntityProps {
   entity: Entity;
+  view?: 'application-profile';
 }
 
 interface RdaWikibaseValue extends WikiBaseValue {
@@ -29,8 +32,14 @@ interface RdaWikibaseValue extends WikiBaseValue {
 
 export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   entity,
+  view,
 }) => {
   const { setHeadlines } = useInitialHeadlines();
+  const { setShowHeadlines } = useHeadlines();
+
+  const elementsStatement = entity.statements.text.find(
+    (statement) => statement.property === Property.Elements
+  );
 
   // const statements = [
   //   ...entity.statements.header,
@@ -64,10 +73,6 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   //     (acc, statement) => ({ ...acc, [statement.property]: statement }),
   //     {}
   //   );
-
-  const elementsStatement = entity.statements.text.find(
-    (statement) => statement.property === Property.Elements
-  );
 
   const wikibasePointerQualifiersFilter = (qualifier: Statement) => {
     const qualifiersWhiteList = [
@@ -141,9 +146,18 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     []
   );
 
+  const isApplicationProfileView = view === 'application-profile';
+
   useEffect(() => {
-    setHeadlines(headlines);
-  }, []);
+    if (!isApplicationProfileView) {
+      setHeadlines(headlines);
+    }
+    setShowHeadlines(!isApplicationProfileView);
+  }, [isApplicationProfileView]);
+
+  if (isApplicationProfileView) {
+    return <ApplicationProfile statement={elementsStatement} />;
+  }
 
   return (
     <>
@@ -169,6 +183,11 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                       <Col span={12}>
                         {wikibasePointer.qualifiersMeta.status.label}:{' '}
                         {
+                          // todo, is already filtered by typescript complains
+                          isWikibaseValue(
+                            wikibasePointer.qualifiersMeta.status
+                              .wikibasePointer[0]
+                          ) &&
                           wikibasePointer.qualifiersMeta.status
                             .wikibasePointer[0].label
                         }
@@ -177,10 +196,12 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                     {wikibasePointer.qualifiersMeta.repetition && (
                       <Col span={12}>
                         {wikibasePointer.qualifiersMeta.repetition.label}:{' '}
-                        {
+                        {isWikibaseValue(
                           wikibasePointer.qualifiersMeta.repetition
-                            .wikibasePointer[0].label
-                        }
+                            .wikibasePointer[0]
+                        ) &&
+                          wikibasePointer.qualifiersMeta.repetition
+                            .wikibasePointer[0].label}
                       </Col>
                     )}
                   </Row>

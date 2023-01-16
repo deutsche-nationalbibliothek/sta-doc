@@ -5,6 +5,7 @@ import { EntitiesEntries } from '../../../../types/parsed/entity';
 import { LabelDes } from '../../../../types/parsed/label-de';
 import { LabelEns } from '../../../../types/parsed/label-en';
 import { Notations } from '../../../../types/parsed/notation';
+import { StaNotations } from '../../../../types/parsed/sta-notation';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
 
@@ -18,6 +19,7 @@ export interface ParseEntitiesData {
   lookup_en: LabelEns;
   lookup_de: LabelDes;
   codings: Codings;
+  staNotations: StaNotations;
   notations: Notations;
 }
 

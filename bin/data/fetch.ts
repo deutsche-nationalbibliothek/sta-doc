@@ -57,6 +57,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     en: async () => await sparqlQuery(sparql.LABELEN(apiUrl)),
   };
 
+  const staNotations = async () => await sparqlQuery(sparql.STA_NOTATIONS(apiUrl));
   const notations = async () => await sparqlQuery(sparql.NOTATIONS(apiUrl));
   const codings = async () => await sparqlQuery(sparql.CODINGS(apiUrl));
   const descriptions = async () =>
@@ -77,6 +78,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
       },
       entities: { all: await entities.all() },
       fields: await fields(),
+      staNotations: await staNotations(),
       notations: await notations(),
       codings: await codings(),
       descriptions: await descriptions(),

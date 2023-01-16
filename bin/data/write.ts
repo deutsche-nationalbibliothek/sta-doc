@@ -29,6 +29,8 @@ export const writer = (
     en: () => writeJSONFileAndType(data.labels.en, NAMES.labelEn, dataState),
   };
 
+  const staNotations = () =>
+    writeJSONFileAndType(data.staNotations, NAMES.staNotation, dataState);
   const notations = () =>
     writeJSONFileAndType(data.notations, NAMES.notation, dataState);
   const codings = () => {
@@ -46,6 +48,7 @@ export const writer = (
     fields();
     labels.de();
     labels.en();
+    staNotations();
     notations();
     codings();
     descriptions();

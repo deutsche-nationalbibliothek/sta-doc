@@ -99,6 +99,7 @@ export interface WikiBaseValue extends CommonValue {
   link: string;
   coding?: Coding;
   headline?: Headline;
+  staNotationLabel?: string;
 }
 
 // export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue

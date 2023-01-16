@@ -32,7 +32,7 @@ interface Aliases {
   de?: De[];
 }
 
-export interface Claim extends Indexable<Claim> {
+export interface Claim {
   mainsnak: StatementRaw;
   type: string;
   id: string;
@@ -61,4 +61,4 @@ export interface Reference {
   'snaks-order': string[];
 }
 
-interface Sitelinks {}
+interface Sitelinks { }

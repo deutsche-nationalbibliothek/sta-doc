@@ -67,7 +67,10 @@ export function Table<T extends object>(props: TableProps<T>) {
     setSearchTexts((searchTexts) => ({ ...searchTexts, [dataIndex]: '' }));
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<T> => ({
+  const getColumnSearchProps = (
+    dataIndex: DataIndex,
+    key: string
+  ): ColumnType<T> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -77,7 +80,7 @@ export function Table<T extends object>(props: TableProps<T>) {
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
-          placeholder={`Suche ${String(dataIndex)}`}
+          placeholder={`Suche ${String(key)}`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -134,7 +137,7 @@ export function Table<T extends object>(props: TableProps<T>) {
     if (isSearchable && 'dataIndex' in column) {
       columnProps = {
         ...columnProps,
-        ...getColumnSearchProps(column.dataIndex),
+        ...getColumnSearchProps(column.dataIndex, column.key),
       };
     }
     if (render && 'dataIndex' in column && 'render' in column) {
@@ -161,7 +164,7 @@ export function Table<T extends object>(props: TableProps<T>) {
       sorter:
         !noSort && !columnProps.children
           ? (a: ColumnsType<T>, b: ColumnsType<T>) =>
-            a[column.dataIndex] > b[column.dataIndex] ? 1 : -1
+              a[column.dataIndex] > b[column.dataIndex] ? 1 : -1
           : undefined,
       onFilter: (value: string, record: ColumnsType<T>) => {
         const relevantValue = get(record, column.dataIndex);

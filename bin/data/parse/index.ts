@@ -24,14 +24,20 @@ import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
 import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
+import { StaNotationsRaw } from '@/types/raw/sta-notation';
+import { StaNotations } from '@/types/parsed/sta-notation';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
-const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
+const commonParseFunc = <T extends any[], K>(
+  data: T,
+  name: Name,
+  key = 'elementLabel'
+): K => {
   console.log('\tParsing', name.type);
   const parsedData = data.reduce((acc: any, entry: any) => {
     acc[entry.eId.value] = {
-      label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
+      label: entry[key].value.toLowerCase().split(' ').join(''),
       assignmentId: entry.assignmentId?.value,
       assignmentLabel: entry.assignmentLabel?.value,
       id: entry.eId.value,
@@ -172,6 +178,14 @@ export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
   );
 };
 
+export const staNotationsParser = (staNotations: StaNotationsRaw) => {
+  return commonParseFunc<StaNotationsRaw, StaNotations>(
+    staNotations,
+    NAMES.staNotation,
+    'staNotationLabel'
+  );
+};
+
 // todo, needed?
 // export const rdaRulesParser = () =>
 //   commonParseFunc<RdaRuleRaw[], RdaRules>(
@@ -209,11 +223,13 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
         lookup_en: labelsParser.en(read.labels.en()),
         codings: codingsParser(read.codings()),
         notations: notationsParser(read.notations()),
+        staNotations: staNotationsParser(read.staNotations()),
       }
     ),
     index: entitiesParser.index(read.entities.index()),
   },
   fields: fieldsParser(read.fields()),
+  staNotations: staNotationsParser(read.staNotations()),
   notations: notationsParser(read.notations()),
   codings: codingsParser(read.codings()),
   descriptions: descriptionsParser(read.descriptions()),

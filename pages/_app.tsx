@@ -11,27 +11,30 @@ import InitialHeadlinesProvider from '@/hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
 import FetchingQueryParamProvider from '@/hooks/fetching-query-param-provider';
+import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ConfigProvider locale={deDE}>
         <QueryParamProvider adapter={NextAdapter}>
-          <FetchingQueryParamProvider>
-            <NamespaceProvider>
-              <InitialHeadlinesProvider>
-                <HeadlinesProvider>
-                  <IsLoadingContextProvider>
-                    <CodingsPreferencesProvider>
-                      <Layout>
-                        <Component {...pageProps} />
-                      </Layout>
-                    </CodingsPreferencesProvider>
-                  </IsLoadingContextProvider>
-                </HeadlinesProvider>
-              </InitialHeadlinesProvider>
-            </NamespaceProvider>
-          </FetchingQueryParamProvider>
+          <ApplicationProfileQueryParamProvider>
+            <FetchingQueryParamProvider>
+              <NamespaceProvider>
+                <InitialHeadlinesProvider>
+                  <HeadlinesProvider>
+                    <IsLoadingContextProvider>
+                      <CodingsPreferencesProvider>
+                        <Layout>
+                          <Component {...pageProps} />
+                        </Layout>
+                      </CodingsPreferencesProvider>
+                    </IsLoadingContextProvider>
+                  </HeadlinesProvider>
+                </InitialHeadlinesProvider>
+              </NamespaceProvider>
+            </FetchingQueryParamProvider>
+          </ApplicationProfileQueryParamProvider>
         </QueryParamProvider>
       </ConfigProvider>
     </>
