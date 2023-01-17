@@ -10,8 +10,10 @@ interface ParseEntityProps {
   getRawEntityById: (entityId: EntityId) => Promise<EntityRaw | void>;
 }
 
-// this function parses an entity and calls getRawEntityById for any embedded-
-// entity found. It has a lot in common with ./entity.ts
+/**
+ * this function parses an entity and calls getRawEntityById for any embedded-
+ * entity found. It has a lot in common with ./entity.ts
+ */
 export const prefetchEmbeddedEntities = async ({
   entityId,
   getRawEntityById,
@@ -71,11 +73,11 @@ export const prefetchEmbeddedEntities = async ({
               const qualifiersEmbeddedIds =
                 'qualifiers' in occ && occ.qualifiers
                   ? parseStatementProps(
-                      (Object.keys(occ.qualifiers) as Property[]).map(
-                        (qualiKey) =>
-                          (occ as Required<Claim>).qualifiers[qualiKey]
-                      )
+                    (Object.keys(occ.qualifiers) as Property[]).map(
+                      (qualiKey) =>
+                        (occ as Required<Claim>).qualifiers[qualiKey]
                     )
+                  )
                   : undefined;
 
               return [
@@ -115,7 +117,7 @@ export const prefetchEmbeddedEntities = async ({
           return await prefetchEmbeddedEntities({
             entityId: embeddedEntityId,
             getRawEntityById,
-            prevSeenEntities: embeddedEntityIds,
+            prevSeenEntities: [...prevSeenEntities, entityId, embeddedEntityId],
           });
         })
       )
