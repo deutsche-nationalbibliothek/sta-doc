@@ -25,9 +25,9 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
 }) => {
   const staNotationInfo = staNotationStatement &&
     isStringValue(staNotationStatement.string[0].values[0]) && {
-    label: staNotationStatement.label,
-    value: staNotationStatement.string[0].values[0].value,
-  };
+      label: staNotationStatement.label,
+      value: staNotationStatement.string[0].values[0].value,
+    };
 
   const isApplicationProfileView = view.get === 'application-profile';
 
@@ -38,7 +38,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
         <>
           <div>
             {namespace && <NamespaceImage />}
-            {isRdaRessourceType ? (
+            {isRdaRessourceType && (
               <>
                 <br />
                 <Switch
@@ -46,24 +46,27 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
                   checked={isApplicationProfileView}
                   onChange={() =>
                     view.set(
-                      isApplicationProfileView ? undefined : 'application-profile'
+                      isApplicationProfileView
+                        ? undefined
+                        : 'application-profile'
                     )
                   }
                 />
-                <Typography.Text strong={isApplicationProfileView}>Anwendungsprofil</Typography.Text>
+                <Typography.Text strong={isApplicationProfileView}>
+                  Anwendungsprofil
+                </Typography.Text>
               </>
-            ) : (
-              staNotationInfo && (
-                <>
-                  <Typography.Paragraph style={{ textAlign: 'center' }}>
-                    <Typography.Text strong>
-                      {staNotationInfo.label}:
-                    </Typography.Text>
-                    <br />
-                    <Typography.Text>{staNotationInfo.value}</Typography.Text>
-                  </Typography.Paragraph>
-                </>
-              )
+            )}
+            {staNotationInfo && (
+              <>
+                <Typography.Paragraph style={{ textAlign: 'center' }}>
+                  <Typography.Text strong>
+                    {staNotationInfo.label}:
+                  </Typography.Text>
+                  <br />
+                  <Typography.Text>{staNotationInfo.value}</Typography.Text>
+                </Typography.Paragraph>
+              </>
             )}
           </div>
         </>
