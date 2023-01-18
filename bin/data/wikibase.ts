@@ -1,4 +1,4 @@
-import { EntityRaw } from '../../types/raw/entity';
+import { EntityRaw, EntitiesRaw } from '../../types/raw/entity';
 import { fetchWithSparql } from './utils/fetch';
 
 export const fetchWikibase = ({
@@ -10,6 +10,12 @@ export const fetchWikibase = ({
       `w/api.php?action=wbgetentities&format=json&languages=de&ids=${id}`
     );
     return res.entities[id];
+  };
+  const fetchWikiBaseRawBulkData = async (ids: string): Promise<EntitiesRaw> => {
+    const res = await fetcher(
+      `w/api.php?action=wbgetentities&format=json&languages=de&ids=${ids}`
+    );
+    return res.entities;
   };
 
   const fetchFields = async () =>
@@ -36,9 +42,27 @@ export const fetchWikibase = ({
       return await fetchEntity(entityId, count + 1);
     }
   };
+
+  const fetchEntitiesBulk = async (
+    entityIds: string,
+    count = 1
+  ): Promise<EntitiesRaw | void> => {
+    try {
+      if (count <= 3) {
+        return await fetchWikiBaseRawBulkData(entityIds);
+      } else {
+        console.error('fetchEntity failed 3 times with', entityIds);
+      }
+    } catch {
+      console.warn('fetchEntity caught error on', entityIds);
+      // todo, count failures to prevent endless loop
+      return await fetchEntitiesBulk(entityIds, count + 1);
+    }
+  };
   return {
     fetchFields,
     sparqlQuery,
     fetchEntity,
+    fetchEntitiesBulk,
   };
 };

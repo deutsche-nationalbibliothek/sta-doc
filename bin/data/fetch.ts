@@ -16,7 +16,11 @@ export enum API_URL {
 
 export const fetcher = (apiUrl = API_URL.prod) => {
   const onFetch = fetchWithSparql(apiUrl);
-  const { fetchEntity, fetchFields, sparqlQuery } = fetchWikibase(onFetch);
+  const { fetchEntity, fetchEntitiesBulk, fetchFields, sparqlQuery } = fetchWikibase(onFetch);
+
+  const chunk = (arr: string[], chunk_size: number) => {
+    return Array.from({ length: Math.ceil(arr.length / chunk_size) }).map(() => arr.splice(0, chunk_size));
+  }
 
   const entities = {
     single: async (entityId: EntityId) => await fetchEntity(entityId),
@@ -31,18 +35,21 @@ export const fetcher = (apiUrl = API_URL.prod) => {
       writeJSONFileAndType(entitiesIndex, NAMES.entityIndex, DataState.parsed);
 
       let entities = {} as EntitiesRaw;
+      const entitiesIndexKeys = Object.keys(entitiesIndex)
+      const chunk_size = 50
+      const entities_chunk = chunk(entitiesIndexKeys, chunk_size).map(bulk => bulk.join('|'))
 
       console.log(
         '\tFetching',
-        Object.keys(entitiesIndex).length,
-        'entities separately'
+        chunk_size,
+        'entities as bulk'
       );
 
-      const entitiesIndexEntries = Object.entries(entitiesIndex);
-      for (let i = 0; i < (DEV ? 12 : entitiesIndexEntries.length); i++) {
-        const [entityId] = entitiesIndexEntries[i];
-        console.log('\t\tFetching', entityId);
-        entities = { ...entities, [entityId]: await fetchEntity(entityId) };
+      for (let i = 0; i < (DEV ? 1 : entities_chunk.length); i++) {
+        const entityIds = entities_chunk[i]
+        console.log('\t\tFetching', entityIds);
+        const fetched_bulk_entities = await fetchEntitiesBulk(entityIds)
+        entities = { ...entities, ...fetched_bulk_entities };
       }
       return entities;
     },
