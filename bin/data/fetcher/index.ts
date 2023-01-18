@@ -9,16 +9,43 @@ import { LabelEnRaws } from '../../../types/raw/label-en';
 import { NotationsRaw } from '../../../types/raw/notation';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { RdaRulesRaw } from '../../../types/raw/rda-rule';
-import { sparql } from '../utils';
+import { DataState, sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { entitiesParser } from '../parse';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
+import { NAMES } from '../utils/names';
 
 export enum API_URL {
   test = 'https://doku.wikibase.wiki',
   prod = 'https://sta.dnb.de',
 }
+
+/**
+ * @param entitiesIndexKeys - complete set of all relevant Entity Ids
+ * @returns Array of strings, each contains a set of entityIds, seperated by '|'
+ */
+const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
+  const chunk = (arr: string[], chunkSize: number) => {
+    return Array.from({ length: Math.ceil(arr.length / chunkSize) }).map(() =>
+      [...arr].splice(0, chunkSize)
+    );
+  };
+
+  const chunkSize = 50;
+  const chunked = chunk(entitiesIndexKeys, chunkSize);
+  console.log(
+    '\tFetching',
+    entitiesIndexKeys.length,
+    'Entities, in chunks, each in the size of',
+    chunkSize,
+    'requesting',
+    chunked.length,
+    'sets'
+  );
+
+  return chunked.map((bulk) => bulk.join('|'));
+};
 
 const wikiBase = (apiUrl: API_URL) => {
   const onFetch = fetchWithSparql(apiUrl);
@@ -32,20 +59,16 @@ export const entitiesFetcher = {
     const entitiesIndex = await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
       sparql.ENTITY_INDEX(apiUrl)
     );
-    const entries = Object.entries(entitiesParser.index(entitiesIndex));
 
-    let entities = {} as EntityRaw;
-
-    console.log(
-      '\tFetching',
-      Object.keys(entries).length,
-      'entities separately'
+    let entities = {} as Record<EntityId, EntityRaw | void>;
+    const entitiesChunked = entitiesChunk(
+      Object.keys(entitiesIndex) as EntityId[]
     );
 
-    for (let i = 0; i < (DEV ? 2 : entries.length); i++) {
-      const [entryId] = entries[i];
-      const fetchedEntity = await wikiBase(apiUrl).fetchEntity(entryId);
-      entities = { ...entities, [entryId]: fetchedEntity };
+    for (let i = 0; i < (DEV ? 1 : entitiesChunked.length); i++) {
+      const entityIds = entitiesChunked[i];
+      const entitiesBulkFetched = await wikiBase(apiUrl).fetchEntity(entityIds);
+      entities = { ...entities, ...entitiesBulkFetched };
     }
     return entities;
   },
