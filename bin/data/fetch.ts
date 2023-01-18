@@ -1,8 +1,8 @@
 import { DEV } from '.';
 import { EntityId } from '../../types/entity-id';
-import { EntitiesRaw } from '../../types/raw/entity';
+import { EntitiesRaw, EntityRaw } from '../../types/raw/entity';
 import { PropertiesItemsListRaw } from '../../types/raw/property-item-list';
-import { parseAllFromRead } from './parse';
+import { entitiesParser, parseAllFromRead } from './parse';
 import { reader } from './read';
 import { DataState, sparql, writeJSONFileAndType } from './utils';
 import { fetchWithSparql } from './utils/fetch';
@@ -14,42 +14,57 @@ export enum API_URL {
   prod = 'https://sta.dnb.de',
 }
 
+/**
+ * @param entitiesIndexKeys - complete set of all relevant Entity Ids
+ * @returns Array of strings, each contains a set of entityIds, seperated by '|'
+ */
+const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
+  const chunk = (arr: string[], chunkSize: number) => {
+    return Array.from({ length: Math.ceil(arr.length / chunkSize) }).map(() =>
+      [...arr].splice(0, chunkSize)
+    );
+  };
+
+  const chunkSize = 50;
+  const chunked = chunk(entitiesIndexKeys, chunkSize);
+  console.log(
+    '\tFetching',
+    entitiesIndexKeys.length,
+    'Entities, in chunks, each in the size of',
+    chunkSize,
+    'requesting',
+    chunked.length,
+    'sets'
+  );
+
+  return chunked.map((bulk) => bulk.join('|'));
+};
+
 export const fetcher = (apiUrl = API_URL.prod) => {
   const onFetch = fetchWithSparql(apiUrl);
-  const { fetchEntity, fetchEntitiesBulk, fetchFields, sparqlQuery } = fetchWikibase(onFetch);
-
-  const chunk = (arr: string[], chunk_size: number) => {
-    return Array.from({ length: Math.ceil(arr.length / chunk_size) }).map(() => arr.splice(0, chunk_size));
-  }
+  const { fetchEntity, fetchFields, sparqlQuery } = fetchWikibase(onFetch);
 
   const entities = {
-    single: async (entityId: EntityId) => await fetchEntity(entityId),
+    single: async (entityId: EntityId) => await fetchEntity(entityId)[entityId],
     all: async () => {
       // fetch and write entity Index
       const entityIndexRaw = await sparqlQuery(sparql.ENTITY_INDEX(apiUrl)); // ????
       writeJSONFileAndType(entityIndexRaw, NAMES.entityIndex, DataState.raw);
 
       // reader raw or parsed?
-      const parse = parseAllFromRead(reader(DataState.raw));
-      const entitiesIndex = parse.entities.index;
+      // const parse = entitiesParser.index(entityIndexRaw as any) // parseAllFromRead(reader(DataState.raw));
+      const entitiesIndex = entitiesParser.index(entityIndexRaw as any);
       writeJSONFileAndType(entitiesIndex, NAMES.entityIndex, DataState.parsed);
 
-      let entities = {} as EntitiesRaw;
-      const entitiesIndexKeys = Object.keys(entitiesIndex)
-      const chunk_size = 50
-      const entities_chunk = chunk(entitiesIndexKeys, chunk_size).map(bulk => bulk.join('|'))
-
-      console.log(
-        '\tFetching',
-        chunk_size,
-        'entities as bulk'
+      let entities = {} as Record<EntityId, EntityRaw | void>;
+      const entitiesChunked = entitiesChunk(
+        Object.keys(entitiesIndex) as EntityId[]
       );
 
-      for (let i = 0; i < (DEV ? 1 : entities_chunk.length); i++) {
-        const entityIds = entities_chunk[i]
-        console.log('\t\tFetching', entityIds);
-        const fetched_bulk_entities = await fetchEntitiesBulk(entityIds)
-        entities = { ...entities, ...fetched_bulk_entities };
+      for (let i = 0; i < (DEV ? 1 : entitiesChunked.length); i++) {
+        const entityIds = entitiesChunked[i];
+        const entitiesBulkFetched = await fetchEntity(entityIds);
+        entities = { ...entities, ...entitiesBulkFetched };
       }
       return entities;
     },
