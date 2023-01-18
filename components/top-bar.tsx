@@ -80,20 +80,6 @@ export const TopBar: React.FC = () => {
                   },
                 ],
               },
-              {
-                label: (
-                  <span className="ant-menu-item" style={{ padding: 0 }}>
-                    <Link href="/gnd">STA</Link>
-                  </span>
-                ),
-                key: 'STA',
-                children: [
-                  {
-                    label: <Link href="/entities/sta">Index</Link>,
-                    key: '/entities/sta',
-                  },
-                ],
-              },
             ]}
           />
         </Col>

@@ -70,15 +70,17 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
     </>
   ) : isList() ? (
     <UnorderedList>
-      {wikibasePointers.map((wikibasePointer, index) => (
-        <li key={index}>
-          {isWikibaseValue(wikibasePointer) ? (
-            <WikibaseLink wikibasePointer={wikibasePointer} />
-          ) : (
-            <MissingLink />
-          )}
-        </li>
-      ))}
+      {wikibasePointers
+        .filter((w) => isWikibaseValue(w) && !isPropertyBlacklisted(w.id))
+        .map((wikibasePointer, index) => (
+          <li key={index}>
+            {isWikibaseValue(wikibasePointer) ? (
+              <WikibaseLink wikibasePointer={wikibasePointer} />
+            ) : (
+              <MissingLink />
+            )}
+          </li>
+        ))}
     </UnorderedList>
   ) : isWikibaseValue(wikibasePointers[0]) ? (
     <WikibaseLink wikibasePointer={wikibasePointers[0]} />

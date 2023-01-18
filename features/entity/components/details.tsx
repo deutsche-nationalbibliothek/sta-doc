@@ -1,13 +1,15 @@
-import { Title } from '@/components/title';
 import { useInitialScroll } from '@/hooks/use-inital-scroll';
 import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
-import { NamespaceImage } from './namespace-image';
-import { PageHeader, Typography } from 'antd';
-import { Entity, isStringValue } from '@/types/parsed/entity';
+import { Entity, isWikibaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { Item } from '@/types/item';
+import { RdaRessourceTypeEntity } from './rda-ressource-type';
+import { EntityPageHeader } from './page-header';
+import { useQueryParam } from 'use-query-params';
+import { useHeadlines } from '@/hooks/headlines';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -19,7 +21,21 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   embedded = false,
 }) => {
   const { namespace, onSetByPageType, onResetNamespace } = useNamespace();
+  const { setShowHeadlines } = useHeadlines();
+
   useInitialScroll(!embedded);
+
+  // useEffectOnce(() => {
+  //   console.log("EntityDetails setHeadlines(headlines);", headlines);
+  //   setHeadlines(headlines);
+  // });
+  // useEffect(() => {
+  //   if (!headlines) {
+
+  //     setHeadlines(headlines);
+  //     console.log("setHeadlines(headlines); 1", headlines)
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (!embedded && entity.pageType?.id) {
@@ -28,52 +44,72 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     return onResetNamespace;
   }, [embedded, entity.pageType?.id]);
 
-  const staNotation = entity.statements.header.find(
+  const [view, setView] = useQueryParam<
+    string | undefined,
+    'application-profile'
+  >('view');
+
+  const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
+    setView(nextViewParam);
+    setShowHeadlines(!nextViewParam);
+  };
+
+  const staNotationStatement = entity.statements.header.find(
     (s) => s.property === Property['STA-Notation']
   );
 
-  const staNotationInfo = staNotation &&
-    isStringValue(staNotation.string[0].values[0]) && {
-    label: staNotation.label,
-    value: staNotation.string[0].values[0].value,
-  };
+  const elementsStatement = entity.statements.text.find(
+    (statement) => statement.property === Property.Elements
+  );
+
+  console.log(
+    elementsStatement &&
+    elementsStatement.wikibasePointer.find(
+      (w) =>
+        isWikibaseValue(w) &&
+        w.qualifiers.find(
+          (qualifier) => qualifier.property === Property['WEMI-level']
+        )
+    )
+  );
+
+  const isRdaRessourceType =
+    entity.pageType?.id === Item['RDA-Ressource-Type'] &&
+    elementsStatement.wikibasePointer.find(
+      (w) =>
+        isWikibaseValue(w) &&
+        w.qualifiers.find(
+          (qualifier) => qualifier.property === Property['WEMI-level']
+        )
+    ) &&
+    !!elementsStatement;
 
   return (
     <>
       {!embedded && (
-        <PageHeader
-          title={<Title headline={entity.headline} />}
-          extra={
-            <>
-              <div>
-                {namespace && <NamespaceImage />}
-                {staNotationInfo && (
-                  <>
-                    <Typography.Paragraph style={{ textAlign: 'center' }}>
-                      <Typography.Text strong>
-                        {staNotationInfo.label}:
-                      </Typography.Text>
-                      <br />
-                      <Typography.Text>{staNotationInfo.value}</Typography.Text>
-                    </Typography.Paragraph>
-                  </>
-                )}
-              </div>
-            </>
-          }
+        <EntityPageHeader
+          entity={entity}
+          namespace={namespace}
+          isRdaRessourceType={isRdaRessourceType}
+          staNotationStatement={staNotationStatement}
+          view={{ get: view, set: setViewAndSetShowHeadlines }}
         />
       )}
-      {entity.statements.header.length > 0 && (
-        <Statements statements={entity.statements.header} />
-      )}
-      {entity.statements.table.length > 0 && (
-        <TableStatements
-          pageType={entity.pageType}
-          statements={entity.statements.table}
-        />
-      )}
-      {entity.statements.text.length > 0 && (
-        <Statements statements={entity.statements.text} />
+
+      {isRdaRessourceType ? (
+        <RdaRessourceTypeEntity view={view} entity={entity} />
+      ) : (
+        <>
+          {entity.statements.header.length > 0 && (
+            <Statements statements={entity.statements.header} />
+          )}
+          {entity.statements.table.length > 0 && (
+            <TableStatements statements={entity.statements.table} />
+          )}
+          {entity.statements.text.length > 0 && (
+            <Statements statements={entity.statements.text} />
+          )}
+        </>
       )}
     </>
   );

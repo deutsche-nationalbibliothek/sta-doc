@@ -23,7 +23,10 @@ export interface EntityEntry {
   headlines: Headline[];
 }
 
-export type EntityEntryWithOptionalHeadlines = PartialBy<EntityEntry, 'headlines'>
+export type EntityEntryWithOptionalHeadlines = PartialBy<
+  EntityEntry,
+  'headlines'
+>;
 
 export interface PageType {
   label?: string;
@@ -91,11 +94,12 @@ export interface StringValue extends CommonValue {
 }
 
 export interface WikiBaseValue extends CommonValue {
-  id: string;
+  id: EntityId;
   label: string;
   link: string;
   coding?: Coding;
   headline?: Headline;
+  staNotationLabel?: string;
 }
 
 // export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue

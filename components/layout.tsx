@@ -12,7 +12,7 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-  const { nestedHeadlines } = useHeadlines();
+  const { nestedHeadlines, showHeadlines } = useHeadlines();
   return (
     <AntdLayout>
       <LoadingIndicator />
@@ -22,9 +22,9 @@ export default function Layout(props: LayoutProps) {
           height: 'calc(100vh - var(--topbar-height))',
         }}
       >
-        {nestedHeadlines.length > 1 ? (
+        {nestedHeadlines.length && showHeadlines ? (
           <Splitter>
-            {nestedHeadlines.length > 1 && <Sidebar />}
+            {nestedHeadlines.length > 0 && <Sidebar />}
             <Content>{props.children}</Content>
           </Splitter>
         ) : (
@@ -40,8 +40,8 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
   return (
     <AntdLayout
       style={{
-        paddingLeft: headlines && headlines.length > 1 ? 26 : '5%',
-        paddingRight: headlines && headlines.length > 1 ? 26 : '5%',
+        paddingLeft: headlines.length > 1 ? 26 : '5%',
+        paddingRight: headlines.length > 1 ? 26 : '5%',
       }}
     >
       <AntdLayout.Content>

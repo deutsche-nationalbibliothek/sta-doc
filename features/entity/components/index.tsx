@@ -26,7 +26,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
 
   useEffect(() => {
     setNamespace(namespace);
-  }, []);
+  }, [namespace]);
 
   const namespaceItems: Item[] =
     namespace && namepsaceClassification[namespace.toUpperCase()];

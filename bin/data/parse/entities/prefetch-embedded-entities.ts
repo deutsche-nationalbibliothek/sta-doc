@@ -10,8 +10,10 @@ interface ParseEntityProps {
   getRawEntityById: (entityId: EntityId) => Promise<EntityRaw | void>;
 }
 
-// this function parses an entity and calls getRawEntityById for any embedded-
-// entity found. It has a lot in common with ./entity.ts
+/**
+ * this function parses an entity and calls getRawEntityById for any embedded-
+ * entity found. It has a lot in common with ./entity.ts
+ */
 export const prefetchEmbeddedEntities = async ({
   entityId,
   getRawEntityById,
@@ -115,7 +117,7 @@ export const prefetchEmbeddedEntities = async ({
           return await prefetchEmbeddedEntities({
             entityId: embeddedEntityId,
             getRawEntityById,
-            prevSeenEntities: embeddedEntityIds,
+            prevSeenEntities: [...prevSeenEntities, entityId, embeddedEntityId],
           });
         })
       )

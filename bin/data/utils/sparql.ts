@@ -1,4 +1,3 @@
-import { EntityId } from '../../../types/entity-id';
 import { API_URL } from '../fetch';
 
 // ---ENTRIES--- all wikibase entities, which are nessecary to render DOKU pages
@@ -316,6 +315,24 @@ export const DESCRIPTIONS = (apiUrl: API_URL) => `
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
   }
   ORDER BY ASC(?elementLabel)
+`;
+
+export const STA_NOTATIONS = (apiUrl: API_URL) => `
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX p: <${apiUrl}/prop/>
+PREFIX prop: <${apiUrl}/prop/direct/>
+PREFIX item: <${apiUrl}/entity/>
+PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+PREFIX statement: <${apiUrl}/prop/statement/>
+SELECT DISTINCT ?eId ?elementLabel_de ?staNotationLabel
+WHERE {
+  ?element rdfs:label ?elementLabel_de FILTER (LANG(?elementLabel_de) = "de") .
+  { ?element prop:P643 ?staNotation . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+  BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+}
+ORDER BY ASC(?elementLabel_de)
 `;
 
 // export export const LABELEN = (apiUrl: API_URL) => `

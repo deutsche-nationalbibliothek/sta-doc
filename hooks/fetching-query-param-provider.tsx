@@ -16,7 +16,7 @@ type FetchingQueryParamContext = {
   fetchingQueryParamString: string;
 };
 
-type SetterFunc<T> = ReturnType<typeof useQueryParam<T>>[1];
+type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];
 
 // param is only used for typing context
 const FetchingQueryParamContext = createContext(
@@ -26,7 +26,7 @@ const FetchingQueryParamContext = createContext(
 export default function FetchingQueryParamProvider({ children }) {
   const [live, setLive] = useQueryParam('live') as [
     FetchingParam | undefined,
-    SetterFunc<FetchingParam | undefined>
+    UseQueryParamSetter<FetchingParam | undefined>
   ];
 
   useEffect(() => {

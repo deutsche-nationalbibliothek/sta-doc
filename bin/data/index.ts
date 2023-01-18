@@ -1,10 +1,11 @@
 import { EntityId } from '../../types/entity-id';
-import { API_URL, fetcher } from './fetch';
+import { API_URL, fetcher } from './fetcher';
 import {
   codingsParser,
   entitiesParser,
   labelsParser,
   notationsParser,
+  staNotationsParser,
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
 } from './parse';
@@ -42,6 +43,7 @@ export const DEV = false;
         lookup_en: labelsParser.en(read.labels.en()),
         codings: codingsParser(read.codings()),
         notations: notationsParser(read.notations()),
+        staNotations: staNotationsParser(read.staNotations()),
       }
     );
   };

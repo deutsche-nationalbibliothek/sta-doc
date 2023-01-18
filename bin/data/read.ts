@@ -1,3 +1,4 @@
+import { StaNotationsRaw } from '../../types/raw/sta-notation';
 import { EntityId } from '../../types/entity-id';
 import { CodingRaw } from '../../types/raw/coding';
 import { DescriptionRaws } from '../../types/raw/description';
@@ -30,6 +31,8 @@ export const reader = (dataState: DataState) => {
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, dataState),
   };
 
+  const staNotations = () =>
+    readJSONFile<StaNotationsRaw>(NAMES.staNotation, dataState);
   const notations = () => readJSONFile<NotationsRaw>(NAMES.notation, dataState);
   const codings = () => readJSONFile<CodingRaw[]>(NAMES.coding, dataState);
   const descriptions = () =>
@@ -42,6 +45,7 @@ export const reader = (dataState: DataState) => {
     entities,
     fields,
     labels,
+    staNotations,
     notations,
     codings,
     descriptions,

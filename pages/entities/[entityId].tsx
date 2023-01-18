@@ -3,7 +3,7 @@ import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
-import { useRouter } from '@/lib/next-use-router';
+import { useEffectOnce } from '@/hooks/use-effect-once';
 import { Headline } from '@/types/headline';
 import {
   Entities,
@@ -24,28 +24,12 @@ export default function EntityDetailsPage({
   headlines,
   entityId,
 }: EntityDetailsProps) {
-  const { setHeadlines, headlines: initialHeadlines } = useInitialHeadlines();
-  const router = useRouter();
+  const { setHeadlines } = useInitialHeadlines();
 
-  useEffect(() => {
-    const onResetHeadlines = () => {
-      setHeadlines([]);
-    };
-    const onSetHeadlines = () => {
-      setHeadlines(headlines);
-    };
-
-    if (!initialHeadlines) {
-      onSetHeadlines();
-    }
-
-    router.events.on('routeChangeStart', onResetHeadlines);
-    router.events.on('routeChangeComplete', onSetHeadlines);
-    return () => {
-      router.events.off('routeChangeStart', onResetHeadlines);
-      router.events.off('routeChangeComplete', onSetHeadlines);
-    };
-  }, [headlines, setHeadlines]);
+  useEffectOnce(() => {
+    setHeadlines(headlines);
+    return () => setHeadlines([]);
+  });
 
   return (
     <>
