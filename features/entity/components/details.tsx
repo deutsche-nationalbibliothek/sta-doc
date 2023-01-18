@@ -3,7 +3,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
-import { Entity } from '@/types/parsed/entity';
+import { Entity, isWikibaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Item } from '@/types/item';
 import { RdaRessourceTypeEntity } from './rda-ressource-type';
@@ -21,8 +21,21 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   embedded = false,
 }) => {
   const { namespace, onSetByPageType, onResetNamespace } = useNamespace();
-  const {setShowHeadlines} = useHeadlines();
+  const { setShowHeadlines } = useHeadlines();
+
   useInitialScroll(!embedded);
+
+  // useEffectOnce(() => {
+  //   console.log("EntityDetails setHeadlines(headlines);", headlines);
+  //   setHeadlines(headlines);
+  // });
+  // useEffect(() => {
+  //   if (!headlines) {
+
+  //     setHeadlines(headlines);
+  //     console.log("setHeadlines(headlines); 1", headlines)
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (!embedded && entity.pageType?.id) {
@@ -31,12 +44,15 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     return onResetNamespace;
   }, [embedded, entity.pageType?.id]);
 
-  const [view, setView] = useQueryParam<string | undefined, 'application-profile'>('view');
+  const [view, setView] = useQueryParam<
+    string | undefined,
+    'application-profile'
+  >('view');
 
-  const setViewAndShowHeadlines = (nextViewParam: string | undefined) => {
-    setView(nextViewParam)
-    setShowHeadlines(!nextViewParam)
-  }
+  const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
+    setView(nextViewParam);
+    setShowHeadlines(!nextViewParam);
+  };
 
   const staNotationStatement = entity.statements.header.find(
     (s) => s.property === Property['STA-Notation']
@@ -46,8 +62,27 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     (statement) => statement.property === Property.Elements
   );
 
+  console.log(
+    elementsStatement &&
+    elementsStatement.wikibasePointer.find(
+      (w) =>
+        isWikibaseValue(w) &&
+        w.qualifiers.find(
+          (qualifier) => qualifier.property === Property['WEMI-level']
+        )
+    )
+  );
+
   const isRdaRessourceType =
-    entity.pageType.id === Item['RDA-Ressource-Type'] && !!elementsStatement;
+    entity.pageType?.id === Item['RDA-Ressource-Type'] &&
+    elementsStatement.wikibasePointer.find(
+      (w) =>
+        isWikibaseValue(w) &&
+        w.qualifiers.find(
+          (qualifier) => qualifier.property === Property['WEMI-level']
+        )
+    ) &&
+    !!elementsStatement;
 
   return (
     <>
@@ -57,7 +92,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
           namespace={namespace}
           isRdaRessourceType={isRdaRessourceType}
           staNotationStatement={staNotationStatement}
-          view={{ get: view, set: setViewAndShowHeadlines }}
+          view={{ get: view, set: setViewAndSetShowHeadlines }}
         />
       )}
 

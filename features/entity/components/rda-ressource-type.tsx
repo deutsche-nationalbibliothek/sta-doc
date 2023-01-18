@@ -1,6 +1,7 @@
 import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import { useEffectOnce } from '@/hooks/use-effect-once';
 import {
   Entity,
   isWikibaseValue,
@@ -56,7 +57,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   //   Property.description,
   //   Property.P657,
   //   Property.P658,
-  //   Property['description-(at-the-end)'],
+  //   Property['description-(at-the-end)',
 
   //   Property['Title-proper'],
   //   Property.Status,
@@ -129,19 +130,24 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     }
   });
 
+  console.log({ wemiWikibaseValues, wemiGroups });
+
   const wemiGroupHeadline = (wemiLabel: string) => ({
     title: wemiLabel,
     key: wemiLabel,
     level: 2,
   });
 
+  // todo, change headlines in parsing for rda ressource type
   const headlines = Object.entries(wemiGroups).reduce(
     (acc, [wemiLabel, wikibasePointers]) => {
       return [
         ...acc,
         wemiGroupHeadline(wemiLabel),
-        ...wikibasePointers.map((w) => w.headline),
-      ];
+        ...wikibasePointers.map((w) => {
+          return [w.headline, w.qualifiers.map((q) => q.headline)];
+        }),
+      ].flat();
     },
     []
   );
@@ -149,10 +155,9 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const isApplicationProfileView = view === 'application-profile';
 
   useEffect(() => {
-    if (!isApplicationProfileView) {
-      setHeadlines(headlines);
-    }
     setShowHeadlines(!isApplicationProfileView);
+    // todo, fix above todo and remove
+    setHeadlines(headlines.filter((a) => a));
   }, [isApplicationProfileView]);
 
   if (isApplicationProfileView) {
@@ -161,57 +166,69 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 
   return (
     <>
-      {Object.entries(wemiGroups).map(([wemiLabel, wikibasePointers]) => (
-        <React.Fragment key={wemiLabel}>
-          <Title headline={wemiGroupHeadline(wemiLabel)} />
-          {wikibasePointers.map((wikibasePointer, index) => (
-            <>
-              <Title headline={wikibasePointer.headline}>
-                <EntityPreview
-                  label={wikibasePointer.label}
-                  entityId={wikibasePointer.id}
-                >
-                  <Link href={wikibasePointer.link}>
-                    {wikibasePointer.label}{' '}
-                  </Link>
-                </EntityPreview>
-              </Title>
-              <Typography.Text key={index}>
-                {'qualifiersMeta' in wikibasePointer && (
-                  <Row style={{ paddingBottom: 5 }}>
-                    {wikibasePointer.qualifiersMeta.status && (
-                      <Col span={12}>
-                        {wikibasePointer.qualifiersMeta.status.label}:{' '}
-                        {
-                          // todo, is already filtered by typescript complains
-                          isWikibaseValue(
-                            wikibasePointer.qualifiersMeta.status
+      {Object.entries(wemiGroups).map(([wemiLabel, wikibasePointers]) => {
+        const maybeWemi = wikibasePointers[0].wemiLevel?.wikibasePointer.find(
+          (wikibasePointer) =>
+            isWikibaseValue(wikibasePointer) &&
+            wikibasePointer.label === wemiLabel
+        );
+        const wemi = isWikibaseValue(maybeWemi) && maybeWemi;
+        return (
+          <React.Fragment key={wemiLabel}>
+            <Title headline={wemiGroupHeadline(wemiLabel)}>
+              <EntityPreview entityId={wemi.id} label={wemiLabel}>
+                <Link href={wemi.link}>{wemiLabel}</Link>
+              </EntityPreview>
+            </Title>
+            {wikibasePointers.map((wikibasePointer, index) => (
+              <React.Fragment key={index}>
+                <Title headline={wikibasePointer.headline}>
+                  <EntityPreview
+                    label={wikibasePointer.label}
+                    entityId={wikibasePointer.id}
+                  >
+                    <Link href={wikibasePointer.link}>
+                      {wikibasePointer.label}{' '}
+                    </Link>
+                  </EntityPreview>
+                </Title>
+                <Typography.Text key={index}>
+                  {'qualifiersMeta' in wikibasePointer && (
+                    <Row style={{ paddingBottom: 5 }}>
+                      {wikibasePointer.qualifiersMeta.status && (
+                        <Col span={12}>
+                          {wikibasePointer.qualifiersMeta.status.label}:{' '}
+                          {
+                            // todo, is already filtered but typescript complains
+                            isWikibaseValue(
+                              wikibasePointer.qualifiersMeta.status
+                                .wikibasePointer[0]
+                            ) &&
+                              wikibasePointer.qualifiersMeta.status
+                                .wikibasePointer[0].label
+                          }
+                        </Col>
+                      )}
+                      {wikibasePointer.qualifiersMeta.repetition && (
+                        <Col span={12}>
+                          {wikibasePointer.qualifiersMeta.repetition.label}:{' '}
+                          {isWikibaseValue(
+                            wikibasePointer.qualifiersMeta.repetition
                               .wikibasePointer[0]
                           ) &&
-                          wikibasePointer.qualifiersMeta.status
-                            .wikibasePointer[0].label
-                        }
-                      </Col>
-                    )}
-                    {wikibasePointer.qualifiersMeta.repetition && (
-                      <Col span={12}>
-                        {wikibasePointer.qualifiersMeta.repetition.label}:{' '}
-                        {isWikibaseValue(
-                          wikibasePointer.qualifiersMeta.repetition
-                            .wikibasePointer[0]
-                        ) &&
-                          wikibasePointer.qualifiersMeta.repetition
-                            .wikibasePointer[0].label}
-                      </Col>
-                    )}
-                  </Row>
-                )}
-                <Qualifiers qualifiers={wikibasePointer.qualifiers} />
-              </Typography.Text>
-            </>
-          ))}
-        </React.Fragment>
-      ))}
+                            wikibasePointer.qualifiersMeta.repetition
+                              .wikibasePointer[0].label}
+                        </Col>
+                      )}
+                    </Row>
+                  )}
+                  <Qualifiers qualifiers={wikibasePointer.qualifiers} />
+                </Typography.Text>
+              </React.Fragment>
+            ))}
+          </React.Fragment>
+        );
+      })}
     </>
   );
 };

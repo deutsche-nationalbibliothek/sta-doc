@@ -17,7 +17,7 @@ interface InitialHeadlinesContext {
 const InitialHeadlineContext = createContext({} as InitialHeadlinesContext);
 
 export default function InitialHeadlinesProvider({ children }) {
-  const [headlines, setHeadlines] = useState<Headline[]>();
+  const [headlines, setHeadlines] = useState<Headline[]>([]);
 
   return (
     <InitialHeadlineContext.Provider

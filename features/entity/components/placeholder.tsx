@@ -8,13 +8,12 @@ export const EntityPlaceholder = () => {
 
   return (
     <>
-      {headlines &&
-        headlines.map((headline) => (
-          <React.Fragment key={headline.key}>
-            <Title headline={headline} />
-            <Skeleton active />
-          </React.Fragment>
-        ))}
+      {headlines.map((headline) => (
+        <React.Fragment key={headline.key}>
+          <Title headline={headline} />
+          <Skeleton active />
+        </React.Fragment>
+      ))}
     </>
   );
 };

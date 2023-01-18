@@ -73,11 +73,11 @@ export const prefetchEmbeddedEntities = async ({
               const qualifiersEmbeddedIds =
                 'qualifiers' in occ && occ.qualifiers
                   ? parseStatementProps(
-                    (Object.keys(occ.qualifiers) as Property[]).map(
-                      (qualiKey) =>
-                        (occ as Required<Claim>).qualifiers[qualiKey]
+                      (Object.keys(occ.qualifiers) as Property[]).map(
+                        (qualiKey) =>
+                          (occ as Required<Claim>).qualifiers[qualiKey]
+                      )
                     )
-                  )
                   : undefined;
 
               return [

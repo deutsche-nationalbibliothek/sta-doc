@@ -251,7 +251,6 @@ export const parseRawEntity = ({
             const label = lookup_de[property];
             const hasHeadline = isTopLevel && !isPropertyBlacklisted(property);
 
-            console.log('parseStatement property', property);
             return {
               label,
               headline: hasHeadline
@@ -289,7 +288,7 @@ export const parseRawEntity = ({
                       entityId: embeddedEntityId,
                       headlines,
                       currentHeadlineLevel: nextHeaderLevel,
-                      prevParsedEntities: [...prevParsedEntities, entityId],
+                      prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
                       embedded: true,
                       data,
                       getRawEntityById,

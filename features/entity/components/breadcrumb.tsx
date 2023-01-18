@@ -5,43 +5,44 @@ import { truncate } from 'lodash';
 import { Fragment } from 'react';
 
 export const Breadcrumb: React.FC = () => {
-  const { currentHeadlinesPath } = useHeadlines();
+  const { currentHeadlinesPath, showHeadlines } = useHeadlines();
 
   return (
     <div>
       <AntdBreadcrumb
         style={{
           paddingTop:
-            currentHeadlinesPath.length > 0 ? 4 : 'var(--topbar-padding-y)',
+            currentHeadlinesPath.length > 0 && showHeadlines ? 4 : 'var(--topbar-padding-y)',
         }}
         separator=""
       >
-        {currentHeadlinesPath.map(({ key, title, namespace }, index) => {
-          const isLastIndex = index === currentHeadlinesPath.length - 1;
-          return (
-            <Fragment key={key}>
-              <AntdBreadcrumb.Item>
-                <Tooltip
-                  placement="bottom"
-                  title={
-                    <>
-                      {title} <CopyHeadlineAnchorLink anchor={key} />
-                    </>
-                  }
-                >
-                  <a href={`#${key}`}>
-                    {isLastIndex ? title : truncate(title, { length: 64 })}
-                  </a>
-                </Tooltip>
-              </AntdBreadcrumb.Item>
-              {!isLastIndex && (
-                <AntdBreadcrumb.Separator key={`${key}-seperator`}>
-                  <span className={`${namespace}-seperator`}>/</span>
-                </AntdBreadcrumb.Separator>
-              )}
-            </Fragment>
-          );
-        })}
+        {showHeadlines &&
+          currentHeadlinesPath.map(({ key, title, namespace }, index) => {
+            const isLastIndex = index === currentHeadlinesPath.length - 1;
+            return (
+              <Fragment key={key}>
+                <AntdBreadcrumb.Item>
+                  <Tooltip
+                    placement="bottom"
+                    title={
+                      <>
+                        {title} <CopyHeadlineAnchorLink anchor={key} />
+                      </>
+                    }
+                  >
+                    <a href={`#${key}`}>
+                      {isLastIndex ? title : truncate(title, { length: 64 })}
+                    </a>
+                  </Tooltip>
+                </AntdBreadcrumb.Item>
+                {!isLastIndex && (
+                  <AntdBreadcrumb.Separator key={`${key}-seperator`}>
+                    <span className={`${namespace}-seperator`}>/</span>
+                  </AntdBreadcrumb.Separator>
+                )}
+              </Fragment>
+            );
+          })}
       </AntdBreadcrumb>
       <Divider
         style={{
