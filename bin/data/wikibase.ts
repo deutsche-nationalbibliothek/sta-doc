@@ -1,12 +1,14 @@
 import { EntityId } from '../../types/entity-id';
-import { EntityRaw, EntitiesRaw } from '../../types/raw/entity';
+import { EntityRaw } from '../../types/raw/entity';
 import { fetchWithSparql } from './utils/fetch';
 
 export const fetchWikibase = ({
   fetcher,
   sparqlQueryDispatcher,
 }: ReturnType<typeof fetchWithSparql>) => {
-  const fetchWikiBaseRawData = async (id: string): Promise<Record<EntityId, EntityRaw | void>> => {
+  const fetchWikiBaseRawData = async (
+    id: string
+  ): Promise<Record<EntityId, EntityRaw | void>> => {
     const res = await fetcher(
       `w/api.php?action=wbgetentities&format=json&languages=de&ids=${id}`
     );
@@ -24,13 +26,13 @@ export const fetchWikibase = ({
   const fetchEntity = async (
     entityId: EntityId | string,
     count = 1
-  ): Promise<Record<EntityId, EntityRaw | void>>  => {
+  ): Promise<Record<EntityId, EntityRaw | void>> => {
     try {
       if (count <= 3) {
         return await fetchWikiBaseRawData(entityId);
       } else {
         console.error('fetchEntity failed 3 times with', entityId);
-        return Promise.reject()
+        return Promise.reject();
       }
     } catch {
       console.warn('fetchEntity caught error on', entityId);
@@ -39,26 +41,9 @@ export const fetchWikibase = ({
     }
   };
 
-  const fetchEntitiesBulk = async (
-    entityIds: string,
-    count = 1
-  ): Promise<EntitiesRaw | void> => {
-    try {
-      if (count <= 3) {
-        return await fetchWikiBaseRawBulkData(entityIds);
-      } else {
-        console.error('fetchEntity failed 3 times with', entityIds);
-      }
-    } catch {
-      console.warn('fetchEntity caught error on', entityIds);
-      // todo, count failures to prevent endless loop
-      return await fetchEntitiesBulk(entityIds, count + 1);
-    }
-  };
   return {
     fetchFields,
     sparqlQuery,
     fetchEntity,
-    fetchEntitiesBulk,
   };
 };
