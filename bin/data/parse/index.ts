@@ -24,8 +24,8 @@ import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
 import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
-import { StaNotationsRaw } from '@/types/raw/sta-notation';
-import { StaNotations } from '@/types/parsed/sta-notation';
+import { StaNotationsRaw } from '../../../types/raw/sta-notation';
+import { StaNotations } from '../../../types/parsed/sta-notation';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 

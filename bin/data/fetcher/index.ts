@@ -1,7 +1,6 @@
 import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
-import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaws } from '../../../types/raw/description';
 import { EntityRaw } from '../../../types/raw/entity';
@@ -12,7 +11,9 @@ import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { RdaRulesRaw } from '../../../types/raw/rda-rule';
 import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
-import { fetchWikibase } from '../wikibase';
+import { fetchWikibase } from './wikibase';
+import { entitiesParser } from '../parse';
+import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 
 export enum API_URL {
   test = 'https://doku.wikibase.wiki',
@@ -28,10 +29,11 @@ export const entitiesFetcher = {
   single: async (entityId: EntityId, apiUrl: API_URL) =>
     await wikiBase(apiUrl).fetchEntity(entityId),
   all: async (apiUrl: API_URL) => {
-    const entitiesIndex = await wikiBase(apiUrl).sparqlQuery<EntitiesIndex>(
+    const entitiesIndex = await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
       sparql.ENTITY_INDEX(apiUrl)
     );
-    const entries = Object.entries(entitiesIndex);
+    const entries = Object.entries(entitiesParser.index(entitiesIndex));
+
     let entities = {} as EntityRaw;
 
     console.log(

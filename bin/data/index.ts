@@ -1,5 +1,5 @@
 import { EntityId } from '../../types/entity-id';
-import { API_URL, fetcher } from './fetch';
+import { API_URL, fetcher } from './fetcher';
 import {
   codingsParser,
   entitiesParser,

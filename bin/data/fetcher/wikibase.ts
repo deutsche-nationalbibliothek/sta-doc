@@ -1,5 +1,5 @@
-import { EntityRaw } from '../../types/raw/entity';
-import { fetchWithSparql } from './utils/fetch';
+import { EntityRaw } from '../../../types/raw/entity';
+import { fetchWithSparql } from './../utils/fetch';
 
 export const fetchWikibase = ({
   fetcher,
@@ -24,6 +24,7 @@ export const fetchWikibase = ({
     entityId: string,
     count = 1
   ): Promise<EntityRaw | void> => {
+    console.log('DEBUGPRINT[1]: wikibase.ts:24: entityId=', entityId);
     try {
       if (count <= 3) {
         return await fetchWikiBaseRawData(entityId);
@@ -32,7 +33,6 @@ export const fetchWikibase = ({
       }
     } catch {
       console.warn('fetchEntity caught error on', entityId);
-      // todo, count failures to prevent endless loop
       return await fetchEntity(entityId, count + 1);
     }
   };
