@@ -1,4 +1,4 @@
-import { DataState, readJSONFile, writeJSONFileAndType } from './fs';
+import { DataState, readJSONFile, writeJSONFile } from './fs';
 import * as sparql from './sparql';
 
-export { writeJSONFileAndType, readJSONFile, sparql, DataState };
+export { writeJSONFile, readJSONFile, sparql, DataState };

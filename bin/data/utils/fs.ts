@@ -20,7 +20,7 @@ const fileName = (name: Name, singular = false) =>
     ? name.file.singular
     : `${name.file.plural ?? name.file.singular + 's'}`;
 
-export const writeJSONFileAndType = <T>(
+export const writeJSONFile = <T>(
   data: T,
   name: Name,
   state: DataState

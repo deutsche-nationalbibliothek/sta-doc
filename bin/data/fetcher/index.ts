@@ -1,20 +1,20 @@
-import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaws } from '../../../types/raw/description';
 import { EntityRaw } from '../../../types/raw/entity';
+import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
 import { NotationsRaw } from '../../../types/raw/notation';
+import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { RdaRulesRaw } from '../../../types/raw/rda-rule';
-import { DataState, sparql } from '../utils';
+import { StaNotationsRaw } from '../../../types/raw/sta-notation';
+import { entitiesParser } from '../parse';
+import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
-import { entitiesParser } from '../parse';
-import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
-import { NAMES } from '../utils/names';
 
 export enum API_URL {
   test = 'https://doku.wikibase.wiki',
@@ -28,12 +28,12 @@ export enum API_URL {
 const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
   const chunk = (arr: string[], chunkSize: number) => {
     return Array.from({ length: Math.ceil(arr.length / chunkSize) }).map(() =>
-      [...arr].splice(0, chunkSize)
+      arr.splice(1, chunkSize)
     );
   };
 
   const chunkSize = 50;
-  const chunked = chunk(entitiesIndexKeys, chunkSize);
+  const chunked = chunk([...entitiesIndexKeys], chunkSize);
   console.log(
     '\tFetching',
     entitiesIndexKeys.length,
@@ -56,10 +56,11 @@ export const entitiesFetcher = {
   single: async (entityId: EntityId, apiUrl: API_URL) =>
     await wikiBase(apiUrl).fetchEntity(entityId),
   all: async (apiUrl: API_URL) => {
-    const entitiesIndex = await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
-      sparql.ENTITY_INDEX(apiUrl)
-    );
+    const entitiesIndexRaw = await wikiBase(
+      apiUrl
+    ).sparqlQuery<EntitiesIndexRaw>(sparql.ENTITY_INDEX(apiUrl));
 
+    const entitiesIndex = entitiesParser.index(entitiesIndexRaw);
     let entities = {} as Record<EntityId, EntityRaw | void>;
     const entitiesChunked = entitiesChunk(
       Object.keys(entitiesIndex) as EntityId[]
@@ -103,6 +104,10 @@ export const rdaPropertiesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<RdaPropertiesRaw>(
     sparql.RDAPROPERTIES(apiUrl)
   );
+const propertyItemListFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<PropertiesItemsListRaw>(
+    sparql.propertyItemList(apiUrl)
+  );
 
 export const fetcher = (apiUrl = API_URL.prod) => {
   const entities = {
@@ -124,6 +129,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   const descriptions = async () => await descriptionsFetcher(apiUrl);
   const rdaRules = async () => await rdaRulesFetcher(apiUrl);
   const rdaProperties = async () => await rdaPropertiesFetcher(apiUrl);
+  const propertyItemList = async () => await propertyItemListFetcher(apiUrl);
 
   const fetchAll = async () => {
     console.log('Data fetching is starting');
@@ -153,5 +159,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     notations,
     codings,
     fetchAll,
+    propertyItemList,
   };
 };

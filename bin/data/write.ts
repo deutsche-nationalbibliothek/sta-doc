@@ -1,7 +1,7 @@
 import { PropertiesItemsList } from '../../types/parsed/property-item-list';
-import type { fetcher } from './fetch';
+import type { fetcher } from './fetcher';
 import type { parseAllFromRead } from './parse';
-import { DataState, writeJSONFileAndType } from './utils';
+import { DataState, writeJSONFile } from './utils';
 import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
@@ -13,35 +13,35 @@ export const writer = (
 ) => {
   const entities = {
     all: async () => {
-      writeJSONFileAndType(await data.entities.all, NAMES.entity, dataState);
+      writeJSONFile(await data.entities.all, NAMES.entity, dataState);
     },
     // index: () => {
-    //   writeJSONFileAndType(data.entities.index, NAMES.entity, dataState);
+    //   writeJSONFile(data.entities.index, NAMES.entity, dataState);
     // }
   };
 
   const fields = () => {
-    writeJSONFileAndType(data.fields, NAMES.fields, dataState);
+    writeJSONFile(data.fields, NAMES.fields, dataState);
   };
 
   const labels = {
-    de: () => writeJSONFileAndType(data.labels.de, NAMES.labelDe, dataState),
-    en: () => writeJSONFileAndType(data.labels.en, NAMES.labelEn, dataState),
+    de: () => writeJSONFile(data.labels.de, NAMES.labelDe, dataState),
+    en: () => writeJSONFile(data.labels.en, NAMES.labelEn, dataState),
   };
 
   const staNotations = () =>
-    writeJSONFileAndType(data.staNotations, NAMES.staNotation, dataState);
+    writeJSONFile(data.staNotations, NAMES.staNotation, dataState);
   const notations = () =>
-    writeJSONFileAndType(data.notations, NAMES.notation, dataState);
+    writeJSONFile(data.notations, NAMES.notation, dataState);
   const codings = () => {
-    writeJSONFileAndType(data.codings, NAMES.coding, dataState);
+    writeJSONFile(data.codings, NAMES.coding, dataState);
   };
   const descriptions = () =>
-    writeJSONFileAndType(data.descriptions, NAMES.description, dataState);
+    writeJSONFile(data.descriptions, NAMES.description, dataState);
   // const rdaRules = () =>
-  //   writeJSONFileAndType(data.rdaRules, NAMES.rdaRule, dataState);
+  //   writeJSONFile(data.rdaRules, NAMES.rdaRule, dataState);
   const rdaProperties = () =>
-    writeJSONFileAndType(data.rdaProperties, NAMES.rdaProperty, dataState);
+    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, dataState);
 
   const writeAll = () => {
     entities.all();
