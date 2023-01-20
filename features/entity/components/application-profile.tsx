@@ -1,6 +1,7 @@
 import { ColumnsType, Table } from '@/components/table';
 import { isWikibaseValue, Statement } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { flattenDeep, pick } from 'lodash';
 import Link from 'next/link';
 import { EntityPreview } from './preview';
 import { Qualifiers } from './qualifiers';
@@ -8,12 +9,18 @@ import { Qualifiers } from './qualifiers';
 interface ApplicationProfileProps {
   statement: Statement;
 }
+interface RelevantProps {
+  link: string;
+  label: string;
+  id: string;
+}
 
 interface ApplicationProfileTableData {
   id: string;
   label: string;
-  wemi: { link: string; label: string; id: string };
-  status: { link: string; label: string; id: string };
+  wemi: RelevantProps;
+  status: Partial<RelevantProps>;
+  staNotationLabel: string;
   expandable?: Statement[];
 }
 
@@ -27,43 +34,69 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
     Property['description-(at-the-end)'],
   ];
 
-  const data: ApplicationProfileTableData[] = statement.wikibasePointer.map(
-    (wikibasePointer) => {
-      if (isWikibaseValue(wikibasePointer)) {
-        const qualifierProps: any = {};
-        const { label, id, qualifiers, staNotationLabel } = wikibasePointer;
-        const wemi = qualifiers.find(
-          (q) => q.property === Property['WEMI-level']
-        );
-        const status = qualifiers.find((q) => q.property === Property.Status);
-        if (wemi && isWikibaseValue(wemi.wikibasePointer[0])) {
-          qualifierProps.wemi = wemi.wikibasePointer[0];
-        } else {
-          qualifierProps.wemi = { label: 'kein Wert' };
-        }
-        if (status && isWikibaseValue(status.wikibasePointer[0])) {
-          qualifierProps.status = status.wikibasePointer[0];
-        } else {
-          qualifierProps.status = { label: 'kein Wert' };
-        }
-        if (staNotationLabel) {
-          qualifierProps.staNotationLabel = staNotationLabel;
-        }
-        const expandable = wikibasePointer.qualifiers.filter((q) =>
-          expandableProperties.includes(q.property)
-        );
-        return {
-          label,
-          id,
-          key: id,
-          expandable,
-          ...qualifierProps,
-        };
-      }
-    }
+  const data: ApplicationProfileTableData[] = flattenDeep(
+    statement.wikibasePointer.map(
+      (wemiLevelWikibasePointer) =>
+        isWikibaseValue(wemiLevelWikibasePointer) &&
+        wemiLevelWikibasePointer.qualifiers.map((qualifier) => {
+          return qualifier.wikibasePointer?.map((wikibasePointer) => {
+            if (isWikibaseValue(wikibasePointer)) {
+              const status = wikibasePointer.qualifiers.find(
+                (q) => q.property === Property.Status
+              );
+              const relevantProps = ['id', 'label', 'link'];
+              const applicationProfileTableData: ApplicationProfileTableData = {
+                id: wikibasePointer.id,
+                label: wikibasePointer.label,
+                wemi: pick(
+                  wemiLevelWikibasePointer,
+                  relevantProps
+                ) as RelevantProps,
+                status: status
+                  ? (pick(
+                    status.wikibasePointer[0],
+                    relevantProps
+                  ) as RelevantProps)
+                  : { label: 'kein Wert' },
+                staNotationLabel: wikibasePointer.staNotationLabel,
+                expandable: wikibasePointer.qualifiers.filter((q) =>
+                  expandableProperties.includes(q.property)
+                ),
+              };
+              return applicationProfileTableData;
+            }
+          });
+        })
+    )
   );
 
   const columns: ColumnsType<ApplicationProfileTableData> = [
+    {
+      title: 'STA Notation',
+      dataIndex: 'staNotationLabel',
+      key: 'StaNotation',
+      width: '15%',
+      isSearchable: true,
+    },
+    {
+      title: 'Elemente',
+      dataIndex: 'label',
+      key: 'Elemente',
+      width: '55%',
+      isSearchable: true,
+      render: (
+        label: string,
+        entity,
+        _index: number,
+        children: JSX.Element
+      ) => {
+        return (
+          <EntityPreview entityId={entity.id} label={label}>
+            <Link href={`/entities/${entity.id}`}>{children}</Link>
+          </EntityPreview>
+        );
+      },
+    },
     {
       title: 'WEMI-Ebene',
       dataIndex: 'wemi',
@@ -118,45 +151,24 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
           .includes((value as string).toLowerCase());
       },
     },
-    {
-      title: 'STA Notation',
-      dataIndex: 'staNotationLabel',
-      key: 'Sta Notation',
-      width: '15%',
-      isSearchable: true,
-    },
-    {
-      title: 'Elemente',
-      dataIndex: 'label',
-      key: 'Elemente',
-      width: '55%',
-      isSearchable: true,
-      render: (
-        label: string,
-        entity,
-        _index: number,
-        children: JSX.Element
-      ) => {
-        return (
-          <EntityPreview entityId={entity.id} label={label}>
-            <Link href={`/entities/${entity.id}`}>{children}</Link>
-          </EntityPreview>
-        );
-      },
-    },
-    ,
   ];
 
   return (
     <Table<ApplicationProfileTableData>
-      dataSource={data}
+      dataSource={data.map((d) => ({ ...d, key: d.id }))}
       columns={columns}
       expandable={{
         expandedRowClassName: () => 'application-profile-table-expandable-row',
         indentSize: 250,
         rowExpandable: (record) => !!record.expandable.length,
         expandedRowRender: (record) => (
-          <Qualifiers qualifiers={record.expandable} />
+          <Qualifiers
+            shouldRenderLabel={(qualifier) =>
+              qualifier.property !== Property.description
+            }
+            key={record.id}
+            qualifiers={record.expandable}
+          />
         ),
       }}
     />

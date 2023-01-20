@@ -2,8 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
 import { Entities, EntitiesEntries } from '@/types/parsed/entity';
 import { FetchingParam } from '@/hooks/fetching-query-param-provider';
-import { fetcher } from '@/bin/data/fetcher';
-import { API_URL } from '@/bin/data/fetch';
+import { fetcher, API_URL } from '@/bin/data/fetcher';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import {

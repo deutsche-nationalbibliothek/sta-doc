@@ -3,9 +3,9 @@ import { Property } from '../../../../types/property';
 // header and table are whitelists
 // text is just for sorting, header values are blacklist for text group
 
-export type Group = keyof typeof groupsDefinition;
+export type Group = keyof typeof defaultGroupsDefinition;
 
-export const groupsDefinition = {
+export const defaultGroupsDefinition = {
   header: [
     Property['definition'],
     Property['STA-Notation'],
@@ -376,5 +376,28 @@ export const groupsDefinition = {
     Property['creator-agent-of-work'],
     Property['Other-agent-associated-with-work'],
     Property['related-work-of-work'],
+  ],
+};
+
+export const rdaRessourceTypeGroups = {
+  header: [
+    Property.definition,
+    // Property['STA-Notation'],
+  ],
+  table: [],
+  text: [
+    Property.P659,
+    Property['Sources-of-information'],
+    Property.description,
+    Property.Elements,
+    Property.P657,
+    Property.P658,
+    Property['description-(at-the-end)'],
+    // Property['description-(at-the-end)',
+
+    Property['Title-proper'],
+    Property.Status,
+    Property.Repetition,
+    Property['embedded-(item)'],
   ],
 };

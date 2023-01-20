@@ -2,6 +2,7 @@ import { Collapse } from '@/components/collapse';
 import { Title } from '@/components/title';
 import { Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
@@ -11,10 +12,16 @@ import { WikibasePointers } from '../wikibase-pointers';
 
 interface QualifiersProps {
   qualifiers: Statement[];
-  showHeadline?: boolean
+  showHeadline?: boolean;
+  // only used in default render
+  shouldRenderLabel?: (qualifier: Statement) => boolean;
 }
 
-export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers, showHeadline = true }) => {
+export const Qualifiers: React.FC<QualifiersProps> = ({
+  qualifiers,
+  shouldRenderLabel,
+  showHeadline = true,
+}) => {
   const noOp = () => null;
 
   const qualifierMap = {
@@ -54,10 +61,14 @@ export const Qualifiers: React.FC<QualifiersProps> = ({ qualifiers, showHeadline
     default: (qualifier: Statement) => {
       return (
         <>
-          {showHeadline && qualifier.headline && <Title headline={qualifier.headline} />}
+          {showHeadline && qualifier.headline && (
+            <Title headline={qualifier.headline} />
+          )}
           {qualifier.string ? (
             <Typography.Paragraph>
-              <Typography.Text strong>{qualifier.label}:</Typography.Text>
+              {shouldRenderLabel && (
+                <Typography.Text strong>{qualifier.label}:</Typography.Text>
+              )}
               <StringStatement
                 property={qualifier.property}
                 statement={qualifier.string}

@@ -40,6 +40,7 @@ export interface Claim {
   qualifiers?: Record<Property, StatementRaw[]>;
   'qualifiers-order'?: string[];
   references?: Reference[];
+  parentProperty?: Property;
 }
 
 export interface StatementRaw {
@@ -61,4 +62,4 @@ export interface Reference {
   'snaks-order': string[];
 }
 
-interface Sitelinks { }
+interface Sitelinks {}

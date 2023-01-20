@@ -2,7 +2,7 @@ import { flattenDeep, uniq } from 'lodash';
 import { EntityId } from '../../../../types/entity-id';
 import { Property } from '../../../../types/property';
 import { Claim, EntityRaw, StatementRaw } from '../../../../types/raw/entity';
-import { Group, groupsDefinition } from './groups-definition';
+import { Group, defaultGroupsDefinition } from './groups-definition';
 
 interface ParseEntityProps {
   entityId: EntityId;
@@ -35,7 +35,7 @@ export const prefetchEmbeddedEntities = async ({
 
   const statementProps = (occurrences: Record<EntityId, Claim[]>) => {
     const filterByGroup = (group: Group) =>
-      groupsDefinition[group]
+      defaultGroupsDefinition[group]
         .map((propertyKey) => occurrences[propertyKey])
         .filter((a) => a); // as unknown as Claim[];
 
@@ -94,8 +94,8 @@ export const prefetchEmbeddedEntities = async ({
       ...filterByGroup('table'),
       ...Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
         if (
-          !groupsDefinition.header.includes(occ[0].mainsnak.property) &&
-          !groupsDefinition.table.includes(occ[0].mainsnak.property)
+          !defaultGroupsDefinition.header.includes(occ[0].mainsnak.property) &&
+          !defaultGroupsDefinition.table.includes(occ[0].mainsnak.property)
         ) {
           acc.push(occ);
         }

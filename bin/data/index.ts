@@ -29,23 +29,25 @@ export const DEV = false;
     writer(data, DataState.parsed).writeAll();
   };
 
-  const parseSingleEntity = (entityId: EntityId) => {
-    console.log(
-      'parsed Values will not get written, used just for runtime debugging'
-    );
-    const read = reader(DataState.raw);
-    entitiesParser.single(
+  const parseSingleEntity = async (entityId: EntityId) => {
+    const readRaw = reader(DataState.raw);
+    const entity = await entitiesParser.single(
       entityId,
-      read.entities.single(entityId),
-      (entityId: EntityId) => read.entities.single(entityId),
+      readRaw.entities.single(entityId),
+      (entityId: EntityId) => readRaw.entities.single(entityId),
       {
-        lookup_de: labelsParser.de(read.labels.de()),
-        lookup_en: labelsParser.en(read.labels.en()),
-        codings: codingsParser(read.codings()),
-        notations: notationsParser(read.notations()),
-        staNotations: staNotationsParser(read.staNotations()),
+        lookup_de: labelsParser.de(readRaw.labels.de()),
+        lookup_en: labelsParser.en(readRaw.labels.en()),
+        codings: codingsParser(readRaw.codings()),
+        notations: notationsParser(readRaw.notations()),
+        staNotations: staNotationsParser(readRaw.staNotations()),
       }
     );
+    const entities = { ...reader(DataState.parsed).entities.all(), ...entity };
+    await writer(
+      { entities: { all: entities } } as any,
+      DataState.parsed
+    ).entities.all();
   };
 
   if (process.argv.length === 2) {

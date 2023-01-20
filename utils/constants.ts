@@ -12,6 +12,7 @@ export const blacklist: {
     Property['Element-of'],
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
+    Property.Status,
   ],
   headlines: [
     Property.Annotation,
@@ -27,6 +28,7 @@ export const blacklist: {
     Property['Type-of-layout'],
     Property['example(s)'],
     Property.URL,
+    Property['WEMI-level'],
   ],
 };
 
@@ -49,6 +51,7 @@ export const namepsaceClassification: Record<Namespace, Item[]> = {
     Item['RDA-Example'],
     Item['RDA-documentation'],
     Item['RDA-Ressource-Type'],
+    Item['datamodel-documentation'],
   ],
   GND: [
     Item['GND-cataloging-level'],
