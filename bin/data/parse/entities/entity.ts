@@ -443,6 +443,7 @@ export const parseRawEntity = ({
                               Property['Title-proper'],
                               Property.Status,
                               Property.Repetition,
+                              Property.description,
                               Property['embedded-(item)'],
                             ];
 
