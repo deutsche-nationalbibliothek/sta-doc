@@ -124,11 +124,20 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           x.qualifiers.find((x) => x.property === Property['Introduction-text'])
         ) as StringValue | undefined;
 
-      const introductionTextStatementLabel =
+      const introductionTextStatement =
         stringValueWithIntroduction &&
         stringValueWithIntroduction.qualifiers.find(
           (x) => x.property === Property['Introduction-text']
-        )?.label;
+        );
+
+      const stringStatement =
+        introductionTextStatement &&
+        introductionTextStatement.string[0].values[0];
+
+      const introductionTextStatementLabel =
+        introductionTextStatement &&
+        isStringValue(stringStatement) &&
+        stringStatement.value;
 
       return (
         <Collapse
@@ -157,7 +166,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-            itemTypeMap[stringValueContainer.itemType]
+              itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
