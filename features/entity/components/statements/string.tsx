@@ -158,6 +158,22 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </Collapse>
       );
     },
+    [Item['English-123']]: (
+      stringValueContainer: StringValueContainer
+    ) =>
+      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+        {(stringValue, qualifiers, references) => (
+          <Typography.Paragraph className="data-data" style={{color: 'blue'}} key={stringValue.value}>
+            <StringValueComponent
+              style={{color: 'gray'}}
+              stringValue={stringValue}
+            />
+            {references}
+            {qualifiers}
+          </Typography.Paragraph>
+        )}
+      </GenericStringValueMapper>
+
   };
 
   return (
