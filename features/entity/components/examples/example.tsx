@@ -10,22 +10,63 @@ import {
   WikiBaseValue,
   isStringValue,
   StringValue,
+  Statement,
 } from '@/types/parsed/entity';
+import { ColumnsType, Table } from '@/components/table';
+import { compact, flattenDeep } from 'lodash';
+import { StringStatement } from '../statements/string';
+import Link from 'next/link';
+import { EntityPreview } from '../preview';
+import { useNamespace } from '@/hooks/use-namespace';
+import { Namespace } from '@/types/namespace';
+import { Statements } from '../statements';
 
 interface ExampleProps {
   example: WikiBaseValue;
   codingsPreferences: CodingsPreference[];
 }
 
+interface PreData {
+  values: StringValue[];
+  statement: Statement;
+}
+interface TableData extends PreData {
+  label: string;
+}
+
+const nonDefaultRenderProperties = [
+  Property.description,
+  Property['description-(at-the-end)'],
+];
+
 export const Example: React.FC<ExampleProps> = ({
   example,
   codingsPreferences,
 }) => {
+  const { namespace } = useNamespace();
+
+  const statements = example.embedded.statements.text;
+
+  const propFinder = (property: Property) =>
+    statements.find((statement) => statement.property === property);
+
+  const nonDefaultRenderStatements = {
+    description: propFinder(Property.description),
+    'description-(at-the-end)': propFinder(
+      Property['description-(at-the-end)']
+    ),
+  };
+
   return (
     <>
-      {example.embedded && (
+      {nonDefaultRenderStatements.description && (
+        <Statements statements={[nonDefaultRenderStatements.description]} />
+      )}
+      {example.embedded && namespace === Namespace.RDA ? (
+        <RdaExample example={example} codingsPreferences={codingsPreferences} />
+      ) : (
         <React.Fragment>
-          {example.embedded.statements.text.map((statement, index) => (
+          {statements.map((statement, index) => (
             <Typography.Paragraph key={index}>
               {statement.string &&
                 statement.string.map((stringStatement) =>
@@ -110,6 +151,11 @@ export const Example: React.FC<ExampleProps> = ({
           ))}
         </React.Fragment>
       )}
+      {nonDefaultRenderStatements['description-(at-the-end)'] && (
+        <Statements
+          statements={[nonDefaultRenderStatements['description-(at-the-end)']]}
+        />
+      )}
     </>
   );
 };
@@ -175,5 +221,97 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
           )
       )}
     </Card>
+  );
+};
+
+const RdaExample: React.FC<ExampleProps> = ({ example }) => {
+  const preData: Record<string, PreData> = compact(
+    flattenDeep(
+      example.embedded &&
+      example.embedded.statements.text
+        .filter(
+          (statement) =>
+            !nonDefaultRenderProperties.includes(statement.property)
+        )
+        .map(
+          (statement) =>
+            statement.string &&
+            statement.string.map((stringStatement) =>
+              stringStatement.values.map(
+                (stringValue) =>
+                  isStringValue(stringValue) && {
+                    key: statement.label,
+                    statement,
+                    value: stringValue.value,
+                  }
+              )
+            )
+        )
+    )
+  ).reduce(
+    (
+      acc,
+      stringValueMeta: { key: string; value: string; statement: Statement }
+    ) => {
+      if (acc[stringValueMeta.key]) {
+        acc[stringValueMeta.key] = {
+          ...acc[stringValueMeta.key],
+          values: [...acc[stringValueMeta.key].values, stringValueMeta],
+        };
+      } else {
+        acc[stringValueMeta.key] = {
+          values: [stringValueMeta],
+          statement: stringValueMeta.statement,
+        };
+      }
+      return acc;
+    },
+    {}
+  );
+  const data: TableData[] = Object.entries(preData).map(([key, value]) => ({
+    label: key,
+    values: value.values,
+    statement: value.statement,
+  }));
+
+  console.log({ data, preData });
+  const columns: ColumnsType<TableData> = [
+    {
+      // title: 'STA Notation',
+      dataIndex: 'label',
+      key: 'label',
+      render: (label: string, { statement }, c) => {
+        console.log({ label, statement, c });
+        return (
+          <EntityPreview entityId={statement.property} label={label}>
+            <Link href={`/entities/${statement.property}`}>{label}</Link>
+          </EntityPreview>
+        );
+      },
+      width: '33%',
+      // isSearchable: true,
+    },
+    {
+      dataIndex: 'values',
+      key: 'values',
+      render: (_values, { statement }) => {
+        return (
+          <StringStatement
+            property={statement.property}
+            statement={statement.string}
+          />
+        );
+      },
+    },
+  ];
+
+  return (
+    <Table<TableData>
+      dataSource={data}
+      pagination={false}
+      columns={columns}
+      showHeader={false}
+      className="example-table"
+    />
   );
 };
