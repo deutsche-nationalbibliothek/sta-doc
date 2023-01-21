@@ -57,7 +57,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         )}
       </GenericStringValueMapper>
     ),
-    [Item['enumeration,uncounted']]: (
+    [Item['Enumeration-uncounted-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
     ) => (
       <ul>
@@ -72,7 +72,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       </ul>
     ),
-    [Item['enumeration,counted']]: (
+    [Item['Enumeration-counted-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
     ) => (
       <ol>
@@ -106,8 +106,8 @@ export const StringStatement: React.FC<StringStatementProps> = ({
               {(stringValue, _qualifiers, _references) => (
                 <StringValueExamples
                   stringValue={stringValue}
-                  // qualifiers={qualifiers}
-                  // references={references}
+                // qualifiers={qualifiers}
+                // references={references}
                 />
               )}
             </GenericStringValueMapper>
