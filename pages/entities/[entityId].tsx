@@ -3,7 +3,6 @@ import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
-import { useEffectOnce } from '@/hooks/use-effect-once';
 import { Headline } from '@/types/headline';
 import {
   Entities,
@@ -26,10 +25,9 @@ export default function EntityDetailsPage({
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
 
-  useEffectOnce(() => {
+  useEffect(() => {
     setHeadlines(headlines);
-    return () => setHeadlines([]);
-  });
+  }, []);
 
   return (
     <>

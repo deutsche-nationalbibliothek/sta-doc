@@ -41,9 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    res
-      .status(200)
-      .json({ entity: entities[entityId as keyof Entities].entity });
+    res.status(200).json(entities[entityId as keyof Entities]);
   }
   res.status(404);
 };
