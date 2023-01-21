@@ -13,6 +13,7 @@ export const blacklist: {
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
     Property.Status,
+    Property['language-of-the-statement'],
   ],
   headlines: [
     Property.Annotation,
