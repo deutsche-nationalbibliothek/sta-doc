@@ -58,7 +58,10 @@ export default function RdaPropertiesPage({
           level: 1,
         }}
       />
-      <Table<RdaProperty> columns={columns} dataSource={rdaProperties} />
+      <Table<RdaProperty>
+        columns={columns}
+        dataSource={rdaProperties.map((p) => ({ ...p, key: p.id }))}
+      />
     </>
   );
 }

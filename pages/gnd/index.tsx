@@ -1,5 +1,6 @@
 import { Title } from '@/components/title';
 import { NamespaceImage } from '@/entity/components/namespace-image';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { PageHeader, Typography } from 'antd';
@@ -9,6 +10,11 @@ import { useEffect, useState } from 'react';
 export default function GndIndex() {
   const { namespace, setNamespace } = useNamespace();
   const [html, setHtml] = useState<string>();
+  const { setHeadlines } = useInitialHeadlines();
+
+  useEffect(() => {
+    setHeadlines([]);
+  }, []);
 
   useEffect(() => {
     const fetch = async () => {
@@ -37,7 +43,7 @@ export default function GndIndex() {
             title={
               <Title
                 headline={{
-                  title: 'Handbuch Gemeinsame Normdatei | Startseite',
+                  title: 'Handbuch Gemeinsame Normdatei',
                   level: 1,
                   key: 'GndIndex',
                 }}

@@ -1,6 +1,7 @@
 import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { EntityPreview } from '@/entity/components/preview';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { Item } from '@/types/item';
@@ -23,10 +24,15 @@ interface EntityIndexProps {
 
 export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
   const { setNamespace } = useNamespace();
+  const { setHeadlines } = useInitialHeadlines();
 
   useEffect(() => {
     setNamespace(namespace);
   }, [namespace]);
+
+  useEffect(() => {
+    setHeadlines([]);
+  }, []);
 
   const namespaceItems: Item[] =
     namespace && namepsaceClassification[namespace.toUpperCase()];
@@ -65,9 +71,8 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
     },
   ];
 
-  const title = `${
-    namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
-  }Index`;
+  const title = `${namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
+    }Index`;
 
   return (
     <>
