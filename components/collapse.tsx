@@ -11,23 +11,21 @@ interface CollapseProps extends AntdCollapseProps {
   children: JSX.Element;
 }
 
-export const Collapse = (props: CollapseProps) => {
-  const [isOpen, setIsOpen] = useState(props.defaultOpen ?? true);
+export const Collapse = ({
+  defaultOpen = true,
+  labelOpen = '',
+  labelClosed = 'Weiterführende Informationen',
+  children,
+}: CollapseProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
   return (
     <AntdCollapse
       onChange={(keys) => setIsOpen(!!keys.length)}
-      defaultActiveKey={['1']}
+      defaultActiveKey={[isOpen && '1']}
     >
-      <AntdCollapse.Panel
-        header={
-          isOpen
-            ? props.labelOpen ?? ''
-            : props.labelClosed ?? 'Weiterführende Informationen'
-        }
-        key="1"
-      >
-        {props.children}
+      <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
+        {children}
       </AntdCollapse.Panel>
     </AntdCollapse>
   );

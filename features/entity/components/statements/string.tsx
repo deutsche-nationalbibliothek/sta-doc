@@ -141,10 +141,10 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 
       return (
         <Collapse
+          defaultOpen={false}
           labelClosed={
-            introductionTextStatementLabel ?? 'Weiterführende Informationen'
+            introductionTextStatementLabel
           }
-          labelOpen={''}
         >
           <GenericStringValueMapper stringValueContainer={stringValueContainer}>
             {(stringValue, qualifiers, references) => (
