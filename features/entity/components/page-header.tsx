@@ -25,9 +25,9 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
 }) => {
   const staNotationInfo = staNotationStatement &&
     isStringValue(staNotationStatement.string[0].values[0]) && {
-      label: staNotationStatement.label,
-      value: staNotationStatement.string[0].values[0].value,
-    };
+    label: staNotationStatement.label,
+    value: staNotationStatement.string[0].values[0].value,
+  };
 
   const isApplicationProfileView = view.get === 'application-profile';
 
@@ -36,7 +36,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
       title={<Title headline={entity.headline} />}
       extra={
         <>
-          <div>
+          <div style={{ textAlign: 'center' }}>
             {namespace && <NamespaceImage />}
             {isRdaRessourceType && (
               <>
