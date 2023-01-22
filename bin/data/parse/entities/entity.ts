@@ -148,7 +148,7 @@ export const parseRawEntity = ({
       const sortByProperties = (claims: Claim[][], group: Group) =>
         claims.sort((occ1, occ2) =>
           relevantGroup[group].indexOf(occ1[0].mainsnak.property) >
-            relevantGroup[group].indexOf(occ2[0].mainsnak.property)
+          relevantGroup[group].indexOf(occ2[0].mainsnak.property)
             ? 1
             : -1
         );
@@ -243,10 +243,10 @@ export const parseRawEntity = ({
             value,
             headline: hasHeadline
               ? addHeadline(
-                value,
-                currentHeadlineLevel + headingIndex,
-                noHeadline
-              )
+                  value,
+                  currentHeadlineLevel + headingIndex,
+                  noHeadline
+                )
               : undefined,
             coding: codings[property],
             itemType,
@@ -267,17 +267,11 @@ export const parseRawEntity = ({
 
         const parsedStatements: PreMappedStatement[] = statements.map(
           (occs) => {
-            let dataType;
-            try {
-              dataType = keyAccess<string>(occs[0], 'datatype');
-            } catch (error) {
-              const s = statements;
-              debugger;
-            }
+            const dataType = keyAccess<string>(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
-                dataType === 'wikibase-entityid' ||
-                dataType === 'wikibase-property'
+              dataType === 'wikibase-entityid' ||
+              dataType === 'wikibase-property'
                 ? 'wikibasePointer'
                 : (dataType as DataType);
 
@@ -327,51 +321,52 @@ export const parseRawEntity = ({
 
                 const embedded = hasEmbedding
                   ? parseRawEntity({
-                    entityId: embeddedEntityId,
-                    headlines,
-                    currentHeadlineLevel: nextHeaderLevel,
-                    prevParsedEntities: [
-                      ...prevParsedEntities,
-                      entityId,
-                      embeddedEntityId,
-                    ],
-                    isRdaRessourceEntityParam: isRdaRessourceEntity,
-                    embedded: true,
-                    data,
-                    getRawEntityById,
-                  })?.entity
+                      entityId: embeddedEntityId,
+                      headlines,
+                      currentHeadlineLevel: nextHeaderLevel,
+                      prevParsedEntities: [
+                        ...prevParsedEntities,
+                        entityId,
+                        embeddedEntityId,
+                      ],
+                      isRdaRessourceEntityParam: isRdaRessourceEntity,
+                      embedded: true,
+                      data,
+                      getRawEntityById,
+                    })?.entity
                   : undefined;
 
                 const dataTypeSpecifics =
                   simplifiedDataType === 'wikibasePointer'
                     ? parseWikibaseValue(
-                      occ,
-                      nextHeaderLevel +
-                      (isElementsPropOnRdaRessourceType ? 1 : 0),
-                      property === Property.Elements
-                    )
+                        occ,
+                        nextHeaderLevel +
+                          (isElementsPropOnRdaRessourceType ? 1 : 0),
+                        property === Property.Elements
+                      )
                     : simplifiedDataType === 'time'
-                      ? parseTimeValue(occ)
-                      : simplifiedDataType === 'url'
-                        ? parseUrlValue(occ)
-                        : parseStringValue(occ, nextHeaderLevel);
+                    ? parseTimeValue(occ)
+                    : simplifiedDataType === 'url'
+                    ? parseUrlValue(occ)
+                    : parseStringValue(occ, nextHeaderLevel);
 
                 const qualifiers =
                   'qualifiers' in occ && occ.qualifiers
                     ? parseStatementProps(
-                      (Object.keys(occ.qualifiers) as Property[]).map(
-                        (qualiKey) =>
-                          (occ as Required<Claim>).qualifiers[qualiKey]
-                      ),
-                      // todo clarify if wished
-                      nextHeaderLevel +
-                      (isElementsPropOnRdaRessourceType ? 1 : 0),
-                      {
-                        embeddedStatement: true,
-                        isTopLevel,
-                        noHeadline,
-                      }
-                    )
+                        (Object.keys(occ.qualifiers) as Property[])
+                          .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
+                          .map(
+                            (qualiKey) =>
+                              (occ as Required<Claim>).qualifiers[qualiKey]
+                          ),
+                        nextHeaderLevel +
+                          (isElementsPropOnRdaRessourceType ? 1 : 0),
+                        {
+                          embeddedStatement: true,
+                          isTopLevel,
+                          noHeadline,
+                        }
+                      )
                     : undefined;
 
                 return {
@@ -395,17 +390,17 @@ export const parseRawEntity = ({
       const reorganiseRdaRessourceType = () => {
         const releavantClaims = sortByProperties(filterByGroup('text'), 'text');
         const claimsReducer = (acc, statements) => {
-          const elementsStatementsnts =
+          const elementsStatement =
             isRdaRessourceEntity &&
             statements[0].parentProperty === Property.Elements;
 
-          if (elementsStatementsnts) {
+          if (elementsStatement) {
             const wemiGroups = groupBy(statements, (occs) =>
               occs.qualifiers && Property['WEMI-level'] in occs.qualifiers
                 ? lookup_de[
-                occs.qualifiers[Property['WEMI-level']][0]?.datavalue.value
-                  .id
-                ]
+                    occs.qualifiers[Property['WEMI-level']][0]?.datavalue.value
+                      .id
+                  ]
                 : 'Kein Wert'
             );
 
@@ -527,22 +522,22 @@ export const parseRawEntity = ({
           isRdaRessourceEntity
             ? reorganiseRdaRessourceType()
             : sortByProperties(
-              // filter props from groupsDefinition header
-              Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
-                if (
-                  !defaultGroupsDefinition.header.includes(
-                    occ[0].mainsnak.property
-                  ) &&
-                  !defaultGroupsDefinition.table.includes(
-                    occ[0].mainsnak.property
-                  )
-                ) {
-                  acc.push(occ);
-                }
-                return acc;
-              }, [] as Claim[][]),
-              'text'
-            ),
+                // filter props from groupsDefinition header
+                Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
+                  if (
+                    !defaultGroupsDefinition.header.includes(
+                      occ[0].mainsnak.property
+                    ) &&
+                    !defaultGroupsDefinition.table.includes(
+                      occ[0].mainsnak.property
+                    )
+                  ) {
+                    acc.push(occ);
+                  }
+                  return acc;
+                }, [] as Claim[][]),
+                'text'
+              ),
           nextHeaderLevel,
           {
             isTopLevel: !embedded,
@@ -557,12 +552,12 @@ export const parseRawEntity = ({
       id: entityId,
       headline: entityHasHeadline
         ? addHeadline(
-          label,
-          currentHeadlineLevel,
-          false,
-          elementOfId &&
-          (lookup_en[elementOfId] as unknown as Namespace | undefined)
-        )
+            label,
+            currentHeadlineLevel,
+            false,
+            elementOfId &&
+              (lookup_en[elementOfId] as unknown as Namespace | undefined)
+          )
         : undefined,
       label: !embedded ? label : undefined,
       title:
@@ -571,9 +566,9 @@ export const parseRawEntity = ({
           : undefined,
       pageType: elementOfId
         ? ({
-          ...lookup_en[elementOfId],
-          deLabel: lookup_de[elementOfId],
-        } as PageType)
+            ...lookup_en[elementOfId],
+            deLabel: lookup_de[elementOfId],
+          } as PageType)
         : undefined,
       notation: notations[entityId]?.notation,
       statements: statementProps(entity.claims),
@@ -622,8 +617,8 @@ const stringMapper = (val: PreMappedStatement): Statement => {
   };
   return val && 'string' in val && val.string
     ? {
-      ...val,
-      string: stringTransform(val.string),
-    }
+        ...val,
+        string: stringTransform(val.string),
+      }
     : (val as unknown as Statement);
 };

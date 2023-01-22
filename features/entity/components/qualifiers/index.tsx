@@ -2,7 +2,6 @@ import { Collapse } from '@/components/collapse';
 import { Title } from '@/components/title';
 import { isStringValue, Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
@@ -22,12 +21,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   shouldRenderLabel,
   showHeadline = true,
 }) => {
-  const noOp = () => null;
-
   const qualifierMap = {
-    [Property['Type-of-layout']]: noOp,
-    [Property['embedded-in-(item)']]: noOp,
-    [Property['embedded-(property)']]: noOp,
     [Property['embedded-(item)']]: (qualifier: Statement) => {
       return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
         <React.Fragment key={index}>

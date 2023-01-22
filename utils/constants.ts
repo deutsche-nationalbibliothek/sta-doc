@@ -6,6 +6,7 @@ import { Property } from '../types/property';
 export const blacklist: {
   property: (Item | Property)[];
   headlines: (Item | Property)[];
+  qualifier: (Item | Property)[];
 } = {
   property: [
     Property.Schema,
@@ -13,7 +14,6 @@ export const blacklist: {
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
     Property.Status,
-    Property['language-of-the-statement'],
   ],
   headlines: [
     Property.Annotation,
@@ -30,6 +30,12 @@ export const blacklist: {
     Property['example(s)'],
     Property.URL,
     Property['WEMI-level'],
+  ],
+  qualifier: [
+    Property['language-of-the-statement'],
+    Property['Type-of-layout'],
+    Property['embedded-in-(item)'],
+    Property['embedded-(property)'],
   ],
 };
 
