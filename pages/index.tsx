@@ -1,8 +1,16 @@
 import { Title } from '@/components/title';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Divider, Typography } from 'antd';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const { setHeadlines } = useInitialHeadlines();
+
+  useEffect(() => {
+    setHeadlines([]);
+  }, []);
+
   return (
     <>
       <Head>
