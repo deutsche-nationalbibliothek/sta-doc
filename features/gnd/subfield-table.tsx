@@ -3,53 +3,40 @@ import { ColumnsType, Table } from '@/components/table';
 import { EntityPreview } from '@/entity/components/preview';
 import { Link } from '@/lib/next-link';
 import { Field, Subfield } from '@/types/parsed/field';
-// import { Field, Subfield } from '@/types/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
 export const GndSubFieldTable: React.FC<Field> = (props) => {
   const columns: ColumnsType<Subfield> = [
     {
-      title: 'Codings',
-      key: 'codings',
-      children: [
-        {
-          title: 'PICA3',
-          width: '8%',
-          dataIndex: ['codings', 'PICA3'],
-          key: 'PICA3',
-          isSearchable: true,
-          render: (coding, _record, _index, highlighted) => {
-            return (
-              coding && <Typography.Text code>{highlighted}</Typography.Text>
-            );
-          },
-        },
-        {
-          title: 'PICA+',
-          width: '8%',
-          dataIndex: ['codings', 'PICA+'],
-          key: 'PICA+',
-          isSearchable: true,
-          render: (coding, _record, _index, highlighted) => {
-            return (
-              coding && <Typography.Text code>{highlighted}</Typography.Text>
-            );
-          },
-        },
-        {
-          title: 'MARC21',
-          dataIndex: ['codings', 'MARC 21'],
-          width: '14%',
-          key: 'PICA3',
-          isSearchable: true,
-          render: (coding, _record, _index, highlighted) => {
-            return (
-              coding && <Typography.Text code>{highlighted}</Typography.Text>
-            );
-          },
-        },
-      ],
+      title: 'PICA3',
+      width: '8%',
+      dataIndex: ['codings', 'PICA3'],
+      key: 'PICA3',
+      isSearchable: true,
+      render: (coding, _record, _index, highlighted) => {
+        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
+    {
+      title: 'PICA+',
+      width: '8%',
+      dataIndex: ['codings', 'PICA+'],
+      key: 'PICA+',
+      isSearchable: true,
+      render: (coding, _record, _index, highlighted) => {
+        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
+    {
+      title: 'MARC21',
+      dataIndex: ['codings', 'MARC 21'],
+      width: '14%',
+      key: 'PICA3',
+      isSearchable: true,
+      render: (coding, _record, _index, highlighted) => {
+        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      },
     },
     {
       title: 'Bezeichnung',

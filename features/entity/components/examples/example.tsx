@@ -1,25 +1,25 @@
+import { ColumnsType, Table } from '@/components/table';
 import {
   CodingsPreference,
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
-import { Property } from '@/types/property';
-import { Item } from '@/types/item';
-import { Card, Tag, Typography } from 'antd';
-import React from 'react';
-import {
-  WikiBaseValue,
-  isStringValue,
-  StringValue,
-  Statement,
-} from '@/types/parsed/entity';
-import { ColumnsType, Table } from '@/components/table';
-import { compact, flattenDeep } from 'lodash';
-import { StringStatement } from '../statements/string';
-import Link from 'next/link';
-import { EntityPreview } from '../preview';
 import { useNamespace } from '@/hooks/use-namespace';
+import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
+import {
+  isStringValue,
+  Statement,
+  StringValue,
+  WikiBaseValue,
+} from '@/types/parsed/entity';
+import { Property } from '@/types/property';
+import { Card, Tag, Typography } from 'antd';
+import { compact, flattenDeep } from 'lodash';
+import Link from 'next/link';
+import React from 'react';
+import { EntityPreview } from '../preview';
 import { Statements } from '../statements';
+import { StringStatement } from '../statements/string';
 
 interface ExampleProps {
   example: WikiBaseValue;

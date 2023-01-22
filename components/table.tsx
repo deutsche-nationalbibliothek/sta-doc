@@ -1,5 +1,12 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space, Table as AntdTable } from 'antd';
+import {
+  Button,
+  Input,
+  InputRef,
+  Space,
+  Table as AntdTable,
+  Typography,
+} from 'antd';
 import { TableProps as AntdTableProps } from 'antd/lib/table';
 import {
   ColumnGroupType as AntdColumnGroupType,
@@ -140,7 +147,7 @@ export function Table<T extends object>(props: TableProps<T>) {
         ...getColumnSearchProps(column.dataIndex, column.key),
       };
     }
-    if (render && 'dataIndex' in column && 'render' in column) {
+    if ('render' in column && 'dataIndex' in column) {
       columnProps.render = (value: any, record: T, index: number) => {
         return render(
           value,
@@ -157,6 +164,10 @@ export function Table<T extends object>(props: TableProps<T>) {
             value
           )
         );
+      };
+    } else {
+      columnProps.render = (value: any, record: T, index: number) => {
+        return <Typography.Text>{value}</Typography.Text>;
       };
     }
 
@@ -183,7 +194,6 @@ export function Table<T extends object>(props: TableProps<T>) {
   return (
     <>
       <AntdTable
-        bordered
         sticky
         {...props}
         columns={props.columns.map(columnsMapper)}
