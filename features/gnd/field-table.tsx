@@ -12,7 +12,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
   const columns: ColumnsType<Field> = [
     {
       title: 'PICA3',
-      width: '8%',
+      width: '15%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
@@ -22,7 +22,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
     },
     {
       title: 'PICA+',
-      width: '8%',
+      width: '15%',
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
@@ -33,7 +33,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
     {
       title: 'MARC21',
       dataIndex: ['codings', 'MARC 21'],
-      width: '14%',
+      width: '25%',
       key: 'PICA3',
       isSearchable: true,
       render: (coding, _record, _index, highlighted) => {
@@ -44,7 +44,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
       title: 'Bezeichnung',
       dataIndex: 'label',
       key: 'label',
-      width: '25%',
+      width: '40%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return (
@@ -52,16 +52,6 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
             <Link href={`/entities/${record.id}`}>{highlightedContent}</Link>
           </EntityPreview>
         );
-      },
-    },
-    {
-      title: 'Beschreibung',
-      width: '40%',
-      dataIndex: 'description',
-      key: 'description',
-      isSearchable: true,
-      render: (_description, _record, _index, highlighted) => {
-        return <Typography.Text>{highlighted}</Typography.Text>;
       },
     },
     {

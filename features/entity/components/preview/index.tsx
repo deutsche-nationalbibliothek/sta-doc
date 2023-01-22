@@ -37,7 +37,6 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
           style={{
             maxWidth: Math.min(window.innerWidth, 960),
             maxHeight: Math.min(window.innerHeight, 480),
-            overflowY: 'scroll',
           }}
         >
           <EntityPreviewContent entity={entity} />

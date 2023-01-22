@@ -10,7 +10,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
   const columns: ColumnsType<Subfield> = [
     {
       title: 'PICA3',
-      width: '8%',
+      width: '15%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
@@ -20,7 +20,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
     },
     {
       title: 'PICA+',
-      width: '8%',
+      width: '15%',
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
@@ -31,7 +31,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
     {
       title: 'MARC21',
       dataIndex: ['codings', 'MARC 21'],
-      width: '14%',
+      width: '25%',
       key: 'PICA3',
       isSearchable: true,
       render: (coding, _record, _index, highlighted) => {
@@ -40,7 +40,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
     },
     {
       title: 'Bezeichnung',
-      width: '25%',
+      width: '40%',
       dataIndex: 'label',
       key: 'label',
       filters: props.subfields
@@ -57,16 +57,6 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
             </EntityPreview>
           </>
         );
-      },
-    },
-    {
-      title: 'Beschreibung',
-      width: '40%',
-      dataIndex: 'description',
-      key: 'description',
-      isSearchable: true,
-      render: (_description, _record, _index, highlighted) => {
-        return <Typography.Text>{highlighted}</Typography.Text>;
       },
     },
     {
