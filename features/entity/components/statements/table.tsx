@@ -4,7 +4,7 @@ import {
   isWikibaseValue,
   Statement,
   StringValue,
-  WikiBaseValue
+  WikiBaseValue,
 } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
@@ -89,35 +89,25 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
               >
                 {stringStatement.map((stringValue, index) => (
                   <Typography.Paragraph key={index}>
-                    {stringValue.qualifiers?.some((q) =>
-                      q.wikibasePointer.filter(isWikibaseValue).some(
-                        (w) =>
-                          w.label.toUpperCase() ===
-                          stringValue.value.toUpperCase()
-                      )
-                    ) ? (
-                      <>
-                        <Qualifiers
-                          showHeadline={false}
-                          qualifiers={stringValue.qualifiers}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <StringValueComponent
-                          code={record.property === Property.Encoding}
-                          stringValue={stringValue}
-                        />
-                        {stringValue.qualifiers && (
-                          <>
-                            <Qualifiers
-                              showHeadline={false}
-                              qualifiers={stringValue.qualifiers}
-                            />
-                          </>
+                    <>
+                      {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
+                      {(!stringValue.qualifiers ??
+                        stringValue.qualifiers[0].property !==
+                        Property['Recording-method-or-item']) && (
+                          <StringValueComponent
+                            code={record.property === Property.Encoding}
+                            stringValue={stringValue}
+                          />
                         )}
-                      </>
-                    )}
+                      {stringValue.qualifiers && (
+                        <>
+                          <Qualifiers
+                            showHeadline={false}
+                            qualifiers={stringValue.qualifiers}
+                          />
+                        </>
+                      )}
+                    </>
                   </Typography.Paragraph>
                 ))}
               </Typography.Paragraph>
