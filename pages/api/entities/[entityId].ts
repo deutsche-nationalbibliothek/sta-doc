@@ -59,7 +59,7 @@ const getLiveEntity = async (
         return prefetched[entityId];
       } else {
         const fetchedEntity = await fetch.entities.single(entityId);
-        prefetched[entityId] = fetchedEntity;
+        prefetched[entityId] = fetchedEntity[entityId];
         return fetchedEntity;
       }
     },

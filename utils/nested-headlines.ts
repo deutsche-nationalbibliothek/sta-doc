@@ -26,7 +26,7 @@ export const nestedHeadlines = (
     return [];
   }
 
-  const j = filteredHeadlines.reduce(
+  const reducedHeadlinesMeta = filteredHeadlines.reduce(
     (acc, headline) => {
       if (acc.lastSeenLevel === headline.level) {
         if (acc.currentPointer) {
@@ -61,6 +61,5 @@ export const nestedHeadlines = (
       currentPointer: undefined,
     }
   );
-  console.log(j);
-  return j.headlines;
+  return reducedHeadlinesMeta.headlines;
 };

@@ -21,7 +21,7 @@ export const prefetchEmbeddedEntities = async ({
 }: ParseEntityProps): Promise<EntityId[]> => {
   console.log('\t\t\tPreparsing Entity', entityId, 'to prefetch for live data');
 
-  const entity = await getRawEntityById(entityId);
+  const entity = (await getRawEntityById(entityId))[entityId];
 
   if (!entity) {
     console.warn(
