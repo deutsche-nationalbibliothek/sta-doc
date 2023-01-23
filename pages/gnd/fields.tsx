@@ -9,16 +9,19 @@ import { useEffect } from 'react';
 import { GndFieldsTable } from 'features/gnd/field-table';
 import { Field } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 
 export interface GndFieldsProps {
   fields: Field[];
 }
 
 export default function GndFields({ fields }: GndFieldsProps) {
-  const { namespace, setNamespace} = useNamespace();
+  const { namespace, setNamespace } = useNamespace();
+  const { setHeadlines } = useInitialHeadlines();
 
   useEffect(() => {
     setNamespace(Namespace.GND);
+    setHeadlines([]);
   }, []);
 
   return (
