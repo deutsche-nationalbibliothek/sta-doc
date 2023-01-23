@@ -1,4 +1,4 @@
-// ref: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+// ref: https://github.com/ant-design/ant-design/blob/c5198a4d1144499341f84a34db1afcea1ff46b88/components/style/themes/default.less
 
 @background-color: rgb(240, 242, 245);
 
@@ -107,8 +107,20 @@
 }
 
 .example-table {
-  & table {
+  & .ant-table {
     background-color: var(--primary-2) !important;
+    & tr:not(:first-child):not(:nth-child(2)):not(:last-child) {
+      & .ant-table-cell {
+        border-bottom: 1px solid @white !important;
+        border-top: 1px solid @white !important;
+      }
+    }
+    & .ant-table-cell {
+      &:nth-child(odd) {
+        border-right: 3px solid @white !important;
+        border-left: 0px solid @white !important;
+      }
+    }
   }
   & .ant-table-cell-row-hover {
     background-color: var(--primary-3) !important;
