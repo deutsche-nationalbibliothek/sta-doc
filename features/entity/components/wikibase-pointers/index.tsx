@@ -8,6 +8,7 @@ import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
 import { EntityPreview } from '../preview';
+import { EntityLink } from '../preview/link';
 import { Qualifiers } from '../qualifiers';
 import { References } from '../references';
 
@@ -51,14 +52,9 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
           isWikibaseValue(wikibasePointer) && (
             <React.Fragment key={index}>
               <Title headline={wikibasePointer.headline}>
-                <EntityPreview
-                  label={wikibasePointer.label}
-                  entityId={wikibasePointer.id}
-                >
-                  <Link href={wikibasePointer.link}>
+                  <EntityLink {...wikibasePointer}>
                     {wikibasePointer.label}{' '}
-                  </Link>
-                </EntityPreview>
+                  </EntityLink>
               </Title>
               {wikibasePointer.references && (
                 <References references={wikibasePointer.references} />
@@ -101,11 +97,7 @@ const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
     return null;
   }
   return (
-    <EntityPreview entityId={wikibasePointer.id} label={wikibasePointer.label}>
-      <Link href={`/entities/${wikibasePointer.id}`}>
-        {wikibasePointer.label}
-      </Link>
-    </EntityPreview>
+    <EntityLink {...wikibasePointer} />
   );
 };
 

@@ -1,11 +1,12 @@
 import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
-import { EntityPreview } from '@/entity/components/preview';
-import { Link } from '@/lib/next-link';
+import { EntityLink } from '@/entity/components/preview/link';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Headline } from '@/types/headline';
 import { RdaProperty } from '@/types/parsed/rda-property';
 import type { GetStaticProps } from 'next';
+import { useEffect } from 'react';
 
 interface RdaPropertiesProps {
   groupedRdaProperties: Record<RdaProperty['domainLabel'], RdaProperty[]>;
@@ -16,6 +17,12 @@ interface RdaPropertiesProps {
 export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
+  const { setHeadlines } = useInitialHeadlines();
+
+  useEffect(() => {
+    setHeadlines([]);
+  }, []);
+
   const columns: ColumnsType<RdaProperty> = [
     {
       title: 'RDA Eigenschaft',
@@ -30,9 +37,9 @@ export default function RdaPropertiesPage({
         children: JSX.Element
       ) => {
         return (
-          <EntityPreview entityId={rdaProperty.id} label={label}>
-            <Link href={`/entities/${rdaProperty.id}`}>{children}</Link>
-          </EntityPreview>
+          <EntityLink {...rdaProperty} label={label}>
+            {children}
+          </EntityLink>
         );
       },
     },

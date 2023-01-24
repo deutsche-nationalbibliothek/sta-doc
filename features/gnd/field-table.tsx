@@ -1,7 +1,6 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
-import { EntityPreview } from '@/entity/components/preview';
-import { Link } from '@/lib/next-link';
+import { EntityLink } from '@/entity/components/preview/link';
 import { GndFieldsProps } from '@/pages/gnd/fields';
 import { Field } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
@@ -48,9 +47,9 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return (
-          <EntityPreview entityId={record.id} label={record.label}>
-            <Link href={`/entities/${record.id}`}>{highlightedContent}</Link>
-          </EntityPreview>
+          <EntityLink {...record} >
+            {highlightedContent}
+          </EntityLink>
         );
       },
     },

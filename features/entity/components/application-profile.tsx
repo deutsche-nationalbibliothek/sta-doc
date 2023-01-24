@@ -1,9 +1,9 @@
 import { ColumnsType, Table } from '@/components/table';
+import { EntityId } from '@/types/entity-id';
 import { isWikibaseValue, Statement } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { flattenDeep, pick } from 'lodash';
-import Link from 'next/link';
-import { EntityPreview } from './preview';
+import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
 
 interface ApplicationProfileProps {
@@ -16,8 +16,9 @@ interface RelevantProps {
 }
 
 interface ApplicationProfileTableData {
-  id: string;
+  id: EntityId;
   label: string;
+  elementOf?: EntityId;
   wemi: RelevantProps;
   status: Partial<RelevantProps>;
   staNotationLabel: string;
@@ -48,15 +49,16 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
               const applicationProfileTableData: ApplicationProfileTableData = {
                 id: wikibasePointer.id,
                 label: wikibasePointer.label,
+                elementOf: wikibasePointer.elementOf,
                 wemi: pick(
                   wemiLevelWikibasePointer,
                   relevantProps
                 ) as RelevantProps,
                 status: status
                   ? (pick(
-                    status.wikibasePointer[0],
-                    relevantProps
-                  ) as RelevantProps)
+                      status.wikibasePointer[0],
+                      relevantProps
+                    ) as RelevantProps)
                   : { label: 'kein Wert' },
                 staNotationLabel: wikibasePointer.staNotationLabel,
                 expandable: wikibasePointer.qualifiers.filter((q) =>
@@ -86,14 +88,18 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       isSearchable: true,
       render: (
         label: string,
-        entity,
+        applicationProfileTableData,
         _index: number,
         children: JSX.Element
       ) => {
         return (
-          <EntityPreview entityId={entity.id} label={label}>
-            <Link href={`/entities/${entity.id}`}>{children}</Link>
-          </EntityPreview>
+          <EntityLink
+            elementOf={applicationProfileTableData.elementOf}
+            id={applicationProfileTableData.id}
+            label={label}
+          >
+            {children}
+          </EntityLink>
         );
       },
     },
@@ -103,11 +109,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       key: 'wemiLabel',
       width: '14%',
       render: (wemi) => {
-        return (
-          <EntityPreview entityId={wemi.id} label={wemi.label}>
-            <Link href={`/entities/${wemi.id}`}>{wemi.label}</Link>
-          </EntityPreview>
-        );
+        return <EntityLink {...wemi} />;
       },
       filters: data
         .reduce((acc, date) => {
@@ -129,13 +131,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       key: 'statusLabel',
       width: '14%',
       render: (status) => {
-        return 'id' in status ? (
-          <EntityPreview entityId={status.id} label={status.label}>
-            <Link href={`/entities/${status.id}`}>{status.label}</Link>
-          </EntityPreview>
-        ) : (
-          status.label
-        );
+        return 'id' in status ? <EntityLink {...status} /> : status.label;
       },
       filters: data
         .reduce((acc, date) => {

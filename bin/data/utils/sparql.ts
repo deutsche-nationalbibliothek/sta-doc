@@ -155,6 +155,25 @@ export const CODINGSEXTRA = (apiUrl: API_URL) => `
   ORDER BY ASC(?elementLabel)
 `;
 
+export const ELEMENTS_OF = (apiUrl: API_URL) => `
+  PREFIX wikibase: <http://wikiba.se/ontology#>
+  PREFIX bd: <http://www.bigdata.com/rdf#>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
+  SELECT DISTINCT ?eId ?elementOfId ?elementOfLabel
+  WHERE {
+    ?element rdfs:label ?elementLabel_de FILTER (LANG(?elementLabel_de) = "de") .
+    { ?element prop:P2 ?elementOf . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+    BIND(STRAFTER(STR(?elementOf), '/entity/') as ?elementOfId)
+  }
+  ORDER BY ASC(?eId)
+`;
+
 export const NOTATIONS = (apiUrl: API_URL) => `
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>

@@ -1,7 +1,9 @@
+import { EntityId } from "../entity-id";
+
 export type RdaProperties = RdaProperty[];
 
 export interface RdaProperty {
-  id: string;
+  id: EntityId;
   label: string;
   domainId: string;
   domainLabel: string;

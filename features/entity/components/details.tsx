@@ -3,7 +3,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
-import { Entity, isWikibaseValue } from '@/types/parsed/entity';
+import { Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { RdaRessourceTypeEntity } from './rda-ressource-type';
 import { EntityPageHeader } from './page-header';
@@ -28,7 +28,11 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     if (!embedded && entity.pageType?.id) {
       onSetByPageType(entity.pageType);
     }
-    return onResetNamespace;
+    return () => {
+      if (!embedded && entity.pageType?.id) {
+        onResetNamespace;
+      }
+    };
   }, [embedded, entity.pageType?.id]);
 
   const [view, setView] = useQueryParam<

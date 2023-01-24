@@ -2,19 +2,6 @@
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "baseUrl": ".",
-    // "baseUrl": ".",
-    // "paths": {
-    //   "@/public/*": ["public/*"],
-    //   "@/pages/*": ["pages/*"],
-    //   "@/components/*": ["components/*"],
-    //   "@/data/*": ["data/*"],
-    //   "@/lib/*": ["lib/*"],
-    //   "@/styles/*": ["styles/*"],
-    //   "@/hooks/*": ["hooks/*"],
-    //   "@/utils/*": ["utils/*"],
-    //   "@/entity/*": ["features/entity/*"],
-    //   "@/types/*": ["types/*"]
-    // },
     "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -30,6 +17,16 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": ["node_modules", "types/generated"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "index.d.ts"]
+  "exclude": ["**/node_modules", "**/.*/", "types/raw"],
+  "include": [
+    "index.d.ts",
+    "next-env.d.ts",
+    "components/**/*",
+    "features/**/*",
+    "hooks/**/*",
+    "lib/**/*",
+    "pages/**/*",
+    "types/**/*",
+    "utils/**/*"
+  ]
 }

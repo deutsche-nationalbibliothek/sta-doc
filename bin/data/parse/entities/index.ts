@@ -6,6 +6,7 @@ import { LabelDes } from '../../../../types/parsed/label-de';
 import { LabelEns } from '../../../../types/parsed/label-en';
 import { Notations } from '../../../../types/parsed/notation';
 import { StaNotations } from '../../../../types/parsed/sta-notation';
+import { ElementsOf } from '../../../../types/parsed/element-of';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
 
@@ -21,6 +22,7 @@ export interface ParseEntitiesData {
   codings: Codings;
   staNotations: StaNotations;
   notations: Notations;
+  elementsOf: ElementsOf;
 }
 
 export const parseEntities = async ({

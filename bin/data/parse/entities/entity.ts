@@ -59,7 +59,8 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, notations, staNotations } = data;
+  const { lookup_de, lookup_en, codings, notations, staNotations, elementsOf } =
+    data;
 
   const entity = getRawEntityById(entityId);
 
@@ -202,6 +203,7 @@ export const parseRawEntity = ({
               : undefined,
             label: lookup_de[id],
             link: `/entities/${id}`,
+            elementOf: elementsOf[id],
             staNotationLabel:
               addStaStatement && id in staNotations
                 ? staNotations[id].label.toUpperCase()
@@ -293,6 +295,7 @@ export const parseRawEntity = ({
                 ? addHeadline(label, currentHeadlineLevel, noHeadline)
                 : undefined,
               property,
+              elementOf: elementsOf[property],
               [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess<string>(occ, 'snaktype');
                 if (snakType === 'novalue') {

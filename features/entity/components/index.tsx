@@ -1,19 +1,19 @@
 import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
-import { EntityPreview } from '@/entity/components/preview';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
-import { Link } from '@/lib/next-link';
+import { EntityId } from '@/types/entity-id';
 import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
 import { namepsaceClassification } from '@/utils/constants';
 import { PageHeader } from 'antd';
 import { useEffect } from 'react';
 import { NamespaceImage } from './namespace-image';
+import { EntityLink } from './preview/link';
 
 export interface EntityIndexModel {
   label: string;
-  id: string;
+  id: EntityId;
   pageTypeLabel: string;
 }
 
@@ -51,9 +51,9 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
         children: JSX.Element
       ) => {
         return (
-          <EntityPreview entityId={entity.id} label={label}>
-            <Link href={`/entities/${entity.id}`}>{children}</Link>
-          </EntityPreview>
+          <EntityLink {...entity} label={label}>
+            {children}
+          </EntityLink>
         );
       },
     },
@@ -71,8 +71,9 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
     },
   ];
 
-  const title = `${namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
-    }Index`;
+  const title = `${
+    namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
+  }Index`;
 
   return (
     <>

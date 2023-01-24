@@ -15,9 +15,8 @@ import {
 import { Property } from '@/types/property';
 import { Card, Tag, Typography } from 'antd';
 import { compact, flattenDeep } from 'lodash';
-import Link from 'next/link';
 import React from 'react';
-import { EntityPreview } from '../preview';
+import { EntityLink } from '../preview/link';
 import { Statements } from '../statements';
 import { StringStatement } from '../statements/string';
 
@@ -281,12 +280,7 @@ const RdaExample: React.FC<ExampleProps> = ({ example }) => {
       dataIndex: 'label',
       key: 'label',
       render: (label: string, { statement }, c) => {
-        console.log({ label, statement, c });
-        return (
-          <EntityPreview entityId={statement.property} label={label}>
-            <Link href={`/entities/${statement.property}`}>{label}</Link>
-          </EntityPreview>
-        );
+        return <EntityLink elementOf={statement.elementOf} id={statement.property} label={label} />;
       },
       width: '33%',
       // isSearchable: true,

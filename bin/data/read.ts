@@ -31,6 +31,7 @@ export const reader = (dataState: DataState) => {
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, dataState),
   };
 
+  const elementsOf = () => readJSONFile<any>(NAMES.elementOf, dataState);
   const staNotations = () =>
     readJSONFile<StaNotationsRaw>(NAMES.staNotation, dataState);
   const notations = () => readJSONFile<NotationsRaw>(NAMES.notation, dataState);
@@ -46,6 +47,7 @@ export const reader = (dataState: DataState) => {
     fields,
     labels,
     staNotations,
+    elementsOf,
     notations,
     codings,
     descriptions,

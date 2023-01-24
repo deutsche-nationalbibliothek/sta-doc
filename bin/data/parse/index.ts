@@ -26,6 +26,7 @@ import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
 import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { StaNotations } from '../../../types/parsed/sta-notation';
+import { ElementsOfRaw } from '../../../types/raw/element-of';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -178,6 +179,17 @@ export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
   );
 };
 
+export const elementsOfParser = (elementsOf: ElementsOfRaw) => {
+  console.log('\tParsing ElementsOf');
+  return elementsOf.reduce(
+    (acc, elementOf) => ({
+      ...acc,
+      [elementOf.eId.value]: elementOf.elementOfId.value,
+    }),
+    {}
+  );
+};
+
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
   return commonParseFunc<StaNotationsRaw, StaNotations>(
     staNotations,
@@ -224,11 +236,13 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
         codings: codingsParser(read.codings()),
         notations: notationsParser(read.notations()),
         staNotations: staNotationsParser(read.staNotations()),
+        elementsOf: elementsOfParser(read.elementsOf()),
       }
     ),
     index: entitiesParser.index(read.entities.index()),
   },
   fields: fieldsParser(read.fields()),
+  elementsOf: elementsOfParser(read.elementsOf()),
   staNotations: staNotationsParser(read.staNotations()),
   notations: notationsParser(read.notations()),
   codings: codingsParser(read.codings()),

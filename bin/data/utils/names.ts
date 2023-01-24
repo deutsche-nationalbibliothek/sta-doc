@@ -7,6 +7,10 @@ export const NAMES = {
     file: { singular: 'entity-index', plural: 'entities-index' },
     type: 'EntityIndex',
   },
+  elementOf: {
+    file: { singular: 'element-of', plural: 'elements-of' },
+    type: 'ElementOf',
+  },
   staNotation: {
     file: { singular: 'sta-notation' },
     type: 'StaNotation',

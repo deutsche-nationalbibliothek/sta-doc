@@ -1,5 +1,7 @@
+import { EntityId } from '../entity-id';
+
 export interface Field {
-  id: string;
+  id: EntityId;
   codings: Codings;
   description: string;
   editLink: string;
@@ -9,7 +11,7 @@ export interface Field {
 }
 
 export interface Subfield {
-  id: string;
+  id: EntityId;
   codings: Codings;
   description: string;
   editLink: string;

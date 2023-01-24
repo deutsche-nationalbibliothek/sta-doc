@@ -92,6 +92,8 @@ export const staNotationsFetcher = async (apiUrl: API_URL) =>
   );
 export const notationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.NOTATIONS(apiUrl));
+export const elementsOfFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.ELEMENTS_OF(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(sparql.CODINGS(apiUrl));
 export const descriptionsFetcher = async (apiUrl: API_URL) =>
@@ -125,6 +127,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
 
   const staNotations = async () => await staNotationsFetcher(apiUrl);
   const notations = async () => await notationsFetcher(apiUrl);
+  const elementsOf = async () => await elementsOfFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
   const descriptions = async () => await descriptionsFetcher(apiUrl);
   const rdaRules = async () => await rdaRulesFetcher(apiUrl);
@@ -142,6 +145,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
       },
       staNotations: await staNotations(),
       notations: await notations(),
+      elementsOf: await elementsOf(),
       codings: await codings(),
       descriptions: await descriptions(),
       rdaRules: await rdaRules(),

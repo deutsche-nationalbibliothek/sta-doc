@@ -18,6 +18,7 @@ import { EntityPreview } from './preview';
 import { Qualifiers } from './qualifiers';
 import { Statements } from './statements';
 import { compact } from 'lodash';
+import { EntityLink } from './preview/link';
 
 interface RdaRessourceTypeEntityProps {
   entity: Entity;
@@ -111,14 +112,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
           return (
             <React.Fragment key={index}>
               <Title headline={wikibasePointer.headline}>
-                <EntityPreview
-                  label={wikibasePointer.label}
-                  entityId={wikibasePointer.id}
-                >
-                  <Link href={wikibasePointer.link}>
-                    {wikibasePointer.label}{' '}
-                  </Link>
-                </EntityPreview>
+                <EntityLink {...wikibasePointer} />
               </Title>
 
               {(status || repetition) && (

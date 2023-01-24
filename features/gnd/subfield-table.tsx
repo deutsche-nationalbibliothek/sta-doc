@@ -1,6 +1,7 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
 import { EntityPreview } from '@/entity/components/preview';
+import { EntityLink } from '@/entity/components/preview/link';
 import { Link } from '@/lib/next-link';
 import { Field, Subfield } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
@@ -40,11 +41,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
       key: 'label',
       render: (_data, record) => {
         return (
-          <>
-            <EntityPreview entityId={record.id} label={record.label}>
-              <Link href={`/entities/${record.id}`}>{record.label}</Link>
-            </EntityPreview>
-          </>
+          <EntityLink {...record} />
         );
       },
     },
@@ -74,14 +71,6 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
       columns={[
         {
           key: 'subfield-table',
-          title: (
-            <Typography.Text strong>
-              Unterfelder von{' '}
-              <EntityPreview entityId={props.id} label={props.label}>
-                <Link href={`/entities/${props.id}`}>{props.label}</Link>
-              </EntityPreview>
-            </Typography.Text>
-          ),
           children: columns,
         },
       ]}

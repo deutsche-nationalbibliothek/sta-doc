@@ -56,6 +56,7 @@ export interface Statement {
   string?: StringValueContainer[];
   wikibasePointer?: Maybe<WikiBaseValue>[];
   headline?: Headline;
+  elementOf: EntityId;
 }
 
 export interface CommonValue {
@@ -100,6 +101,7 @@ export interface WikiBaseValue extends CommonValue {
   coding?: Coding;
   headline?: Headline;
   staNotationLabel?: string;
+  elementOf?: EntityId;
 }
 
 // export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue

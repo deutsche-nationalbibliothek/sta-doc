@@ -1,7 +1,6 @@
-import { Item } from '../item';
-import { Property } from '../property';
+import { EntityId } from '../entity-id';
 
-export type Descriptions = Record<Property | Item, Description>;
+export type Descriptions = Record<EntityId, Description>;
 
 export interface Description {
   label: string;
