@@ -19,36 +19,25 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
       },
     },
     {
-      title: 'PICA+',
       width: '15%',
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
-      isSearchable: true,
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
-      title: 'MARC21',
       dataIndex: ['codings', 'MARC 21'],
       width: '25%',
       key: 'PICA3',
-      isSearchable: true,
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
-      title: 'Bezeichnung',
       width: '40%',
       dataIndex: 'label',
       key: 'label',
-      filters: props.subfields
-        .reduce((acc, subfield) => {
-          const key = subfield.label;
-          return acc.includes(key) ? [...acc] : [...acc, key];
-        }, [] as string[])
-        .map((key) => ({ text: key, value: key })),
       render: (_data, record) => {
         return (
           <>
@@ -60,11 +49,9 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
       },
     },
     {
-      title: <GlobalOutlined />,
       dataIndex: 'viewLink',
       key: 'external-links',
       width: '5%',
-      noSort: true,
       render: (_definition, record) => {
         return (
           <>
@@ -83,6 +70,7 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
     <Table<Subfield>
       key={props.id}
       pagination={false}
+      showHeader={false}
       columns={[
         {
           key: 'subfield-table',
