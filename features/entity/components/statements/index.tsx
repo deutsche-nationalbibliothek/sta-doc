@@ -30,6 +30,7 @@ export const Statements: React.FC<StatementsProps> = ({
           return (
             <React.Fragment key={index}>
               {isShowingHeader && <Title headline={statement.headline} />}
+              {/* <Typography.Paragraph> */}
               {statement.string ? (
                 <>
                   <StringStatement
@@ -44,6 +45,7 @@ export const Statements: React.FC<StatementsProps> = ({
               ) : (
                 statement.url && <UrlStatement urls={statement.url} />
               )}
+              {/* </Typography.Paragraph> */}
             </React.Fragment>
           );
         })}

@@ -21,8 +21,11 @@ export const Collapse = ({
 
   return (
     <AntdCollapse
-      onChange={(keys) => setIsOpen(!!keys.length)}
-      defaultActiveKey={[isOpen && '1']}
+      onChange={(key) => {
+        setIsOpen(key === '1');
+      }}
+      accordion={true}
+      activeKey={[isOpen && '1']}
     >
       <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
         {children}

@@ -40,7 +40,6 @@ export const defaultGroupsDefinition = {
     Property['DACH-Directions-for-use'],
     Property['P659'],
     Property['Sources-of-information'],
-    Property['description'],
     Property['Basic-rules'],
     Property['Special-rules'],
     Property['Specific-rules'],
