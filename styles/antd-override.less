@@ -105,6 +105,12 @@
   & .ant-table-column-sort {
     background-color: #e2e8f2 !important;
   }
+  & tr:not(:first-child):not(:last-child) .ant-table-column-sort {
+    border-bottom: 1px solid @background-color !important;
+  }
+  tr .ant-table-column-sort:hover {
+    background-color: @background-color !important;
+  }
 }
 
 .example-table {
