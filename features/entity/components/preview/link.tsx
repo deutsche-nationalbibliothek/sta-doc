@@ -26,7 +26,14 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   return (
     <>
       <EntityPreview entityId={id} label={label}>
-        <Link href={`/entities/${id}`}>
+        <Link
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            width: 'fit-content',
+          }}
+          href={`/entities/${id}`}
+        >
           {children ?? label}
           {isPointingDifferentNamespace && (
             <>

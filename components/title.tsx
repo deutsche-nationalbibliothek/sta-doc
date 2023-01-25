@@ -24,12 +24,10 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
           <div>
             <CopyHeadlineAnchorLink
               style={{
-                position: 'relative',
-                left: 0,
-                marginLeft: -18 - 15,
+                marginLeft: -35,
+                padding: '20px 0px 15px 15px',
                 fontSize: 20 - level,
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
-                padding: '5px 0px 5px 15px',
               }}
               anchor={key}
             />
