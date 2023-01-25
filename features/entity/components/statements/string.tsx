@@ -13,6 +13,7 @@ import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
+import { MenuUnfoldOutlined } from '@ant-design/icons';
 
 interface StringStatementProps {
   statement: StringValueContainer[];
@@ -95,8 +96,10 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     ) => (
       <>
         <Modal
-          label={
-            stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel'
+          title={
+            <MenuUnfoldOutlined
+              style={{ color: 'var(--link-color)', fontSize: 'large' }}
+            />
           }
         >
           <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
@@ -106,8 +109,8 @@ export const StringStatement: React.FC<StringStatementProps> = ({
               {(stringValue, _qualifiers, _references) => (
                 <StringValueExamples
                   stringValue={stringValue}
-                // qualifiers={qualifiers}
-                // references={references}
+                  // qualifiers={qualifiers}
+                  // references={references}
                 />
               )}
             </GenericStringValueMapper>
@@ -142,9 +145,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       return (
         <Collapse
           defaultOpen={false}
-          labelClosed={
-            introductionTextStatementLabel
-          }
+          labelClosed={introductionTextStatementLabel}
         >
           <GenericStringValueMapper stringValueContainer={stringValueContainer}>
             {(stringValue, qualifiers, references) => (
@@ -158,14 +159,16 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </Collapse>
       );
     },
-    [Item['English-123']]: (
-      stringValueContainer: StringValueContainer
-    ) =>
+    [Item['English-123']]: (stringValueContainer: StringValueContainer) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
-          <Typography.Paragraph className="data-data" style={{color: 'blue'}} key={stringValue.value}>
+          <Typography.Paragraph
+            className="data-data"
+            style={{ color: 'blue' }}
+            key={stringValue.value}
+          >
             <StringValueComponent
-              style={{color: 'gray'}}
+              style={{ color: 'gray' }}
               stringValue={stringValue}
             />
             {references}
@@ -173,7 +176,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           </Typography.Paragraph>
         )}
       </GenericStringValueMapper>
-
+    ),
   };
 
   return (
@@ -182,7 +185,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-              itemTypeMap[stringValueContainer.itemType]
+            itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
