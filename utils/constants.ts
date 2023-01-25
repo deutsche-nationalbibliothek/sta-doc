@@ -15,7 +15,7 @@ export const blacklist: {
     Item['collapsible-collapsed-(type-of-layout)'],
     Property.Status,
     Property['Context-of-use'],
-    // Property['Introduction-text'],
+    Property['Introduction-text'],
   ],
   headlines: [
     Property.Annotation,

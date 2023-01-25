@@ -2,6 +2,7 @@ import { Collapse } from '@/components/collapse';
 import { Title } from '@/components/title';
 import { isStringValue, Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
@@ -42,17 +43,17 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         />
       );
     },
-    [Property['Introduction-text']]: (qualifier: Statement) => {
-      const stringValue = qualifier.string[0].values[0];
-      return (
-        <Collapse labelClosed={isStringValue(stringValue) && stringValue.value}>
-          <StringStatement
-            property={qualifier.property}
-            statement={qualifier.string}
-          />
-        </Collapse>
-      );
-    },
+    // [Property['Introduction-text']]: (qualifier: Statement) => {
+    //   const stringValue = qualifier.string[0].values[0];
+    //   return (
+    //     <Collapse labelClosed={isStringValue(stringValue) && stringValue.value}>
+    //       <StringStatement
+    //         property={qualifier.property}
+    //         statement={qualifier.string}
+    //       />
+    //     </Collapse>
+    //   );
+    // },
     default: (qualifier: Statement) => {
       return (
         <>
@@ -81,6 +82,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   return (
     <>
       {qualifiers
+        .filter(qualifier => !isPropertyBlacklisted(qualifier.property, 'property'))
         .sort(
           (qualifier1, qualifier2) =>
             sorting.indexOf(qualifier1.property) -
