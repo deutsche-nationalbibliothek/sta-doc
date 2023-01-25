@@ -8,6 +8,7 @@ export type Group = keyof typeof defaultGroupsDefinition;
 export const defaultGroupsDefinition = {
   header: [
     Property['definition'],
+    Property['description'],
     Property['STA-Notation'],
     // Property['entity-type-domain'],
     // Property['Recording-method'],
