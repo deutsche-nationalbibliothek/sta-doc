@@ -8,16 +8,18 @@ interface EntityLinkProps {
   label: string;
   id: EntityId;
   elementOf?: EntityId;
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({
   id,
   label,
   elementOf,
+  children,
 }) => {
   const { namespace: currentNamespace, namespaceByItemId } = useNamespace();
-  const pointingNamespace = currentNamespace && elementOf && namespaceByItemId(elementOf);
+  const pointingNamespace =
+    currentNamespace && elementOf && namespaceByItemId(elementOf);
   const isPointingDifferentNamespace =
     pointingNamespace && currentNamespace !== namespaceByItemId(elementOf);
 
@@ -25,13 +27,13 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     <>
       <EntityPreview entityId={id} label={label}>
         <Link href={`/entities/${id}`}>
-          {label}
+          {children ?? label}
           {isPointingDifferentNamespace && (
             <>
               {' '}
               <Tag>{pointingNamespace}</Tag>
             </>
-          )}
+          )}{' '}
         </Link>
       </EntityPreview>
     </>

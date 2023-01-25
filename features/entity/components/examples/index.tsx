@@ -11,7 +11,7 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
-  const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
+  const label = examples.length > 1 ? 'Beispiele. ' : 'Beispiel. ';
 
   const { namespace } = useNamespace();
   const { codingsPreferences, onChange, codingsOptions } =

@@ -96,7 +96,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     ) => (
       <>
         <Modal
-          title={
+          label={
             <MenuUnfoldOutlined
               style={{ color: 'var(--link-color)', fontSize: 'large' }}
             />
