@@ -55,13 +55,12 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
 
   const columns: ColumnsType<TableStatementsData> = [
     {
-      title: 'Elementeigenschaften',
       key: 'property',
       dataIndex: 'property',
+      className: 'table-cell-align-top',
       width: '20%',
     },
     {
-      title: 'Wert',
       key: 'values',
       dataIndex: 'values',
       render: (values: TableStatementsData['values'], record) => (
@@ -93,12 +92,12 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                       {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
                       {(!stringValue.qualifiers ??
                         stringValue.qualifiers[0].property !==
-                        Property['Recording-method-or-item']) && (
-                          <StringValueComponent
-                            code={record.property === Property.Encoding}
-                            stringValue={stringValue}
-                          />
-                        )}
+                          Property['Recording-method-or-item']) && (
+                        <StringValueComponent
+                          code={record.property === Property.Encoding}
+                          stringValue={stringValue}
+                        />
+                      )}
                       {stringValue.qualifiers && (
                         <>
                           <Qualifiers
