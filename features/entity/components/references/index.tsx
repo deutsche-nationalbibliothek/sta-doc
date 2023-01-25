@@ -4,6 +4,7 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Popover, Typography } from 'antd';
 import { truncate } from 'lodash';
 import React, { Fragment } from 'react';
+import { UrlStatement } from '../statements/url';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
 
 interface ReferencesProps {
@@ -36,14 +37,7 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
                       </GenericStringValueMapper>
                     </Typography.Paragraph>
                   ))}
-                {reference.url &&
-                  reference.url.map((urlValue, index4) => (
-                    <Fragment key={index4}>
-                      <Link href={urlValue.value} passHref target="_blank">
-                        {truncate(urlValue.value, { length: 60 })}
-                      </Link>
-                    </Fragment>
-                  ))}
+                {reference.url && <UrlStatement urls={reference.url} />}
               </Fragment>
             ))}
           </Card>

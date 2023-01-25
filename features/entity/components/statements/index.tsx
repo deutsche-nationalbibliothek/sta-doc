@@ -4,6 +4,7 @@ import { isPropertyBlacklisted } from '@/utils/constants';
 import React from 'react';
 import { WikibasePointers } from '../wikibase-pointers';
 import { StringStatement } from './string';
+import { UrlStatement } from './url';
 
 interface StatementsProps {
   statements: Statement[];
@@ -36,12 +37,12 @@ export const Statements: React.FC<StatementsProps> = ({
                     statement={statement.string}
                   />
                 </>
+              ) : statement.wikibasePointer ? (
+                <WikibasePointers
+                  wikibasePointers={statement.wikibasePointer}
+                />
               ) : (
-                statement.wikibasePointer && (
-                  <WikibasePointers
-                    wikibasePointers={statement.wikibasePointer}
-                  />
-                )
+                statement.url && <UrlStatement urls={statement.url} />
               )}
             </React.Fragment>
           );

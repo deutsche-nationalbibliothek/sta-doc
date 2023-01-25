@@ -57,6 +57,7 @@ export interface Statement {
   wikibasePointer?: Maybe<WikiBaseValue>[];
   headline?: Headline;
   elementOf: EntityId;
+  url?: UrlValue[];
 }
 
 export interface CommonValue {
