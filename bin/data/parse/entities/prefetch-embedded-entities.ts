@@ -56,13 +56,23 @@ export const prefetchEmbeddedEntities = async ({
         statements.map(
           (occs: Claim[] | StatementRaw[]) =>
             occs.map((occ: Claim | StatementRaw) => {
+              const snakType = keyAccess<string>(occ, 'snaktype');
+              if (snakType === 'novalue' || snakType === 'somevalue') {
+                return undefined;
+              }
+
               const propertyId = keyAccess<Property>(occ, 'property');
-              const embeddedEntityId = keyAccess<EntityId>(
-                occ,
-                'datavalue',
-                'value',
-                'id'
-              );
+              const dataType = keyAccess<string>(occ, 'datatype');
+              const simplifiedDataType =
+                dataType === 'wikibase-item' ||
+                dataType === 'wikibase-entityid' ||
+                dataType === 'wikibase-property'
+                  ? 'wikibasePointer'
+                  : dataType;
+
+              const embeddedEntityId =
+                simplifiedDataType === 'wikibasePointer' &&
+                keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
 
               const hasEmbedding =
                 (propertyId === Property['example(s)'] ||
