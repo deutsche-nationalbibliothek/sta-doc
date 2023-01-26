@@ -1,11 +1,16 @@
 import { ColumnsType, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
+import { NamespaceImage } from '@/entity/components/namespace-image';
 import { EntityLink } from '@/entity/components/preview/link';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
+import { Namespace } from '@/types/namespace';
 import { RdaProperty } from '@/types/parsed/rda-property';
+import { PageHeader } from 'antd';
 import type { GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useEffect } from 'react';
 
 interface RdaPropertiesProps {
@@ -18,9 +23,11 @@ export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
   const { setHeadlines } = useInitialHeadlines();
+  const { setNamespace, namespace } = useNamespace();
 
   useEffect(() => {
     setHeadlines([]);
+    setNamespace(Namespace.RDA);
   }, []);
 
   const columns: ColumnsType<RdaProperty> = [
@@ -51,17 +58,36 @@ export default function RdaPropertiesPage({
           ? [...acc]
           : [...acc, { text: val.domainLabel, value: val.domainLabel }];
       }, [] as { text: string; value: string }[]),
+      render: (
+        label: string,
+        rdaProperty,
+        _index: number,
+        children: JSX.Element
+      ) => (
+        <EntityLink {...rdaProperty} label={label}>
+          {children}
+        </EntityLink>
+      ),
     },
   ];
 
   return (
     <>
-      <Title
-        headline={{
-          key: 'RDA-Eigenschaften',
-          title: 'RDA Eigenschaften',
-          level: 1,
-        }}
+      <Head>
+        <title>Handbuch Gemeinsame Normdatei | Startseite</title>
+      </Head>
+
+      <PageHeader
+        title={
+          <Title
+            headline={{
+              key: 'RDA-Eigenschaften',
+              title: 'RDA Eigenschaften',
+              level: 1,
+            }}
+          />
+        }
+        extra={namespace && <NamespaceImage />}
       />
       <Table<RdaProperty>
         columns={columns}

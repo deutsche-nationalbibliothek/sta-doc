@@ -29,21 +29,12 @@ export const NamespaceProvider = ({ children }) => {
 
   const onResetNamespace = () => {
     setNamespace(undefined);
-    console.log(
-      'DEBUGPRINT[3]: use-namespace.tsx:31 (after setNamespace(undefined))'
-    );
   };
 
   useEffect(() => {
     router.events.on('routeChangeStart', onResetNamespace);
-    console.log(
-      'DEBUGPRINT[4]: use-namespace.tsx:38 (after router.events.on(routeChangeStart, onRes…)'
-    );
     return () => {
       router.events.off('routeChangeStart', onResetNamespace);
-      console.log(
-        'DEBUGPRINT[5]: use-namespace.tsx:43 (after router.events.off(routeChangeStart, onRe…)'
-      );
     };
   }, []);
 
