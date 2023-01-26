@@ -33,7 +33,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
       title: 'MARC21',
       dataIndex: ['codings', 'MARC 21'],
       width: '25%',
-      key: 'PICA3',
+      key: 'MARC21',
       isSearchable: true,
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
@@ -46,11 +46,7 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
       width: '40%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
-        return (
-          <EntityLink {...record} >
-            {highlightedContent}
-          </EntityLink>
-        );
+        return <EntityLink {...record}>{highlightedContent}</EntityLink>;
       },
     },
     {
