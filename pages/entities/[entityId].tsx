@@ -1,46 +1,61 @@
 import entities from '@/data/parsed/entities.json';
+import { Typography } from 'antd';
 import { EntityDetails } from '@/entity/components/details';
 import { EntityPlaceholder } from '@/entity/components/placeholder';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import {
   Entities,
   EntityEntry,
   EntityEntryWithOptionalHeadlines,
 } from '@/types/parsed/entity';
+import { isPropertyBlacklisted } from '@/utils/constants';
 import { isEqual } from 'lodash';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import { NotFound } from '../404';
 
 interface EntityDetailsProps {
-  headlines: Headline[];
+  headlines?: Headline[];
   entityId: string;
+  notFound: boolean;
 }
 
 export default function EntityDetailsPage({
   headlines,
   entityId,
+  notFound,
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
 
   useEffect(() => {
-    setHeadlines(headlines);
+    if (headlines) {
+      setHeadlines(headlines);
+    }
   }, []);
 
-  return (
-    <>
-      <FetchEntity entityId={entityId} showSpinner={false}>
-        {(entityEntry, loading) => (
-          <FetchedEntity
-            entityEntry={entityEntry}
-            loading={loading}
-            setHeadlines={setHeadlines}
-          />
-        )}
-      </FetchEntity>
-    </>
+  return !notFound ? (
+    <FetchEntity entityId={entityId} showSpinner={false}>
+      {(entityEntry, loading) => (
+        <FetchedEntity
+          entityEntry={entityEntry}
+          loading={loading}
+          setHeadlines={setHeadlines}
+        />
+      )}
+    </FetchEntity>
+  ) : (
+    <NotFound
+      subtitle={
+        <Typography.Text>
+          Datensatz mit der ID:{' '}
+          <Typography.Text code>{entityId}</Typography.Text> nicht verfügbar
+        </Typography.Text>
+      }
+    />
   );
 }
 
@@ -87,27 +102,45 @@ const FetchedEntity = ({
   );
 };
 
-export const getStaticProps: GetStaticProps = (context) => {
+export const getStaticProps: GetStaticProps<
+  EntityDetailsProps,
+  { entityId: EntityId }
+> = (context) => {
   const { entityId } = context.params;
   const entityEntry: EntityEntry =
     !Array.isArray(entityId) &&
     entityId in entities &&
+    !isPropertyBlacklisted(entityId) &&
     entities[entityId as keyof Entities];
 
-  return (
-    entityEntry &&
-    entityEntry.headlines && {
-      props: {
-        entityId,
-        headlines: entityEntry.headlines,
-      },
-    }
-  );
+  const isValidData = entityEntry && entityEntry.headlines;
+
+  return {
+    props: isValidData
+      ? {
+          entityId,
+          headlines: entityEntry.headlines,
+          notFound: false,
+        }
+      : {
+          entityId,
+          notFound: true,
+        },
+  };
 };
 
-export const getStaticPaths: GetStaticPaths = () => ({
-  paths: Object.keys(entities).map((entityId) => ({
-    params: { entityId },
-  })),
-  fallback: true,
-});
+export const getStaticPaths: GetStaticPaths = () => {
+  console.log(
+    Object.keys(entities)
+      .filter((entityId) => !isPropertyBlacklisted(entityId as EntityId))
+      .find((e) => e === 'P642')
+  );
+  return {
+    paths: Object.keys(entities)
+      .filter((entityId) => !isPropertyBlacklisted(entityId as EntityId))
+      .map((entityId) => ({
+        params: { entityId },
+      })),
+    fallback: true,
+  };
+};
