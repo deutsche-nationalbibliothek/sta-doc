@@ -27,6 +27,7 @@ import slugify from 'slugify';
 import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { StaNotations } from '../../../types/parsed/sta-notation';
 import { ElementsOfRaw } from '../../../types/raw/element-of';
+import { ElementsOf } from '../../../types/parsed/element-of';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -186,7 +187,7 @@ export const elementsOfParser = (elementsOf: ElementsOfRaw) => {
       ...acc,
       [elementOf.eId.value]: elementOf.elementOfId.value,
     }),
-    {}
+    {} as ElementsOf
   );
 };
 

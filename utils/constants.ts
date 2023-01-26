@@ -48,7 +48,11 @@ export const isPropertyBlacklisted = (
   if (list) {
     return blacklist[list].includes(property);
   } else {
-    return [...blacklist.property, ...blacklist.headlines].includes(property);
+    return [
+      ...blacklist.property,
+      ...blacklist.headlines,
+      ...blacklist.qualifier,
+    ].includes(property);
   }
 };
 

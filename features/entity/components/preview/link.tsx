@@ -8,7 +8,7 @@ interface EntityLinkProps {
   label: string;
   id: EntityId;
   elementOf?: EntityId;
-  children?: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[] | string | string[];
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({

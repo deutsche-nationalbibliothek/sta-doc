@@ -1,6 +1,5 @@
 import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import {
   Entity,
   isWikibaseValue,
@@ -8,17 +7,13 @@ import {
   WikiBaseValue,
 } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Row, Col, Typography } from 'antd';
-import { flattenDeep, groupBy } from 'lodash';
-import Link from 'next/link';
-import React from 'react';
-import { useEffect } from 'react';
+import { Typography } from 'antd';
+import { compact, flattenDeep } from 'lodash';
+import React, { useEffect } from 'react';
 import { ApplicationProfile } from './application-profile';
-import { EntityPreview } from './preview';
+import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
 import { Statements } from './statements';
-import { compact } from 'lodash';
-import { EntityLink } from './preview/link';
 
 interface RdaRessourceTypeEntityProps {
   entity: Entity;
@@ -64,7 +59,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const sortQualifiers = (claims: Statement[]) => {
     return claims.sort((occ1, occ2) =>
       qualifiersOrder.indexOf(occ1.property) >
-        qualifiersOrder.indexOf(occ2.property)
+      qualifiersOrder.indexOf(occ2.property)
         ? 1
         : -1
     );
@@ -91,8 +86,8 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
         )
       ),
     }),
-    filter: (wikibasePointer: WikiBaseValue) =>
-      !nonDefaultRenderProperties.includes(wikibasePointer.property),
+    filter: (statement: Statement) =>
+      !nonDefaultRenderProperties.includes(statement.property),
   };
 
   return (
@@ -132,16 +127,16 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 
               <Qualifiers
                 qualifiers={sortQualifiers(
-                  wikibasePointer.qualifiers.map((q) => ({
-                    ...q,
-                    wikibasePointer: q.wikibasePointer
+                  wikibasePointer.qualifiers.map((qualifier) => ({
+                    ...qualifier,
+                    wikibasePointer: qualifier.wikibasePointer
                       .filter(isWikibaseValue)
-                      .map((w) => ({
-                        ...w,
-                        qualifiers: sortQualifiers(w.qualifiers).filter(
-                          nonDefaultRender.filter
-                        ),
-                      })),
+                      .map((wikibasePointer) => ({
+                        ...wikibasePointer,
+                        qualifiers: sortQualifiers(
+                          wikibasePointer.qualifiers
+                        ).filter(nonDefaultRender.filter),
+                      })) as WikiBaseValue[],
                   }))
                 )}
               />

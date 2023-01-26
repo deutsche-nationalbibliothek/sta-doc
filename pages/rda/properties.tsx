@@ -35,13 +35,11 @@ export default function RdaPropertiesPage({
         rdaProperty,
         _index: number,
         children: JSX.Element
-      ) => {
-        return (
-          <EntityLink {...rdaProperty} label={label}>
-            {children}
-          </EntityLink>
-        );
-      },
+      ) => (
+        <EntityLink {...rdaProperty} label={label}>
+          {children}
+        </EntityLink>
+      ),
     },
     {
       title: 'Entitätstyp',

@@ -1,3 +1,4 @@
+import { ElementsOfRaw } from '@/types/raw/element-of';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -93,7 +94,7 @@ export const staNotationsFetcher = async (apiUrl: API_URL) =>
 export const notationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.NOTATIONS(apiUrl));
 export const elementsOfFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.ELEMENTS_OF(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<ElementsOfRaw>(sparql.ELEMENTS_OF(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(sparql.CODINGS(apiUrl));
 export const descriptionsFetcher = async (apiUrl: API_URL) =>
@@ -164,5 +165,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     codings,
     fetchAll,
     propertyItemList,
+    elementsOf,
   };
 };

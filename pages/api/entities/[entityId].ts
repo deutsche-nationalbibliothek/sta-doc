@@ -7,6 +7,7 @@ import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import {
   codingsParser,
+  elementsOfParser,
   labelsParser,
   notationsParser,
   staNotationsParser,
@@ -72,6 +73,7 @@ const getLiveEntity = async (
     const notations = notationsParser(await fetch.notations());
     const codings = codingsParser(await fetch.codings());
     const staNotations = staNotationsParser(await fetch.staNotations());
+    const elementsOf = elementsOfParser(await fetch.elementsOf());
 
     return await parseEntities({
       rawEntities: { [entityId]: entity },
@@ -82,6 +84,7 @@ const getLiveEntity = async (
         notations,
         codings,
         staNotations,
+        elementsOf,
       },
     });
   }

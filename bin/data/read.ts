@@ -11,6 +11,7 @@ import { NotationsRaw } from '../../types/raw/notation';
 import { RdaPropertiesRaw } from '../../types/raw/rda-property';
 import { DataState, readJSONFile } from './utils';
 import { NAMES } from './utils/names';
+import { ElementsOfRaw } from '../../types/raw/element-of';
 
 export const reader = (dataState: DataState) => {
   const entities = {
@@ -31,7 +32,8 @@ export const reader = (dataState: DataState) => {
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, dataState),
   };
 
-  const elementsOf = () => readJSONFile<any>(NAMES.elementOf, dataState);
+  const elementsOf = () =>
+    readJSONFile<ElementsOfRaw>(NAMES.elementOf, dataState);
   const staNotations = () =>
     readJSONFile<StaNotationsRaw>(NAMES.staNotation, dataState);
   const notations = () => readJSONFile<NotationsRaw>(NAMES.notation, dataState);
