@@ -166,8 +166,21 @@ export function Table<T extends object>(props: TableProps<T>) {
         );
       };
     } else {
-      columnProps.render = (value: any, record: T, index: number) => {
-        return <Typography.Text>{value}</Typography.Text>;
+      columnProps.render = (value: any) => {
+        return (
+          <Typography.Text>
+            {'dataIndex' in column && searchTexts[column.dataIndex] ? (
+              <Highlighter
+                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                searchWords={[searchTexts[column.dataIndex]]}
+                autoEscape
+                textToHighlight={value ? value.toString() : ''}
+              />
+            ) : (
+              value
+            )}
+          </Typography.Text>
+        );
       };
     }
 
@@ -193,11 +206,7 @@ export function Table<T extends object>(props: TableProps<T>) {
 
   return (
     <>
-      <AntdTable
-        sticky
-        {...props}
-        columns={props.columns.map(columnsMapper)}
-      />
+      <AntdTable sticky {...props} columns={props.columns.map(columnsMapper)} />
     </>
   );
 }

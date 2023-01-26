@@ -12,9 +12,9 @@ import { PageHeader } from 'antd';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { uniq } from 'lodash';
 
 interface RdaPropertiesProps {
-  groupedRdaProperties: Record<RdaProperty['domainLabel'], RdaProperty[]>;
   headlines: Headline[];
   rdaProperties: RdaProperty[];
 }
@@ -42,32 +42,33 @@ export default function RdaPropertiesPage({
         rdaProperty,
         _index: number,
         children: JSX.Element
-      ) => (
-        <EntityLink {...rdaProperty} label={label}>
-          {children}
-        </EntityLink>
-      ),
+      ) => <EntityLink {...rdaProperty}>{children}</EntityLink>,
     },
     {
       title: 'Entitätstyp',
       dataIndex: 'domainLabel',
       key: 'domainLabel',
       width: '20%',
-      filters: rdaProperties.reduce((acc, val) => {
-        return acc.findIndex((x) => x.value === val.domainLabel) >= 0
-          ? [...acc]
-          : [...acc, { text: val.domainLabel, value: val.domainLabel }];
-      }, [] as { text: string; value: string }[]),
+      filters: uniq(
+        rdaProperties.map((rdaProperty) => rdaProperty.type.label)
+      ).map((rdaPropertyLabel) => ({
+        text: rdaPropertyLabel,
+        value: rdaPropertyLabel,
+      })),
+      onFilter: (value, record) => value === record.type.label,
       render: (
         label: string,
         rdaProperty,
         _index: number,
         children: JSX.Element
-      ) => (
-        <EntityLink {...rdaProperty} label={label}>
-          {children}
-        </EntityLink>
-      ),
+      ) => <EntityLink {...rdaProperty.type}>{children}</EntityLink>,
+    },
+    {
+      title: 'Sta-Notation',
+      dataIndex: 'staNotationLabel',
+      key: 'staNotationLabel',
+      width: '20%',
+      isSearchable: true,
     },
   ];
 

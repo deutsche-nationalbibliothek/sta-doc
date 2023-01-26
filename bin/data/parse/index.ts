@@ -31,15 +31,11 @@ import { ElementsOf } from '../../../types/parsed/element-of';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
-const commonParseFunc = <T extends any[], K>(
-  data: T,
-  name: Name,
-  key = 'elementLabel'
-): K => {
+const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
   console.log('\tParsing', name.type);
   const parsedData = data.reduce((acc: any, entry: any) => {
     acc[entry.eId.value] = {
-      label: entry[key].value.toLowerCase().split(' ').join(''),
+      label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
       assignmentId: entry.assignmentId?.value,
       assignmentLabel: entry.assignmentLabel?.value,
       id: entry.eId.value,
@@ -47,6 +43,11 @@ const commonParseFunc = <T extends any[], K>(
     return acc;
   }, {});
   return parsedData;
+};
+
+const labelStripper = (label: string) => {
+  const strippedLabelMatch = label.match(/^[^|(]+/);
+  return trim(strippedLabelMatch ? strippedLabelMatch[0] : label);
 };
 
 export const entitiesParser = {
@@ -98,7 +99,7 @@ export const fieldsParser = (fields: FieldsRaw) =>
       codings,
       description,
       editLink,
-      label,
+      label: labelStripper(label),
       viewLink,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
         const { codings, description, editLink, label, viewLink } = subfield;
@@ -107,7 +108,7 @@ export const fieldsParser = (fields: FieldsRaw) =>
           codings,
           description,
           editLink,
-          label,
+          label: labelStripper(label),
           viewLink,
         };
       }),
@@ -117,9 +118,8 @@ export const fieldsParser = (fields: FieldsRaw) =>
 export const labelsParser = {
   de: (deLabels: LabelDeRaws) =>
     deLabels.reduce((acc, label) => {
-      const strippedLabelMatch = label.elementLabel.value.match(/^[^|(]+/);
-      acc[label.eId.value as keyof LabelDes] = trim(
-        strippedLabelMatch ? strippedLabelMatch[0] : label.elementLabel.value
+      acc[label.eId.value as keyof LabelDes] = labelStripper(
+        label.elementLabel.value
       );
       return acc;
     }, {} as LabelDes),
@@ -192,11 +192,13 @@ export const elementsOfParser = (elementsOf: ElementsOfRaw) => {
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
-  return commonParseFunc<StaNotationsRaw, StaNotations>(
-    staNotations,
-    NAMES.staNotation,
-    'staNotationLabel'
-  );
+  return staNotations.reduce((acc: any, entry: any) => {
+    acc[entry.eId.value] = {
+      label: entry.staNotationLabel.value.toUpperCase(),
+      id: entry.eId.value,
+    };
+    return acc;
+  }, {});
 };
 
 // todo, needed?
@@ -206,20 +208,29 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 //     NAMES.description
 //   );
 
-export const rdaPropertiesParser = (rdaProperties: RdaPropertiesRaw) =>
-  rdaProperties.reduce((acc, rdaProperty) => {
+export const rdaPropertiesParser = (
+  rdaProperties: RdaPropertiesRaw,
+  parsedStaNotations: StaNotations,
+  parsedElementsOf: ElementsOf
+) => {
+  console.log('\tParsing RdaProperties');
+  return rdaProperties.reduce((acc, rdaProperty) => {
+    const id = rdaProperty.eId.value as EntityId;
     return [
       ...acc,
       {
-        id: rdaProperty.eId.value,
+        id,
         label: rdaProperty.elementLabel.value,
-        domainId: rdaProperty.assignmentId?.value,
-        domainLabel: rdaProperty.assignmentLabel?.value
-          .split(' - ')
-          .pop() as string,
+        staNotationLabel: parsedStaNotations[id].label,
+        type: {
+          id: rdaProperty.assignmentId.value,
+          label: labelStripper(rdaProperty.assignmentLabel.value),
+          elementOf: parsedElementsOf[rdaProperty.assignmentId.value],
+        },
       },
     ];
   }, [] as RdaProperties);
+};
 
 // const readParsed = reader(DataState.parsed)
 export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
@@ -227,21 +238,21 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
     de: labelsParser.de(read.labels.de()),
     en: labelsParser.en(read.labels.en()),
   },
-  entities: {
-    all: entitiesParser.all(
-      read.entities.all(),
-      (entityId: EntityId) => read.entities.single(entityId),
-      {
-        lookup_de: labelsParser.de(read.labels.de()),
-        lookup_en: labelsParser.en(read.labels.en()),
-        codings: codingsParser(read.codings()),
-        notations: notationsParser(read.notations()),
-        staNotations: staNotationsParser(read.staNotations()),
-        elementsOf: elementsOfParser(read.elementsOf()),
-      }
-    ),
-    index: entitiesParser.index(read.entities.index()),
-  },
+  // entities: {
+  //   all: entitiesParser.all(
+  //     read.entities.all(),
+  //     (entityId: EntityId) => read.entities.single(entityId),
+  //     {
+  //       lookup_de: labelsParser.de(read.labels.de()),
+  //       lookup_en: labelsParser.en(read.labels.en()),
+  //       codings: codingsParser(read.codings()),
+  //       notations: notationsParser(read.notations()),
+  //       staNotations: staNotationsParser(read.staNotations()),
+  //       elementsOf: elementsOfParser(read.elementsOf()),
+  //     }
+  //   ),
+  //   index: entitiesParser.index(read.entities.index()),
+  // },
   fields: fieldsParser(read.fields()),
   elementsOf: elementsOfParser(read.elementsOf()),
   staNotations: staNotationsParser(read.staNotations()),
@@ -249,7 +260,11 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
   codings: codingsParser(read.codings()),
   descriptions: descriptionsParser(read.descriptions()),
   // rdaRules: rdaRulesParser(read.rdaRules()),
-  rdaProperties: rdaPropertiesParser(read.rdaProperties()),
+  rdaProperties: rdaPropertiesParser(
+    read.rdaProperties(),
+    staNotationsParser(read.staNotations()),
+    elementsOfParser(read.elementsOf())
+  ),
 });
 
 export const propertyItemList = (
@@ -283,13 +298,13 @@ export const propertyItemList = (
             .filter((ib) => ib.label === b.label);
 
           if (withSameLabel.length > 1) {
-            return `\t'${slugify(
+            return `  '${slugify(
               `${b.label}-${
                 withSameLabel.find((ib) => ib.index === index)?.index
               }`.replace("'", '')
             )}' = '${b.value}',`;
           } else {
-            return `\t'${b.label}' = '${b.value}',`;
+            return `  '${b.label}' = '${b.value}',`;
           }
         })
         .join('\n'),
