@@ -111,7 +111,7 @@ export const getStaticProps: GetStaticProps<
     !Array.isArray(entityId) &&
     entityId in entities &&
     !isPropertyBlacklisted(entityId) &&
-    entities[entityId as keyof Entities];
+    entities[entityId];
 
   const isValidData = entityEntry && entityEntry.headlines;
 
