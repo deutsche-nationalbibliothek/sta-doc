@@ -33,7 +33,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
 
   return (
     <PageHeader
-      title={<Title headline={entity.headline} />}
+      title={entity.headline && <Title headline={entity.headline} />}
       extra={
         <>
           <div style={{ textAlign: 'center' }}>

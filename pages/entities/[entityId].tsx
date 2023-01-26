@@ -72,7 +72,9 @@ const FetchedEntity = ({
       <Head>
         {!loading && (
           <title>
-            {entityEntry.entity.title ?? entityEntry.entity.headline.title}
+            {entityEntry.entity.title ??
+              (entityEntry.entity.headline &&
+                entityEntry.entity.headline.title)}
           </title>
         )}
       </Head>
