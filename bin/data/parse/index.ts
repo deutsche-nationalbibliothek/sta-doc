@@ -238,21 +238,21 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
     de: labelsParser.de(read.labels.de()),
     en: labelsParser.en(read.labels.en()),
   },
-  // entities: {
-  //   all: entitiesParser.all(
-  //     read.entities.all(),
-  //     (entityId: EntityId) => read.entities.single(entityId),
-  //     {
-  //       lookup_de: labelsParser.de(read.labels.de()),
-  //       lookup_en: labelsParser.en(read.labels.en()),
-  //       codings: codingsParser(read.codings()),
-  //       notations: notationsParser(read.notations()),
-  //       staNotations: staNotationsParser(read.staNotations()),
-  //       elementsOf: elementsOfParser(read.elementsOf()),
-  //     }
-  //   ),
-  //   index: entitiesParser.index(read.entities.index()),
-  // },
+  entities: {
+    all: entitiesParser.all(
+      read.entities.all(),
+      (entityId: EntityId) => read.entities.single(entityId),
+      {
+        lookup_de: labelsParser.de(read.labels.de()),
+        lookup_en: labelsParser.en(read.labels.en()),
+        codings: codingsParser(read.codings()),
+        notations: notationsParser(read.notations()),
+        staNotations: staNotationsParser(read.staNotations()),
+        elementsOf: elementsOfParser(read.elementsOf()),
+      }
+    ),
+    index: entitiesParser.index(read.entities.index()),
+  },
   fields: fieldsParser(read.fields()),
   elementsOf: elementsOfParser(read.elementsOf()),
   staNotations: staNotationsParser(read.staNotations()),

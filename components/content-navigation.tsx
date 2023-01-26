@@ -28,8 +28,7 @@ export const ContentNavigation: React.FC = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            height: '100%',
-            // height: 'calc(100vh - var(--topbar-height))',
+            height: 'calc(100vh - var(--topbar-height) - var(--footer-height))',
           }}
         >
           <div ref={dividerRef}>
@@ -56,7 +55,7 @@ export const ContentNavigation: React.FC = () => {
               <Typography.Text
                 id={`nav-${key}`}
                 onClick={() => {
-                  router.push(window.location.pathname, `#${key}`)
+                  router.push(window.location.pathname, `#${key}`);
                 }}
                 strong={
                   currentHeadlinesPath.findIndex(

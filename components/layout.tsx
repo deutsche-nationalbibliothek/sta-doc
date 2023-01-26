@@ -19,7 +19,7 @@ export default function Layout(props: LayoutProps) {
       <TopBar />
       <AntdLayout
         style={{
-          height: 'calc(100vh - var(--topbar-height))',
+          height: 'calc(100vh - var(--topbar-height) - var(--footer-height))',
         }}
       >
         {nestedHeadlines.length && showHeadlines ? (
@@ -31,6 +31,16 @@ export default function Layout(props: LayoutProps) {
           <Content>{props.children}</Content>
         )}
       </AntdLayout>
+      <AntdLayout.Footer
+        style={{
+          zIndex: 1,
+          padding: '10px 50px',
+          height: 'var(--footer-height)',
+          textAlign: 'center',
+        }}
+      >
+        Footer
+      </AntdLayout.Footer>
     </AntdLayout>
   );
 }
