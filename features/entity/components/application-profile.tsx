@@ -45,7 +45,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
               const status = wikibasePointer.qualifiers.find(
                 (q) => q.property === Property.Status
               );
-              const relevantProps = ['id', 'label', 'link'];
+              const relevantProps = ['id', 'label', 'link', 'elementOf'];
               const applicationProfileTableData: ApplicationProfileTableData = {
                 id: wikibasePointer.id,
                 label: wikibasePointer.label,
