@@ -18,7 +18,6 @@ export const defaultGroupsDefinition = {
     Property.Scope,
     // Property.P663,
     // Property['WEMI-level'],
-    Property.Subfields,
   ],
   table: [
     Property['entity-type-domain'],

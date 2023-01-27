@@ -34,6 +34,7 @@ export const blacklist: {
     Property['example(s)'],
     Property.URL,
     Property['WEMI-level'],
+    Property.Repetition,
   ],
   // qualifier who never render
   qualifier: [
