@@ -37,8 +37,8 @@ export const TopBar: React.FC = () => {
                     key: '/entities/Q8566',
                   },
                   {
-                    label: <Link href="/rda/properties">Elemente</Link>,
-                    key: '/rda/properties',
+                    label: <Link href="/rda/elements">Elemente</Link>,
+                    key: '/rda/elements',
                   },
                   {
                     label: <Link href="/entities/Q8567">Ressourcentypen</Link>,

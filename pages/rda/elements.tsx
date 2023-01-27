@@ -82,8 +82,8 @@ export default function RdaPropertiesPage({
         title={
           <Title
             headline={{
-              key: 'RDA-Eigenschaften',
-              title: 'RDA Eigenschaften',
+              key: 'RDA-Elemente',
+              title: 'RDA Elemente',
               level: 1,
             }}
           />
