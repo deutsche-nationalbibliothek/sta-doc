@@ -1,6 +1,5 @@
-import { Collapse } from '@/components/collapse';
 import { Title } from '@/components/title';
-import { isStringValue, Statement, WikiBaseValue } from '@/types/parsed/entity';
+import { Statement, WikiBaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
@@ -62,9 +61,10 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
           )}
           {qualifier.string ? (
             <Typography.Paragraph>
-              {shouldRenderLabel && (
-                <Typography.Text strong>{qualifier.label}:</Typography.Text>
-              )}
+              {((shouldRenderLabel && shouldRenderLabel(qualifier)) ||
+                !shouldRenderLabel) && (
+                  <Typography.Text strong>{qualifier.label}:</Typography.Text>
+                )}
               <StringStatement
                 property={qualifier.property}
                 statement={qualifier.string}
@@ -82,7 +82,9 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   return (
     <>
       {qualifiers
-        .filter(qualifier => !isPropertyBlacklisted(qualifier.property, 'property'))
+        .filter(
+          (qualifier) => !isPropertyBlacklisted(qualifier.property, 'property')
+        )
         .sort(
           (qualifier1, qualifier2) =>
             sorting.indexOf(qualifier1.property) -
