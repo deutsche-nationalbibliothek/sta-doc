@@ -4,7 +4,6 @@ import {
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
 import { useNamespace } from '@/hooks/use-namespace';
-import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
 import {
   isStringValue,
@@ -44,7 +43,11 @@ export const Example: React.FC<ExampleProps> = ({
 }) => {
   const { namespace } = useNamespace();
 
-  const statements = example.embedded.statements.text;
+  const statements = [
+    ...example.embedded.statements.header,
+    ...example.embedded.statements.table,
+    ...example.embedded.statements.text,
+  ];
 
   const propFinder = (property: Property) =>
     statements.find((statement) => statement.property === property);
@@ -56,6 +59,9 @@ export const Example: React.FC<ExampleProps> = ({
     ),
   };
 
+  const statementFilter = (exampleStatement: Statement) =>
+    !nonDefaultRenderProperties.includes(exampleStatement.property);
+
   return (
     <>
       {nonDefaultRenderStatements.description && (
@@ -65,35 +71,7 @@ export const Example: React.FC<ExampleProps> = ({
         <RdaExample example={example} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
-          {statements.map((statement, index) => (
-            <Typography.Paragraph key={index}>
-              {statement.string &&
-                statement.string.map((stringStatement) =>
-                  stringStatement.values.map((stringValue, index2) => {
-                    return (
-                      'value' in stringValue && (
-                        <React.Fragment key={index2}>
-                          <Typography.Text
-                            italic={
-                              stringStatement.itemType ===
-                              Item['italic-(type-of-layout)']
-                            }
-                          >
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: stringValue.value,
-                              }}
-                            />
-                          </Typography.Text>
-                          <br />
-                        </React.Fragment>
-                      )
-                    );
-                  })
-                )}
-            </Typography.Paragraph>
-          ))}
-          {example.embedded.statements.table.map((statement, index) => (
+          {statements.filter(statementFilter).map((statement, index) => (
             <Typography.Paragraph key={index}>
               <Typography.Text italic>{statement.label}</Typography.Text>
               <br />
@@ -227,25 +205,25 @@ const RdaExample: React.FC<ExampleProps> = ({ example }) => {
   const preData: Record<string, PreData> = compact(
     flattenDeep(
       example.embedded &&
-      example.embedded.statements.text
-        .filter(
-          (statement) =>
-            !nonDefaultRenderProperties.includes(statement.property)
-        )
-        .map(
-          (statement) =>
-            statement.string &&
-            statement.string.map((stringStatement) =>
-              stringStatement.values.map(
-                (stringValue) =>
-                  isStringValue(stringValue) && {
-                    key: statement.label,
-                    statement,
-                    value: stringValue.value,
-                  }
+        example.embedded.statements.text
+          .filter(
+            (statement) =>
+              !nonDefaultRenderProperties.includes(statement.property)
+          )
+          .map(
+            (statement) =>
+              statement.string &&
+              statement.string.map((stringStatement) =>
+                stringStatement.values.map(
+                  (stringValue) =>
+                    isStringValue(stringValue) && {
+                      key: statement.label,
+                      statement,
+                      value: stringValue.value,
+                    }
+                )
               )
-            )
-        )
+          )
     )
   ).reduce(
     (
@@ -279,11 +257,16 @@ const RdaExample: React.FC<ExampleProps> = ({ example }) => {
       // title: 'STA Notation',
       dataIndex: 'label',
       key: 'label',
-      render: (label: string, { statement }, c) => {
-        return <EntityLink elementOf={statement.elementOf} id={statement.property} label={label} />;
+      render: (label: string, { statement }) => {
+        return (
+          <EntityLink
+            elementOf={statement.elementOf}
+            id={statement.property}
+            label={label}
+          />
+        );
       },
       width: '33%',
-      // isSearchable: true,
     },
     {
       dataIndex: 'values',

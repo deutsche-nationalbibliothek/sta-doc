@@ -14,7 +14,6 @@ export const blacklist: {
     Property['Element-of'],
     Property['STA-Notation'],
     // Item['collapsible-collapsed-(type-of-layout)'], // Items are never a statement/property
-    Property.Status,
     Property['Context-of-use'],
     Property['Introduction-text'],
     Property['embedded-in-(item)'],

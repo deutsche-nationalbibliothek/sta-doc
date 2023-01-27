@@ -267,8 +267,8 @@ export const parseRawEntity = ({
           (entity.claims[Property.Elements] && !embedded) ||
           isRdaRessourceEntityParam;
 
-        const parsedStatements: PreMappedStatement[] = statements.map(
-          (occs) => {
+        const parsedStatements: PreMappedStatement[] = statements
+          .map((occs) => {
             const dataType = keyAccess<string>(occs[0], 'datatype');
             const simplifiedDataType =
               dataType === 'wikibase-item' ||
@@ -279,6 +279,10 @@ export const parseRawEntity = ({
 
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
+
+            if (isPropertyBlacklisted(property, 'property')) {
+              return undefined;
+            }
 
             const isElementsPropOnRdaRessourceType =
               occs[0].parentProperty === Property.Elements &&
@@ -383,8 +387,8 @@ export const parseRawEntity = ({
                 };
               }),
             };
-          }
-        );
+          })
+          .filter((a) => a);
         return parsedStatements.map(stringMapper);
       };
 
