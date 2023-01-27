@@ -28,7 +28,7 @@ export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX qualifier: <${apiUrl}/prop/qualifier/>
   PREFIX statement: <${apiUrl}/prop/statement/>
 
-  SELECT ?element ?eId ?elementLabel ?entitytypeId ?entitytypeLabel ?wemilevelLabel WHERE {
+  SELECT ?element ?eId ?elementLabel ?entitytypeId ?entitytypeLabel ?wemilevelId ?wemilevelLabel WHERE {
     { ?element prop:P2 item:Q264 . } #Element von: RDA-Eigenschaft
     OPTIONAL { ?element p:P124 ?assignmentProp .
     ?assignmentProp statement:P124 ?entitytype . }
@@ -36,6 +36,7 @@ export const RDAPROPERTIES = (apiUrl: API_URL) => `
     SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
     BIND(STRAFTER(STR(?entitytype), '/entity/') as ?entitytypeId)
+    BIND(STRAFTER(STR(?wemilevel), '/entity/') as ?wemilevelId)
   }
   ORDER BY ASC(?elementLabel)
 `;
