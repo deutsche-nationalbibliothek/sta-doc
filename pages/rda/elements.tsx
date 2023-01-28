@@ -45,7 +45,7 @@ export default function RdaPropertiesPage({
       ) => <EntityLink {...rdaProperty}>{children}</EntityLink>,
     },
     {
-      title: 'Entitätstyp',
+      title: 'Entitätstyp / Wemi Ebene',
       dataIndex: 'domainLabel',
       key: 'domainLabel',
       width: '20%',

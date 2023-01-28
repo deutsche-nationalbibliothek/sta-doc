@@ -216,17 +216,25 @@ export const rdaPropertiesParser = (
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
     const id = rdaProperty.eId.value as EntityId;
+
+    const typeData = (idKey: string, labelkey: string) => ({
+      id: rdaProperty[idKey].value,
+      label: labelStripper(rdaProperty[labelkey].value),
+      elementOf: parsedElementsOf[rdaProperty[idKey].value],
+    });
+
+    const type =
+      'entitytypeId' in rdaProperty
+        ? typeData('entitytypeId', 'entitytypeLabel')
+        : typeData('wemilevelId', 'wemilevelLabel');
+
     return [
       ...acc,
       {
         id,
-        label: rdaProperty.elementLabel.value,
+        label: labelStripper(rdaProperty.elementLabel.value),
         staNotationLabel: parsedStaNotations[id].label,
-        type: {
-          id: rdaProperty.assignmentId.value,
-          label: labelStripper(rdaProperty.assignmentLabel.value),
-          elementOf: parsedElementsOf[rdaProperty.assignmentId.value],
-        },
+        type,
       },
     ];
   }, [] as RdaProperties);

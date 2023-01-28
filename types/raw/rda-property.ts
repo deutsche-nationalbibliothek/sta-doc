@@ -1,12 +1,20 @@
 export type RdaPropertiesRaw = RdaPropertyRaw[];
 
-export interface RdaPropertyRaw {
+type EntityTypeOrWemi =
+  | {
+    entitytypeId: Element;
+    entitytypeLabel: ElementLabel;
+  }
+  | {
+    wemilevelId: Element;
+    wemilevelLabel: ElementLabel;
+  };
+
+export type RdaPropertyRaw = EntityTypeOrWemi & {
   element: Element;
   eId: Element;
-  assignmentId: Element;
   elementLabel: ElementLabel;
-  assignmentLabel: ElementLabel;
-}
+};
 
 interface ElementLabel {
   'xml:lang': string;
