@@ -241,39 +241,42 @@ export const rdaPropertiesParser = (
 };
 
 // const readParsed = reader(DataState.parsed)
-export const parseAllFromRead = (read: ReturnType<typeof reader>) => ({
-  labels: {
-    de: labelsParser.de(read.labels.de()),
-    en: labelsParser.en(read.labels.en()),
-  },
-  entities: {
-    all: entitiesParser.all(
-      read.entities.all(),
-      (entityId: EntityId) => read.entities.single(entityId),
-      {
-        lookup_de: labelsParser.de(read.labels.de()),
-        lookup_en: labelsParser.en(read.labels.en()),
-        codings: codingsParser(read.codings()),
-        notations: notationsParser(read.notations()),
-        staNotations: staNotationsParser(read.staNotations()),
-        elementsOf: elementsOfParser(read.elementsOf()),
-      }
+export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
+  const data = {
+    staNotations: staNotationsParser(read.staNotations()),
+    elementsOf: elementsOfParser(read.elementsOf()),
+    lookup_de: labelsParser.de(read.labels.de()),
+    lookup_en: labelsParser.en(read.labels.en()),
+    codings: codingsParser(read.codings()),
+    notations: notationsParser(read.notations()),
+  };
+  return {
+    rdaProperties: rdaPropertiesParser(
+      read.rdaProperties(),
+      data.staNotations,
+      data.elementsOf
     ),
-    index: entitiesParser.index(read.entities.index()),
-  },
-  fields: fieldsParser(read.fields()),
-  elementsOf: elementsOfParser(read.elementsOf()),
-  staNotations: staNotationsParser(read.staNotations()),
-  notations: notationsParser(read.notations()),
-  codings: codingsParser(read.codings()),
-  descriptions: descriptionsParser(read.descriptions()),
-  // rdaRules: rdaRulesParser(read.rdaRules()),
-  rdaProperties: rdaPropertiesParser(
-    read.rdaProperties(),
-    staNotationsParser(read.staNotations()),
-    elementsOfParser(read.elementsOf())
-  ),
-});
+    labels: {
+      de: data.lookup_de,
+      en: data.lookup_en,
+    },
+    entities: {
+      all: entitiesParser.all(
+        read.entities.all(),
+        (entityId: EntityId) => read.entities.single(entityId),
+        data
+      ),
+      index: entitiesParser.index(read.entities.index()),
+    },
+    fields: fieldsParser(read.fields()),
+    elementsOf: data.elementsOf,
+    staNotations: data.staNotations,
+    notations: data.notations,
+    codings: codingsParser(read.codings()),
+    descriptions: descriptionsParser(read.descriptions()),
+    // rdaRules: rdaRulesParser(read.rdaRules()),
+  };
+};
 
 export const propertyItemList = (
   propertiesItemsListRaw: PropertiesItemsListRaw
