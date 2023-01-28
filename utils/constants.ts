@@ -19,6 +19,7 @@ export const blacklist: {
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
     Property['Type-of-layout'],
+    Item['collapsible-collapsed-(type-of-layout)'],
   ],
   // properties/statements who never get a headline
   headlines: [
