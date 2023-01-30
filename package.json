@@ -13,7 +13,7 @@
     "data:parse": "ts-node bin/data parse",
     "data:fetch:properties-items": "ts-node bin/data fetch-properties-items",
     "lint": "next lint",
-    "test": "jest --watch",
+    "test": "NODE_OPTIONS='--max-old-space-size=6144' jest --watch",
     "test:ci": "jest --ci"
   },
   "dependencies": {

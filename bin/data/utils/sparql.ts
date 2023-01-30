@@ -191,33 +191,6 @@ export const SCHEMA = (apiUrl: API_URL) => `
   ORDER BY ASC(?eId)
 `;
 
-export const NOTATIONS = (apiUrl: API_URL) => `
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-#PREFIX p: <http://www.wikidata.org/prop/>
-PREFIX ps: <http://www.wikidata.org/prop/statement/>
-PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX bd: <http://www.bigdata.com/rdf#>
-
-PREFIX p: <${apiUrl}/prop/>
-PREFIX prop: <${apiUrl}/prop/direct/>
-PREFIX item: <${apiUrl}/entity/>
-PREFIX qualifier: <${apiUrl}/prop/qualifier/>
-PREFIX statement: <${apiUrl}/prop/statement/>
-
-SELECT ?eId ?elementLabel ?notationLabel  WHERE {
-?element prop:P643 ?notation .
-#OPTIONAL{ ?codingProp statement:P4 ?coding . }
-#OPTIONAL{ ?codingProp qualifier:P3 ?codingType }
-#OPTIONAL{ ?property prop:P1 ?definition }
-#OPTIONAL{ ?property prop:P15 ?subfields }
-SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],de" }
-BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
-}
-ORDER BY ASC(?elementLabel)`;
-
 export const LABELEN = (apiUrl: API_URL) => `
   PREFIX wd: <http://www.wikidata.org/entity/>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>

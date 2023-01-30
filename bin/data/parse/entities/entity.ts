@@ -59,8 +59,7 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, notations, staNotations, elementsOf } =
-    data;
+  const { lookup_de, lookup_en, codings, staNotations, elementsOf } = data;
 
   const entity = getRawEntityById(entityId);
 
@@ -577,7 +576,10 @@ export const parseRawEntity = ({
             deLabel: lookup_de[elementOfId],
           } as PageType)
         : undefined,
-      notation: notations[entityId]?.notation,
+      staNotationLabel:
+        entityId in staNotations
+          ? staNotations[entityId].label.toUpperCase()
+          : undefined,
       statements: statementProps(entity.claims),
       // logo:
       //   !embedded &&

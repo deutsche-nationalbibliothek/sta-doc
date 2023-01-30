@@ -4,7 +4,6 @@ import {
   codingsParser,
   entitiesParser,
   labelsParser,
-  notationsParser,
   staNotationsParser,
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
@@ -40,7 +39,6 @@ export const DEV = false;
         lookup_de: labelsParser.de(readRaw.labels.de()),
         lookup_en: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
-        notations: notationsParser(readRaw.notations()),
         staNotations: staNotationsParser(readRaw.staNotations()),
         elementsOf: elementsOfParser(readRaw.elementsOf()),
       }

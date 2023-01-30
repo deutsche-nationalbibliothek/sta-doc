@@ -45,10 +45,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     setShowHeadlines(!nextViewParam);
   };
 
-  const staNotationStatement = entity.statements.header.find(
-    (s) => s.property === Property['STA-Notation']
-  );
-
   const wemiStatement = entity.statements.text.find(
     (statement) => statement.property === Property['WEMI-level']
   );
@@ -62,7 +58,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
           entity={entity}
           namespace={namespace}
           isRdaRessourceType={isRdaRessourceType}
-          staNotationStatement={staNotationStatement}
           view={{ get: view, set: setViewAndSetShowHeadlines }}
         />
       )}

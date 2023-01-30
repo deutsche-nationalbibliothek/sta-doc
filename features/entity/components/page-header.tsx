@@ -1,6 +1,6 @@
 import { Title } from '@/components/title';
 import { Namespace } from '@/types/namespace';
-import { Entity, isStringValue, Statement } from '@/types/parsed/entity';
+import { Entity } from '@/types/parsed/entity';
 import { PageHeader, Switch, Typography } from 'antd';
 import React from 'react';
 import { NamespaceImage } from './namespace-image';
@@ -9,7 +9,6 @@ interface EntityPageHeaderProps {
   entity: Entity;
   namespace: Namespace;
   isRdaRessourceType: boolean;
-  staNotationStatement?: Statement;
   view: {
     get: string;
     set: (newValue: string) => void;
@@ -20,15 +19,8 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
   entity,
   namespace,
   isRdaRessourceType,
-  staNotationStatement,
   view,
 }) => {
-  const staNotationInfo = staNotationStatement &&
-    isStringValue(staNotationStatement.string[0].values[0]) && {
-    label: staNotationStatement.label,
-    value: staNotationStatement.string[0].values[0].value,
-  };
-
   const isApplicationProfileView = view.get === 'application-profile';
 
   return (
@@ -57,14 +49,12 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
                 </Typography.Text>
               </>
             )}
-            {staNotationInfo && (
+            {entity.staNotationLabel && (
               <>
                 <Typography.Paragraph style={{ textAlign: 'center' }}>
-                  <Typography.Text strong>
-                    {staNotationInfo.label}:
-                  </Typography.Text>
+                  <Typography.Text strong>Sta Notation:</Typography.Text>
                   <br />
-                  <Typography.Text>{staNotationInfo.value}</Typography.Text>
+                  <Typography.Text>{entity.staNotationLabel}</Typography.Text>
                 </Typography.Paragraph>
               </>
             )}

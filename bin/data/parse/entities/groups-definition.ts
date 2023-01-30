@@ -8,7 +8,7 @@ export type Group = keyof typeof defaultGroupsDefinition;
 export const defaultGroupsDefinition = {
   header: [
     Property['definition'],
-    Property['STA-Notation'],
+    // Property['STA-Notation'], // staNotationLabel gets injected by static data
     // Property['entity-type-domain'],
     // Property['Recording-method'],
     Property['Recording-method-or-item'],

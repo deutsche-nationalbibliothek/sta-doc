@@ -15,10 +15,6 @@ export const NAMES = {
     file: { singular: 'sta-notation' },
     type: 'StaNotation',
   },
-  notation: {
-    file: { singular: 'notation' },
-    type: 'Notation',
-  },
   coding: {
     file: { singular: 'coding' },
     type: 'Coding',

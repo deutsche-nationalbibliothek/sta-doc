@@ -7,7 +7,6 @@ import { EntitiesIndexRaw } from '../../types/raw/entity-index';
 import { FieldsRaw } from '../../types/raw/field';
 import { LabelDeRaws } from '../../types/raw/label-de';
 import { LabelEnRaws } from '../../types/raw/label-en';
-import { NotationsRaw } from '../../types/raw/notation';
 import { RdaPropertiesRaw } from '../../types/raw/rda-property';
 import { DataState, readJSONFile } from './utils';
 import { NAMES } from './utils/names';
@@ -36,7 +35,6 @@ export const reader = (dataState: DataState) => {
     readJSONFile<ElementsOfRaw>(NAMES.elementOf, dataState);
   const staNotations = () =>
     readJSONFile<StaNotationsRaw>(NAMES.staNotation, dataState);
-  const notations = () => readJSONFile<NotationsRaw>(NAMES.notation, dataState);
   const codings = () => readJSONFile<CodingRaw[]>(NAMES.coding, dataState);
   const descriptions = () =>
     readJSONFile<DescriptionRaws>(NAMES.description, dataState);
@@ -50,7 +48,6 @@ export const reader = (dataState: DataState) => {
     labels,
     staNotations,
     elementsOf,
-    notations,
     codings,
     descriptions,
     rdaRules,

@@ -14,7 +14,7 @@ export interface Entity {
   description?: string;
   // logo?: string;
   pageType?: PageType;
-  notation?: string;
+  staNotationLabel?: string;
   statements: Statements;
 }
 

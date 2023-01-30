@@ -31,8 +31,6 @@ export const writer = (
 
   const staNotations = () =>
     writeJSONFile(data.staNotations, NAMES.staNotation, dataState);
-  const notations = () =>
-    writeJSONFile(data.notations, NAMES.notation, dataState);
   const elementsOf = () =>
     writeJSONFile(data.elementsOf, NAMES.elementOf, dataState);
   const codings = () => {
@@ -51,7 +49,6 @@ export const writer = (
     labels.de();
     labels.en();
     staNotations();
-    notations();
     elementsOf();
     codings();
     descriptions();
@@ -63,7 +60,6 @@ export const writer = (
     entities,
     fields,
     labels,
-    notations,
     staNotations,
     elementsOf,
     codings,

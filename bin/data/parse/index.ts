@@ -5,7 +5,6 @@ import { Description } from '../../../types/parsed/description';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelDes } from '../../../types/parsed/label-de';
 import { LabelEns } from '../../../types/parsed/label-en';
-import { Notations } from '../../../types/parsed/notation';
 import { RdaProperties } from '../../../types/parsed/rda-property';
 import { Property } from '../../../types/property';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -127,15 +126,6 @@ export const labelsParser = {
     commonParseFunc<LabelEnRaws, LabelEns>(enLabels, NAMES.labelEn),
 };
 
-export const notationsParser = (notations: NotationsRaw) =>
-  notations.reduce((acc, notation) => {
-    acc[notation.eId.value as Property | Item] = {
-      label: notation.elementLabel.value,
-      notation: notation.notationLabel.value,
-    };
-    return acc;
-  }, {} as Notations);
-
 export const codingsParser = (codings: CodingsRaw) => {
   const codingLabels: CodingLabel[] = [
     'PICA3',
@@ -248,7 +238,6 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     lookup_de: labelsParser.de(read.labels.de()),
     lookup_en: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
-    notations: notationsParser(read.notations()),
   };
   return {
     rdaProperties: rdaPropertiesParser(
@@ -271,7 +260,6 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     fields: fieldsParser(read.fields()),
     elementsOf: data.elementsOf,
     staNotations: data.staNotations,
-    notations: data.notations,
     codings: codingsParser(read.codings()),
     descriptions: descriptionsParser(read.descriptions()),
     // rdaRules: rdaRulesParser(read.rdaRules()),
