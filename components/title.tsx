@@ -21,11 +21,11 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
     <>
       {
         useHover((hovered) => (
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <CopyHeadlineAnchorLink
               style={{
                 marginLeft: -35,
-                padding: '20px 0px 15px 15px',
+                padding: '15px 0px 15px 15px',
                 fontSize: 20 - level,
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
               }}
