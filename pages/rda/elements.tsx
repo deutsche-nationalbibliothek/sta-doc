@@ -32,13 +32,20 @@ export default function RdaPropertiesPage({
 
   const columns: ColumnsType<RdaProperty> = [
     {
-      title: 'RDA Eigenschaft',
+      title: 'Sta-Notation',
+      dataIndex: 'staNotationLabel',
+      key: 'staNotationLabel',
+      width: '20%',
+      isSearchable: true,
+    },
+    {
+      title: 'RDA Eigenschaft Element',
       dataIndex: 'label',
       key: 'label',
       width: '30%',
       isSearchable: true,
       render: (
-        label: string,
+        _label: string,
         rdaProperty,
         _index: number,
         children: JSX.Element
@@ -62,13 +69,6 @@ export default function RdaPropertiesPage({
         _index: number,
         children: JSX.Element
       ) => <EntityLink {...rdaProperty.type}>{children}</EntityLink>,
-    },
-    {
-      title: 'Sta-Notation',
-      dataIndex: 'staNotationLabel',
-      key: 'staNotationLabel',
-      width: '20%',
-      isSearchable: true,
     },
   ];
 
