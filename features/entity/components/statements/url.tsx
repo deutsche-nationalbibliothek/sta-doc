@@ -10,12 +10,12 @@ interface UrlStatementProps {
 export const UrlStatement: React.FC<UrlStatementProps> = ({ urls }) => {
   return (
     <>
-      {urls.map((url) => (
-        <>
+      {urls.map((url, index) => (
+        <React.Fragment key={index}>
           <Link href={url.value} passHref target="_blank">
             {truncate(url.value, { length: 60 })}
           </Link>
-        </>
+        </React.Fragment>
       ))}
     </>
   );
