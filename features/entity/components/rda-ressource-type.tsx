@@ -38,6 +38,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   ) => statements.find((statement) => statement.property === property);
 
   const relevantStatements = {
+    definition: propFinder(Property.definition, entity.statements.header),
     common: propFinder(Property['P659']),
     sourcesOfInformation: propFinder(Property['Sources-of-information']),
     description: propFinder(Property['description']),
@@ -94,6 +95,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     <>
       <Statements
         statements={compact([
+          relevantStatements.definition,
           relevantStatements.common,
           relevantStatements.sourcesOfInformation,
           relevantStatements.description,
