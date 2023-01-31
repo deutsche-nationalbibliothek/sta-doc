@@ -36,3 +36,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+
+# remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+__tests__/pages/entities/__snapshots__/
