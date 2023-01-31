@@ -11,6 +11,7 @@ import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
 import { GndFieldsTable } from 'features/gnd/field-table';
+import { GndSubFieldTable } from 'features/gnd/subfield-table';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
@@ -18,7 +19,7 @@ import { WikibasePointers } from '../wikibase-pointers';
 
 interface TableStatementsProps {
   statements: Statement[];
-  field?: Field
+  field?: Field;
 }
 
 interface TableStatementsData {
@@ -32,7 +33,7 @@ interface TableStatementsData {
 
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
-  field
+  field,
 }) => {
   const data: TableStatementsData[] = statements.map((statement) => {
     return {
@@ -70,7 +71,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       dataIndex: 'values',
       render: (values: TableStatementsData['values'], record) => {
         if (record.property === Property.Subfields && field) {
-          return <GndFieldsTable className="gnd-subfield-table" fields={[field]} />
+          return <GndSubFieldTable subfields={field.subfields} className="gnd-subfield-table" showHeader />;
         }
         return (
           <>

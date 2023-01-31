@@ -1,53 +1,62 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
-import { EntityPreview } from '@/entity/components/preview';
 import { EntityLink } from '@/entity/components/preview/link';
-import { Link } from '@/lib/next-link';
 import { Field, Subfield } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
-export const GndSubFieldTable: React.FC<Field> = (props) => {
+interface GndSubFieldTableProps extends Field {
+  showHeader?: boolean;
+  className?: string;
+}
+
+export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
   const columns: ColumnsType<Subfield> = [
     {
       title: 'PICA3',
       width: '15%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
-      isSearchable: true,
+      noSort: true,
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
+      title: 'PICA+',
       width: '15%',
       dataIndex: ['codings', 'PICA+'],
+      noSort: true,
       key: 'PICA+',
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
+      title: 'MARC21',
       dataIndex: ['codings', 'MARC 21'],
       width: '25%',
+      noSort: true,
       key: 'PICA3',
       render: (coding, _record, _index, highlighted) => {
         return coding && <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
+      title: 'Bezeichnung',
       width: '40%',
       dataIndex: 'label',
+      noSort: true,
       key: 'label',
       render: (_data, record) => {
-        return (
-          <EntityLink {...record} />
-        );
+        return <EntityLink {...record} />;
       },
     },
     {
+      title: <GlobalOutlined />,
       dataIndex: 'viewLink',
       key: 'external-links',
+      noSort: true,
       width: '5%',
       render: (_definition, record) => {
         return (
@@ -65,9 +74,10 @@ export const GndSubFieldTable: React.FC<Field> = (props) => {
   ];
   return (
     <Table<Subfield>
+      className={props.className}
       key={props.id}
       pagination={false}
-      showHeader={false}
+      showHeader={props.showHeader || false}
       columns={[
         {
           key: 'subfield-table',
