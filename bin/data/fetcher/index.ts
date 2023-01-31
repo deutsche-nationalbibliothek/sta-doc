@@ -1,4 +1,4 @@
-import { ElementsOfRaw } from '@/types/raw/element-of';
+import { ElementsOfRaw } from '../../../types/raw/element-of';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -7,7 +7,6 @@ import { EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
-import { NotationsRaw } from '../../../types/raw/notation';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { RdaRulesRaw } from '../../../types/raw/rda-rule';
@@ -91,8 +90,6 @@ export const staNotationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
     sparql.STA_NOTATIONS(apiUrl)
   );
-export const notationsFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<NotationsRaw>(sparql.NOTATIONS(apiUrl));
 export const elementsOfFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<ElementsOfRaw>(sparql.ELEMENTS_OF(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
@@ -127,7 +124,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   };
 
   const staNotations = async () => await staNotationsFetcher(apiUrl);
-  const notations = async () => await notationsFetcher(apiUrl);
   const elementsOf = async () => await elementsOfFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
   const descriptions = async () => await descriptionsFetcher(apiUrl);
@@ -145,7 +141,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
         en: await labels.en(),
       },
       staNotations: await staNotations(),
-      notations: await notations(),
       elementsOf: await elementsOf(),
       codings: await codings(),
       descriptions: await descriptions(),
@@ -161,7 +156,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     fields,
     labels,
     staNotations,
-    notations,
     codings,
     fetchAll,
     propertyItemList,
