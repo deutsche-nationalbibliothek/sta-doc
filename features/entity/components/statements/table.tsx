@@ -66,7 +66,10 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       render: (values: TableStatementsData['values'], record) => (
         <>
           {values.wikibasePointers && (
-            <WikibasePointers wikibasePointers={values.wikibasePointers} />
+            <WikibasePointers
+              property={record.property}
+              wikibasePointers={values.wikibasePointers}
+            />
           )}
           {values.stringValues &&
             values.stringValues.map((stringStatement, index) => (
@@ -92,12 +95,12 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                       {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
                       {(!stringValue.qualifiers ??
                         stringValue.qualifiers[0].property !==
-                          Property['Recording-method-or-item']) && (
-                        <StringValueComponent
-                          code={record.property === Property.Encoding}
-                          stringValue={stringValue}
-                        />
-                      )}
+                        Property['Recording-method-or-item']) && (
+                          <StringValueComponent
+                            code={record.property === Property.Encoding}
+                            stringValue={stringValue}
+                          />
+                        )}
                       {stringValue.qualifiers && (
                         <>
                           <Qualifiers

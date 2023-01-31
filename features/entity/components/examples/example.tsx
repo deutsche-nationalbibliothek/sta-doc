@@ -9,7 +9,7 @@ import {
   isStringValue,
   Statement,
   StringValue,
-  WikiBaseValue,
+  Entity,
 } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Card, Tag, Typography } from 'antd';
@@ -20,7 +20,7 @@ import { Statements } from '../statements';
 import { StringStatement } from '../statements/string';
 
 interface ExampleProps {
-  example: WikiBaseValue;
+  entity: Entity;
   codingsPreferences: CodingsPreference[];
 }
 
@@ -38,15 +38,15 @@ const nonDefaultRenderProperties = [
 ];
 
 export const Example: React.FC<ExampleProps> = ({
-  example,
+  entity,
   codingsPreferences,
 }) => {
   const { namespace } = useNamespace();
 
   const statements = [
-    ...example.embedded.statements.header,
-    ...example.embedded.statements.table,
-    ...example.embedded.statements.text,
+    ...entity.statements.header,
+    ...entity.statements.table,
+    ...entity.statements.text,
   ];
 
   const propFinder = (property: Property) =>
@@ -67,8 +67,8 @@ export const Example: React.FC<ExampleProps> = ({
       {nonDefaultRenderStatements.description && (
         <Statements statements={[nonDefaultRenderStatements.description]} />
       )}
-      {example.embedded && namespace === Namespace.RDA ? (
-        <RdaExample example={example} codingsPreferences={codingsPreferences} />
+      {namespace === Namespace.RDA ? (
+        <RdaExample entity={entity} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
           {statements.filter(statementFilter).map((statement, index) => (
@@ -201,29 +201,28 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   );
 };
 
-const RdaExample: React.FC<ExampleProps> = ({ example }) => {
+const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
   const preData: Record<string, PreData> = compact(
     flattenDeep(
-      example.embedded &&
-        example.embedded.statements.text
-          .filter(
-            (statement) =>
-              !nonDefaultRenderProperties.includes(statement.property)
-          )
-          .map(
-            (statement) =>
-              statement.string &&
-              statement.string.map((stringStatement) =>
-                stringStatement.values.map(
-                  (stringValue) =>
-                    isStringValue(stringValue) && {
-                      key: statement.label,
-                      statement,
-                      value: stringValue.value,
-                    }
-                )
+      entity.statements.text
+        .filter(
+          (statement) =>
+            !nonDefaultRenderProperties.includes(statement.property)
+        )
+        .map(
+          (statement) =>
+            statement.string &&
+            statement.string.map((stringStatement) =>
+              stringStatement.values.map(
+                (stringValue) =>
+                  isStringValue(stringValue) && {
+                    key: statement.label,
+                    statement,
+                    value: stringValue.value,
+                  }
               )
-          )
+            )
+        )
     )
   ).reduce(
     (

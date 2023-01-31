@@ -40,6 +40,7 @@ export const Statements: React.FC<StatementsProps> = ({
                 </>
               ) : statement.wikibasePointer ? (
                 <WikibasePointers
+                  property={statement.property}
                   wikibasePointers={statement.wikibasePointer}
                 />
               ) : (

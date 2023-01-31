@@ -1,5 +1,5 @@
 import { Title } from '@/components/title';
-import { Statement, WikiBaseValue } from '@/types/parsed/entity';
+import { Statement, Entity, isWikibaseValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
@@ -35,24 +35,13 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
       return (
         <Examples
           examples={
-            qualifier.wikibasePointer.filter(
-              (wikibasePointer) => 'label' in wikibasePointer
-            ) as WikiBaseValue[]
+            qualifier.wikibasePointer
+              .filter(isWikibaseValue)
+              .map((wikibaseValue) => wikibaseValue.embedded) as Entity[]
           }
         />
       );
     },
-    // [Property['Introduction-text']]: (qualifier: Statement) => {
-    //   const stringValue = qualifier.string[0].values[0];
-    //   return (
-    //     <Collapse labelClosed={isStringValue(stringValue) && stringValue.value}>
-    //       <StringStatement
-    //         property={qualifier.property}
-    //         statement={qualifier.string}
-    //       />
-    //     </Collapse>
-    //   );
-    // },
     default: (qualifier: Statement) => {
       return (
         <>
@@ -72,7 +61,10 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
             </Typography.Paragraph>
           ) : (
             qualifier.wikibasePointer && (
-              <WikibasePointers wikibasePointers={qualifier.wikibasePointer} />
+              <WikibasePointers
+                property={qualifier.property}
+                wikibasePointers={qualifier.wikibasePointer}
+              />
             )
           )}
         </>

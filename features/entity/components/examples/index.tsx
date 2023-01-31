@@ -2,12 +2,12 @@ import { Modal } from '@/components/modal';
 import { useCodingsPreference } from '@/hooks/use-codings-preference';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
-import { WikiBaseValue } from '@/types/parsed/entity';
+import { Entity } from '@/types/parsed/entity';
 import { Card, Select } from 'antd';
 import { Example } from './example';
 
 interface ExamplesProps {
-  examples: WikiBaseValue[];
+  examples: Entity[];
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
@@ -45,7 +45,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
           return (
             <Card style={{ backgroundColor: 'var(--primary-2)' }} key={index}>
               <Example
-                example={example}
+                entity={example}
                 codingsPreferences={codingsPreferences}
               />
             </Card>

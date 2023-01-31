@@ -1,23 +1,25 @@
 import { Title } from '@/components/title';
-import { Link } from '@/lib/next-link';
 import { Item } from '@/types/item';
-import { Maybe, WikiBaseValue, isWikibaseValue } from '@/types/parsed/entity';
+import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/parsed/entity';
+import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
-import { EntityPreview } from '../preview';
 import { EntityLink } from '../preview/link';
 import { Qualifiers } from '../qualifiers';
 import { References } from '../references';
+import { Examples } from '../examples';
 
 interface WikibasePointerProps {
   wikibasePointers: Maybe<WikiBaseValue>[];
+  property: Property;
 }
 
 export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   wikibasePointers,
+  property,
 }) => {
   const isList = () => wikibasePointers.length > 1;
   const hasQualifiers = () =>
@@ -36,15 +38,24 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
     );
 
   return hasEmbedded() ? (
-    <>
-      {wikibasePointers.map(
-        (wikibasePointer, index) =>
-          isWikibaseValue(wikibasePointer) &&
-          wikibasePointer.embedded && (
-            <Embedded key={index} entity={wikibasePointer.embedded} />
-          )
-      )}
-    </>
+    property === Property['example(s)'] ? (
+      <Examples
+        examples={wikibasePointers
+          .filter(isWikibaseValue)
+          .map((w) => w.embedded)}
+      />
+    ) : (
+      <>
+        {wikibasePointers
+          .filter(isWikibaseValue)
+          .map(
+            (wikibasePointer, index) =>
+              wikibasePointer.embedded && (
+                <Embedded key={index} entity={wikibasePointer.embedded} />
+              )
+          )}
+      </>
+    )
   ) : hasQualifiers() ? (
     <>
       {wikibasePointers.map(
@@ -52,9 +63,9 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
           isWikibaseValue(wikibasePointer) && (
             <React.Fragment key={index}>
               <Title headline={wikibasePointer.headline}>
-                  <EntityLink {...wikibasePointer}>
-                    {wikibasePointer.label}{' '}
-                  </EntityLink>
+                <EntityLink {...wikibasePointer}>
+                  {wikibasePointer.label}{' '}
+                </EntityLink>
               </Title>
               {wikibasePointer.references && (
                 <References references={wikibasePointer.references} />
@@ -96,9 +107,7 @@ const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
   if (isPropertyBlacklisted(wikibasePointer.id as Item)) {
     return null;
   }
-  return (
-    <EntityLink {...wikibasePointer} />
-  );
+  return <EntityLink {...wikibasePointer} />;
 };
 
 const MissingLink = () => {
