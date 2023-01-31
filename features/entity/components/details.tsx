@@ -5,6 +5,7 @@ import { Statements } from './statements';
 import { TableStatements } from './statements/table';
 import { Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { Item } from '@/types/item';
 import { RdaRessourceTypeEntity } from './rda-ressource-type';
 import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
@@ -51,6 +52,16 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const isRdaRessourceType = !!wemiStatement;
 
+  const tableStatements =
+    entity.pageType.id === Item['GND-data-field']
+      ? [
+        ...entity.statements.table,
+        entity.statements.text.find(
+          (statement) => statement.property === Property.Subfields
+        ),
+      ]
+      : entity.statements.table;
+
   return (
     <>
       {!embedded && (
@@ -70,7 +81,10 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
               <Statements statements={entity.statements.header} />
             )}
             {entity.statements.table.length > 0 && (
-              <TableStatements statements={entity.statements.table} />
+              <TableStatements
+                statements={tableStatements}
+                field={entity.field}
+              />
             )}
             {entity.statements.text.length > 0 && (
               <Statements statements={entity.statements.text} />

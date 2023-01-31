@@ -6,9 +6,11 @@ import {
   StringValue,
   WikiBaseValue,
 } from '@/types/parsed/entity';
+import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
+import { GndFieldsTable } from 'features/gnd/field-table';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
@@ -16,6 +18,7 @@ import { WikibasePointers } from '../wikibase-pointers';
 
 interface TableStatementsProps {
   statements: Statement[];
+  field?: Field
 }
 
 interface TableStatementsData {
@@ -29,11 +32,13 @@ interface TableStatementsData {
 
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
+  field
 }) => {
   const data: TableStatementsData[] = statements.map((statement) => {
     return {
       key: statement.label,
-      property: statement.label as Property,
+      property: statement.property,
+      propertyLabel: statement.label,
       values: {
         wikibasePointers:
           statement.wikibasePointer &&
@@ -55,67 +60,72 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
 
   const columns: ColumnsType<TableStatementsData> = [
     {
-      key: 'property',
-      dataIndex: 'property',
+      key: 'propertyLabel',
+      dataIndex: 'propertyLabel',
       className: 'table-cell-align-top',
       width: '20%',
     },
     {
       key: 'values',
       dataIndex: 'values',
-      render: (values: TableStatementsData['values'], record) => (
-        <>
-          {values.wikibasePointers && (
-            <WikibasePointers
-              property={record.property}
-              wikibasePointers={values.wikibasePointers}
-            />
-          )}
-          {values.stringValues &&
-            values.stringValues.map((stringStatement, index) => (
-              <Typography.Paragraph
-                key={index}
-                ellipsis={{
-                  rows: 6,
-                  expandable: true,
-                  symbol: (
-                    <Divider>
-                      <DownOutlined
-                        style={{ color: 'var(--link-color)' }}
-                        className="expandable-cell"
-                      />
-                    </Divider>
-                  ),
-                  suffix: '',
-                }}
-              >
-                {stringStatement.map((stringValue, index) => (
-                  <Typography.Paragraph key={index}>
-                    <>
-                      {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
-                      {(!stringValue.qualifiers ??
-                        stringValue.qualifiers[0].property !==
-                        Property['Recording-method-or-item']) && (
-                          <StringValueComponent
-                            code={record.property === Property.Encoding}
-                            stringValue={stringValue}
-                          />
+      render: (values: TableStatementsData['values'], record) => {
+        if (record.property === Property.Subfields && field) {
+          return <GndFieldsTable className="gnd-subfield-table" fields={[field]} />
+        }
+        return (
+          <>
+            {values.wikibasePointers && (
+              <WikibasePointers
+                property={record.property}
+                wikibasePointers={values.wikibasePointers}
+              />
+            )}
+            {values.stringValues &&
+              values.stringValues.map((stringStatement, index) => (
+                <Typography.Paragraph
+                  key={index}
+                  ellipsis={{
+                    rows: 6,
+                    expandable: true,
+                    symbol: (
+                      <Divider>
+                        <DownOutlined
+                          style={{ color: 'var(--link-color)' }}
+                          className="expandable-cell"
+                        />
+                      </Divider>
+                    ),
+                    suffix: '',
+                  }}
+                >
+                  {stringStatement.map((stringValue, index) => (
+                    <Typography.Paragraph key={index}>
+                      <>
+                        {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
+                        {(!stringValue.qualifiers ??
+                          stringValue.qualifiers[0].property !==
+                          Property['Recording-method-or-item']) && (
+                            <StringValueComponent
+                              code={record.property === Property.Encoding}
+                              stringValue={stringValue}
+                            />
+                          )}
+                        {stringValue.qualifiers && (
+                          <>
+                            <Qualifiers
+                              showHeadline={false}
+                              qualifiers={stringValue.qualifiers}
+                            />
+                          </>
                         )}
-                      {stringValue.qualifiers && (
-                        <>
-                          <Qualifiers
-                            showHeadline={false}
-                            qualifiers={stringValue.qualifiers}
-                          />
-                        </>
-                      )}
-                    </>
-                  </Typography.Paragraph>
-                ))}
-              </Typography.Paragraph>
-            ))}
-        </>
-      ),
+                      </>
+                    </Typography.Paragraph>
+                  ))}
+                </Typography.Paragraph>
+              ))}
+          </>
+        );
+      },
     },
   ];
 

@@ -5,9 +5,12 @@ import { GndFieldsProps } from '@/pages/gnd/fields';
 import { Field } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
+import { CSSProperties } from 'react';
 import { GndSubFieldTable } from './subfield-table';
 
-export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
+export const GndFieldsTable: React.FC<
+  GndFieldsProps & { style?: CSSProperties; className?: string }
+> = ({ fields, style, className }) => {
   const columns: ColumnsType<Field> = [
     {
       title: 'PICA3',
@@ -72,7 +75,14 @@ export const GndFieldsTable: React.FC<GndFieldsProps> = ({ fields }) => {
 
   return (
     <Table<Field>
-      columns={columns}
+      style={style}
+      className={className}
+      columns={columns.map((column) => ({
+        ...column,
+        isSearchable: column.isSearchable && fields.length > 1,
+        noSort: column.noSort || fields.length < 2,
+      }))}
+      pagination={fields.length > 10 ? undefined : false}
       dataSource={fields.map((field) => ({ ...field, key: field.id }))}
       expandable={{ expandedRowRender: GndSubFieldTable }}
     />

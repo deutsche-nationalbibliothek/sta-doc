@@ -1,6 +1,7 @@
 import { GetRawEntityById } from '..';
 import { EntityId } from '../../../../types/entity-id';
 import { Codings } from '../../../../types/parsed/coding';
+import { Fields } from '../../../../types/parsed/field';
 import { EntitiesEntries } from '../../../../types/parsed/entity';
 import { LabelDes } from '../../../../types/parsed/label-de';
 import { LabelEns } from '../../../../types/parsed/label-en';
@@ -21,6 +22,7 @@ export interface ParseEntitiesData {
   codings: Codings;
   staNotations: StaNotations;
   elementsOf: ElementsOf;
+  fields: Fields;
 }
 
 export const parseEntities = async ({

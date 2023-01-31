@@ -1,5 +1,7 @@
 import { EntityId } from '../entity-id';
 
+export type Fields = Field[];
+
 export interface Field {
   id: EntityId;
   codings: Codings;

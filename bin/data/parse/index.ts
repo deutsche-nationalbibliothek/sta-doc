@@ -1,32 +1,29 @@
+import { groupBy, sortBy, trim, uniqBy } from 'lodash';
+import slugify from 'slugify';
 import { EntityId } from '../../../types/entity-id';
-import { Item } from '../../../types/item';
 import { CodingLabel, Codings } from '../../../types/parsed/coding';
 import { Description } from '../../../types/parsed/description';
+import { ElementsOf } from '../../../types/parsed/element-of';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelDes } from '../../../types/parsed/label-de';
 import { LabelEns } from '../../../types/parsed/label-en';
 import { RdaProperties } from '../../../types/parsed/rda-property';
-import { Property } from '../../../types/property';
+import { StaNotations } from '../../../types/parsed/sta-notation';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaw } from '../../../types/raw/description';
+import { ElementsOfRaw } from '../../../types/raw/element-of';
 import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { FieldsRaw } from '../../../types/raw/field';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
-import { NotationsRaw } from '../../../types/raw/notation';
-import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
+import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
+import { StaNotationsRaw } from '../../../types/raw/sta-notation';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
-import { groupBy, sortBy, trim, uniqBy } from 'lodash';
-import slugify from 'slugify';
-import { StaNotationsRaw } from '../../../types/raw/sta-notation';
-import { StaNotations } from '../../../types/parsed/sta-notation';
-import { ElementsOfRaw } from '../../../types/raw/element-of';
-import { ElementsOf } from '../../../types/parsed/element-of';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -94,7 +91,7 @@ export const fieldsParser = (fields: FieldsRaw) =>
     const { codings, description, editLink, label, subfields, viewLink } =
       field;
     return {
-      id: key,
+      id: key as EntityId,
       codings,
       description,
       editLink,
@@ -103,7 +100,7 @@ export const fieldsParser = (fields: FieldsRaw) =>
       subfields: Object.entries(subfields).map(([key, subfield]) => {
         const { codings, description, editLink, label, viewLink } = subfield;
         return {
-          id: key,
+          id: key as EntityId,
           codings,
           description,
           editLink,
@@ -238,6 +235,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     lookup_de: labelsParser.de(read.labels.de()),
     lookup_en: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
+    fields: fieldsParser(read.fields()),
   };
   return {
     rdaProperties: rdaPropertiesParser(
@@ -257,7 +255,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
       ),
       index: entitiesParser.index(read.entities.index()),
     },
-    fields: fieldsParser(read.fields()),
+    fields: data.fields,
     elementsOf: data.elementsOf,
     staNotations: data.staNotations,
     codings: codingsParser(read.codings()),
@@ -298,9 +296,8 @@ export const propertyItemList = (
 
           if (withSameLabel.length > 1) {
             return `  '${slugify(
-              `${b.label}-${
-                withSameLabel.find((ib) => ib.index === index)?.index
-              }`.replace("'", '')
+              `${b.label}-${withSameLabel.find((ib) => ib.index === index)?.index
+                }`.replace("'", '')
             )}' = '${b.value}',`;
           } else {
             return `  '${b.label}' = '${b.value}',`;

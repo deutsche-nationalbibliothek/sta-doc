@@ -2,6 +2,7 @@ import { EntityId } from '../entity-id';
 import { Headline } from '../headline';
 import { Item } from '../item';
 import { Property } from '../property';
+import { Field } from './field';
 
 export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
@@ -10,6 +11,7 @@ export interface Entity {
   id: string;
   label?: string;
   title?: string; // only top level
+  field?: Field;
   headline?: Headline;
   description?: string;
   // logo?: string;

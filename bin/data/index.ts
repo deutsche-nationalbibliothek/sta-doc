@@ -8,6 +8,7 @@ import {
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
   elementsOfParser,
+  fieldsParser,
 } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
@@ -41,6 +42,7 @@ export const DEV = false;
         codings: codingsParser(readRaw.codings()),
         staNotations: staNotationsParser(readRaw.staNotations()),
         elementsOf: elementsOfParser(readRaw.elementsOf()),
+        fields: fieldsParser(readRaw.fields()),
       }
     );
     const entities = { ...reader(DataState.parsed).entities.all(), ...entity };

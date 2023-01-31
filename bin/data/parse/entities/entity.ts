@@ -59,7 +59,8 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, staNotations, elementsOf } = data;
+  const { lookup_de, lookup_en, codings, staNotations, elementsOf, fields } =
+    data;
 
   const entity = getRawEntityById(entityId);
 
@@ -554,6 +555,13 @@ export const parseRawEntity = ({
     };
     const label = lookup_de[entityId] ?? entity.labels.de?.value;
 
+    const pageType = elementOfId
+      ? ({
+          ...lookup_en[elementOfId],
+          deLabel: lookup_de[elementOfId],
+        } as PageType)
+      : undefined;
+
     return {
       id: entityId,
       headline: entityHasHeadline
@@ -570,12 +578,11 @@ export const parseRawEntity = ({
         !embedded && elementOfId
           ? `${entity.labels.de?.value} | ${lookup_de[elementOfId]}`
           : undefined,
-      pageType: elementOfId
-        ? ({
-            ...lookup_en[elementOfId],
-            deLabel: lookup_de[elementOfId],
-          } as PageType)
-        : undefined,
+      pageType,
+      field:
+        pageType && pageType.id === Item['GND-data-field']
+          ? fields.find((field) => field.id === entityId)
+          : undefined,
       staNotationLabel:
         entityId in staNotations
           ? staNotations[entityId].label.toUpperCase()

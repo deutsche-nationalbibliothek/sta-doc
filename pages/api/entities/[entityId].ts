@@ -8,8 +8,8 @@ import { parseEntities } from '@/bin/data/parse/entities';
 import {
   codingsParser,
   elementsOfParser,
+  fieldsParser,
   labelsParser,
-  notationsParser,
   staNotationsParser,
 } from '@/bin/data/parse';
 import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
@@ -70,10 +70,10 @@ const getLiveEntity = async (
   if (entity) {
     const lookup_en = labelsParser.en(await fetch.labels.en());
     const lookup_de = labelsParser.de(await fetch.labels.de());
-    const notations = notationsParser(await fetch.notations());
     const codings = codingsParser(await fetch.codings());
     const staNotations = staNotationsParser(await fetch.staNotations());
     const elementsOf = elementsOfParser(await fetch.elementsOf());
+    const fields = fieldsParser(await fetch.fields());
 
     return await parseEntities({
       rawEntities: { [entityId]: entity },
@@ -81,10 +81,10 @@ const getLiveEntity = async (
       data: {
         lookup_en,
         lookup_de,
-        notations,
         codings,
         staNotations,
         elementsOf,
+        fields,
       },
     });
   }
