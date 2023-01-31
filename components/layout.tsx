@@ -2,6 +2,7 @@ import { Breadcrumb } from '@/entity/components/breadcrumb';
 import { useHeadlines } from '@/hooks/headlines';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Layout as AntdLayout } from 'antd';
+import { useEffect, useRef } from 'react';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
@@ -34,7 +35,7 @@ export default function Layout(props: LayoutProps) {
       <AntdLayout.Footer
         style={{
           zIndex: 1,
-          padding: '10px 50px',
+          padding: '5px 50px',
           height: 'var(--footer-height)',
           textAlign: 'center',
         }}
@@ -59,7 +60,8 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
         <div
           id="main-scroll-container"
           style={{
-            height: 'calc(100vh - var(--topbar-height) - 52px)', //window.innerHeight - 64 - 4 , //- 48 * 2, // topbar- and divider-height
+            height:
+              'calc(100vh - var(--topbar-height) - var(--footer-height) - var(--topbar-padding-y) - 2px)', //window.innerHeight - 64 - 4 , //- 48 * 2, // topbar- and divider-height
             overflowY: 'auto',
             padding: '0px 25px',
           }}
