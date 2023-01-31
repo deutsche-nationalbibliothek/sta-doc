@@ -14,6 +14,7 @@
     "data:fetch:properties-items": "ts-node bin/data fetch-properties-items",
     "lint": "next lint",
     "test": "NODE_OPTIONS='--max-old-space-size=6144' jest --watch",
+    "test:debug": "NODE_OPTIONS='--max-old-space-size=6144 --inspect' jest --watch",
     "test:ci": "jest --ci"
   },
   "dependencies": {
