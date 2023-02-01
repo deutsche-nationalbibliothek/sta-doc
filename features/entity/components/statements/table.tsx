@@ -10,7 +10,6 @@ import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
-import { GndFieldsTable } from 'features/gnd/field-table';
 import { GndSubFieldTable } from 'features/gnd/subfield-table';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';
@@ -71,7 +70,14 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       dataIndex: 'values',
       render: (values: TableStatementsData['values'], record) => {
         if (record.property === Property.Subfields && field) {
-          return <GndSubFieldTable subfields={field.subfields} className="gnd-subfield-table" showHeader />;
+          return (
+            <GndSubFieldTable
+              id={record.property}
+              subfields={field.subfields}
+              className="gnd-subfield-table"
+              showHeader
+            />
+          );
         }
         return (
           <>

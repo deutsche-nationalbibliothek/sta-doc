@@ -1,11 +1,14 @@
 import { ExternalLink } from '@/components/external-link';
 import { ColumnsType, Table } from '@/components/table';
 import { EntityLink } from '@/entity/components/preview/link';
-import { Field, Subfield } from '@/types/parsed/field';
+import { EntityId } from '@/types/entity-id';
+import { Subfield } from '@/types/parsed/field';
 import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
-interface GndSubFieldTableProps extends Field {
+interface GndSubFieldTableProps {
+  id: EntityId;
+  subfields: Subfield[];
   showHeader?: boolean;
   className?: string;
 }
