@@ -1,4 +1,5 @@
 import { useNamespace } from '@/hooks/use-namespace';
+import { Namespace } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
 import { Tag } from 'antd';
 import Link from 'next/link';
@@ -35,7 +36,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
           href={`/entities/${id}`}
         >
           {children ?? label}
-          {isPointingDifferentNamespace && (
+          {isPointingDifferentNamespace && pointingNamespace !== Namespace.STA && (
             <>
               {' '}
               <Tag>{pointingNamespace}</Tag>
