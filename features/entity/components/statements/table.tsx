@@ -88,48 +88,54 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
               />
             )}
             {values.stringValues &&
-              values.stringValues.map((stringStatement, index) => (
-                <Typography.Paragraph
-                  key={index}
-                  ellipsis={{
-                    rows: 6,
-                    expandable: true,
-                    symbol: (
-                      <Divider>
-                        <DownOutlined
-                          style={{ color: 'var(--link-color)' }}
-                          className="expandable-cell"
-                        />
-                      </Divider>
-                    ),
-                    suffix: '',
-                  }}
-                >
-                  {stringStatement.map((stringValue, index) => (
-                    <Typography.Paragraph key={index}>
-                      <>
-                        {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
-                        {(!stringValue.qualifiers ??
-                          stringValue.qualifiers[0].property !==
-                          Property['Recording-method-or-item']) && (
-                            <StringValueComponent
-                              code={record.property === Property.Encoding}
-                              stringValue={stringValue}
-                            />
-                          )}
-                        {stringValue.qualifiers && (
+              values.stringValues.map((stringStatement, index) => {
+                console.log({ stringStatement });
+                return (
+                  <Typography.Paragraph
+                    key={index}
+                    ellipsis={{
+                      rows: 6,
+                      expandable: true,
+                      symbol: (
+                        <Divider>
+                          <DownOutlined
+                            style={{ color: 'var(--link-color)' }}
+                            className="expandable-cell"
+                          />
+                        </Divider>
+                      ),
+                      suffix: '',
+                    }}
+                  >
+                    {stringStatement.map((stringValue, index) => {
+                      return (
+                        <Typography.Paragraph key={index}>
                           <>
-                            <Qualifiers
-                              showHeadline={false}
-                              qualifiers={stringValue.qualifiers}
-                            />
+                            {stringValue.qualifiers && (
+                              <>
+                                <Qualifiers
+                                  showHeadline={false}
+                                  qualifiers={stringValue.qualifiers}
+                                />
+                              </>
+                            )}
+                            {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
+                            {((stringValue.qualifiers &&
+                              stringValue.qualifiers[0].property !==
+                              Property['Recording-method-or-item']) ||
+                              !stringValue.qualifiers) && (
+                                <StringValueComponent
+                                  code={record.property === Property.Encoding}
+                                  stringValue={stringValue}
+                                />
+                              )}
                           </>
-                        )}
-                      </>
-                    </Typography.Paragraph>
-                  ))}
-                </Typography.Paragraph>
-              ))}
+                        </Typography.Paragraph>
+                      );
+                    })}
+                  </Typography.Paragraph>
+                );
+              })}
           </>
         );
       },
