@@ -121,7 +121,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                             )}
                             {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
                             {((stringValue.qualifiers &&
-                              stringValue.qualifiers[0].property !==
+                              stringValue.qualifiers[0]?.property !==
                               Property['Recording-method-or-item']) ||
                               !stringValue.qualifiers) && (
                                 <StringValueComponent
