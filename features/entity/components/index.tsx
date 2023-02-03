@@ -3,9 +3,7 @@ import { Title } from '@/components/title';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { EntityId } from '@/types/entity-id';
-import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
-import { namepsaceClassification } from '@/utils/constants';
 import { PageHeader } from 'antd';
 import { useEffect } from 'react';
 import { NamespaceImage } from './namespace-image';
@@ -33,9 +31,6 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
   useEffect(() => {
     setHeadlines([]);
   }, []);
-
-  const namespaceItems: Item[] =
-    namespace && namepsaceClassification[namespace.toUpperCase()];
 
   const columns: ColumnsType<EntityIndexModel> = [
     {
@@ -71,9 +66,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
     },
   ];
 
-  const title = `${
-    namespace && namespaceItems ? namespace.toUpperCase() + ' ' : ''
-  }Index`;
+  const title = `${namespace ? namespace + ' ' : ''}Index`;
 
   return (
     <>
