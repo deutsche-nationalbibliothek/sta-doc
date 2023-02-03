@@ -45,13 +45,13 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     default: (qualifier: Statement) => {
       return (
         <>
-          {showHeadline && qualifier.headline && (
+          {showHeadline && !isPropertyBlacklisted(qualifier.property) && qualifier.headline && (
             <Title headline={qualifier.headline} />
           )}
           {qualifier.string ? (
             <Typography.Paragraph>
               {((shouldRenderLabel && shouldRenderLabel(qualifier)) ||
-                !shouldRenderLabel) && (
+                !shouldRenderLabel) && !isPropertyBlacklisted(qualifier.property, 'headlines') && (
                   <Typography.Text strong>{qualifier.label}:</Typography.Text>
                 )}
               <StringStatement
