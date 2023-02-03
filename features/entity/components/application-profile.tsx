@@ -1,5 +1,6 @@
 import { ColumnsType, Table } from '@/components/table';
 import { EntityId } from '@/types/entity-id';
+import { Namespace } from '@/types/namespace';
 import { isWikibaseValue, Statement } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { flattenDeep, pick } from 'lodash';

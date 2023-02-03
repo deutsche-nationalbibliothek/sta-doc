@@ -47,14 +47,14 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     default: (stringValueContainer: StringValueContainer) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
-          <Typography.Paragraph key={stringValue.value}>
+          <Typography.Text key={stringValue.value}>
             <StringValueComponent
               code={property === Property.Encoding}
               stringValue={stringValue}
             />
             {references}
             {qualifiers}
-          </Typography.Paragraph>
+          </Typography.Text>
         )}
       </GenericStringValueMapper>
     ),

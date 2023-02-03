@@ -196,7 +196,7 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
   parsedStaNotations: StaNotations,
-  parsedSchemas: Schemas,
+  parsedSchemas: Schemas
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
@@ -205,7 +205,7 @@ export const rdaPropertiesParser = (
     const typeData = (idKey: string, labelkey: string) => ({
       id: rdaProperty[idKey].value,
       label: labelStripper(rdaProperty[labelkey].value),
-      namespace: namespaceConfig.map[rdaProperty[idKey].value]
+      namespace: namespaceConfig.map[rdaProperty[idKey].value],
     });
 
     const type =
@@ -239,7 +239,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     rdaProperties: rdaPropertiesParser(
       read.rdaProperties(),
       data.staNotations,
-      data.schemas,
+      data.schemas
     ),
     labels: {
       de: data.lookup_de,

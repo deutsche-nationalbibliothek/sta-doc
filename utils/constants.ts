@@ -61,7 +61,8 @@ export const isPropertyBlacklisted = (
   }
 };
 
-export const namepsaceClassification: Record<Namespace, Item[]> = {
+// todo, delete
+export const namepsaceClassification: Record<Partial<Namespace>, Item[]> = {
   RDA: [
     Item['RDA-Guidance'],
     Item['RDA-default-value'],
