@@ -250,7 +250,6 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
     statement: value.statement,
   }));
 
-  console.log({ data, preData });
   const columns: ColumnsType<TableData> = [
     {
       // title: 'STA Notation',
@@ -259,7 +258,7 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
       render: (label: string, { statement }) => {
         return (
           <EntityLink
-            elementOf={statement.elementOf}
+            namespace={statement.namespace}
             id={statement.property}
             label={label}
           />

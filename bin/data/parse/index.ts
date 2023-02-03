@@ -3,7 +3,6 @@ import slugify from 'slugify';
 import { EntityId } from '../../../types/entity-id';
 import { CodingLabel, Codings } from '../../../types/parsed/coding';
 import { Description } from '../../../types/parsed/description';
-import { ElementsOf } from '../../../types/parsed/element-of';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelDes } from '../../../types/parsed/label-de';
 import { LabelEns } from '../../../types/parsed/label-en';
@@ -11,7 +10,8 @@ import { RdaProperties } from '../../../types/parsed/rda-property';
 import { StaNotations } from '../../../types/parsed/sta-notation';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaw } from '../../../types/raw/description';
-import { ElementsOfRaw } from '../../../types/raw/element-of';
+import { SchemasRaw } from '../../../types/raw/schema';
+import { Schemas } from '../../../types/parsed/schema';
 import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { FieldsRaw } from '../../../types/raw/field';
@@ -24,6 +24,7 @@ import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
+import namespaceConfig from '../../../config/namespace';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -167,15 +168,9 @@ export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
   );
 };
 
-export const elementsOfParser = (elementsOf: ElementsOfRaw) => {
-  console.log('\tParsing ElementsOf');
-  return elementsOf.reduce(
-    (acc, elementOf) => ({
-      ...acc,
-      [elementOf.eId.value]: elementOf.elementOfId.value,
-    }),
-    {} as ElementsOf
-  );
+export const schemasParser = (schemas: SchemasRaw): Schemas => {
+  console.log('\tParsing Schemas')
+  return schemas.reduce((acc, x) => ({...acc, [x.eId.value]: x.schemaId.value}), {})
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
@@ -198,7 +193,7 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
   parsedStaNotations: StaNotations,
-  parsedElementsOf: ElementsOf
+  parsedSchemas: Schemas,
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
@@ -207,7 +202,7 @@ export const rdaPropertiesParser = (
     const typeData = (idKey: string, labelkey: string) => ({
       id: rdaProperty[idKey].value,
       label: labelStripper(rdaProperty[labelkey].value),
-      elementOf: parsedElementsOf[rdaProperty[idKey].value],
+      namespace: namespaceConfig.map[rdaProperty[idKey].value]
     });
 
     const type =
@@ -231,7 +226,7 @@ export const rdaPropertiesParser = (
 export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
   const data = {
     staNotations: staNotationsParser(read.staNotations()),
-    elementsOf: elementsOfParser(read.elementsOf()),
+    schemas: schemasParser(read.schemas()),
     lookup_de: labelsParser.de(read.labels.de()),
     lookup_en: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
@@ -241,7 +236,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     rdaProperties: rdaPropertiesParser(
       read.rdaProperties(),
       data.staNotations,
-      data.elementsOf
+      data.schemas,
     ),
     labels: {
       de: data.lookup_de,
@@ -256,7 +251,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
       index: entitiesParser.index(read.entities.index()),
     },
     fields: data.fields,
-    elementsOf: data.elementsOf,
+    schemas: data.schemas,
     staNotations: data.staNotations,
     codings: codingsParser(read.codings()),
     descriptions: descriptionsParser(read.descriptions()),
@@ -296,8 +291,9 @@ export const propertyItemList = (
 
           if (withSameLabel.length > 1) {
             return `  '${slugify(
-              `${b.label}-${withSameLabel.find((ib) => ib.index === index)?.index
-                }`.replace("'", '')
+              `${b.label}-${
+                withSameLabel.find((ib) => ib.index === index)?.index
+              }`.replace("'", '')
             )}' = '${b.value}',`;
           } else {
             return `  '${b.label}' = '${b.value}',`;

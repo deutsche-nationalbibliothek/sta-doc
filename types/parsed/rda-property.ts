@@ -1,4 +1,5 @@
 import { EntityId } from '../entity-id';
+import { Namespace } from '../namespace';
 
 export type RdaProperties = RdaProperty[];
 
@@ -9,6 +10,6 @@ export interface RdaProperty {
   type: {
     id: EntityId;
     label: string;
-    elementOf: EntityId;
+    namespace: Namespace;
   };
 }

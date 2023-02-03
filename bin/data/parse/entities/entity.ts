@@ -26,6 +26,7 @@ import {
   rdaRessourceTypeGroups,
 } from './groups-definition';
 import { groupBy, omit, compact } from 'lodash';
+import namespaceConfig from '../../../../config/namespace';
 
 type DataType = 'string' | 'wikibasePointer' | 'time' | 'url';
 type PreMappedStatement = Omit<Statement, 'string'> & {
@@ -59,8 +60,7 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, staNotations, elementsOf, fields } =
-    data;
+  const { lookup_de, lookup_en, codings, staNotations, fields, schemas } = data;
 
   const entity = getRawEntityById(entityId);
 
@@ -108,7 +108,8 @@ export const parseRawEntity = ({
     return headline;
   };
 
-  const entityProps = (): Entity => {
+  const entityProps = (): Entity | void => {
+    const namespace = namespaceConfig.map[schemas[entityId]];
     const elementOfId: Item =
       entity &&
       entity.claims[Property['Element-of']] &&
@@ -119,7 +120,17 @@ export const parseRawEntity = ({
         '\t\t\tno entity.claims with Property.elementof for',
         entityId
       );
-      // return {};
+      // return undefined;
+    }
+
+    if (namespaceConfig.notUsed.includes(namespace)) {
+      console.warn(
+        '\t\t\tnamespace',
+        namespace,
+        'not used, ignoring entity',
+        entityId
+      );
+      return undefined;
     }
 
     const isRdaRessourceEntity =
@@ -188,7 +199,7 @@ export const parseRawEntity = ({
           occ: Claim | StatementRaw,
           currentHeadlineLevel: number,
           addStaStatement = false
-        ): Omit<WikiBaseValue, keyof CommonValue> => {
+        ): Omit<WikiBaseValue, keyof CommonValue> | void => {
           const id = keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
           const hasHeadline =
             isTopLevel &&
@@ -196,14 +207,25 @@ export const parseRawEntity = ({
             'qualifiers' in occ &&
             occ.qualifiers;
 
+          const pointingNamespace = namespaceConfig.map[schemas[id]];
+
+          // if (namespaceConfig.notUsed.includes(pointingNamespace)) {
+          //   return;
+          // }
+
           return {
             id,
             headline: hasHeadline
-              ? addHeadline(lookup_de[id], currentHeadlineLevel, noHeadline)
+              ? addHeadline(
+                  lookup_de[id],
+                  currentHeadlineLevel,
+                  noHeadline,
+                  pointingNamespace
+                )
               : undefined,
             label: lookup_de[id],
             link: `/entities/${id}`,
-            elementOf: elementsOf[id],
+            namespace: pointingNamespace,
             staNotationLabel:
               addStaStatement && id in staNotations
                 ? staNotations[id].label.toUpperCase()
@@ -280,7 +302,11 @@ export const parseRawEntity = ({
             const property = keyAccess<Property>(occs[0], 'property');
             const label = lookup_de[property];
 
-            if (isPropertyBlacklisted(property, 'property')) {
+            const statementNamespace = namespaceConfig.map[schemas[property]];
+            if (
+              isPropertyBlacklisted(property, 'property') ||
+              namespaceConfig.notUsed.includes(statementNamespace)
+            ) {
               return undefined;
             }
 
@@ -293,13 +319,23 @@ export const parseRawEntity = ({
               !isPropertyBlacklisted(property) &&
               !isElementsPropOnRdaRessourceType;
 
+            // const statementNamespace = namespaceConfig.map[schemas[property]];
+            // if (namespaceConfig.notUsed.includes(statementNamespace)) {
+            //   return;
+            // }
+
             return {
               label,
               headline: hasHeadline
-                ? addHeadline(label, currentHeadlineLevel, noHeadline)
+                ? addHeadline(
+                    label,
+                    currentHeadlineLevel,
+                    noHeadline,
+                    statementNamespace
+                  )
                 : undefined,
               property,
-              elementOf: elementsOf[property],
+              namespace: statementNamespace,
               [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess<string>(occ, 'snaktype');
                 if (snakType === 'novalue') {
@@ -377,7 +413,7 @@ export const parseRawEntity = ({
                     : undefined;
 
                 return {
-                  ...dataTypeSpecifics,
+                  ...(dataTypeSpecifics ?? {}),
                   references:
                     'references' in occ && occ.references
                       ? parseReferences(occ.references)
@@ -565,13 +601,7 @@ export const parseRawEntity = ({
     return {
       id: entityId,
       headline: entityHasHeadline
-        ? addHeadline(
-            label,
-            currentHeadlineLevel,
-            false,
-            elementOfId &&
-              (lookup_en[elementOfId] as unknown as Namespace | undefined)
-          )
+        ? addHeadline(label, currentHeadlineLevel, false, namespace)
         : undefined,
       label: !embedded ? label : undefined,
       title:
@@ -579,6 +609,7 @@ export const parseRawEntity = ({
           ? `${entity.labels.de?.value} | ${lookup_de[elementOfId]}`
           : undefined,
       pageType,
+      namespace,
       field:
         pageType && pageType.id === Item['GND-data-field']
           ? fields.find((field) => field.id === entityId)
@@ -594,11 +625,14 @@ export const parseRawEntity = ({
     };
   };
 
-  const parsedEntity = {
-    ...entityProps(),
-  };
+  const parsedEntity = entityProps();
+  // const parsedEntity = {
+  //   ...entityProps(),
+  // };
 
-  return { entity: parsedEntity, headlines };
+  if (parsedEntity) {
+    return { entity: parsedEntity, headlines };
+  }
 };
 
 const stringMapper = (val: PreMappedStatement): Statement => {

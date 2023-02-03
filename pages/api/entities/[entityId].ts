@@ -7,9 +7,9 @@ import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import {
   codingsParser,
-  elementsOfParser,
   fieldsParser,
   labelsParser,
+  schemasParser,
   staNotationsParser,
 } from '@/bin/data/parse';
 import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
@@ -72,7 +72,7 @@ const getLiveEntity = async (
     const lookup_de = labelsParser.de(await fetch.labels.de());
     const codings = codingsParser(await fetch.codings());
     const staNotations = staNotationsParser(await fetch.staNotations());
-    const elementsOf = elementsOfParser(await fetch.elementsOf());
+    const schemas = schemasParser(await fetch.schemas());
     const fields = fieldsParser(await fetch.fields());
 
     return await parseEntities({
@@ -83,7 +83,7 @@ const getLiveEntity = async (
         lookup_de,
         codings,
         staNotations,
-        elementsOf,
+        schemas,
         fields,
       },
     });

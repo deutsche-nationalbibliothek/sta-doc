@@ -1,7 +1,7 @@
-import { ElementsOfRaw } from '../../../types/raw/element-of';
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
+import { SchemasRaw } from '../../../types/raw/schema';
 import { DescriptionRaws } from '../../../types/raw/description';
 import { EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
@@ -90,8 +90,8 @@ export const staNotationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
     sparql.STA_NOTATIONS(apiUrl)
   );
-export const elementsOfFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<ElementsOfRaw>(sparql.ELEMENTS_OF(apiUrl));
+export const schemasFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<SchemasRaw>(sparql.SCHEMAS(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(sparql.CODINGS(apiUrl));
 export const descriptionsFetcher = async (apiUrl: API_URL) =>
@@ -124,7 +124,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   };
 
   const staNotations = async () => await staNotationsFetcher(apiUrl);
-  const elementsOf = async () => await elementsOfFetcher(apiUrl);
+  const schemas = async () => await schemasFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
   const descriptions = async () => await descriptionsFetcher(apiUrl);
   const rdaRules = async () => await rdaRulesFetcher(apiUrl);
@@ -141,7 +141,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
         en: await labels.en(),
       },
       staNotations: await staNotations(),
-      elementsOf: await elementsOf(),
+      schemas: await schemas(),
       codings: await codings(),
       descriptions: await descriptions(),
       rdaRules: await rdaRules(),
@@ -159,6 +159,6 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     codings,
     fetchAll,
     propertyItemList,
-    elementsOf,
+    schemas,
   };
 };

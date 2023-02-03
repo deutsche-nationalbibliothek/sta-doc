@@ -3,10 +3,10 @@ import { EntityId } from '../../../../types/entity-id';
 import { Codings } from '../../../../types/parsed/coding';
 import { Fields } from '../../../../types/parsed/field';
 import { EntitiesEntries } from '../../../../types/parsed/entity';
+import { Schemas } from '../../../../types/parsed/schema';
 import { LabelDes } from '../../../../types/parsed/label-de';
 import { LabelEns } from '../../../../types/parsed/label-en';
 import { StaNotations } from '../../../../types/parsed/sta-notation';
-import { ElementsOf } from '../../../../types/parsed/element-of';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
 
@@ -21,7 +21,7 @@ export interface ParseEntitiesData {
   lookup_de: LabelDes;
   codings: Codings;
   staNotations: StaNotations;
-  elementsOf: ElementsOf;
+  schemas: Schemas;
   fields: Fields;
 }
 

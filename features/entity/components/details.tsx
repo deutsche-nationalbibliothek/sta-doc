@@ -20,21 +20,21 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   entity,
   embedded = false,
 }) => {
-  const { namespace, onSetByPageType, onResetNamespace } = useNamespace();
+  const { namespace, setNamespace, onResetNamespace } = useNamespace();
   const { setShowHeadlines } = useHeadlines();
 
   useInitialScroll(!embedded);
 
   useEffect(() => {
-    if (!embedded && entity.pageType?.id) {
-      onSetByPageType(entity.pageType);
+    if (!embedded && entity.namespace) {
+      setNamespace(entity.namespace);
     }
     return () => {
-      if (!embedded && entity.pageType?.id) {
+      if (!embedded && entity.namespace) {
         onResetNamespace;
       }
     };
-  }, [embedded, entity.pageType?.id]);
+  }, [embedded, entity.namespace]);
 
   const [view, setView] = useQueryParam<
     string | undefined,

@@ -7,8 +7,8 @@ import {
   staNotationsParser,
   parseAllFromRead,
   propertyItemList as propertyItemListParser,
-  elementsOfParser,
   fieldsParser,
+  schemasParser,
 } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
@@ -22,6 +22,7 @@ export const DEV = false;
 (async () => {
   const fetchRawAndWrite = async () => {
     const data = await fetcher().fetchAll();
+    console.log('going to write')
     writer(data, DataState.raw).writeAll();
   };
 
@@ -41,7 +42,7 @@ export const DEV = false;
         lookup_en: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
         staNotations: staNotationsParser(readRaw.staNotations()),
-        elementsOf: elementsOfParser(readRaw.elementsOf()),
+        schemas: schemasParser(readRaw.schemas()),
         fields: fieldsParser(readRaw.fields()),
       }
     );

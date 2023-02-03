@@ -18,7 +18,7 @@ interface RelevantProps {
 interface ApplicationProfileTableData {
   id: EntityId;
   label: string;
-  elementOf?: EntityId;
+  namespace: Namespace;
   wemi: RelevantProps;
   status: Partial<RelevantProps>;
   staNotationLabel: string;
@@ -45,11 +45,11 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
               const status = wikibasePointer.qualifiers.find(
                 (q) => q.property === Property.Status
               );
-              const relevantProps = ['id', 'label', 'link', 'elementOf'];
+              const relevantProps = ['id', 'label', 'link', 'namespace'];
               const applicationProfileTableData: ApplicationProfileTableData = {
                 id: wikibasePointer.id,
                 label: wikibasePointer.label,
-                elementOf: wikibasePointer.elementOf,
+                namespace: wikibasePointer.namespace,
                 wemi: pick(
                   wemiLevelWikibasePointer,
                   relevantProps
@@ -94,7 +94,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       ) => {
         return (
           <EntityLink
-            elementOf={applicationProfileTableData.elementOf}
+            namespace={applicationProfileTableData.namespace}
             id={applicationProfileTableData.id}
             label={label}
           >

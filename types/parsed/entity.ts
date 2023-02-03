@@ -1,6 +1,7 @@
 import { EntityId } from '../entity-id';
 import { Headline } from '../headline';
 import { Item } from '../item';
+import { Namespace } from '../namespace';
 import { Property } from '../property';
 import { Field } from './field';
 
@@ -16,6 +17,7 @@ export interface Entity {
   description?: string;
   // logo?: string;
   pageType?: PageType;
+  namespace: Namespace;
   staNotationLabel?: string;
   statements: Statements;
 }
@@ -58,7 +60,7 @@ export interface Statement {
   string?: StringValueContainer[];
   wikibasePointer?: Maybe<WikiBaseValue>[];
   headline?: Headline;
-  elementOf: EntityId;
+  namespace: Namespace;
   url?: UrlValue[];
 }
 
@@ -104,7 +106,7 @@ export interface WikiBaseValue extends CommonValue {
   coding?: Coding;
   headline?: Headline;
   staNotationLabel?: string;
-  elementOf?: EntityId;
+  namespace: Namespace;
 }
 
 // export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue

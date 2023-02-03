@@ -1,11 +1,13 @@
 import { useNamespace } from '@/hooks/use-namespace';
 import { Image as AntdImage } from 'antd';
+import namespaceConfig from 'config/namespace';
 
 export const NamespaceImage: React.FC = () => {
   const { namespace } = useNamespace();
 
   return (
-    namespace && (
+    namespace &&
+    !namespaceConfig.notPointedOut.includes(namespace) && (
       <>
         <AntdImage
           src={`/${namespace}-logo.png`}

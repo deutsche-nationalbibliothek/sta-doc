@@ -4,25 +4,25 @@ import { EntityId } from '@/types/entity-id';
 import { Tag } from 'antd';
 import Link from 'next/link';
 import { EntityPreview } from '.';
+import namespaceConfig from 'config/namespace';
+import { ToolOutlined } from '@ant-design/icons';
 
 interface EntityLinkProps {
   label: string;
   id: EntityId;
-  elementOf?: EntityId;
+  namespace?: Namespace;
   children?: JSX.Element | JSX.Element[] | string | string[];
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({
   id,
   label,
-  elementOf,
+  namespace: pointingNamespace,
   children,
 }) => {
-  const { namespace: currentNamespace, namespaceByItemId } = useNamespace();
-  const pointingNamespace =
-    currentNamespace && elementOf && namespaceByItemId(elementOf);
+  const { namespace: currentNamespace } = useNamespace();
   const isPointingDifferentNamespace =
-    pointingNamespace && currentNamespace !== namespaceByItemId(elementOf);
+    pointingNamespace && currentNamespace !== pointingNamespace;
 
   return (
     <>
@@ -36,12 +36,17 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
           href={`/entities/${id}`}
         >
           {children ?? label}
-          {isPointingDifferentNamespace && pointingNamespace !== Namespace.STA && (
-            <>
-              {' '}
-              <Tag>{pointingNamespace}</Tag>
-            </>
-          )}{' '}
+          {isPointingDifferentNamespace &&
+            !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
+              <>
+                {' '}
+                {pointingNamespace === Namespace.UC ? (
+                  <ToolOutlined />
+                ) : (
+                  <Tag>{pointingNamespace}</Tag>
+                )}
+              </>
+            )}{' '}
         </Link>
       </EntityPreview>
     </>

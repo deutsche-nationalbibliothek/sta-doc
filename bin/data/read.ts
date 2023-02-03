@@ -1,5 +1,6 @@
 import { StaNotationsRaw } from '../../types/raw/sta-notation';
 import { EntityId } from '../../types/entity-id';
+import { SchemasRaw } from '../../types/raw/schema';
 import { CodingRaw } from '../../types/raw/coding';
 import { DescriptionRaws } from '../../types/raw/description';
 import { EntitiesRaw } from '../../types/raw/entity';
@@ -10,7 +11,6 @@ import { LabelEnRaws } from '../../types/raw/label-en';
 import { RdaPropertiesRaw } from '../../types/raw/rda-property';
 import { DataState, readJSONFile } from './utils';
 import { NAMES } from './utils/names';
-import { ElementsOfRaw } from '../../types/raw/element-of';
 
 export const reader = (dataState: DataState) => {
   const entities = {
@@ -31,8 +31,7 @@ export const reader = (dataState: DataState) => {
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, dataState),
   };
 
-  const elementsOf = () =>
-    readJSONFile<ElementsOfRaw>(NAMES.elementOf, dataState);
+  const schemas = () => readJSONFile<SchemasRaw>(NAMES.schema, dataState);
   const staNotations = () =>
     readJSONFile<StaNotationsRaw>(NAMES.staNotation, dataState);
   const codings = () => readJSONFile<CodingRaw[]>(NAMES.coding, dataState);
@@ -47,7 +46,7 @@ export const reader = (dataState: DataState) => {
     fields,
     labels,
     staNotations,
-    elementsOf,
+    schemas,
     codings,
     descriptions,
     rdaRules,

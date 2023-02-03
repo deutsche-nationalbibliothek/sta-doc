@@ -13,7 +13,7 @@ export const blacklist: {
     Property.Schema,
     Property['Element-of'],
     Property['Context-of-use'],
-    Property['Introduction-text'],
+    // Property['Introduction-text'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
     Property['Type-of-layout'],
