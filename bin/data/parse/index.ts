@@ -168,9 +168,12 @@ export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
   );
 };
 
-export const schemasParser = (schemas: SchemasRaw): Schemas => {
-  console.log('\tParsing Schemas')
-  return schemas.reduce((acc, x) => ({...acc, [x.eId.value]: x.schemaId.value}), {})
+export const schemasParser = (schemas: SchemasRaw) => {
+  console.log('\tParsing Schemas');
+  return schemas.reduce(
+    (acc, x) => ({ ...acc, [x.eId.value]: x.schemaId.value }),
+    {} as Schemas
+  );
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
