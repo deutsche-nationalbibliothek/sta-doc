@@ -11,7 +11,7 @@ export const entitiesByNamespace = (namespace: Namespace) => {
       return {
         label,
         id,
-        pageTypeLabel: pageType.deLabel,
+        pageTypeLabel: pageType?.deLabel,
       };
     });
 };
