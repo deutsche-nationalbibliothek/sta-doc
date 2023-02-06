@@ -4,6 +4,7 @@ import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import React from 'react';
+import { Embedded } from '../embedded';
 import { Examples } from '../examples';
 import { StringStatement } from '../statements/string';
 import { WikibasePointers } from '../wikibase-pointers';
@@ -21,6 +22,15 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   showHeadline = true,
 }) => {
   const qualifierMap = {
+    [Property['embedded-(item)']]: (qualifier: Statement) => {
+      return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
+        <React.Fragment key={index}>
+          {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
+            <Embedded entity={wikiBaseItem.embedded} />
+          )}
+        </React.Fragment>
+      ));
+    },
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
         <Examples
@@ -47,8 +57,8 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 )}
               {(qualifier.property === Property.Repetition ||
                 qualifier.property === Property.Status) && (
-                  <Typography.Text strong>{qualifier.label}: </Typography.Text>
-                )}
+                <Typography.Text strong>{qualifier.label}: </Typography.Text>
+              )}
               <StringStatement
                 property={qualifier.property}
                 statement={qualifier.string}
