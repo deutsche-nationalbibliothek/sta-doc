@@ -121,42 +121,28 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item['collapsible-collapsed-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
     ) => {
-      const stringValueWithIntroduction = stringValueContainer.values
-        .filter((x) => isStringValue(x))
-        .find((x: StringValue) =>
-          x.qualifiers.find((x) => x.property === Property['Introduction-text'])
-        ) as StringValue | undefined;
-
-      const introductionTextStatement =
-        stringValueWithIntroduction &&
-        stringValueWithIntroduction.qualifiers.find(
-          (x) => x.property === Property['Introduction-text']
-        );
-
-      const stringStatement =
-        introductionTextStatement &&
-        introductionTextStatement.string[0].values[0];
-
-      const introductionTextStatementLabel =
-        introductionTextStatement &&
-        isStringValue(stringStatement) &&
-        stringStatement.value;
-
       return (
-        <Collapse
-          defaultOpen={false}
-          labelClosed={introductionTextStatementLabel}
-        >
-          <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-            {(stringValue, qualifiers, references) => (
-              <Typography.Paragraph key={stringValue.value}>
-                <StringValueComponent stringValue={stringValue} />
-                {references}
-                {qualifiers}
-              </Typography.Paragraph>
-            )}
-          </GenericStringValueMapper>
-        </Collapse>
+        <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+          {(stringValue, qualifiers, references) => {
+            const introLabel = stringValue.qualifiers.find(
+              (qualifier) =>
+                qualifier.property === Property['Introduction-text']
+            )?.string[0].values[0];
+
+            return (
+              <Collapse
+                defaultOpen={false}
+                labelClosed={isStringValue(introLabel) && introLabel.value}
+              >
+                <Typography.Paragraph key={stringValue.value}>
+                  <StringValueComponent stringValue={stringValue} />
+                  {references}
+                  {qualifiers}
+                </Typography.Paragraph>
+              </Collapse>
+            );
+          }}
+        </GenericStringValueMapper>
       );
     },
     [Item['English-123']]: (stringValueContainer: StringValueContainer) => (
