@@ -1,7 +1,8 @@
 import { Namespace } from '../types/namespace';
 
 const namespaceConfig = {
-  // Namespaces which are not used at all, entities will render 404 page
+  // Namespaces which are not used at all, entities will be ignored on parsing
+  // and will render 404 pages
   notUsed: [Namespace.UC],
   // Namespaces which are not highlighted (no logo, no tags on internal links)
   notPointedOut: [Namespace.Q15, Namespace.STA],

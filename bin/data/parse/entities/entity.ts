@@ -209,9 +209,9 @@ export const parseRawEntity = ({
 
           const pointingNamespace = namespaceConfig.map[schemas[id]];
 
-          // if (namespaceConfig.notUsed.includes(pointingNamespace)) {
-          //   return;
-          // }
+          if (namespaceConfig.notUsed.includes(pointingNamespace)) {
+            return;
+          }
 
           return {
             id,

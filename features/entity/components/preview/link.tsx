@@ -5,7 +5,6 @@ import { Tag } from 'antd';
 import Link from 'next/link';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
-import { ToolOutlined } from '@ant-design/icons';
 
 interface EntityLinkProps {
   label: string;
@@ -40,11 +39,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
             !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
               <>
                 {' '}
-                {pointingNamespace === Namespace.UC ? (
-                  <ToolOutlined />
-                ) : (
-                  <Tag>{pointingNamespace}</Tag>
-                )}
+                <Tag>{pointingNamespace}</Tag>
               </>
             )}{' '}
         </Link>
