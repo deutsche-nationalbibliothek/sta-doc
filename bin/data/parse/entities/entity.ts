@@ -46,6 +46,7 @@ interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
   prevParsedEntities?: EntityId[];
   embedded?: boolean;
   isRdaRessourceEntityParam?: boolean;
+  noHeadline?: boolean;
 }
 
 export const parseRawEntity = ({
@@ -57,6 +58,7 @@ export const parseRawEntity = ({
   prevParsedEntities = [],
   embedded = false,
   isRdaRessourceEntityParam = false,
+  noHeadline = false,
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
@@ -101,7 +103,7 @@ export const parseRawEntity = ({
       level,
     };
 
-    if (!ignore) {
+    if (!ignore && !noHeadline) {
       headlines.push(namespace ? { ...headline, namespace } : headline);
     }
 
@@ -374,6 +376,7 @@ export const parseRawEntity = ({
                       ],
                       isRdaRessourceEntityParam: isRdaRessourceEntity,
                       embedded: true,
+                      noHeadline: propertyId === Property['example(s)'],
                       data,
                       getRawEntityById,
                     })?.entity
@@ -551,6 +554,7 @@ export const parseRawEntity = ({
           nextHeaderLevel,
           {
             isTopLevel: !embedded,
+            noHeadline,
           }
         ),
         table: parseStatementProps(
@@ -584,6 +588,7 @@ export const parseRawEntity = ({
           nextHeaderLevel,
           {
             isTopLevel: !embedded,
+            noHeadline,
           }
         ),
       };
