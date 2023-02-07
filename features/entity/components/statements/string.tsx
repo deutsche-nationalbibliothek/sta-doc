@@ -43,20 +43,39 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     </GenericStringValueMapper>
   );
 
+  const isStringValueExampleLabel = (stringValue: StringValue) =>
+    [
+      'Beispiel',
+      'Beispiele',
+      '<strong>Beispiel</strong>',
+      '<strong>Beispiele</strong>',
+    ].some((pattern) => stringValue.value === pattern);
+
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
-      <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue, qualifiers, references) => (
-          <Typography.Text key={stringValue.value}>
-            <StringValueComponent
-              code={property === Property.Encoding}
-              stringValue={stringValue}
-            />
-            {references}
-            {qualifiers}
-          </Typography.Text>
-        )}
-      </GenericStringValueMapper>
+      <>
+        <GenericStringValueMapper stringValueContainer={stringValueContainer}>
+          {(stringValue, qualifiers, references) => (
+            <React.Fragment key={stringValue.value}>
+              <Typography.Text>
+                <StringValueComponent
+                  code={property === Property.Encoding}
+                  stringValue={stringValue}
+                />
+                {references}
+                {qualifiers}
+              </Typography.Text>
+              {/* ugly hack, but feature is wished and datastructure does not express it better, since this case needs to handle html input */}
+              {!isStringValueExampleLabel(stringValue) && (
+                <>
+                  <br />
+                  {/* <br /> */}
+                </>
+              )}
+            </React.Fragment>
+          )}
+        </GenericStringValueMapper>
+      </>
     ),
     [Item['Enumeration-uncounted-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
@@ -93,31 +112,43 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item['Third-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['example-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
-    ) => (
-      <>
-        <Modal
-          label={
-            <MenuUnfoldOutlined
-              style={{ color: 'var(--link-color)', fontSize: 'large' }}
-            />
-          }
-        >
-          <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
-            <GenericStringValueMapper
-              stringValueContainer={stringValueContainer}
-            >
-              {(stringValue, _qualifiers, _references) => (
-                <StringValueExamples
-                  stringValue={stringValue}
-                  // qualifiers={qualifiers}
-                  // references={references}
-                />
-              )}
-            </GenericStringValueMapper>
-          </Card>
-        </Modal>
-      </>
-    ),
+    ) => {
+      const labelReactElement = (
+        <>
+          <MenuUnfoldOutlined
+            style={{ color: 'var(--link-color)', fontSize: 'large' }}
+          />
+        </>
+      );
+      const label = stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel'
+      return (
+        <>
+          <Modal
+            label={labelReactElement}
+            title={
+              <>
+                <Typography.Text strong>{label} </Typography.Text>
+                {labelReactElement}
+              </>
+            }
+          >
+            <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
+              <GenericStringValueMapper
+                stringValueContainer={stringValueContainer}
+              >
+                {(stringValue, _qualifiers, _references) => (
+                  <StringValueExamples
+                    stringValue={stringValue}
+                    // qualifiers={qualifiers}
+                    // references={references}
+                  />
+                )}
+              </GenericStringValueMapper>
+            </Card>
+          </Modal>
+        </>
+      );
+    },
     [Item['collapsible-collapsed-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
     ) => {

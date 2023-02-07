@@ -3,7 +3,8 @@ import { useCodingsPreference } from '@/hooks/use-codings-preference';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { Entity } from '@/types/parsed/entity';
-import { Card, Select } from 'antd';
+import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { Card, Select, Typography } from 'antd';
 import { Example } from './example';
 
 interface ExamplesProps {
@@ -11,19 +12,33 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
-  const label = examples.length > 1 ? 'Beispiele. ' : 'Beispiel. ';
+  const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
 
   const { namespace } = useNamespace();
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
 
+  const labelReactElement = (
+    <>
+      <Typography.Text strong>{label}</Typography.Text>
+      <MenuUnfoldOutlined
+        style={{ color: 'var(--link-color)', fontSize: 'large' }}
+      />
+    </>
+  );
+
   return (
     <>
       <Modal
-        label={label}
+        label={
+          <>
+            <br />
+            {labelReactElement}
+          </>
+        }
         title={
           <div style={{ height: 24, transform: 'translateX(0)' }}>
-            {label}
+            {labelReactElement}
             {namespace === Namespace.GND && (
               <Select
                 mode="multiple"

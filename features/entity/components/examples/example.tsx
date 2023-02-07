@@ -280,7 +280,7 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
     },
   ];
 
-  return (
+  return data.length > 0 && (
     <Table<TableData>
       dataSource={data}
       pagination={false}
