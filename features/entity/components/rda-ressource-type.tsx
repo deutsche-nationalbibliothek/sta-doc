@@ -60,7 +60,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const sortQualifiers = (claims: Statement[]) => {
     return claims.sort((occ1, occ2) =>
       qualifiersOrder.indexOf(occ1.property) >
-      qualifiersOrder.indexOf(occ2.property)
+        qualifiersOrder.indexOf(occ2.property)
         ? 1
         : -1
     );

@@ -25,7 +25,7 @@ import {
   defaultGroupsDefinition,
   rdaRessourceTypeGroups,
 } from './groups-definition';
-import { groupBy, omit, compact } from 'lodash';
+import { groupBy, omit, compact, pick } from 'lodash';
 import namespaceConfig from '../../../../config/namespace';
 
 type DataType = 'string' | 'wikibasePointer' | 'time' | 'url';
@@ -434,14 +434,48 @@ export const parseRawEntity = ({
       const nextHeaderLevel = currentHeadlineLevel + 1;
 
       const reorganiseRdaRessourceType = () => {
+
+        const qualifiersWhiteList = [ // ['P518', 'P640', 'P12', 'P7', 'P396']
+          Property['Title-proper'],
+          Property.Status,
+          Property.Repetition,
+          Property.description,
+          Property['embedded-(item)'],
+        ];
+
         const releavantClaims = sortByProperties(filterByGroup('text'), 'text');
         const claimsReducer = (acc, statements) => {
           const elementsStatement =
             isRdaRessourceEntity &&
             statements[0].parentProperty === Property.Elements;
 
+          const wemiSpecificsWhitelist = [
+            Property.description,
+            Property['embedded-(item)'],
+            Property['description-(at-the-end)'],
+          ];
+
           if (elementsStatement) {
-            const wemiGroups = groupBy(statements, (occs) =>
+            const relevantStatements = statements
+              .filter((statement) =>
+                Object.keys(statement.qualifiers).some((qualifierId: Property) =>
+                  wemiSpecificsWhitelist.includes(qualifierId)
+                )
+              )
+              .map((statement) => ({
+                ...statement,
+                qualifiers: pick(statement.qualifiers, [
+                  ...qualifiersWhiteList,
+                  // also pick WEMI-level
+                  Property['WEMI-level'],
+                ]),
+                'qualifiers-order': statement['qualifiers-order'].filter(
+                  (qualifierOrder) =>
+                    wemiSpecificsWhitelist.includes(qualifierOrder)
+                ),
+              }));
+
+            const wemiGroups = groupBy(relevantStatements, (occs) =>
               occs.qualifiers && Property['WEMI-level'] in occs.qualifiers
                 ? lookup_de[
                     occs.qualifiers[Property['WEMI-level']][0]?.datavalue.value
@@ -460,14 +494,6 @@ export const parseRawEntity = ({
                 ) {
                   const wemiLevel =
                     occs[0].qualifiers[Property['WEMI-level']][0];
-
-                  const qualifiersWhiteList = [
-                    Property['Title-proper'],
-                    Property.Status,
-                    Property.Repetition,
-                    Property.description,
-                    Property['embedded-(item)'],
-                  ];
 
                   const filterQualifiers = (
                     data: Record<EntityId, StatementRaw[]>
