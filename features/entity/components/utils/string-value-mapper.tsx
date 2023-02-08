@@ -9,7 +9,8 @@ interface GenericStringValueMapperProps {
   children: (
     stringValue: StringValue,
     qualifiers: JSX.Element,
-    references: JSX.Element
+    references: JSX.Element,
+    index: number
   ) => JSX.Element;
 }
 
@@ -29,7 +30,8 @@ export const GenericStringValueMapper: React.FC<
                 ),
                 stringValue.references && (
                   <References references={stringValue.references} />
-                )
+                ),
+                index
               )}
             </>
           )}

@@ -48,15 +48,19 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       'Beispiel',
       'Beispiele',
       '<strong>Beispiel</strong>',
+      '<strong>Beispiel </strong>',
       '<strong>Beispiele</strong>',
+      '<strong>Beispiele </strong>',
     ].some((pattern) => stringValue.value === pattern);
 
   const itemTypeMap = {
     default: (stringValueContainer: StringValueContainer) => (
       <>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references) => (
+          {(stringValue, qualifiers, references, index) => (
             <React.Fragment key={stringValue.value}>
+              {/* ugly hack, but feature is wished and datastructure does not express it better, since this case needs to handle html input */}
+              {!isStringValueExampleLabel(stringValue) && index !== 0 && <br />}
               <Typography.Text>
                 <StringValueComponent
                   code={property === Property.Encoding}
@@ -66,12 +70,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
                 {qualifiers}
               </Typography.Text>
               {/* ugly hack, but feature is wished and datastructure does not express it better, since this case needs to handle html input */}
-              {!isStringValueExampleLabel(stringValue) && (
-                <>
-                  <br />
-                  {/* <br /> */}
-                </>
-              )}
+              {!isStringValueExampleLabel(stringValue) && <br />}
             </React.Fragment>
           )}
         </GenericStringValueMapper>
@@ -120,11 +119,18 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           />
         </>
       );
-      const label = stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel'
+
+      const label =
+        stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';
+
       return (
         <>
           <Modal
-            label={labelReactElement}
+            label={
+              <>
+                {labelReactElement} <br />
+              </>
+            }
             title={
               <>
                 <Typography.Text strong>{label} </Typography.Text>
@@ -139,8 +145,8 @@ export const StringStatement: React.FC<StringStatementProps> = ({
                 {(stringValue, _qualifiers, _references) => (
                   <StringValueExamples
                     stringValue={stringValue}
-                    // qualifiers={qualifiers}
-                    // references={references}
+                  // qualifiers={qualifiers}
+                  // references={references}
                   />
                 )}
               </GenericStringValueMapper>
@@ -202,7 +208,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-            itemTypeMap[stringValueContainer.itemType]
+              itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
