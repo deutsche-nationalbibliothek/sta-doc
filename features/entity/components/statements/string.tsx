@@ -57,22 +57,20 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     default: (stringValueContainer: StringValueContainer) => (
       <>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references, index) => (
-            <React.Fragment key={stringValue.value}>
-              {/* ugly hack, but feature is wished and datastructure does not express it better, since this case needs to handle html input */}
-              {!isStringValueExampleLabel(stringValue) && index !== 0 && <br />}
-              <Typography.Text>
-                <StringValueComponent
-                  code={property === Property.Encoding}
-                  stringValue={stringValue}
-                />
-                {references}
-                {qualifiers}
-              </Typography.Text>
-              {/* ugly hack, but feature is wished and datastructure does not express it better, since this case needs to handle html input */}
-              {!isStringValueExampleLabel(stringValue) && <br />}
-            </React.Fragment>
-          )}
+          {(stringValue, qualifiers, references) =>
+            !isStringValueExampleLabel(stringValue) && (
+              <React.Fragment key={stringValue.value}>
+                <Typography.Text>
+                  <StringValueComponent
+                    code={property === Property.Encoding}
+                    stringValue={stringValue}
+                  />
+                  {references}
+                  {qualifiers}
+                </Typography.Text>
+              </React.Fragment>
+            )
+          }
         </GenericStringValueMapper>
       </>
     ),
@@ -112,16 +110,19 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item['example-(type-of-layout)']]: (
       stringValueContainer: StringValueContainer
     ) => {
+      const label =
+        stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';
+
       const labelReactElement = (
         <>
+          <br />
+          <Typography.Text strong>{label} </Typography.Text>
           <MenuUnfoldOutlined
             style={{ color: 'var(--link-color)', fontSize: 'large' }}
           />
+          <br />
         </>
       );
-
-      const label =
-        stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';
 
       return (
         <>
