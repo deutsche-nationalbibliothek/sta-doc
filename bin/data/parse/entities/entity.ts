@@ -193,7 +193,7 @@ export const parseRawEntity = ({
           return parseStatementProps(o, currentHeadlineLevel, {
             embeddedStatement: true,
             isTopLevel,
-            noHeadline,
+            noHeadline: true,
           });
         };
 
@@ -405,8 +405,7 @@ export const parseRawEntity = ({
                             (qualiKey) =>
                               (occ as Required<Claim>).qualifiers[qualiKey]
                           ),
-                        nextHeaderLevel +
-                          (isElementsPropOnRdaRessourceType ? 1 : 0),
+                        nextHeaderLevel + 1, //(isElementsPropOnRdaRessourceType ? 1 : 0),
                         {
                           embeddedStatement: true,
                           isTopLevel,
@@ -434,8 +433,8 @@ export const parseRawEntity = ({
       const nextHeaderLevel = currentHeadlineLevel + 1;
 
       const reorganiseRdaRessourceType = () => {
-
-        const qualifiersWhiteList = [ // ['P518', 'P640', 'P12', 'P7', 'P396']
+        const qualifiersWhiteList = [
+          // ['P518', 'P640', 'P12', 'P7', 'P396']
           Property['Title-proper'],
           Property.Status,
           Property.Repetition,
@@ -458,8 +457,9 @@ export const parseRawEntity = ({
           if (elementsStatement) {
             const relevantStatements = statements
               .filter((statement) =>
-                Object.keys(statement.qualifiers).some((qualifierId: Property) =>
-                  wemiSpecificsWhitelist.includes(qualifierId)
+                Object.keys(statement.qualifiers).some(
+                  (qualifierId: Property) =>
+                    wemiSpecificsWhitelist.includes(qualifierId)
                 )
               )
               .map((statement) => ({
