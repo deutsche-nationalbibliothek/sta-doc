@@ -115,12 +115,10 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 
       const labelReactElement = (
         <>
-          <br />
           <Typography.Text strong>{label} </Typography.Text>
           <MenuUnfoldOutlined
             style={{ color: 'var(--link-color)', fontSize: 'large' }}
           />
-          <br />
         </>
       );
 
@@ -129,15 +127,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
           <Modal
             label={
               <>
-                {labelReactElement} <br />
-              </>
-            }
-            title={
-              <>
-                <Typography.Text strong>{label} </Typography.Text>
+                <br />
                 {labelReactElement}
+                <br />
               </>
             }
+            title={labelReactElement}
           >
             <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
               <GenericStringValueMapper
@@ -146,8 +141,8 @@ export const StringStatement: React.FC<StringStatementProps> = ({
                 {(stringValue, _qualifiers, _references) => (
                   <StringValueExamples
                     stringValue={stringValue}
-                  // qualifiers={qualifiers}
-                  // references={references}
+                    // qualifiers={qualifiers}
+                    // references={references}
                   />
                 )}
               </GenericStringValueMapper>
@@ -209,7 +204,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-              itemTypeMap[stringValueContainer.itemType]
+            itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
