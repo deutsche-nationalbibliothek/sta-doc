@@ -89,22 +89,24 @@ export const entitiesParser = {
 
 export const fieldsParser = (fields: FieldsRaw) =>
   Object.entries(fields).map(([key, field]) => {
-    const { codings, description, editLink, label, subfields, viewLink } =
+    const { codings, description, editLink, repeatable, label, subfields, viewLink } =
       field;
     return {
       id: key as EntityId,
       codings,
       description,
       editLink,
+      repeatable,
       label: labelStripper(label),
       viewLink,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
-        const { codings, description, editLink, label, viewLink } = subfield;
+        const { codings, description, editLink, label, viewLink, repeatable } = subfield;
         return {
           id: key as EntityId,
           codings,
           description,
           editLink,
+          repeatable,
           label: labelStripper(label),
           viewLink,
         };

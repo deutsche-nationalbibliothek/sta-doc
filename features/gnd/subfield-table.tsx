@@ -47,12 +47,22 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
     },
     {
       title: 'Bezeichnung',
-      width: '40%',
+      width: '30%',
       dataIndex: 'label',
       noSort: true,
       key: 'label',
       render: (_data, record) => {
         return <EntityLink {...record} />;
+      },
+    },
+    {
+      title: 'Wiederholung',
+      width: '10%',
+      dataIndex: 'repeatable',
+      noSort: true,
+      key: 'label',
+      render: (_data, record) => {
+        return record.repeatable ? 'Ja' : 'Nein'
       },
     },
     {

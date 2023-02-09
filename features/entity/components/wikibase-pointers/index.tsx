@@ -70,7 +70,16 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
               {wikibasePointer.references && (
                 <References references={wikibasePointer.references} />
               )}
-              <Qualifiers qualifiers={wikibasePointer.qualifiers} />
+              <Qualifiers
+                qualifiers={
+                  property === Property.Subfields
+                    ? wikibasePointer.qualifiers.filter(
+                      (qualifier) =>
+                        qualifier.property !== Property.Repetition
+                    )
+                    : wikibasePointer.qualifiers
+                }
+              />
             </React.Fragment>
           )
       )}

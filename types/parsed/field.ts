@@ -9,6 +9,7 @@ export interface Field {
   editLink: string;
   label: string;
   viewLink: string;
+  repeatable: boolean;
   subfields: Subfield[];
 }
 
@@ -19,6 +20,7 @@ export interface Subfield {
   editLink: string;
   label: string;
   viewLink: string;
+  repeatable: boolean;
 }
 
 interface Codings {

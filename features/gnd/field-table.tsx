@@ -46,10 +46,20 @@ export const GndFieldsTable: React.FC<
       title: 'Bezeichnung',
       dataIndex: 'label',
       key: 'label',
-      width: '40%',
+      width: '30%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return <EntityLink {...record}>{highlightedContent}</EntityLink>;
+      },
+    },
+    {
+      title: 'Wiederholung',
+      width: '10%',
+      dataIndex: 'repeatable',
+      noSort: true,
+      key: 'label',
+      render: (_data, record) => {
+        return record.repeatable ? 'Ja' : 'Nein';
       },
     },
     {

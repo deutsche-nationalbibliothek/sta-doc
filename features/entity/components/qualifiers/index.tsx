@@ -57,8 +57,8 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 )}
               {(qualifier.property === Property.Repetition ||
                 qualifier.property === Property.Status) && (
-                <Typography.Text strong>{qualifier.label}: </Typography.Text>
-              )}
+                  <Typography.Text strong>{qualifier.label}: </Typography.Text>
+                )}
               <StringStatement
                 property={qualifier.property}
                 statement={qualifier.string}
