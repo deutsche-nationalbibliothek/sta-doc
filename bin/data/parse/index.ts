@@ -140,7 +140,7 @@ export const codingsParser = (codings: CodingsRaw) => {
       );
       if (codingLabel) {
         acc[codingKey] = acc[codingKey] || {
-          label: coding.elementLabel.value,
+          label: labelStripper(coding.elementLabel.value),
           PICA3: [],
           'PICA+': [],
           'MARC 21': [],
