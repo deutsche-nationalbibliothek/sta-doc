@@ -32,6 +32,12 @@ interface TableData extends PreData {
   label: string;
 }
 
+interface ExampleValues {
+  formatNeutral: { label: string; value: string }[];
+  PICA3: { value: string; coding: string }[][];
+  'PICA+': { value: string; coding: string }[][];
+}
+
 const nonDefaultRenderProperties = [
   Property.description,
   Property['description-(at-the-end)'],
@@ -62,6 +68,64 @@ export const Example: React.FC<ExampleProps> = ({
   const statementFilter = (exampleStatement: Statement) =>
     !nonDefaultRenderProperties.includes(exampleStatement.property);
 
+  const exampleStatementsReducer = (acc, statement: Statement) => {
+    if (statement.string && isStringValue(statement.string[0].values[0])) {
+      const exampleValue = statement.string[0].values[0];
+      const formatNeutralStatement = exampleValue.qualifiers?.find(
+        (qualifier) => qualifier.property === Property['format-neutral-label']
+      );
+      const formatNeutralStatementValue =
+        isStringValue(formatNeutralStatement.string[0].values[0]) &&
+        formatNeutralStatement.string[0].values[0].value;
+
+      acc.formatNeutral = [
+        ...acc.formatNeutral,
+        {
+          label: formatNeutralStatementValue
+            ? formatNeutralStatementValue
+            : statement.label,
+          value: exampleValue.value,
+        },
+      ];
+
+      // debugger
+      const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map((coding) =>
+        exampleValue.qualifiers.map(
+          (qualifier) =>
+            'string' in qualifier &&
+            qualifier.string.map((stringValueContainer) =>
+              stringValueContainer.values.map((qualifierValue) => {
+                return (
+                  isStringValue(qualifierValue) &&
+                  'coding' in qualifierValue && {
+                        coding: qualifierValue.coding[coding][0],
+                    value: qualifierValue.value,
+                  }
+                );
+              })
+            )
+        )
+      );
+      acc['PICA3'] = [...acc['PICA3'], [{coding: statement.coding['PICA3'][0], value: '' }, ...picaThree.flat(2).filter((a) => a)]];
+      acc['PICA+'] = [...acc['PICA+'], [{coding: statement.coding['PICA+'][0], value: '' }, ...picaPlus.flat(2).filter((a) => a)]];
+    } else {
+      acc['PICA3'] = [...acc['PICA3'], [{coding: statement.coding['PICA3'][0], value: '' }]];
+      acc['PICA+'] = [...acc['PICA+'], [{coding: statement.coding['PICA+'][0], value: '' }]];
+    }
+    return acc;
+  };
+
+  const filteredStatements = statements.filter(statementFilter);
+
+  const relevantExamples: ExampleValues = filteredStatements.reduce(
+    exampleStatementsReducer,
+    {
+      formatNeutral: [],
+      PICA3: [],
+      'PICA+': [],
+    } as ExampleValues
+  );
+
   return (
     <>
       {nonDefaultRenderStatements.description && (
@@ -71,61 +135,31 @@ export const Example: React.FC<ExampleProps> = ({
         <RdaExample entity={entity} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
-          {statements.filter(statementFilter).map((statement, index) => (
-            <Typography.Paragraph key={index}>
-              <Typography.Text italic>{statement.label}</Typography.Text>
-              <br />
-              {statement.string &&
-                statement.string.map((stringStatement) =>
-                  stringStatement.values.map((stringValue, index2) => {
-                    const descriptionQualifierString =
-                      isStringValue(stringValue) &&
-                      stringValue.qualifiers?.find(
-                        (qualifier) =>
-                          qualifier.property === Property.description
-                      )?.string[0].values[0];
-                    const exampleLabel =
-                      isStringValue(descriptionQualifierString) &&
-                      descriptionQualifierString.value;
-                    return (
-                      <React.Fragment key={index2}>
-                        {isStringValue(stringValue) && stringValue.coding && (
-                          <div style={{ paddingBottom: 20 }}>
-                            <Typography.Paragraph>
-                              <Typography.Text strong>
-                                {stringValue.value}
-                              </Typography.Text>{' '}
-                              {exampleLabel && (
-                                <Typography.Text
-                                  style={{ fontSize: 12 }}
-                                  italic
-                                >
-                                  {exampleLabel}
-                                </Typography.Text>
-                              )}
-                            </Typography.Paragraph>
-                            {['PICA3', 'PICA+']
-                              .filter((coding) =>
-                                codingsPreferences.some(
-                                  (codingsPreference) =>
-                                    codingsPreference === coding
-                                )
-                              )
-                              .map((coding: CodingsPreference) => (
-                                <ExampleCodingCard
-                                  coding={coding}
-                                  key={coding}
-                                  stringValue={stringValue}
-                                />
-                              ))}
-                          </div>
-                        )}
-                      </React.Fragment>
-                    );
-                  })
-                )}
-            </Typography.Paragraph>
-          ))}
+          <Typography.Paragraph>
+            <br />
+            {relevantExamples.formatNeutral.map((formatNeutral, index) => (
+              <Typography.Paragraph key={index}>
+                <Typography.Text italic>{formatNeutral.label}</Typography.Text>
+                <br />
+                <Typography.Text strong>{formatNeutral.value}</Typography.Text>
+              </Typography.Paragraph>
+            ))}
+          </Typography.Paragraph>
+          <Typography.Paragraph>
+            {['PICA3', 'PICA+']
+              .filter((coding) =>
+                codingsPreferences.some(
+                  (codingsPreference) => codingsPreference === coding
+                )
+              )
+              .map((coding: CodingsPreference) => (
+                <ExampleCodingCard
+                  codingPreference={coding}
+                  key={coding}
+                  exampleValues={relevantExamples[coding]}
+                />
+              ))}
+          </Typography.Paragraph>
         </React.Fragment>
       )}
       {nonDefaultRenderStatements['description-(at-the-end)'] && (
@@ -138,19 +172,20 @@ export const Example: React.FC<ExampleProps> = ({
 };
 
 interface ExampleCodingCardProps {
-  coding: CodingsPreference;
-  stringValue: StringValue;
+  codingPreference: CodingsPreference;
+  exampleValues: { value: string; coding: string }[][];
+  // stringValue: StringValue;
 }
 
 const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
-  coding,
-  stringValue,
+  codingPreference,
+  exampleValues,
 }) => {
   const { codingsPreferences } = useCodingsPreference();
 
   if (
     !codingsPreferences.some(
-      (codingsPreference) => codingsPreference === coding
+      (codingsPreference) => codingsPreference === codingPreference
     )
   ) {
     return null;
@@ -171,32 +206,22 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
           color: 'var(--link-color)',
         }}
       >
-        {coding}
+        {codingPreference}
       </Tag>
-      <Typography.Text code strong>
-        {stringValue.coding[coding]}
-      </Typography.Text>
-      {stringValue.qualifiers.map(
-        (qualifier) =>
-          'string' in qualifier &&
-          qualifier.string.map((stringValueContainer) =>
-            stringValueContainer.values.map((qualifierValue, index) => {
-              return (
-                isStringValue(qualifierValue) &&
-                'coding' in qualifierValue && (
-                  <React.Fragment key={index}>
-                    {qualifierValue.coding[coding][0] && (
-                      <Typography.Text code strong>
-                        {qualifierValue.coding[coding][0]}
-                      </Typography.Text>
-                    )}
-                    <Typography.Text>{qualifierValue.value}</Typography.Text>
-                  </React.Fragment>
-                )
-              );
-            })
-          )
-      )}
+      {exampleValues.map((innerExampleValues, index1) => (
+        <Typography.Paragraph key={index1}>
+          {innerExampleValues.map(({coding,value}, index2) => (
+        <React.Fragment key={index2}>
+              {coding &&
+          <Typography.Text code strong>
+            {coding}
+          </Typography.Text>
+              }
+          <Typography.Text>{value}</Typography.Text>
+        </React.Fragment>
+          ))}
+        </Typography.Paragraph>
+      ))}
     </Card>
   );
 };
@@ -280,13 +305,15 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
     },
   ];
 
-  return data.length > 0 && (
-    <Table<TableData>
-      dataSource={data}
-      pagination={false}
-      columns={columns}
-      showHeader={false}
-      className="example-table"
-    />
+  return (
+    data.length > 0 && (
+      <Table<TableData>
+        dataSource={data}
+        pagination={false}
+        columns={columns}
+        showHeader={false}
+        className="example-table"
+      />
+    )
   );
 };
