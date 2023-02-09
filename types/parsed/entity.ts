@@ -62,6 +62,7 @@ export interface Statement {
   headline?: Headline;
   namespace: Namespace;
   url?: UrlValue[];
+  coding?: Coding;
 }
 
 export interface CommonValue {

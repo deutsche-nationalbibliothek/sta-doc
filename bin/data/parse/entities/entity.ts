@@ -337,6 +337,7 @@ export const parseRawEntity = ({
                   )
                 : undefined,
               property,
+              coding: codings[property],
               namespace: statementNamespace,
               [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess<string>(occ, 'snaktype');
