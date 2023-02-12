@@ -46,11 +46,11 @@ export interface Statements {
   text: Statement[];
 }
 
-export interface NoValue {
+export interface NoValue extends CommonValue {
   noValue: true;
 }
 
-export interface UnknownValue {
+export interface UnknownValue extends CommonValue {
   unknownValue: true;
 }
 

@@ -341,22 +341,16 @@ export const parseRawEntity = ({
               namespace: statementNamespace,
               [simplifiedDataType]: occs.map((occ) => {
                 const snakType = keyAccess<string>(occ, 'snaktype');
-                if (snakType === 'novalue') {
-                  return { noValue: true };
-                } else if (snakType === 'somevalue') {
-                  return { unknownValue: true };
-                }
+                const noDataValue =
+                  snakType === 'novalue' || snakType === 'somevalue';
 
-                const value = keyAccess<string>(occ, 'datavalue', 'value');
                 const propertyId = keyAccess<Property>(occ, 'property');
-                const embeddedEntityId = keyAccess<EntityId>(
-                  occ,
-                  'datavalue',
-                  'value',
-                  'id'
-                );
+                const embeddedEntityId =
+                  !noDataValue &&
+                  keyAccess<EntityId>(occ, 'datavalue', 'value', 'id');
 
                 const hasEmbedding =
+                  !noDataValue &&
                   (propertyId === Property['example(s)'] ||
                     propertyId === Property['embedded-(item)'] ||
                     propertyId === Property['embedded-(property)']) &&
@@ -383,19 +377,22 @@ export const parseRawEntity = ({
                     })?.entity
                   : undefined;
 
-                const dataTypeSpecifics =
-                  simplifiedDataType === 'wikibasePointer'
-                    ? parseWikibaseValue(
-                        occ,
-                        nextHeaderLevel +
-                          (isElementsPropOnRdaRessourceType ? 1 : 0),
-                        property === Property.Elements
-                      )
-                    : simplifiedDataType === 'time'
-                    ? parseTimeValue(occ)
-                    : simplifiedDataType === 'url'
-                    ? parseUrlValue(occ)
-                    : parseStringValue(occ, nextHeaderLevel);
+                const dataTypeSpecifics = noDataValue
+                  ? snakType === 'somevalue'
+                    ? { unknownValue: true }
+                    : { somevalue: true }
+                  : simplifiedDataType === 'wikibasePointer'
+                  ? parseWikibaseValue(
+                      occ,
+                      nextHeaderLevel +
+                        (isElementsPropOnRdaRessourceType ? 1 : 0),
+                      property === Property.Elements
+                    )
+                  : simplifiedDataType === 'time'
+                  ? parseTimeValue(occ)
+                  : simplifiedDataType === 'url'
+                  ? parseUrlValue(occ)
+                  : parseStringValue(occ, nextHeaderLevel);
 
                 const qualifiers =
                   'qualifiers' in occ && occ.qualifiers
