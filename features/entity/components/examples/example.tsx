@@ -69,48 +69,77 @@ export const Example: React.FC<ExampleProps> = ({
     !nonDefaultRenderProperties.includes(exampleStatement.property);
 
   const exampleStatementsReducer = (acc, statement: Statement) => {
-    if (statement.string && isStringValue(statement.string[0].values[0])) {
+    if (statement.string) {
       const exampleValue = statement.string[0].values[0];
       const formatNeutralStatement = exampleValue.qualifiers?.find(
         (qualifier) => qualifier.property === Property['format-neutral-label']
       );
       const formatNeutralStatementValue =
+        formatNeutralStatement &&
         isStringValue(formatNeutralStatement.string[0].values[0]) &&
         formatNeutralStatement.string[0].values[0].value;
 
-      acc.formatNeutral = [
+      acc.formatNeutral = compact([
         ...acc.formatNeutral,
-        {
+        isStringValue(exampleValue) && {
           label: formatNeutralStatementValue
             ? formatNeutralStatementValue
             : statement.label,
           value: exampleValue.value,
         },
-      ];
+      ]);
 
-      // debugger
+      if (!formatNeutralStatement) {
+        debugger;
+      }
+
       const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map((coding) =>
-        exampleValue.qualifiers.map(
-          (qualifier) =>
-            'string' in qualifier &&
-            qualifier.string.map((stringValueContainer) =>
-              stringValueContainer.values.map((qualifierValue) => {
-                return (
-                  isStringValue(qualifierValue) &&
-                  'coding' in qualifierValue && {
-                        coding: qualifierValue.coding[coding][0],
-                    value: qualifierValue.value,
-                  }
-                );
-              })
-            )
+        exampleValue.qualifiers.map((qualifier) =>
+          'string' in qualifier
+            ? qualifier.string.map((stringValueContainer) =>
+                stringValueContainer.values.map((qualifierValue) => {
+                  return (
+                    'coding' in qualifierValue && {
+                      coding: qualifierValue.coding[coding][0],
+                      value: qualifierValue.value,
+                    }
+                  );
+                })
+              )
+            : {
+                coding:
+                  qualifier.coding[coding] +
+                  qualifier.wikibasePointer
+                    ?.map((w) => ('coding' in w ? w.coding[coding][0] : ''))
+                    .join(''),
+                value: '',
+              }
         )
       );
-      acc['PICA3'] = [...acc['PICA3'], [{coding: statement.coding['PICA3'][0], value: '' }, ...picaThree.flat(2).filter((a) => a)]];
-      acc['PICA+'] = [...acc['PICA+'], [{coding: statement.coding['PICA+'][0], value: '' }, ...picaPlus.flat(2).filter((a) => a)]];
+      acc['PICA3'] = [
+        ...acc['PICA3'],
+        [
+          { coding: statement.coding['PICA3'][0], value: '' },
+          ...picaThree.flat(2).filter((a) => a),
+        ],
+      ];
+      acc['PICA+'] = [
+        ...acc['PICA+'],
+        [
+          { coding: statement.coding['PICA+'][0], value: '' },
+          ...picaPlus.flat(2).filter((a) => a),
+        ],
+      ];
     } else {
-      acc['PICA3'] = [...acc['PICA3'], [{coding: statement.coding['PICA3'][0], value: '' }]];
-      acc['PICA+'] = [...acc['PICA+'], [{coding: statement.coding['PICA+'][0], value: '' }]];
+      // debugger;
+      acc['PICA3'] = [
+        ...acc['PICA3'],
+        [{ coding: statement.coding['PICA3'][0], value: '' }],
+      ];
+      acc['PICA+'] = [
+        ...acc['PICA+'],
+        [{ coding: statement.coding['PICA+'][0], value: '' }],
+      ];
     }
     return acc;
   };
@@ -210,15 +239,15 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
       </Tag>
       {exampleValues.map((innerExampleValues, index1) => (
         <Typography.Paragraph key={index1}>
-          {innerExampleValues.map(({coding,value}, index2) => (
-        <React.Fragment key={index2}>
-              {coding &&
-          <Typography.Text code strong>
-            {coding}
-          </Typography.Text>
-              }
-          <Typography.Text>{value}</Typography.Text>
-        </React.Fragment>
+          {innerExampleValues.map(({ coding, value }, index2) => (
+            <React.Fragment key={index2}>
+              {coding && (
+                <Typography.Text code strong>
+                  {coding}
+                </Typography.Text>
+              )}
+              <Typography.Text>{value}</Typography.Text>
+            </React.Fragment>
           ))}
         </Typography.Paragraph>
       ))}
