@@ -62,11 +62,13 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
         (wikibasePointer, index) =>
           isWikibaseValue(wikibasePointer) && (
             <React.Fragment key={index}>
-              <Title headline={wikibasePointer.headline}>
-                <EntityLink {...wikibasePointer}>
-                  {wikibasePointer.label}{' '}
-                </EntityLink>
-              </Title>
+              {wikibasePointer.headline && (
+                <Title headline={wikibasePointer.headline}>
+                  <EntityLink {...wikibasePointer}>
+                    {wikibasePointer.label}{' '}
+                  </EntityLink>
+                </Title>
+              )}
               {wikibasePointer.references && (
                 <References references={wikibasePointer.references} />
               )}
