@@ -89,14 +89,11 @@ export const Example: React.FC<ExampleProps> = ({
         },
       ]);
 
-      if (!formatNeutralStatement) {
-        debugger;
-      }
-
-      const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map((coding) =>
-        exampleValue.qualifiers.map((qualifier) =>
-          'string' in qualifier
-            ? qualifier.string.map((stringValueContainer) =>
+      if ('qualifiers' in exampleValue) {
+        const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map((coding) =>
+          exampleValue.qualifiers.map((qualifier) =>
+            'string' in qualifier
+              ? qualifier.string.map((stringValueContainer) =>
                 stringValueContainer.values.map((qualifierValue) => {
                   return (
                     'coding' in qualifierValue && {
@@ -106,7 +103,7 @@ export const Example: React.FC<ExampleProps> = ({
                   );
                 })
               )
-            : {
+              : {
                 coding:
                   qualifier.coding[coding] +
                   qualifier.wikibasePointer
@@ -114,24 +111,26 @@ export const Example: React.FC<ExampleProps> = ({
                     .join(''),
                 value: '',
               }
-        )
-      );
-      acc['PICA3'] = [
-        ...acc['PICA3'],
-        [
-          { coding: statement.coding['PICA3'][0], value: '' },
-          ...picaThree.flat(2).filter((a) => a),
-        ],
-      ];
-      acc['PICA+'] = [
-        ...acc['PICA+'],
-        [
-          { coding: statement.coding['PICA+'][0], value: '' },
-          ...picaPlus.flat(2).filter((a) => a),
-        ],
-      ];
-    } else {
-      // debugger;
+          )
+        );
+        if ('coding' in statement) {
+        acc['PICA3'] = [
+          ...acc['PICA3'],
+          [
+            { coding: statement.coding['PICA3'][0], value: '' },
+            ...picaThree.flat(2).filter((a) => a),
+          ],
+        ];
+        acc['PICA+'] = [
+          ...acc['PICA+'],
+          [
+            { coding: statement.coding['PICA+'][0], value: '' },
+            ...picaPlus.flat(2).filter((a) => a),
+          ],
+        ];
+        }
+      }
+    } else if ('coding' in statement) {
       acc['PICA3'] = [
         ...acc['PICA3'],
         [{ coding: statement.coding['PICA3'][0], value: '' }],
