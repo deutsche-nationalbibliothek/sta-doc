@@ -15,9 +15,9 @@ export const StringValueComponent: React.FC<StringValueProps> = ({
 }) => {
   return (
     <>
-      <Typography.Text style={style} code={code}>
+      <Typography.Paragraph style={style} code={code}>
         <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
-      </Typography.Text>{' '}
+      </Typography.Paragraph>{' '}
     </>
   );
 };
