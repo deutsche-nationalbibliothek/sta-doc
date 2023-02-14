@@ -115,25 +115,18 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 
       const labelReactElement = (
         <>
-          <Typography.Text strong>{label} </Typography.Text>
-          <MenuUnfoldOutlined
-            style={{ color: 'var(--link-color)', fontSize: 'large' }}
-          />
+          <Typography.Paragraph strong>
+            {label}{' '}
+            <MenuUnfoldOutlined
+              style={{ color: 'var(--link-color)', fontSize: 'large' }}
+            />
+          </Typography.Paragraph>
         </>
       );
 
       return (
         <>
-          <Modal
-            label={
-              <>
-                <br />
-                {labelReactElement}
-                <br />
-              </>
-            }
-            title={labelReactElement}
-          >
+          <Modal label={<>{labelReactElement}</>} title={labelReactElement}>
             <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
@@ -141,8 +134,8 @@ export const StringStatement: React.FC<StringStatementProps> = ({
                 {(stringValue, _qualifiers, _references) => (
                   <StringValueExamples
                     stringValue={stringValue}
-                    // qualifiers={qualifiers}
-                    // references={references}
+                  // qualifiers={qualifiers}
+                  // references={references}
                   />
                 )}
               </GenericStringValueMapper>
@@ -204,7 +197,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         return (
           <Fragment key={index}>
             {stringValueContainer.itemType &&
-            itemTypeMap[stringValueContainer.itemType]
+              itemTypeMap[stringValueContainer.itemType]
               ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>

@@ -20,22 +20,19 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
 
   const labelReactElement = (
     <>
-      <Typography.Text strong>{label}</Typography.Text>
-      <MenuUnfoldOutlined
-        style={{ color: 'var(--link-color)', fontSize: 'large' }}
-      />
+      <Typography.Paragraph strong>
+        {label}{' '}
+        <MenuUnfoldOutlined
+          style={{ color: 'var(--link-color)', fontSize: 'large' }}
+        />
+      </Typography.Paragraph>
     </>
   );
 
   return (
     <>
       <Modal
-        label={
-          <>
-            <br />
-            {labelReactElement}
-          </>
-        }
+        label={<>{labelReactElement}</>}
         title={
           <div style={{ height: 24, transform: 'translateX(0)' }}>
             {labelReactElement}
