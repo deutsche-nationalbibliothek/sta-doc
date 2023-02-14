@@ -130,8 +130,10 @@ const WikibaseLink = ({ wikibasePointer, showArrow }: WikibaseLinkProps) => {
   }
   return showArrow ? (
     <EntityLink {...wikibasePointer}>
-      <ArrowRightOutlined />
-      {wikibasePointer.label}
+      <>
+        <ArrowRightOutlined />
+        {wikibasePointer.label}
+      </>
     </EntityLink>
   ) : (
     <EntityLink {...wikibasePointer} />
