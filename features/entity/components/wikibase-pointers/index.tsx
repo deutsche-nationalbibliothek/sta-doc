@@ -21,6 +21,9 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   wikibasePointers,
   property,
 }) => {
+  const isSeeItemOrProperty =
+    property === Property['see-(Item)'] ||
+    property === Property['see-(property)'];
   const isList = () => wikibasePointers.length > 1;
   const hasQualifiers = () =>
     wikibasePointers.every(
@@ -76,9 +79,9 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                 qualifiers={
                   property === Property.Subfields
                     ? wikibasePointer.qualifiers.filter(
-                      (qualifier) =>
-                        qualifier.property !== Property.Repetition
-                    )
+                        (qualifier) =>
+                          qualifier.property !== Property.Repetition
+                      )
                     : wikibasePointer.qualifiers
                 }
               />
@@ -93,7 +96,10 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
         .map((wikibasePointer, index) => (
           <li key={index}>
             {isWikibaseValue(wikibasePointer) ? (
-              <WikibaseLink wikibasePointer={wikibasePointer} />
+              <WikibaseLink
+                showArrow={isSeeItemOrProperty}
+                wikibasePointer={wikibasePointer}
+              />
             ) : (
               <MissingLink />
             )}
@@ -101,7 +107,10 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
         ))}
     </UnorderedList>
   ) : isWikibaseValue(wikibasePointers[0]) ? (
-    <WikibaseLink wikibasePointer={wikibasePointers[0]} />
+    <WikibaseLink
+      showArrow={isSeeItemOrProperty}
+      wikibasePointer={wikibasePointers[0]}
+    />
   ) : (
     <MissingLink />
   );
@@ -113,12 +122,20 @@ const UnorderedList = ({ children }) => {
 
 interface WikibaseLinkProps {
   wikibasePointer: WikiBaseValue;
+  showArrow?: boolean;
 }
-const WikibaseLink = ({ wikibasePointer }: WikibaseLinkProps) => {
+const WikibaseLink = ({ wikibasePointer, showArrow }: WikibaseLinkProps) => {
   if (isPropertyBlacklisted(wikibasePointer.id as Item)) {
     return null;
   }
-  return <EntityLink {...wikibasePointer} />;
+  return showArrow ? (
+    <EntityLink {...wikibasePointer}>
+      <ArrowRightOutlined />
+      {wikibasePointer.label}
+    </EntityLink>
+  ) : (
+    <EntityLink {...wikibasePointer} />
+  );
 };
 
 const MissingLink = () => {
