@@ -438,6 +438,7 @@ export const parseRawEntity = ({
           Property.Repetition,
           Property.description,
           Property['embedded-(item)'],
+          Property['description-(at-the-end)'],
         ];
 
         const releavantClaims = sortByProperties(filterByGroup('text'), 'text');
