@@ -12,6 +12,7 @@ export const ENTITY_INDEX = (apiUrl: API_URL) => `
 
   SELECT ?element ?eId ?elementLabel WHERE {
     { ?element p:P110 ?assignment . } #Schema
+    { ?element prop:P643 ?staNotation .} #STA-Notation
     #SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
