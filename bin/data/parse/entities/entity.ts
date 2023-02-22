@@ -634,10 +634,7 @@ export const parseRawEntity = ({
         ? addHeadline(label, currentHeadlineLevel, false, namespace)
         : undefined,
       label: !embedded ? label : undefined,
-      title:
-        !embedded && elementOfId
-          ? `${entity.labels.de?.value} | ${lookup_de[elementOfId]}`
-          : undefined,
+      title: !embedded && elementOfId ? lookup_de[elementOfId] : undefined,
       pageType,
       namespace,
       field:
