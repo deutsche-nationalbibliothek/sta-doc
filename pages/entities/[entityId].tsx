@@ -53,7 +53,7 @@ export default function EntityDetailsPage({
     </FetchEntity>
   ) : (
     <NotFound
-        isUnderConstruction={isUnderConstruction}
+      isUnderConstruction={isUnderConstruction}
       subtitle={
         <Typography.Text>
           Datensatz mit der ID:{' '}
@@ -120,7 +120,8 @@ export const getStaticProps: GetStaticProps<
 
   const isValidData = entityEntry && entityEntry.headlines;
 
-  const isUnderConstruction = namespaceConfig.map[schemas[entityId]] === Namespace.UC;
+  const isUnderConstruction =
+    namespaceConfig.map[schemas[entityId]] === Namespace.UC;
 
   return {
     props: isValidData

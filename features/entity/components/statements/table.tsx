@@ -89,7 +89,6 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
             )}
             {values.stringValues &&
               values.stringValues.map((stringStatement, index) => {
-                console.log({ stringStatement });
                 return (
                   <Typography.Paragraph
                     key={index}
