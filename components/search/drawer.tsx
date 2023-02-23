@@ -1,14 +1,17 @@
+import { EntityLink } from '@/entity/components/preview/link';
+import { StringValueComponent } from '@/entity/components/values/string';
+import { useSWR } from '@/lib/swr';
+import { Doc, SearchResult } from '@/types/search';
 import { SearchOutlined } from '@ant-design/icons';
-import { Drawer, Input, Menu } from 'antd';
-import { useState } from 'react';
+import { Card, Drawer, Input, List, Menu, Typography } from 'antd';
+import { debounce, uniq } from 'lodash';
+import Link from 'next/link';
+import React, { useCallback, useEffect, useState } from 'react';
+import { SolrSearch } from './solr';
 
-export const Search: React.FC = () => {
+export const SearchDrawer: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const onClose = () => setIsSearchOpen(false);
-
-  const onSearch = (e: string) => {
-    console.log(e);
-  };
 
   return (
     <Menu
@@ -26,10 +29,7 @@ export const Search: React.FC = () => {
                 onClose={onClose}
                 open={isSearchOpen}
               >
-                <Input.Search
-                  placeholder="does not work yet"
-                  onSearch={onSearch}
-                />
+                <SolrSearch />
               </Drawer>
             </>
           ),

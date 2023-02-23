@@ -2,7 +2,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
 import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
-import { Search } from './search';
+import { SearchDrawer } from './search/drawer';
 
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
@@ -78,7 +78,7 @@ export const TopBar: React.FC = () => {
           />
         </Col>
         <Col style={{ flex: '0 0 0' }} span={6}>
-          <Search />
+          <SearchDrawer />
         </Col>
       </Row>
     </AntdLayout.Header>
