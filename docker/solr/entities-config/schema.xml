@@ -76,6 +76,24 @@
     <copyField source="*value" dest="full-text-search" />
     <copyField source="*description" dest="full-text-search"/>
     <copyField source="*headline.title" dest="headline-text-search"/>
+    <!-- <copyField source="*key" dest="full-text-search"/> -->
+    <!-- <copyField source="*namespace" dest="full-text-search"/> -->
+    <!-- <copyField source="*staNotationLabel" dest="sta-notation-search"/> -->
+    <!-- <copyField source="*itemType" dest="full-text-search"/> -->
+
+    <!-- <dynamicField name="*id" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*label" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*title" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*description" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*key" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*namespace" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*staNotationLabel" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*itemType" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*link" multiValued="true" type="text" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*property" multiValued="true" type="string" indexed="true" stored="true"/> -->
+    <!-- <dynamicField name="*._value" type="text" indexed="true" stored="true" multiValued="true" /> -->
+    <!-- <dynamicField name="*embedded*" type="nested" multiValued="true" indexed="true" stored="true"/> -->
+
 
     <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
     <dynamicField name="*" type="text_general" indexed="true" stored="true" multiValued="true"/>
