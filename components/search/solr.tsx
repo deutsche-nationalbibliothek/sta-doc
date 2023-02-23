@@ -11,6 +11,7 @@ export interface SolrQueryFetcherOptions {
 }
 
 export const SolrSearch = () => {
+  console.log("export const SolrSearch = () => {")
   const [query, setQuery] = useState('');
   const [urlQuery, setUrlQuery] = useState<string>();
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +38,7 @@ export const SolrSearch = () => {
 
   useEffect(() => {
     if (query) {
+      console.log('fetching search query', query)
       solrQueryFetcher({ query });
     }
   }, [query]);
@@ -44,7 +46,6 @@ export const SolrSearch = () => {
   return (
     <div>
       <Input.Search
-        placeholder="does not work yet"
         onChange={debounce(onSearch, 400)}
         enterButton={false}
       />

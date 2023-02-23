@@ -1,12 +1,6 @@
-import { EntityLink } from '@/entity/components/preview/link';
-import { StringValueComponent } from '@/entity/components/values/string';
-import { useSWR } from '@/lib/swr';
-import { Doc, SearchResult } from '@/types/search';
 import { SearchOutlined } from '@ant-design/icons';
-import { Card, Drawer, Input, List, Menu, Typography } from 'antd';
-import { debounce, uniq } from 'lodash';
-import Link from 'next/link';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Menu, Drawer } from 'antd';
+import { useState } from 'react';
 import { SolrSearch } from './solr';
 
 export const SearchDrawer: React.FC = () => {

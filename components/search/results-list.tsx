@@ -56,7 +56,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             }
           }
         >
-          {searchResult?.response.docs.map((doc) => {
+          {searchResult?.response.docs.map((doc,index) => {
             const getFilteredValues = (
               searchKey: string,
               excludeKey?: string
@@ -76,12 +76,12 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             };
 
             return 'headline-text-search' in doc ? (
-              <List.Item style={{ display: 'inherit' }}>
+              <List.Item key={index} style={{ display: 'inherit' }}>
                 <EntityLink label={doc['headline.title'][0]} id={doc.id} />
                 <ul>
                   {getFilteredValues('headline-text-search').map(
-                    (matchedValue) => (
-                      <li>
+                    (matchedValue,index2) => (
+                      <li key={index2}>
                         <SearchResultListItem
                           isHeadlineTextSearchMatch
                           doc={doc}
@@ -93,8 +93,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   {getFilteredValues(
                     'full-text-search',
                     'headline-text-search'
-                  ).map((matchedValue) => (
-                    <li>
+                  ).map((matchedValue, index2) => (
+                    <li key={index2}>
                       <SearchResultListItem
                         isFullTextSearchMatch
                         doc={doc}

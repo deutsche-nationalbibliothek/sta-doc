@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const solrQuery = client
     .query()
     .q(
-      ` \
+      `\
 headline.title:${query}^40 \
 OR headline.title:${query}*^30 \
 OR headline-text-search:${query}^20 \
