@@ -2,7 +2,7 @@ import { Breadcrumb } from '@/entity/components/breadcrumb';
 import { useHeadlines } from '@/hooks/headlines';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Layout as AntdLayout } from 'antd';
-import { useEffect, useRef } from 'react';
+import { Footer } from './footer';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
@@ -32,16 +32,7 @@ export default function Layout(props: LayoutProps) {
           <Content>{props.children}</Content>
         )}
       </AntdLayout>
-      <AntdLayout.Footer
-        style={{
-          zIndex: 1,
-          padding: '5px 50px',
-          height: 'var(--footer-height)',
-          textAlign: 'center',
-        }}
-      >
-        Footer
-      </AntdLayout.Footer>
+      <Footer />
     </AntdLayout>
   );
 }
