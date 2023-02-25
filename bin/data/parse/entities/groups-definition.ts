@@ -34,7 +34,6 @@ export const defaultGroupsDefinition = {
     // Property['STA-Notation'], // ??
     Property['Encoding'],
     Property['Explanation'],
-    Property['Subfields'],
     Property['DACH-Directions-for-use'],
     Property['P659'],
     Property['Sources-of-information'],
@@ -59,6 +58,7 @@ export const defaultGroupsDefinition = {
     Property['applicable-for-data-field'],
     Property['permitted-in-GND-class'],
     Property['Implementation-provisions'],
+    Property['Subfields'],
     Property['data-fields'],
     Property['relation-to-GND-class'],
     Property['Authorizations'],
