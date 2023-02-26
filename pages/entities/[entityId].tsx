@@ -1,24 +1,20 @@
 import entities from '@/data/parsed/entities.json';
 import schemas from '@/data/parsed/schemas.json';
-import { Typography } from 'antd';
-import { EntityDetails } from '@/entity/components/details';
-import { EntityPlaceholder } from '@/entity/components/placeholder';
+import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
+import { Namespace } from '@/types/namespace';
 import {
-  EntityEntry,
-  EntityEntryWithOptionalHeadlines,
+  EntityEntry
 } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
-import { isEqual } from 'lodash';
-import type { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { NotFound } from '../404';
+import { Typography } from 'antd';
 import namespaceConfig from 'config/namespace';
-import { Namespace } from '@/types/namespace';
+import type { GetStaticPaths, GetStaticProps } from 'next';
+import { useEffect } from 'react';
+import { NotFound } from '../404';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -63,49 +59,6 @@ export default function EntityDetailsPage({
     />
   );
 }
-
-interface FetchedEntityProps {
-  entityEntry: EntityEntryWithOptionalHeadlines;
-  loading: boolean;
-  setHeadlines: Dispatch<SetStateAction<Headline[]>>;
-}
-
-const FetchedEntity = ({
-  entityEntry,
-  loading,
-  setHeadlines,
-}: FetchedEntityProps) => {
-  useEffect(() => {
-    if (!loading && entityEntry?.headlines) {
-      setHeadlines((currentHeadlines) => {
-        if (!isEqual(entityEntry.headlines, currentHeadlines)) {
-          return entityEntry.headlines;
-        } else {
-          return currentHeadlines;
-        }
-      });
-    }
-  }, [entityEntry?.headlines, loading]);
-
-  return (
-    <>
-      <Head>
-        {!loading && (
-          <title>
-            {entityEntry.entity.title ??
-              (entityEntry.entity.headline &&
-                entityEntry.entity.headline.title)}
-          </title>
-        )}
-      </Head>
-      {loading ? (
-        <EntityPlaceholder />
-      ) : (
-        <EntityDetails entity={entityEntry.entity} />
-      )}
-    </>
-  );
-};
 
 export const getStaticProps: GetStaticProps<
   EntityDetailsProps,
