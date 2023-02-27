@@ -19,7 +19,7 @@ export default function Home({ headlines }) {
 
   useEffect(() => {
     setHeadlines(headlines);
-    setNamespace(undefined)
+    setNamespace(undefined);
   }, []);
 
   return (
@@ -35,18 +35,14 @@ export default function Home({ headlines }) {
   );
 }
 
-export const getStaticProps: GetStaticProps<
-  HomeProps
-> = () => {
-  const entityId = Item.Q10177;
+export const getStaticProps: GetStaticProps<HomeProps> = () => {
+  const entityId: string = Item.Q10177;
 
-  const entityEntry: EntityEntry =
-    entities[entityId];
+  const entityEntry: EntityEntry = entities[entityId];
 
   return {
     props: {
       headlines: entityEntry.headlines,
-    }
+    },
   };
 };
-
