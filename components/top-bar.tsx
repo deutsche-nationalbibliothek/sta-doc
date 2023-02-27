@@ -59,15 +59,11 @@ export const TopBar: React.FC = () => {
               {
                 label: (
                   <span className="ant-menu-item" style={{ padding: 0 }}>
-                    <Link href="/gnd">GND</Link>
+                    <Link href="/entities/Q10170">GND</Link>
                   </span>
                 ),
                 key: 'GND',
                 children: [
-                  {
-                    label: <Link href="/entities/Q10170">Einführung</Link>,
-                    key: '/entities/Q10170',
-                  },
                   {
                     label: (
                       <Link href="/entities/Q10171">
@@ -77,22 +73,22 @@ export const TopBar: React.FC = () => {
                     key: '/entities/Q10171',
                   },
                   {
+                    label: <Link href="/gnd/fields">Datenfelder</Link>,
+                    key: '/gnd/fields',
+                  },
+                  {
                     label: <Link href="/entities/Q10172">Relationscodes</Link>,
                     key: '/entities/Q10172',
                   },
                   {
-                    label: <Link href="/entities/Q1359">GND-Systematik</Link>,
-                    key: '/entities/Q1359',
-                  },
-                  {
                     label: (
-                      <Link href="/entities/Q10170">normiertes Vokabular</Link>
+                      <Link href="/entities/Q10173">normiertes Vokabular</Link>
                     ),
                     key: '/entities/Q10173',
                   },
                   {
-                    label: <Link href="/gnd/fields">Datenfelder</Link>,
-                    key: '/gnd/fields',
+                    label: <Link href="/entities/Q1359">GND-Systematik</Link>,
+                    key: '/entities/Q1359',
                   },
                   {
                     label: <Link href="/entities/gnd">Index</Link>,
