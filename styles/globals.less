@@ -30,7 +30,11 @@ img {
 }
 
 @media print {
-  .ant-layout-sider {
+  .splitter-content {
+    width: 100% !important;
+  }
+
+  .no-print {
     display: none;
   }
 
@@ -38,7 +42,15 @@ img {
     display: none;
   }
 
+  .ant-layout-footer {
+    display: none;
+  }
+
   .ant-breadcrumb {
     display: none;
+  }
+
+  #main-scroll-container {
+    overflow-y: visible !important;
   }
 }

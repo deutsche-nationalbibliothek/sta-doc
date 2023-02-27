@@ -21,7 +21,11 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
 
   return (
     <ReactSplit
-      classes={['splitter', 'splitter']}
+      classes={
+        childs.length === 2
+          ? ['no-print', 'splitter-content']
+          : ['splitter-content']
+      }
       direction={direction}
       gutterClassName={`custom-gutter ${cssClass}`}
       draggerClassName="custom-dragger"

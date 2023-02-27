@@ -18,8 +18,7 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
 
   const onCopy = () => {
     const hasCopied = copy(
-      `${window.location.origin}${
-        router.asPath.match(/.*(?=#.*)|.*/)[0]
+      `${window.location.origin}${router.asPath.match(/.*(?=#.*)|.*/)[0]
       }#${anchor}`
     );
     if (hasCopied) {
@@ -38,7 +37,7 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   return (
     <>
       {contextHolder}
-      <CopyOutlined style={style} onClick={onCopy} />
+      <CopyOutlined className="no-print" style={style} onClick={onCopy} />
     </>
   );
 };

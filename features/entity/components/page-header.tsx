@@ -31,7 +31,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
           <div style={{ textAlign: 'center' }}>
             {namespace && <NamespaceImage />}
             {isRdaRessourceType && (
-              <>
+              <span className="no-print">
                 <br />
                 <Switch
                   title="Anwendungsprofil"
@@ -47,7 +47,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
                 <Typography.Text strong={isApplicationProfileView}>
                   Anwendungsprofil
                 </Typography.Text>
-              </>
+              </span>
             )}
             {entity.staNotationLabel && (
               <>
