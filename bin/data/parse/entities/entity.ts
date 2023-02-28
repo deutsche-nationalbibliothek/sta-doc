@@ -403,7 +403,7 @@ export const parseRawEntity = ({
                             (qualiKey) =>
                               (occ as Required<Claim>).qualifiers[qualiKey]
                           ),
-                        nextHeaderLevel + 1, //(isElementsPropOnRdaRessourceType ? 1 : 0),
+                        nextHeaderLevel +(isElementsPropOnRdaRessourceType ? 1 : 0),
                         {
                           embeddedStatement: true,
                           isTopLevel,
