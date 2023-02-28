@@ -34,15 +34,18 @@ export const parseEntities = async ({
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = await keys.reduce(
     async (acc, entityId: EntityId) => {
-      const entityEntry = parseRawEntity({
-        entityId,
-        data,
-        getRawEntityById,
-      });
-      if (entityEntry) {
-        const nextAcc = await acc;
-        nextAcc[entityId] = entityEntry;
-        return nextAcc;
+      if (entityId in data.staNotations || entityId === 'Q10177') {
+        const entityEntry = parseRawEntity({
+          entityId,
+          data,
+          getRawEntityById,
+        });
+        if (entityEntry) {
+          const nextAcc = await acc;
+          nextAcc[entityId] = entityEntry;
+          return nextAcc;
+        }
+
       }
       return await acc;
     },
