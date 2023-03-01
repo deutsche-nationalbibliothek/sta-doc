@@ -13,7 +13,7 @@ key_count=$(jq 'keys | length' "./data/parsed/entities.json")
 echo jq 'keys | length' ./data/parsed/entities.json
 echo "Split $key_count entities into single files."
 mapfile -t key_arr < <(jq -r 'keys[]' ./data/parsed/entities.json)
-mapfile -t value_arr < <(jq -r 'keys[] as $key | .[$key] | @json' ./data/parsed/entities.json)
+mapfile -t value_arr < <(jq -r 'keys[] as $key | .[$key].entity | @json' ./data/parsed/entities.json)
 
 #for i in {1..50}; do
 for i in "${!value_arr[@]}"; do
