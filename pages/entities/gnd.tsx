@@ -4,7 +4,7 @@ import { Namespace } from '@/types/namespace';
 
 export default function GNDEntitiesIndex() {
   return (
-    <Fetch<EntityIndexModel[]> url="/api/entities/gnd">
+    <Fetch<EntityIndexModel[]> url="/doc/api/entities/gnd">
       {(entities) => (
         <EntitiesIndex entities={entities} namespace={Namespace.GND} />
       )}

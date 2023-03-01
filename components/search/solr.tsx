@@ -28,8 +28,7 @@ export const SolrSearch = () => {
   const solrQueryFetcher = useCallback(
     ({ query, start }: SolrQueryFetcherOptions) => {
       setUrlQuery(
-        `/api/entities/search?query=${query}${
-          start ? '&start=' + String(start) : ''
+        `/doc/api/entities/search?query=${query}${start ? '&start=' + String(start) : ''
         }`
       );
     },

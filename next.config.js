@@ -31,6 +31,7 @@ const withLess = require('next-with-less');
 // const redirectArr = createRedirectArray()
 
 const nextConfig = {
+  basePath: '/doc',
   images: {
     domains: ['www.cilip.org.uk'],
   },
