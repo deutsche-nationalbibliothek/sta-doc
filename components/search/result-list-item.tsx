@@ -1,6 +1,7 @@
 import { StringValueComponent } from '@/entity/components/values/string';
+import { QueryHighlighter } from '@/lib/highlighter';
+import { Link } from '@/lib/next-link';
 import { Doc } from '@/types/search';
-import Link from 'next/link';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -37,8 +38,11 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
 
     return (
       headlineMatch.length && (
-        <Link href={`/entities/${doc.id}#${headlineMatch[0].id}`} id={doc.id}>
-          {headlineMatch[0].value}
+        <Link
+          href={`/entities/${doc.id}`}
+          anchor={headlineMatch[0].id}
+        >
+          <QueryHighlighter textToHighlight={headlineMatch[0].value} />
         </Link>
       )
     );

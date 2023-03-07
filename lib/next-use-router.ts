@@ -1,4 +1,4 @@
-import { useFetchingQueryParam } from '@/hooks/fetching-query-param-provider';
+import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
 import { useRouter as useNextRouter } from 'next/router';
 import { useCallback } from 'react';
 
@@ -9,15 +9,15 @@ type Url = useRouterPushParams[0];
 export const useRouter = (): UseRouter => {
   const router = useNextRouter();
 
-  const { fetchingQueryParamString } = useFetchingQueryParam();
+  const { fetchingQueryParamsString } = useFetchingQueryParams();
 
   const push = useCallback(
     async (url: Url, fragment?: string) => {
       return await router.push(
-        `${url.toString()}${fetchingQueryParamString}${fragment ?? ''}`
+        `${url.toString()}?${fetchingQueryParamsString}${fragment ?? ''}`
       );
     },
-    [fetchingQueryParamString]
+    [fetchingQueryParamsString]
   );
 
   return {

@@ -1,6 +1,6 @@
+import { Link } from '@/lib/next-link';
 import { UrlValue } from '@/types/parsed/entity';
 import { truncate } from 'lodash';
-import Link from 'next/link';
 import React from 'react';
 
 interface UrlStatementProps {

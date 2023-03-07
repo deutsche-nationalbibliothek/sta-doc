@@ -1,50 +1,44 @@
+import { StringValueComponent } from '@/entity/components/values/string';
+import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
+import { useSWR } from '@/lib/swr';
 import { SearchResult } from '@/types/search';
 import { AutoComplete, Input } from 'antd';
 import { debounce } from 'lodash';
-import { useState, useCallback, useEffect } from 'react';
-import { useSWR } from '@/lib/swr';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { SearchResults } from './results-list';
-import { StringValueComponent } from '@/entity/components/values/string';
 
 export interface SolrQueryFetcherOptions {
   query: string;
-  start?: number;
 }
 
 export const SolrSearch = () => {
-  console.log('export const SolrSearch = () => {');
-  const [query, setQuery] = useState('');
+  const {
+    searchQuery: query,
+    setSearchQuery: setQuery,
+    page: currentPage,
+    setPage: setCurrentPage,
+  } = useSearchQueryParams();
   const [urlQuery, setUrlQuery] = useState<string>();
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const onSearch = (e) => {
-    setQuery(e.target.value);
+  const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value || '');
     setCurrentPage(1);
   };
 
-  const { data: searchResult, loading } = useSWR<SearchResult>(urlQuery);
-
-  console.log({ searchResult, loading });
-
-  const solrQueryFetcher = useCallback(
-    ({ query, start }: SolrQueryFetcherOptions) => {
-      setUrlQuery(
-        `/api/entities/search?query=${query}${
-          start ? '&start=' + String(start) : ''
-        }`
-      );
-    },
-    []
-  );
+  const { data: searchResult, loading } = useSWR<SearchResult>(urlQuery, true);
 
   useEffect(() => {
     if (query) {
-      console.log('fetching search query', query);
-      solrQueryFetcher({ query });
+      const pageSize = 10;
+      setUrlQuery(
+        `/api/entities/search?query=${query}${
+          '&start=' + String((currentPage - 1) * pageSize)
+        }`
+      );
     }
-  }, [query]);
+  }, [query, currentPage]);
 
-  // console.log({suggestions: searchResult?.suggestions.suggest.mySuggester[query].suggestions})
+  const isLoadingIfQuery = !(query && !loading) && !!query && loading;
 
   return (
     <div>
@@ -53,6 +47,7 @@ export const SolrSearch = () => {
         onSelect={(value: string) =>
           setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
         }
+        defaultValue={query}
         options={
           query &&
           searchResult?.suggestions.spellcheck.suggestions[1] &&
@@ -61,20 +56,21 @@ export const SolrSearch = () => {
             .map((x, index) => ({
               value: x.word,
               key: index,
-              label: (
-                <>
-                  <StringValueComponent stringValue={{ value: x.word }} />
-                </>
-              ),
+              label: <StringValueComponent stringValue={{ value: x.word }} />,
             }))
         }
       >
-        <Input.Search onChange={debounce(onSearch, 400)} enterButton={false} />
+        <Input.Search
+          loading={isLoadingIfQuery}
+          value={query}
+          onChange={debounce(onSearch, 400)}
+          enterButton={false}
+          allowClear
+        />
       </AutoComplete>
       <SearchResults
-        solrQueryFetcher={solrQueryFetcher}
         queryResult={searchResult?.query}
-        loading={!(query && !loading) && !!query && loading}
+        loading={isLoadingIfQuery}
         query={query}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

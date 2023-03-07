@@ -1,5 +1,4 @@
-import { QueryResult, SuggestionsResult } from '@/types/search';
-import console from 'console';
+import { QueryResult } from '@/types/search';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from 'solr-client';
 
@@ -10,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: string;
     start: string;
   };
-  const query = client.escapeSpecialChars(requestedQuery);
+  const query: string = client.escapeSpecialChars(requestedQuery);
   const solrQuery = client
     .query()
     .q(
@@ -34,11 +33,11 @@ OR full-text-search:${query}* \
   const queryResult = (await client.search(solrQuery)) as QueryResult;
 
   // http://localhost:8983/solr/entities/spell?df=text&spellcheck.q=form&spellcheck=true&spellcheck.collateParam.q.op=AND&wt=xml&spellcheck.build=true
-  const suggestionsResult = (await client.doQuery('spell', {
+  const suggestionsResult = await client.doQuery('spell', {
     q: query,
     spellcheck: true,
     build: true,
-  })) as SuggestionsResult;
+  });
 
   res.status(200).json({ query: queryResult, suggestions: suggestionsResult });
 };

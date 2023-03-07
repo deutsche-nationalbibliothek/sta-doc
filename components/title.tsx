@@ -1,3 +1,4 @@
+import { QueryHighlighter } from '@/lib/highlighter';
 import { Headline } from '@/types/headline';
 import { Typography } from 'antd';
 import { TitleProps } from 'antd/lib/typography/Title';
@@ -43,7 +44,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               level={localLevel}
               {...otherProps}
             >
-              {children ?? title}
+              {children ?? <QueryHighlighter textToHighlight={title} />}
             </Typography.Title>
           </div>
         ))[0]

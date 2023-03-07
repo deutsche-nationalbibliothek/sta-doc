@@ -3,10 +3,8 @@ import { QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
 import { uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
-import { SolrQueryFetcherOptions } from './solr';
 
 interface SearchResultsProps {
-  solrQueryFetcher: (opts: SolrQueryFetcherOptions) => void;
   queryResult: QueryResult;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -15,7 +13,6 @@ interface SearchResultsProps {
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({
-  solrQueryFetcher,
   queryResult,
   loading,
   query,
@@ -46,11 +43,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
               current: currentPage,
               total: queryResult?.response.numFound,
               showSizeChanger: false,
-              onChange: (nextPage, pageSize) => {
-                solrQueryFetcher({
-                  query,
-                  start: (nextPage - 1) * pageSize,
-                });
+              onChange: (nextPage) => {
                 setCurrentPage(nextPage);
               },
             }
@@ -67,8 +60,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     docValue.includes(query) &&
                     (excludeKey
                       ? !doc[excludeKey].find((docValue: string) =>
-                        docValue.includes(query)
-                      )
+                          docValue.includes(query)
+                        )
                       : true) &&
                     docValue !== doc['headline.title'][0]
                 )

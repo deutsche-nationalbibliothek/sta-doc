@@ -2,9 +2,10 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
 import { Tag } from 'antd';
-import Link from 'next/link';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
+import { Link } from '@/lib/next-link';
+import { QueryHighlighter } from '@/lib/highlighter';
 
 interface EntityLinkProps {
   label: string;
@@ -34,7 +35,12 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
           }}
           href={`/entities/${id}`}
         >
-          {children ?? label}
+          {children ?? (
+
+        <QueryHighlighter
+          textToHighlight={label}
+        />
+          )}
           {isPointingDifferentNamespace &&
             !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
               <>
