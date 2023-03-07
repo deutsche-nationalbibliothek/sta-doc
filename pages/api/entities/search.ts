@@ -1,3 +1,4 @@
+import { QueryResult, SuggestionsResult } from '@/types/search';
 import console from 'console';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from 'solr-client';
@@ -5,7 +6,11 @@ import { createClient } from 'solr-client';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const client = createClient({ core: 'entities', host: 'localhost' });
 
-  const { query, start } = req.query as { query: string; start: string };
+  const { query: requestedQuery, start } = req.query as {
+    query: string;
+    start: string;
+  };
+  const query = client.escapeSpecialChars(requestedQuery);
   const solrQuery = client
     .query()
     .q(
@@ -19,16 +24,21 @@ OR full-text-search:${query}* \
     )
     .sort({ score: 'desc' })
     .fl(`*,score`)
-    .qop('AND')
+    // .qop('AND')
     .rows(10);
 
   if (start) {
     solrQuery.start(Number(start));
   }
 
-  console.log({ qString: `${query}`, solrQuery });
+  const queryResult = (await client.search(solrQuery)) as QueryResult;
 
-  const queryResult = await client.search(solrQuery);
+  // http://localhost:8983/solr/entities/spell?df=text&spellcheck.q=form&spellcheck=true&spellcheck.collateParam.q.op=AND&wt=xml&spellcheck.build=true
+  const suggestionsResult = (await client.doQuery('spell', {
+    q: query,
+    spellcheck: true,
+    build: true,
+  })) as SuggestionsResult;
 
-  res.status(200).json(queryResult);
+  res.status(200).json({ query: queryResult, suggestions: suggestionsResult });
 };

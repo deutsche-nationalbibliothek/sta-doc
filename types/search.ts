@@ -1,14 +1,56 @@
 import { EntityId } from './entity-id';
 
 export interface SearchResult {
+  query: QueryResult;
+  suggestions: SuggestionsResult;
+}
+
+export interface SuggestionsResult {
   responseHeader: ResponseHeader;
-  response: Response;
+  response: SuggestionResponse;
+  spellcheck: Spellcheck;
 }
 
 export interface ResponseHeader {
   status: number;
   QTime: number;
-  params: Params;
+}
+
+export interface SuggestionResponse {
+  numFound: number;
+  start: number;
+  numFoundExact: boolean;
+  docs: any[];
+}
+
+export interface Spellcheck {
+  suggestions: [string, Suggestions];
+  correctlySpelled: boolean;
+  collations: any[];
+}
+
+export interface Suggestions {
+  numFound: number;
+  startOffset: number;
+  endOffset: number;
+  origFreq: number;
+  suggestion: Suggestion[];
+}
+
+export interface Suggestion {
+  word: string;
+  freq: number;
+}
+
+export interface QueryResult {
+  responseHeader: ResponseHeader;
+  response: QueryResponse;
+}
+
+export interface ResponseHeader {
+  status: number;
+  QTime: number;
+  params?: Params;
 }
 
 export interface Params {
@@ -20,7 +62,7 @@ export interface Params {
   wt: string;
 }
 
-export interface Response {
+export interface QueryResponse {
   numFound: number;
   start: number;
   maxScore: number;

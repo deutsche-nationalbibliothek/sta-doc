@@ -1,5 +1,5 @@
 import { EntityLink } from '@/entity/components/preview/link';
-import { SearchResult } from '@/types/search';
+import { QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
 import { uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
@@ -7,7 +7,7 @@ import { SolrQueryFetcherOptions } from './solr';
 
 interface SearchResultsProps {
   solrQueryFetcher: (opts: SolrQueryFetcherOptions) => void;
-  searchResult: SearchResult;
+  queryResult: QueryResult;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   loading: boolean;
@@ -16,7 +16,7 @@ interface SearchResultsProps {
 
 export const SearchResults: React.FC<SearchResultsProps> = ({
   solrQueryFetcher,
-  searchResult,
+  queryResult,
   loading,
   query,
   currentPage,
@@ -28,14 +28,14 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
         <List
           loading={loading}
           header={
-            searchResult && (
+            queryResult && (
               <>
-                {searchResult.response.start + 1} -{' '}
+                {queryResult.response.start + 1} -{' '}
                 {Math.min(
-                  searchResult.response.start + 10,
-                  searchResult.response.numFound
+                  queryResult.response.start + 10,
+                  queryResult.response.numFound
                 )}{' '}
-                von {searchResult.response.numFound} Treffer
+                von {queryResult.response.numFound} Treffer
               </>
             )
           }
@@ -44,7 +44,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
               position: 'bottom',
               pageSize: 10,
               current: currentPage,
-              total: searchResult?.response.numFound,
+              total: queryResult?.response.numFound,
               showSizeChanger: false,
               onChange: (nextPage, pageSize) => {
                 solrQueryFetcher({
@@ -56,7 +56,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             }
           }
         >
-          {searchResult?.response.docs.map((doc,index) => {
+          {queryResult?.response.docs.map((doc, index) => {
             const getFilteredValues = (
               searchKey: string,
               excludeKey?: string
@@ -67,8 +67,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     docValue.includes(query) &&
                     (excludeKey
                       ? !doc[excludeKey].find((docValue: string) =>
-                          docValue.includes(query)
-                        )
+                        docValue.includes(query)
+                      )
                       : true) &&
                     docValue !== doc['headline.title'][0]
                 )
@@ -80,7 +80,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                 <EntityLink label={doc['headline.title'][0]} id={doc.id} />
                 <ul>
                   {getFilteredValues('headline-text-search').map(
-                    (matchedValue,index2) => (
+                    (matchedValue, index2) => (
                       <li key={index2}>
                         <SearchResultListItem
                           isHeadlineTextSearchMatch
