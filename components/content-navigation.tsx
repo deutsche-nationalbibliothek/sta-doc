@@ -55,7 +55,7 @@ export const ContentNavigation: React.FC = () => {
               <Typography.Text
                 id={`nav-${key}`}
                 onClick={() => {
-                  router.push(window.location.pathname, `#${key}`);
+                  router.push(`#${key}`);
                 }}
                 strong={
                   currentHeadlinesPath.findIndex(

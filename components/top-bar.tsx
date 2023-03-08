@@ -99,9 +99,11 @@ export const TopBar: React.FC = () => {
             ]}
           />
         </Col>
-        <Col style={{ flex: '0 0 0' }} span={6}>
-          <SearchDrawer />
-        </Col>
+        {router.pathname !== '/search' && (
+          <Col style={{ flex: '0 0 0' }} span={6}>
+            <SearchDrawer />
+          </Col>
+        )}
       </Row>
     </AntdLayout.Header>
   );

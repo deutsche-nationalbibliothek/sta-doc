@@ -1,4 +1,5 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
+import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
 import { useRouter as useNextRouter } from 'next/router';
 import { useCallback } from 'react';
 
@@ -10,11 +11,21 @@ export const useRouter = (): UseRouter => {
   const router = useNextRouter();
 
   const { fetchingQueryParamsString } = useFetchingQueryParams();
+  const { searchQueryParamsString } = useSearchQueryParams();
+
+  const queryParams = [
+    fetchingQueryParamsString,
+    searchQueryParamsString,
+  ].filter((a) => a);
+
+  const queryParamsString = queryParams.length
+    ? `?${queryParams.join('&')}`
+    : '';
 
   const push = useCallback(
-    async (url: Url, fragment?: string) => {
+    async (url: Url, anchor?: string) => {
       return await router.push(
-        `${url.toString()}?${fetchingQueryParamsString}${fragment ?? ''}`
+        `${url.toString()}${queryParamsString}${anchor ? `#${anchor}` : ''}`
       );
     },
     [fetchingQueryParamsString]

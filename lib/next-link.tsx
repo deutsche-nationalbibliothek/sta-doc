@@ -13,14 +13,23 @@ export const Link: React.FC<
 > = (props) => {
   const { children, href, anchor, ...nextLinkProps } = props;
   const { fetchingQueryParamsString } = useFetchingQueryParams();
-  const {searchQueryParamsString} = useSearchQueryParams()
+  const { searchQueryParamsString } = useSearchQueryParams();
+
+  const queryParams = [
+    fetchingQueryParamsString,
+    searchQueryParamsString,
+  ].filter((a) => a);
+
+  const queryParamsString = queryParams.length
+    ? `?${queryParams.join('&')}`
+    : '';
+
+  const anchorString = anchor ? `#${anchor}` : '';
 
   return (
     <NextLink
       // shallow={true} // todo, set true if entiyid is the same as right now
-      href={
-        href.toString() + '?' + fetchingQueryParamsString + '&' + searchQueryParamsString + (anchor ? `#${anchor}` : '')
-      }
+      href={`${href.toString()}${queryParamsString}${anchorString}`}
       {...nextLinkProps}
     >
       {children}

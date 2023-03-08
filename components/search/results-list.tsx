@@ -10,6 +10,7 @@ interface SearchResultsProps {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   loading: boolean;
   query: string;
+  onCloseDrawer?: () => void;
 }
 
 export const SearchResults: React.FC<SearchResultsProps> = ({
@@ -18,6 +19,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   query,
   currentPage,
   setCurrentPage,
+  onCloseDrawer,
 }) => {
   return (
     <>
@@ -86,11 +88,16 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
 
             return 'headline-text-search' in doc ? (
               <List.Item key={index} style={{ display: 'inherit' }}>
-                <EntityLink label={doc['headline.title'][0]} id={doc.id} />
+                <EntityLink
+                  linkProps={{ onClick: onCloseDrawer }}
+                  label={doc['headline.title'][0]}
+                  id={doc.id}
+                />
                 <ul>
                   {headlineMatches.map((matchedValue, index2) => (
                     <li key={index2}>
                       <SearchResultListItem
+                        onCloseDrawer={onCloseDrawer}
                         isHeadlineTextSearchMatch
                         doc={doc}
                         matchedValue={matchedValue}
@@ -100,6 +107,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   {fulltextMatches.map((matchedValue, index2) => (
                     <li key={index2}>
                       <SearchResultListItem
+                        onCloseDrawer={onCloseDrawer}
                         isFullTextSearchMatch
                         doc={doc}
                         matchedValue={matchedValue}

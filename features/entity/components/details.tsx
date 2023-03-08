@@ -45,10 +45,10 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
     if (nextViewParam === 'application-profile') {
-      const asPathMatch = router.asPath.match(/.*(?=#)/)
+      const asPathMatch = router.asPath.match(/.*(?=#)/);
       if (asPathMatch) {
         // prevent issue with hooks/use-inital-scroll.ts
-        router.push(asPathMatch[0])
+        router.push(asPathMatch[0]);
       }
     }
     setView(nextViewParam);
@@ -62,7 +62,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   const isRdaRessourceType = !!wemiStatement;
 
   const tableStatements =
-    entity.pageType.id === Item['GND-data-field']
+    entity.pageType?.id === Item['GND-data-field']
       ? [
         ...entity.statements.table,
         entity.statements.text.find(

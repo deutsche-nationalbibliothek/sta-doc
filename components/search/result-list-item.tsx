@@ -8,6 +8,7 @@ interface SearchResultListItemProps {
   matchedValue: string;
   isHeadlineTextSearchMatch?: boolean;
   isFullTextSearchMatch?: boolean;
+  onCloseDrawer?: () => void;
 }
 
 export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
@@ -15,6 +16,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
   matchedValue,
   isHeadlineTextSearchMatch,
   isFullTextSearchMatch,
+  onCloseDrawer,
 }) => {
   if (isHeadlineTextSearchMatch) {
     const matchedHeadlineKeys = Object.keys(doc).filter((key) =>
@@ -39,6 +41,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
     return (
       headlineMatch.length && (
         <Link
+          onClick={onCloseDrawer}
           href={`/entities/${doc.id}`}
           anchor={headlineMatch[0].id}
         >

@@ -11,7 +11,15 @@ export interface SolrQueryFetcherOptions {
   query: string;
 }
 
-export const SolrSearch = () => {
+interface SolrSearchProps {
+  placeholder?: string;
+  onCloseDrawer?: () => void;
+}
+
+export const SolrSearch: React.FC<SolrSearchProps> = ({
+  placeholder,
+  onCloseDrawer,
+}) => {
   const {
     searchQuery: query,
     setSearchQuery: setQuery,
@@ -31,8 +39,7 @@ export const SolrSearch = () => {
     if (query) {
       const pageSize = 10;
       setUrlQuery(
-        `/api/entities/search?query=${query}${
-          '&start=' + String((currentPage - 1) * pageSize)
+        `/api/entities/search?query=${query}${'&start=' + String((currentPage - 1) * pageSize)
         }`
       );
     }
@@ -61,6 +68,7 @@ export const SolrSearch = () => {
         }
       >
         <Input.Search
+          placeholder={placeholder || ''}
           loading={isLoadingIfQuery}
           value={query}
           onChange={debounce(onSearch, 400)}
@@ -74,6 +82,7 @@ export const SolrSearch = () => {
         query={query}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        onCloseDrawer={onCloseDrawer}
       />
     </div>
   );
