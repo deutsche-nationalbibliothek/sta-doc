@@ -16,15 +16,11 @@ const CodingsPreferencesContext = createContext(
 const useCodingsPreferenceLocal = () => {
   const codingsOptions: CodingsPreference[] = ['PICA+', 'PICA3'];
 
-  const [localStorageCodingPreferences, setCodingsPreferences] =
-    useLocalStorage<CodingsPreference[]>('codings-preferences', codingsOptions);
-
-  const [codingsPreferences, setCodingsPreferencesState] = useState<
+  const [codingsPreferences, setCodingsPreferencesState] = useLocalStorage<
     CodingsPreference[]
-  >(localStorageCodingPreferences as CodingsPreference[]);
+  >('codings-preferences', codingsOptions);
 
   const onChange = (newValue: CodingsPreference[]) => {
-    setCodingsPreferences(newValue);
     setCodingsPreferencesState([...newValue]);
   };
   return { codingsPreferences, onChange, codingsOptions };
