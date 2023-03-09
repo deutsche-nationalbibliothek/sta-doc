@@ -19,7 +19,7 @@ export const TopBar: React.FC = () => {
             mode="horizontal"
             selectedKeys={[
               namespace,
-              router.asPath.match(/.*(?=#.*)|.*/)[0],
+              router.asPath.match(/.*(?=(\?.*|=#.*))|.*/)[0],
               namespaceDomain,
             ]}
             items={[
