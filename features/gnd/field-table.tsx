@@ -62,25 +62,6 @@ export const GndFieldsTable: React.FC<
         return record.repeatable ? 'Ja' : 'Nein';
       },
     },
-    {
-      title: <GlobalOutlined />,
-      dataIndex: 'viewLink',
-      key: 'external-links',
-      width: '5%',
-      noSort: true,
-      render: (_definition, record) => {
-        return (
-          <>
-            <ExternalLink href={record.viewLink}>
-              <EyeOutlined />
-            </ExternalLink>{' '}
-            <ExternalLink href={record.editLink}>
-              <EditOutlined />
-            </ExternalLink>
-          </>
-        );
-      },
-    },
   ];
 
   return (
