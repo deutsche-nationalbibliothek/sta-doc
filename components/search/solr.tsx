@@ -37,15 +37,21 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
 
   useEffect(() => {
     if (query) {
-      const pageSize = 10;
-      setUrlQuery(
-        `/api/entities/search?query=${query}${'&start=' + String((currentPage - 1) * pageSize)
-        }`
-      );
+      if (query.length > 1) {
+        const pageSize = 10;
+        setUrlQuery(
+          `/api/entities/search?query=${query}${
+            '&start=' + String((currentPage - 1) * pageSize)
+          }`
+        );
+      } else {
+        setUrlQuery(undefined);
+      }
     }
   }, [query, currentPage]);
 
-  const isLoadingIfQuery = !(query && !loading) && !!query && loading;
+  const isLoadingIfQuery =
+    urlQuery && !(query && !loading) && !!query && loading;
 
   return (
     <div>
@@ -70,7 +76,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
         <Input.Search
           placeholder={placeholder || ''}
           loading={isLoadingIfQuery}
-          value={query}
+          defaultValue={query}
           onChange={debounce(onSearch, 400)}
           enterButton={false}
           allowClear
