@@ -26,14 +26,7 @@ export const Footer: React.FC = () => {
   );
 
   return (
-    <AntdLayout.Footer
-      style={{
-        zIndex: 1,
-        padding: '5px 50px',
-        height: 'var(--footer-height)',
-        textAlign: 'center',
-      }}
-    >
+    <AntdLayout.Footer>
       {contextHolder}
       <Tooltip title="Nach oben scrollen">
         <VerticalAlignTopOutlined

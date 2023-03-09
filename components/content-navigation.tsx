@@ -25,10 +25,10 @@ export const ContentNavigation: React.FC = () => {
       {nestedHeadlines.length > 0 && (
         <div
           ref={containerRef}
+          className="main-layout-height"
           style={{
             display: 'flex',
             flexDirection: 'column',
-            height: 'calc(100vh - var(--topbar-height) - var(--footer-height))',
           }}
         >
           <div ref={dividerRef}>

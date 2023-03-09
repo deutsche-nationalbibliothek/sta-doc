@@ -14,9 +14,10 @@ const SearchPage: React.FC = () => {
   }, []);
 
   return (
-    <PageHeader style={{ maxWidth: '60%', margin: 'auto' }} title={'Suche'}>
+    <div className="search-page">
+      <PageHeader title={'Suche'} />
       <SolrSearch />
-    </PageHeader>
+    </div>
   );
 };
 
