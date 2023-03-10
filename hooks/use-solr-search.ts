@@ -44,7 +44,7 @@ export const useSolrSearch = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      inputRef.current!.focus({
+      inputRef.current?.focus({
         cursor: 'end',
       });
     }, 200);
