@@ -6,9 +6,7 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
-import {
-  EntityEntry
-} from '@/types/parsed/entity';
+import { EntityEntry } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import namespaceConfig from 'config/namespace';
