@@ -10,6 +10,7 @@ import { RdaRessourceTypeEntity } from './rda-ressource-type';
 import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
 import { useHeadlines } from '@/hooks/headlines';
+import { useRouter } from '@/lib/next-use-router';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -22,6 +23,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 }) => {
   const { namespace, setNamespace, onResetNamespace } = useNamespace();
   const { setShowHeadlines } = useHeadlines();
+  const router = useRouter();
 
   useInitialScroll(!embedded);
 
@@ -42,6 +44,13 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   >('view');
 
   const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
+    if (nextViewParam === 'application-profile') {
+      const asPathMatch = router.asPath.match(/.*(?=#)/);
+      if (asPathMatch) {
+        // prevent issue with hooks/use-inital-scroll.ts
+        router.push(asPathMatch[0]);
+      }
+    }
     setView(nextViewParam);
     setShowHeadlines(!nextViewParam);
   };
@@ -53,7 +62,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   const isRdaRessourceType = !!wemiStatement;
 
   const tableStatements =
-    entity.pageType.id === Item['GND-data-field']
+    entity.pageType?.id === Item['GND-data-field']
       ? [
         ...entity.statements.table,
         entity.statements.text.find(

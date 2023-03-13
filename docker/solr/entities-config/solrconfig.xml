@@ -42,6 +42,8 @@
   <!--   <str name="schemaFile">/var/solr/data/entities/conf/schema.xml</str> -->
   <!-- </schemaFactory> -->
 
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-analyzing-infix-suggest.jar" />
+
   <!-- <lib/> directives can be used to instruct Solr to load any Jars
        identified and use them to resolve any "plugins" specified in
        your solrconfig.xml or schema.xml (ie: Analyzers, Request
@@ -953,6 +955,84 @@
       </boundaryScanner>
     </highlighting>
   </searchComponent>
+
+  <!-- <updateRequestProcessorChain name="suggest_split"> -->
+  <!-- <processor class="solr.LogUpdateProcessorFactory" /> -->
+  <!-- <processor class="solr.UpdateRequestProcessorFactory"> -->
+  <!--   <str name="fieldName">suggest_text</str> -->
+  <!--   <str name="delimiter"> </str> -->
+  <!--   <str name="inplace">true</str> -->
+  <!--   <str name="overwrite">true</str> -->
+  <!--   <str name="type">Splitting</str> -->
+  <!-- </processor> -->
+  <!-- <processor class="solr.RemoveDuplicatesTokenFilterFactory"/> -->
+  <!-- <processor class="solr.TrimFilterFactory"/> -->
+  <!-- <processor class="solr.WordDelimiterGraphFilterFactory"> -->
+  <!--   <bool name="splitOnCaseChange">0</bool> -->
+  <!--   <bool name="splitOnNumerics">0</bool> -->
+  <!--   <bool name="splitOnWhitespace">0</bool> -->
+  <!--   <bool name="generateWordParts">1</bool> -->
+  <!--   <bool name="generateNumberParts">0</bool> -->
+  <!--   <bool name="catenateWords">0</bool> -->
+  <!--   <bool name="catenateNumbers">0</bool> -->
+  <!--   <bool name="catenateAll">0</bool> -->
+  <!--   <bool name="preserveOriginal">1</bool> -->
+  <!-- </processor> -->
+<!-- </updateRequestProcessorChain> -->
+
+<searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+  <lst name="spellchecker">
+    <str name="classname">solr.IndexBasedSpellChecker</str>
+    <str name="spellcheckIndexDir">./spellchecker</str>
+    <str name="field">suggest_field</str>
+    <str name="buildOnCommit">true</str>
+    <!-- optional elements with defaults
+    <str name="distanceMeasure">org.apache.lucene.search.spell.LevenshteinDistance</str>
+    <str name="accuracy">0.5</str>
+    -->
+ </lst>
+</searchComponent>
+
+<requestHandler name="spellCheckWithWordbreak" class="org.apache.solr.handler.component.SearchHandler">
+  <lst name="defaults">
+    <str name="spellcheck.dictionary">default</str>
+    <str name="spellcheck.dictionary">wordbreak</str>
+    <str name="spellcheck.count">20</str>
+     <str name="spellcheck.sort">frequency desc</str>
+     <!-- <str name="spellcheck.onlyMorePopular">true</str> -->
+    <!-- <str name="spellcheck.extendedResults">true</str> -->
+    <!-- <str name="spellcheck.collate">true</str> -->
+    <!-- <str name="spellcheck.collateExtendedResults">true</str> -->
+    <!-- <str name="spellcheck.maxCollationTries">10</str> -->
+    <!-- <str name="spellcheck.maxCollations">5</str> -->
+    <!-- <str name="spellcheck.accuracy">0.7</str> -->
+  </lst>
+  <arr name="last-components">
+    <str>spellcheck</str>
+  </arr>
+</requestHandler>
+
+<!-- <searchComponent name="suggest" class="solr.SuggestComponent"> -->
+<!--   <lst name="suggester"> -->
+<!--     <str name="name">mySuggester</str> -->
+<!--     <str name="lookupImpl">AnalyzingInfixLookupFactory</str> -->
+<!--     <str name="dictionaryImpl">DocumentDictionaryFactory</str> -->
+<!--     <str name="field">suggest_field</str> -->
+<!--     <str name="suggestAnalyzerFieldType">text_general</str> -->
+<!--     <str name="buildOnStartup">true</str> -->
+<!--   </lst> -->
+<!-- </searchComponent> -->
+
+<!--   <requestHandler name="/suggest" class="solr.SearchHandler" startup="lazy"> -->
+<!--     <lst name="defaults"> -->
+<!--       <str name="suggest">true</str> -->
+<!--       <str name="suggest.count">10</str> -->
+<!--       <str name="suggest.dictionary">mySuggester</str> -->
+<!--     </lst> -->
+<!--     <arr name="components"> -->
+<!--       <str>suggest</str> -->
+<!--     </arr> -->
+<!--   </requestHandler> -->
 
   <!-- Update Request Processors
        https://solr.apache.org/guide/solr/latest/configuration-guide/update-request-processors.html

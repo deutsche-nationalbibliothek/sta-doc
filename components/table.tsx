@@ -16,7 +16,7 @@ import {
 import { get } from 'lodash';
 import { RenderedCell } from 'rc-table/lib/interface';
 import { useRef, useState } from 'react';
-import Highlighter from 'react-highlight-words';
+import { Highlighter } from '@/lib/highlighter';
 
 export declare type DataIndex = string;
 
@@ -128,9 +128,7 @@ export function Table<T extends object>(props: TableProps<T>) {
     render: (text: DataIndex) => {
       return searchTexts[dataIndex] ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
           searchWords={[searchTexts[dataIndex]]}
-          autoEscape
           textToHighlight={text ? text.toString() : ''}
         />
       ) : (
@@ -155,9 +153,7 @@ export function Table<T extends object>(props: TableProps<T>) {
           index,
           searchTexts[column.dataIndex] ? (
             <Highlighter
-              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
               searchWords={[searchTexts[column.dataIndex]]}
-              autoEscape
               textToHighlight={value ? value.toString() : ''}
             />
           ) : (
@@ -171,9 +167,7 @@ export function Table<T extends object>(props: TableProps<T>) {
           <Typography.Text>
             {'dataIndex' in column && searchTexts[column.dataIndex] ? (
               <Highlighter
-                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
                 searchWords={[searchTexts[column.dataIndex]]}
-                autoEscape
                 textToHighlight={value ? value.toString() : ''}
               />
             ) : (

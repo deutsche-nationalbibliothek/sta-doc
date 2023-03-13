@@ -10,8 +10,9 @@ import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
-import FetchingQueryParamProvider from '@/hooks/fetching-query-param-provider';
 import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
+import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
+import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,21 +20,23 @@ export default function App({ Component, pageProps }: AppProps) {
       <ConfigProvider locale={deDE}>
         <QueryParamProvider adapter={NextAdapter}>
           <ApplicationProfileQueryParamProvider>
-            <FetchingQueryParamProvider>
-              <NamespaceProvider>
-                <InitialHeadlinesProvider>
-                  <HeadlinesProvider>
-                    <IsLoadingContextProvider>
-                      <CodingsPreferencesProvider>
-                        <Layout>
-                          <Component {...pageProps} />
-                        </Layout>
-                      </CodingsPreferencesProvider>
-                    </IsLoadingContextProvider>
-                  </HeadlinesProvider>
-                </InitialHeadlinesProvider>
-              </NamespaceProvider>
-            </FetchingQueryParamProvider>
+            <FetchingQueryParamsProvider>
+              <SearchQueryParamsProvider>
+                <NamespaceProvider>
+                  <InitialHeadlinesProvider>
+                    <HeadlinesProvider>
+                      <IsLoadingContextProvider>
+                        <CodingsPreferencesProvider>
+                          <Layout>
+                            <Component {...pageProps} />
+                          </Layout>
+                        </CodingsPreferencesProvider>
+                      </IsLoadingContextProvider>
+                    </HeadlinesProvider>
+                  </InitialHeadlinesProvider>
+                </NamespaceProvider>
+              </SearchQueryParamsProvider>
+            </FetchingQueryParamsProvider>
           </ApplicationProfileQueryParamProvider>
         </QueryParamProvider>
       </ConfigProvider>

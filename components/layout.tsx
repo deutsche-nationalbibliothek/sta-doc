@@ -18,11 +18,7 @@ export default function Layout(props: LayoutProps) {
     <AntdLayout>
       <LoadingIndicator />
       <TopBar />
-      <AntdLayout
-        style={{
-          height: 'calc(100vh - var(--topbar-height) - var(--footer-height))',
-        }}
-      >
+      <AntdLayout className="main-layout-height">
         {nestedHeadlines.length && showHeadlines ? (
           <Splitter>
             {nestedHeadlines.length > 0 && <Sidebar />}
@@ -48,15 +44,7 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
     >
       <AntdLayout.Content>
         <Breadcrumb />
-        <div
-          id="main-scroll-container"
-          style={{
-            height:
-              'calc(100vh - var(--topbar-height) - var(--footer-height) - var(--topbar-padding-y) - 2px)', //window.innerHeight - 64 - 4 , //- 48 * 2, // topbar- and divider-height
-            overflowY: 'auto',
-            padding: '0px 25px',
-          }}
-        >
+        <div className="main-scroll-container" id="main-scroll-container">
           {children}
         </div>
       </AntdLayout.Content>

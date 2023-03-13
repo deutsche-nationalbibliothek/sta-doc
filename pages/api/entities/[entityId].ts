@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
 import { Entities, EntitiesEntries } from '@/types/parsed/entity';
-import { FetchingParam } from '@/hooks/fetching-query-param-provider';
 import { fetcher, API_URL } from '@/bin/data/fetcher';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
@@ -13,6 +12,7 @@ import {
   staNotationsParser,
 } from '@/bin/data/parse';
 import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
+import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { entityId, live } = req.query;

@@ -1,12 +1,14 @@
 import { StringValueComponent } from '@/entity/components/values/string';
+import { QueryHighlighter } from '@/lib/highlighter';
+import { Link } from '@/lib/next-link';
 import { Doc } from '@/types/search';
-import Link from 'next/link';
 
 interface SearchResultListItemProps {
   doc: Doc;
   matchedValue: string;
   isHeadlineTextSearchMatch?: boolean;
   isFullTextSearchMatch?: boolean;
+  onCloseDrawer?: () => void;
 }
 
 export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
@@ -14,6 +16,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
   matchedValue,
   isHeadlineTextSearchMatch,
   isFullTextSearchMatch,
+  onCloseDrawer,
 }) => {
   if (isHeadlineTextSearchMatch) {
     const matchedHeadlineKeys = Object.keys(doc).filter((key) =>
@@ -37,8 +40,12 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
 
     return (
       headlineMatch.length && (
-        <Link href={`/entities/${doc.id}#${headlineMatch[0].id}`} id={doc.id}>
-          {headlineMatch[0].value}
+        <Link
+          onClick={onCloseDrawer}
+          href={`/entities/${doc.id}`}
+          anchor={headlineMatch[0].id}
+        >
+          <QueryHighlighter textToHighlight={headlineMatch[0].value} />
         </Link>
       )
     );

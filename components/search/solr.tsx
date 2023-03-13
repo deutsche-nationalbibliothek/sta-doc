@@ -1,60 +1,75 @@
-import { SearchResult } from '@/types/search';
-import { Input } from 'antd';
+import { StringValueComponent } from '@/entity/components/values/string';
+import { useSolrSearch } from '@/hooks/use-solr-search';
 import { debounce } from 'lodash';
-import { useState, useCallback, useEffect } from 'react';
-import { useSWR } from '@/lib/swr';
 import { SearchResults } from './results-list';
+import { AutoComplete, Input } from 'antd';
 
 export interface SolrQueryFetcherOptions {
   query: string;
-  start?: number;
 }
 
-export const SolrSearch = () => {
-  console.log("export const SolrSearch = () => {")
-  const [query, setQuery] = useState('');
-  const [urlQuery, setUrlQuery] = useState<string>();
-  const [currentPage, setCurrentPage] = useState(1);
+interface SolrSearchProps {
+  placeholder?: string;
+  onCloseDrawer?: () => void;
+}
 
-  const onSearch = (e) => {
-    setQuery(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const { data: searchResult, loading } = useSWR<SearchResult>(urlQuery);
-
-  console.log({ searchResult, loading });
-
-  const solrQueryFetcher = useCallback(
-    ({ query, start }: SolrQueryFetcherOptions) => {
-      setUrlQuery(
-        `${process.env.basePath}/api/entities/search?query=${query}${start ? '&start=' + String(start) : ''
-        }`
-      );
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (query) {
-      console.log('fetching search query', query)
-      solrQueryFetcher({ query });
-    }
-  }, [query]);
+export const SolrSearch: React.FC<SolrSearchProps> = ({
+  placeholder,
+  onCloseDrawer,
+}) => {
+  const {
+    suggestionsResult,
+    queryResult,
+    inputRef,
+    isLoadingSearchIfQuery,
+    isLoadingSuggestionsIfQuery,
+    setQuery,
+    query,
+    onSearch,
+    currentPage,
+    setCurrentPage,
+  } = useSolrSearch();
 
   return (
     <div>
-      <Input.Search
-        onChange={debounce(onSearch, 400)}
-        enterButton={false}
-      />
+      <AutoComplete
+        style={{ width: '100%' }}
+        autoFocus
+        onSelect={(value: string) =>
+          setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
+        }
+        defaultValue={query}
+        options={
+          query &&
+          suggestionsResult?.spellcheck.suggestions[1] &&
+          suggestionsResult.spellcheck.suggestions[1].suggestion
+            .sort((s1, s2) => s2.freq - s1.freq)
+            .map((x, index) => ({
+              value: x.word,
+              key: index,
+              label: <StringValueComponent stringValue={{ value: x.word }} />,
+            }))
+        }
+      >
+        <Input.Search
+          placeholder={placeholder || ''}
+          loading={isLoadingSuggestionsIfQuery}
+          ref={inputRef}
+          autoFocus
+          enterButton
+          defaultValue={query}
+          value={query}
+          onChange={debounce(onSearch, 400)}
+          allowClear
+        />
+      </AutoComplete>
       <SearchResults
-        solrQueryFetcher={solrQueryFetcher}
-        searchResult={searchResult}
-        loading={!(query && !loading) && !!query && loading}
+        queryResult={queryResult}
+        loading={isLoadingSearchIfQuery}
         query={query}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        onCloseDrawer={onCloseDrawer}
       />
     </div>
   );

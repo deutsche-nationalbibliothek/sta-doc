@@ -2,15 +2,18 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
 import { Tag } from 'antd';
-import Link from 'next/link';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
+import { Link } from '@/lib/next-link';
+import { QueryHighlighter } from '@/lib/highlighter';
+import { LinkProps } from 'next/link';
 
 interface EntityLinkProps {
   label: string;
   id: EntityId;
   namespace?: Namespace;
   children?: JSX.Element | JSX.Element[] | string | string[];
+  linkProps?: Omit<LinkProps, 'href' | 'style'>;
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({
@@ -18,6 +21,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   label,
   namespace: pointingNamespace,
   children,
+  linkProps,
 }) => {
   const { namespace: currentNamespace } = useNamespace();
   const isPointingDifferentNamespace =
@@ -27,6 +31,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     <>
       <EntityPreview entityId={id} label={label}>
         <Link
+          {...linkProps}
           style={{
             alignItems: 'center',
             display: 'flex',
@@ -34,7 +39,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
           }}
           href={`/entities/${id}`}
         >
-          {children ?? label}
+          {children ?? <QueryHighlighter textToHighlight={label} />}
           {isPointingDifferentNamespace &&
             !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
               <>

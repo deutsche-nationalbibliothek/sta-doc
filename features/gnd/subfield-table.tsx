@@ -62,26 +62,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       noSort: true,
       key: 'label',
       render: (_data, record) => {
-        return record.repeatable ? 'Ja' : 'Nein'
-      },
-    },
-    {
-      title: <GlobalOutlined />,
-      dataIndex: 'viewLink',
-      key: 'external-links',
-      noSort: true,
-      width: '5%',
-      render: (_definition, record) => {
-        return (
-          <>
-            <ExternalLink href={record.viewLink}>
-              <EyeOutlined />
-            </ExternalLink>{' '}
-            <ExternalLink href={record.editLink}>
-              <EditOutlined />
-            </ExternalLink>
-          </>
-        );
+        return record.repeatable ? 'Ja' : 'Nein';
       },
     },
   ];

@@ -1,12 +1,10 @@
-import { useRouter } from '@/lib/next-use-router';
 import { Namespace } from '@/types/namespace';
 import {
   createContext,
   Dispatch,
   SetStateAction,
   useContext,
-  useEffect,
-  useState
+  useState,
 } from 'react';
 
 interface NamespaceContext {
@@ -19,18 +17,17 @@ const NamespaceContext = createContext({} as NamespaceContext);
 
 export const NamespaceProvider = ({ children }) => {
   const [namespace, setNamespace] = useState<Namespace>();
-  const router = useRouter();
 
   const onResetNamespace = () => {
     setNamespace(undefined);
   };
 
-  useEffect(() => {
-    router.events.on('routeChangeStart', onResetNamespace);
-    return () => {
-      router.events.off('routeChangeStart', onResetNamespace);
-    };
-  }, []);
+  // useEffect(() => {
+  //   router.events.on('routeChangeStart', onResetNamespace);
+  //   return () => {
+  //     router.events.off('routeChangeStart', onResetNamespace);
+  //   };
+  // }, []);
 
   return (
     <NamespaceContext.Provider

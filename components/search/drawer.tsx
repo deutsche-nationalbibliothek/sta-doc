@@ -1,11 +1,14 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Menu, Drawer } from 'antd';
+import { Link } from '@/lib/next-link';
+import { RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { Menu, Drawer, Tooltip } from 'antd';
 import { useState } from 'react';
 import { SolrSearch } from './solr';
 
 export const SearchDrawer: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const onClose = () => setIsSearchOpen(false);
+
+  const onCloseDrawer = () => setIsSearchOpen(false);
 
   return (
     <Menu
@@ -22,8 +25,15 @@ export const SearchDrawer: React.FC = () => {
                 placement="right"
                 onClose={onClose}
                 open={isSearchOpen}
+                extra={
+                  <Tooltip placement="left" title="Suche auf seperater Seite">
+                    <Link onClick={onCloseDrawer} href={'/search'}>
+                      <RightOutlined />
+                    </Link>
+                  </Tooltip>
+                }
               >
-                <SolrSearch />
+                <SolrSearch placeholder="Suche" onCloseDrawer={onCloseDrawer} />
               </Drawer>
             </>
           ),
