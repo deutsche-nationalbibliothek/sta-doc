@@ -3,7 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from 'solr-client';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = createClient({ core: 'entities', host: 'solr' });
+  const client = createClient({ core: 'entities', host: `${process.env.solrHost}` })
+  console.log('client', client)
 
   const { query, start } = req.query as { query: string; start: string };
   const solrQuery = client

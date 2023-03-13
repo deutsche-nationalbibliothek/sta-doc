@@ -10,7 +10,7 @@ export const NamespaceImage: React.FC = () => {
     !namespaceConfig.notPointedOut.includes(namespace) && (
       <>
         <AntdImage
-          src={`/doc/${namespace}-logo.png`}
+          src={`${process.env.basePath}/${namespace}-logo.png`}
           alt="ressource image"
           height={100}
           preview={false}

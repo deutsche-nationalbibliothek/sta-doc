@@ -18,7 +18,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   return (
     entityId && (
       <Fetch<EntityEntryWithOptionalHeadlines>
-        url={`/doc/api/entities/${entityId}`}
+        url={`${process.env.basePath}/api/entities/${entityId}`}
         showSpinner={showSpinner}
       >
         {children}

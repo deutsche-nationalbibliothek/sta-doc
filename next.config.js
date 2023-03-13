@@ -1,8 +1,9 @@
 /**
  * @type {import('next').NextConfig}
  **/
+const { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_SERVER, PHASE_PRODUCTION_BUILD } = require('next/constants')
 // const fs = require('fs');
-// const notations = JSON.parse(fs.readFileSync('./data/parsed/sta-notations.json'));
+// const staNotations = JSON.parse(fs.readFileSync('./data/parsed/sta-notations.json'));
 const withLess = require('next-with-less');
 
 // const createRedirectArray = () => {
@@ -14,13 +15,13 @@ const withLess = require('next-with-less');
 //       permanent: true
 //     }
 //   )
-//   Object.keys(notations)
+//   Object.keys(staNotations)
 //     // .filter((obj, i) => i < 3)
 //     .forEach((obj) => {
 //       redirectObjects.push(
 //         {
 //           source: `/entities/${obj}`,
-//           destination: `/entities/${notations[obj].label}`,
+//           destination: `/entities/${staNotations[obj].label}`,
 //           permanent: true
 //         }
 //       )
@@ -30,22 +31,55 @@ const withLess = require('next-with-less');
 // }
 // const redirectArr = createRedirectArray()
 
-const nextConfig = {
-  basePath: '/doc',
-  images: {
-    domains: ['www.cilip.org.uk'],
-  },
-  reactStrictMode: true,
-  async redirects() {
-    // return redirectArr
-    return [
-      {
-        source: '/entries/:entityId',
-        destination: '/entities/:entityId',
-        permanent: true,
+module.exports = (phase) => {
+  console.log(phase)
+  if (phase === PHASE_DEVELOPMENT_SERVER) {
+    const nextConfig = {
+      basePath: '',
+      env: {
+        basePath: '',
+        solrHost: 'localhost'
       },
-    ];
-  },
-};
+      images: {
+        domains: ['www.cilip.org.uk'],
+      },
+      reactStrictMode: true,
+      async redirects() {
+        // return redirectArr
+        return [
+          {
+            source: '/entries/:entityId',
+            destination: '/entities/:entityId',
+            permanent: true,
+          },
+        ];
+      },
+    }
+    return withLess(nextConfig)
+  }
+  if (phase === PHASE_PRODUCTION_SERVER || PHASE_PRODUCTION_BUILD) {
+    const nextConfig = {
+      basePath: '/doc',
+      env: {
+        basePath: '/doc',
+        solrHost: 'solr'
+      },
+      images: {
+        domains: ['www.cilip.org.uk'],
+      },
+      reactStrictMode: true,
+      async redirects() {
+        // return redirectArr
+        return [
+          {
+            source: '/entries/:entityId',
+            destination: '/entities/:entityId',
+            permanent: true,
+          },
+        ];
+      },
+    }
+    return withLess(nextConfig)
+  }
 
-module.exports = withLess(nextConfig);
+}
