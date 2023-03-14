@@ -55,12 +55,12 @@ export const useSolrSearch = () => {
       if (query.length > 1) {
         const pageSize = 10;
         setUrlQuery(
-          `/api/entities/search/query?query=${query}${
+          `${process.env.basePath}/api/entities/search/query?query=${query}${
             '&start=' + String((currentPage - 1) * pageSize)
           }`
         );
 
-        setUrlSuggest(`/api/entities/search/suggest?query=${query}`);
+        setUrlSuggest(`${process.env.basePath}/api/entities/search/suggest?query=${query}`);
       } else {
         setUrlQuery(undefined);
         setUrlSuggest(undefined);
