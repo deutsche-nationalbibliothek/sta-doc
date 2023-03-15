@@ -1,7 +1,7 @@
 import { Item } from '../item';
 import { Property } from '../property';
 
-export type LabelEns = Record<Property | Item, LabelEn>;
+export type LabelsEn = Record<Property | Item, LabelEn>;
 
 export interface LabelEn {
   label: string;

@@ -33,12 +33,6 @@ type PreMappedStatement = Omit<Statement, 'string'> & {
   string?: StringValue[];
 };
 
-const headings = [
-  Item['First-order-subheading-(type-of-layout)'],
-  Item['Second-order-subheading-(type-of-layout)'],
-  Item['Third-order-subheading-(type-of-layout)'],
-];
-
 interface ParseEntityProps extends Omit<ParseEntitiesProps, 'rawEntities'> {
   entityId: EntityId;
   headlines?: Headline[];
@@ -62,7 +56,7 @@ export const parseRawEntity = ({
 }: ParseEntityProps): EntityEntry | undefined => {
   console.log('\t\t\tParsing Entity', entityId);
 
-  const { lookup_de, lookup_en, codings, staNotations, fields, schemas } = data;
+  const { labelsDe, labelsEn, codings, staNotations, fields, schemas } = data;
 
   const entity = getRawEntityById(entityId);
 
@@ -236,13 +230,13 @@ export const parseRawEntity = ({
             id,
             headline: hasHeadline
               ? addHeadline(
-                  lookup_de[id],
+                  labelsDe[id],
                   currentHeadlineLevel,
                   noHeadline,
                   pointingNamespace
                 )
               : undefined,
-            label: lookup_de[id],
+            label: labelsDe[id],
             link: `/entities/${id}`,
             namespace: pointingNamespace,
             staNotationLabel:
@@ -274,6 +268,12 @@ export const parseRawEntity = ({
             occ['qualifiers-order'] &&
             occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
               ?.value?.id;
+
+          const headings = [
+            Item['First-order-subheading-(type-of-layout)'],
+            Item['Second-order-subheading-(type-of-layout)'],
+            Item['Third-order-subheading-(type-of-layout)'],
+          ];
 
           const headingIndex = headings.findIndex(
             (heading) => heading === itemType
@@ -315,7 +315,7 @@ export const parseRawEntity = ({
                 : (dataType as DataType);
 
             const property = keyAccess<Property>(occs[0], 'property');
-            const label = lookup_de[property];
+            const label = labelsDe[property];
 
             const statementNamespace = namespaceConfig.map[schemas[property]];
             if (
@@ -466,7 +466,7 @@ export const parseRawEntity = ({
           if (elementsStatement) {
             const wemiGroups = groupBy(statements, (occs) =>
               occs.qualifiers && Property['WEMI-level'] in occs.qualifiers
-                ? lookup_de[
+                ? labelsDe[
                     occs.qualifiers[Property['WEMI-level']][0]?.datavalue.value
                       .id
                   ]
@@ -579,12 +579,12 @@ export const parseRawEntity = ({
       };
       return enrichedParsedStatementProps;
     };
-    const label = lookup_de[entityId] ?? entity.labels.de?.value;
+    const label = labelsDe[entityId] ?? entity.labels.de?.value;
 
     const pageType = elementOfId
       ? ({
-          ...lookup_en[elementOfId],
-          deLabel: lookup_de[elementOfId],
+          ...labelsEn[elementOfId],
+          deLabel: labelsDe[elementOfId],
         } as PageType)
       : undefined;
 
@@ -594,7 +594,7 @@ export const parseRawEntity = ({
         ? addHeadline(label, currentHeadlineLevel, false, namespace)
         : undefined,
       label: !embedded ? label : undefined,
-      title: !embedded && elementOfId ? lookup_de[elementOfId] : undefined,
+      title: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
       pageType,
       namespace,
       field:
