@@ -28,21 +28,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "."
-    // "paths": {
-    //   "@/types-parsed/*": [
-    //     "./data/types/parsed/*"
-    //   ],
-    //   "@/types/*": [
-    //     "../types/*"
-    //   ],
-    //   "@/data/*": [
-    //     "../data/*"
-    //   ],
-    //   "@/bin/*": [
-    //     "./data/*"
-    //   ]
-    // }
   },
   "exclude": ["**/node_modules", "**/.*/"],
-  "include": ["../index.d.ts", "../types", "../utils", "bin/**/*.ts"]
+  "include": [
+    "../index.d.ts",
+    "../.eslintrc.js",
+    "../types",
+    "../utils",
+    "bin/**/*.ts"
+  ]
 }
