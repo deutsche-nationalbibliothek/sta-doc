@@ -73,7 +73,7 @@ export const useScroll = (
         // }
       }
     });
-  }, []);
+  }, [headlines]);
 
   const debouncedOnScroll = useCallback(debounce(onScroll, 50), [onScroll]);
 
@@ -127,6 +127,7 @@ export const useScroll = (
         acc: NestedHeadlines[],
         headline: NestedHeadlines
       ): { title: string; key: string }[] => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, ...headlineValues } = headline;
         if (headlineValues.key === firstSelectedHeadlineKey) {
           return [...acc, headlineValues];
@@ -144,7 +145,7 @@ export const useScroll = (
       };
       setCurrentHeadlinesPath(nestedHeadlines.reduce(treeNodeReducer, []));
     }
-  }, [headlineKeysInViewport]);
+  }, [headlineKeysInViewport, nestedHeadlines]);
 };
 
 enum ScrollDirection {
