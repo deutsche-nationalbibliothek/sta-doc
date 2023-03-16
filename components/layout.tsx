@@ -5,6 +5,7 @@ import { Layout as AntdLayout } from 'antd';
 import { Footer } from './footer';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
+import { SidebarGuard } from './sidebar-guard';
 import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
 
