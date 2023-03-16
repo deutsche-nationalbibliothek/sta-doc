@@ -62,8 +62,8 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
                     ) as RelevantProps)
                   : { label: 'kein Wert' },
                 staNotationLabel: wikibasePointer.staNotationLabel,
-                expandable: wikibasePointer.qualifiers.filter((q) =>
-                  expandableProperties.includes(q.property)
+                expandable: wikibasePointer.qualifiers.filter(
+                  (q) => q.property && expandableProperties.includes(q.property)
                 ),
               };
               return applicationProfileTableData;

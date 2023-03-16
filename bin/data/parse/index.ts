@@ -19,7 +19,10 @@ import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
-import { StaNotationsRaw } from '../../../types/raw/sta-notation';
+import {
+  StaNotationRaw,
+  StaNotationsRaw,
+} from '../../../types/raw/sta-notation';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
@@ -187,13 +190,13 @@ export const schemasParser = (schemas: SchemasRaw) => {
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
-  return staNotations.reduce((acc: any, entry: any) => {
+  return staNotations.reduce((acc, entry: StaNotationRaw) => {
     acc[entry.eId.value] = {
       label: entry.staNotationLabel.value.toUpperCase(),
       id: entry.eId.value,
     };
     return acc;
-  }, {});
+  }, {} as StaNotations);
 };
 
 // todo, needed?
@@ -205,8 +208,7 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
-  parsedStaNotations: StaNotations,
-  parsedSchemas: Schemas
+  parsedStaNotations: StaNotations
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
@@ -214,7 +216,9 @@ export const rdaPropertiesParser = (
 
     const typeData = (idKey: string, labelkey: string) => ({
       id: rdaProperty[idKey].value,
-      label: labelStripper(rdaProperty[labelkey].value),
+      label: labelStripper(
+        rdaProperty[labelkey as keyof typeof rdaProperty].value
+      ),
       namespace: namespaceConfig.map[rdaProperty[idKey].value],
     });
 
@@ -246,11 +250,7 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     fields: fieldsParser(read.fields()),
   };
   return {
-    rdaProperties: rdaPropertiesParser(
-      read.rdaProperties(),
-      data.staNotations,
-      data.schemas
-    ),
+    rdaProperties: rdaPropertiesParser(read.rdaProperties(), data.staNotations),
     labels: {
       de: data.labelsDe,
       en: data.labelsEn,

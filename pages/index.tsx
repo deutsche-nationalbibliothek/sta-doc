@@ -13,7 +13,7 @@ interface HomeProps {
   headlines: Headline[];
 }
 
-export default function Home({ headlines }) {
+export default function Home({ headlines }: HomeProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
 

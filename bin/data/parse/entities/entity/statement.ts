@@ -1,0 +1,136 @@
+import { parseRawEntity, PreMappedStatement } from '.';
+import namespaceConfig from '../../../../../config/namespace';
+import { EntityId } from '../../../../../types/entity-id';
+import { Namespace } from '../../../../../types/namespace';
+import { Property } from '../../../../../types/property';
+import { Claim, StatementRaw } from '../../../../../types/raw/entity';
+import { isPropertyBlacklisted } from '../../../../../utils/constants';
+import { parseReferences } from './datatype/references';
+import { parseStringValue } from './datatype/string';
+import { parseTimeValue } from './datatype/time';
+import { parseUrlValue } from './datatype/url';
+import { parseWikibaseValue } from './datatype/wikibase';
+import { parseStatements, ParseStatementsProps } from './statements';
+
+interface ParseStatementProps extends Required<ParseStatementsProps> {
+  occ: Claim | StatementRaw;
+  keyAccessOcc: <T>(...keys: string[]) => T;
+  hasHeadline: boolean;
+  simplifiedDataType: string;
+}
+
+// const keyAccessOcc = <T>(...keys: string[]) =>
+//   keyAccess<T>(occ, ...keys);
+
+export const parseStatement = (props: ParseStatementProps) => {
+  const {
+    keyAccessOcc,
+    prevParsedEntities,
+    headlines,
+    entityId,
+    data,
+    getRawEntityById,
+    currentHeadlineLevel,
+    occ,
+    isElementsPropOnRdaRessourceType,
+    isTopLevel,
+    isRdaRessourceEntityParam,
+    hasHeadline,
+    simplifiedDataType,
+  } = props;
+
+  const { schemas } = data;
+  const snakType = keyAccessOcc<string>('snaktype');
+  const noDataValue = snakType === 'novalue' || snakType === 'somevalue';
+
+  const property = keyAccessOcc<Property>('property');
+  const embeddedEntityId =
+    !noDataValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
+
+  const hasEmbedding =
+    !noDataValue &&
+    embeddedEntityId &&
+    (property === Property['example(s)'] ||
+      property === Property['embedded-(item)'] ||
+      property === Property['embedded-(property)']) &&
+    !prevParsedEntities.some((id) => id === embeddedEntityId);
+
+  const nextHeaderLevel = currentHeadlineLevel + (hasHeadline ? 1 : 0);
+
+  const embedded = hasEmbedding
+    ? parseRawEntity({
+        entityId: embeddedEntityId,
+        headlines,
+        currentHeadlineLevel: nextHeaderLevel,
+        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
+        isRdaRessourceEntityParam,
+        embedded: true,
+        noHeadline: property === Property['example(s)'],
+        data,
+        getRawEntityById,
+      })?.entity
+    : undefined;
+
+  const dataTypeSpecifics = noDataValue
+    ? snakType === 'somevalue'
+      ? { unknownValue: true }
+      : { somevalue: true }
+    : simplifiedDataType === 'wikibasePointer'
+    ? parseWikibaseValue({
+        ...props,
+        occ,
+        keyAccessOcc,
+        currentHeadlineLevel:
+          nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+        addStaStatement: property === Property.Elements,
+        isTopLevel,
+        isElementsPropOnRdaRessourceType,
+      })
+    : simplifiedDataType === 'time'
+    ? parseTimeValue({ keyAccessOcc })
+    : simplifiedDataType === 'url'
+    ? parseUrlValue({ keyAccessOcc })
+    : parseStringValue({
+        ...props,
+        occ,
+        keyAccessOcc,
+        isTopLevel,
+        isElementsPropOnRdaRessourceType,
+      });
+
+  const qualifiers =
+    'qualifiers' in occ && occ.qualifiers
+      ? parseStatements({
+          ...props,
+          statements: (Object.keys(occ.qualifiers) as Property[])
+            .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
+            .map((qualiKey) => (occ as Required<Claim>).qualifiers[qualiKey]),
+          currentHeadlineLevel:
+            nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+          embedded: true,
+          // isTopLevel,
+          // noHeadline,
+          isElementsPropOnRdaRessourceType,
+        })
+      : undefined;
+
+  const namespace: Namespace = namespaceConfig.map[schemas[property]];
+
+  const preMappedStatement: PreMappedStatement = {
+    property,
+    namespace,
+    ...(dataTypeSpecifics ?? {}),
+    references:
+      'references' in occ && occ.references
+        ? parseReferences({
+            ...props,
+            references: occ.references,
+            isTopLevel,
+          })
+        : undefined,
+    embedded,
+    qualifiers,
+  };
+
+  return preMappedStatement;
+};

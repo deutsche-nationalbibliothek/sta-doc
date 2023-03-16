@@ -13,16 +13,17 @@ module.exports = {
   },
   root: true,
   rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-unsafe-assignment': 0,
     '@typescript-eslint/no-misused-promises': 0,
     '@typescript-eslint/no-unsafe-member-access': 0,
     '@typescript-eslint/no-unsafe-return': 0,
-    'prefer-const': 0,
-    '@typescript-eslint/no-unsafe-argument': 0,
     '@typescript-eslint/no-unsafe-call': 0,
     '@typescript-eslint/no-floating-promises': 0,
+    'prefer-const': 0,
     'no-debugger': 'warn', // instead of default error
-    indent: 'off', // instead of default 4
     'no-undef': 'off',
+    indent: 'off',
   },
 };

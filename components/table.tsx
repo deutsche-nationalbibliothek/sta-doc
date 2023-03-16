@@ -137,64 +137,68 @@ export function Table<T extends object>(props: TableProps<T>) {
     },
   });
 
-  const columnsMapper = (column: any) => {
+  const columnsMapper = (column: ColumnType<T> | ColumnGroupType<T>) => {
     let { render, isSearchable, noSort, ...columnProps } = column;
     if (isSearchable && 'dataIndex' in column) {
       columnProps = {
         ...columnProps,
-        ...getColumnSearchProps(column.dataIndex, column.key),
+        ...getColumnSearchProps(String(column.dataIndex), String(column.key)),
       };
     }
-    if ('render' in column && 'dataIndex' in column) {
-      columnProps.render = (value: any, record: T, index: number) => {
-        return render(
-          value,
-          record,
-          index,
-          searchTexts[column.dataIndex] ? (
-            <Highlighter
-              searchWords={[searchTexts[column.dataIndex]]}
-              textToHighlight={value ? value.toString() : ''}
-            />
-          ) : (
-            value
-          )
-        );
-      };
-    } else {
-      columnProps.render = (value: any) => {
-        return (
-          <Typography.Text>
-            {'dataIndex' in column && searchTexts[column.dataIndex] ? (
-              <Highlighter
-                searchWords={[searchTexts[column.dataIndex]]}
-                textToHighlight={value ? value.toString() : ''}
-              />
-            ) : (
-              value
-            )}
-          </Typography.Text>
-        );
-      };
-    }
+    const columnRender =
+      'render' in column && 'dataIndex' in column
+        ? (value: any, record: T, index: number) => {
+            return render(
+              value,
+              record,
+              index,
+              searchTexts[String(column.dataIndex)] ? (
+                <Highlighter
+                  searchWords={[searchTexts[String(column.dataIndex)]]}
+                  textToHighlight={value ? value.toString() : ''}
+                />
+              ) : (
+                <>{value}</>
+              )
+            );
+          }
+        : (value: any) => {
+            return (
+              <Typography.Text>
+                {'dataIndex' in column &&
+                searchTexts[String(column.dataIndex)] ? (
+                  <Highlighter
+                    searchWords={[searchTexts[String(column.dataIndex)]]}
+                    textToHighlight={value ? value.toString() : ''}
+                  />
+                ) : (
+                  value
+                )}
+              </Typography.Text>
+            );
+          };
 
     return {
       sorter:
-        !noSort && !columnProps.children
+        !noSort && 'dataIndex' in column // !('children' in columnProps)
           ? (a: ColumnsType<T>, b: ColumnsType<T>) =>
-              a[column.dataIndex] > b[column.dataIndex] ? 1 : -1
+              a[String(column.dataIndex)] > b[String(column.dataIndex)] ? 1 : -1
           : undefined,
       onFilter: (value: string, record: ColumnsType<T>) => {
-        const relevantValue = get(record, column.dataIndex);
-        return (
-          relevantValue &&
-          relevantValue.toString().toLowerCase().includes(value.toLowerCase())
-        );
+        if ('dataIndex' in column) {
+          const relevantValue = get(record, column.dataIndex);
+          return (
+            relevantValue &&
+            relevantValue.toString().toLowerCase().includes(value.toLowerCase())
+          );
+        }
       },
       ...columnProps,
-      children: columnProps.children
-        ? columnProps.children.map(columnsMapper)
-        : undefined,
+      render: columnRender,
+      children:
+        'children' in columnProps
+          ? columnProps.children.map(columnsMapper)
+          : undefined,
     };
   };
 

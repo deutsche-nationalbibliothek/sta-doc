@@ -1,0 +1,162 @@
+import { ParseEntitiesProps } from '..';
+import namespaceConfig from '../../../../../config/namespace';
+import { EntityId } from '../../../../../types/entity-id';
+import { Headline } from '../../../../../types/headline';
+import { Item } from '../../../../../types/item';
+import { Namespace } from '../../../../../types/namespace';
+import {
+  Entity,
+  EntityEntry,
+  PageType,
+  StatementValue,
+  StringValue,
+} from '../../../../../types/parsed/entity';
+import { Property } from '../../../../../types/property';
+import { isPropertyBlacklisted } from '../../../../../utils/constants';
+import {
+  defaultGroupsDefinition,
+  Groups,
+  rdaRessourceTypeGroups,
+} from './groups-definition';
+import { headlinesParser } from './util';
+import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
+
+export type DataType = 'string' | 'wikibasePointer' | 'time' | 'url';
+
+export interface ParseEntityProps
+  extends Omit<ParseEntitiesProps, 'rawEntities'> {
+  entityId: EntityId;
+  headlines?: Headline[];
+  currentHeadlineLevel?: number;
+  prevParsedEntities?: EntityId[];
+  embedded?: boolean;
+  isRdaRessourceEntityParam?: boolean;
+  noHeadline?: boolean;
+}
+
+export const parseRawEntity = (
+  props: ParseEntityProps
+): EntityEntry | undefined => {
+  console.log('\t\t\tParsing Entity', props.entityId);
+
+  const {
+    entityId,
+    data,
+    getRawEntityById,
+    headlines = [],
+    currentHeadlineLevel = 1,
+    prevParsedEntities = [],
+    embedded = false,
+    isRdaRessourceEntityParam = false,
+    noHeadline = false,
+  } = props;
+
+  const { labelsDe, labelsEn, staNotations, fields, schemas } = data;
+
+  const entity = getRawEntityById(entityId);
+
+  if (!entity) {
+    console.warn(
+      '\t\t\tentity not found:',
+      entityId,
+      '. But referenced in the dataset:',
+      prevParsedEntities.join(', ')
+    );
+    return;
+  }
+
+  const { addHeadline } = headlinesParser(headlines, noHeadline);
+
+  const entityProps = (): Entity | void => {
+    const namespace: Namespace = namespaceConfig.map[schemas[entityId]];
+    const elementOfId: Item =
+      entity &&
+      entity.claims[Property['Element-of']] &&
+      entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id;
+
+    if (!elementOfId) {
+      console.warn(
+        '\t\t\tno entity.claims with Property.elementof for',
+        entityId
+      );
+      // return undefined;
+    }
+
+    if (namespaceConfig.notUsed.includes(namespace)) {
+      console.warn(
+        '\t\t\tnamespace',
+        namespace,
+        'not used, ignoring entity',
+        entityId
+      );
+      return undefined;
+    }
+
+    const isRdaRessourceEntity =
+      (entity.claims[Property.Elements] && !embedded) ||
+      isRdaRessourceEntityParam;
+
+    const entityHasHeadline = !embedded && !isPropertyBlacklisted(entityId);
+
+    const relevantGroup: Groups = isRdaRessourceEntity
+      ? rdaRessourceTypeGroups
+      : defaultGroupsDefinition;
+
+    const label = labelsDe[entityId] ?? entity.labels.de?.value;
+
+    const pageType = elementOfId
+      ? ({
+          ...labelsEn[elementOfId],
+          deLabel: labelsDe[elementOfId],
+        } as PageType)
+      : undefined;
+
+    return {
+      id: entityId,
+      headline: entityHasHeadline
+        ? addHeadline(label, currentHeadlineLevel, false, namespace)
+        : undefined,
+      label: !embedded ? label : undefined,
+      title: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
+      pageType,
+      namespace,
+      field:
+        pageType && pageType.id === Item['GND-data-field']
+          ? fields.find((field) => field.id === entityId)
+          : undefined,
+      staNotationLabel:
+        entityId in staNotations
+          ? staNotations[entityId].label.toUpperCase()
+          : undefined,
+      statements: filterSortTransformStatemants({
+        ...props,
+        noHeadline,
+        embedded,
+        prevParsedEntities,
+        currentHeadlineLevel,
+        headlines,
+        relevantGroup,
+        occurrences: entity.claims,
+        isRdaRessourceEntity,
+        isRdaRessourceEntityParam,
+        addHeadline,
+      }),
+      // logo:
+      //   !embedded &&
+      //   entity.claims[Property.logo],
+    };
+  };
+
+  const parsedEntity = entityProps();
+  // const parsedEntity = {
+  //   ...entityProps(),
+  // };
+
+  if (parsedEntity) {
+    return { entity: parsedEntity, headlines };
+  }
+};
+
+export type PreMappedStatement = Omit<StatementValue, 'string'> & {
+  string?: StringValue[];
+};

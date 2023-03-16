@@ -73,6 +73,8 @@ export interface CommonValue {
   // headline?: Headline;
 }
 
+export type StatementValue = Statement & CommonValue;
+
 export interface Reference {
   label?: string;
   string?: StringValueContainer[];
@@ -89,7 +91,7 @@ export interface UrlValue extends CommonValue {
 
 export interface StringValueContainer {
   values: Maybe<StringValue>[];
-  itemType: string; // 'default' | ''
+  itemType: EntityId | 'default'; // 'default' | ''
   relativeHeadline?: 1 | 2 | 3;
 }
 
@@ -97,7 +99,7 @@ export interface StringValue extends CommonValue {
   value: string;
   coding?: Coding;
   headline?: Headline;
-  itemType?: EntityId | 'default';
+  itemType: EntityId | 'default';
 }
 
 export interface WikiBaseValue extends CommonValue {
@@ -113,9 +115,9 @@ export interface WikiBaseValue extends CommonValue {
 // export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue
 
 export interface StatementsByGroup {
-  header: Statement[];
-  table: Statement[];
-  text: Statement[];
+  header: StatementValue[];
+  table: StatementValue[];
+  text: StatementValue[];
 }
 
 export interface Coding {

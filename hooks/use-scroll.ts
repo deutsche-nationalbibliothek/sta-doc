@@ -148,10 +148,10 @@ export const useScroll = (
   }, [headlineKeysInViewport, nestedHeadlines]);
 };
 
-// enum ScrollDirection {
-//   up = 'up',
-//   down = 'down',
-// }
+enum ScrollDirection {
+  up = 'up',
+  down = 'down',
+}
 
 const useScrollDirection = (): ScrollDirection => {
   const [scrollPosition, setScrollPosition] = useState({

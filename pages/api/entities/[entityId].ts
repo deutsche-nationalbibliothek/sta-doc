@@ -11,7 +11,7 @@ import {
   schemasParser,
   staNotationsParser,
 } from '@/bin/data/parse';
-import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
+import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
 import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
