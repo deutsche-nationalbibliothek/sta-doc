@@ -1,4 +1,4 @@
-import { useInitialScroll } from '@/hooks/use-inital-scroll';
+import { useInitialScroll } from '@/hooks/use-initial-scroll';
 import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
@@ -47,7 +47,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     if (nextViewParam === 'application-profile') {
       const asPathMatch = router.asPath.match(/.*(?=#)/);
       if (asPathMatch) {
-        // prevent issue with hooks/use-inital-scroll.ts
+        // prevent issue with hooks/use-initial-scroll.ts
         router.push(asPathMatch[0]);
       }
     }
