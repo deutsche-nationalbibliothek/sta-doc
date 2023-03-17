@@ -35,9 +35,9 @@ module.exports = (phase) => {
   // console.log(phase)
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     const nextConfig = {
-      basePath: '/doc',
+      basePath: '',
       env: {
-        basePath: '/doc',
+        basePath: '',
         solrHost: 'localhost'
       },
       images: {
