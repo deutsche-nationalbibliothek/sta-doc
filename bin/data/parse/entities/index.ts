@@ -4,8 +4,8 @@ import { Codings } from '../../../../types/parsed/coding';
 import { Fields } from '../../../../types/parsed/field';
 import { EntitiesEntries } from '../../../../types/parsed/entity';
 import { Schemas } from '../../../../types/parsed/schema';
-import { LabelDes } from '../../../../types/parsed/label-de';
-import { LabelEns } from '../../../../types/parsed/label-en';
+import { LabelsDe } from '../../../../types/parsed/label-de';
+import { LabelsEn } from '../../../../types/parsed/label-en';
 import { StaNotations } from '../../../../types/parsed/sta-notation';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
@@ -17,8 +17,8 @@ export interface ParseEntitiesProps {
 }
 
 export interface ParseEntitiesData {
-  lookup_en: LabelEns;
-  lookup_de: LabelDes;
+  labelsEn: LabelsEn;
+  labelsDe: LabelsDe;
   codings: Codings;
   staNotations: StaNotations;
   schemas: Schemas;

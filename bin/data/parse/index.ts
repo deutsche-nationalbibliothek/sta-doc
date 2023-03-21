@@ -4,8 +4,8 @@ import { EntityId } from '../../../types/entity-id';
 import { CodingLabel, Codings } from '../../../types/parsed/coding';
 import { Description } from '../../../types/parsed/description';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
-import { LabelDes } from '../../../types/parsed/label-de';
-import { LabelEns } from '../../../types/parsed/label-en';
+import { LabelsDe } from '../../../types/parsed/label-de';
+import { LabelsEn } from '../../../types/parsed/label-en';
 import { RdaProperties } from '../../../types/parsed/rda-property';
 import { StaNotations } from '../../../types/parsed/sta-notation';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -19,7 +19,10 @@ import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
-import { StaNotationsRaw } from '../../../types/raw/sta-notation';
+import {
+  StaNotationRaw,
+  StaNotationsRaw,
+} from '../../../types/raw/sta-notation';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
@@ -89,8 +92,15 @@ export const entitiesParser = {
 
 export const fieldsParser = (fields: FieldsRaw) =>
   Object.entries(fields).map(([key, field]) => {
-    const { codings, description, editLink, repeatable, label, subfields, viewLink } =
-      field;
+    const {
+      codings,
+      description,
+      editLink,
+      repeatable,
+      label,
+      subfields,
+      viewLink,
+    } = field;
     return {
       id: key as EntityId,
       codings,
@@ -100,7 +110,8 @@ export const fieldsParser = (fields: FieldsRaw) =>
       label: labelStripper(label),
       viewLink,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
-        const { codings, description, editLink, label, viewLink, repeatable } = subfield;
+        const { codings, description, editLink, label, viewLink, repeatable } =
+          subfield;
         return {
           id: key as EntityId,
           codings,
@@ -115,15 +126,15 @@ export const fieldsParser = (fields: FieldsRaw) =>
   });
 
 export const labelsParser = {
-  de: (deLabels: LabelDeRaws) =>
-    deLabels.reduce((acc, label) => {
-      acc[label.eId.value as keyof LabelDes] = labelStripper(
+  de: (labelsDe: LabelDeRaws) =>
+    labelsDe.reduce((acc, label) => {
+      acc[label.eId.value as keyof LabelsDe] = labelStripper(
         label.elementLabel.value
       );
       return acc;
-    }, {} as LabelDes),
-  en: (enLabels: LabelEnRaws) =>
-    commonParseFunc<LabelEnRaws, LabelEns>(enLabels, NAMES.labelEn),
+    }, {} as LabelsDe),
+  en: (labelsEn: LabelEnRaws) =>
+    commonParseFunc<LabelEnRaws, LabelsEn>(labelsEn, NAMES.labelEn),
 };
 
 export const codingsParser = (codings: CodingsRaw) => {
@@ -179,13 +190,13 @@ export const schemasParser = (schemas: SchemasRaw) => {
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
-  return staNotations.reduce((acc: any, entry: any) => {
+  return staNotations.reduce((acc, entry: StaNotationRaw) => {
     acc[entry.eId.value] = {
       label: entry.staNotationLabel.value.toUpperCase(),
       id: entry.eId.value,
     };
     return acc;
-  }, {});
+  }, {} as StaNotations);
 };
 
 // todo, needed?
@@ -197,8 +208,7 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
-  parsedStaNotations: StaNotations,
-  parsedSchemas: Schemas
+  parsedStaNotations: StaNotations
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
@@ -206,7 +216,9 @@ export const rdaPropertiesParser = (
 
     const typeData = (idKey: string, labelkey: string) => ({
       id: rdaProperty[idKey].value,
-      label: labelStripper(rdaProperty[labelkey].value),
+      label: labelStripper(
+        rdaProperty[labelkey as keyof typeof rdaProperty].value
+      ),
       namespace: namespaceConfig.map[rdaProperty[idKey].value],
     });
 
@@ -232,20 +244,16 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
   const data = {
     staNotations: staNotationsParser(read.staNotations()),
     schemas: schemasParser(read.schemas()),
-    lookup_de: labelsParser.de(read.labels.de()),
-    lookup_en: labelsParser.en(read.labels.en()),
+    labelsDe: labelsParser.de(read.labels.de()),
+    labelsEn: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
     fields: fieldsParser(read.fields()),
   };
   return {
-    rdaProperties: rdaPropertiesParser(
-      read.rdaProperties(),
-      data.staNotations,
-      data.schemas
-    ),
+    rdaProperties: rdaPropertiesParser(read.rdaProperties(), data.staNotations),
     labels: {
-      de: data.lookup_de,
-      en: data.lookup_en,
+      de: data.labelsDe,
+      en: data.labelsEn,
     },
     entities: {
       all: entitiesParser.all(
@@ -272,7 +280,7 @@ export const propertyItemList = (
     (b) => b.eId.value.split('')[0]
   );
 
-  const createEnum = (name: String, data: PropertiesItemsListRaw) => {
+  const createEnum = (name: string, data: PropertiesItemsListRaw) => {
     return [
       `export enum ${name} {`,
       sortBy(

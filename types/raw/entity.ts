@@ -51,6 +51,10 @@ export interface StatementRaw {
   datatype: string;
 }
 
+// export const isClaim = (
+//   claimOrStatementRaw: Claim | StatementRaw
+// ): claimOrStatementRaw is Claim => 'mainsnak' in claimOrStatementRaw;
+
 interface Datavalue {
   value: any;
   type: string;
@@ -62,4 +66,5 @@ export interface Reference {
   'snaks-order': string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Sitelinks {}

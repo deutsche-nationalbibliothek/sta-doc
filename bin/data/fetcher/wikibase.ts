@@ -1,5 +1,6 @@
 import { EntityId } from '../../../types/entity-id';
 import { EntityRaw } from '../../../types/raw/entity';
+import { FieldsRaw } from '../../../types/raw/field';
 import { fetchWithSparql } from '../utils/fetch';
 
 export const fetchWikibase = ({
@@ -15,7 +16,7 @@ export const fetchWikibase = ({
     return res.entities;
   };
 
-  const fetchFields = async () =>
+  const fetchFields = async (): Promise<{ fields: FieldsRaw }> =>
     await fetcher('/w/rest.php/gnd/doku/v1/datafields');
 
   const sparqlQuery = async <T>(sparqlQueryString: string): Promise<T> => {

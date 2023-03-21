@@ -11,7 +11,7 @@ import {
   schemasParser,
   staNotationsParser,
 } from '@/bin/data/parse';
-import { prefetchEmbeddedEntities } from '@/bin/data/parse/entities/prefetch-embedded-entities';
+import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
 import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -68,8 +68,8 @@ const getLiveEntity = async (
 
   const entity = prefetched[entityId];
   if (entity) {
-    const lookup_en = labelsParser.en(await fetch.labels.en());
-    const lookup_de = labelsParser.de(await fetch.labels.de());
+    const labelsEn = labelsParser.en(await fetch.labels.en());
+    const labelsDe = labelsParser.de(await fetch.labels.de());
     const codings = codingsParser(await fetch.codings());
     const staNotations = staNotationsParser(await fetch.staNotations());
     const schemas = schemasParser(await fetch.schemas());
@@ -79,8 +79,8 @@ const getLiveEntity = async (
       rawEntities: { [entityId]: entity },
       getRawEntityById: (id: EntityId) => prefetched[id],
       data: {
-        lookup_en,
-        lookup_de,
+        labelsEn,
+        labelsDe,
         codings,
         staNotations,
         schemas,

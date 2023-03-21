@@ -21,6 +21,7 @@
   "include": [
     "index.d.ts",
     "next-env.d.ts",
+    ".eslintrc.js",
     "components/**/*",
     "features/**/*",
     "hooks/**/*",

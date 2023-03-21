@@ -22,7 +22,7 @@ export const DEV = false;
 (async () => {
   const fetchRawAndWrite = async () => {
     const data = await fetcher().fetchAll();
-    console.log('going to write')
+    console.log('going to write');
     writer(data, DataState.raw).writeAll();
   };
 
@@ -38,8 +38,8 @@ export const DEV = false;
       readRaw.entities.single(entityId),
       (entityId: EntityId) => readRaw.entities.single(entityId),
       {
-        lookup_de: labelsParser.de(readRaw.labels.de()),
-        lookup_en: labelsParser.en(readRaw.labels.en()),
+        labelsDe: labelsParser.de(readRaw.labels.de()),
+        labelsEn: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
         staNotations: staNotationsParser(readRaw.staNotations()),
         schemas: schemasParser(readRaw.schemas()),
