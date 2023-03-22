@@ -55,7 +55,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     setShowHeadlines(!nextViewParam);
   };
 
-  const wemiStatement = entity.statements.text.find(
+  const wemiStatement = entity.statements.body.find(
     (statement) => statement.property === Property['WEMI-level']
   );
 
@@ -64,11 +64,11 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   const tableStatements =
     entity.pageType?.id === Item['GND-data-field']
       ? [
-        ...entity.statements.table,
-        entity.statements.text.find(
-          (statement) => statement.property === Property.Subfields
-        ),
-      ]
+          ...entity.statements.table,
+          entity.statements.body.find(
+            (statement) => statement.property === Property.Subfields
+          ),
+        ]
       : entity.statements.table;
 
   return (
@@ -95,8 +95,8 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
                 field={entity.field}
               />
             )}
-            {entity.statements.text.length > 0 && (
-              <Statements statements={entity.statements.text} />
+            {entity.statements.body.length > 0 && (
+              <Statements statements={entity.statements.body} />
             )}
           </>
         )}

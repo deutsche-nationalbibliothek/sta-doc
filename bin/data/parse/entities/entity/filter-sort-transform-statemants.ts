@@ -58,7 +58,7 @@ export const filterSortTransformStatemants = (
   const nextHeaderLevel = currentHeadlineLevel + 1;
 
   const reorganiseRdaRessourceType = () => {
-    const releavantClaims = sortByProperties(filterByGroup('text'), 'text');
+    const releavantClaims = sortByProperties(filterByGroup('body'), 'body');
     const claimsReducer = (acc: Claim[][], statements: Claim[]): Claim[][] => {
       const elementsStatement =
         isRdaRessourceEntity &&
@@ -136,7 +136,7 @@ export const filterSortTransformStatemants = (
     return releavantClaims.reduce(claimsReducer, []); // as Claim[][]).filter((statements) => statements.length);
   };
 
-  const textStatemants = isRdaRessourceEntity
+  const bodyStatemants = isRdaRessourceEntity
     ? reorganiseRdaRessourceType()
     : sortByProperties(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -152,7 +152,7 @@ export const filterSortTransformStatemants = (
           }
           return acc;
         }, [] as Claim[][]),
-        'text'
+        'body'
       );
 
   return {
@@ -169,9 +169,9 @@ export const filterSortTransformStatemants = (
       isTopLevel: !embedded,
       noHeadline: true,
     }),
-    text: parseStatements({
+    body: parseStatements({
       ...props,
-      statements: textStatemants,
+      statements: bodyStatemants,
       currentHeadlineLevel: nextHeaderLevel,
       isTopLevel: !embedded,
       noHeadline: noHeadline,

@@ -43,7 +43,7 @@ export interface PageType {
 export interface Statements {
   header: Statement[];
   table: Statement[];
-  text: Statement[];
+  body: Statement[];
 }
 
 export interface NoValue extends CommonValue {
@@ -117,7 +117,7 @@ export interface WikiBaseValue extends CommonValue {
 export interface StatementsByGroup {
   header: StatementValue[];
   table: StatementValue[];
-  text: StatementValue[];
+  body: StatementValue[];
 }
 
 export interface Coding {

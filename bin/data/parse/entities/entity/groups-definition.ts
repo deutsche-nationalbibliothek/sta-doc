@@ -3,13 +3,10 @@ import { Property } from '../../../../../types/property';
 // header and table are whitelists
 // text is just for sorting, header values are blacklist for text group
 
-export type Group = keyof typeof defaultGroupsDefinition;
+export type Group = 'header' | 'table' | 'body';
 export type Groups = Record<Group, Property[]>;
 
-export const defaultGroupsDefinition: Record<
-  'header' | 'table' | 'text',
-  Property[]
-> = {
+export const defaultGroupsDefinition: Groups = {
   header: [
     Property['definition'],
     // Property['STA-Notation'], // staNotationLabel gets injected by static data
@@ -34,7 +31,7 @@ export const defaultGroupsDefinition: Record<
     Property.P663,
     Property['WEMI-level'],
   ],
-  text: [
+  body: [
     // Property['STA-Notation'], // ??
     Property['Encoding'],
     Property['Explanation'],
@@ -399,16 +396,16 @@ export const defaultGroupsDefinition: Record<
     Property['creator-agent-of-work-or-RDA-property'],
     Property['other-agent-associated-with-work-or-RDA-property'],
     Property['related-work-of-work-or-RDA-property'],
-  ], // as Property[], // todo, this is a quickfix since english labels changed therefore the enum members as well,
+  ],
 };
 
-export const rdaRessourceTypeGroups = {
+export const rdaRessourceTypeGroups: Groups = {
   header: [
     Property.definition,
     // Property['STA-Notation'],
   ],
   table: [],
-  text: [
+  body: [
     Property.P659,
     Property['Sources-of-information'],
     Property.description,
@@ -418,7 +415,7 @@ export const rdaRessourceTypeGroups = {
     Property['description-(at-the-end)'],
     // Property['description-(at-the-end)',
 
-    Property['Title-proper'],
+    Property['title-proper-or-RDA-property'],
     Property.Status,
     Property.Repetition,
     Property['embedded-(item)'],

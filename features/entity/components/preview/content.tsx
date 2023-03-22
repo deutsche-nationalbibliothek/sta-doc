@@ -13,7 +13,7 @@ export const EntityPreviewContent: React.FC<EntityPreviewContentProps> = ({
   const statements = [
     ...entity.statements.header,
     ...entity.statements.table,
-    ...entity.statements.text,
+    ...entity.statements.body,
   ];
 
   const definition = statements.find((s) => s.property === Property.definition);

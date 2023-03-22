@@ -52,7 +52,7 @@ export const Example: React.FC<ExampleProps> = ({
   const statements = [
     ...entity.statements.header,
     ...entity.statements.table,
-    ...entity.statements.text,
+    ...entity.statements.body,
   ];
 
   const propFinder = (property: Property) =>
@@ -94,40 +94,40 @@ export const Example: React.FC<ExampleProps> = ({
           exampleValue.qualifiers.map((qualifier) =>
             'string' in qualifier
               ? qualifier.string.map((stringValueContainer) =>
-                stringValueContainer.values.map((qualifierValue) => {
-                  return (
-                    'coding' in qualifierValue && {
-                      coding: qualifierValue.coding[coding][0],
-                      value: qualifierValue.value,
-                    }
-                  );
-                })
-              )
+                  stringValueContainer.values.map((qualifierValue) => {
+                    return (
+                      'coding' in qualifierValue && {
+                        coding: qualifierValue.coding[coding][0],
+                        value: qualifierValue.value,
+                      }
+                    );
+                  })
+                )
               : {
-                coding:
-                  qualifier.coding[coding] +
-                  qualifier.wikibasePointer
-                    ?.map((w) => ('coding' in w ? w.coding[coding][0] : ''))
-                    .join(''),
-                value: '',
-              }
+                  coding:
+                    qualifier.coding[coding] +
+                    qualifier.wikibasePointer
+                      ?.map((w) => ('coding' in w ? w.coding[coding][0] : ''))
+                      .join(''),
+                  value: '',
+                }
           )
         );
         if ('coding' in statement) {
-        acc['PICA3'] = [
-          ...acc['PICA3'],
-          [
-            { coding: statement.coding['PICA3'][0], value: '' },
-            ...picaThree.flat(2).filter((a) => a),
-          ],
-        ];
-        acc['PICA+'] = [
-          ...acc['PICA+'],
-          [
-            { coding: statement.coding['PICA+'][0], value: '' },
-            ...picaPlus.flat(2).filter((a) => a),
-          ],
-        ];
+          acc['PICA3'] = [
+            ...acc['PICA3'],
+            [
+              { coding: statement.coding['PICA3'][0], value: '' },
+              ...picaThree.flat(2).filter((a) => a),
+            ],
+          ];
+          acc['PICA+'] = [
+            ...acc['PICA+'],
+            [
+              { coding: statement.coding['PICA+'][0], value: '' },
+              ...picaPlus.flat(2).filter((a) => a),
+            ],
+          ];
         }
       }
     } else if ('coding' in statement) {
@@ -257,7 +257,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
 const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
   const preData: Record<string, PreData> = compact(
     flattenDeep(
-      entity.statements.text
+      entity.statements.body
         .filter(
           (statement) =>
             !nonDefaultRenderProperties.includes(statement.property)
