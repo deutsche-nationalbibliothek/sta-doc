@@ -46,7 +46,7 @@ export const GndFieldsTable: React.FC<
       title: 'Bezeichnung',
       dataIndex: 'label',
       key: 'label',
-      width: '30%',
+      width: '35%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return <EntityLink {...record}>{highlightedContent}</EntityLink>;

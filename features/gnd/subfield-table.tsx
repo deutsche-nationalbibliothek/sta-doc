@@ -47,7 +47,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
     },
     {
       title: 'Bezeichnung',
-      width: '30%',
+      width: '35%',
       dataIndex: 'label',
       noSort: true,
       key: 'label',
