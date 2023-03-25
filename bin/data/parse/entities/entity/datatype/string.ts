@@ -1,12 +1,11 @@
-import { EntityId } from '../../../../../../types/entity-id';
 import { Item } from '../../../../../../types/item';
 import {
   StringValue,
   CommonValue,
+  ItemType,
 } from '../../../../../../types/parsed/entity';
 import { Property } from '../../../../../../types/property';
 import { Claim, StatementRaw } from '../../../../../../types/raw/entity';
-import { isPropertyBlacklisted } from '../../../../../../utils/constants';
 import { ParseStatementsProps } from '../statements';
 
 interface ParseStringValue extends Required<ParseStatementsProps> {
@@ -24,15 +23,25 @@ export const parseStringValue = ({
   currentHeadlineLevel,
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
   const { codings } = data;
-  const value = keyAccessOcc<string>('datavalue', 'value');
+  const snakType = keyAccessOcc('snaktype');
+  const value =
+    snakType === 'novalue'
+      ? 'Kein Wert'
+      : snakType === 'somevalue'
+      ? 'unbekannter Wert'
+      : keyAccessOcc<string>('datavalue', 'value');
   const property = keyAccessOcc<Property>('property');
-  const itemType: EntityId =
-    (!embedded &&
-      'qualifiers-order' in occ &&
-      occ.qualifiers &&
-      occ['qualifiers-order'] &&
-      occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue?.value
-        ?.id);
+
+  const itemType: ItemType =
+    snakType === 'novalue' || snakType === 'somevalue'
+      ? snakType
+      : (!embedded &&
+          'qualifiers-order' in occ &&
+          occ.qualifiers &&
+          occ['qualifiers-order'] &&
+          occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
+            ?.value?.id) ||
+        'default';
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],
@@ -41,16 +50,15 @@ export const parseStringValue = ({
   ];
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
-  const hasHeadline =
-    headingIndex >= 0 && itemType
-    !isPropertyBlacklisted(itemType ?? property, 'headlines');
+  const hasHeadline = headingIndex >= 0 && itemType;
+  // !isPropertyBlacklisted(itemType ?? property, 'headlines');
 
   return {
     value,
     headline: hasHeadline
       ? addHeadline(value, currentHeadlineLevel + headingIndex, noHeadline)
       : undefined,
-    coding: codings[property],
+    codings: codings[property],
     itemType,
   };
 };

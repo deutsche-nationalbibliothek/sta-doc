@@ -1,6 +1,14 @@
 import { Namespace } from '../types/namespace';
 
-const namespaceConfig = {
+export type NamespaceId = 'Q1' | 'Q15' | 'Q3113' | 'Q263' | 'Q8540';
+
+interface NamespaceConfig {
+  notUsed: Namespace[];
+  notPointedOut: Namespace[];
+  map: Record<NamespaceId, Namespace>;
+}
+
+const namespaceConfig: NamespaceConfig = {
   // Namespaces which are not used at all, entities will be ignored on parsing
   // and will render 404 pages
   notUsed: [Namespace.UC],

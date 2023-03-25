@@ -1,9 +1,9 @@
 import { compact, groupBy, omit } from 'lodash';
 import { ParseEntityProps } from '.';
 import { EntityId } from '../../../../../types/entity-id';
-import { StatementsByGroup } from '../../../../../types/parsed/entity';
+import { Statements } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
-import { Claim } from '../../../../../types/raw/entity';
+import { Claim, StatementRaw } from '../../../../../types/raw/entity';
 import { defaultGroupsDefinition, Group, Groups } from './groups-definition';
 import { parseStatements } from './statements';
 import { AddHeadline } from './util';
@@ -18,16 +18,11 @@ export interface FilterSortTransformStatementsProps
 
 export const filterSortTransformStatemants = (
   props: FilterSortTransformStatementsProps
-): StatementsByGroup => {
+): Statements => {
   const {
     data,
-    // getRawEntityById,
-    // entityId,
-    // headlines,
     currentHeadlineLevel,
-    // prevParsedEntities,
     embedded = false,
-    // isRdaRessourceEntityParam = false,
     noHeadline = false,
     occurrences,
     relevantGroup,
@@ -66,16 +61,22 @@ export const filterSortTransformStatemants = (
         statements[0].parentProperty === Property.Elements;
 
       if (elementsStatement) {
-        const wemiGroups = groupBy(statements, (occs: Claim) =>
-          'qualifiers' in occs &&
-          occs.qualifiers &&
-          Property['WEMI-level'] in occs.qualifiers
-            ? labelsDe[
-                occs.qualifiers[Property['WEMI-level']][0]?.datavalue?.value.id
-              ]
-            : 'Kein Wert'
-        );
+        const wemiGroups = groupBy(statements, (occs: Claim) => {
+          if (
+            'qualifiers' in occs &&
+            occs.qualifiers &&
+            Property['WEMI-level'] in occs.qualifiers
+          ) {
+            const id =
+              occs.qualifiers[Property['WEMI-level']][0]?.datavalue?.value.id;
+            if (id) {
+              return labelsDe[id];
+            }
+          }
+          return 'Kein Wert';
+        });
 
+        // traverse datastructure for Wemi Levels
         const wemiMapped = Object.keys(wemiGroups)
           .filter((wemiGroupKey) => wemiGroupKey !== 'Kein Wert')
           .map((wemiGroupKey) => {
@@ -87,20 +88,20 @@ export const filterSortTransformStatemants = (
               claimStatement.qualifiers &&
               Property['WEMI-level'] in claimStatement.qualifiers
             ) {
-              const wemiLevel =
+              const wemiLevel: StatementRaw =
                 claimStatement.qualifiers[Property['WEMI-level']][0];
 
-              const kk = {
+              const newStatement = {
                 ...wemiLevel,
                 qualifiers: occs.reduce((acc, occ) => {
                   const property = occ.mainsnak.property;
                   if (property in acc) {
                     const qualifiers = omit(
-                      occ.qualifiers,
+                      occ.qualifiers as Record<Property, StatementRaw[]>,
                       Property['WEMI-level']
-                    ); // as Record<EntityId, StatementRaw[]>;
+                    ) as Record<EntityId, StatementRaw[]>;
                     const jj = {
-                      ...occ,
+                      ...(occ as unknown as StatementRaw),
                       qualifiers,
                     };
                     acc[property] = [...acc[property], jj];
@@ -119,10 +120,10 @@ export const filterSortTransformStatemants = (
                     };
                   }
                   return acc;
-                }, {}), //as Record<Property, (StatementRaw | Claim)[]>),
+                }, {} as Record<Property, StatementRaw[]>), //as Record<Property, (StatementRaw | Claim)[]>),
                 datatype: 'wikibase-property',
               } as unknown as Claim;
-              return [kk];
+              return [newStatement];
             } else {
               return wemiGroups[wemiGroupKey];
             }

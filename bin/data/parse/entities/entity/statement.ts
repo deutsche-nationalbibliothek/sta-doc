@@ -1,5 +1,5 @@
 import { parseRawEntity, PreMappedStatement } from '.';
-import namespaceConfig from '../../../../../config/namespace';
+import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
 import { Namespace } from '../../../../../types/namespace';
 import { Property } from '../../../../../types/property';
@@ -73,8 +73,8 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const dataTypeSpecifics = noDataValue
     ? snakType === 'somevalue'
-      ? { unknownValue: true }
-      : { somevalue: true }
+      ? { someValue: true }
+      : { unknownValue: true }
     : simplifiedDataType === 'wikibasePointer'
     ? parseWikibaseValue({
         ...props,
@@ -114,7 +114,8 @@ export const parseStatement = (props: ParseStatementProps) => {
         })
       : undefined;
 
-  const namespace: Namespace = namespaceConfig.map[schemas[property]];
+  const namespaceId = schemas[property] as NamespaceId;
+  const namespace: Namespace = namespaceConfig.map[namespaceId];
 
   const preMappedStatement: PreMappedStatement = {
     property,

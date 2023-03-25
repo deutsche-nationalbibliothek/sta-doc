@@ -7,7 +7,14 @@ interface ParseUrlValue {
 export const parseUrlValue = ({
   keyAccessOcc,
 }: ParseUrlValue): Omit<UrlValue, keyof CommonValue> => {
+  const snakType = keyAccessOcc('snaktype');
+  const value =
+    snakType === 'novalue'
+      ? 'Kein Wert'
+      : snakType === 'somevalue'
+      ? 'Fehlender Wert'
+      : keyAccessOcc<string>('datavalue', 'value');
   return {
-    value: keyAccessOcc<string>('datavalue', 'value'),
+    value,
   };
 };

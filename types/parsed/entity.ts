@@ -11,13 +11,13 @@ export type EntitiesEntries = Record<EntityId, EntityEntry>;
 export interface Entity {
   id: string;
   label?: string;
-  title?: string; // only top level
+  title?: string;
   field?: Field;
   headline?: Headline;
   description?: string;
   // logo?: string;
   pageType?: PageType;
-  namespace: Namespace;
+  namespace?: Namespace;
   staNotationLabel?: string;
   statements: Statements;
 }
@@ -41,29 +41,20 @@ export interface PageType {
 }
 
 export interface Statements {
-  header: Statement[];
-  table: Statement[];
-  body: Statement[];
+  header: StatementValue[];
+  table: StatementValue[];
+  body: StatementValue[];
 }
 
-export interface NoValue extends CommonValue {
-  noValue: true;
-}
-
-export interface UnknownValue extends CommonValue {
-  unknownValue: true;
-}
-
-export interface Statement {
+export interface Statement extends Datatypes {
   label?: string;
-  property?: Property;
-  string?: StringValueContainer[];
-  wikibasePointer?: Maybe<WikiBaseValue>[];
+  property: Property;
   headline?: Headline;
-  namespace: Namespace;
-  url?: UrlValue[];
-  coding?: Coding;
+  namespace?: Namespace;
+  codings?: Codings;
 }
+
+export type StatementValue = Statement & CommonValue;
 
 export interface CommonValue {
   references?: Reference[];
@@ -73,12 +64,28 @@ export interface CommonValue {
   // headline?: Headline;
 }
 
-export type StatementValue = Statement & CommonValue;
+// always only one key present
+export interface Datatypes {
+  urls?: UrlValue[];
+  stringGroups?: StringGroup[];
+  times?: TimeValue[];
+  wikibasePointers?: WikibasePointerValue[];
+  // noValues?: NoValue[];
+  // someValues?: UnknownValue[];
+}
+
+export interface UnknownValue {
+  unknownValue: true;
+}
+
+export interface NoValue {
+  noValue: true;
+}
 
 export interface Reference {
   label?: string;
-  string?: StringValueContainer[];
-  url?: UrlValue[];
+  stringGroup?: StringGroup[];
+  urls?: UrlValue[];
 }
 
 export interface TimeValue extends CommonValue {
@@ -89,38 +96,32 @@ export interface UrlValue extends CommonValue {
   value: string;
 }
 
-export interface StringValueContainer {
-  values: Maybe<StringValue>[];
-  itemType: EntityId | 'default'; // 'default' | ''
+export interface StringGroup {
+  values: StringValue[];
+  itemType: ItemType; // 'default' | ''
   relativeHeadline?: 1 | 2 | 3;
 }
 
 export interface StringValue extends CommonValue {
   value: string;
-  coding?: Coding;
+  codings?: Codings;
   headline?: Headline;
-  itemType: EntityId | 'default';
+  itemType: ItemType;
 }
 
-export interface WikiBaseValue extends CommonValue {
+export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';
+
+export interface WikibasePointerValue extends CommonValue {
   id: EntityId;
   label: string;
   link: string;
-  coding?: Coding;
+  codings?: Codings;
   headline?: Headline;
   staNotationLabel?: string;
-  namespace: Namespace;
+  namespace?: Namespace;
 }
 
-// export type StatementValue = TimeValue | UrlValue | StringValue | WikiBaseValue
-
-export interface StatementsByGroup {
-  header: StatementValue[];
-  table: StatementValue[];
-  body: StatementValue[];
-}
-
-export interface Coding {
+export interface Codings {
   label: string;
   PICA3: string[];
   'PICA+': string[];
@@ -128,12 +129,10 @@ export interface Coding {
   'GND-Ontologie'?: string[];
 }
 
-export type Maybe<T> = T | UnknownValue | NoValue;
-
 export const isWikibaseValue = (
-  wikibaseValue: Maybe<WikiBaseValue>
-): wikibaseValue is WikiBaseValue => wikibaseValue && 'label' in wikibaseValue;
+  wikibaseValue: WikibasePointerValue
+): wikibaseValue is WikibasePointerValue => true;
 
 export const isStringValue = (
-  stringValue: Maybe<StringValue>
-): stringValue is StringValue => stringValue && 'value' in stringValue;
+  stringValue: StringValue
+): stringValue is StringValue => true;

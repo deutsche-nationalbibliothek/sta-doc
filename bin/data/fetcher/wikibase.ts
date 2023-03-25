@@ -10,7 +10,7 @@ export const fetchWikibase = ({
   const fetchWikiBaseRawData = async (
     id: string
   ): Promise<Record<EntityId, EntityRaw | void>> => {
-    const res = await fetcher(
+    const res = await fetcher<{ entities: Record<EntityId, EntityRaw> }>(
       `w/api.php?action=wbgetentities&format=json&languages=de&ids=${id}`
     );
     return res.entities;
@@ -20,7 +20,7 @@ export const fetchWikibase = ({
     await fetcher('/w/rest.php/gnd/doku/v1/datafields');
 
   const sparqlQuery = async <T>(sparqlQueryString: string): Promise<T> => {
-    const response = await sparqlQueryDispatcher(sparqlQueryString);
+    const response = await sparqlQueryDispatcher<T>(sparqlQueryString);
     return response.results.bindings;
   };
 

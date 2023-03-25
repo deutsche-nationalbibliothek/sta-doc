@@ -1,4 +1,5 @@
 import { EntityId } from '../../types/entity-id';
+import { EntitiesEntries } from '../../types/parsed/entity';
 import { API_URL, fetcher } from './fetcher';
 import {
   codingsParser,
@@ -19,21 +20,22 @@ import {
 
 export const DEV = false;
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const fetchRawAndWrite = async () => {
     const data = await fetcher().fetchAll();
     console.log('going to write');
-    writer(data, DataState.raw).writeAll();
+    writer.raw(data).writeAll();
   };
 
   const parseRawAndWriteParsed = () => {
-    const data = parseAllFromRead(reader(DataState.raw));
-    writer(data, DataState.parsed).writeAll();
+    const data = parseAllFromRead(reader[DataState.raw]);
+    writer.parsed(data).writeAll();
   };
 
-  const parseSingleEntity = async (entityId: EntityId) => {
-    const readRaw = reader(DataState.raw);
-    const entity = await entitiesParser.single(
+  const parseSingleEntity = (entityId: EntityId) => {
+    const readRaw = reader[DataState.raw];
+    const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
       (entityId: EntityId) => readRaw.entities.single(entityId),
@@ -46,11 +48,13 @@ export const DEV = false;
         fields: fieldsParser(readRaw.fields()),
       }
     );
-    const entities = { ...reader(DataState.parsed).entities.all(), ...entity };
-    await writer(
-      { entities: { all: entities } } as any,
-      DataState.parsed
-    ).entities.all();
+    if (entity) {
+      const entities: EntitiesEntries = {
+        ...reader[DataState.parsed].entities.all(),
+        ...entity,
+      };
+      writer.parsed({ entities: { all: entities } }).entities.all();
+    }
   };
 
   if (process.argv.length === 2) {

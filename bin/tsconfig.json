@@ -27,7 +27,9 @@
     // typescript options here
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "noImplicitAny": true,
+    "strictNullChecks": true
   },
   "exclude": ["**/node_modules", "**/.*/"],
   "include": [
@@ -35,6 +37,6 @@
     "../.eslintrc.js",
     "../types",
     "../utils",
-    "bin/**/*.ts"
+    "../bin/**/*.ts"
   ]
 }

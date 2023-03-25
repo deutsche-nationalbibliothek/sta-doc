@@ -1,3 +1,5 @@
+import { EntityId } from '../entity-id';
+
 export type LabelDeRaws = LabelDeRaw[];
 
 export interface LabelDeRaw {
@@ -13,5 +15,5 @@ interface ElementLabel {
 
 interface EId {
   type: string;
-  value: string;
+  value: EntityId;
 }

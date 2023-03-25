@@ -25,28 +25,26 @@ export interface ParseEntitiesData {
   fields: Fields;
 }
 
-export const parseEntities = async ({
+export const parseEntities = ({
   data,
   getRawEntityById,
   rawEntities,
 }: ParseEntitiesProps) => {
   console.log('\tParsing Entities');
   const keys = Object.keys(rawEntities) as EntityId[];
-  const entitiesParsed: EntitiesEntries = await keys.reduce(
-    async (acc, entityId: EntityId) => {
+  const entitiesParsed: EntitiesEntries = keys.reduce(
+    (acc, entityId: EntityId) => {
       const entityEntry = parseRawEntity({
         entityId,
         data,
         getRawEntityById,
       });
       if (entityEntry) {
-        const nextAcc = await acc;
-        nextAcc[entityId] = entityEntry;
-        return nextAcc;
+        acc[entityId] = entityEntry;
       }
-      return await acc;
+      return acc;
     },
-    {} as Promise<EntitiesEntries>
+    {} as EntitiesEntries
   );
 
   return entitiesParsed;

@@ -10,7 +10,7 @@ import {
 interface ParseEntityProps {
   entityId: EntityId;
   prevSeenEntities?: EntityId[];
-  getRawEntityById: (entityId: EntityId) => Promise<EntityRaw | void>;
+  getRawEntityById: (entityId: EntityId) => Promise<EntityRaw>;
 }
 
 /**
@@ -24,7 +24,7 @@ export const prefetchEmbeddedEntities = async ({
 }: ParseEntityProps): Promise<EntityId[]> => {
   console.log('\t\t\tPreparsing Entity', entityId, 'to prefetch for live data');
 
-  const entity: EntityRaw = (await getRawEntityById(entityId))[entityId];
+  const entity: EntityRaw = await getRawEntityById(entityId);
 
   if (!entity) {
     console.warn(
@@ -46,11 +46,14 @@ export const prefetchEmbeddedEntities = async ({
       statements: StatementRaw[][] | Claim[][]
     ): (EntityId | undefined)[] => {
       const keyAccess = <T>(
-        occ: any, //Claim | StatementRaw,
+        occ: Claim | StatementRaw,
         ...propertyPath: string[]
       ): T => {
         return propertyPath.reduce(
-          (acc, val) => acc[val as keyof typeof acc],
+          (acc, val) => {
+            const accKey = val as keyof (Claim | StatementRaw);
+            return acc[accKey];
+          },
           'mainsnak' in occ ? occ.mainsnak : occ
         ) as T;
       };
@@ -105,7 +108,7 @@ export const prefetchEmbeddedEntities = async ({
     const statements = [
       ...filterByGroup('header'),
       ...filterByGroup('table'),
-      ...Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
+      ...Object.entries(occurrences).reduce((acc, [, occ]) => {
         if (
           !defaultGroupsDefinition.header.includes(occ[0].mainsnak.property) &&
           !defaultGroupsDefinition.table.includes(occ[0].mainsnak.property)

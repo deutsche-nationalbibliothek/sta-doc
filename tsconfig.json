@@ -15,7 +15,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
   },
   "exclude": ["**/node_modules", "**/.*/", "types/raw"],
   "include": [

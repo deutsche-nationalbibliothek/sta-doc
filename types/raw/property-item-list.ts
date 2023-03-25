@@ -1,3 +1,5 @@
+import { EntityId } from '../entity-id';
+
 export type PropertiesItemsListRaw = PropertyItemListRaw[];
 
 export interface PropertyItemListRaw {
@@ -16,5 +18,5 @@ interface ElementLabel {
 
 interface Element {
   type: string;
-  value: string;
+  value: EntityId;
 }

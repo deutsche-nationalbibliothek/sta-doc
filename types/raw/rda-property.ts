@@ -1,20 +1,22 @@
+import { EntityId } from '../entity-id';
+
 export type RdaPropertiesRaw = RdaPropertyRaw[];
 
-type EntityTypeOrWemi =
-  | {
-    entitytypeId: Element;
-    entitytypeLabel: ElementLabel;
-  }
-  | {
-    wemilevelId: Element;
-    wemilevelLabel: ElementLabel;
-  };
+interface EntityType {
+  entitytypeId: Element;
+  entitytypeLabel: ElementLabel;
+}
 
-export type RdaPropertyRaw = EntityTypeOrWemi & {
+interface WemiType {
+  wemilevelId: Element;
+  wemilevelLabel: ElementLabel;
+}
+
+export interface RdaPropertyRaw extends Partial<EntityType>, Partial<WemiType> {
   element: Element;
   eId: Element;
   elementLabel: ElementLabel;
-};
+}
 
 interface ElementLabel {
   'xml:lang': string;
@@ -24,5 +26,5 @@ interface ElementLabel {
 
 interface Element {
   type: string;
-  value: string;
+  value: EntityId;
 }
