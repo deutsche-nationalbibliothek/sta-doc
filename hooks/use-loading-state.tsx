@@ -15,7 +15,9 @@ interface IsLoadingContext {
 
 const IsLoadingContext = createContext({} as IsLoadingContext);
 
-export default function IsLoadingContextProvider({ children }) {
+export default function IsLoadingContextProvider({
+  children,
+}: PropsWithChildren) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

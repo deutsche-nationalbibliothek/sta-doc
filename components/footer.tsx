@@ -20,9 +20,12 @@ export const Footer: React.FC = () => {
       scrollTop: () =>
         document.getElementById('main-scroll-container')?.scroll(0, 0),
       print: () => window.print(),
-      betaDisclaimer: () => messageApi.warning('In Beta Version ohne Funktion'),
+      betaDisclaimer: () => {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        messageApi.warning('In Beta Version ohne Funktion');
+      },
     }),
-    []
+    [messageApi]
   );
 
   return (

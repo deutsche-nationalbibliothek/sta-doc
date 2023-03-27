@@ -8,7 +8,11 @@ export const useInitialScroll = (shouldDo: boolean) => {
     if (pathname && hash && shouldDo) {
       // kinda hack which works pretty good,
       // more reliable than looking for element and call scrollIntoView()
-      router.push(pathname).then(router.back);
+      router
+        .push(pathname)
+        .then(router.back)
+        .catch((e) => console.error(e));
     }
+    // todo
   }, []);
 };

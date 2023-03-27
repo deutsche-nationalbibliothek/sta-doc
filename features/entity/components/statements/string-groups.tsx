@@ -1,11 +1,7 @@
 import { Modal } from '@/components/modal';
 import { Title } from '@/components/title';
 import { Item } from '@/types/item';
-import {
-  StringValueContainer,
-  StringValue,
-  isStringValue,
-} from '@/types/parsed/entity';
+import { StringGroup, StringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Card, Typography } from 'antd';
 import React, { Fragment } from 'react';
@@ -16,15 +12,15 @@ import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 
 interface StringStatementProps {
-  statement: StringValueContainer[];
+  statements: StringGroup[];
   property: Property;
 }
 
-export const StringStatement: React.FC<StringStatementProps> = ({
-  statement,
+export const StringGroupsStatement: React.FC<StringStatementProps> = ({
+  statements,
   property,
 }) => {
-  const renderHeadline = (stringValueContainer: StringValueContainer) => (
+  const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
         if (!stringValue.headline) {
@@ -32,10 +28,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         }
         return (
           <React.Fragment key={stringValue.value}>
-            <Title headline={stringValue.headline}>
-              <StringValueComponent stringValue={stringValue} />
-              {references}
-            </Title>
+            {stringValue.headline && (
+              <Title headline={stringValue.headline}>
+                <StringValueComponent stringValue={stringValue} />
+                {references}
+              </Title>
+            )}
             {qualifiers}
           </React.Fragment>
         );
@@ -54,11 +52,11 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     ].some((pattern) => stringValue.value === pattern);
 
   const itemTypeMap = {
-    default: (stringValueContainer: StringValueContainer) => (
+    default: (stringValueContainer: StringGroup) => (
       <>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) =>
-            !isStringValueExampleLabel(stringValue) && (
+            !isStringValueExampleLabel(stringValue) ? (
               <React.Fragment key={stringValue.value}>
                 <Typography.Text>
                   <StringValueComponent
@@ -69,13 +67,15 @@ export const StringStatement: React.FC<StringStatementProps> = ({
                   {qualifiers}
                 </Typography.Text>
               </React.Fragment>
+            ) : (
+              <></>
             )
           }
         </GenericStringValueMapper>
       </>
     ),
     [Item['Enumeration-uncounted-(type-of-layout)']]: (
-      stringValueContainer: StringValueContainer
+      stringValueContainer: StringGroup
     ) => (
       <ul>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
@@ -90,7 +90,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       </ul>
     ),
     [Item['Enumeration-counted-(type-of-layout)']]: (
-      stringValueContainer: StringValueContainer
+      stringValueContainer: StringGroup
     ) => (
       <ol>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
@@ -107,9 +107,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
     [Item['First-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Second-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Third-order-subheading-(type-of-layout)']]: renderHeadline,
-    [Item['example-(type-of-layout)']]: (
-      stringValueContainer: StringValueContainer
-    ) => {
+    [Item['example-(type-of-layout)']]: (stringValueContainer: StringGroup) => {
       const label =
         stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';
 
@@ -131,11 +129,12 @@ export const StringStatement: React.FC<StringStatementProps> = ({
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
               >
+                {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
                 {(stringValue, _qualifiers, _references) => (
                   <StringValueExamples
                     stringValue={stringValue}
-                  // qualifiers={qualifiers}
-                  // references={references}
+                    // qualifiers={qualifiers}
+                    // references={references}
                   />
                 )}
               </GenericStringValueMapper>
@@ -145,21 +144,22 @@ export const StringStatement: React.FC<StringStatementProps> = ({
       );
     },
     [Item['collapsible-collapsed-(type-of-layout)']]: (
-      stringValueContainer: StringValueContainer
+      stringValueContainer: StringGroup
     ) => {
       return (
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => {
-            const introLabel = stringValue.qualifiers.find(
+            const introStringGroups = stringValue?.qualifiers?.find(
               (qualifier) =>
+                qualifier.property &&
                 qualifier.property === Property['Introduction-text']
-            )?.string[0].values[0];
+            )?.stringGroups;
+
+            const introLabel =
+              introStringGroups && introStringGroups[0].values[0];
 
             return (
-              <Collapse
-                defaultOpen={false}
-                labelClosed={isStringValue(introLabel) && introLabel.value}
-              >
+              <Collapse defaultOpen={false} labelClosed={introLabel?.value}>
                 <Typography.Paragraph key={stringValue.value}>
                   <StringValueComponent stringValue={stringValue} />
                   {references}
@@ -171,7 +171,7 @@ export const StringStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       );
     },
-    [Item['English-123']]: (stringValueContainer: StringValueContainer) => (
+    [Item['English-123']]: (stringValueContainer: StringGroup) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph
@@ -193,12 +193,13 @@ export const StringStatement: React.FC<StringStatementProps> = ({
 
   return (
     <>
-      {statement.map((stringValueContainer, index) => {
+      {statements.map((stringValueContainer, index) => {
+        const itemType =
+          stringValueContainer.itemType as keyof typeof itemTypeMap;
         return (
           <Fragment key={index}>
-            {stringValueContainer.itemType &&
-              itemTypeMap[stringValueContainer.itemType]
-              ? itemTypeMap[stringValueContainer.itemType](stringValueContainer)
+            {stringValueContainer.itemType && itemTypeMap[itemType]
+              ? itemTypeMap[itemType](stringValueContainer)
               : itemTypeMap.default(stringValueContainer)}{' '}
           </Fragment>
         );

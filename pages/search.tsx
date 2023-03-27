@@ -11,7 +11,7 @@ const SearchPage: React.FC = () => {
   useEffect(() => {
     setHeadlines([]);
     setNamespace(undefined);
-  }, []);
+  }, [setHeadlines, setNamespace]);
 
   return (
     <div className="search-page">

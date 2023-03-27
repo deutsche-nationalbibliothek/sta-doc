@@ -6,7 +6,11 @@ export default function STAEntitiesIndex() {
   return (
     <Fetch<EntityIndexModel[]> url="/api/entities/sta">
       {(entities) => (
-        <EntitiesIndex entities={entities} namespace={Namespace.STA} />
+        <>
+          {entities && (
+            <EntitiesIndex entities={entities} namespace={Namespace.STA} />
+          )}
+        </>
       )}
     </Fetch>
   );

@@ -8,7 +8,7 @@ import { useHeadlines } from './headlines';
 import { useInitialHeadlines } from './initial-headlines';
 
 export const useScroll = (
-  treeRef: React.MutableRefObject<RcTree<DataNode>>
+  treeRef: React.MutableRefObject<RcTree<DataNode> | null>
 ) => {
   const { headlines } = useInitialHeadlines();
   const {
@@ -21,11 +21,16 @@ export const useScroll = (
   const scrollDirection = useScrollDirection();
 
   const onScroll = useCallback(() => {
-    const headlinesInViewport: string[] = headlines
+    const headlinesInViewport: string[] = (headlines ?? [])
       .filter((headline) => {
-        return isInViewport(
-          document.getElementById(headline.key),
-          document.getElementById('main-scroll-container')
+        const headlineElement = document.getElementById(headline.key);
+        const scrollContainerElement = document.getElementById(
+          'main-scroll-container'
+        );
+        return (
+          headlineElement &&
+          scrollContainerElement &&
+          isInViewport(headlineElement, scrollContainerElement)
         );
       })
       .map((headline) => headline.key);
@@ -73,32 +78,38 @@ export const useScroll = (
         // }
       }
     });
-  }, [headlines]);
+  }, [setHeadlineKeysInViewport, headlines]);
 
-  const debouncedOnScroll = useCallback(debounce(onScroll, 50), [onScroll]);
+  const debouncedOnScroll = debounce(onScroll, 50);
+  const useDebouncedOnScroll = useCallback(debouncedOnScroll, [
+    debouncedOnScroll,
+  ]);
 
-  useEffect(debouncedOnScroll, [debouncedOnScroll]);
+  useEffect(useDebouncedOnScroll, [useDebouncedOnScroll]);
 
   useEffect(() => {
-    document
-      .getElementById('main-scroll-container')
-      .addEventListener('scroll', debouncedOnScroll);
+    const scrollContainerElement = document.getElementById(
+      'main-scroll-container'
+    );
+    scrollContainerElement?.addEventListener('scroll', debouncedOnScroll);
     return () =>
-      document
-        .getElementById('main-scroll-container')
-        .removeEventListener('scroll', debouncedOnScroll);
+      scrollContainerElement?.removeEventListener('scroll', debouncedOnScroll);
   }, [debouncedOnScroll]);
 
   useEffect(() => {
     if (treeRef && treeRef.current) {
-      const treeContainer: HTMLElement =
+      const treeContainer: HTMLElement | null =
         document.querySelector('div[role=tree]');
       const selectedKeys = treeRef.current.state.selectedKeys ?? [];
 
-      const headingsOutOfViewport = selectedKeys.filter(
-        (key) =>
-          !isInViewport(document.getElementById(`nav-${key}`), treeContainer)
-      );
+      const headingsOutOfViewport = treeContainer
+        ? selectedKeys.filter((key) => {
+            const headlineElement = document.getElementById(`nav-${key}`);
+            return (
+              headlineElement && !isInViewport(headlineElement, treeContainer)
+            );
+          })
+        : [];
       if (headingsOutOfViewport.length) {
         treeRef.current.scrollTo({
           key:
@@ -109,13 +120,15 @@ export const useScroll = (
         });
       }
     }
-  }, [headlineKeysInViewport, scrollDirection]);
+  }, [treeRef, headlineKeysInViewport, scrollDirection]);
 
   useEffect(() => {
     const firstSelectedHeadlineKey =
       headlineKeysInViewport.length && headlineKeysInViewport[0];
     if (firstSelectedHeadlineKey) {
-      const treeNodeFinder = (headline: NestedHeadlines) => {
+      const treeNodeFinder = (
+        headline: NestedHeadlines
+      ): NestedHeadlines | undefined => {
         if (headline.key === firstSelectedHeadlineKey) {
           return headline;
         } else if (headline.children) {
@@ -145,7 +158,7 @@ export const useScroll = (
       };
       setCurrentHeadlinesPath(nestedHeadlines.reduce(treeNodeReducer, []));
     }
-  }, [headlineKeysInViewport, nestedHeadlines]);
+  }, [setCurrentHeadlinesPath, headlineKeysInViewport, nestedHeadlines]);
 };
 
 enum ScrollDirection {
@@ -166,11 +179,14 @@ const useScrollDirection = (): ScrollDirection => {
         : { current: window.scrollY, prev: currentScrollPosition.current }
     );
 
-  const debouncedOnScroll = debounce(onScroll, 30);
+  const debouncedOnScroll = debounce(onScroll, 50);
+  const useDebouncedOnScroll = useCallback(debouncedOnScroll, [
+    debouncedOnScroll,
+  ]);
   useEffect(() => {
-    window.addEventListener('scroll', debouncedOnScroll);
-    return () => window.removeEventListener('scroll', debouncedOnScroll);
-  }, []);
+    window.addEventListener('scroll', useDebouncedOnScroll);
+    return () => window.removeEventListener('scroll', useDebouncedOnScroll);
+  }, [useDebouncedOnScroll]);
 
   return scrollPosition.current < scrollPosition.prev
     ? ScrollDirection.up

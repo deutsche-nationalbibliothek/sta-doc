@@ -16,7 +16,9 @@ interface InitialHeadlinesContext {
 // param is only used for typing context
 const InitialHeadlineContext = createContext({} as InitialHeadlinesContext);
 
-export default function InitialHeadlinesProvider({ children }) {
+export default function InitialHeadlinesProvider({
+  children,
+}: React.PropsWithChildren) {
   const [headlines, setHeadlines] = useState<Headline[]>([]);
 
   return (

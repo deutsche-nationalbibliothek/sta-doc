@@ -1,10 +1,10 @@
-import { Headline } from "@/types/headline";
-import { EntityEntryWithOptionalHeadlines } from "@/types/parsed/entity";
-import { isEqual } from "lodash";
+import { Headline } from '@/types/headline';
+import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
+import { isEqual } from 'lodash';
 import Head from 'next/head';
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { EntityDetails } from "./details";
-import { EntityPlaceholder } from "./placeholder";
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { EntityDetails } from './details';
+import { EntityPlaceholder } from './placeholder';
 
 interface FetchedEntityProps {
   entityEntry: EntityEntryWithOptionalHeadlines;
@@ -21,13 +21,12 @@ export const FetchedEntity = ({
     if (!loading && entityEntry?.headlines) {
       setHeadlines((currentHeadlines) => {
         if (!isEqual(entityEntry.headlines, currentHeadlines)) {
-          return entityEntry.headlines;
-        } else {
-          return currentHeadlines;
+          return entityEntry.headlines as Headline[];
         }
+        return currentHeadlines;
       });
     }
-  }, [entityEntry?.headlines, loading]);
+  }, [entityEntry?.headlines, loading, setHeadlines]);
 
   return (
     <>
@@ -48,5 +47,3 @@ export const FetchedEntity = ({
     </>
   );
 };
-
-

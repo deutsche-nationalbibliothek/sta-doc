@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 interface FetchProps<T> {
   url: string;
-  children: (data: T, loading: boolean) => JSX.Element;
+  children: (data: T | undefined, loading: boolean) => JSX.Element;
   showSpinner?: boolean;
 }
 
@@ -15,7 +15,7 @@ export function Fetch<T>({ url, children, showSpinner = true }: FetchProps<T>) {
 
   useEffect(() => {
     setIsLoading(loading);
-  }, [loading, isLoading]);
+  }, [setIsLoading, loading, isLoading]);
 
   if (showSpinner && loading) {
     return (

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement } from 'react';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import HeadlinesProvider from './hooks/headlines';
 import Layout from './components/layout';
@@ -10,7 +10,7 @@ import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from './hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
-import FetchingQueryParamProvider from './hooks/fetching-query-param-provider';
+import FetchingQueryParamsProvider from './hooks/fetch-query-params-provider';
 import ApplicationProfileQueryParamProvider from './hooks/use-application-profile-query-param-provider';
 import { ConfigProvider } from 'antd';
 // import InitialHeadlinesProvider from './hooks/initial-headlines';
@@ -30,13 +30,13 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 const genericRender = (component: ReactElement, name: string) => {
-  const wrapper = ({ children }: { children?: ReactNode }) => {
+  const wrapper = ({ children }: PropsWithChildren) => {
     return (
       <>
         <ConfigProvider locale={deDE}>
           <QueryParamProvider adapter={NextAdapter}>
             <ApplicationProfileQueryParamProvider>
-              <FetchingQueryParamProvider>
+              <FetchingQueryParamsProvider>
                 <NamespaceProvider>
                   <InitialHeadlinesProvider>
                     <HeadlinesProvider>
@@ -52,7 +52,7 @@ const genericRender = (component: ReactElement, name: string) => {
                     </HeadlinesProvider>
                   </InitialHeadlinesProvider>
                 </NamespaceProvider>
-              </FetchingQueryParamProvider>
+              </FetchingQueryParamsProvider>
             </ApplicationProfileQueryParamProvider>
           </QueryParamProvider>
         </ConfigProvider>

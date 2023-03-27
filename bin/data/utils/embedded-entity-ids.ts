@@ -10,7 +10,7 @@ import {
 interface ParseEntityProps {
   entityId: EntityId;
   prevSeenEntities?: EntityId[];
-  getRawEntityById: (entityId: EntityId) => Promise<EntityRaw>;
+  getRawEntityById: (entityId: EntityId) => Promise<EntityRaw | void>;
 }
 
 /**
@@ -24,7 +24,7 @@ export const prefetchEmbeddedEntities = async ({
 }: ParseEntityProps): Promise<EntityId[]> => {
   console.log('\t\t\tPreparsing Entity', entityId, 'to prefetch for live data');
 
-  const entity: EntityRaw = await getRawEntityById(entityId);
+  const entity = await getRawEntityById(entityId);
 
   if (!entity) {
     console.warn(

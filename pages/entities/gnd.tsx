@@ -6,7 +6,11 @@ export default function GNDEntitiesIndex() {
   return (
     <Fetch<EntityIndexModel[]> url="/api/entities/gnd">
       {(entities) => (
-        <EntitiesIndex entities={entities} namespace={Namespace.GND} />
+        <>
+          {entities && (
+            <EntitiesIndex entities={entities} namespace={Namespace.GND} />
+          )}
+        </>
       )}
     </Fetch>
   );

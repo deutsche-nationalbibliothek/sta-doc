@@ -40,19 +40,21 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
         }
         defaultValue={query}
         options={
-          query &&
-          suggestionsResult?.spellcheck.suggestions[1] &&
-          suggestionsResult.spellcheck.suggestions[1].suggestion
-            .sort((s1, s2) => s2.freq - s1.freq)
-            .map((x, index) => ({
-              value: x.word,
-              key: index,
-              label: <StringValueComponent stringValue={{ value: x.word }} />,
-            }))
+          query && suggestionsResult?.spellcheck.suggestions[1]
+            ? suggestionsResult.spellcheck.suggestions[1].suggestion
+                .sort((s1, s2) => s2.freq - s1.freq)
+                .map((x, index) => ({
+                  value: x.word,
+                  key: index,
+                  label: (
+                    <StringValueComponent stringValue={{ value: x.word }} />
+                  ),
+                }))
+            : []
         }
       >
         <Input.Search
-          placeholder={placeholder || ''}
+          placeholder={placeholder}
           loading={isLoadingSuggestionsIfQuery}
           ref={inputRef}
           autoFocus
@@ -63,14 +65,16 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
           allowClear
         />
       </AutoComplete>
-      <SearchResults
-        queryResult={queryResult}
-        loading={isLoadingSearchIfQuery}
-        query={query}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onCloseDrawer={onCloseDrawer}
-      />
+      {queryResult && (
+        <SearchResults
+          queryResult={queryResult}
+          loading={isLoadingSearchIfQuery}
+          query={query}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          onCloseDrawer={onCloseDrawer}
+        />
+      )}
     </div>
   );
 };

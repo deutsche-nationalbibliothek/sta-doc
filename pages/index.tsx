@@ -3,9 +3,10 @@ import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
+import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Item } from '@/types/item';
-import { EntityEntry } from '@/types/parsed/entity';
+import { EntitiesEntries } from '@/types/parsed/entity';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
 
@@ -20,7 +21,8 @@ export default function Home({ headlines }: HomeProps) {
   useEffect(() => {
     setHeadlines(headlines);
     setNamespace(undefined);
-  }, []);
+    //todo
+  }, [setHeadlines, setNamespace]);
 
   return (
     <FetchEntity entityId={Item.Q10177} showSpinner={false}>
@@ -36,9 +38,8 @@ export default function Home({ headlines }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
-  const entityId: string = Item.Q10177;
-
-  const entityEntry: EntityEntry = entities[entityId];
+  const entityId: EntityId = Item.Q10177;
+  const entityEntry = (entities as EntitiesEntries)[entityId];
 
   return {
     props: {

@@ -70,6 +70,8 @@ export interface QueryResponse {
   docs: Doc[];
 }
 
+export type DocSearchKey = Exclude<keyof Doc, 'id'>;
+
 export interface Doc {
   id: EntityId;
   'headline.title': string[];
@@ -143,8 +145,8 @@ export interface Doc {
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.namespace'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.string.itemType'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.string.values.value'?: string[];
-  _version_: number;
-  score: number;
+  // _version_: number;
+  // score: number;
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.string.values.headline.title'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.string.values.headline.key'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.string.values.headline.level'?: string[];

@@ -1,9 +1,7 @@
-import { ExternalLink } from '@/components/external-link';
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import { EntityLink } from '@/entity/components/preview/link';
 import { GndFieldsProps } from '@/pages/gnd/fields';
 import { Field } from '@/types/parsed/field';
-import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import { CSSProperties } from 'react';
 import { GndSubFieldTable } from './subfield-table';
@@ -11,15 +9,15 @@ import { GndSubFieldTable } from './subfield-table';
 export const GndFieldsTable: React.FC<
   GndFieldsProps & { style?: CSSProperties; className?: string }
 > = ({ fields, style, className }) => {
-  const columns: ColumnsType<Field> = [
+  const columns: ColumnsTypes<Field> = [
     {
       title: 'PICA3',
       width: '15%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding: string, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
@@ -28,8 +26,8 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
@@ -38,8 +36,8 @@ export const GndFieldsTable: React.FC<
       width: '25%',
       key: 'MARC21',
       isSearchable: true,
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {

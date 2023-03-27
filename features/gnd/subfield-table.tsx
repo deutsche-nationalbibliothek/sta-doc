@@ -1,9 +1,7 @@
-import { ExternalLink } from '@/components/external-link';
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import { EntityLink } from '@/entity/components/preview/link';
 import { EntityId } from '@/types/entity-id';
 import { Subfield } from '@/types/parsed/field';
-import { EditOutlined, EyeOutlined, GlobalOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 
 interface GndSubFieldTableProps {
@@ -14,15 +12,15 @@ interface GndSubFieldTableProps {
 }
 
 export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
-  const columns: ColumnsType<Subfield> = [
+  const columns: ColumnsTypes<Subfield> = [
     {
       title: 'PICA3',
       width: '15%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       noSort: true,
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
@@ -31,8 +29,8 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       dataIndex: ['codings', 'PICA+'],
       noSort: true,
       key: 'PICA+',
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {
@@ -41,8 +39,8 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       width: '25%',
       noSort: true,
       key: 'PICA3',
-      render: (coding, _record, _index, highlighted) => {
-        return coding && <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
     {

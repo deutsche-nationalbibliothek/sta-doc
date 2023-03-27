@@ -38,8 +38,8 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
   return (
     <AntdLayout
       style={{
-        paddingLeft: headlines.length > 1 ? 26 : '5%',
-        paddingRight: headlines.length > 1 ? 26 : '5%',
+        paddingLeft: headlines && headlines.length > 1 ? 26 : '5%',
+        paddingRight: headlines && headlines.length > 1 ? 26 : '5%',
       }}
     >
       <AntdLayout.Content>

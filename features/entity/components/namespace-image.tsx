@@ -6,16 +6,17 @@ export const NamespaceImage: React.FC = () => {
   const { namespace } = useNamespace();
 
   return (
-    namespace &&
-    !namespaceConfig.notPointedOut.includes(namespace) && (
-      <>
-        <AntdImage
-          src={`/${namespace}-logo.png`}
-          alt="ressource image"
-          height={100}
-          preview={false}
-        />
-      </>
-    )
+    <>
+      {namespace && !namespaceConfig.notPointedOut.includes(namespace) && (
+        <>
+          <AntdImage
+            src={`/${namespace}-logo.png`}
+            alt="ressource image"
+            height={100}
+            preview={false}
+          />
+        </>
+      )}
+    </>
   );
 };

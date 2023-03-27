@@ -7,7 +7,7 @@ interface UrlStatementProps {
   urls: UrlValue[];
 }
 
-export const UrlStatement: React.FC<UrlStatementProps> = ({ urls }) => {
+export const UrlStatements: React.FC<UrlStatementProps> = ({ urls }) => {
   return (
     <>
       {urls.map((url, index) => (

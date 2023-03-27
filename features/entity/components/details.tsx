@@ -3,7 +3,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import React, { useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
-import { Entity } from '@/types/parsed/entity';
+import { Entity, StatementValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Item } from '@/types/item';
 import { RdaRessourceTypeEntity } from './rda-ressource-type';
@@ -36,7 +36,8 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
         onResetNamespace;
       }
     };
-  }, [embedded, entity.namespace]);
+    // todo, check embedded dep
+  }, [setNamespace, onResetNamespace, entity.namespace]);
 
   const [view, setView] = useQueryParam<
     string | undefined,
@@ -48,7 +49,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
       const asPathMatch = router.asPath.match(/.*(?=#)/);
       if (asPathMatch) {
         // prevent issue with hooks/use-inital-scroll.ts
-        router.push(asPathMatch[0]);
+        router.push(asPathMatch[0]).catch((e) => console.error(e));
       }
     }
     setView(nextViewParam);
@@ -63,12 +64,12 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const tableStatements =
     entity.pageType?.id === Item['GND-data-field']
-      ? [
+      ? ([
           ...entity.statements.table,
           entity.statements.body.find(
             (statement) => statement.property === Property.Subfields
           ),
-        ]
+        ] as StatementValue[])
       : entity.statements.table;
 
   return (

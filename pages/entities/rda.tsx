@@ -6,7 +6,11 @@ export default function RDAEntitiesIndex() {
   return (
     <Fetch<EntityIndexModel[]> url="/api/entities/rda">
       {(entities) => (
-        <EntitiesIndex entities={entities} namespace={Namespace.RDA} />
+        <>
+          {entities && (
+            <EntitiesIndex entities={entities} namespace={Namespace.RDA} />
+          )}
+        </>
       )}
     </Fetch>
   );

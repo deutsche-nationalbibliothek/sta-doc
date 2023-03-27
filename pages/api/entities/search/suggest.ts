@@ -8,7 +8,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: string;
     start: string;
   };
-  const query: string = client.escapeSpecialChars(requestedQuery);
+  const query = (client.escapeSpecialChars as (s: string) => string)(
+    requestedQuery
+  );
 
   // http://localhost:8983/solr/entities/spell?df=text&spellcheck.q=form&spellcheck=true&spellcheck.collateParam.q.op=AND&wt=xml&spellcheck.build=true
   const suggestionsResult = await client.doQuery('spell', {

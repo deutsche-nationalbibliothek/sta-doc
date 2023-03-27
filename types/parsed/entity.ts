@@ -128,11 +128,3 @@ export interface Codings {
   'MARC 21 Format für Normdaten'?: string[];
   'GND-Ontologie'?: string[];
 }
-
-export const isWikibaseValue = (
-  wikibaseValue: WikibasePointerValue
-): wikibaseValue is WikibasePointerValue => true;
-
-export const isStringValue = (
-  stringValue: StringValue
-): stringValue is StringValue => true;

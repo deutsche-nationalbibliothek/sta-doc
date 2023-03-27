@@ -7,11 +7,11 @@ import { NamespaceImage } from './namespace-image';
 
 interface EntityPageHeaderProps {
   entity: Entity;
-  namespace: Namespace;
+  namespace?: Namespace;
   isRdaRessourceType: boolean;
   view: {
     get: string;
-    set: (newValue: string) => void;
+    set: (newValue: string | undefined) => void;
   };
 }
 

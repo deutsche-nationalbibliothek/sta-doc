@@ -1,16 +1,15 @@
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import {
-  isStringValue,
-  isWikibaseValue,
   Statement,
   StringValue,
-  WikiBaseValue,
+  WikibasePointerValue,
 } from '@/types/parsed/entity';
 import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
 import { GndSubFieldTable } from 'features/gnd/subfield-table';
+import { compact } from 'lodash';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
@@ -25,7 +24,7 @@ interface TableStatementsData {
   key: string;
   property: Property;
   values: {
-    wikibasePointers: WikiBaseValue[];
+    wikibasePointers: WikibasePointerValue[];
     stringValues: StringValue[][];
   };
 }
@@ -34,31 +33,34 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
   field,
 }) => {
-  const data: TableStatementsData[] = statements.map((statement) => {
-    return {
-      key: statement.label,
-      property: statement.property,
-      propertyLabel: statement.label,
-      values: {
-        wikibasePointers:
-          statement.wikibasePointer &&
-          statement.wikibasePointer
-            .filter(isWikibaseValue)
-            .map((wikibasePointer: WikiBaseValue) => {
-              const { qualifiers, ...otherWikibasePointerValues } =
-                wikibasePointer;
-              return otherWikibasePointerValues;
-            }),
-        stringValues:
-          statement.string &&
-          statement.string.map((stringStatement) =>
-            stringStatement.values.filter(isStringValue)
-          ),
-      },
-    };
-  });
+  const data: TableStatementsData[] = compact(
+    statements.map((statement) => {
+      return (
+        statement.label && {
+          key: statement.label,
+          property: statement.property,
+          propertyLabel: statement.label,
+          values: {
+            wikibasePointers: statement.wikibasePointers
+              ? statement.wikibasePointers.map(
+                  (wikibasePointer: WikibasePointerValue) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    const { qualifiers, ...otherWikibasePointerValues } =
+                      wikibasePointer;
+                    return otherWikibasePointerValues;
+                  }
+                )
+              : [],
+            stringValues: statement.stringGroups
+              ? statement.stringGroups.map((stringGroup) => stringGroup.values)
+              : [],
+          },
+        }
+      );
+    })
+  );
 
-  const columns: ColumnsType<TableStatementsData> = [
+  const columns: ColumnsTypes<TableStatementsData> = [
     {
       key: 'propertyLabel',
       dataIndex: 'propertyLabel',
@@ -121,13 +123,13 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                             {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
                             {((stringValue.qualifiers &&
                               stringValue.qualifiers[0]?.property !==
-                              Property['Recording-method-or-item']) ||
+                                Property['Recording-method-or-item']) ||
                               !stringValue.qualifiers) && (
-                                <StringValueComponent
-                                  code={record.property === Property.Encoding}
-                                  stringValue={stringValue}
-                                />
-                              )}
+                              <StringValueComponent
+                                code={record.property === Property.Encoding}
+                                stringValue={stringValue}
+                              />
+                            )}
                           </>
                         </Typography.Paragraph>
                       );

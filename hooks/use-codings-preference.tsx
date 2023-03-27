@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 
 export type CodingsPreference = 'PICA+' | 'PICA3';
@@ -23,10 +23,18 @@ const useCodingsPreferenceLocal = () => {
   const onChange = (newValue: CodingsPreference[]) => {
     setCodingsPreferencesState([...newValue]);
   };
-  return { codingsPreferences, onChange, codingsOptions };
+  return {
+    codingsPreferences: codingsPreferences ?? [],
+    onChange,
+    codingsOptions,
+  };
 };
 
-export const CodingsPreferencesProvider = ({ children }) => {
+export const CodingsPreferencesProvider = ({
+  children,
+}: {
+  children: JSX.Element;
+}) => {
   const codingsPreferences = useCodingsPreferenceLocal();
   return (
     <CodingsPreferencesContext.Provider value={codingsPreferences}>

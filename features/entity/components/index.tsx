@@ -1,4 +1,4 @@
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
@@ -26,13 +26,13 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
 
   useEffect(() => {
     setNamespace(namespace);
-  }, [namespace]);
+  }, [namespace, setNamespace]);
 
   useEffect(() => {
     setHeadlines([]);
-  }, []);
+  }, [setHeadlines]);
 
-  const columns: ColumnsType<EntityIndexModel> = [
+  const columns: ColumnsTypes<EntityIndexModel> = [
     {
       title: 'Eintrag',
       dataIndex: 'label',

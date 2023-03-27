@@ -1,4 +1,4 @@
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
 import { NamespaceImage } from '@/entity/components/namespace-image';
@@ -7,7 +7,7 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
-import { RdaProperty } from '@/types/parsed/rda-property';
+import { RdaProperties, RdaProperty } from '@/types/parsed/rda-property';
 import { PageHeader } from 'antd';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -28,9 +28,9 @@ export default function RdaPropertiesPage({
   useEffect(() => {
     setHeadlines([]);
     setNamespace(Namespace.RDA);
-  }, []);
+  }, [setHeadlines, setNamespace]);
 
-  const columns: ColumnsType<RdaProperty> = [
+  const columns: ColumnsTypes<RdaProperty> = [
     {
       title: 'Sta-Notation',
       dataIndex: 'staNotationLabel',
@@ -64,7 +64,7 @@ export default function RdaPropertiesPage({
       })),
       onFilter: (value, record) => value === record.type.label,
       render: (
-        label: string,
+        _label: string,
         rdaProperty,
         _index: number,
         children: JSX.Element
@@ -101,7 +101,7 @@ export default function RdaPropertiesPage({
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {
-      rdaProperties,
+      rdaProperties: rdaProperties as RdaProperties,
     },
   };
 };

@@ -6,7 +6,7 @@ interface SplitterProps {
 }
 
 export const Splitter: React.FC<SplitterProps> = ({ children }) => {
-  const childs = children.filter((a) => a);
+  const childs = children?.filter((a) => a) ?? [];
   const [sizes, setSizes] = useState<[number, number]>([20, 80]);
   // const [sizes, setSizes] = useState<[number, number]>(
   //   childs.length === 2 ? [20, 80] : [100, 0]

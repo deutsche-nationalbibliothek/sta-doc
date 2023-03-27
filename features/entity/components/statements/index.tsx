@@ -3,8 +3,8 @@ import { Statement } from '@/types/parsed/entity';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import React from 'react';
 import { WikibasePointers } from '../wikibase-pointers';
-import { StringStatement } from './string';
-import { UrlStatement } from './url';
+import { StringGroupsStatement } from './string-groups';
+import { UrlStatements } from './url';
 
 interface StatementsProps {
   statements: Statement[];
@@ -29,22 +29,24 @@ export const Statements: React.FC<StatementsProps> = ({
 
           return (
             <React.Fragment key={index}>
-              {isShowingHeader && <Title headline={statement.headline} />}
+              {isShowingHeader && statement.headline && (
+                <Title headline={statement.headline} />
+              )}
               {/* <Typography.Paragraph> */}
-              {statement.string ? (
+              {statement.stringGroups ? (
                 <>
-                  <StringStatement
+                  <StringGroupsStatement
                     property={statement.property}
-                    statement={statement.string}
+                    statements={statement.stringGroups}
                   />
                 </>
-              ) : statement.wikibasePointer ? (
+              ) : statement.wikibasePointers ? (
                 <WikibasePointers
                   property={statement.property}
-                  wikibasePointers={statement.wikibasePointer}
+                  wikibasePointers={statement.wikibasePointers}
                 />
               ) : (
-                statement.url && <UrlStatement urls={statement.url} />
+                statement.urls && <UrlStatements urls={statement.urls} />
               )}
               {/* </Typography.Paragraph> */}
             </React.Fragment>
