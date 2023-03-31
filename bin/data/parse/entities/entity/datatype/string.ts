@@ -15,7 +15,6 @@ interface ParseStringValue extends Required<ParseStatementsProps> {
 
 export const parseStringValue = ({
   keyAccessOcc,
-  embedded,
   occ,
   addHeadline,
   data,
@@ -35,8 +34,7 @@ export const parseStringValue = ({
   const itemType: ItemType =
     snakType === 'novalue' || snakType === 'somevalue'
       ? snakType
-      : (!embedded &&
-          'qualifiers-order' in occ &&
+      : ('qualifiers-order' in occ &&
           occ.qualifiers &&
           occ['qualifiers-order'] &&
           occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
