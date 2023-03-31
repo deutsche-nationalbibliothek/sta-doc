@@ -13,9 +13,10 @@ export const writeRaw = (
       data.entities &&
         writeJSONFile(data.entities.all, NAMES.entity, DataState.raw);
     },
-    // index: () => {
-    //   writeJSONFile(data.entities.index, NAMES.entity, DataState.raw);
-    // }
+    index: () => {
+      data.entities &&
+        writeJSONFile(data.entities.index, NAMES.entityIndex, DataState.raw);
+    },
   };
 
   const fields = () => {
@@ -46,7 +47,8 @@ export const writeRaw = (
     writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.raw);
 
   const writeAll = () => {
-    entities.all();
+    entities.index();
+    // entities.all();
     fields();
     labels.de();
     labels.en();
@@ -79,9 +81,9 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
       data.entities &&
         writeJSONFile(data.entities.all, NAMES.entity, DataState.parsed);
     },
-    // index: () => {
-    //   writeJSONFile(data.entities.index, NAMES.entity, DataState.parsed);
-    // }
+    index: () => {
+      writeJSONFile(data.entities.index, NAMES.entity, DataState.parsed);
+    },
   };
 
   const fields = () => {
@@ -113,6 +115,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
   const writeAll = () => {
     entities.all();
+    entities.index();
     fields();
     labels.de();
     labels.en();

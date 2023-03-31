@@ -52,20 +52,24 @@ const wikiBase = (apiUrl: API_URL) => {
   return fetchWikibase(onFetch);
 };
 
+const fetchIndex = async (apiUrl: API_URL) => {
+  return await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
+    sparql.ENTITY_INDEX(apiUrl)
+  );
+};
+
 export const entitiesFetcher = {
+  index: fetchIndex,
   single: async (entityId: EntityId, apiUrl: API_URL) =>
     await wikiBase(apiUrl).fetchEntity(entityId),
   all: async (apiUrl: API_URL) => {
-    const entitiesIndexRaw = await wikiBase(
-      apiUrl
-    ).sparqlQuery<EntitiesIndexRaw>(sparql.ENTITY_INDEX(apiUrl));
-
+    const entitiesIndexRaw = await fetchIndex(apiUrl);
     const entitiesIndex = entitiesParser.index(entitiesIndexRaw);
-    let entities = {} as Record<EntityId, EntityRaw | void>;
     const entitiesChunked = entitiesChunk(
       Object.keys(entitiesIndex) as EntityId[]
     );
 
+    let entities = {} as Record<EntityId, EntityRaw | void>;
     for (let i = 0; i < (DEV ? 1 : entitiesChunked.length); i++) {
       const entityIds = entitiesChunked[i];
       const entitiesBulkFetched = await wikiBase(apiUrl).fetchEntity(entityIds);
@@ -114,6 +118,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     single: async (entityId: EntityId) =>
       await entitiesFetcher.single(entityId, apiUrl),
     all: async () => await entitiesFetcher.all(apiUrl),
+    index: async () => await entitiesFetcher.index(apiUrl),
   };
 
   const fields = async () => await fieldsFetcher(apiUrl);
@@ -134,7 +139,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
-      entities: { all: await entities.all() },
+      entities: { all: await entities.all(), index: await entities.index() },
       fields: await fields(),
       labels: {
         de: await labels.de(),
