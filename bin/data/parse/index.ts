@@ -312,12 +312,12 @@ export const parseAllFromRead = (
       en: data.labelsEn,
     },
     entities: {
+      index: entitiesParser.index(read.entities.index()),
       all: entitiesParser.all(
         read.entities.all(),
         (entityId: EntityId) => read.entities.single(entityId),
         data
       ),
-      index: entitiesParser.index(read.entities.index()),
     },
     fields: data.fields,
     schemas: data.schemas,

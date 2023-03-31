@@ -17,6 +17,7 @@ interface ParseWikibaseValueProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   addStaStatement?: boolean;
   keyAccessOcc: <T>(...keys: string[]) => T;
+  isMissingValue: boolean;
 }
 
 export const parseWikibaseValue = (
@@ -30,6 +31,7 @@ export const parseWikibaseValue = (
     keyAccessOcc,
     data,
     isTopLevel,
+    isMissingValue,
     addHeadline,
     noHeadline,
   } = props;
@@ -39,16 +41,11 @@ export const parseWikibaseValue = (
     Property['description-(at-the-end)'],
   ];
 
-  const snakType = keyAccessOcc('snaktype');
-  const isNoValue = snakType === 'novalue' || snakType === 'somevalue';
-  if (isNoValue) {
-    return;
-  }
-
   const { schemas, labelsDe, staNotations, codings } = data;
   const id = keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasHeadline =
+    !isMissingValue &&
     isTopLevel &&
     !isPropertyBlacklisted(id) &&
     'qualifiers' in occ &&

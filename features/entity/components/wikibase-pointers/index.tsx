@@ -11,6 +11,7 @@ import { Qualifiers } from '../qualifiers';
 import { References } from '../references';
 import { Examples } from '../examples';
 import { compact } from 'lodash';
+import { MissingValueGuard } from '../missing-value';
 
 interface WikibasePointerProps {
   wikibasePointers: WikibasePointerValue[];
@@ -41,40 +42,44 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
       <Examples examples={compact(wikibasePointers.map((w) => w.embedded))} />
     ) : (
       <>
-        {wikibasePointers.map(
-          (wikibasePointer, index) =>
-            wikibasePointer.embedded && (
-              <Embedded key={index} entity={wikibasePointer.embedded} />
-            )
-        )}
+        {wikibasePointers.map((wikibasePointer, index) => (
+          <MissingValueGuard key={index} data={wikibasePointer}>
+            {wikibasePointer.embedded && (
+              <Embedded entity={wikibasePointer.embedded} />
+            )}
+          </MissingValueGuard>
+        ))}
       </>
     )
   ) : hasQualifiers() ? (
     <>
       {wikibasePointers.map((wikibasePointer, index) => (
-        <React.Fragment key={index}>
-          {wikibasePointer.headline && (
-            <Title headline={wikibasePointer.headline}>
-              <EntityLink {...wikibasePointer}>
-                {wikibasePointer.label}{' '}
-              </EntityLink>
-            </Title>
-          )}
-          {wikibasePointer.references && (
-            <References references={wikibasePointer.references} />
-          )}
-          {wikibasePointer.qualifiers && (
-            <Qualifiers
-              qualifiers={
-                property === Property.Subfields
-                  ? wikibasePointer.qualifiers.filter(
-                      (qualifier) => qualifier.property !== Property.Repetition
-                    )
-                  : wikibasePointer.qualifiers
-              }
-            />
-          )}
-        </React.Fragment>
+        <MissingValueGuard data={wikibasePointer}>
+          <React.Fragment key={index}>
+            {wikibasePointer.headline && (
+              <Title headline={wikibasePointer.headline}>
+                <EntityLink {...wikibasePointer}>
+                  {wikibasePointer.label}{' '}
+                </EntityLink>
+              </Title>
+            )}
+            {wikibasePointer.references && (
+              <References references={wikibasePointer.references} />
+            )}
+            {wikibasePointer.qualifiers && (
+              <Qualifiers
+                qualifiers={
+                  property === Property.Subfields
+                    ? wikibasePointer.qualifiers.filter(
+                        (qualifier) =>
+                          qualifier.property !== Property.Repetition
+                      )
+                    : wikibasePointer.qualifiers
+                }
+              />
+            )}
+          </React.Fragment>
+        </MissingValueGuard>
       ))}
     </>
   ) : isList() ? (
@@ -112,24 +117,18 @@ const WikibaseLink = ({ wikibasePointer, showArrow }: WikibaseLinkProps) => {
   if (isPropertyBlacklisted(wikibasePointer.id as Item)) {
     return null;
   }
-  return showArrow ? (
-    <EntityLink {...wikibasePointer}>
-      <>
-        <ArrowRightOutlined />
-        {wikibasePointer.label}
-      </>
-    </EntityLink>
-  ) : (
-    <EntityLink {...wikibasePointer} />
+  return (
+    <MissingValueGuard data={wikibasePointer}>
+      {showArrow ? (
+        <EntityLink {...wikibasePointer}>
+          <>
+            <ArrowRightOutlined />
+            {wikibasePointer.label}
+          </>
+        </EntityLink>
+      ) : (
+        <EntityLink {...wikibasePointer} />
+      )}
+    </MissingValueGuard>
   );
 };
-
-// const MissingLink = () => {
-//   // todo, distinct between noValue and missingValue
-//   return (
-//     <Typography.Text strong>
-//       <ArrowRightOutlined />
-//       Fehlender Link
-//     </Typography.Text>
-//   );
-// };

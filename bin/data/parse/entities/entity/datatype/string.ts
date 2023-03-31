@@ -11,6 +11,7 @@ import { ParseStatementsProps } from '../statements';
 interface ParseStringValue extends Required<ParseStatementsProps> {
   keyAccessOcc: <T>(...keys: string[]) => T;
   occ: Claim | StatementRaw;
+  isMissingValue: boolean;
 }
 
 export const parseStringValue = ({
@@ -20,26 +21,24 @@ export const parseStringValue = ({
   data,
   noHeadline,
   currentHeadlineLevel,
+  isMissingValue,
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
   const { codings } = data;
-  const snakType = keyAccessOcc('snaktype');
-  const value =
-    snakType === 'novalue'
-      ? 'Kein Wert'
-      : snakType === 'somevalue'
-      ? 'unbekannter Wert'
-      : keyAccessOcc<string>('datavalue', 'value');
+  const value = !isMissingValue
+    ? keyAccessOcc<string>('datavalue', 'value')
+    : '';
   const property = keyAccessOcc<Property>('property');
 
-  const itemType: ItemType =
-    snakType === 'novalue' || snakType === 'somevalue'
-      ? snakType
-      : ('qualifiers-order' in occ &&
-          occ.qualifiers &&
-          occ['qualifiers-order'] &&
-          occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
-            ?.value?.id) ||
-        'default';
+  const itemType: ItemType = isMissingValue
+    ? keyAccessOcc('snaktype')
+    : ('qualifiers-order' in occ &&
+        occ.qualifiers &&
+        occ['qualifiers-order'] &&
+        occ['qualifiers-order'][0] &&
+        occ.qualifiers[occ['qualifiers-order'][0] as Property] &&
+        occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
+          ?.value?.id) ||
+      'default';
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],

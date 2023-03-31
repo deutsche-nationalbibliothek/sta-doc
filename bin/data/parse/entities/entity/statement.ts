@@ -41,14 +41,14 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const { schemas } = data;
   const snakType = keyAccessOcc<string>('snaktype');
-  const noDataValue = snakType === 'novalue' || snakType === 'somevalue';
+  const isMissingValue = snakType === 'novalue' || snakType === 'somevalue';
 
   const property = keyAccessOcc<Property>('property');
   const embeddedEntityId =
-    !noDataValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
+    !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasEmbedding =
-    !noDataValue &&
+    !isMissingValue &&
     embeddedEntityId &&
     (property === Property['example(s)'] ||
       property === Property['embedded-(item)'] ||
@@ -71,32 +71,31 @@ export const parseStatement = (props: ParseStatementProps) => {
       })?.entity
     : undefined;
 
-  const dataTypeSpecifics = noDataValue
-    ? snakType === 'somevalue'
-      ? { someValue: true }
-      : { unknownValue: true }
-    : simplifiedDataType === 'wikibasePointer'
-    ? parseWikibaseValue({
-        ...props,
-        occ,
-        keyAccessOcc,
-        currentHeadlineLevel:
-          nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
-        addStaStatement: property === Property.Elements,
-        isTopLevel,
-        isElementsPropOnRdaRessourceType,
-      })
-    : simplifiedDataType === 'time'
-    ? parseTimeValue({ keyAccessOcc })
-    : simplifiedDataType === 'url'
-    ? parseUrlValue({ keyAccessOcc })
-    : parseStringValue({
-        ...props,
-        occ,
-        keyAccessOcc,
-        isTopLevel,
-        isElementsPropOnRdaRessourceType,
-      });
+  const dataTypeSpecifics =
+    simplifiedDataType === 'wikibasePointer'
+      ? parseWikibaseValue({
+          ...props,
+          occ,
+          keyAccessOcc,
+          currentHeadlineLevel:
+            nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+          addStaStatement: property === Property.Elements,
+          isTopLevel,
+          isElementsPropOnRdaRessourceType,
+          isMissingValue,
+        })
+      : simplifiedDataType === 'time'
+      ? parseTimeValue({ keyAccessOcc, isMissingValue })
+      : simplifiedDataType === 'url'
+      ? parseUrlValue({ keyAccessOcc, isMissingValue })
+      : parseStringValue({
+          ...props,
+          occ,
+          keyAccessOcc,
+          isMissingValue,
+          isTopLevel,
+          isElementsPropOnRdaRessourceType,
+        });
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers
@@ -120,6 +119,7 @@ export const parseStatement = (props: ParseStatementProps) => {
   const preMappedStatement: PreMappedStatement = {
     property,
     namespace,
+    missingValue: isMissingValue ? snakType : undefined,
     ...(dataTypeSpecifics ?? {}),
     references:
       'references' in occ && occ.references

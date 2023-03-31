@@ -2,20 +2,14 @@ import { TimeValue, CommonValue } from '../../../../../../types/parsed/entity';
 
 interface ParseTimeValue {
   keyAccessOcc: <T>(...keys: string[]) => T;
+  isMissingValue: boolean;
 }
 
 export const parseTimeValue = ({
   keyAccessOcc,
+  isMissingValue,
 }: ParseTimeValue): Omit<TimeValue, keyof CommonValue> => {
-  const snakType = keyAccessOcc('snaktype');
-  const value =
-    snakType === 'novalue'
-      ? 'Kein Wert'
-      : snakType === 'somevalue'
-      ? 'Fehlender Wert'
-      : keyAccessOcc<string>('datavalue', 'value', 'time');
-
   return {
-    value,
+    value: !isMissingValue ? keyAccessOcc<string>('datavalue', 'value') : '',
   };
 };

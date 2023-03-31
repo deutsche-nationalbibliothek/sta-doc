@@ -1,5 +1,6 @@
 import { StringGroup, StringValue } from '@/types/parsed/entity';
 import { Fragment } from 'react';
+import { MissingValueGuard } from '../missing-value';
 import { Qualifiers } from '../qualifiers';
 import { References } from '../references';
 
@@ -18,18 +19,20 @@ export const GenericStringValueMapper: React.FC<
 > = ({ stringValueContainer, children }) => (
   <>
     {stringValueContainer.values.map((stringValue, index) => (
-      <Fragment key={index}>
-        {children(
-          stringValue,
-          stringValue.qualifiers ? (
-            <Qualifiers qualifiers={stringValue.qualifiers} />
-          ) : undefined,
-          stringValue.references ? (
-            <References references={stringValue.references} />
-          ) : undefined,
-          index
-        )}
-      </Fragment>
+      <MissingValueGuard key={index} data={stringValue}>
+        <Fragment>
+          {children(
+            stringValue,
+            stringValue.qualifiers ? (
+              <Qualifiers qualifiers={stringValue.qualifiers} />
+            ) : undefined,
+            stringValue.references ? (
+              <References references={stringValue.references} />
+            ) : undefined,
+            index
+          )}
+        </Fragment>
+      </MissingValueGuard>
     ))}
   </>
 );

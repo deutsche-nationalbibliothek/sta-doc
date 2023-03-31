@@ -60,6 +60,7 @@ export interface CommonValue {
   references?: Reference[];
   property: Property;
   embedded?: Entity;
+  missingValue?: 'somevalue' | 'novalue';
   qualifiers?: Statement[];
   // headline?: Headline;
 }
