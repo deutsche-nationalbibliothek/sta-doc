@@ -1,4 +1,4 @@
-import { compact, groupBy, omit } from 'lodash';
+import { compact, flatten, groupBy, omit } from 'lodash';
 import { ParseEntityProps } from '.';
 import { EntityId } from '../../../../../types/entity-id';
 import { Statements } from '../../../../../types/parsed/entity';
@@ -77,58 +77,60 @@ export const filterSortTransformStatemants = (
         });
 
         // traverse datastructure for Wemi Levels
-        const wemiMapped = Object.keys(wemiGroups)
-          .filter((wemiGroupKey) => wemiGroupKey !== 'Kein Wert')
-          .map((wemiGroupKey) => {
-            const occs = wemiGroups[wemiGroupKey]; // as Claim[];
-            const claimStatement =
-              occs.length > 0 && 'qualifiers' in occs[0] && occs[0];
-            if (
-              claimStatement &&
-              claimStatement.qualifiers &&
-              Property['WEMI-level'] in claimStatement.qualifiers
-            ) {
-              const wemiLevel: StatementRaw =
-                claimStatement.qualifiers[Property['WEMI-level']][0];
+        const wemiMapped = flatten(
+          Object.keys(wemiGroups)
+            .filter((wemiGroupKey) => wemiGroupKey !== 'Kein Wert')
+            .map((wemiGroupKey) => {
+              const occs = wemiGroups[wemiGroupKey]; // as Claim[];
+              const claimStatement =
+                occs.length > 0 && 'qualifiers' in occs[0] && occs[0];
+              if (
+                claimStatement &&
+                claimStatement.qualifiers &&
+                Property['WEMI-level'] in claimStatement.qualifiers
+              ) {
+                const wemiLevelStatemant: StatementRaw =
+                  claimStatement.qualifiers[Property['WEMI-level']][0];
 
-              const newStatement = {
-                ...wemiLevel,
-                qualifiers: occs.reduce((acc, occ) => {
-                  const property = occ.mainsnak.property;
-                  if (property in acc) {
-                    const qualifiers = omit(
-                      occ.qualifiers as Record<Property, StatementRaw[]>,
-                      Property['WEMI-level']
-                    ) as Record<EntityId, StatementRaw[]>;
-                    const jj = {
-                      ...(occ as unknown as StatementRaw),
-                      qualifiers,
-                    };
-                    acc[property] = [...acc[property], jj];
-                  } else {
-                    acc = {
-                      ...acc,
-                      [property]: [
-                        {
-                          ...occ,
-                          qualifiers: omit(
-                            occ.qualifiers,
-                            Property['WEMI-level']
-                          ),
-                        },
-                      ],
-                    };
-                  }
-                  return acc;
-                }, {} as Record<Property, StatementRaw[]>), //as Record<Property, (StatementRaw | Claim)[]>),
-                datatype: 'wikibase-property',
-              } as unknown as Claim;
-              return [newStatement];
-            } else {
-              return wemiGroups[wemiGroupKey];
-            }
-          });
-        return [...acc, ...wemiMapped];
+                const newStatement = {
+                  ...wemiLevelStatemant,
+                  qualifiers: occs.reduce((acc, occ) => {
+                    const property = occ.mainsnak.property;
+                    if (property in acc) {
+                      const qualifiers = omit(
+                        occ.qualifiers as Record<Property, StatementRaw[]>,
+                        Property['WEMI-level']
+                      ) as Record<EntityId, StatementRaw[]>;
+                      const newQualifier = {
+                        ...(occ as unknown as StatementRaw),
+                        qualifiers,
+                      };
+                      acc[property] = [...acc[property], newQualifier];
+                    } else {
+                      acc = {
+                        ...acc,
+                        [property]: [
+                          {
+                            ...occ,
+                            qualifiers: omit(
+                              occ.qualifiers,
+                              Property['WEMI-level']
+                            ),
+                          },
+                        ],
+                      };
+                    }
+                    return acc;
+                  }, {} as Record<Property, StatementRaw[]>), //as Record<Property, (StatementRaw | Claim)[]>),
+                  datatype: 'wikibase-property',
+                } as unknown as Claim;
+                return [newStatement];
+              } else {
+                return wemiGroups[wemiGroupKey];
+              }
+            })
+        );
+        return [...acc, wemiMapped];
       } else {
         return [...acc, statements];
       }
