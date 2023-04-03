@@ -16,7 +16,7 @@ interface ParseStatementProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   keyAccessOcc: <T>(...keys: string[]) => T;
   hasHeadline: boolean;
-  simplifiedDataType: string;
+  simplifiedDataType: 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
 }
 
 // const keyAccessOcc = <T>(...keys: string[]) =>
@@ -72,7 +72,7 @@ export const parseStatement = (props: ParseStatementProps) => {
     : undefined;
 
   const dataTypeSpecifics =
-    simplifiedDataType === 'wikibasePointer'
+    simplifiedDataType === 'wikibasePointers'
       ? parseWikibaseValue({
           ...props,
           occ,
@@ -84,9 +84,9 @@ export const parseStatement = (props: ParseStatementProps) => {
           isElementsPropOnRdaRessourceType,
           isMissingValue,
         })
-      : simplifiedDataType === 'time'
+      : simplifiedDataType === 'times'
       ? parseTimeValue({ keyAccessOcc, isMissingValue })
-      : simplifiedDataType === 'url'
+      : simplifiedDataType === 'urls'
       ? parseUrlValue({ keyAccessOcc, isMissingValue })
       : parseStringValue({
           ...props,

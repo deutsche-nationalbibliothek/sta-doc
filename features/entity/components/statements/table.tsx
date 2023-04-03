@@ -8,7 +8,7 @@ import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
 import { DownOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
-import { GndSubFieldTable } from 'features/gnd/subfield-table';
+import { GndSubFieldTable } from '@/features/gnd/subfield-table';
 import { compact } from 'lodash';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';

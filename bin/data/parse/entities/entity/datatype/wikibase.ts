@@ -41,11 +41,14 @@ export const parseWikibaseValue = (
     Property['description-(at-the-end)'],
   ];
 
+  if (isMissingValue) {
+    return;
+  }
+
   const { schemas, labelsDe, staNotations, codings } = data;
   const id = keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasHeadline =
-    !isMissingValue &&
     isTopLevel &&
     !isPropertyBlacklisted(id) &&
     'qualifiers' in occ &&
