@@ -34,6 +34,8 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /srv
 
+ENV basePath="/doc"
+
 COPY --from=build-stage /srv /srv
 
 CMD [ "yarn", "start"]

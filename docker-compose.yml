@@ -4,12 +4,19 @@ services:
   nextjs:
     build:
       context: .
-    ports:
-      - '3000:3000'
+    networks:
+      - web_proxy
 
   solr:
     build:
-      context: ./docker/solr
+      context: .
+      dockerfile: ./docker/solr/Dockerfile
+    networks:
+      - web_proxy
     ports:
       - '8983:8983'
     user: '8983:8983'
+
+networks:
+  web_proxy:
+    name: web_proxy

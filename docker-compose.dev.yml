@@ -6,5 +6,21 @@ services:
       dockerfile: ./docker/nextjs/Dockerfile.dev
     volumes:
       - ./:/app
+    labels:
+      - traefik.http.routers.app_route.rule=Host(`localhost`)
+      - traefik.http.routers.app_route.service=app_service
+      - traefik.http.services.app_service.loadbalancer.server.port=3000
+
+  proxy:
+    image: traefik:v2.3
+    networks:
+      - web_proxy
+    command: --api.insecure=true --providers.docker
     ports:
-      - 3000:3000
+      - '80:80'
+      # The Web UI (enabled by --api.insecure=true)
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  solr:
