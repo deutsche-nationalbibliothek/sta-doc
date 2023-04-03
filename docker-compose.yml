@@ -3,7 +3,7 @@ version: '3'
 services:
   nextjs:
     build:
-      context: ./docker/nextjs
+      context: .
 
   solr:
     build:

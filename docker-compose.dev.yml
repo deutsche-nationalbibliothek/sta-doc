@@ -3,7 +3,7 @@ version: '3'
 services:
   nextjs:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: ./docker/nextjs/Dockerfile.dev
     volumes:
       - ./:/app
     ports:
