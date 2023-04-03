@@ -4,7 +4,9 @@ import { Namespace } from '@/types/namespace';
 
 export default function RDAEntitiesIndex() {
   return (
-    <Fetch<EntityIndexModel[]> url={`${process.env.basePath}/api/entities/rda`}>
+    <Fetch<EntityIndexModel[]>
+      url={`${process.env.basePath ?? ''}/api/entities/rda`}
+    >
       {(entities) => (
         <>
           {entities && (

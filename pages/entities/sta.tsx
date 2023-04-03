@@ -4,7 +4,9 @@ import { Namespace } from '@/types/namespace';
 
 export default function STAEntitiesIndex() {
   return (
-    <Fetch<EntityIndexModel[]> url={`${process.env.basePath}/api/entities/sta`}>
+    <Fetch<EntityIndexModel[]>
+      url={`${process.env.basePath ?? ''}/api/entities/sta`}
+    >
       {(entities) => (
         <>
           {entities && (
