@@ -2,12 +2,15 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
 import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
+import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
 
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
   const router = useRouter();
   const namespaceDomain = router.query.domain as string | undefined;
+
+  const pathMatch = router.asPath.match(/.*(?=(\?.*|=#.*))|.*/);
 
   return (
     <AntdLayout.Header style={{ zIndex: 1, width: '100%' }}>
@@ -17,11 +20,11 @@ export const TopBar: React.FC = () => {
             theme="dark"
             style={{ minWidth: 240 }}
             mode="horizontal"
-            selectedKeys={[
+            selectedKeys={compact([
               namespace,
-              router.asPath.match(/.*(?=(\?.*|=#.*))|.*/)[0],
+              pathMatch && pathMatch[0],
               namespaceDomain,
-            ]}
+            ])}
             items={[
               { label: <Link href="/">Home</Link>, key: '/' },
               {

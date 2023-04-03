@@ -1,5 +1,5 @@
 import { ParseEntitiesProps } from '..';
-import namespaceConfig from '../../../../../config/namespace';
+import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
 import { Headline } from '../../../../../types/headline';
 import { Item } from '../../../../../types/item';
@@ -21,8 +21,6 @@ import {
 import { headlinesParser } from './util';
 import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
 
-export type DataType = 'string' | 'wikibasePointer' | 'time' | 'url';
-
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
   entityId: EntityId;
@@ -37,19 +35,33 @@ export interface ParseEntityProps
 export const parseRawEntity = (
   props: ParseEntityProps
 ): EntityEntry | undefined => {
-  console.log('\t\t\tParsing Entity', props.entityId);
+  console.log(
+    !props.embedded ? '\n' : '\t',
+    '\t\t\tParsing Entity',
+    props.entityId
+  );
+
+  const defaultedProps: Required<ParseEntityProps> = {
+    headlines: [],
+    currentHeadlineLevel: 1,
+    prevParsedEntities: [],
+    embedded: false,
+    isRdaRessourceEntityParam: false,
+    noHeadline: false,
+    ...props,
+  };
 
   const {
     entityId,
     data,
     getRawEntityById,
-    headlines = [],
-    currentHeadlineLevel = 1,
-    prevParsedEntities = [],
-    embedded = false,
-    isRdaRessourceEntityParam = false,
-    noHeadline = false,
-  } = props;
+    headlines,
+    currentHeadlineLevel,
+    prevParsedEntities,
+    embedded,
+    isRdaRessourceEntityParam,
+    noHeadline,
+  } = defaultedProps;
 
   const { labelsDe, labelsEn, staNotations, fields, schemas } = data;
 
@@ -68,8 +80,19 @@ export const parseRawEntity = (
   const { addHeadline } = headlinesParser(headlines, noHeadline);
 
   const entityProps = (): Entity | void => {
-    const namespace: Namespace = namespaceConfig.map[schemas[entityId]];
-    const elementOfId: Item =
+    // if (!entity.claims) {
+    //   console.warn(
+    //     '\t\t\tEntity has no claims:',
+    //     entityId,
+    //     'not used, ignoring entity',
+    //     entityId
+    //   );
+    //   return undefined;
+    // }
+
+    const namespaceId = schemas[entityId] as NamespaceId;
+    const namespace: Namespace = namespaceConfig.map[namespaceId];
+    const elementOfId: EntityId | undefined =
       entity &&
       entity.claims[Property['Element-of']] &&
       entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id;
@@ -129,16 +152,11 @@ export const parseRawEntity = (
           ? staNotations[entityId].label.toUpperCase()
           : undefined,
       statements: filterSortTransformStatemants({
-        ...props,
-        noHeadline,
-        embedded,
-        prevParsedEntities,
-        currentHeadlineLevel,
-        headlines,
+        ...defaultedProps,
         relevantGroup,
         occurrences: entity.claims,
-        isRdaRessourceEntity,
-        isRdaRessourceEntityParam,
+        isRdaRessourceEntity: isRdaRessourceEntity || false,
+        // isRdaRessourceEntityParam,
         addHeadline,
       }),
       // logo:
@@ -157,6 +175,6 @@ export const parseRawEntity = (
   }
 };
 
-export type PreMappedStatement = Omit<StatementValue, 'string'> & {
-  string?: StringValue[];
+export type PreMappedStatement = Omit<StatementValue, 'stringGroups'> & {
+  stringGroups?: StringValue[];
 };

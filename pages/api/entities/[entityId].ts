@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
-import { Entities, EntitiesEntries } from '@/types/parsed/entity';
+import { EntitiesEntries } from '@/types/parsed/entity';
 import { fetcher, API_URL } from '@/bin/data/fetcher';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
@@ -13,22 +13,19 @@ import {
 } from '@/bin/data/parse';
 import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
 import { FetchingParam } from '@/hooks/fetch-query-params-provider';
+import { EntitiesRaw } from '@/types/raw/entity';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { entityId, live } = req.query;
+  const entityId = req.query.entityId as EntityId;
+  const live = req.query.live as FetchingParam;
+
   if (typeof entityId === 'string') {
     if (live) {
-      let entitiesEntries: EntitiesEntries;
+      let entitiesEntries: EntitiesEntries | undefined;
       if (live === FetchingParam.prod) {
-        entitiesEntries = await getLiveEntity(
-          fetcher(API_URL.prod),
-          entityId as EntityId
-        );
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.prod), entityId);
       } else if (live === FetchingParam.test) {
-        entitiesEntries = await getLiveEntity(
-          fetcher(API_URL.test),
-          entityId as EntityId
-        );
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.test), entityId);
       }
       if (entitiesEntries) {
         res.status(200).json(entitiesEntries[entityId]);
@@ -42,7 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    res.status(200).json(entities[entityId as keyof Entities]);
+    res.status(200).json((entities as EntitiesEntries)[entityId]);
   }
   res.status(404);
 };
@@ -51,7 +48,7 @@ const getLiveEntity = async (
   fetch: ReturnType<typeof fetcher>,
   entityId: EntityId
 ) => {
-  const prefetched = {};
+  const prefetched = {} as EntitiesRaw;
 
   await prefetchEmbeddedEntities({
     entityId,
@@ -60,8 +57,11 @@ const getLiveEntity = async (
         return prefetched[entityId];
       } else {
         const fetchedEntity = await fetch.entities.single(entityId);
-        prefetched[entityId] = fetchedEntity[entityId];
-        return fetchedEntity;
+        const prefetchedEntity = fetchedEntity[entityId];
+        if (prefetchedEntity) {
+          prefetched[entityId] = prefetchedEntity;
+          return fetchedEntity[entityId];
+        }
       }
     },
   });
@@ -75,7 +75,7 @@ const getLiveEntity = async (
     const schemas = schemasParser(await fetch.schemas());
     const fields = fieldsParser(await fetch.fields());
 
-    return await parseEntities({
+    return parseEntities({
       rawEntities: { [entityId]: entity },
       getRawEntityById: (id: EntityId) => prefetched[id],
       data: {

@@ -9,6 +9,7 @@
       "@/styles/*": ["styles/*"],
       "@/hooks/*": ["hooks/*"],
       "@/utils/*": ["utils/*"],
+      "@/features/*": ["features/*"],
       "@/entity/*": ["features/entity/*"],
       "@/types/*": ["types/*"],
       "@/bin/*": ["bin/*"],

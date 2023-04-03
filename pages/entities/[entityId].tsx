@@ -6,7 +6,8 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
-import { EntityEntry } from '@/types/parsed/entity';
+import { EntitiesEntries, EntityEntry } from '@/types/parsed/entity';
+import { Schemas } from '@/types/parsed/schema';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
 import namespaceConfig from 'config/namespace';
@@ -33,7 +34,8 @@ export default function EntityDetailsPage({
     if (headlines) {
       setHeadlines(headlines);
     }
-  }, []);
+    // todo, check dep
+  }, [setHeadlines]);
 
   return !notFound ? (
     <FetchEntity entityId={entityId} showSpinner={false}>
@@ -62,36 +64,48 @@ export const getStaticProps: GetStaticProps<
   EntityDetailsProps,
   { entityId: EntityId }
 > = (context) => {
-  const { entityId } = context.params;
-  const entityEntry: EntityEntry =
-    !Array.isArray(entityId) &&
-    entityId in entities &&
-    !isPropertyBlacklisted(entityId) &&
-    entities[entityId];
+  let entityId: EntityId | undefined;
+  let entityEntry: EntityEntry | undefined;
+  let isUnderConstruction: boolean | undefined;
 
-  const isValidData = entityEntry && entityEntry.headlines;
+  if (context.params && 'entityId' in context.params) {
+    const { entityId: id } = context.params;
+    entityId =
+      !Array.isArray(id) && id in entities && !isPropertyBlacklisted(id)
+        ? id
+        : undefined;
 
-  const isUnderConstruction =
-    namespaceConfig.map[schemas[entityId]] === Namespace.UC;
+    if (entityId) {
+      entityEntry = (entities as EntitiesEntries)[entityId];
 
-  return {
-    props: isValidData
-      ? {
+      const namespaceId = (schemas as Schemas)[entityId];
+      const namespace: Namespace = namespaceConfig.map[namespaceId];
+      isUnderConstruction = namespace === Namespace.UC;
+    }
+  }
+
+  if (entityEntry && entityEntry.headlines && entityId) {
+    return {
+      props: {
         entityId,
         headlines: entityEntry.headlines,
         notFound: false,
-      }
-      : {
-        entityId,
+      },
+    };
+  } else {
+    return {
+      props: {
+        entityId: '', //quickfix
         notFound: true,
         isUnderConstruction,
       },
-  };
+    };
+  }
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
-    paths: Object.keys(entities)
+    paths: Object.keys(entities as EntitiesEntries)
       .filter((entityId) => !isPropertyBlacklisted(entityId as EntityId))
       .map((entityId) => ({
         params: { entityId },

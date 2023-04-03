@@ -1,19 +1,20 @@
 import { Title } from '@/components/title';
 import { Item } from '@/types/item';
-import { isWikibaseValue, Maybe, WikiBaseValue } from '@/types/parsed/entity';
+import { WikibasePointerValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Typography } from 'antd';
 import React from 'react';
 import { Embedded } from '../embedded';
 import { EntityLink } from '../preview/link';
 import { Qualifiers } from '../qualifiers';
 import { References } from '../references';
 import { Examples } from '../examples';
+import { compact } from 'lodash';
+import { MissingValueGuard } from '../missing-value';
 
 interface WikibasePointerProps {
-  wikibasePointers: Maybe<WikiBaseValue>[];
+  wikibasePointers: WikibasePointerValue[];
   property: Property;
 }
 
@@ -28,53 +29,44 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   const hasQualifiers = () =>
     wikibasePointers.every(
       (wikibasePointer) =>
-        isWikibaseValue(wikibasePointer) &&
-        'qualifiers' in wikibasePointer &&
-        wikibasePointer.qualifiers
+        'qualifiers' in wikibasePointer && wikibasePointer.qualifiers
     );
   const hasEmbedded = () =>
     wikibasePointers.every(
       (wikibasePointer) =>
-        isWikibaseValue(wikibasePointer) &&
-        'embedded' in wikibasePointer &&
-        wikibasePointer.embedded
+        'embedded' in wikibasePointer && wikibasePointer.embedded
     );
 
   return hasEmbedded() ? (
     property === Property['example(s)'] ? (
-      <Examples
-        examples={wikibasePointers
-          .filter(isWikibaseValue)
-          .map((w) => w.embedded)}
-      />
+      <Examples examples={compact(wikibasePointers.map((w) => w.embedded))} />
     ) : (
       <>
-        {wikibasePointers
-          .filter(isWikibaseValue)
-          .map(
-            (wikibasePointer, index) =>
-              wikibasePointer.embedded && (
-                <Embedded key={index} entity={wikibasePointer.embedded} />
-              )
-          )}
+        {wikibasePointers.map((wikibasePointer, index) => (
+          <MissingValueGuard key={index} data={wikibasePointer}>
+            {wikibasePointer.embedded && (
+              <Embedded entity={wikibasePointer.embedded} />
+            )}
+          </MissingValueGuard>
+        ))}
       </>
     )
   ) : hasQualifiers() ? (
     <>
-      {wikibasePointers.map(
-        (wikibasePointer, index) =>
-          isWikibaseValue(wikibasePointer) && (
-            <React.Fragment key={index}>
-              {wikibasePointer.headline && (
-                <Title headline={wikibasePointer.headline}>
-                  <EntityLink {...wikibasePointer}>
-                    {wikibasePointer.label}{' '}
-                  </EntityLink>
-                </Title>
-              )}
-              {wikibasePointer.references && (
-                <References references={wikibasePointer.references} />
-              )}
+      {wikibasePointers.map((wikibasePointer, index) => (
+        <MissingValueGuard key={index} data={wikibasePointer}>
+          <React.Fragment>
+            {wikibasePointer.headline && (
+              <Title headline={wikibasePointer.headline}>
+                <EntityLink {...wikibasePointer}>
+                  {wikibasePointer.label}{' '}
+                </EntityLink>
+              </Title>
+            )}
+            {wikibasePointer.references && (
+              <References references={wikibasePointer.references} />
+            )}
+            {wikibasePointer.qualifiers && (
               <Qualifiers
                 qualifiers={
                   property === Property.Subfields
@@ -85,67 +77,58 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
                     : wikibasePointer.qualifiers
                 }
               />
-            </React.Fragment>
-          )
-      )}
+            )}
+          </React.Fragment>
+        </MissingValueGuard>
+      ))}
     </>
   ) : isList() ? (
     <UnorderedList>
-      {wikibasePointers
-        .filter((w) => isWikibaseValue(w) && !isPropertyBlacklisted(w.id))
-        .map((wikibasePointer, index) => (
-          <li key={index}>
-            {isWikibaseValue(wikibasePointer) ? (
+      <>
+        {wikibasePointers
+          .filter((w) => !isPropertyBlacklisted(w.id))
+          .map((wikibasePointer, index) => (
+            <li key={index}>
               <WikibaseLink
                 showArrow={isSeeItemOrProperty}
                 wikibasePointer={wikibasePointer}
               />
-            ) : (
-              <MissingLink />
-            )}
-          </li>
-        ))}
+            </li>
+          ))}
+      </>
     </UnorderedList>
-  ) : isWikibaseValue(wikibasePointers[0]) ? (
+  ) : (
     <WikibaseLink
       showArrow={isSeeItemOrProperty}
       wikibasePointer={wikibasePointers[0]}
     />
-  ) : (
-    <MissingLink />
   );
 };
 
-const UnorderedList = ({ children }) => {
+const UnorderedList = ({ children }: PropsWithChildren) => {
   return <ul>{children}</ul>;
 };
 
 interface WikibaseLinkProps {
-  wikibasePointer: WikiBaseValue;
+  wikibasePointer: WikibasePointerValue;
   showArrow?: boolean;
 }
 const WikibaseLink = ({ wikibasePointer, showArrow }: WikibaseLinkProps) => {
   if (isPropertyBlacklisted(wikibasePointer.id as Item)) {
     return null;
   }
-  return showArrow ? (
-    <EntityLink {...wikibasePointer}>
-      <>
-        <ArrowRightOutlined />
-        {wikibasePointer.label}
-      </>
-    </EntityLink>
-  ) : (
-    <EntityLink {...wikibasePointer} />
-  );
-};
-
-const MissingLink = () => {
-  // todo, distinct between noValue and missingValue
   return (
-    <Typography.Text strong>
-      <ArrowRightOutlined />
-      Fehlender Link
-    </Typography.Text>
+    <MissingValueGuard data={wikibasePointer}>
+      {showArrow ? (
+        <EntityLink {...wikibasePointer}>
+          <>
+            <ArrowRightOutlined />
+            {wikibasePointer.label}
+          </>
+        </EntityLink>
+      ) : (
+        <EntityLink {...wikibasePointer} />
+      )}
+    </MissingValueGuard>
   );
 };

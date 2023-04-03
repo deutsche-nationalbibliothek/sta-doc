@@ -16,22 +16,29 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
 
+  const pathMatch = router.asPath.match(/.*(?=#.*)|.*/) ?? [''];
+
   const onCopy = () => {
-    const hasCopied = copy(
-      `${window.location.origin}${process.env.basePath}${router.asPath.match(/.*(?=#.*)|.*/)[0]
-      }#${anchor}`
-    );
-    if (hasCopied) {
-      messageApi.open({
-        type: 'success',
-        content: 'Link kopiert!',
-      });
-    } else {
-      messageApi.open({
-        type: 'error',
-        content: 'Fehler beim Link kopieren',
-      });
-    }
+    const hasCopied =
+      pathMatch &&
+      copy(
+        `${window.location.origin}${process.env.basePath ?? ''}${
+          pathMatch[0]
+        }#${anchor}`
+      );
+    const messageProps: { content: string; type: 'success' | 'error' } =
+      hasCopied
+        ? {
+            type: 'success',
+            content: 'Link kopiert!',
+          }
+        : {
+            type: 'error',
+            content: 'Fehler beim Link kopieren',
+          };
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    messageApi.open(messageProps);
   };
 
   return (

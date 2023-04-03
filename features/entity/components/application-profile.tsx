@@ -1,9 +1,9 @@
-import { ColumnsType, Table } from '@/components/table';
+import { ColumnsTypes, Table } from '@/components/table';
 import { EntityId } from '@/types/entity-id';
 import { Namespace } from '@/types/namespace';
-import { isWikibaseValue, Statement } from '@/types/parsed/entity';
+import { Statement } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { flattenDeep, pick } from 'lodash';
+import { compact, flattenDeep, pick } from 'lodash';
 import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
 
@@ -13,16 +13,16 @@ interface ApplicationProfileProps {
 interface RelevantProps {
   link: string;
   label: string;
-  id: string;
+  id: EntityId;
 }
 
 interface ApplicationProfileTableData {
   id: EntityId;
   label: string;
-  namespace: Namespace;
+  namespace?: Namespace;
   wemi: RelevantProps;
-  status: Partial<RelevantProps>;
-  staNotationLabel: string;
+  status?: RelevantProps;
+  staNotationLabel?: string;
   expandable?: Statement[];
 }
 
@@ -36,44 +36,44 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
     Property['description-(at-the-end)'],
   ];
 
-  const data: ApplicationProfileTableData[] = flattenDeep(
-    statement.wikibasePointer.map(
-      (wemiLevelWikibasePointer) =>
-        isWikibaseValue(wemiLevelWikibasePointer) &&
-        wemiLevelWikibasePointer.qualifiers.map((qualifier) => {
-          return qualifier.wikibasePointer?.map((wikibasePointer) => {
-            if (isWikibaseValue(wikibasePointer)) {
-              const status = wikibasePointer.qualifiers.find(
-                (q) => q.property === Property.Status
-              );
-              const relevantProps = ['id', 'label', 'link', 'namespace'];
-              const applicationProfileTableData: ApplicationProfileTableData = {
-                id: wikibasePointer.id,
-                label: wikibasePointer.label,
-                namespace: wikibasePointer.namespace,
-                wemi: pick(
-                  wemiLevelWikibasePointer,
+  const data: ApplicationProfileTableData[] = compact(
+    flattenDeep(
+      statement.wikibasePointers?.map((wemiLevelWikibasePointer) =>
+        wemiLevelWikibasePointer.qualifiers?.map((qualifier) => {
+          return qualifier.wikibasePointers?.map((wikibasePointer) => {
+            const status = wikibasePointer.qualifiers?.find(
+              (q) => q.property === Property.Status
+            );
+            const relevantProps = ['id', 'label', 'link', 'namespace'];
+            const applicationProfileTableData: ApplicationProfileTableData = {
+              id: wikibasePointer.id,
+              label: wikibasePointer.label,
+              namespace: wikibasePointer.namespace,
+              wemi: pick(
+                wemiLevelWikibasePointer,
+                relevantProps
+              ) as RelevantProps,
+              status:
+                status &&
+                status.wikibasePointers &&
+                (pick(
+                  status.wikibasePointers[0],
                   relevantProps
-                ) as RelevantProps,
-                status: status
-                  ? (pick(
-                      status.wikibasePointer[0],
-                      relevantProps
-                    ) as RelevantProps)
-                  : { label: 'kein Wert' },
-                staNotationLabel: wikibasePointer.staNotationLabel,
-                expandable: wikibasePointer.qualifiers.filter(
-                  (q) => q.property && expandableProperties.includes(q.property)
-                ),
-              };
-              return applicationProfileTableData;
-            }
+                ) as RelevantProps),
+
+              staNotationLabel: wikibasePointer.staNotationLabel,
+              expandable: wikibasePointer.qualifiers?.filter(
+                (q) => q.property && expandableProperties.includes(q.property)
+              ),
+            };
+            return applicationProfileTableData;
           });
         })
+      )
     )
-  );
+  ) as ApplicationProfileTableData[] | [];
 
-  const columns: ColumnsType<ApplicationProfileTableData> = [
+  const columns: ColumnsTypes<ApplicationProfileTableData> = [
     {
       title: 'STA Notation',
       dataIndex: 'staNotationLabel',
@@ -131,21 +131,34 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       dataIndex: 'status',
       key: 'statusLabel',
       width: '14%',
-      render: (status) => {
-        return 'id' in status ? <EntityLink {...status} /> : status.label;
+      render: (status: ApplicationProfileTableData['status']) => {
+        if (status) {
+          return 'id' in status && status.label ? (
+            <EntityLink {...status} />
+          ) : (
+            status.label
+          );
+        }
       },
       filters: data
         .reduce((acc, date) => {
-          const key = date.status.label;
-          return acc.includes(key) ? [...acc] : [...acc, key];
+          if (date.status) {
+            const key = date.status.label;
+            return acc.includes(key) ? [...acc] : [...acc, key];
+          } else {
+            return acc;
+          }
         }, [] as string[])
         .map((key) => ({ text: key, value: key })),
-      sorter: (a, b) => (a.status.label > b.status.label ? 1 : -1),
+      sorter: (a, b) =>
+        a.status && b.status && a.status.label > b.status.label ? 1 : -1,
       onFilter: (value, record) => {
-        return record.status.label
-          .toString()
-          .toLowerCase()
-          .includes((value as string).toLowerCase());
+        return record.status
+          ? record.status.label
+              .toString()
+              .toLowerCase()
+              .includes((value as string).toLowerCase())
+          : false;
       },
     },
   ];
@@ -157,14 +170,15 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       expandable={{
         expandedRowClassName: () => 'application-profile-table-expandable-row',
         indentSize: 250,
-        rowExpandable: (record) => !!record.expandable.length,
+        rowExpandable: (record) =>
+          record.expandable ? !!record.expandable.length : false,
         expandedRowRender: (record) => (
           <Qualifiers
             shouldRenderLabel={(qualifier) =>
               qualifier.property !== Property.description
             }
             key={record.id}
-            qualifiers={record.expandable}
+            qualifiers={record.expandable ? record.expandable : []}
           />
         ),
       }}

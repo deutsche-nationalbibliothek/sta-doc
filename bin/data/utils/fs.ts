@@ -34,5 +34,5 @@ export const readJSONFile = <T>(name: Name, state: DataState): T => {
     fs.readFileSync(`data/${state}/${fileName(name)}.json`, {
       encoding: 'utf8',
     })
-  );
+  ) as T;
 };

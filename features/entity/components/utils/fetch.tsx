@@ -16,13 +16,15 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   showSpinner,
 }) => {
   return (
-    entityId && (
-      <Fetch<EntityEntryWithOptionalHeadlines>
-        url={`${process.env.basePath}/api/entities/${entityId}`}
-        showSpinner={showSpinner}
-      >
-        {children}
-      </Fetch>
-    )
+    <>
+      {entityId && (
+        <Fetch<EntityEntryWithOptionalHeadlines>
+          url={`${process.env.basePath ?? ''}/api/entities/${entityId}`}
+          showSpinner={showSpinner}
+        >
+          {children}
+        </Fetch>
+      )}
+    </>
   );
 };

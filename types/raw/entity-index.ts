@@ -1,3 +1,5 @@
+import { EntityId } from '../entity-id';
+
 export type EntitiesIndexRaw = EntityIndexRaw[];
 
 export interface EntityIndexRaw {
@@ -14,5 +16,5 @@ interface ElementLabel {
 
 interface Element {
   type: string;
-  value: string;
+  value: EntityId;
 }

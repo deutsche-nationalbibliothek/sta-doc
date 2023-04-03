@@ -1,4 +1,3 @@
-import { pickBy } from 'lodash';
 import { createContext, useContext } from 'react';
 import { NumberParam, StringParam, useQueryParam } from 'use-query-params';
 
@@ -17,7 +16,9 @@ export type QueryParam = string;
 // param is only used for typing context
 const SearchQueryParamsContext = createContext({} as SearchQueryParamsContext);
 
-export default function SearchQueryParamsProvider({ children }) {
+export default function SearchQueryParamsProvider({
+  children,
+}: PropsWithChildren) {
   const [searchQuery, setSearchQuery] = useQueryParam(
     'query',
     { ...StringParam, default: '' },
@@ -30,16 +31,21 @@ export default function SearchQueryParamsProvider({ children }) {
     { removeDefaultsFromUrl: true }
   );
 
-  const searchQueryParamsString = new URLSearchParams(
-    pickBy({ searchPage: page !== 1 && String(page), query: searchQuery }, (v) => !!v)
-  ).toString();
+  const searchParams: { searchPage?: string; query?: string } = {};
+  if (page && page !== 1) {
+    searchParams.searchPage = String(page);
+  }
+  if (searchQuery) {
+    searchParams.query = searchQuery;
+  }
+  const searchQueryParamsString = new URLSearchParams(searchParams).toString();
 
   return (
     <SearchQueryParamsContext.Provider
       value={{
-        page,
+        page: page || 1,
         setPage,
-        searchQuery,
+        searchQuery: searchQuery || '',
         setSearchQuery,
         searchQueryParamsString,
       }}

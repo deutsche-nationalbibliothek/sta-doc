@@ -31,7 +31,11 @@ interface HeadlinesContext {
 // param is only used for typing context
 const HeadlineContext = createContext({} as HeadlinesContext);
 
-export default function HeadlinesProvider({ children }) {
+export default function HeadlinesProvider({
+  children,
+}: {
+  children: JSX.Element;
+}) {
   const { headlines } = useInitialHeadlines();
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export default function HeadlinesProvider({ children }) {
   const [nestedHeadlines, setNestedHeadlines] = useState<NestedHeadlines[]>([]);
 
   useEffect(() => {
-    setNestedHeadlines(nestedHeadlinesCalculation(headlines, namespace));
+    setNestedHeadlines(nestedHeadlinesCalculation(headlines ?? [], namespace));
   }, [headlines, namespace]);
 
   return (

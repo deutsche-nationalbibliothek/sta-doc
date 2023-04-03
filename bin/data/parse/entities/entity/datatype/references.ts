@@ -7,7 +7,7 @@ interface ParseReferencesProps extends Required<ParseStatementsProps> {
 
 export const parseReferences = (props: ParseReferencesProps) => {
   const { references } = props;
-  const o = references
+  const statements = references
     .map((ref) =>
       Object.keys(ref.snaks).map(
         (refKey) => ref.snaks[refKey as keyof typeof ref.snaks]
@@ -16,7 +16,7 @@ export const parseReferences = (props: ParseReferencesProps) => {
     .flat() as StatementRaw[][];
   return parseStatements({
     ...props,
-    statements: o,
+    statements,
     // currentHeadlineLevel:nextHeaderLevel,
     embedded: true,
     // isTopLevel,

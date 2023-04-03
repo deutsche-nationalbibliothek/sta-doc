@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  nextjs:
+    build:
+      context: ./docker/nextjs
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    # volumes:
+    #   - type: bind
+    #     source: ./nextjs/public
+    #     target: /app/public
+    #     read_only: true

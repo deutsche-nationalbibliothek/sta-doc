@@ -1,55 +1,59 @@
 import { PropertiesItemsList } from '../../types/parsed/property-item-list';
 import type { fetcher } from './fetcher';
-import type { parseAllFromRead } from './parse';
+import type { ParsedAllFromRead } from './parse';
 import { DataState, writeJSONFile } from './utils';
 import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
-export const writer = (
-  data:
-    | Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>
-    | ReturnType<typeof parseAllFromRead>,
-  dataState: DataState
+export const writeRaw = (
+  data: Partial<Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>>
 ) => {
   const entities = {
-    all: async () => {
-      writeJSONFile(await data.entities.all, NAMES.entity, dataState);
+    all: () => {
+      data.entities &&
+        writeJSONFile(data.entities.all, NAMES.entity, DataState.raw);
     },
-    // index: () => {
-    //   writeJSONFile(data.entities.index, NAMES.entity, dataState);
-    // }
+    index: () => {
+      data.entities &&
+        writeJSONFile(data.entities.index, NAMES.entityIndex, DataState.raw);
+    },
   };
 
   const fields = () => {
-    writeJSONFile(data.fields, NAMES.fields, dataState);
+    writeJSONFile(data.fields, NAMES.fields, DataState.raw);
   };
 
   const labels = {
-    de: () => writeJSONFile(data.labels.de, NAMES.labelDe, dataState),
-    en: () => writeJSONFile(data.labels.en, NAMES.labelEn, dataState),
+    de: () =>
+      data.labels &&
+      writeJSONFile(data.labels.de, NAMES.labelDe, DataState.raw),
+    en: () =>
+      data.labels &&
+      writeJSONFile(data.labels.en, NAMES.labelEn, DataState.raw),
   };
 
   const staNotations = () =>
-    writeJSONFile(data.staNotations, NAMES.staNotation, dataState);
-  const schema = () =>
-    writeJSONFile(data.schemas, NAMES.schema, dataState);
+    writeJSONFile(data.staNotations, NAMES.staNotation, DataState.raw);
+  const schemas = () =>
+    writeJSONFile(data.schemas, NAMES.schema, DataState.raw);
   const codings = () => {
-    writeJSONFile(data.codings, NAMES.coding, dataState);
+    writeJSONFile(data.codings, NAMES.coding, DataState.raw);
   };
   const descriptions = () =>
-    writeJSONFile(data.descriptions, NAMES.description, dataState);
+    writeJSONFile(data.descriptions, NAMES.description, DataState.raw);
   // const rdaRules = () =>
-  //   writeJSONFile(data.rdaRules, NAMES.rdaRule, dataState);
+  //   writeJSONFile(data.rdaRules, NAMES.rdaRule, DataState.raw);
   const rdaProperties = () =>
-    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, dataState);
+    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.raw);
 
   const writeAll = () => {
+    entities.index();
     entities.all();
     fields();
     labels.de();
     labels.en();
     staNotations();
-    schema();
+    schemas();
     codings();
     descriptions();
     // rdaRules();
@@ -61,14 +65,87 @@ export const writer = (
     fields,
     labels,
     staNotations,
-    schema,
+    schemas,
     codings,
     descriptions,
     // rdaRules,
     rdaProperties,
     writeAll,
-    propertiesItemsList,
+    // propertiesItemsList,
   };
+};
+
+export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
+  const entities = {
+    all: () => {
+      data.entities &&
+        writeJSONFile(data.entities.all, NAMES.entity, DataState.parsed);
+    },
+    index: () => {
+      data.entities &&
+        writeJSONFile(data.entities.index, NAMES.entityIndex, DataState.parsed);
+    },
+  };
+
+  const fields = () => {
+    writeJSONFile(data.fields, NAMES.fields, DataState.parsed);
+  };
+
+  const labels = {
+    de: () =>
+      data.labels &&
+      writeJSONFile(data.labels.de, NAMES.labelDe, DataState.parsed),
+    en: () =>
+      data.labels &&
+      writeJSONFile(data.labels.en, NAMES.labelEn, DataState.parsed),
+  };
+
+  const staNotations = () =>
+    writeJSONFile(data.staNotations, NAMES.staNotation, DataState.parsed);
+  const schemas = () =>
+    writeJSONFile(data.schemas, NAMES.schema, DataState.parsed);
+  const codings = () => {
+    writeJSONFile(data.codings, NAMES.coding, DataState.parsed);
+  };
+  const descriptions = () =>
+    writeJSONFile(data.descriptions, NAMES.description, DataState.parsed);
+  // const rdaRules = () =>
+  //   writeJSONFile(data.rdaRules, NAMES.rdaRule, DataState.parsed);
+  const rdaProperties = () =>
+    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
+
+  const writeAll = () => {
+    entities.index();
+    entities.all();
+    fields();
+    labels.de();
+    labels.en();
+    staNotations();
+    schemas();
+    codings();
+    descriptions();
+    // rdaRules();
+    rdaProperties();
+  };
+
+  return {
+    entities,
+    fields,
+    labels,
+    staNotations,
+    schemas,
+    codings,
+    descriptions,
+    // rdaRules,
+    rdaProperties,
+    writeAll,
+    // propertiesItemsList,
+  };
+};
+
+export const writer = {
+  raw: writeRaw,
+  parsed: writeParsed,
 };
 
 export const propertiesItemsList = (

@@ -3,10 +3,9 @@ import { PreMappedStatement } from '.';
 import { Headline } from '../../../../../types/headline';
 import { Namespace } from '../../../../../types/namespace';
 import {
-  Maybe,
   StatementValue,
   StringValue,
-  StringValueContainer,
+  StringGroup,
 } from '../../../../../types/parsed/entity';
 
 export type AddHeadline = (
@@ -62,7 +61,7 @@ export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
 
 export const stringMapper = (val: PreMappedStatement): StatementValue => {
   const stringTransform = (stringValues: StringValue[]) => {
-    const groupReducer = (acc: StringValueContainer[], value: StringValue) => {
+    const groupReducer = (acc: StringGroup[], value: StringValue) => {
       const { itemType, ...otherValues } = value;
       if (
         acc.length > 0 &&
@@ -70,37 +69,37 @@ export const stringMapper = (val: PreMappedStatement): StatementValue => {
       ) {
         const prevAcc = [...acc];
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-        const lastEntry = prevAcc.pop() as StringValueContainer;
-        const stringValueContainers: StringValueContainer[] = [
+        const lastEntry = prevAcc.pop() as StringGroup;
+        const stringValueContainers: StringGroup[] = [
           ...prevAcc,
           {
             ...lastEntry,
             values: lastEntry
               ? [...lastEntry.values, otherValues]
               : [otherValues],
-          } as StringValueContainer,
+          } as StringGroup,
         ];
         return stringValueContainers;
       } else {
-        const jjj: StringValueContainer = {
+        const stringGroup: StringGroup = {
           itemType: itemType || 'default',
-          values: [otherValues as Maybe<StringValue>],
+          values: [otherValues as StringValue],
         };
-        const jj: StringValueContainer[] = [...acc, jjj];
-        return jj;
+        const stringGroups: StringGroup[] = [...acc, stringGroup];
+        return stringGroups;
       }
     };
     const groupedContent = stringValues.reduce(
       groupReducer,
-      [] as StringValueContainer[]
+      [] as StringGroup[]
     );
 
     return groupedContent;
   };
-  if (val && 'string' in val && val.string) {
+  if (val && 'stringGroups' in val && val.stringGroups) {
     return {
       ...val,
-      string: stringTransform(val.string),
+      stringGroups: stringTransform(val.stringGroups),
     };
   } else {
     return val as unknown as StatementValue;

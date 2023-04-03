@@ -28,7 +28,7 @@ export const useRouter = (): UseRouter => {
         `${url.toString()}${queryParamsString}${anchor ? `#${anchor}` : ''}`
       );
     },
-    [fetchingQueryParamsString]
+    [fetchingQueryParamsString, queryParamsString, router]
   );
 
   return {

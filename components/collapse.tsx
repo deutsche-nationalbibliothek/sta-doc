@@ -25,7 +25,7 @@ export const Collapse = ({
         setIsOpen(key === '1');
       }}
       accordion={true}
-      activeKey={[isOpen && '1']}
+      activeKey={isOpen ? ['1'] : undefined}
     >
       <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
         {children}

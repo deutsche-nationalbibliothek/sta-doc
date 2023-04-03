@@ -7,7 +7,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { GndFieldsTable } from 'features/gnd/field-table';
-import { Field } from '@/types/parsed/field';
+import { Field, Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 
@@ -22,7 +22,7 @@ export default function GndFields({ fields }: GndFieldsProps) {
   useEffect(() => {
     setNamespace(Namespace.GND);
     setHeadlines([]);
-  }, []);
+  }, [setHeadlines, setNamespace]);
 
   return (
     <>
@@ -50,7 +50,7 @@ export default function GndFields({ fields }: GndFieldsProps) {
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {
-      fields,
+      fields: fields as Fields,
     },
   };
 };

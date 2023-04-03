@@ -23,7 +23,7 @@ export const useSolrSearch = () => {
   );
 
   const isLoadingSearchIfQuery =
-    urlQuery && !(query && !queryLoading) && !!query && queryLoading;
+    urlQuery && !(query && !queryLoading) && !!query ? queryLoading : false;
 
   // suggest solr logic
   const [urlSuggest, setUrlSuggest] = useState<string>();
@@ -32,10 +32,9 @@ export const useSolrSearch = () => {
     useSWR<SuggestionsResult>(urlSuggest, true);
 
   const isLoadingSuggestionsIfQuery =
-    urlSuggest &&
-    !(query && !suggetionsLoading) &&
-    !!query &&
-    suggetionsLoading;
+    urlSuggest && !(query && !suggetionsLoading) && !!query
+      ? suggetionsLoading
+      : false;
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value || '');

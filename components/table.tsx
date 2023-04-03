@@ -21,13 +21,14 @@ import { Highlighter } from '@/lib/highlighter';
 export declare type DataIndex = string;
 
 interface TableProps<T> extends Omit<AntdTableProps<T>, 'columns'> {
-  columns?: ColumnsType<T>;
+  columns?: ColumnsTypes<T>;
 }
 
 interface ColumnType<T> extends Omit<AntdColumnType<T>, 'render'> {
   isSearchable?: boolean;
   noSort?: boolean;
   render?: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
     record: T,
     index: number,
@@ -37,10 +38,11 @@ interface ColumnType<T> extends Omit<AntdColumnType<T>, 'render'> {
 
 interface ColumnGroupType<T>
   extends Omit<AntdColumnGroupType<T>, 'render' | 'children'> {
-  children: ColumnsType<T>;
+  children?: ColumnsTypes<T>;
   isSearchable?: boolean;
   noSort?: boolean;
   render?: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
     record: T,
     index: number,
@@ -48,7 +50,11 @@ interface ColumnGroupType<T>
   ) => React.ReactNode | RenderedCell<T>;
 }
 
-export declare type ColumnsType<T = unknown> = (
+export declare type ColumnType2<T = unknown> =
+  | ColumnGroupType<T>
+  | ColumnType<T>;
+
+export declare type ColumnsTypes<T = unknown> = (
   | ColumnGroupType<T>
   | ColumnType<T>
 )[];
@@ -137,7 +143,9 @@ export function Table<T extends object>(props: TableProps<T>) {
     },
   });
 
-  const columnsMapper = (column: ColumnType<T> | ColumnGroupType<T>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const columnsMapper = (column: ColumnType<T> | ColumnGroupType<T>): any => {
+    // eslint-disable-next-line prefer-const
     let { render, isSearchable, noSort, ...columnProps } = column;
     if (isSearchable && 'dataIndex' in column) {
       columnProps = {
@@ -146,30 +154,35 @@ export function Table<T extends object>(props: TableProps<T>) {
       };
     }
     const columnRender =
-      'render' in column && 'dataIndex' in column
-        ? (value: any, record: T, index: number) => {
-            return render(
-              value,
-              record,
-              index,
-              searchTexts[String(column.dataIndex)] ? (
-                <Highlighter
-                  searchWords={[searchTexts[String(column.dataIndex)]]}
-                  textToHighlight={value ? value.toString() : ''}
-                />
-              ) : (
-                <>{value}</>
+      render && 'dataIndex' in column
+        ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (value: any, record: T, index: number) => {
+            return (
+              render &&
+              render(
+                value,
+                record,
+                index,
+                searchTexts[String(column.dataIndex)] ? (
+                  <Highlighter
+                    searchWords={[searchTexts[String(column.dataIndex)]]}
+                    textToHighlight={value ? String(value) : ''}
+                  />
+                ) : (
+                  <>{value}</>
+                )
               )
             );
           }
-        : (value: any) => {
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (value: any) => {
             return (
               <Typography.Text>
                 {'dataIndex' in column &&
                 searchTexts[String(column.dataIndex)] ? (
                   <Highlighter
                     searchWords={[searchTexts[String(column.dataIndex)]]}
-                    textToHighlight={value ? value.toString() : ''}
+                    textToHighlight={value ? String(value) : ''}
                   />
                 ) : (
                   value
@@ -181,22 +194,30 @@ export function Table<T extends object>(props: TableProps<T>) {
     return {
       sorter:
         !noSort && 'dataIndex' in column // !('children' in columnProps)
-          ? (a: ColumnsType<T>, b: ColumnsType<T>) =>
-              a[String(column.dataIndex)] > b[String(column.dataIndex)] ? 1 : -1
-          : undefined,
-      onFilter: (value: string, record: ColumnsType<T>) => {
-        if ('dataIndex' in column) {
-          const relevantValue = get(record, column.dataIndex);
-          return (
-            relevantValue &&
+          ? (a: T, b: T) =>
+              column.dataIndex &&
+              a[String(column.dataIndex) as keyof typeof a] >
+                b[String(column.dataIndex) as keyof typeof b]
+                ? 1
+                : -1
+          : () => 1,
+      onFilter: (value: string, record: T) => {
+        if ('dataIndex' in column && column.dataIndex) {
+          const relevantValue = get(record, column.dataIndex) as
+            | string
+            | undefined;
+          return relevantValue &&
             relevantValue.toString().toLowerCase().includes(value.toLowerCase())
-          );
+            ? true
+            : false;
+        } else {
+          return false;
         }
       },
       ...columnProps,
       render: columnRender,
       children:
-        'children' in columnProps
+        'children' in columnProps && columnProps.children
           ? columnProps.children.map(columnsMapper)
           : undefined,
     };
@@ -204,7 +225,11 @@ export function Table<T extends object>(props: TableProps<T>) {
 
   return (
     <>
-      <AntdTable sticky {...props} columns={props.columns.map(columnsMapper)} />
+      <AntdTable
+        sticky
+        {...props}
+        columns={props.columns?.map(columnsMapper) ?? []}
+      />
     </>
   );
 }

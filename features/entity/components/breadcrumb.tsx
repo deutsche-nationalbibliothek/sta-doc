@@ -12,7 +12,9 @@ export const Breadcrumb: React.FC = () => {
       <AntdBreadcrumb
         style={{
           paddingTop:
-            currentHeadlinesPath.length > 0 && showHeadlines ? 4 : 'var(--topbar-padding-y)',
+            currentHeadlinesPath.length > 0 && showHeadlines
+              ? 4
+              : 'var(--topbar-padding-y)',
         }}
         separator=""
       >
@@ -37,7 +39,9 @@ export const Breadcrumb: React.FC = () => {
                 </AntdBreadcrumb.Item>
                 {!isLastIndex && (
                   <AntdBreadcrumb.Separator key={`${key}-seperator`}>
-                    <span className={`${namespace}-seperator`}>/</span>
+                    <span className={namespace ? `${namespace}-seperator` : ''}>
+                      /
+                    </span>
                   </AntdBreadcrumb.Separator>
                 )}
               </Fragment>

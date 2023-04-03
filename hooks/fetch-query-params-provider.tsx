@@ -1,6 +1,5 @@
-import { pickBy } from 'lodash';
 import { createContext, useContext, useEffect } from 'react';
-import { StringParam, useQueryParam } from 'use-query-params';
+import { useQueryParam } from 'use-query-params';
 
 declare global {
   interface Window {
@@ -27,7 +26,11 @@ const FetchingQueryParamsContext = createContext(
   {} as FetchingQueryParamsContext
 );
 
-export default function FetchingQueryParamsProvider({ children }) {
+export default function FetchingQueryParamsProvider({
+  children,
+}: {
+  children: JSX.Element;
+}) {
   const [live, setLive] = useQueryParam('live') as [
     FetchingParam | undefined,
     UseQueryParamSetter<FetchingParam | undefined>
@@ -39,7 +42,7 @@ export default function FetchingQueryParamsProvider({ children }) {
         window.data = (fetchingParam?: FetchingParam) => setLive(fetchingParam);
       }
     }
-  }, []);
+  }, [setLive]);
 
   const fetchingQueryParamsString = live
     ? `?${new URLSearchParams({ live }).toString()}`

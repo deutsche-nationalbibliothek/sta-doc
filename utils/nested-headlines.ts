@@ -36,7 +36,7 @@ export const nestedHeadlines = (
           acc.currentPointer = acc.headlines;
           acc.headlines.push(treeItem(headline, acc.lastSeenNamespace));
         }
-      } else if (acc.lastSeenLevel < headline.level) {
+      } else if (acc.lastSeenLevel < headline.level && acc.currentPointer) {
         acc.currentPointer[acc.currentPointer.length - 1].children = [
           treeItem(headline, acc.lastSeenNamespace),
         ];
@@ -45,7 +45,10 @@ export const nestedHeadlines = (
       } else {
         acc.currentPointer = new Array(headline.level - acc.initialLevel)
           .fill(null)
-          .reduce((acc1) => acc1[acc1.length - 1].children, acc.headlines);
+          .reduce(
+            (acc1: NestedHeadlines[]) => acc1[acc1.length - 1].children,
+            acc.headlines
+          ) as NestedHeadlines[];
         acc.currentPointer.push(treeItem(headline, acc.lastSeenNamespace));
       }
       acc.lastSeenLevel = headline.level;
@@ -58,7 +61,7 @@ export const nestedHeadlines = (
       lastSeenLevel: filteredHeadlines[0].level,
       headlines: [] as NestedHeadlines[],
       lastSeenNamespace: entityNamespace,
-      currentPointer: undefined,
+      currentPointer: undefined as undefined | NestedHeadlines[],
     }
   );
   return reducedHeadlinesMeta.headlines;

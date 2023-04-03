@@ -1,3 +1,5 @@
+import { EntityId } from '../entity-id';
+
 export type SchemasRaw = SchemaRaw[];
 
 export interface SchemaRaw {
@@ -14,5 +16,5 @@ interface SchemaLabel {
 
 interface EId {
   type: string;
-  value: string;
+  value: EntityId;
 }

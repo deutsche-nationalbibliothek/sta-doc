@@ -3,24 +3,31 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useCallback,
   useContext,
   useState,
 } from 'react';
 
 interface NamespaceContext {
-  namespace: Namespace;
-  setNamespace: Dispatch<SetStateAction<Namespace>>;
+  namespace: Namespace | undefined;
+  setNamespace: Dispatch<SetStateAction<Namespace | undefined>>;
   onResetNamespace: () => void;
 }
 
 const NamespaceContext = createContext({} as NamespaceContext);
 
-export const NamespaceProvider = ({ children }) => {
+interface NamespaceProviderProps {
+  children: JSX.Element;
+}
+
+export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
+  children,
+}) => {
   const [namespace, setNamespace] = useState<Namespace>();
 
-  const onResetNamespace = () => {
+  const onResetNamespace = useCallback(() => {
     setNamespace(undefined);
-  };
+  }, []);
 
   // useEffect(() => {
   //   router.events.on('routeChangeStart', onResetNamespace);

@@ -43,20 +43,30 @@ export interface Claim {
   parentProperty?: Property;
 }
 
+export type DatatypeRaw =
+  // | 'novalue'
+  // | 'somevalue'
+  | 'time'
+  | 'url'
+  | 'wikibase-item'
+  | 'wikibase-entityid'
+  | 'wikibase-property'
+  | 'string';
+
 export interface StatementRaw {
   snaktype: string;
   property: Property;
   hash: string;
   datavalue?: Datavalue;
-  datatype: string;
+  datatype: DatatypeRaw;
 }
 
-// export const isClaim = (
-//   claimOrStatementRaw: Claim | StatementRaw
-// ): claimOrStatementRaw is Claim => 'mainsnak' in claimOrStatementRaw;
+export const isClaim = (
+  claimOrStatementRaw: Claim | StatementRaw
+): claimOrStatementRaw is Claim => 'mainsnak' in claimOrStatementRaw;
 
 interface Datavalue {
-  value: any;
+  value: { id: EntityId };
   type: string;
 }
 

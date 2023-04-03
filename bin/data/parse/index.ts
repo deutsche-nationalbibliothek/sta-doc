@@ -2,14 +2,14 @@ import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
 import { EntityId } from '../../../types/entity-id';
 import { CodingLabel, Codings } from '../../../types/parsed/coding';
-import { Description } from '../../../types/parsed/description';
+import { Descriptions } from '../../../types/parsed/description';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelsDe } from '../../../types/parsed/label-de';
 import { LabelsEn } from '../../../types/parsed/label-en';
 import { RdaProperties } from '../../../types/parsed/rda-property';
 import { StaNotations } from '../../../types/parsed/sta-notation';
 import { CodingsRaw } from '../../../types/raw/coding';
-import { DescriptionRaw } from '../../../types/raw/description';
+import { DescriptionRaws } from '../../../types/raw/description';
 import { SchemasRaw } from '../../../types/raw/schema';
 import { Schemas } from '../../../types/parsed/schema';
 import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
@@ -27,13 +27,36 @@ import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
-import namespaceConfig from '../../../config/namespace';
+import namespaceConfig, { NamespaceId } from '../../../config/namespace';
+import { EntitiesEntries } from '../../../types/parsed/entity';
+import { Fields } from '../../../types/parsed/field';
+import { Namespace } from '../../../types/namespace';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
-const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
+interface CommonTypeRaw {
+  eId: { value: EntityId };
+  elementLabel: { value: string };
+  assignmentId?: { value: string };
+  assignmentLabel?: { value: string };
+}
+
+type CommonTypeParsed = Record<
+  EntityId,
+  {
+    label: string;
+    assignmentId?: string;
+    assignmentLabel?: string;
+    id: string;
+  }
+>;
+
+const commonParseFunc = <T extends CommonTypeRaw[], K extends CommonTypeParsed>(
+  data: T,
+  name: Name
+): K => {
   console.log('\tParsing', name.type);
-  const parsedData = data.reduce((acc: any, entry: any) => {
+  const parsedData = data.reduce((acc, entry) => {
     acc[entry.eId.value] = {
       label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
       assignmentId: entry.assignmentId?.value,
@@ -41,7 +64,7 @@ const commonParseFunc = <T extends any[], K>(data: T, name: Name): K => {
       id: entry.eId.value,
     };
     return acc;
-  }, {});
+  }, {} as K);
   return parsedData;
 };
 
@@ -51,6 +74,7 @@ const labelStripper = (label: string) => {
 };
 
 export const entitiesParser = {
+  //mark
   all: (
     rawEntities: EntitiesRaw,
     getRawEntityById: GetRawEntityById,
@@ -79,9 +103,6 @@ export const entitiesParser = {
     } else {
       console.warn('Entity not found', entityId);
     }
-
-    // parseEntity(read.entities.single(entityId))
-    return [] as any;
   },
   index: (entitiesIndex: EntitiesIndexRaw) =>
     commonParseFunc<EntitiesIndexRaw, EntitiesIndex>(
@@ -90,7 +111,7 @@ export const entitiesParser = {
     ),
 };
 
-export const fieldsParser = (fields: FieldsRaw) =>
+export const fieldsParser = (fields: FieldsRaw): Fields =>
   Object.entries(fields).map(([key, field]) => {
     const {
       codings,
@@ -146,7 +167,7 @@ export const codingsParser = (codings: CodingsRaw) => {
   ];
   return codings.reduce((acc, coding) => {
     if (coding.codingTypeLabel) {
-      const codingKey = coding.eId.value as EntityId;
+      const codingKey = coding.eId.value;
       const codingLabelValue = coding.codingTypeLabel.value;
       const codingLabel: CodingLabel | undefined = codingLabels.find((label) =>
         codingLabelValue.includes(label)
@@ -174,8 +195,8 @@ export const codingsParser = (codings: CodingsRaw) => {
   }, {} as Codings);
 };
 
-export const descriptionsParser = (descriptions: DescriptionRaw[]) => {
-  return commonParseFunc<DescriptionRaw[], Description[]>(
+export const descriptionsParser = (descriptions: DescriptionRaws) => {
+  return commonParseFunc<DescriptionRaws, Descriptions>(
     descriptions,
     NAMES.description
   );
@@ -208,39 +229,70 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
-  parsedStaNotations: StaNotations
+  parsedStaNotations: StaNotations,
+  parsedSchemas: Schemas
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
-    const id = rdaProperty.eId.value as EntityId;
+    const id = rdaProperty.eId.value;
 
-    const typeData = (idKey: string, labelkey: string) => ({
-      id: rdaProperty[idKey].value,
-      label: labelStripper(
-        rdaProperty[labelkey as keyof typeof rdaProperty].value
-      ),
-      namespace: namespaceConfig.map[rdaProperty[idKey].value],
-    });
-
+    const typeData = (rdaPropertyId: EntityId, label: string) => {
+      const namespaceId = parsedSchemas[id] as NamespaceId;
+      const namespace: Namespace = namespaceConfig.map[namespaceId];
+      return {
+        id: rdaPropertyId,
+        label: labelStripper(label),
+        namespace,
+      };
+    };
     const type =
-      'entitytypeId' in rdaProperty
-        ? typeData('entitytypeId', 'entitytypeLabel')
-        : typeData('wemilevelId', 'wemilevelLabel');
+      rdaProperty.entitytypeId && rdaProperty.entitytypeLabel
+        ? typeData(
+            rdaProperty.entitytypeId.value,
+            rdaProperty.entitytypeLabel.value
+          )
+        : rdaProperty.wemilevelId &&
+          rdaProperty.wemilevelLabel &&
+          typeData(
+            rdaProperty.wemilevelId.value,
+            rdaProperty.wemilevelLabel.value
+          );
 
-    return [
-      ...acc,
-      {
-        id,
-        label: labelStripper(rdaProperty.elementLabel.value),
-        staNotationLabel: parsedStaNotations[id].label,
-        type,
-      },
-    ];
+    return type
+      ? [
+          ...acc,
+          {
+            id,
+            label: labelStripper(rdaProperty.elementLabel.value),
+            staNotationLabel: parsedStaNotations[id].label,
+            type,
+          },
+        ]
+      : acc;
   }, [] as RdaProperties);
 };
 
+export interface ParsedAllFromRead {
+  rdaProperties: RdaProperties;
+  labels: {
+    de: LabelsDe;
+    en: LabelsEn;
+  };
+  entities: {
+    all: EntitiesEntries;
+    index?: EntitiesIndex;
+  };
+  fields: Fields;
+  schemas: Schemas;
+  staNotations: StaNotations;
+  codings: Codings;
+  descriptions: Descriptions;
+}
+
 // const readParsed = reader(DataState.parsed)
-export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
+export const parseAllFromRead = (
+  read: (typeof reader)['raw']
+): ParsedAllFromRead => {
   const data = {
     staNotations: staNotationsParser(read.staNotations()),
     schemas: schemasParser(read.schemas()),
@@ -250,18 +302,22 @@ export const parseAllFromRead = (read: ReturnType<typeof reader>) => {
     fields: fieldsParser(read.fields()),
   };
   return {
-    rdaProperties: rdaPropertiesParser(read.rdaProperties(), data.staNotations),
+    rdaProperties: rdaPropertiesParser(
+      read.rdaProperties(),
+      data.staNotations,
+      data.schemas
+    ),
     labels: {
       de: data.labelsDe,
       en: data.labelsEn,
     },
     entities: {
+      index: entitiesParser.index(read.entities.index()),
       all: entitiesParser.all(
         read.entities.all(),
         (entityId: EntityId) => read.entities.single(entityId),
         data
       ),
-      index: entitiesParser.index(read.entities.index()),
     },
     fields: data.fields,
     schemas: data.schemas,
@@ -305,7 +361,7 @@ export const propertyItemList = (
           if (withSameLabel.length > 1) {
             return `  '${slugify(
               `${b.label}-${
-                withSameLabel.find((ib) => ib.index === index)?.index
+                withSameLabel.find((ib) => ib.index === index)?.index || ''
               }`.replace("'", '')
             )}' = '${b.value}',`;
           } else {

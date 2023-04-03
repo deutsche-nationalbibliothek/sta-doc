@@ -1,7 +1,7 @@
 import { EntityLink } from '@/entity/components/preview/link';
-import { QueryResult } from '@/types/search';
+import { DocSearchKey, QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
-import { uniq } from 'lodash';
+import { compact, uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
 
 interface SearchResultsProps {
@@ -60,30 +60,35 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
               )
             );
 
-            const fulltextMatches = uniq(
-              Object.keys(doc).reduce((acc, key) => {
-                if (Array.isArray(doc[key])) {
-                  return [
-                    ...acc,
-                    ...doc[key].filter(
-                      (docValue: string) =>
-                        docValue !== doc['headline.title'][0] &&
-                        headlineMatches.every(
-                          (headlineMatch) => headlineMatch !== docValue
-                        ) &&
-                        docValue.toLowerCase().includes(query.toLowerCase())
-                    ),
-                  ];
-                } else if (doc[key] && typeof doc[key] === 'string') {
-                  if (doc[key].includes(query)) {
-                    return [...acc, doc[key]];
-                  } else {
-                    return acc;
+            const fulltextMatches: string[] = compact(
+              uniq(
+                Object.keys(doc).reduce((acc, key: DocSearchKey) => {
+                  if (key in doc) {
+                    const docValue = doc[key] ?? [];
+                    if (Array.isArray(doc[key])) {
+                      return [
+                        ...acc,
+                        ...docValue.filter(
+                          (docValue: string) =>
+                            docValue !== doc['headline.title'][0] &&
+                            headlineMatches.every(
+                              (headlineMatch) => headlineMatch !== docValue
+                            ) &&
+                            docValue.toLowerCase().includes(query.toLowerCase())
+                        ),
+                      ];
+                      // } else if (
+                      //   key in doc &&
+                      //   doc[key] &&
+                      //   typeof doc[key] === 'string' &&
+                      //   (doc[key] || '').includes(query)
+                      // ) {
+                      //   return [...acc, doc[key] as string];
+                    }
                   }
-                } else {
                   return acc;
-                }
-              }, [])
+                }, [] as string[])
+              )
             );
 
             return 'headline-text-search' in doc ? (

@@ -1,9 +1,11 @@
 import { pick } from 'lodash';
-import namespaceConfig from '../../../../../../config/namespace';
+import namespaceConfig, {
+  NamespaceId,
+} from '../../../../../../config/namespace';
 import { EntityId } from '../../../../../../types/entity-id';
 import { Namespace } from '../../../../../../types/namespace';
 import {
-  WikiBaseValue,
+  WikibasePointerValue,
   CommonValue,
 } from '../../../../../../types/parsed/entity';
 import { Property } from '../../../../../../types/property';
@@ -15,11 +17,12 @@ interface ParseWikibaseValueProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   addStaStatement?: boolean;
   keyAccessOcc: <T>(...keys: string[]) => T;
+  isMissingValue: boolean;
 }
 
 export const parseWikibaseValue = (
   props: ParseWikibaseValueProps
-): Omit<WikiBaseValue, keyof CommonValue> | void => {
+): Omit<WikibasePointerValue, keyof CommonValue> | void => {
   const {
     occ,
     currentHeadlineLevel,
@@ -28,6 +31,7 @@ export const parseWikibaseValue = (
     keyAccessOcc,
     data,
     isTopLevel,
+    isMissingValue,
     addHeadline,
     noHeadline,
   } = props;
@@ -36,6 +40,10 @@ export const parseWikibaseValue = (
     Property['embedded-(item)'],
     Property['description-(at-the-end)'],
   ];
+
+  if (isMissingValue) {
+    return;
+  }
 
   const { schemas, labelsDe, staNotations, codings } = data;
   const id = keyAccessOcc<EntityId>('datavalue', 'value', 'id');
@@ -49,7 +57,8 @@ export const parseWikibaseValue = (
       ? Object.keys(pick(occ.qualifiers, wemiSpecificsWhitelist)).length > 0
       : true);
 
-  const pointingNamespace: Namespace = namespaceConfig.map[schemas[id]];
+  const namespaceId = schemas[id] as NamespaceId;
+  const pointingNamespace: Namespace = namespaceConfig.map[namespaceId];
 
   if (namespaceConfig.notUsed.includes(pointingNamespace)) {
     return;
@@ -72,6 +81,6 @@ export const parseWikibaseValue = (
       addStaStatement && id in staNotations
         ? staNotations[id].label.toUpperCase()
         : undefined,
-    coding: codings[id],
+    codings: codings[id],
   };
 };

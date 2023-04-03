@@ -1,3 +1,5 @@
+import { EntityId } from '../entity-id';
+
 export type StaNotationsRaw = StaNotationRaw[];
 
 export interface StaNotationRaw {
@@ -14,5 +16,5 @@ interface StaNotationLabel {
 
 interface EId {
   type: string;
-  value: string;
+  value: EntityId;
 }

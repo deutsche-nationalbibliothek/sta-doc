@@ -1,11 +1,6 @@
 import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
-import {
-  Entity,
-  isWikibaseValue,
-  Statement,
-  WikiBaseValue,
-} from '@/types/parsed/entity';
+import { Entity, Statement, WikibasePointerValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Typography } from 'antd';
 import { compact, flattenDeep } from 'lodash';
@@ -30,11 +25,11 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 
   useEffect(() => {
     setShowHeadlines(!isApplicationProfileView);
-  }, [isApplicationProfileView]);
+  }, [isApplicationProfileView, setShowHeadlines]);
 
   const propFinder = (
     property: Property,
-    statements = entity.statements.text
+    statements = entity.statements.body
   ) => statements.find((statement) => statement.property === property);
 
   const relevantStatements = {
@@ -48,12 +43,12 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     descriptionAtTheEnd: propFinder(Property['description-(at-the-end)']),
   };
 
-  if (isApplicationProfileView) {
+  if (isApplicationProfileView && relevantStatements.wemi) {
     return <ApplicationProfile statement={relevantStatements.wemi} />;
   }
 
   const qualifiersOrder = [
-    Property['Title-proper'],
+    Property['title-proper-or-RDA-property'],
     Property['embedded-(item)'],
     Property['description'],
     Property['embedded-in-(item)'],
@@ -64,7 +59,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const sortQualifiers = (claims: Statement[]) => {
     return claims.sort((occ1, occ2) =>
       qualifiersOrder.indexOf(occ1.property) >
-        qualifiersOrder.indexOf(occ2.property)
+      qualifiersOrder.indexOf(occ2.property)
         ? 1
         : -1
     );
@@ -73,22 +68,34 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const nonDefaultRenderProperties = [Property.Status, Property.Repetition];
   const nonDefaultRender = {
     properties: nonDefaultRenderProperties,
-    statements: (wikibasePointer: WikiBaseValue) => ({
+    statements: (wikibasePointer: WikibasePointerValue) => ({
       status: propFinder(
         Property.Status,
-        flattenDeep(
-          wikibasePointer.qualifiers.map((q) =>
-            q.wikibasePointer.map((w) => isWikibaseValue(w) && w.qualifiers)
+        wikibasePointer.qualifiers &&
+          flattenDeep(
+            compact(
+              wikibasePointer.qualifiers.map((q) =>
+                compact(
+                  q.wikibasePointers &&
+                    q.wikibasePointers.map((w) => w.qualifiers)
+                )
+              )
+            )
           )
-        )
       ),
       repetition: propFinder(
         Property.Repetition,
-        flattenDeep(
-          wikibasePointer.qualifiers.map((q) =>
-            q.wikibasePointer.map((w) => isWikibaseValue(w) && w.qualifiers)
+        wikibasePointer.qualifiers &&
+          flattenDeep(
+            compact(
+              wikibasePointer.qualifiers.map((q) =>
+                compact(
+                  q.wikibasePointers &&
+                    q.wikibasePointers.map((w) => w.qualifiers)
+                )
+              )
+            )
           )
-        )
       ),
     }),
     filter: (statement: Statement) =>
@@ -105,50 +112,59 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
           relevantStatements.description,
         ])}
       />
-      {relevantStatements.wemi.wikibasePointer
-        .filter(isWikibaseValue)
-        .map((wikibasePointer, index) => {
-          const { status, repetition } =
-            nonDefaultRender.statements(wikibasePointer);
-          return (
-            <React.Fragment key={index}>
-              <Title headline={wikibasePointer.headline}>
-                <EntityLink {...wikibasePointer} />
-              </Title>
-
-              {(status || repetition) && (
-                <Typography.Paragraph style={{ paddingBottom: 5 }}>
-                  {compact([status, repetition]).map((statement) => (
-                    <Typography.Text
-                      key={statement.property}
-                      style={{ paddingRight: 24 }}
-                    >
-                      {statement.label}:{' '}
-                      {isWikibaseValue(statement.wikibasePointer[0]) &&
-                        statement.wikibasePointer[0].label}
-                    </Typography.Text>
-                  ))}
-                </Typography.Paragraph>
-              )}
-
-              <Qualifiers
-                qualifiers={sortQualifiers(
-                  wikibasePointer.qualifiers.map((qualifier) => ({
-                    ...qualifier,
-                    wikibasePointer: qualifier.wikibasePointer
-                      .filter(isWikibaseValue)
-                      .map((wikibasePointer) => ({
-                        ...wikibasePointer,
-                        qualifiers: sortQualifiers(
-                          wikibasePointer.qualifiers
-                        ).filter(nonDefaultRender.filter),
-                      })) as WikiBaseValue[],
-                  }))
+      {relevantStatements.wemi?.wikibasePointers &&
+        relevantStatements.wemi.wikibasePointers.map(
+          (wikibasePointer, index) => {
+            const { status, repetition } =
+              nonDefaultRender.statements(wikibasePointer);
+            return (
+              <React.Fragment key={index}>
+                {wikibasePointer.headline && (
+                  <Title headline={wikibasePointer.headline}>
+                    <EntityLink {...wikibasePointer} />
+                  </Title>
                 )}
-              />
-            </React.Fragment>
-          );
-        })}
+
+                {(status || repetition) && (
+                  <Typography.Paragraph style={{ paddingBottom: 5 }}>
+                    {compact([status, repetition]).map((statement) => (
+                      <Typography.Text
+                        key={statement.property}
+                        style={{ paddingRight: 24 }}
+                      >
+                        {statement.label}:{' '}
+                        {statement.wikibasePointers &&
+                          statement.wikibasePointers[0].label}
+                      </Typography.Text>
+                    ))}
+                  </Typography.Paragraph>
+                )}
+
+                {wikibasePointer.qualifiers && (
+                  <Qualifiers
+                    qualifiers={sortQualifiers(
+                      wikibasePointer.qualifiers.map((qualifier) => ({
+                        ...qualifier,
+                        wikibasePointers:
+                          qualifier.wikibasePointers &&
+                          (qualifier.wikibasePointers.map(
+                            (wikibasePointer) => ({
+                              ...wikibasePointer,
+                              qualifiers:
+                                wikibasePointer.qualifiers &&
+                                sortQualifiers(
+                                  wikibasePointer.qualifiers
+                                ).filter(nonDefaultRender.filter),
+                            })
+                          ) as WikibasePointerValue[]),
+                      }))
+                    )}
+                  />
+                )}
+              </React.Fragment>
+            );
+          }
+        )}
       <Statements
         statements={compact([
           relevantStatements.relationsActor,

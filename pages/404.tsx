@@ -19,7 +19,7 @@ export const NotFound: React.FC<NotFoundProps> = ({
   useEffect(() => {
     setHeadlines([]);
     setNamespace(undefined);
-  }, []);
+  }, [setHeadlines]);
 
   return (
     <div style={{ textAlign: 'center', position: 'relative', top: '50%' }}>

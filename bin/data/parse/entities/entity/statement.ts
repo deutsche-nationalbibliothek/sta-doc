@@ -1,5 +1,5 @@
 import { parseRawEntity, PreMappedStatement } from '.';
-import namespaceConfig from '../../../../../config/namespace';
+import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
 import { Namespace } from '../../../../../types/namespace';
 import { Property } from '../../../../../types/property';
@@ -16,7 +16,7 @@ interface ParseStatementProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   keyAccessOcc: <T>(...keys: string[]) => T;
   hasHeadline: boolean;
-  simplifiedDataType: string;
+  simplifiedDataType: 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
 }
 
 // const keyAccessOcc = <T>(...keys: string[]) =>
@@ -41,14 +41,14 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const { schemas } = data;
   const snakType = keyAccessOcc<string>('snaktype');
-  const noDataValue = snakType === 'novalue' || snakType === 'somevalue';
+  const isMissingValue = snakType === 'novalue' || snakType === 'somevalue';
 
   const property = keyAccessOcc<Property>('property');
   const embeddedEntityId =
-    !noDataValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
+    !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasEmbedding =
-    !noDataValue &&
+    !isMissingValue &&
     embeddedEntityId &&
     (property === Property['example(s)'] ||
       property === Property['embedded-(item)'] ||
@@ -71,32 +71,31 @@ export const parseStatement = (props: ParseStatementProps) => {
       })?.entity
     : undefined;
 
-  const dataTypeSpecifics = noDataValue
-    ? snakType === 'somevalue'
-      ? { unknownValue: true }
-      : { somevalue: true }
-    : simplifiedDataType === 'wikibasePointer'
-    ? parseWikibaseValue({
-        ...props,
-        occ,
-        keyAccessOcc,
-        currentHeadlineLevel:
-          nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
-        addStaStatement: property === Property.Elements,
-        isTopLevel,
-        isElementsPropOnRdaRessourceType,
-      })
-    : simplifiedDataType === 'time'
-    ? parseTimeValue({ keyAccessOcc })
-    : simplifiedDataType === 'url'
-    ? parseUrlValue({ keyAccessOcc })
-    : parseStringValue({
-        ...props,
-        occ,
-        keyAccessOcc,
-        isTopLevel,
-        isElementsPropOnRdaRessourceType,
-      });
+  const dataTypeSpecifics =
+    simplifiedDataType === 'wikibasePointers'
+      ? parseWikibaseValue({
+          ...props,
+          occ,
+          keyAccessOcc,
+          currentHeadlineLevel:
+            nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+          addStaStatement: property === Property.Elements,
+          isTopLevel,
+          isElementsPropOnRdaRessourceType,
+          isMissingValue,
+        })
+      : simplifiedDataType === 'times'
+      ? parseTimeValue({ keyAccessOcc, isMissingValue })
+      : simplifiedDataType === 'urls'
+      ? parseUrlValue({ keyAccessOcc, isMissingValue })
+      : parseStringValue({
+          ...props,
+          occ,
+          keyAccessOcc,
+          isMissingValue,
+          isTopLevel,
+          isElementsPropOnRdaRessourceType,
+        });
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers
@@ -114,11 +113,13 @@ export const parseStatement = (props: ParseStatementProps) => {
         })
       : undefined;
 
-  const namespace: Namespace = namespaceConfig.map[schemas[property]];
+  const namespaceId = schemas[property] as NamespaceId;
+  const namespace: Namespace = namespaceConfig.map[namespaceId];
 
   const preMappedStatement: PreMappedStatement = {
     property,
     namespace,
+    missingValue: isMissingValue ? snakType : undefined,
     ...(dataTypeSpecifics ?? {}),
     references:
       'references' in occ && occ.references

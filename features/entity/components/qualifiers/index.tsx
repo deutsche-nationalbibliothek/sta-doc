@@ -1,12 +1,13 @@
 import { Title } from '@/components/title';
-import { Statement, Entity, isWikibaseValue } from '@/types/parsed/entity';
+import { Statement } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
+import { compact } from 'lodash';
 import React from 'react';
 import { Embedded } from '../embedded';
 import { Examples } from '../examples';
-import { StringStatement } from '../statements/string';
+import { StringGroupsStatement } from '../statements/string-groups';
 import { WikibasePointers } from '../wikibase-pointers';
 
 interface QualifiersProps {
@@ -23,7 +24,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
 }) => {
   const qualifierMap = {
     [Property['embedded-(item)']]: (qualifier: Statement) => {
-      return qualifier['wikibasePointer'].map((wikiBaseItem, index) => (
+      return qualifier.wikibasePointers?.map((wikiBaseItem, index) => (
         <React.Fragment key={index}>
           {'embedded' in wikiBaseItem && wikiBaseItem.embedded && (
             <Embedded entity={wikiBaseItem.embedded} />
@@ -33,13 +34,15 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     },
     [Property['example(s)']]: (qualifier: Statement) => {
       return (
-        <Examples
-          examples={
-            qualifier.wikibasePointer
-              .filter(isWikibaseValue)
-              .map((wikibaseValue) => wikibaseValue.embedded) as Entity[]
-          }
-        />
+        qualifier.wikibasePointers && (
+          <Examples
+            examples={compact(
+              qualifier.wikibasePointers.map(
+                (wikibaseValue) => wikibaseValue.embedded
+              )
+            )}
+          />
+        )
       );
     },
     default: (qualifier: Statement) => {
@@ -48,7 +51,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
           {showHeadline &&
             !isPropertyBlacklisted(qualifier.property) &&
             qualifier.headline && <Title headline={qualifier.headline} />}
-          {qualifier.string ? (
+          {qualifier.stringGroups ? (
             <Typography.Paragraph>
               {((shouldRenderLabel && shouldRenderLabel(qualifier)) ||
                 !shouldRenderLabel) &&
@@ -57,18 +60,18 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 )}
               {(qualifier.property === Property.Repetition ||
                 qualifier.property === Property.Status) && (
-                  <Typography.Text strong>{qualifier.label}: </Typography.Text>
-                )}
-              <StringStatement
+                <Typography.Text strong>{qualifier.label}: </Typography.Text>
+              )}
+              <StringGroupsStatement
                 property={qualifier.property}
-                statement={qualifier.string}
+                statements={qualifier.stringGroups}
               />
             </Typography.Paragraph>
           ) : (
-            qualifier.wikibasePointer && (
+            qualifier.wikibasePointers && (
               <WikibasePointers
                 property={qualifier.property}
-                wikibasePointers={qualifier.wikibasePointer}
+                wikibasePointers={qualifier.wikibasePointers}
               />
             )
           )}
@@ -88,11 +91,12 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
             sorting.indexOf(qualifier2.property)
         )
         .map((qualifier, index) => {
+          const property = qualifier.property as keyof typeof qualifierMap;
           return (
             <React.Fragment key={index}>
               {' '}
               {qualifier.property in qualifierMap
-                ? qualifierMap[qualifier.property](qualifier)
+                ? qualifierMap[property](qualifier)
                 : qualifierMap.default(qualifier)}
             </React.Fragment>
           );
@@ -101,4 +105,4 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
   );
 };
 
-const sorting = [Property['see(item)'], Property['see(property)']];
+const sorting = [Property['see-(Item)'], Property['see-(property)']];

@@ -13,7 +13,9 @@ const ApplicationProfileQueryParamContext = createContext(
   {} as ApplicationProfileParamContext
 );
 
-export default function ApplicationProfileQueryParamProvider({ children }) {
+export default function ApplicationProfileQueryParamProvider({
+  children,
+}: PropsWithChildren) {
   const [view, setView] = useQueryParam<
     string | undefined,
     'application-profile'
