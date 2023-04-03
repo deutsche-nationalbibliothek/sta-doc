@@ -64,7 +64,7 @@ export const parseStatements = (
   const parsedStatements: (PreMappedStatement | undefined)[] = statements.map(
     (occs: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
       if (occs.length === 0) {
-        console.log('\t\t\tno occs in, ignoring entity:', entityId);
+        console.log('\t\t\tno occs in entity, ignoring', entityId);
         return;
       }
       // property and datatype are the same over the occs collection
@@ -121,6 +121,7 @@ export const parseStatements = (
           keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
           hasHeadline,
           simplifiedDataType: dataType,
+          isElementsPropOnRdaRessourceType,
         })
       );
 

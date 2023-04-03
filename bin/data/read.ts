@@ -90,7 +90,7 @@ const readRaw: ReadRaw = {
 
 const readParsed: ReadParsed = {
   entities: {
-    all: () => readJSONFile<EntitiesEntries>(NAMES.entity, DataState.raw),
+    all: () => readJSONFile<EntitiesEntries>(NAMES.entity, DataState.parsed),
     single: (entityId: EntityId) => {
       const entity = readJSONFile<EntitiesEntries>(
         NAMES.entity,
@@ -99,21 +99,22 @@ const readParsed: ReadParsed = {
       return entity[entityId];
       // entityId
     },
-    index: () => readJSONFile<EntitiesIndex>(NAMES.entityIndex, DataState.raw),
+    index: () =>
+      readJSONFile<EntitiesIndex>(NAMES.entityIndex, DataState.parsed),
   },
-  fields: () => readJSONFile<Fields>(NAMES.fields, DataState.raw),
+  fields: () => readJSONFile<Fields>(NAMES.fields, DataState.parsed),
   labels: {
-    de: () => readJSONFile<LabelsDe>(NAMES.labelDe, DataState.raw),
-    en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.raw),
+    de: () => readJSONFile<LabelsDe>(NAMES.labelDe, DataState.parsed),
+    en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.parsed),
   },
   staNotations: () =>
-    readJSONFile<StaNotations>(NAMES.staNotation, DataState.raw),
-  schemas: () => readJSONFile<Schemas>(NAMES.schema, DataState.raw),
-  codings: () => readJSONFile<Codings>(NAMES.coding, DataState.raw),
+    readJSONFile<StaNotations>(NAMES.staNotation, DataState.parsed),
+  schemas: () => readJSONFile<Schemas>(NAMES.schema, DataState.parsed),
+  codings: () => readJSONFile<Codings>(NAMES.coding, DataState.parsed),
   descriptions: () =>
-    readJSONFile<Descriptions>(NAMES.description, DataState.raw),
+    readJSONFile<Descriptions>(NAMES.description, DataState.parsed),
   rdaProperties: () =>
-    readJSONFile<RdaProperties>(NAMES.rdaProperty, DataState.raw),
+    readJSONFile<RdaProperties>(NAMES.rdaProperty, DataState.parsed),
   // rdaRules: () => readJSONFile(NAMES.rdaRule, dataState),
 };
 

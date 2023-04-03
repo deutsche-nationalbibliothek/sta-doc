@@ -54,8 +54,8 @@ export const WikibasePointers: React.FC<WikibasePointerProps> = ({
   ) : hasQualifiers() ? (
     <>
       {wikibasePointers.map((wikibasePointer, index) => (
-        <MissingValueGuard data={wikibasePointer}>
-          <React.Fragment key={index}>
+        <MissingValueGuard key={index} data={wikibasePointer}>
+          <React.Fragment>
             {wikibasePointer.headline && (
               <Title headline={wikibasePointer.headline}>
                 <EntityLink {...wikibasePointer}>
