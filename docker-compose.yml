@@ -1,19 +1,13 @@
 version: '3'
 
 services:
-  # nextjs:
-  #   build:
-  #     context: ./docker/nextjs
-  #     dockerfile: Dockerfile
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./:/app
-  #   ports:
-  #     - 3000:3000
+  nextjs:
+    build:
+      context: ./docker/nextjs
 
   solr:
     build:
       context: ./docker/solr
     ports:
       - '8983:8983'
-    user: "8983:8983"
+    user: '8983:8983'
