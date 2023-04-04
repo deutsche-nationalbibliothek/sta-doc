@@ -50,7 +50,7 @@ export const filterSortTransformStatemants = (
         : -1
     );
 
-  const nextHeaderLevel = currentHeadlineLevel + 1;
+  const nextHeaderLevel = currentHeadlineLevel + (embedded ? 0 : 1);
 
   const reorganiseRdaRessourceType = () => {
     const releavantClaims = sortByProperties(filterByGroup('body'), 'body');

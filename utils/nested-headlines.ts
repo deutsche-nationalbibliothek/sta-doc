@@ -55,10 +55,8 @@ export const nestedHeadlines = (
       return acc;
     },
     {
-      // todo, initialLevel and lastSeenLevel should be 2 on init
-      // quickfix, since some entities have wrong headline parsing
-      initialLevel: filteredHeadlines[0].level,
-      lastSeenLevel: filteredHeadlines[0].level,
+      initialLevel: 2,
+      lastSeenLevel: 2,
       headlines: [] as NestedHeadlines[],
       lastSeenNamespace: entityNamespace,
       currentPointer: undefined as undefined | NestedHeadlines[],

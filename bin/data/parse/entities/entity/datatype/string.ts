@@ -47,8 +47,7 @@ export const parseStringValue = ({
   ];
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
-  const hasHeadline = headingIndex >= 0 && itemType;
-  // !isPropertyBlacklisted(itemType ?? property, 'headlines');
+  const hasHeadline = !isMissingValue && headingIndex >= 0;
 
   return {
     value,
