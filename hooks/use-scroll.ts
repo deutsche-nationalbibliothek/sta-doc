@@ -120,7 +120,7 @@ export const useScroll = (
         });
       }
     }
-  }, [treeRef, headlineKeysInViewport, scrollDirection]);
+  }, [treeRef, scrollDirection]);
 
   useEffect(() => {
     const firstSelectedHeadlineKey =
