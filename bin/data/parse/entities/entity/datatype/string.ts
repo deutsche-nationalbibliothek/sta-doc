@@ -52,7 +52,7 @@ export const parseStringValue = ({
   return {
     value,
     headline: hasHeadline
-      ? addHeadline(value, currentHeadlineLevel + headingIndex, noHeadline)
+      ? addHeadline(value, currentHeadlineLevel + headingIndex + 1, noHeadline)
       : undefined,
     codings: codings[property],
     itemType,
