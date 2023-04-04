@@ -51,10 +51,14 @@ export default function EntityDetailsPage({
     <NotFound
       isUnderConstruction={isUnderConstruction}
       subtitle={
-        <Typography.Text>
-          Datensatz mit der ID:{' '}
-          <Typography.Text code>{entityId}</Typography.Text> nicht verfügbar
-        </Typography.Text>
+        <>
+          {entityId && (
+            <Typography.Text>
+              Datensatz mit der ID:{' '}
+              <Typography.Text code>{entityId}</Typography.Text> nicht verfügbar
+            </Typography.Text>
+          )}
+        </>
       }
     />
   );
@@ -70,15 +74,15 @@ export const getStaticProps: GetStaticProps<
 
   if (context.params && 'entityId' in context.params) {
     const { entityId: id } = context.params;
-    entityId =
-      !Array.isArray(id) && id in entities && !isPropertyBlacklisted(id)
-        ? id
+    entityId = !Array.isArray(id) ? id : undefined;
+    const validEntityId =
+      entityId && entityId in entities && !isPropertyBlacklisted(entityId)
+        ? entityId
         : undefined;
 
-    if (entityId) {
-      entityEntry = (entities as EntitiesEntries)[entityId];
-
-      const namespaceId = (schemas as Schemas)[entityId];
+    if (validEntityId) {
+      entityEntry = (entities as EntitiesEntries)[validEntityId];
+      const namespaceId = (schemas as Schemas)[validEntityId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       isUnderConstruction = namespace === Namespace.UC;
     }
@@ -95,9 +99,9 @@ export const getStaticProps: GetStaticProps<
   } else {
     return {
       props: {
-        entityId: '', //quickfix
+        entityId: entityId ?? '',
         notFound: true,
-        isUnderConstruction,
+        isUnderConstruction: isUnderConstruction ?? false,
       },
     };
   }
