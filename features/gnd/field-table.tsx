@@ -16,8 +16,10 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
-      render: (_coding: string, _record, _index, highlighted) => {
-        return <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (coding: string, _record, _index, highlighted) => {
+        return coding ? (
+          <Typography.Text code>{highlighted}</Typography.Text>
+        ) : null;
       },
     },
     {
@@ -26,8 +28,10 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
-      render: (_coding, _record, _index, highlighted) => {
-        return <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (coding, _record, _index, highlighted) => {
+        return coding ? (
+          <Typography.Text code>{highlighted}</Typography.Text>
+        ) : null;
       },
     },
     {
@@ -36,8 +40,10 @@ export const GndFieldsTable: React.FC<
       width: '25%',
       key: 'MARC21',
       isSearchable: true,
-      render: (_coding, _record, _index, highlighted) => {
-        return <Typography.Text code>{highlighted}</Typography.Text>;
+      render: (coding, _record, _index, highlighted) => {
+        return coding ? (
+          <Typography.Text code>{highlighted}</Typography.Text>
+        ) : null;
       },
     },
     {
