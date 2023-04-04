@@ -169,7 +169,6 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       columns={columns}
       expandable={{
         expandedRowClassName: () => 'application-profile-table-expandable-row',
-        indentSize: 250,
         rowExpandable: (record) =>
           record.expandable ? !!record.expandable.length : false,
         expandedRowRender: (record) => (
