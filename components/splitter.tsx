@@ -26,6 +26,7 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
           ? ['no-print', 'splitter-content']
           : ['splitter-content']
       }
+      minWidths={childs.length === 2 ? [180, 600] : []}
       direction={direction}
       gutterClassName={`custom-gutter ${cssClass}`}
       draggerClassName="custom-dragger"
