@@ -1,9 +1,17 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import { NumberParam, StringParam, useQueryParam } from 'use-query-params';
 
 type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];
 
+interface RouterQuery {
+  // query
+  q: string;
+  // page
+  p: number;
+}
+
 type SearchQueryParamsContext = {
+  query: RouterQuery;
   searchQuery: string;
   setSearchQuery: UseQueryParamSetter<string>;
   page: number;
@@ -20,13 +28,13 @@ export default function SearchQueryParamsProvider({
   children,
 }: PropsWithChildren) {
   const [searchQuery, setSearchQuery] = useQueryParam(
-    'query',
+    'q',
     { ...StringParam, default: '' },
     { removeDefaultsFromUrl: true }
   );
 
   const [page, setPage] = useQueryParam(
-    'searchPage',
+    'p',
     { ...NumberParam, default: 1 },
     { removeDefaultsFromUrl: true }
   );
@@ -40,10 +48,22 @@ export default function SearchQueryParamsProvider({
   }
   const searchQueryParamsString = new URLSearchParams(searchParams).toString();
 
+  const query = useMemo(() => {
+    const query = {} as RouterQuery;
+    if (page && page !== 1) {
+      query.p = page;
+    }
+    if (searchQuery) {
+      query.q = searchQuery;
+    }
+    return query;
+  }, [page, searchQuery]);
+
   return (
     <SearchQueryParamsContext.Provider
       value={{
         page: page || 1,
+        query,
         setPage,
         searchQuery: searchQuery || '',
         setSearchQuery,

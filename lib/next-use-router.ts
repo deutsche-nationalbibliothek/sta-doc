@@ -1,38 +1,48 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
+import { filter, pickBy } from 'lodash';
 import { useRouter as useNextRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
-type UseRouter = ReturnType<typeof useNextRouter>;
-type useRouterPushParams = Parameters<UseRouter['push']>;
-type Url = useRouterPushParams[0];
+type UseRouter = Omit<ReturnType<typeof useNextRouter>, 'push'> & {
+  push: PushFunc;
+};
+
+type PushFunc = (
+  pathname?: string,
+  anchor?: string,
+  query?: Record<string, string>
+) => Promise<boolean>;
 
 export const useRouter = (): UseRouter => {
   const router = useNextRouter();
 
-  const { fetchingQueryParamsString } = useFetchingQueryParams();
-  const { searchQueryParamsString } = useSearchQueryParams();
+  // global query params:
+  const { query: fetchingQuery } = useFetchingQueryParams();
+  const { query: searchQuery } = useSearchQueryParams();
 
-  const queryParams = [
-    fetchingQueryParamsString,
-    searchQueryParamsString,
-  ].filter((a) => a);
-
-  const queryParamsString = queryParams.length
-    ? `?${queryParams.join('&')}`
-    : '';
-
-  const push = useCallback(
-    async (url: Url, anchor?: string) => {
-      return await router.push(
-        `${url.toString()}${queryParamsString}${anchor ? `#${anchor}` : ''}`
-      );
+  const push = useCallback<PushFunc>(
+    async (pathname, anchor?, query = {}) => {
+      const nextPath = pathname ?? router.pathname;
+      return await router.push({
+        pathname: nextPath,
+        hash: anchor,
+        query: {
+          ...pickBy(router.query, (_value, key) => nextPath.includes(key)),
+          ...searchQuery,
+          ...fetchingQuery,
+          ...query,
+        },
+      });
     },
-    [fetchingQueryParamsString, queryParamsString, router]
+    [searchQuery, fetchingQuery, router]
   );
 
-  return {
-    ...router,
-    push,
-  };
+  return useMemo(
+    () => ({
+      ...router,
+      push,
+    }),
+    [router, push]
+  );
 };

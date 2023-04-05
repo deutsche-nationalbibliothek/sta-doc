@@ -50,9 +50,7 @@ export const TableOfContent: React.FC<TableOfContentProps> = ({
         <Typography.Text
           id={`nav-${key}`}
           onClick={() => {
-            router
-              .push(`#${key}`, undefined, { shallow: false })
-              .catch((e) => console.error(e));
+            router.push(undefined, key).catch((e) => console.error(e));
           }}
           strong={
             currentHeadlinesPath.findIndex(

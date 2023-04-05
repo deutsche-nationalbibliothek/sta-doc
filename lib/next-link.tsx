@@ -1,35 +1,50 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
+import { filter, pickBy } from 'lodash';
 import NextLink, { LinkProps } from 'next/link';
+import { useRouter as useNextRouter } from 'next/router';
 import { CSSProperties } from 'react';
 
 export const Link: React.FC<
-  LinkProps & {
+  Omit<LinkProps, 'href'> & {
     children: React.ReactNode;
     target?: string;
     anchor?: string;
     style?: CSSProperties;
+    pathname?: string;
+    query?: Record<string, string>;
+    href?: string;
   }
 > = (props) => {
-  const { children, href, anchor, ...nextLinkProps } = props;
-  const { fetchingQueryParamsString } = useFetchingQueryParams();
-  const { searchQueryParamsString } = useSearchQueryParams();
+  const {
+    children,
+    href,
+    anchor,
+    pathname,
+    query = {},
+    ...nextLinkProps
+  } = props;
+  const router = useNextRouter();
 
-  const queryParams = [
-    fetchingQueryParamsString,
-    searchQueryParamsString,
-  ].filter((a) => a);
+  // global query params:
+  const { query: fetchingQuery } = useFetchingQueryParams();
+  const { query: searchQuery } = useSearchQueryParams();
 
-  const queryParamsString = queryParams.length
-    ? `?${queryParams.join('&')}`
-    : '';
-
-  const anchorString = anchor ? `#${anchor}` : '';
+  const nextPath = href ?? pathname ?? router.pathname;
 
   return (
     <NextLink
       // shallow={true} // todo, set true if entiyid is the same as right now
-      href={`${href.toString()}${queryParamsString}${anchorString}`}
+      href={{
+        pathname: nextPath,
+        hash: anchor,
+        query: {
+          ...pickBy(router.query, (_value, key) => nextPath.includes(key)),
+          ...searchQuery,
+          ...fetchingQuery,
+          ...query,
+        },
+      }}
       {...nextLinkProps}
     >
       {children}

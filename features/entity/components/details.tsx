@@ -46,11 +46,10 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
     if (nextViewParam === 'application-profile') {
-      const asPathMatch = router.asPath.match(/.*(?=#)/);
-      if (asPathMatch) {
-        // prevent issue with hooks/use-initial-scroll.ts
-        router.push(asPathMatch[0]).catch((e) => console.error(e));
-      }
+      // prevent issue with hooks/use-initial-scroll.ts
+      router
+        .push(undefined, undefined, { view: nextViewParam })
+        .catch((e) => console.error(e));
     }
     setView(nextViewParam);
     setShowHeadlines(!nextViewParam);

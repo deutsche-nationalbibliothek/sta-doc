@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQueryParam } from 'use-query-params';
 
 declare global {
@@ -14,9 +14,14 @@ export enum FetchingParam {
   test = 'test',
 }
 
+interface RouterQuery {
+  live: FetchingParam;
+}
+
 type FetchingQueryParamsContext = {
   // string with param set
   fetchingQueryParamsString: string;
+  query: RouterQuery;
 };
 
 export type QueryParam = string;
@@ -48,10 +53,19 @@ export default function FetchingQueryParamsProvider({
     ? `?${new URLSearchParams({ live }).toString()}`
     : '';
 
+  const query = useMemo(() => {
+    const query = {} as RouterQuery;
+    if (live) {
+      query.live = live;
+    }
+    return query;
+  }, [live]);
+
   return (
     <FetchingQueryParamsContext.Provider
       value={{
         fetchingQueryParamsString,
+        query,
       }}
     >
       {children}
