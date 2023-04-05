@@ -97,6 +97,15 @@ export const parseStatement = (props: ParseStatementProps) => {
           isElementsPropOnRdaRessourceType,
         });
 
+  const dataTypeSpecificNextHeaderLevel =
+    nextHeaderLevel +
+    (isElementsPropOnRdaRessourceType ||
+    (dataTypeSpecifics &&
+      'headline' in dataTypeSpecifics &&
+      dataTypeSpecifics.headline)
+      ? 1
+      : 0);
+
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers
       ? parseStatements({
@@ -104,8 +113,7 @@ export const parseStatement = (props: ParseStatementProps) => {
           statements: (Object.keys(occ.qualifiers) as Property[])
             .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
             .map((qualiKey) => (occ as Required<Claim>).qualifiers[qualiKey]),
-          currentHeadlineLevel:
-            nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+          currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
           embedded: true,
           // isTopLevel,
           // noHeadline,
@@ -125,6 +133,7 @@ export const parseStatement = (props: ParseStatementProps) => {
       'references' in occ && occ.references
         ? parseReferences({
             ...props,
+            currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
             references: occ.references,
             isTopLevel,
           })

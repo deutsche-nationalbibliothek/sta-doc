@@ -44,7 +44,11 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
         trigger="hover"
       >
         <QuestionCircleOutlined
-          style={{ color: 'var(--link-color)', fontSize: 16 }}
+          style={{
+            color: 'var(--link-color)',
+            fontSize: 16,
+            marginBottom: '1em',
+          }}
         />
       </Popover>
     </>
