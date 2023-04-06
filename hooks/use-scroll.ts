@@ -3,7 +3,7 @@ import { isInViewport } from '@/utils/is-in-viewport';
 import { DataNode } from 'antd/lib/tree';
 import { debounce } from 'lodash';
 import RcTree from 'rc-tree';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useHeadlines } from './headlines';
 import { useInitialHeadlines } from './initial-headlines';
 
@@ -17,8 +17,6 @@ export const useScroll = (
     headlineKeysInViewport,
     setHeadlineKeysInViewport,
   } = useHeadlines();
-
-  const scrollDirection = useScrollDirection();
 
   const onScroll = useCallback(() => {
     const headlinesInViewport: string[] = (headlines ?? [])
@@ -97,30 +95,14 @@ export const useScroll = (
   }, [debouncedOnScroll]);
 
   useEffect(() => {
-    if (treeRef && treeRef.current) {
-      const treeContainer: HTMLElement | null =
-        document.querySelector('div[role=tree]');
-      const selectedKeys = treeRef.current.state.selectedKeys ?? [];
-
-      const headingsOutOfViewport = treeContainer
-        ? selectedKeys.filter((key) => {
-            const headlineElement = document.getElementById(`nav-${key}`);
-            return (
-              headlineElement && !isInViewport(headlineElement, treeContainer)
-            );
-          })
-        : [];
-      if (headingsOutOfViewport.length) {
-        treeRef.current.scrollTo({
-          key:
-            scrollDirection === 'up'
-              ? headingsOutOfViewport[0]
-              : headingsOutOfViewport[headingsOutOfViewport.length - 1],
-          offset: 80,
-        });
-      }
-    }
-  }, [treeRef, scrollDirection]);
+    headlineKeysInViewport.forEach((headlineKey) => {
+      treeRef.current?.scrollTo({
+        key: headlineKey,
+        align: 'auto',
+        offset: 80,
+      });
+    });
+  }, [headlineKeysInViewport, treeRef]);
 
   useEffect(() => {
     const firstSelectedHeadlineKey =
@@ -159,36 +141,4 @@ export const useScroll = (
       setCurrentHeadlinesPath(nestedHeadlines.reduce(treeNodeReducer, []));
     }
   }, [setCurrentHeadlinesPath, headlineKeysInViewport, nestedHeadlines]);
-};
-
-enum ScrollDirection {
-  up = 'up',
-  down = 'down',
-}
-
-const useScrollDirection = (): ScrollDirection => {
-  const [scrollPosition, setScrollPosition] = useState({
-    current: window.scrollY,
-    prev: 0,
-  });
-
-  const onScroll = () =>
-    setScrollPosition((currentScrollPosition) =>
-      currentScrollPosition.current === window.scrollY
-        ? currentScrollPosition
-        : { current: window.scrollY, prev: currentScrollPosition.current }
-    );
-
-  const debouncedOnScroll = debounce(onScroll, 50);
-  const useDebouncedOnScroll = useCallback(debouncedOnScroll, [
-    debouncedOnScroll,
-  ]);
-  useEffect(() => {
-    window.addEventListener('scroll', useDebouncedOnScroll);
-    return () => window.removeEventListener('scroll', useDebouncedOnScroll);
-  }, [useDebouncedOnScroll]);
-
-  return scrollPosition.current < scrollPosition.prev
-    ? ScrollDirection.up
-    : ScrollDirection.down;
 };
