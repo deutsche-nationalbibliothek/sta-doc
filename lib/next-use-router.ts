@@ -1,6 +1,6 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
-import { filter, pickBy } from 'lodash';
+import { pickBy } from 'lodash';
 import { useRouter as useNextRouter } from 'next/router';
 import { useCallback, useMemo } from 'react';
 

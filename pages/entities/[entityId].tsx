@@ -34,8 +34,7 @@ export default function EntityDetailsPage({
     if (headlines) {
       setHeadlines(headlines);
     }
-    // todo, check dep
-  }, [setHeadlines]);
+  }, [setHeadlines, headlines]);
 
   return !notFound ? (
     <FetchEntity entityId={entityId} showSpinner={false}>

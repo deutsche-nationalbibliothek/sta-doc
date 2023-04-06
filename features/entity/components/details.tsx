@@ -33,11 +33,10 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
     }
     return () => {
       if (!embedded && entity.namespace) {
-        onResetNamespace;
+        onResetNamespace();
       }
     };
-    // todo, check embedded dep
-  }, [setNamespace, onResetNamespace, entity.namespace]);
+  }, [setNamespace, embedded, onResetNamespace, entity.namespace]);
 
   const [view, setView] = useQueryParam<
     string | undefined,
