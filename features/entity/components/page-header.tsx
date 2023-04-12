@@ -1,9 +1,10 @@
 import { Title } from '@/components/title';
 import { Namespace } from '@/types/namespace';
 import { Entity } from '@/types/parsed/entity';
-import { PageHeader, Switch, Typography } from 'antd';
+import { Switch, Typography } from 'antd';
 import React from 'react';
 import { NamespaceImage } from './namespace-image';
+import { PageHeader } from '@/components/page-header';
 
 interface EntityPageHeaderProps {
   entity: Entity;

@@ -4,10 +4,10 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { EntityId } from '@/types/entity-id';
 import { Namespace } from '@/types/namespace';
-import { PageHeader } from 'antd';
 import { useEffect } from 'react';
 import { NamespaceImage } from './namespace-image';
 import { EntityLink } from './preview/link';
+import { PageHeader } from '@/components/page-header';
 
 export interface EntityIndexModel {
   label: string;

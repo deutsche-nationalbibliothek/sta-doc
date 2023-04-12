@@ -2,7 +2,6 @@ import fields from '@/data/parsed/fields.json';
 import { Title } from '@/components/title';
 import { NamespaceImage } from '@/entity/components/namespace-image';
 import { useNamespace } from '@/hooks/use-namespace';
-import { PageHeader } from 'antd';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
@@ -10,6 +9,7 @@ import { GndFieldsTable } from 'features/gnd/field-table';
 import { Field, Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import { PageHeader } from '@/components/page-header';
 
 export interface GndFieldsProps {
   fields: Field[];

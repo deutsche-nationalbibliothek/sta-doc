@@ -8,11 +8,11 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
 import { RdaProperties, RdaProperty } from '@/types/parsed/rda-property';
-import { PageHeader } from 'antd';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { uniq } from 'lodash';
+import { PageHeader } from '@/components/page-header';
 
 interface RdaPropertiesProps {
   headlines: Headline[];

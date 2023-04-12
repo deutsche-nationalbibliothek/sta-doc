@@ -13,7 +13,9 @@ import { QueryParamProvider } from 'use-query-params';
 import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
 import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
-import 'antd/dist/antd.variable.min.css';
+
+// import 'antd/dist/antd.variable.min.css';
+
 
 export default function App({ Component, pageProps }: AppProps) {
   ConfigProvider.config({
