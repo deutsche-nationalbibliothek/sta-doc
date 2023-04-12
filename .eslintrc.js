@@ -6,13 +6,14 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:@next/next/recommended',
   ],
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@emotion', '@typescript-eslint'],
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json', './bin/tsconfig.json'],
   },
   root: true,
   rules: {
+    '@emotion/pkg-renaming': 'error',
     // 'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     // '@typescript-eslint/no-unsafe-assignment': 0,

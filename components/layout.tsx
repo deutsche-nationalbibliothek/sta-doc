@@ -7,7 +7,6 @@ import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
-import css from './layout.module.scss';
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -45,10 +44,7 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
     >
       <AntdLayout.Content>
         <Breadcrumb />
-        <div
-          className={css['main-scroll-container']}
-          id="main-scroll-container"
-        >
+        <div className={'main-scroll-container'} id="main-scroll-container">
           {children}
         </div>
       </AntdLayout.Content>
