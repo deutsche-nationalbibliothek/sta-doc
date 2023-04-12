@@ -19,7 +19,9 @@ export const SearchDrawer: React.FC = () => {
         {
           label: (
             <>
-              <SearchOutlined style={{ fontSize: 20 }} />
+              <SearchOutlined
+              // style={{ fontSize: 20 }}
+              />
               <Drawer
                 size="large"
                 placement="right"

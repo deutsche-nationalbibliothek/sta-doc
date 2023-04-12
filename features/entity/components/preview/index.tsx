@@ -34,10 +34,10 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
     <FetchEntity entityId={entityId}>
       {({ entity }) => (
         <div
-          style={{
-            maxWidth: Math.min(window.innerWidth, 960),
-            maxHeight: Math.min(window.innerHeight, 480),
-          }}
+        // style={{
+        //   maxWidth: Math.min(window.innerWidth, 960),
+        //   maxHeight: Math.min(window.innerHeight, 480),
+        // }}
         >
           <EntityPreviewContent entity={entity} />
         </div>

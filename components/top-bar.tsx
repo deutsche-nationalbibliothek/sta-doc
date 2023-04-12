@@ -13,12 +13,14 @@ export const TopBar: React.FC = () => {
   const pathMatch = router.asPath.match(/.*(?=(\?.*|=#.*))|.*/);
 
   return (
-    <AntdLayout.Header style={{ zIndex: 1, width: '100%' }}>
+    <AntdLayout.Header
+    // style={{ zIndex: 1, width: '100%' }}
+    >
       <Row justify={'space-between'}>
         <Col span={6}>
           <Menu
             theme="dark"
-            style={{ minWidth: 240 }}
+            // style={{ minWidth: 240 }}
             mode="horizontal"
             selectedKeys={compact([
               namespace,
@@ -29,7 +31,10 @@ export const TopBar: React.FC = () => {
               { label: <Link href="/">Home</Link>, key: '/' },
               {
                 label: (
-                  <span className="ant-menu-item" style={{ padding: 0 }}>
+                  <span
+                    className="ant-menu-item"
+                    // style={{ padding: 0 }}
+                  >
                     <Link href="/entities/Q8469">RDA</Link>
                   </span>
                 ),
@@ -61,7 +66,10 @@ export const TopBar: React.FC = () => {
               },
               {
                 label: (
-                  <span className="ant-menu-item" style={{ padding: 0 }}>
+                  <span
+                    className="ant-menu-item"
+                    // style={{ padding: 0 }}
+                  >
                     <Link href="/entities/Q10170">GND</Link>
                   </span>
                 ),
@@ -103,7 +111,10 @@ export const TopBar: React.FC = () => {
           />
         </Col>
         {router.pathname !== '/search' && (
-          <Col style={{ flex: '0 0 0' }} span={6}>
+          <Col
+            // style={{ flex: '0 0 0' }}
+            span={6}
+          >
             <SearchDrawer />
           </Col>
         )}

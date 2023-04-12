@@ -17,17 +17,20 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   const localLevel = (level <= 4 ? level : 4) as 1 | 2 | 3 | 4;
   const levelsTooHigh = level - 4;
   const style = levelsTooHigh > 0 ? { fontSize: 18 - levelsTooHigh } : {};
+  const iconSize = 20 - level;
 
   return (
     <>
       {
         useHover((hovered) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div
+          // style={{ display: 'flex', alignItems: 'center' }}
+          >
             <CopyHeadlineAnchorLink
               style={{
                 marginLeft: -35,
                 padding: '15px 0px 15px 15px',
-                fontSize: 20 - level,
+                fontSize: iconSize,
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
               }}
               anchor={key}
@@ -37,8 +40,8 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               style={{
                 ...style,
                 display: 'inline-block',
-                paddingTop: 10,
-                // marginTop: -85,
+                // paddingTop: 8,
+                marginTop: -85,
               }}
               id={key}
               level={localLevel}

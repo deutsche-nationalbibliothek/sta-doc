@@ -33,7 +33,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
   return (
     <div>
       <AutoComplete
-        style={{ width: '100%' }}
+        // style={{ width: '100%' }}
         autoFocus
         onSelect={(value: string) =>
           setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))

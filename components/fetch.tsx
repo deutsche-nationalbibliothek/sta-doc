@@ -19,7 +19,9 @@ export function Fetch<T>({ url, children, showSpinner = true }: FetchProps<T>) {
 
   if (showSpinner && loading) {
     return (
-      <div style={{ paddingTop: '1em', textAlign: 'center' }}>
+      <div
+      // style={{ paddingTop: '1em', textAlign: 'center' }}
+      >
         <Spin />
       </div>
     );

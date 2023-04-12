@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
 import { EntitiesEntries } from '@/types/parsed/entity';
-import { fetcher, API_URL } from '@/bin/data/fetcher';
+// import { fetcher, API_URL } from '@/bin/data/fetcher';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import {
@@ -22,6 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (typeof entityId === 'string') {
     if (live) {
       let entitiesEntries: EntitiesEntries | undefined;
+      const { fetcher, API_URL } = await import('@/bin/data/fetcher');
       if (live === FetchingParam.prod) {
         entitiesEntries = await getLiveEntity(fetcher(API_URL.prod), entityId);
       } else if (live === FetchingParam.test) {
@@ -45,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const getLiveEntity = async (
-  fetch: ReturnType<typeof fetcher>,
+  fetch: ReturnType<typeof import('@/bin/data/fetcher').fetcher>,
   entityId: EntityId
 ) => {
   const prefetched = {} as EntitiesRaw;

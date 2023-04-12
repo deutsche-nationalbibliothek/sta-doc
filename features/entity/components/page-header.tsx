@@ -29,7 +29,9 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
       title={entity.headline && <Title headline={entity.headline} />}
       extra={
         <>
-          <div style={{ textAlign: 'center' }}>
+          <div
+          // style={{ textAlign: 'center' }}
+          >
             {namespace && <NamespaceImage />}
             {isRdaRessourceType && (
               <span className="no-print">
@@ -52,7 +54,9 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
             )}
             {entity.staNotationLabel && (
               <>
-                <Typography.Paragraph style={{ textAlign: 'center' }}>
+                <Typography.Paragraph
+                // style={{ textAlign: 'center' }}
+                >
                   <Typography.Text strong>Sta Notation:</Typography.Text>
                   <br />
                   <Typography.Text>{entity.staNotationLabel}</Typography.Text>

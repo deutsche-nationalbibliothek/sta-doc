@@ -28,7 +28,10 @@ export const StringValueComponent: React.FC<StringValueProps> = ({
 
   return (
     <>
-      <Typography.Paragraph style={style} code={code}>
+      <Typography.Paragraph
+        // style={style}
+        code={code}
+      >
         {isHtml(stringValue.value) ? (
           <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
         ) : (

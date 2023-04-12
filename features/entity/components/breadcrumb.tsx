@@ -10,12 +10,12 @@ export const Breadcrumb: React.FC = () => {
   return (
     <div>
       <AntdBreadcrumb
-        style={{
-          paddingTop:
-            currentHeadlinesPath.length > 0 && showHeadlines
-              ? 4
-              : 'var(--topbar-padding-y)',
-        }}
+        // style={{
+        //   paddingTop:
+        //     currentHeadlinesPath.length > 0 && showHeadlines
+        //       ? 4
+        //       : 'var(--topbar-padding-y)',
+        // }}
         separator=""
       >
         {showHeadlines &&
@@ -49,9 +49,9 @@ export const Breadcrumb: React.FC = () => {
           })}
       </AntdBreadcrumb>
       <Divider
-        style={{
-          margin: 1,
-        }}
+      // style={{
+      //   margin: 1,
+      // }}
       />
     </div>
   );

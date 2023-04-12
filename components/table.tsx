@@ -90,7 +90,10 @@ export function Table<T extends object>(props: TableProps<T>) {
       confirm,
       clearFilters,
     }) => (
-      <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+      <div
+        // style={{ padding: 8 }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Input
           ref={searchInput}
           placeholder={`Suche ${String(key)}`}
@@ -101,7 +104,7 @@ export function Table<T extends object>(props: TableProps<T>) {
           onPressEnter={() =>
             handleSearch(selectedKeys as string[], confirm, dataIndex)
           }
-          style={{ marginBottom: 8, display: 'block' }}
+          // style={{ marginBottom: 8, display: 'block' }}
         />
         <Space>
           <Button
@@ -111,14 +114,14 @@ export function Table<T extends object>(props: TableProps<T>) {
             }
             icon={<SearchOutlined />}
             size="small"
-            style={{ width: 90 }}
+            // style={{ width: 90 }}
           >
             Suchen
           </Button>
           <Button
             onClick={() => clearFilters && handleReset(clearFilters, dataIndex)}
             size="small"
-            style={{ width: 100 }}
+            // style={{ width: 100 }}
           >
             Zurücksetzen
           </Button>

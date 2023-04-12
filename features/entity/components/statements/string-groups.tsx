@@ -116,7 +116,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
           <Typography.Paragraph strong>
             {label}{' '}
             <MenuUnfoldOutlined
-              style={{ color: 'var(--link-color)', fontSize: 'large' }}
+            // style={{ color: 'var(--link-color)', fontSize: 'large' }}
             />
           </Typography.Paragraph>
         </>
@@ -125,7 +125,10 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
       return (
         <>
           <Modal label={<>{labelReactElement}</>} title={labelReactElement}>
-            <Card style={{ backgroundColor: 'var(--primary-2)' }} key={'1'}>
+            <Card
+              // style={{ backgroundColor: 'var(--primary-2)' }}
+              key={'1'}
+            >
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
               >
@@ -176,11 +179,11 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph
             className="data-data"
-            style={{ color: 'blue' }}
+            // style={{ color: 'blue' }}
             key={stringValue.value}
           >
             <StringValueComponent
-              style={{ color: 'gray' }}
+              // style={{ color: 'gray' }}
               stringValue={stringValue}
             />
             {references}

@@ -16,10 +16,10 @@ export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
   return (
     <>
       <Card
-        style={{
-          backgroundColor: 'var(--primary-3)',
-          transform: 'translateX(0)',
-        }}
+      // style={{
+      //   backgroundColor: 'var(--primary-3)',
+      //   transform: 'translateX(0)',
+      // }}
       >
         <StringValueComponent stringValue={stringValue} />
       </Card>

@@ -23,7 +23,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
       <Typography.Paragraph strong>
         {label}{' '}
         <MenuUnfoldOutlined
-          style={{ color: 'var(--link-color)', fontSize: 'large' }}
+        // style={{ color: 'var(--link-color)', fontSize: 'large' }}
         />
       </Typography.Paragraph>
     </>
@@ -34,7 +34,9 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
       <Modal
         label={<>{labelReactElement}</>}
         title={
-          <div style={{ height: 24, transform: 'translateX(0)' }}>
+          <div
+          // style={{ height: 24, transform: 'translateX(0)' }}
+          >
             {labelReactElement}
             {namespace === Namespace.GND && (
               <Select
@@ -42,7 +44,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
                 value={codingsPreferences}
                 onChange={onChange}
                 size="small"
-                style={{ width: 160, position: 'fixed', right: 24 }}
+                // style={{ width: 160, position: 'fixed', right: 24 }}
                 options={codingsOptions.map((codingsOption, index) => ({
                   label: codingsOption,
                   value: codingsOption,
@@ -55,7 +57,10 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
       >
         {examples.map((example, index) => {
           return (
-            <Card style={{ backgroundColor: 'var(--primary-2)' }} key={index}>
+            <Card
+              // style={{ backgroundColor: 'var(--primary-2)' }}
+              key={index}
+            >
               <Example
                 entity={example}
                 codingsPreferences={codingsPreferences}

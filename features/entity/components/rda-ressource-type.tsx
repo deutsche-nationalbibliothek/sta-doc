@@ -126,11 +126,13 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                 )}
 
                 {(status || repetition) && (
-                  <Typography.Paragraph style={{ paddingBottom: 5 }}>
+                  <Typography.Paragraph
+                  // style={{ paddingBottom: 5 }}
+                  >
                     {compact([status, repetition]).map((statement) => (
                       <Typography.Text
                         key={statement.property}
-                        style={{ paddingRight: 24 }}
+                        // style={{ paddingRight: 24 }}
                       >
                         {statement.label}:{' '}
                         {statement.wikibasePointers &&

@@ -26,7 +26,7 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
                   reference.stringGroup.map((stringValueContainer, index3) => (
                     <Typography.Paragraph
                       key={index3}
-                      style={{ marginBottom: 0 }}
+                      // style={{ marginBottom: 0 }}
                     >
                       <GenericStringValueMapper
                         stringValueContainer={stringValueContainer}
@@ -44,11 +44,11 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
         trigger="hover"
       >
         <QuestionCircleOutlined
-          style={{
-            color: 'var(--link-color)',
-            fontSize: 16,
-            marginBottom: '1em',
-          }}
+        // style={{
+        //   color: 'var(--link-color)',
+        //   fontSize: 16,
+        //   marginBottom: '1em',
+        // }}
         />
       </Popover>
     </>

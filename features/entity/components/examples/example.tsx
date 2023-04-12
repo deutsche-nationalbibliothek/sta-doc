@@ -230,18 +230,18 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
 
   return (
     <Card
-      style={{
-        backgroundColor: 'var(--primary-3)',
-        transform: 'translateX(0)',
-      }}
+    // style={{
+    //   backgroundColor: 'var(--primary-3)',
+    //   transform: 'translateX(0)',
+    // }}
     >
       <Tag
-        style={{
-          position: 'fixed',
-          top: 4,
-          right: 0,
-          color: 'var(--link-color)',
-        }}
+      // style={{
+      //   position: 'fixed',
+      //   top: 4,
+      //   right: 0,
+      //   color: 'var(--link-color)',
+      // }}
       >
         {codingPreference}
       </Tag>

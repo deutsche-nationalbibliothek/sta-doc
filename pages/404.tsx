@@ -22,11 +22,15 @@ export const NotFound: React.FC<NotFoundProps> = ({
   }, [setHeadlines]);
 
   return (
-    <div style={{ textAlign: 'center', position: 'relative', top: '50%' }}>
+    <div
+    // style={{ textAlign: 'center', position: 'relative', top: '50%' }}
+    >
       <Typography.Title level={2}>
         {isUnderConstruction ? (
           <>
-            <ToolOutlined style={{ fontSize: 'xxx-large' }} />
+            <ToolOutlined
+            // style={{ fontSize: 'xxx-large' }}
+            />
             <br />
             In Bearbeitung
           </>

@@ -9,21 +9,24 @@ export const Sidebar: React.FC = () => {
   const dividerRef = React.useRef<HTMLDivElement>(null);
 
   return headlines && headlines.length > 1 ? (
-    <Layout.Sider theme={'light'} width={'100%'} style={{ height: '100%' }}>
+    <Layout.Sider
+      theme={'light'}
+      // width={'100%'} style={{ height: '100%' }}
+    >
       <div
         ref={containerRef}
         className="main-layout-height"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
+        // style={{
+        //   display: 'flex',
+        //   flexDirection: 'column',
+        // }}
       >
         <div ref={dividerRef}>
           <Divider
-            style={{
-              marginTop: 'var(--topbar-padding-y)',
-              marginBottom: 'var(--topbar-padding-y)',
-            }}
+          // style={{
+          //   marginTop: 'var(--topbar-padding-y)',
+          //   marginBottom: 'var(--topbar-padding-y)',
+          // }}
           />
         </div>
         <TableOfContent
@@ -32,10 +35,10 @@ export const Sidebar: React.FC = () => {
           dividerRef={dividerRef}
         />
         <Divider
-          style={{
-            marginTop: 'var(--topbar-padding-y)',
-            marginBottom: 'var(--topbar-padding-y)',
-          }}
+        // style={{
+        //   marginTop: 'var(--topbar-padding-y)',
+        //   marginBottom: 'var(--topbar-padding-y)',
+        // }}
         />
       </div>
     </Layout.Sider>

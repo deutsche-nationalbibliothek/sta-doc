@@ -32,11 +32,11 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
       <EntityPreview entityId={id} label={label}>
         <Link
           {...linkProps}
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            width: 'fit-content',
-          }}
+          // style={{
+          //   alignItems: 'center',
+          //   display: 'flex',
+          //   width: 'fit-content',
+          // }}
           href={`/entities/${id}`}
         >
           {children ?? <QueryHighlighter textToHighlight={label} />}

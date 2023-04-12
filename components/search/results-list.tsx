@@ -92,7 +92,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             );
 
             return 'headline-text-search' in doc ? (
-              <List.Item key={index} style={{ display: 'inherit' }}>
+              <List.Item
+                key={index}
+                // style={{ display: 'inherit' }}
+              >
                 <EntityLink
                   linkProps={{ onClick: onCloseDrawer }}
                   label={doc['headline.title'][0]}

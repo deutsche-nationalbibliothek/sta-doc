@@ -34,16 +34,19 @@ export const Footer: React.FC = () => {
       <Tooltip title="Nach oben scrollen">
         <VerticalAlignTopOutlined
           onClick={onClick.scrollTop}
-          style={iconStyle}
+          // style={iconStyle}
         />
       </Tooltip>
       <Tooltip className="no-print" title="Seiteninhalt drucken">
-        <PrinterOutlined onClick={onClick.print} style={iconStyle} />
+        <PrinterOutlined
+          onClick={onClick.print}
+          // style={iconStyle}
+        />
       </Tooltip>
       <Tooltip title="Alle Klapptexte ein- bzw ausklappen">
         <FullscreenOutlined
           onClick={onClick.betaDisclaimer}
-          style={iconStyle}
+          // style={iconStyle}
         />
       </Tooltip>
     </AntdLayout.Footer>

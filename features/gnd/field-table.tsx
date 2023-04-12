@@ -70,7 +70,7 @@ export const GndFieldsTable: React.FC<
 
   return (
     <Table<Field>
-      style={style}
+      // style={style}
       className={className}
       columns={columns.map((column) => ({
         ...column,
