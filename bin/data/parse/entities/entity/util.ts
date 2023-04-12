@@ -20,6 +20,7 @@ export type AddHeadline = (
 };
 
 export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
+  // todo, not perfect, try on Q10177, Q17 and P395
   const addHeadline = (
     title: string,
     level: number,
@@ -48,6 +49,8 @@ export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
     };
 
     if (!ignore && !noHeadline) {
+      // if (title === 'Willkommen auf der Dokumentationsplattform des STA')
+      //   debugger;
       headlines.push(namespace ? { ...headline, namespace } : headline);
     }
 

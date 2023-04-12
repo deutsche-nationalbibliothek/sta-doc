@@ -14,13 +14,11 @@ export const parseReferences = (props: ParseReferencesProps) => {
       )
     )
     .flat() as StatementRaw[][];
+
   return parseStatements({
     ...props,
     statements,
-    // currentHeadlineLevel:nextHeaderLevel,
     embedded: true,
-    // isTopLevel,
     noHeadline: true,
-    // isElementsPropOnRdaRessourceType,
   });
 };
