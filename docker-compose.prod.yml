@@ -10,6 +10,9 @@ services:
       - traefik.http.routers.app_route.service=app_service
       - traefik.http.services.app_service.loadbalancer.server.port=3000
 
+  solr:
+    restart: unless-stopped
+
   proxy:
     image: traefik:v2.3
     networks:
