@@ -21,15 +21,14 @@ export const defaultGroupsDefinition: Groups = {
     // Property['WEMI-level'],
   ],
   table: [
+    Property['WEMI-level'],
     Property['entity-type-domain'],
     Property['Recording-method'],
     Property.P660,
     Property['RDA-Reference'],
     Property.Status,
     Property.Encoding,
-    Property.Explanation,
     Property.P663,
-    Property['WEMI-level'],
   ],
   body: [
     // Property['STA-Notation'], // ??
