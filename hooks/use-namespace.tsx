@@ -1,8 +1,9 @@
-import { Namespace } from '@/types/namespace';
+import { isPrimaryNamepsace, Namespace } from '@/types/namespace';
+import ConfigProvider from 'antd/lib/config-provider';
+import namespaceConfig from 'config/namespace';
 import {
   createContext,
   Dispatch,
-  SetStateAction,
   useCallback,
   useContext,
   useState,
@@ -10,7 +11,7 @@ import {
 
 interface NamespaceContext {
   namespace: Namespace | undefined;
-  setNamespace: Dispatch<SetStateAction<Namespace | undefined>>;
+  setNamespace: Dispatch<Namespace | undefined>;
   onResetNamespace: () => void;
 }
 
@@ -24,6 +25,45 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
   children,
 }) => {
   const [namespace, setNamespace] = useState<Namespace>();
+  // @primary-color
+  const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
+    if (nextNamespace) {
+      if (isPrimaryNamepsace(nextNamespace)) {
+        // // document.documentElement.style.setProperty(
+        // //   '--namespace-color',
+        // //   `rgb(${namespaceConfig.colors[nextNamespace]})`
+        // // );
+        // document.documentElement.style.setProperty(
+        //   '--primary-1',
+        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.7)`
+        // );
+        // document.documentElement.style.setProperty(
+        //   '--primary-2',
+        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.5)`
+        // );
+        // document.documentElement.style.setProperty(
+        //   '--primary-3',
+        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.3)`
+        // );
+        // document.documentElement.style.setProperty(
+        //   '--secondary',
+        //   `rgb(${namespaceConfig.colors[nextNamespace].secondary})`
+        // );
+        console.log(`rgb(${namespaceConfig.colors[nextNamespace].primary})`);
+        // ConfigProvider.config({
+        //   theme: {
+        //     primaryColor: `rgb(${namespaceConfig.colors[nextNamespace].primary})`,
+        //   },
+        // });
+      } else {
+        document.documentElement.style.setProperty(
+          '--namespace-color',
+          namespaceConfig.defaultColor
+        );
+      }
+    }
+    setNamespace(nextNamespace);
+  };
 
   const onResetNamespace = useCallback(() => {
     setNamespace(undefined);
@@ -40,7 +80,7 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     <NamespaceContext.Provider
       value={{
         namespace,
-        setNamespace,
+        setNamespace: onSetNamepsace,
         onResetNamespace,
       }}
     >

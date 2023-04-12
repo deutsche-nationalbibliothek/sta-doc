@@ -2,7 +2,7 @@
 
 @background-color: rgb(240, 242, 245);
 
-@primary-color: #f49c3c; // primary color for all components
+// @primary-color: #f49c3c; // primary color for all components
 @link-color: #0b3278; // link color
 
 @success-color: #52c41a; // success state color
@@ -35,7 +35,7 @@
 }
 
 .ant-menu-submenu-selected {
-  background-color: @primary-color !important;
+  background-color: var(--ant-primary-color) !important;
 }
 
 .ant-layout-header {
@@ -43,7 +43,7 @@
 }
 
 .ant-breadcrumb-separator > .RDA-seperator {
-  color: @primary-color;
+  color: var(--ant-primary-color);
 }
 
 .ant-breadcrumb-separator > .GND-seperator {
@@ -123,16 +123,16 @@
   & .ant-table {
     background-color: var(--primary-2) !important;
     & tr:not(:first-child) .ant-table-cell {
-      border-bottom: 1px solid @white !important;
+      border-bottom: 1px solid white !important;
     }
     & tr:not(:last-child) .ant-table-cell {
-      border-top: 1px solid @white !important;
+      border-top: 1px solid white !important;
     }
     & .ant-table-cell:not(:first-child) {
-      border-left: 2px solid @white !important;
+      border-left: 2px solid white !important;
     }
     & .ant-table-cell:not(:last-child) {
-      border-right: 2px solid @white !important;
+      border-right: 2px solid white !important;
     }
   }
   & .ant-table-cell-row-hover {

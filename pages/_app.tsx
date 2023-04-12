@@ -1,4 +1,4 @@
-import '../styles/globals.less';
+// import '../styles/globals.less';
 import type { AppProps } from 'next/app';
 import HeadlinesProvider from '@/hooks/headlines';
 import Layout from '@/components/layout';
@@ -13,8 +13,14 @@ import { QueryParamProvider } from 'use-query-params';
 import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
 import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
+import 'antd/dist/antd.variable.min.css';
 
 export default function App({ Component, pageProps }: AppProps) {
+  ConfigProvider.config({
+    theme: {
+      primaryColor: `#FDD069`,
+    },
+  });
   return (
     <>
       <ConfigProvider locale={deDE}>

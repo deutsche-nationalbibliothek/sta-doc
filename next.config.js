@@ -1,7 +1,7 @@
 /**
  * @type {import('next').NextConfig}
  **/
-const withLess = require('next-with-less');
+// const withLess = require('next-with-less');
 
 module.exports = () => {
   const nextConfig = {
@@ -25,5 +25,6 @@ module.exports = () => {
       ];
     },
   };
-  return withLess(nextConfig);
+  // return withLess(nextConfig);
+  return nextConfig;
 };
