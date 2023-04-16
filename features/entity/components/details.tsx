@@ -11,6 +11,7 @@ import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
 import { useHeadlines } from '@/hooks/headlines';
 import { useRouter } from '@/lib/next-use-router';
+import { useEntity } from '@/hooks/entity-provider';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -26,6 +27,14 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   const router = useRouter();
 
   useInitialScroll(!embedded);
+
+  const { setEntity: setEntityCache, entity: entityCached } = useEntity();
+
+  useEffect(() => {
+    if (!embedded) {
+      setEntityCache(entity);
+    }
+  }, [embedded, entity, entityCached, setEntityCache]);
 
   useEffect(() => {
     if (!embedded && entity.namespace) {

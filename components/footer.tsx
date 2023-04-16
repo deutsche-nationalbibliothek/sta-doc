@@ -1,20 +1,27 @@
+import { useEntity } from '@/hooks/entity-provider';
 import {
   FullscreenOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { Interpolation, Theme } from '@emotion/react';
-import { Layout as AntdLayout, Col, message, Row, Tooltip } from 'antd';
+import { Layout as AntdLayout, Col, message, Row, theme, Tooltip } from 'antd';
 import { useMemo } from 'react';
 
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
+  const { entity } = useEntity();
 
+  const { token } = theme.useToken();
   const iconStyle: Interpolation<Theme> = {
     fontSize: 'medium',
     padding: '0 6px',
     cursor: 'pointer',
     marginTop: 2,
+    '&:hover': {
+      color: token.colorPrimary,
+      // backgroundColor: token.colorPrimary
+    },
   };
 
   const onClick = useMemo(
@@ -52,7 +59,9 @@ export const Footer: React.FC = () => {
             display: 'flex',
           }}
         >
-          Version: {process.env['NEXT_PUBLIC_VERSION']}
+          {process.env['NEXT_PUBLIC_VERSION'] && (
+            <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
+          )}
         </Col>
         <Col>
           <Tooltip title="Nach oben scrollen">
@@ -71,7 +80,11 @@ export const Footer: React.FC = () => {
             />
           </Tooltip>
         </Col>
-        <Col>Sta Notation</Col>
+        <Col>
+          {entity?.staNotationLabel && (
+            <>Sta Notation: {entity.staNotationLabel}</>
+          )}
+        </Col>
       </Row>
     </AntdLayout.Footer>
   );

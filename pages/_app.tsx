@@ -17,6 +17,7 @@ import { ThemeConfigProvider } from '@/hooks/theme-provider';
 import { GlobalDynamicStyles, GlobalStaticStyles } from '@/lib/emotion/global';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
+import { EntityProvider } from '@/hooks/entity-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -34,9 +35,11 @@ export default function App({ Component, pageProps }: AppProps) {
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
                               <GlobalDynamicStyles>
-                                <Layout>
-                                  <Component {...pageProps} />
-                                </Layout>
+                                <EntityProvider>
+                                  <Layout>
+                                    <Component {...pageProps} />
+                                  </Layout>
+                                </EntityProvider>
                               </GlobalDynamicStyles>
                             </CodingsPreferencesProvider>
                           </IsLoadingContextProvider>
