@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
             display: 'flex',
           }}
         >
-          Version
+          Version: {process.env['NEXT_PUBLIC_VERSION']}
         </Col>
         <Col>
           <Tooltip title="Nach oben scrollen">

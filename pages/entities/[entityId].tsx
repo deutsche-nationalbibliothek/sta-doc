@@ -5,7 +5,7 @@ import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
-import { Namespace, NamespaceId } from '@/types/namespace';
+import { Namespace } from '@/types/namespace';
 import { EntitiesEntries, EntityEntry } from '@/types/parsed/entity';
 import { Schemas } from '@/types/parsed/schema';
 import { isPropertyBlacklisted } from '@/utils/constants';
@@ -80,8 +80,8 @@ export const getStaticProps: GetStaticProps<
         : undefined;
 
     if (validEntityId) {
-      entityEntry = (entities as unknown as EntitiesEntries)[validEntityId];
-      const namespaceId = (schemas as unknown as Schemas)[validEntityId];
+      entityEntry = (entities as EntitiesEntries)[validEntityId];
+      const namespaceId = (schemas as Schemas)[validEntityId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       isUnderConstruction = namespace === Namespace.UC;
     }

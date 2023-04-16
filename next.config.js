@@ -1,14 +1,14 @@
 /**
  * @type {import('next').NextConfig}
  **/
-// const withLess = require('next-with-less');
 
-module.exports = () => {
+module.exports = async () => {
   const nextConfig = {
     basePath: '/doc',
     env: {
       basePath: '/doc',
       solrHost: 'solr',
+      NEXT_PUBLIC_VERSION: await getVersion(),
     },
     images: {
       domains: ['www.cilip.org.uk'],
@@ -27,4 +27,32 @@ module.exports = () => {
   };
   // return withLess(nextConfig);
   return nextConfig;
+};
+
+/**
+ * @returns {string} latest git tag
+ */
+const getVersion = () => {
+  const { trim } = require('lodash');
+  const { exec } = require('child_process');
+  return new Promise(function (resolve, reject) {
+    exec(
+      'git tag -l |tail -1',
+      function (error, standardOutput, standardError) {
+        if (error) {
+          reject();
+
+          return;
+        }
+
+        if (standardError) {
+          reject(standardError);
+
+          return;
+        }
+
+        resolve(trim(standardOutput));
+      }
+    );
+  });
 };
