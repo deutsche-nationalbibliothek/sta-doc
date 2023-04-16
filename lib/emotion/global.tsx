@@ -16,6 +16,7 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
               '.GND-seperator': { color: 'var(--gnd-color)' },
             },
           },
+          img: { display: 'block' },
           '@media print': {
             '.no-print, .ant-table-thead, .ant-pagination, .ant-tooltip, .ant-layout-header, .ant-layout-footer, .ant-breadcrumb':
               {
@@ -43,9 +44,6 @@ export const GlobalDynamicStyles: React.FC<React.PropsWithChildren<{}>> = ({
         styles={{
           '.ant-popover-inner': {
             border: `1px solid ${token.colorPrimaryBorder}`,
-          },
-          '.ant-typography a:hover': {
-            color: `${token.colorPrimary} !important`,
           },
         }}
       />

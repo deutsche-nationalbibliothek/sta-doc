@@ -1,7 +1,7 @@
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace, namespaceToColor } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
-import { Tag, Typography } from 'antd';
+import { Tag, Typography, theme } from 'antd';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
 import { Link } from '@/lib/next-link';
@@ -24,6 +24,8 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   linkProps,
 }) => {
   const { namespace: currentNamespace } = useNamespace();
+  const { token } = theme.useToken();
+
   const isPointingDifferentNamespace =
     pointingNamespace && currentNamespace !== pointingNamespace;
 
@@ -36,6 +38,9 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
             alignItems: 'center',
             display: 'flex',
             width: 'fit-content',
+            '&:hover': {
+              color: `${token.colorPrimary} !important`,
+            },
           }}
           href={`/entities/${id}`}
         >
