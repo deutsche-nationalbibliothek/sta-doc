@@ -1,45 +1,27 @@
 import { TableOfContent } from '@/features/entity/components/table-of-content';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
-import { Divider, Layout } from 'antd';
+import { Layout } from 'antd';
 import React from 'react';
+import { layoutContentHeight } from './layout';
 
 export const Sidebar: React.FC = () => {
   const { headlines } = useInitialHeadlines();
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const dividerRef = React.useRef<HTMLDivElement>(null);
 
   return headlines && headlines.length > 1 ? (
     <Layout.Sider
       theme={'light'}
-      // width={'100%'} style={{ height: '100%' }}
+      width={'100%'}
+      css={{
+        height: layoutContentHeight,
+      }}
     >
       <div
-        ref={containerRef}
-        className="main-layout-height"
-        // style={{
-        //   display: 'flex',
-        //   flexDirection: 'column',
-        // }}
+        css={{
+          height: layoutContentHeight,
+          background: 'var(--dark-gray)',
+        }}
       >
-        <div ref={dividerRef}>
-          <Divider
-          // style={{
-          //   marginTop: 'var(--topbar-padding-y)',
-          //   marginBottom: 'var(--topbar-padding-y)',
-          // }}
-          />
-        </div>
-        <TableOfContent
-          headlines={headlines}
-          containerRef={containerRef}
-          dividerRef={dividerRef}
-        />
-        <Divider
-        // style={{
-        //   marginTop: 'var(--topbar-padding-y)',
-        //   marginBottom: 'var(--topbar-padding-y)',
-        // }}
-        />
+        <TableOfContent headlines={headlines} />
       </div>
     </Layout.Sider>
   ) : null;

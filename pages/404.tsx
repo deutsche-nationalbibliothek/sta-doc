@@ -19,18 +19,14 @@ export const NotFound: React.FC<NotFoundProps> = ({
   useEffect(() => {
     setHeadlines([]);
     setNamespace(undefined);
-  }, [setHeadlines]);
+  }, [setHeadlines, setNamespace]);
 
   return (
-    <div
-    // style={{ textAlign: 'center', position: 'relative', top: '50%' }}
-    >
+    <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
       <Typography.Title level={2}>
         {isUnderConstruction ? (
           <>
-            <ToolOutlined
-            // style={{ fontSize: 'xxx-large' }}
-            />
+            <ToolOutlined style={{ fontSize: 'xxx-large' }} />
             <br />
             In Bearbeitung
           </>

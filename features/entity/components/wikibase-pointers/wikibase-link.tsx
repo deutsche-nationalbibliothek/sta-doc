@@ -5,6 +5,7 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import React from 'react';
 import { EntityLink } from '../preview/link';
 import { MissingValueGuard } from '../missing-value';
+import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 
 interface WikibaseLinkProps {
   wikibasePointer: WikibasePointerValue;
@@ -20,12 +21,14 @@ export const WikibaseLink = ({
   return (
     <MissingValueGuard data={wikibasePointer}>
       {showArrow ? (
-        <EntityLink {...wikibasePointer}>
-          <>
-            <ArrowRightOutlined />
-            {wikibasePointer.label}
-          </>
-        </EntityLink>
+        <NamespaceThemeConfigProvider namespace={wikibasePointer.namespace}>
+          <EntityLink {...wikibasePointer}>
+            <>
+              <ArrowRightOutlined />
+              {wikibasePointer.label}
+            </>
+          </EntityLink>
+        </NamespaceThemeConfigProvider>
       ) : (
         <EntityLink {...wikibasePointer} />
       )}

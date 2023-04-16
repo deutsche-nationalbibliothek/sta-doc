@@ -2,6 +2,7 @@ import { Headline } from '@/types/headline';
 import {
   createContext,
   Dispatch,
+  PropsWithChildren,
   SetStateAction,
   useContext,
   useState,
@@ -18,7 +19,7 @@ const InitialHeadlineContext = createContext({} as InitialHeadlinesContext);
 
 export default function InitialHeadlinesProvider({
   children,
-}: React.PropsWithChildren) {
+}: PropsWithChildren) {
   const [headlines, setHeadlines] = useState<Headline[]>([]);
 
   return (

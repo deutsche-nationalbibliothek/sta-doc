@@ -1,13 +1,19 @@
-import { isPrimaryNamepsace, Namespace } from '@/types/namespace';
-import ConfigProvider from 'antd/lib/config-provider';
+import {
+  isPrimaryNamepsace,
+  Namespace,
+  NamespaceColor,
+} from '@/types/namespace';
 import namespaceConfig from 'config/namespace';
 import {
   createContext,
   Dispatch,
   useCallback,
   useContext,
+  useMemo,
   useState,
 } from 'react';
+import { themeConfigDefault, useThemeConfig } from './theme-provider';
+import { theme } from 'antd';
 
 interface NamespaceContext {
   namespace: Namespace | undefined;
@@ -25,41 +31,44 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
   children,
 }) => {
   const [namespace, setNamespace] = useState<Namespace>();
+  const { darkAlgorithm, compactAlgorithm } = theme;
+
+  const { setThemeConfig } = useThemeConfig();
   // @primary-color
+  const nameSpaceTokens = useMemo<
+    Record<NamespaceColor, { token: { colorPrimary?: string } }>
+  >(
+    () => ({
+      [Namespace.RDA]: {
+        ...themeConfigDefault,
+        token: {
+          ...themeConfigDefault.token,
+          colorPrimary: namespaceConfig.colors[Namespace.RDA].primary,
+        },
+      },
+      [Namespace.GND]: {
+        ...themeConfigDefault,
+        token: {
+          ...themeConfigDefault.token,
+          colorPrimary: namespaceConfig.colors[Namespace.GND].primary,
+        },
+      },
+      ['unspecific']: {
+        ...themeConfigDefault,
+        token: {
+          ...themeConfigDefault.token,
+          colorPrimary: namespaceConfig.colors['unspecific'].primary,
+        },
+      },
+    }),
+    []
+  );
   const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
     if (nextNamespace) {
       if (isPrimaryNamepsace(nextNamespace)) {
-        // // document.documentElement.style.setProperty(
-        // //   '--namespace-color',
-        // //   `rgb(${namespaceConfig.colors[nextNamespace]})`
-        // // );
-        // document.documentElement.style.setProperty(
-        //   '--primary-1',
-        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.7)`
-        // );
-        // document.documentElement.style.setProperty(
-        //   '--primary-2',
-        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.5)`
-        // );
-        // document.documentElement.style.setProperty(
-        //   '--primary-3',
-        //   `rgba(${namespaceConfig.colors[nextNamespace].primary}, 0.3)`
-        // );
-        // document.documentElement.style.setProperty(
-        //   '--secondary',
-        //   `rgb(${namespaceConfig.colors[nextNamespace].secondary})`
-        // );
-        console.log(`rgb(${namespaceConfig.colors[nextNamespace].primary})`);
-        // ConfigProvider.config({
-        //   theme: {
-        //     primaryColor: `rgb(${namespaceConfig.colors[nextNamespace].primary})`,
-        //   },
-        // });
+        setThemeConfig(nameSpaceTokens[nextNamespace]);
       } else {
-        document.documentElement.style.setProperty(
-          '--namespace-color',
-          namespaceConfig.defaultColor
-        );
+        setThemeConfig(nameSpaceTokens['unspecific']);
       }
     }
     setNamespace(nextNamespace);
@@ -67,14 +76,8 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
 
   const onResetNamespace = useCallback(() => {
     setNamespace(undefined);
-  }, []);
-
-  // useEffect(() => {
-  //   router.events.on('routeChangeStart', onResetNamespace);
-  //   return () => {
-  //     router.events.off('routeChangeStart', onResetNamespace);
-  //   };
-  // }, []);
+    setThemeConfig(nameSpaceTokens['unspecific']);
+  }, [nameSpaceTokens, setThemeConfig]);
 
   return (
     <NamespaceContext.Provider

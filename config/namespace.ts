@@ -1,4 +1,5 @@
 import { Namespace, NamespaceConfig } from '../types/namespace';
+import colors from './colors';
 
 const namespaceConfig: NamespaceConfig = {
   // Namespaces which are not used at all, entities will be ignored on parsing
@@ -17,12 +18,13 @@ const namespaceConfig: NamespaceConfig = {
   // color codes for rgb()
   colors: {
     RDA: {
-      primary: '244, 156, 60',
-      secondary: '60, 148, 244',
+      primary: colors['rda-color'],
     },
     GND: {
-      primary: '0, 105, 180',
-      secondary: '225, 225, 225',
+      primary: colors['gnd-color'],
+    },
+    unspecific: {
+      primary: colors['unspecific-namespace-color'],
     },
   },
   defaultColor: 'white',

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { PropsWithChildren, createContext, useContext } from 'react';
 import { useQueryParam } from 'use-query-params';
 
 type ApplicationProfileParamContext = {

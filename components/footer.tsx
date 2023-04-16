@@ -3,16 +3,18 @@ import {
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Layout as AntdLayout, message, Tooltip } from 'antd';
-import { CSSProperties, useMemo } from 'react';
+import { Interpolation, Theme } from '@emotion/react';
+import { Layout as AntdLayout, Col, message, Row, Tooltip } from 'antd';
+import { useMemo } from 'react';
 
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
-  const iconStyle: CSSProperties = {
+  const iconStyle: Interpolation<Theme> = {
     fontSize: 'medium',
     padding: '0 6px',
     cursor: 'pointer',
+    marginTop: 2,
   };
 
   const onClick = useMemo(
@@ -29,26 +31,48 @@ export const Footer: React.FC = () => {
   );
 
   return (
-    <AntdLayout.Footer>
+    <AntdLayout.Footer
+      css={{
+        height: 'var(--footer-height)',
+        padding: '2.5px 0 0 0',
+        margin: '0 8px 0 8px',
+        background: 'var(--dark-gray)',
+      }}
+    >
       {contextHolder}
-      <Tooltip title="Nach oben scrollen">
-        <VerticalAlignTopOutlined
-          onClick={onClick.scrollTop}
-          // style={iconStyle}
-        />
-      </Tooltip>
-      <Tooltip className="no-print" title="Seiteninhalt drucken">
-        <PrinterOutlined
-          onClick={onClick.print}
-          // style={iconStyle}
-        />
-      </Tooltip>
-      <Tooltip title="Alle Klapptexte ein- bzw ausklappen">
-        <FullscreenOutlined
-          onClick={onClick.betaDisclaimer}
-          // style={iconStyle}
-        />
-      </Tooltip>
+      <Row
+        justify="space-between"
+        align="middle"
+        css={{
+          padding: '0 10px 0 10px',
+        }}
+      >
+        <Col
+          css={{
+            display: 'flex',
+          }}
+        >
+          Version
+        </Col>
+        <Col>
+          <Tooltip title="Nach oben scrollen">
+            <VerticalAlignTopOutlined
+              onClick={onClick.scrollTop}
+              css={iconStyle}
+            />
+          </Tooltip>
+          <Tooltip className="no-print" title="Seiteninhalt drucken">
+            <PrinterOutlined onClick={onClick.print} css={iconStyle} />
+          </Tooltip>
+          <Tooltip title="Alle Klapptexte ein- bzw ausklappen">
+            <FullscreenOutlined
+              onClick={onClick.betaDisclaimer}
+              css={iconStyle}
+            />
+          </Tooltip>
+        </Col>
+        <Col>Sta Notation</Col>
+      </Row>
     </AntdLayout.Footer>
   );
 };

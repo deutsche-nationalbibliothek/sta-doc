@@ -1,7 +1,5 @@
 import { parseRawEntity, PreMappedStatement } from '.';
-import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
-import { Namespace } from '../../../../../types/namespace';
 import { Property } from '../../../../../types/property';
 import { Claim, StatementRaw } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
@@ -11,6 +9,8 @@ import { parseTimeValue } from './datatype/time';
 import { parseUrlValue } from './datatype/url';
 import { parseWikibaseValue } from './datatype/wikibase';
 import { parseStatements, ParseStatementsProps } from './statements';
+import { Namespace } from '../../../../../types/namespace';
+import namespaceConfig from '../../../../../config/namespace';
 
 interface ParseStatementProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
@@ -121,7 +121,7 @@ export const parseStatement = (props: ParseStatementProps) => {
         })
       : undefined;
 
-  const namespaceId = schemas[property] as NamespaceId;
+  const namespaceId = schemas[property];
   const namespace: Namespace = namespaceConfig.map[namespaceId];
 
   const preMappedStatement: PreMappedStatement = {

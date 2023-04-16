@@ -4,8 +4,9 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { Entity } from '@/types/parsed/entity';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
-import { Card, Select, Typography } from 'antd';
+import { Card, Col, Row, Select, Typography, theme } from 'antd';
 import { Example } from './example';
+import { Global } from '@emotion/react';
 
 interface ExamplesProps {
   examples: Entity[];
@@ -18,47 +19,68 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
 
+  const { token } = theme.useToken();
+
   const labelReactElement = (
     <>
-      <Typography.Paragraph strong>
-        {label}{' '}
-        <MenuUnfoldOutlined
-        // style={{ color: 'var(--link-color)', fontSize: 'large' }}
-        />
-      </Typography.Paragraph>
+      {label} <MenuUnfoldOutlined />
     </>
   );
 
   return (
     <>
       <Modal
-        label={<>{labelReactElement}</>}
-        title={
-          <div
-          // style={{ height: 24, transform: 'translateX(0)' }}
-          >
+        css={{
+          '& .ant-modal-content': {
+            // backgroundColor: token.colorPrimaryBorder,
+            '& *:not(.ant-card-body)': {
+              backgroundColor: `${token.colorPrimaryBorder}`,
+            },
+          },
+        }}
+        label={
+          <Typography.Paragraph strong>
             {labelReactElement}
+          </Typography.Paragraph>
+        }
+        title={
+          <Row
+            justify="space-between"
+            css={{
+              width: '98%',
+            }}
+          >
+            <Col>
+              <Typography.Text strong>{labelReactElement}</Typography.Text>
+            </Col>
             {namespace === Namespace.GND && (
-              <Select
-                mode="multiple"
-                value={codingsPreferences}
-                onChange={onChange}
-                size="small"
-                // style={{ width: 160, position: 'fixed', right: 24 }}
-                options={codingsOptions.map((codingsOption, index) => ({
-                  label: codingsOption,
-                  value: codingsOption,
-                  key: index,
-                }))}
-              />
+              <Col>
+                <Select
+                  placeholder="Codierung wählen"
+                  mode="multiple"
+                  value={codingsPreferences}
+                  onChange={onChange}
+                  size="small"
+                  css={{
+                    minWidth: 180,
+                    position: 'relative',
+                    right: 24,
+                  }}
+                  options={codingsOptions.map((codingsOption, index) => ({
+                    label: codingsOption,
+                    value: codingsOption,
+                    key: index,
+                  }))}
+                />
+              </Col>
             )}
-          </div>
+          </Row>
         }
       >
         {examples.map((example, index) => {
           return (
             <Card
-              // style={{ backgroundColor: 'var(--primary-2)' }}
+              // css={{ backgroundColor: token.colorPrimaryBorder }}
               key={index}
             >
               <Example

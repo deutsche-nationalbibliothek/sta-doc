@@ -8,7 +8,7 @@ import { Namespace } from '@/types/namespace';
 import { PrefCodingsLabel } from '@/types/parsed/coding';
 import { Statement, Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Card, Tag, Typography } from 'antd';
+import { Card, Tag, Typography, theme } from 'antd';
 import { compact, flattenDeep } from 'lodash';
 import React from 'react';
 import { EntityLink } from '../preview/link';
@@ -227,21 +227,27 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
-
+  const { token } = theme.useToken();
   return (
     <Card
-    // style={{
-    //   backgroundColor: 'var(--primary-3)',
-    //   transform: 'translateX(0)',
-    // }}
+      css={{
+        border: `1px solid ${token.colorPrimaryBgHover}`,
+        borderRadius: `${token.borderRadiusOuter * 2}px`,
+        margin: '1em',
+        background: `${token.colorPrimaryBorderHover} !important`,
+        '& *': {
+          background: `${token.colorPrimaryBorderHover} !important`,
+        },
+        transform: 'translateX(0)',
+      }}
     >
       <Tag
-      // style={{
-      //   position: 'fixed',
-      //   top: 4,
-      //   right: 0,
-      //   color: 'var(--link-color)',
-      // }}
+        css={{
+          position: 'fixed',
+          top: '1em',
+          right: '1em',
+          color: 'var(--link-color)',
+        }}
       >
         {codingPreference}
       </Tag>

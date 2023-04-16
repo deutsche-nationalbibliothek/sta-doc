@@ -1,4 +1,5 @@
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
+import { theme } from 'antd';
 import { compact } from 'lodash';
 import ReactHighlighter from 'react-highlight-words';
 
@@ -11,9 +12,10 @@ export const Highlighter: React.FC<HighlighterProps> = ({
   searchWords,
   textToHighlight,
 }) => {
+  const { token } = theme.useToken();
   return (
     <ReactHighlighter
-      highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+      highlightStyle={{ backgroundColor: token.colorPrimaryHover, padding: 0 }}
       searchWords={searchWords}
       autoEscape
       textToHighlight={textToHighlight}

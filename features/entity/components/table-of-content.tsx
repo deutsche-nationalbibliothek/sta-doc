@@ -2,20 +2,17 @@ import { useHeadlines } from '@/hooks/headlines';
 import { useScroll } from '@/hooks/use-scroll';
 import { useRouter } from '@/lib/next-use-router';
 import { Headline } from '@/types/headline';
-import { Tree, TreeProps, Typography } from 'antd';
+import { Tree, TreeProps, Typography, theme } from 'antd';
 import { DataNode } from 'antd/lib/tree';
 import RcTree from 'rc-tree';
 import React, { useEffect, useState } from 'react';
+import layoutSizes from '../../../config/layout-sizes';
 
 interface TableOfContentProps {
-  containerRef: React.RefObject<HTMLDivElement>;
-  dividerRef: React.RefObject<HTMLDivElement>;
   headlines: Headline[];
 }
 
 export const TableOfContent: React.FC<TableOfContentProps> = ({
-  containerRef,
-  dividerRef,
   headlines,
 }) => {
   const { nestedHeadlines, currentHeadlinesPath, headlineKeysInViewport } =
@@ -28,22 +25,29 @@ export const TableOfContent: React.FC<TableOfContentProps> = ({
   const treeRef = React.useRef<RcTree<DataNode>>(null);
   useScroll(treeRef);
 
-  const containerHeight =
-    containerRef.current?.getBoundingClientRect().height ?? 0;
-  const dividerHeight = dividerRef.current?.getBoundingClientRect().height ?? 0;
+  const treeHeight =
+    layoutSizes['topbar-height'] +
+    layoutSizes['breadcrumb-height'] +
+    layoutSizes['divider-top-height'] +
+    layoutSizes['divider-bottom-height'] +
+    layoutSizes['footer-height'];
+
+  const { token } = theme.useToken();
 
   return (
     <Tree
+      css={{
+        background: 'var(--dark-gray)',
+        '& .ant-tree-node-selected': {
+          backgroundColor: `${token.colorPrimaryHover} !important`,
+        },
+      }}
       showLine
       showIcon
       expandedKeys={expandedKeys}
       onExpand={onExpand}
       ref={treeRef}
-      height={
-        containerHeight - dividerHeight * 2
-        // document ? document.querySelector('.tile').getBoundingClientRect().height - dividerHeight * 2 - 20 : containerHeight - dividerHeight * 2
-        // window.innerHeight - 64 - 53 * 2 // topbar- and divider-height
-      }
+      height={window.innerHeight - treeHeight}
       selectedKeys={headlineKeysInViewport}
       multiple
       titleRender={({ key, title }: { key: string; title: string }) => (

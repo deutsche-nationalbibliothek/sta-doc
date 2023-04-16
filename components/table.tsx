@@ -90,10 +90,7 @@ export function Table<T extends object>(props: TableProps<T>) {
       confirm,
       clearFilters,
     }) => (
-      <div
-        // style={{ padding: 8 }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
+      <div css={{ padding: '0.5em' }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Suche ${String(key)}`}
@@ -104,28 +101,29 @@ export function Table<T extends object>(props: TableProps<T>) {
           onPressEnter={() =>
             handleSearch(selectedKeys as string[], confirm, dataIndex)
           }
-          // style={{ marginBottom: 8, display: 'block' }}
         />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() =>
-              handleSearch(selectedKeys as string[], confirm, dataIndex)
-            }
-            icon={<SearchOutlined />}
-            size="small"
-            // style={{ width: 90 }}
-          >
-            Suchen
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters, dataIndex)}
-            size="small"
-            // style={{ width: 100 }}
-          >
-            Zurücksetzen
-          </Button>
-        </Space>
+        <div css={{ paddingTop: '0.5em' }}>
+          <Space>
+            <Button
+              type="primary"
+              onClick={() =>
+                handleSearch(selectedKeys as string[], confirm, dataIndex)
+              }
+              icon={<SearchOutlined />}
+              size="small"
+            >
+              Suchen
+            </Button>
+            <Button
+              onClick={() =>
+                clearFilters && handleReset(clearFilters, dataIndex)
+              }
+              size="small"
+            >
+              Zurücksetzen
+            </Button>
+          </Space>
+        </div>
       </div>
     ),
     filterIcon: () => <SearchOutlined />,

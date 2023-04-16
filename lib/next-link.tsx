@@ -1,6 +1,6 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
-import { filter, pickBy } from 'lodash';
+import { pickBy } from 'lodash';
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter as useNextRouter } from 'next/router';
 import { CSSProperties } from 'react';
@@ -8,6 +8,7 @@ import { CSSProperties } from 'react';
 export const Link: React.FC<
   Omit<LinkProps, 'href'> & {
     children: React.ReactNode;
+    className?: string;
     target?: string;
     anchor?: string;
     style?: CSSProperties;
@@ -21,6 +22,7 @@ export const Link: React.FC<
     href,
     anchor,
     pathname,
+    className,
     query = {},
     ...nextLinkProps
   } = props;
@@ -35,6 +37,7 @@ export const Link: React.FC<
   return (
     <NextLink
       // shallow={true} // todo, set true if entiyid is the same as right now
+      className={className}
       href={{
         pathname: nextPath,
         hash: anchor,

@@ -12,33 +12,63 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
   //   childs.length === 2 ? [20, 80] : [100, 0]
   // );
   const direction: SplitDirection = SplitDirection.Horizontal;
-  // const cssClass = direction === SplitDirection.Vertical ? 'custom-gutter-vertical' : 'custom-gutter-horizontal'
-  const cssClass = 'custom-gutter-horizontal';
+  // const cssClass = direction === SplitDirection.Vertical ? 'gutter-vertical' : 'gutter-horizontal'
+  const cssClass = 'gutter-horizontal';
 
   const onResizeFinished = (_pairIdx: number, newSizes: [number, number]) => {
     setSizes(newSizes);
   };
 
   return (
-    <ReactSplit
-      classes={
-        childs.length === 2
-          ? ['no-print', 'splitter-content']
-          : ['splitter-content']
-      }
-      minWidths={childs.length === 2 ? [180, 600] : []}
-      direction={direction}
-      gutterClassName={`custom-gutter ${cssClass}`}
-      draggerClassName="custom-dragger"
-      onResizeFinished={onResizeFinished}
-      initialSizes={sizes}
+    <div
+      css={{
+        '& .dragger.Horizontal': {
+          height: '100%',
+          backgroundColor: 'var(--dark-gray)',
+          width: 3,
+          '&:hover': {
+            width: 4,
+            backgroundColor: 'var(--top-bar-color)',
+            opacity: 0.2,
+          },
+        },
+        '& .gutter-horizontal': {
+          padding: '0 2px !important',
+          height: 'auto !important',
+          width: 0.5,
+        },
+        '& .gutter': {
+          padding: 0,
+          marginLeft: '2px',
+          marginRight: '2px',
+        },
+        '& .gutter-content': {
+          '@media print': {
+            width: '100% !important',
+          },
+        },
+      }}
     >
-      {childs.map((child, index) => (
-        <React.Fragment key={index}>
-          <Tile>{child}</Tile>
-        </React.Fragment>
-      ))}
-    </ReactSplit>
+      <ReactSplit
+        classes={
+          childs.length === 2
+            ? ['no-print', 'gutter-content']
+            : ['gutter-content']
+        }
+        minWidths={childs.length === 2 ? [256, 512] : []}
+        direction={direction}
+        gutterClassName={`gutter ${cssClass}`}
+        draggerClassName="dragger"
+        onResizeFinished={onResizeFinished}
+        initialSizes={sizes}
+      >
+        {childs.map((child, index) => (
+          <React.Fragment key={index}>
+            <Tile>{child}</Tile>
+          </React.Fragment>
+        ))}
+      </ReactSplit>
+    </div>
   );
 };
 
@@ -47,5 +77,14 @@ interface TileProps {
 }
 
 function Tile({ children }: TileProps) {
-  return <div className="tile">{children}</div>;
+  return (
+    <div
+      css={{
+        height: 'inherit',
+      }}
+      className="tile"
+    >
+      {children}
+    </div>
+  );
 }

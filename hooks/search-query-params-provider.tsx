@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react';
+import { PropsWithChildren, createContext, useContext, useMemo } from 'react';
 import { NumberParam, StringParam, useQueryParam } from 'use-query-params';
 
 type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];

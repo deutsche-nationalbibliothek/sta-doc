@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-types */
 type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type PropsWithChildren<P = {}> = P & {
-  children?: ReactNode | undefined;
+type PropsWithStyle<P = {}> = P & {
+  className?: string;
+  css?: Interpolation<Theme>;
 };
+
+import { Interpolation, Theme } from '@emotion/react';
+export type Css = Interpolation<Theme>;
 
 declare module '@/data/parsed/entities.json' {
   import { EntitiesEntries } from './types/parsed/entity';

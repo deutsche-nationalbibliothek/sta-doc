@@ -3,6 +3,7 @@ import { QueryHighlighter } from '@/lib/highlighter';
 import { Link } from '@/lib/next-link';
 import { Doc, DocSearchKey } from '@/types/search';
 import { compact } from 'lodash';
+import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -24,6 +25,8 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
       /\.headline.title/.test(key)
     );
 
+    const namespace = doc.namespace[0];
+
     const headlineMatch: { value: string; id: string }[] = compact(
       matchedHeadlineKeys.map((key: DocSearchKey) => {
         if (key in doc && Array.isArray(doc[key])) {
@@ -44,6 +47,9 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
         }
       })
     );
+    <NamespaceThemeConfigProvider
+      namespace={namespace}
+    ></NamespaceThemeConfigProvider>;
 
     return (
       <>

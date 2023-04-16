@@ -1,6 +1,8 @@
 import {
   Collapse as AntdCollapse,
   CollapseProps as AntdCollapseProps,
+  Typography,
+  theme,
 } from 'antd';
 import { useState } from 'react';
 
@@ -18,18 +20,28 @@ export const Collapse = ({
   children,
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
-
+  const { token } = theme.useToken();
   return (
-    <AntdCollapse
-      onChange={(key) => {
-        setIsOpen(key === '1');
-      }}
-      accordion={true}
-      activeKey={isOpen ? ['1'] : undefined}
-    >
-      <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
-        {children}
-      </AntdCollapse.Panel>
-    </AntdCollapse>
+    <Typography.Paragraph>
+      <AntdCollapse
+        css={{
+          '& .ant-collapse-item': {
+            color: token.colorPrimary,
+            border: '1px solid',
+            borderRadius: `${token.borderRadiusOuter}px !important`,
+          },
+        }}
+        // css={{marginBottom: 15}}
+        onChange={(key) => {
+          setIsOpen(key === '1');
+        }}
+        accordion={true}
+        activeKey={isOpen ? ['1'] : undefined}
+      >
+        <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
+          {children}
+        </AntdCollapse.Panel>
+      </AntdCollapse>
+    </Typography.Paragraph>
   );
 };

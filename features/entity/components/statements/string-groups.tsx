@@ -3,7 +3,7 @@ import { Title } from '@/components/title';
 import { Item } from '@/types/item';
 import { StringGroup, StringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Card, Typography } from 'antd';
+import { Card, Typography, theme } from 'antd';
 import React, { Fragment } from 'react';
 import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
@@ -20,6 +20,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
+  const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
@@ -116,7 +117,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
           <Typography.Paragraph strong>
             {label}{' '}
             <MenuUnfoldOutlined
-            // style={{ color: 'var(--link-color)', fontSize: 'large' }}
+              style={{ color: 'var(--link-color)', fontSize: 'large' }}
             />
           </Typography.Paragraph>
         </>
@@ -124,11 +125,19 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
 
       return (
         <>
-          <Modal label={<>{labelReactElement}</>} title={labelReactElement}>
-            <Card
-              // style={{ backgroundColor: 'var(--primary-2)' }}
-              key={'1'}
-            >
+          <Modal
+            label={labelReactElement}
+            title={
+              <div
+                css={{
+                  backgroundColor: token.colorPrimaryBorder,
+                }}
+              >
+                {labelReactElement}
+              </div>
+            }
+          >
+            <Card css={{ backgroundColor: token.colorPrimaryBorder }} key={'1'}>
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
               >
@@ -177,13 +186,9 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     [Item['English-123']]: (stringValueContainer: StringGroup) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
-          <Typography.Paragraph
-            className="data-data"
-            // style={{ color: 'blue' }}
-            key={stringValue.value}
-          >
+          <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent
-              // style={{ color: 'gray' }}
+              css={{ color: 'gray' }}
               stringValue={stringValue}
             />
             {references}

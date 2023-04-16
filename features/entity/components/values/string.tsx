@@ -1,18 +1,15 @@
 import { QueryHighlighter } from '@/lib/highlighter';
 import { Typography } from 'antd';
-import { CSSProperties } from 'react';
+import { PropsWithStyle } from 'index';
 
 interface StringValueProps {
   stringValue: { value: string };
   code?: boolean;
-  style?: CSSProperties;
 }
 
-export const StringValueComponent: React.FC<StringValueProps> = ({
-  code,
-  style,
-  stringValue,
-}) => {
+export const StringValueComponent: React.FC<
+  PropsWithStyle<StringValueProps>
+> = ({ code, className, stringValue }) => {
   const isHtml = (str: string) => {
     // ref: https://stackoverflow.com/a/15458968
     const doc = Array.from(
@@ -28,10 +25,7 @@ export const StringValueComponent: React.FC<StringValueProps> = ({
 
   return (
     <>
-      <Typography.Paragraph
-        // style={style}
-        code={code}
-      >
+      <Typography.Paragraph className={className} code={code}>
         {isHtml(stringValue.value) ? (
           <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
         ) : (

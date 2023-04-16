@@ -1,6 +1,6 @@
 import { Reference } from '@/types/parsed/entity';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Card, Popover, Typography } from 'antd';
+import { Card, Popover, Typography, theme } from 'antd';
 import React, { Fragment } from 'react';
 import { UrlStatements } from '../statements/url';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
@@ -14,7 +14,7 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
     index % 2 === 0 ? acc.push([val]) : acc[acc.length - 1].push(val);
     return acc;
   }, [] as Reference[][]);
-
+  const { token } = theme.useToken();
   return (
     <>
       <Popover
@@ -44,11 +44,11 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
         trigger="hover"
       >
         <QuestionCircleOutlined
-        // style={{
-        //   color: 'var(--link-color)',
-        //   fontSize: 16,
-        //   marginBottom: '1em',
-        // }}
+          css={{
+            color: token.colorPrimaryActive,
+            fontSize: 16,
+            marginBottom: '1em',
+          }}
         />
       </Popover>
     </>

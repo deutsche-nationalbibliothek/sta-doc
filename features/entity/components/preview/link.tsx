@@ -1,7 +1,7 @@
 import { useNamespace } from '@/hooks/use-namespace';
-import { Namespace } from '@/types/namespace';
+import { Namespace, namespaceToColor } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
-import { Tag } from 'antd';
+import { Tag, Typography } from 'antd';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
 import { Link } from '@/lib/next-link';
@@ -28,15 +28,15 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     pointingNamespace && currentNamespace !== pointingNamespace;
 
   return (
-    <>
+    <Typography.Text>
       <EntityPreview entityId={id} label={label}>
         <Link
           {...linkProps}
-          // style={{
-          //   alignItems: 'center',
-          //   display: 'flex',
-          //   width: 'fit-content',
-          // }}
+          css={{
+            alignItems: 'center',
+            display: 'flex',
+            width: 'fit-content',
+          }}
           href={`/entities/${id}`}
         >
           {children ?? <QueryHighlighter textToHighlight={label} />}
@@ -44,11 +44,21 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
             !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
               <>
                 {' '}
-                <Tag>{pointingNamespace}</Tag>
+                <Tag
+                  css={{
+                    backgroundColor:
+                      namespaceConfig.colors[
+                        namespaceToColor(pointingNamespace)
+                      ].primary,
+                    opacity: '0.6',
+                  }}
+                >
+                  {pointingNamespace}
+                </Tag>
               </>
             )}{' '}
         </Link>
       </EntityPreview>
-    </>
+    </Typography.Text>
   );
 };

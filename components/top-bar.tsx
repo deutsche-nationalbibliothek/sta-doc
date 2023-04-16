@@ -4,6 +4,7 @@ import { useRouter } from '@/lib/next-use-router';
 import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
 import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
+import { HomeOutlined } from '@ant-design/icons';
 
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
@@ -14,13 +15,24 @@ export const TopBar: React.FC = () => {
 
   return (
     <AntdLayout.Header
-    // style={{ zIndex: 1, width: '100%' }}
+      css={{
+        height: 'var(--top-bar-height)',
+        background: 'var(--top-bar-color)',
+      }}
     >
       <Row justify={'space-between'}>
-        <Col span={6}>
+        <Col>
           <Menu
+            css={{
+              justifyContent: 'space-around',
+              '& li': {
+                flexGrow: '1 !important',
+                display: 'flex !important',
+                justifyContent: 'space-around',
+                width: 120,
+              },
+            }}
             theme="dark"
-            // style={{ minWidth: 240 }}
             mode="horizontal"
             selectedKeys={compact([
               namespace,
@@ -28,14 +40,18 @@ export const TopBar: React.FC = () => {
               namespaceDomain,
             ])}
             items={[
-              { label: <Link href="/">Home</Link>, key: '/' },
               {
                 label: (
-                  <span
-                    className="ant-menu-item"
-                    // style={{ padding: 0 }}
-                  >
-                    <Link href="/entities/Q8469">RDA</Link>
+                  <Link href="/">
+                    <HomeOutlined />
+                  </Link>
+                ),
+                key: '/',
+              },
+              {
+                label: (
+                  <span className="ant-menu-item">
+                    <Link href="/entities/Q8469">RDA Dach</Link>
                   </span>
                 ),
                 key: 'RDA',
@@ -66,10 +82,7 @@ export const TopBar: React.FC = () => {
               },
               {
                 label: (
-                  <span
-                    className="ant-menu-item"
-                    // style={{ padding: 0 }}
-                  >
+                  <span className="ant-menu-item">
                     <Link href="/entities/Q10170">GND</Link>
                   </span>
                 ),
@@ -112,8 +125,12 @@ export const TopBar: React.FC = () => {
         </Col>
         {router.pathname !== '/search' && (
           <Col
-            // style={{ flex: '0 0 0' }}
-            span={6}
+            css={{
+              '& li': {
+                display: 'flex !important',
+                justifyContent: 'end',
+              },
+            }}
           >
             <SearchDrawer />
           </Col>

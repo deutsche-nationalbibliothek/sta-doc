@@ -27,7 +27,7 @@ import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
-import namespaceConfig, { NamespaceId } from '../../../config/namespace';
+import namespaceConfig from '../../../config/namespace';
 import { EntitiesEntries } from '../../../types/parsed/entity';
 import { Fields } from '../../../types/parsed/field';
 import { Namespace } from '../../../types/namespace';
@@ -237,7 +237,7 @@ export const rdaPropertiesParser = (
     const id = rdaProperty.eId.value;
 
     const typeData = (rdaPropertyId: EntityId, label: string) => {
-      const namespaceId = parsedSchemas[id] as NamespaceId;
+      const namespaceId = parsedSchemas[id];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       return {
         id: rdaPropertyId,

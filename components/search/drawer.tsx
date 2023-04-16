@@ -12,6 +12,9 @@ export const SearchDrawer: React.FC = () => {
 
   return (
     <Menu
+      // css={{
+      //   background: 'var(--top-bar-color)',
+      // }}
       theme="dark"
       mode="horizontal"
       selectedKeys={[]}
@@ -19,9 +22,7 @@ export const SearchDrawer: React.FC = () => {
         {
           label: (
             <>
-              <SearchOutlined
-              // style={{ fontSize: 20 }}
-              />
+              <SearchOutlined style={{ fontSize: 20 }} />
               <Drawer
                 size="large"
                 placement="right"

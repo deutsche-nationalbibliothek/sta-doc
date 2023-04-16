@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import React, { ReactElement } from 'react';
+import React, { PropsWithChildren, ReactElement } from 'react';
 import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 import HeadlinesProvider from './hooks/headlines';
 import Layout from './components/layout';

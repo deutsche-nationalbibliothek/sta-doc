@@ -1,9 +1,7 @@
 import { ParseEntitiesProps } from '..';
-import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
 import { Headline } from '../../../../../types/headline';
 import { Item } from '../../../../../types/item';
-import { Namespace } from '../../../../../types/namespace';
 import {
   Entity,
   EntityEntry,
@@ -20,6 +18,8 @@ import {
 } from './groups-definition';
 import { headlinesParser } from './util';
 import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
+import { Namespace, NamespaceId } from '../../../../../types/namespace';
+import namespaceConfig from '../../../../../config/namespace';
 
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
@@ -90,7 +90,7 @@ export const parseRawEntity = (
     //   return undefined;
     // }
 
-    const namespaceId = schemas[entityId] as NamespaceId;
+    const namespaceId = schemas[entityId];
     const namespace: Namespace = namespaceConfig.map[namespaceId];
     const elementOfId: EntityId | undefined =
       entity &&

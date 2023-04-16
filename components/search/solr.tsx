@@ -3,6 +3,8 @@ import { useSolrSearch } from '@/hooks/use-solr-search';
 import { debounce } from 'lodash';
 import { SearchResults } from './results-list';
 import { AutoComplete, Input } from 'antd';
+import { Namespace } from '@/types/namespace';
+import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 
 export interface SolrQueryFetcherOptions {
   query: string;
@@ -31,50 +33,52 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
   } = useSolrSearch();
 
   return (
-    <div>
-      <AutoComplete
-        // style={{ width: '100%' }}
-        autoFocus
-        onSelect={(value: string) =>
-          setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
-        }
-        defaultValue={query}
-        options={
-          query && suggestionsResult?.spellcheck.suggestions[1]
-            ? suggestionsResult.spellcheck.suggestions[1].suggestion
-                .sort((s1, s2) => s2.freq - s1.freq)
-                .map((x, index) => ({
-                  value: x.word,
-                  key: index,
-                  label: (
-                    <StringValueComponent stringValue={{ value: x.word }} />
-                  ),
-                }))
-            : []
-        }
-      >
-        <Input.Search
-          placeholder={placeholder}
-          loading={isLoadingSuggestionsIfQuery}
-          ref={inputRef}
+    <NamespaceThemeConfigProvider namespace={'unspecific' as Namespace}>
+      <div>
+        <AutoComplete
+          css={{ width: '100%' }}
           autoFocus
-          enterButton
+          onSelect={(value: string) =>
+            setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
+          }
           defaultValue={query}
-          value={query}
-          onChange={debounce(onSearch, 400)}
-          allowClear
-        />
-      </AutoComplete>
-      {queryResult && (
-        <SearchResults
-          queryResult={queryResult}
-          loading={isLoadingSearchIfQuery}
-          query={query}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          onCloseDrawer={onCloseDrawer}
-        />
-      )}
-    </div>
+          options={
+            query && suggestionsResult?.spellcheck.suggestions[1]
+              ? suggestionsResult.spellcheck.suggestions[1].suggestion
+                  .sort((s1, s2) => s2.freq - s1.freq)
+                  .map((x, index) => ({
+                    value: x.word,
+                    key: index,
+                    label: (
+                      <StringValueComponent stringValue={{ value: x.word }} />
+                    ),
+                  }))
+              : []
+          }
+        >
+          <Input.Search
+            placeholder={placeholder}
+            loading={isLoadingSuggestionsIfQuery}
+            ref={inputRef}
+            autoFocus
+            enterButton
+            defaultValue={query}
+            value={query}
+            onChange={debounce(onSearch, 400)}
+            allowClear
+          />
+        </AutoComplete>
+        {queryResult && (
+          <SearchResults
+            queryResult={queryResult}
+            loading={isLoadingSearchIfQuery}
+            query={query}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            onCloseDrawer={onCloseDrawer}
+          />
+        )}
+      </div>
+    </NamespaceThemeConfigProvider>
   );
 };

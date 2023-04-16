@@ -1,7 +1,7 @@
 import { compact } from 'lodash';
 import { PreMappedStatement } from '.';
-import namespaceConfig, { NamespaceId } from '../../../../../config/namespace';
 import { Namespace } from '../../../../../types/namespace';
+import namespaceConfig from '../../../../../config/namespace';
 import { Datatypes, StatementValue } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
 import {
@@ -83,7 +83,7 @@ export const parseStatements = (
       const dataType = dataTypeMap[dataTypeRaw];
       const label = labelsDe[property];
 
-      const namespaceId = schemas[property] as NamespaceId;
+      const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
 
       if (

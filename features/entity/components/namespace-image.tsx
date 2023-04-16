@@ -11,6 +11,9 @@ export const NamespaceImage: React.FC = () => {
         <>
           <AntdImage
             src={`${process.env.basePath ?? ''}/${namespace}-logo.png`}
+            css={{
+              padding: 2,
+            }}
             alt="ressource image"
             height={100}
             preview={false}

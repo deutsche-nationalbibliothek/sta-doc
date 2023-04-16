@@ -10,14 +10,23 @@ export type NamespaceId = 'Q1' | 'Q15' | 'Q3113' | 'Q263' | 'Q8540';
 
 export type PrimaryNamespace = Namespace.GND | Namespace.RDA;
 
+export type NamespaceColor = PrimaryNamespace | 'unspecific';
+
 export interface NamespaceConfig {
   notUsed: Namespace[];
   primaryNamespaces: PrimaryNamespace[];
   notPointedOut: Namespace[];
   map: Record<NamespaceId, Namespace>;
-  colors: Record<PrimaryNamespace, Record<'primary' | 'secondary', string>>;
+  colors: Record<NamespaceColor, NamespaceColors>;
   defaultColor: string;
 }
+
+interface NamespaceColors {
+  primary: string;
+}
+
+export const namespaceToColor = (namespace: Namespace): NamespaceColor =>
+  isPrimaryNamepsace(namespace) ? namespace : 'unspecific';
 
 export const isPrimaryNamepsace = (
   namespace: Namespace

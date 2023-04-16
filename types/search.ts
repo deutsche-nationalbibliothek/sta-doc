@@ -1,4 +1,5 @@
 import { EntityId } from './entity-id';
+import { Namespace } from './namespace';
 
 export interface SearchResult {
   query: QueryResult;
@@ -86,7 +87,7 @@ export interface Doc {
   'pageType.assignmentLabel': string[];
   'pageType.id': string[];
   'pageType.deLabel': string[];
-  namespace: string[];
+  namespace: Namespace[];
   staNotationLabel?: string[];
   'statements.header.label'?: string[];
   'statements.header.property'?: string[];

@@ -3,6 +3,7 @@ import { DocSearchKey, QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
 import { compact, uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
+import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 
 interface SearchResultsProps {
   queryResult: QueryResult;
@@ -92,38 +93,37 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             );
 
             return 'headline-text-search' in doc ? (
-              <List.Item
-                key={index}
-                // style={{ display: 'inherit' }}
-              >
-                <EntityLink
-                  linkProps={{ onClick: onCloseDrawer }}
-                  label={doc['headline.title'][0]}
-                  id={doc.id}
-                />
-                <ul>
-                  {headlineMatches.map((matchedValue, index2) => (
-                    <li key={index2}>
-                      <SearchResultListItem
-                        onCloseDrawer={onCloseDrawer}
-                        isHeadlineTextSearchMatch
-                        doc={doc}
-                        matchedValue={matchedValue}
-                      />
-                    </li>
-                  ))}
-                  {fulltextMatches.map((matchedValue, index2) => (
-                    <li key={index2}>
-                      <SearchResultListItem
-                        onCloseDrawer={onCloseDrawer}
-                        isFullTextSearchMatch
-                        doc={doc}
-                        matchedValue={matchedValue}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </List.Item>
+              <NamespaceThemeConfigProvider namespace={doc.namespace[0]}>
+                <List.Item key={index} style={{ display: 'inherit' }}>
+                  <EntityLink
+                    linkProps={{ onClick: onCloseDrawer }}
+                    label={doc['headline.title'][0]}
+                    id={doc.id}
+                  />
+                  <ul>
+                    {headlineMatches.map((matchedValue, index2) => (
+                      <li key={index2}>
+                        <SearchResultListItem
+                          onCloseDrawer={onCloseDrawer}
+                          isHeadlineTextSearchMatch
+                          doc={doc}
+                          matchedValue={matchedValue}
+                        />
+                      </li>
+                    ))}
+                    {fulltextMatches.map((matchedValue, index2) => (
+                      <li key={index2}>
+                        <SearchResultListItem
+                          onCloseDrawer={onCloseDrawer}
+                          isFullTextSearchMatch
+                          doc={doc}
+                          matchedValue={matchedValue}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </List.Item>
+              </NamespaceThemeConfigProvider>
             ) : (
               <Card>
                 <Typography.Paragraph>Keine Treffer</Typography.Paragraph>

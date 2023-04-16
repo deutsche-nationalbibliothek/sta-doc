@@ -1,9 +1,6 @@
 import { pick } from 'lodash';
-import namespaceConfig, {
-  NamespaceId,
-} from '../../../../../../config/namespace';
 import { EntityId } from '../../../../../../types/entity-id';
-import { Namespace } from '../../../../../../types/namespace';
+import { Namespace, NamespaceId } from '../../../../../../types/namespace';
 import {
   WikibasePointerValue,
   CommonValue,
@@ -12,6 +9,7 @@ import { Property } from '../../../../../../types/property';
 import { Claim, StatementRaw } from '../../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../../utils/constants';
 import { ParseStatementsProps } from '../statements';
+import namespaceConfig from '../../../../../../config/namespace';
 
 interface ParseWikibaseValueProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
@@ -57,7 +55,7 @@ export const parseWikibaseValue = (
       ? Object.keys(pick(occ.qualifiers, wemiSpecificsWhitelist)).length > 0
       : true);
 
-  const namespaceId = schemas[id] as NamespaceId;
+  const namespaceId = schemas[id];
   const pointingNamespace: Namespace = namespaceConfig.map[namespaceId];
 
   if (namespaceConfig.notUsed.includes(pointingNamespace)) {

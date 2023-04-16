@@ -21,8 +21,7 @@ export default function Home({ headlines }: HomeProps) {
   useEffect(() => {
     setHeadlines(headlines);
     setNamespace(undefined);
-    //todo
-  }, [setHeadlines, setNamespace]);
+  }, [headlines, setHeadlines, setNamespace]);
 
   return (
     <FetchEntity entityId={Item.Q10177} showSpinner={false}>
@@ -39,7 +38,7 @@ export default function Home({ headlines }: HomeProps) {
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
   const entityId: EntityId = Item.Q10177;
-  const entityEntry = (entities as EntitiesEntries)[entityId];
+  const entityEntry = (entities as unknown as EntitiesEntries)[entityId];
 
   return {
     props: {

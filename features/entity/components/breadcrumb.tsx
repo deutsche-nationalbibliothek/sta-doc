@@ -1,21 +1,26 @@
 import { CopyHeadlineAnchorLink } from '@/components/copy-headline-anchor-link';
 import { useHeadlines } from '@/hooks/headlines';
-import { Breadcrumb as AntdBreadcrumb, Divider, Tooltip } from 'antd';
+import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import { truncate } from 'lodash';
 import { Fragment } from 'react';
 
 export const Breadcrumb: React.FC = () => {
   const { currentHeadlinesPath, showHeadlines } = useHeadlines();
-
+  const { token } = theme.useToken();
+  // colorTextSecondary
   return (
-    <div>
+    <div
+      css={{
+        background: 'var(--dark-gray)',
+        '& .ant-breadcrumb a': {
+          color: token.colorTextSecondary,
+        },
+      }}
+    >
       <AntdBreadcrumb
-        // style={{
-        //   paddingTop:
-        //     currentHeadlinesPath.length > 0 && showHeadlines
-        //       ? 4
-        //       : 'var(--topbar-padding-y)',
-        // }}
+        css={{
+          height: 'var(--breadcrumb-height)',
+        }}
         separator=""
       >
         {showHeadlines &&
@@ -48,11 +53,6 @@ export const Breadcrumb: React.FC = () => {
             );
           })}
       </AntdBreadcrumb>
-      <Divider
-      // style={{
-      //   margin: 1,
-      // }}
-      />
     </div>
   );
 };

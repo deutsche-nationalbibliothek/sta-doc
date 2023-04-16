@@ -1,4 +1,4 @@
-import { Popover, Typography } from 'antd';
+import { Popover, Typography, theme } from 'antd';
 import { FetchEntity } from '../utils/fetch';
 import { EntityPreviewContent } from './content';
 
@@ -31,17 +31,23 @@ interface PreviewProps {
 
 export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
   return (
-    <FetchEntity entityId={entityId}>
-      {({ entity }) => (
-        <div
-        // style={{
-        //   maxWidth: Math.min(window.innerWidth, 960),
-        //   maxHeight: Math.min(window.innerHeight, 480),
-        // }}
-        >
-          <EntityPreviewContent entity={entity} />
-        </div>
-      )}
-    </FetchEntity>
+    <div
+      css={{
+        display: 'grid',
+      }}
+    >
+      <FetchEntity entityId={entityId}>
+        {({ entity }) => (
+          <div
+            css={{
+              maxWidth: Math.min(window.innerWidth, 960),
+              maxHeight: Math.min(window.innerHeight, 480),
+            }}
+          >
+            <EntityPreviewContent entity={entity} />
+          </div>
+        )}
+      </FetchEntity>
+    </div>
   );
 };

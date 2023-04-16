@@ -1,3 +1,4 @@
+import { PartialBy } from 'index';
 import { EntityId } from '../entity-id';
 import { Headline } from '../headline';
 import { Item } from '../item';
@@ -107,7 +108,7 @@ export interface StringValue extends CommonValue {
   value: string;
   codings?: Codings;
   headline?: Headline;
-  itemType: ItemType;
+  itemType?: ItemType;
 }
 
 export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';

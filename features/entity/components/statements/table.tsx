@@ -100,7 +100,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                       symbol: (
                         <Divider>
                           <DownOutlined
-                            // style={{ color: 'var(--link-color)' }}
+                            style={{ color: 'var(--link-color)' }}
                             className="expandable-cell"
                           />
                         </Divider>

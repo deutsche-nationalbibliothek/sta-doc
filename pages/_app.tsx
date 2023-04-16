@@ -13,41 +13,43 @@ import { QueryParamProvider } from 'use-query-params';
 import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
 import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
-
-// import 'antd/dist/antd.variable.min.css';
-
+import { ThemeConfigProvider } from '@/hooks/theme-provider';
+import { GlobalDynamicStyles, GlobalStaticStyles } from '@/lib/emotion/global';
+import '../styles/colors.css';
+import '../styles/layout-sizes.css';
 
 export default function App({ Component, pageProps }: AppProps) {
-  ConfigProvider.config({
-    theme: {
-      primaryColor: `#FDD069`,
-    },
-  });
   return (
-    <>
-      <ConfigProvider locale={deDE}>
-        <QueryParamProvider adapter={NextAdapter}>
-          <ApplicationProfileQueryParamProvider>
-            <FetchingQueryParamsProvider>
-              <SearchQueryParamsProvider>
-                <NamespaceProvider>
-                  <InitialHeadlinesProvider>
-                    <HeadlinesProvider>
-                      <IsLoadingContextProvider>
-                        <CodingsPreferencesProvider>
-                          <Layout>
-                            <Component {...pageProps} />
-                          </Layout>
-                        </CodingsPreferencesProvider>
-                      </IsLoadingContextProvider>
-                    </HeadlinesProvider>
-                  </InitialHeadlinesProvider>
-                </NamespaceProvider>
-              </SearchQueryParamsProvider>
-            </FetchingQueryParamsProvider>
-          </ApplicationProfileQueryParamProvider>
-        </QueryParamProvider>
-      </ConfigProvider>
-    </>
+    <GlobalStaticStyles>
+      <QueryParamProvider adapter={NextAdapter}>
+        <ApplicationProfileQueryParamProvider>
+          <FetchingQueryParamsProvider>
+            <SearchQueryParamsProvider>
+              <InitialHeadlinesProvider>
+                <HeadlinesProvider>
+                  <ThemeConfigProvider>
+                    {(themeConfig) => (
+                      <NamespaceProvider>
+                        <ConfigProvider locale={deDE} theme={themeConfig}>
+                          <IsLoadingContextProvider>
+                            <CodingsPreferencesProvider>
+                              <GlobalDynamicStyles>
+                                <Layout>
+                                  <Component {...pageProps} />
+                                </Layout>
+                              </GlobalDynamicStyles>
+                            </CodingsPreferencesProvider>
+                          </IsLoadingContextProvider>
+                        </ConfigProvider>
+                      </NamespaceProvider>
+                    )}
+                  </ThemeConfigProvider>
+                </HeadlinesProvider>
+              </InitialHeadlinesProvider>
+            </SearchQueryParamsProvider>
+          </FetchingQueryParamsProvider>
+        </ApplicationProfileQueryParamProvider>
+      </QueryParamProvider>
+    </GlobalStaticStyles>
   );
 }

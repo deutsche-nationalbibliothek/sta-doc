@@ -8,6 +8,7 @@ import { References } from '../references';
 import { MissingValueGuard } from '../missing-value';
 import { WikibaseLink } from './wikibase-link';
 import { Embedded } from '../embedded';
+import { Typography } from 'antd';
 
 interface WikibasePointerProps {
   wikibasePointer: WikibasePointerValue;
@@ -30,10 +31,12 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
             </EntityLink>
           </Title>
         ) : (
-          <WikibaseLink
-            showArrow={isSeeItemOrProperty}
-            wikibasePointer={wikibasePointer}
-          />
+          <Typography.Paragraph>
+            <WikibaseLink
+              showArrow={isSeeItemOrProperty}
+              wikibasePointer={wikibasePointer}
+            />
+          </Typography.Paragraph>
         )}
         {wikibasePointer.references && (
           <References references={wikibasePointer.references} />
