@@ -80,8 +80,8 @@ export const getStaticProps: GetStaticProps<
         : undefined;
 
     if (validEntityId) {
-      entityEntry = (entities as EntitiesEntries)[validEntityId];
-      const namespaceId = (schemas as Schemas)[validEntityId];
+      entityEntry = (entities as unknown as EntitiesEntries)[validEntityId];
+      const namespaceId = (schemas as unknown as Schemas)[validEntityId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       isUnderConstruction = namespace === Namespace.UC;
     }

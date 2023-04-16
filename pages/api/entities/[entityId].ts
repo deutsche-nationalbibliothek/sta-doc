@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    res.status(200).json((entities as EntitiesEntries)[entityId]);
+    res.status(200).json((entities as unknown as EntitiesEntries)[entityId]);
   }
   res.status(404);
 };

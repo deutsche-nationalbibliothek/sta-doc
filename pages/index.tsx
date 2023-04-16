@@ -38,7 +38,7 @@ export default function Home({ headlines }: HomeProps) {
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
   const entityId: EntityId = Item.Q10177;
-  const entityEntry = (entities as EntitiesEntries)[entityId];
+  const entityEntry = (entities as unknown as EntitiesEntries)[entityId];
 
   return {
     props: {
