@@ -9,7 +9,7 @@ import {
 
 interface EntityContext {
   entity?: Entity;
-  setEntity: Dispatch<SetStateAction<Entity>>;
+  setEntity: Dispatch<SetStateAction<Entity | undefined>>;
 }
 
 const EntityContext = createContext({} as EntityContext);

@@ -1,16 +1,15 @@
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SplitterProps {
-  children?: React.ReactNode[];
+  children: React.ReactNode[];
 }
 
 export const Splitter: React.FC<SplitterProps> = ({ children }) => {
-  const childs = children?.filter((a) => a) ?? [];
-  const [sizes, setSizes] = useState<[number, number]>([20, 80]);
-  // const [sizes, setSizes] = useState<[number, number]>(
-  //   childs.length === 2 ? [20, 80] : [100, 0]
-  // );
+  const [sizes, setSizes] = useState<[number, number]>();
+  useEffect(() => {
+    setSizes(children.length === 2 ? [20, 80] : [100, 0]);
+  }, [children.length]);
   const direction: SplitDirection = SplitDirection.Horizontal;
   // const cssClass = direction === SplitDirection.Vertical ? 'gutter-vertical' : 'gutter-horizontal'
   const cssClass = 'gutter-horizontal';
@@ -33,7 +32,6 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
           },
         },
         '& .gutter-horizontal': {
-          padding: '0 2px !important',
           height: 'auto !important',
           width: 0.5,
         },
@@ -51,18 +49,18 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
     >
       <ReactSplit
         classes={
-          childs.length === 2
+          children.length === 2
             ? ['no-print', 'gutter-content']
             : ['gutter-content']
         }
-        minWidths={childs.length === 2 ? [256, 512] : []}
+        minWidths={children.length === 2 ? [256, 512] : [100, 0]}
         direction={direction}
         gutterClassName={`gutter ${cssClass}`}
         draggerClassName="dragger"
         onResizeFinished={onResizeFinished}
         initialSizes={sizes}
       >
-        {childs.map((child, index) => (
+        {children.map((child, index) => (
           <React.Fragment key={index}>
             <Tile>{child}</Tile>
           </React.Fragment>
@@ -82,7 +80,6 @@ function Tile({ children }: TileProps) {
       css={{
         height: 'inherit',
       }}
-      className="tile"
     >
       {children}
     </div>

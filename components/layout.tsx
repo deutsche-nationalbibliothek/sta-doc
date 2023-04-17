@@ -7,7 +7,8 @@ import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
 import 'antd/dist/reset.css';
-import { Interpolation, Theme } from '@emotion/react';
+import { CSSObject } from '@emotion/react';
+import { compact } from 'lodash';
 
 export const layoutContentHeight =
   'calc(100vh - 2px - var(--topbar-height) - var(--breadcrumb-height) - var(--divider-top-height) - var(--divider-bottom-height) - var(--footer-height))';
@@ -59,21 +60,20 @@ export default function Layout(props: LayoutProps) {
           },
         }}
       >
-        {' '}
         <VerticalLayoutDivider />
         <div
           css={{
             width: '100% !important',
           }}
         >
-          {nestedHeadlines.length && showHeadlines ? (
-            <Splitter>
-              {nestedHeadlines.length > 0 && <Sidebar />}
-              <Content>{props.children}</Content>
-            </Splitter>
-          ) : (
-            <Content>{props.children}</Content>
-          )}{' '}
+          <Splitter>
+            {nestedHeadlines.length && showHeadlines
+              ? compact([
+                  nestedHeadlines.length > 0 && <Sidebar />,
+                  <Content>{props.children}</Content>,
+                ])
+              : [<Content>{props.children}</Content>]}
+          </Splitter>
         </div>
         <VerticalLayoutDivider />
       </AntdLayout>
@@ -111,7 +111,7 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
                 // prevent footer hiding border
                 marginBottom: 2,
               },
-            } as unknown as Interpolation<Theme>
+            } as unknown as CSSObject
           }
           className="main-scroll-container"
           id="main-scroll-container"
