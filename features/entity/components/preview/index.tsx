@@ -1,4 +1,4 @@
-import { Popover, Typography, theme } from 'antd';
+import { Popover, Typography } from 'antd';
 import { FetchEntity } from '../utils/fetch';
 import { EntityPreviewContent } from './content';
 
@@ -42,6 +42,7 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
             css={{
               maxWidth: Math.min(window.innerWidth, 960),
               maxHeight: Math.min(window.innerHeight, 480),
+              overflowX: 'auto',
             }}
           >
             <EntityPreviewContent entity={entity} />
