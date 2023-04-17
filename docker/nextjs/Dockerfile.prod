@@ -11,13 +11,17 @@ RUN yarn install
 
 COPY . .
 
-ARG NODE_ENV=development
+ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 CMD [ "yarn", "start" ]
 
 # build stage
 FROM dev-stage AS build-stage
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ENV basePath="/doc"
 
 RUN yarn run build
 RUN yarn run next build
@@ -28,13 +32,13 @@ RUN yarn install --production
 
 # production stage
 FROM node:16-alpine AS production-stage
+RUN apk add --no-cache git
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
+ENV basePath="/doc"
 
 WORKDIR /srv
-
-ENV basePath="/doc"
 
 COPY --from=build-stage /srv /srv
 
