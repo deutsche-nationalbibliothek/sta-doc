@@ -69,10 +69,10 @@ export default function Layout(props: LayoutProps) {
           <Splitter>
             {nestedHeadlines.length && showHeadlines
               ? compact([
-                  nestedHeadlines.length > 0 && <Sidebar />,
-                  <Content>{props.children}</Content>,
+                  nestedHeadlines.length > 0 && <Sidebar key="sidebar" />,
+                  <Content key="content">{props.children}</Content>,
                 ])
-              : [<Content>{props.children}</Content>]}
+              : [<Content key="content">{props.children}</Content>]}
           </Splitter>
         </div>
         <VerticalLayoutDivider />
