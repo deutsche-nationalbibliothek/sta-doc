@@ -50,7 +50,7 @@ export const Link: React.FC<
       }}
       {...nextLinkProps}
     >
-      <>{children}</>
+      {children}
     </NextLink>
   );
 };
