@@ -52,7 +52,7 @@ export default function RdaPropertiesPage({
       ) => <EntityLink {...rdaProperty}>{children}</EntityLink>,
     },
     {
-      title: 'Entitätstyp / Wemi Ebene',
+      title: 'Entitätstyp / WEMI-Ebene',
       dataIndex: 'domainLabel',
       key: 'domainLabel',
       width: '20%',
@@ -63,12 +63,9 @@ export default function RdaPropertiesPage({
         value: rdaPropertyLabel,
       })),
       onFilter: (value, record) => value === record.type.label,
-      render: (
-        _label: string,
-        rdaProperty,
-        _index: number,
-        children: JSX.Element
-      ) => <EntityLink {...rdaProperty.type}>{children}</EntityLink>,
+      render: (_label: string, rdaProperty) => (
+        <EntityLink {...rdaProperty.type} />
+      ),
     },
   ];
 

@@ -315,7 +315,7 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
 
   const columns: ColumnsTypes<TableData> = [
     {
-      // title: 'STA Notation',
+      // title: 'STA-Notation',
       dataIndex: 'label',
       key: 'label',
       render: (label: string, { statement }) => {

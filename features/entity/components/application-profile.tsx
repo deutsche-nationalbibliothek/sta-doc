@@ -75,7 +75,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
 
   const columns: ColumnsTypes<ApplicationProfileTableData> = [
     {
-      title: 'STA Notation',
+      title: 'STA-Notation',
       dataIndex: 'staNotationLabel',
       key: 'StaNotation',
       width: '15%',
