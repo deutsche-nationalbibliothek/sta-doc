@@ -91,8 +91,7 @@ const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
         '@media print': {
           height: 'initial',
         },
-        // paddingLeft: headlines && headlines.length > 1 ? 26 : '5%',
-        // paddingRight: 0,
+        backgroundColor: 'white',
       }}
     >
       <AntdLayout.Content>
