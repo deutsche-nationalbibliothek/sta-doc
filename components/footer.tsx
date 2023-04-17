@@ -4,25 +4,26 @@ import {
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Interpolation, Theme } from '@emotion/react';
+import { CSSObject, css } from '@emotion/react';
 import { Layout as AntdLayout, Col, message, Row, theme, Tooltip } from 'antd';
 import { useMemo } from 'react';
 
-export const Footer: React.FC = () => {
-  const [messageApi, contextHolder] = message.useMessage();
-  const { entity } = useEntity();
-
-  const { token } = theme.useToken();
-  const iconStyle: Interpolation<Theme> = {
+const styles: Record<string, CSSObject> = {
+  icon: {
     fontSize: 'medium',
     padding: '0 6px',
     cursor: 'pointer',
     marginTop: 2,
-    '&:hover': {
-      color: token.colorPrimary,
-      // backgroundColor: token.colorPrimary
-    },
-  };
+  },
+  col: {
+    flex: 1,
+    display: 'flex',
+  },
+};
+
+export const Footer: React.FC = () => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const { entity } = useEntity();
 
   const onClick = useMemo(
     () => ({
@@ -52,37 +53,56 @@ export const Footer: React.FC = () => {
         align="middle"
         css={{
           padding: '0 10px 0 10px',
+          background: 'var(--dark-gray)',
+          '& span:hover': {
+            color: theme.useToken().token.colorPrimary,
+          },
         }}
       >
         <Col
-          css={{
-            display: 'flex',
-          }}
+          css={css(styles.col, {
+            justifyContent: 'flex-start',
+          })}
         >
           {process.env['NEXT_PUBLIC_VERSION'] && (
-            <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
+            <span>Version: {process.env['NEXT_PUBLIC_VERSION']}</span>
           )}
         </Col>
-        <Col>
+        <Col
+          css={css(styles.col, {
+            justifyContent: 'center',
+          })}
+        >
           <Tooltip title="Nach oben scrollen">
             <VerticalAlignTopOutlined
               onClick={onClick.scrollTop}
-              css={iconStyle}
+              css={styles.icon}
             />
           </Tooltip>
           <Tooltip className="no-print" title="Seiteninhalt drucken">
-            <PrinterOutlined onClick={onClick.print} css={iconStyle} />
+            <PrinterOutlined onClick={onClick.print} css={styles.icon} />
           </Tooltip>
           <Tooltip title="Alle Klapptexte ein- bzw ausklappen">
             <FullscreenOutlined
               onClick={onClick.betaDisclaimer}
-              css={iconStyle}
+              css={styles.icon}
             />
           </Tooltip>
         </Col>
-        <Col>
+        <Col
+          css={css(styles.col, {
+            justifyContent: 'flex-end',
+          })}
+        >
           {entity?.staNotationLabel && (
-            <>Sta Notation: {entity.staNotationLabel}</>
+            <span
+              css={{
+                position: 'relative',
+                right: 0,
+              }}
+            >
+              STA-Notation: {entity.staNotationLabel}
+            </span>
           )}
         </Col>
       </Row>
