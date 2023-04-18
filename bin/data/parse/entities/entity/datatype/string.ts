@@ -6,6 +6,7 @@ import {
 } from '../../../../../../types/parsed/entity';
 import { Property } from '../../../../../../types/property';
 import { Claim, StatementRaw } from '../../../../../../types/raw/entity';
+import { isPropertyBlacklisted } from '../../../../../../utils/constants';
 import { ParseStatementsProps } from '../statements';
 
 interface ParseStringValue extends Required<ParseStatementsProps> {
@@ -52,7 +53,13 @@ export const parseStringValue = ({
   return {
     value,
     headline: hasHeadline
-      ? addHeadline(value, currentHeadlineLevel + headingIndex + 1, noHeadline)
+      ? addHeadline(
+          value,
+          currentHeadlineLevel +
+            headingIndex +
+            (isPropertyBlacklisted(property, 'headlines') ? 0 : 1),
+          noHeadline
+        )
       : undefined,
     codings: codings[property],
     itemType,

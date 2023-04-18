@@ -77,8 +77,7 @@ export const parseStatement = (props: ParseStatementProps) => {
           ...props,
           occ,
           keyAccessOcc,
-          currentHeadlineLevel:
-            nextHeaderLevel + (isElementsPropOnRdaRessourceType ? 1 : 0),
+          currentHeadlineLevel: nextHeaderLevel,
           addStaStatement: property === Property.Elements,
           isTopLevel,
           isElementsPropOnRdaRessourceType,

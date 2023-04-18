@@ -55,9 +55,8 @@ export const nestedHeadlines = (
       return acc;
     },
     {
-      // quickfix, errors on LandingPage with 2 value for each
-      initialLevel: filteredHeadlines[0].level,
-      lastSeenLevel: filteredHeadlines[0].level,
+      initialLevel: 2,
+      lastSeenLevel: 2,
       headlines: [] as NestedHeadlines[],
       lastSeenNamespace: entityNamespace,
       currentPointer: undefined as undefined | NestedHeadlines[],
