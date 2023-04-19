@@ -93,8 +93,11 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             );
 
             return 'headline-text-search' in doc ? (
-              <NamespaceThemeConfigProvider namespace={doc.namespace[0]}>
-                <List.Item key={index} style={{ display: 'inherit' }}>
+              <NamespaceThemeConfigProvider
+                key={index}
+                namespace={doc.namespace[0]}
+              >
+                <List.Item style={{ display: 'inherit' }}>
                   <EntityLink
                     linkProps={{ onClick: onCloseDrawer }}
                     label={doc['headline.title'][0]}
