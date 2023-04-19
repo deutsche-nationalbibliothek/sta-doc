@@ -6,7 +6,6 @@ import { Entity } from '@/types/parsed/entity';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Select, Typography, theme } from 'antd';
 import { Example } from './example';
-import { Global } from '@emotion/react';
 
 interface ExamplesProps {
   examples: Entity[];
@@ -30,14 +29,6 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   return (
     <>
       <Modal
-        css={{
-          '& .ant-modal-content': {
-            // backgroundColor: token.colorPrimaryBorder,
-            '& *:not(.ant-card-body)': {
-              backgroundColor: `${token.colorPrimaryBorder}`,
-            },
-          },
-        }}
         label={
           <Typography.Paragraph strong>
             {labelReactElement}
@@ -80,7 +71,11 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
         {examples.map((example, index) => {
           return (
             <Card
-              // css={{ backgroundColor: token.colorPrimaryBorder }}
+              css={{
+                border: `2px solid ${token.colorPrimaryBorder}`,
+                padding: 4,
+                margin: 16,
+              }}
               key={index}
             >
               <Example

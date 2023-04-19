@@ -15,7 +15,10 @@ export const Highlighter: React.FC<HighlighterProps> = ({
   const { token } = theme.useToken();
   return (
     <ReactHighlighter
-      highlightStyle={{ backgroundColor: token.colorPrimaryHover, padding: 0 }}
+      highlightStyle={{
+        backgroundColor: token.colorPrimaryBgHover,
+        padding: 0,
+      }}
       searchWords={searchWords}
       autoEscape
       textToHighlight={textToHighlight}

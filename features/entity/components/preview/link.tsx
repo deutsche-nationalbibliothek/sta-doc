@@ -1,7 +1,7 @@
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace, namespaceToColor } from '@/types/namespace';
 import { EntityId } from '@/types/entity-id';
-import { Tag, Typography, theme } from 'antd';
+import { Tag, theme } from 'antd';
 import { EntityPreview } from '.';
 import namespaceConfig from 'config/namespace';
 import { Link } from '@/lib/next-link';
@@ -30,40 +30,36 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     pointingNamespace && currentNamespace !== pointingNamespace;
 
   return (
-    <Typography.Text>
-      <EntityPreview entityId={id} label={label}>
-        <Link
-          {...linkProps}
-          css={{
-            alignItems: 'center',
-            display: 'flex',
-            width: 'fit-content',
-            '&:hover': {
-              color: `${token.colorPrimary} !important`,
-            },
-          }}
-          href={`/entities/${id}`}
-        >
-          {children ?? <QueryHighlighter textToHighlight={label} />}
-          {isPointingDifferentNamespace &&
-            !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
-              <>
-                {' '}
-                <Tag
-                  css={{
-                    backgroundColor:
-                      namespaceConfig.colors[
-                        namespaceToColor(pointingNamespace)
-                      ].primary,
-                    opacity: '0.6',
-                  }}
-                >
-                  {pointingNamespace}
-                </Tag>
-              </>
-            )}{' '}
-        </Link>
-      </EntityPreview>
-    </Typography.Text>
+    <EntityPreview entityId={id} label={label}>
+      <Link
+        {...linkProps}
+        css={{
+          alignItems: 'center',
+          display: 'flex',
+          width: 'fit-content',
+          '&:hover': {
+            color: `${token.colorPrimary} !important`,
+          },
+        }}
+        href={`/entities/${id}`}
+      >
+        {children ?? <QueryHighlighter textToHighlight={label} />}
+        {isPointingDifferentNamespace &&
+          !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
+            <>
+              <Tag
+                css={{
+                  marginLeft: '0.3em',
+                  borderColor:
+                    namespaceConfig.colors[namespaceToColor(pointingNamespace)]
+                      .primary,
+                }}
+              >
+                {pointingNamespace}
+              </Tag>
+            </>
+          )}{' '}
+      </Link>
+    </EntityPreview>
   );
 };

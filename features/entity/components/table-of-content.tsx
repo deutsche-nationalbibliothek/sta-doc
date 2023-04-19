@@ -39,7 +39,7 @@ export const TableOfContent: React.FC<TableOfContentProps> = ({
       css={{
         background: 'var(--dark-gray)',
         '& .ant-tree-node-selected': {
-          backgroundColor: `${token.colorPrimaryHover} !important`,
+          backgroundColor: `${token.colorPrimaryBgHover} !important`,
         },
       }}
       showLine

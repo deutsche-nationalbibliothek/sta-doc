@@ -26,10 +26,10 @@ export const EntityPreviewContent: React.FC<EntityPreviewContentProps> = ({
   return definition.length ? (
     <div
       css={{
-        borderLeft: `4px solid ${token.colorPrimary}`,
-        backgroundColor: token.colorPrimaryBorder,
+        borderLeft: `3px solid ${token.colorPrimaryBorder}`,
+        backgroundColor: 'var(--dark-gray)',
         padding: '0 9px 0 5px',
-        // borderRadius: `${token.borderRadiusOuter}px !important`,
+        borderRadius: `${token.borderRadius}px !important`,
       }}
     >
       <Divider />

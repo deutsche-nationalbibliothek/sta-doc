@@ -1,4 +1,4 @@
-import { Modal as AntdModal, ModalProps as AntdModalProps, theme } from 'antd';
+import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
 import { useState } from 'react';
 
 interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
@@ -7,8 +7,6 @@ interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const { token } = theme.useToken();
 
   const { label, ...otherProps } = props;
 
@@ -24,14 +22,6 @@ export const Modal: React.FC<ModalProps> = (props) => {
     <>
       <a onClick={showModal}>{label}</a>
       <AntdModal
-        css={{
-          '& .ant-modal-content': {
-            backgroundColor: token.colorPrimaryBorder,
-            // '& *:not(.ant-card-body)': {
-            //   backgroundColor: `${token.colorPrimaryBorder}`,
-            // },
-          },
-        }}
         open={isOpen}
         onCancel={onCancel}
         footer={[]}

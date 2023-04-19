@@ -1,11 +1,11 @@
 // duplicates styles/colors.css
 const colors = {
-  'unspecific-namespace-color': '#bdbcbc',
-  'rda-color': '#f1a35d',
-  'gnd-color': '#8ab6f4',
+  'unspecific-namespace-color': '#979696',
+  'rda-color': '#ed7b15',
+  'gnd-color': '#0068FF',
   'dark-gray': '#F0F0F0',
-  'top-bar-color': '#001529',
-  'link-color': '#0066CC',
+  'top-bar-color': '#979696',
+  'link-color': '#0068FF',
 };
 
 export default colors;

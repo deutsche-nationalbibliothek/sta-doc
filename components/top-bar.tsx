@@ -1,10 +1,12 @@
 import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
-import { Col, Layout as AntdLayout, Menu, Row } from 'antd';
+import { Col, Layout as AntdLayout, Menu, Row, theme } from 'antd';
 import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
 import { HomeOutlined } from '@ant-design/icons';
+import { CSSObject } from '@emotion/react';
+import { useMemo } from 'react';
 
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
@@ -12,6 +14,32 @@ export const TopBar: React.FC = () => {
   const namespaceDomain = router.query.domain as string | undefined;
 
   const pathMatch = router.asPath.match(/.*(?=(\?.*|=#.*))|.*/);
+  const { token } = theme.useToken();
+
+  const menuColorStyles: CSSObject = useMemo(
+    () => ({
+      background: 'var(--top-bar-color) !important',
+      '& li .ant-menu-title-content a': {
+        color: `${token.colorText} !important`,
+      },
+      '& li.ant-menu-item': {
+        backgroundColor: 'var(--top-bar-height) !important',
+      },
+      '& li.ant-menu-item-selected': {
+        backgroundColor: `${token.colorPrimary} !important`,
+        '& .ant-menu-title-content': {
+          color: `${token.colorText} !important`,
+        },
+      },
+      '& li.ant-menu-submenu-selected': {
+        backgroundColor: `${token.colorPrimary} !important`,
+        '& .ant-menu-title-content': {
+          color: `${token.colorText} !important`,
+        },
+      },
+    }),
+    [token.colorPrimary, token.colorText]
+  );
 
   return (
     <AntdLayout.Header
@@ -31,8 +59,8 @@ export const TopBar: React.FC = () => {
                 justifyContent: 'space-around',
                 width: 120,
               },
+              ...menuColorStyles,
             }}
-            theme="dark"
             mode="horizontal"
             selectedKeys={compact([
               namespace,

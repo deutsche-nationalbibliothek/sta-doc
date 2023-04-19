@@ -7,15 +7,13 @@ import { SolrSearch } from './solr';
 export const SearchDrawer: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const onClose = () => setIsSearchOpen(false);
-
   const onCloseDrawer = () => setIsSearchOpen(false);
 
   return (
     <Menu
-      // css={{
-      //   background: 'var(--top-bar-color)',
-      // }}
-      theme="dark"
+      css={{
+        background: 'var(--top-bar-color) !important',
+      }}
       mode="horizontal"
       selectedKeys={[]}
       items={[

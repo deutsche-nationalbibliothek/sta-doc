@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Global } from '@emotion/react';
-import { theme } from 'antd';
 
 export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
   children,
@@ -36,17 +35,9 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
 export const GlobalDynamicStyles: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const { token } = theme.useToken();
-
   return (
     <>
-      <Global
-        styles={{
-          '.ant-popover-inner': {
-            border: `1px solid ${token.colorPrimaryBorder}`,
-          },
-        }}
-      />
+      <Global styles={{}} />
       {children}
     </>
   );

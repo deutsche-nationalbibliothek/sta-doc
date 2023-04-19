@@ -231,13 +231,10 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   return (
     <Card
       css={{
-        border: `1px solid ${token.colorPrimaryBgHover}`,
-        borderRadius: `${token.borderRadiusOuter * 2}px`,
+        borderLeft: `3px solid ${token.colorPrimaryBorder}`,
         margin: '1em',
-        background: `${token.colorPrimaryBorderHover} !important`,
-        '& *': {
-          background: `${token.colorPrimaryBorderHover} !important`,
-        },
+        backgroundColor: 'var(--dark-gray)',
+        // },
         transform: 'translateX(0)',
       }}
     >
@@ -246,7 +243,6 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
           position: 'fixed',
           top: '1em',
           right: '1em',
-          color: 'var(--link-color)',
         }}
       >
         {codingPreference}
