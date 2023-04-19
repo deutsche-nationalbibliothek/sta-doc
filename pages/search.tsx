@@ -1,20 +1,12 @@
 import { PageHeader } from '@/components/page-header';
 import { SolrSearch } from '@/components/search/solr';
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
-import { useNamespace } from '@/hooks/use-namespace';
+import { useEntity } from '@/hooks/entity-provider';
 import { Typography } from 'antd';
 import { useEffect } from 'react';
 
 const SearchPage: React.FC = () => {
-  const { setNamespace } = useNamespace();
-  const { setHeadlines } = useInitialHeadlines();
-  const { onResetNamespace } = useNamespace();
-
-  useEffect(() => {
-    setHeadlines([]);
-    setNamespace(undefined);
-    onResetNamespace();
-  }, [setHeadlines, setNamespace, onResetNamespace]);
+  const { unloadEntity } = useEntity();
+  useEffect(unloadEntity, [unloadEntity]);
 
   return (
     <div

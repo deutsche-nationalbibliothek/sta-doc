@@ -1,5 +1,4 @@
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
-import { useNamespace } from '@/hooks/use-namespace';
+import { useEntity } from '@/hooks/entity-provider';
 import { ToolOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import { useEffect } from 'react';
@@ -13,13 +12,8 @@ export const NotFound: React.FC<NotFoundProps> = ({
   subtitle,
   isUnderConstruction,
 }) => {
-  const { setHeadlines } = useInitialHeadlines();
-  const { setNamespace } = useNamespace();
-
-  useEffect(() => {
-    setHeadlines([]);
-    setNamespace(undefined);
-  }, [setHeadlines, setNamespace]);
+  const { unloadEntity } = useEntity();
+  useEffect(unloadEntity, [unloadEntity]);
 
   return (
     <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>

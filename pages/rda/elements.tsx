@@ -3,7 +3,6 @@ import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
 import { NamespaceImage } from '@/entity/components/namespace-image';
 import { EntityLink } from '@/entity/components/preview/link';
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
@@ -13,6 +12,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { uniq } from 'lodash';
 import { PageHeader } from '@/components/page-header';
+import { useEntity } from '@/hooks/entity-provider';
 
 interface RdaPropertiesProps {
   headlines: Headline[];
@@ -22,13 +22,13 @@ interface RdaPropertiesProps {
 export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
-  const { setHeadlines } = useInitialHeadlines();
-  const { setNamespace, namespace } = useNamespace();
+  const { namespace, setNamespace } = useNamespace();
+  const { unloadEntity } = useEntity();
 
   useEffect(() => {
-    setHeadlines([]);
-    setNamespace(Namespace.RDA);
-  }, [setHeadlines, setNamespace]);
+    unloadEntity(true);
+    setNamespace(Namespace.GND);
+  }, [unloadEntity, setNamespace]);
 
   const columns: ColumnsTypes<RdaProperty> = [
     {

@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 import { GndFieldsTable } from 'features/gnd/field-table';
 import { Field, Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { PageHeader } from '@/components/page-header';
+import { useEntity } from '@/hooks/entity-provider';
 
 export interface GndFieldsProps {
   fields: Field[];
@@ -17,12 +17,12 @@ export interface GndFieldsProps {
 
 export default function GndFields({ fields }: GndFieldsProps) {
   const { namespace, setNamespace } = useNamespace();
-  const { setHeadlines } = useInitialHeadlines();
+  const { unloadEntity } = useEntity();
 
   useEffect(() => {
+    unloadEntity(true);
     setNamespace(Namespace.GND);
-    setHeadlines([]);
-  }, [setHeadlines, setNamespace]);
+  }, [unloadEntity, setNamespace]);
 
   return (
     <>
