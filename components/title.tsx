@@ -14,7 +14,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   const { headline, children, ...otherProps } = props;
   const { level, title, key } = headline;
 
-  const localLevel = (level <= 4 ? level : 4) as 1 | 2 | 3 | 4;
+  const localLevel = (level <= 5 ? level : 5) as 1 | 2 | 3 | 4 | 5;
   const levelsTooHigh = level - 4;
   const style = levelsTooHigh > 0 ? { fontSize: 18 - levelsTooHigh } : {};
   const iconSize = 20 - level * 1.2;
