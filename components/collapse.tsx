@@ -26,8 +26,7 @@ export const Collapse = ({
       <AntdCollapse
         css={{
           '& .ant-collapse-item': {
-            color: token.colorPrimary,
-            border: '1px solid',
+            border: `1px solid ${token.colorPrimaryBorder}`,
             borderRadius: `${token.borderRadiusOuter}px !important`,
           },
         }}
