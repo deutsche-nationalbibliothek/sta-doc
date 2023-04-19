@@ -19,8 +19,9 @@ export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
       <Card
         css={{
           borderLeft: `3px solid ${token.colorPrimaryBorder}`,
-          margin: '1em',
+          margin: '1em 0 1em 0',
           backgroundColor: 'var(--light-gray)',
+          transform: 'translateX(0)',
         }}
       >
         <StringValueComponent stringValue={stringValue} />

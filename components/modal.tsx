@@ -1,4 +1,5 @@
-import { Modal as AntdModal, ModalProps as AntdModalProps } from 'antd';
+import { css } from '@emotion/react';
+import { Modal as AntdModal, ModalProps as AntdModalProps, theme } from 'antd';
 import { useState } from 'react';
 
 interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
@@ -7,6 +8,7 @@ interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = theme.useToken();
 
   const { label, ...otherProps } = props;
 
@@ -28,6 +30,12 @@ export const Modal: React.FC<ModalProps> = (props) => {
         width={720}
         title={otherProps.title || label}
         {...otherProps}
+        css={css(otherProps.className ?? '', {
+          '& .ant-modal-header': {
+            borderBottom: `1px solid ${token.colorPrimaryBorder}`,
+            paddingBottom: 4,
+          },
+        })}
       />
     </>
   );

@@ -11,7 +11,6 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
-import { theme } from 'antd';
 
 interface StringStatementProps {
   statements: StringGroup[];
@@ -22,7 +21,6 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
-  const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
@@ -139,7 +137,8 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
           <Modal label={labelReactElement} title={labelReactElement}>
             <Card
               css={{
-                border: `2px solid ${token.colorPrimaryBorder}`,
+                '& > .ant-card-body': { padding: 2 },
+                border: 'none',
               }}
               key={'1'}
             >

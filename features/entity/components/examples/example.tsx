@@ -173,7 +173,6 @@ export const Example: React.FC<ExampleProps> = ({
       ) : (
         <React.Fragment>
           <Typography.Paragraph>
-            <br />
             {relevantExamples.formatNeutral.map((formatNeutral, index) => (
               <Typography.Paragraph key={index}>
                 <Typography.Text italic>{formatNeutral.label}</Typography.Text>
@@ -232,9 +231,8 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
     <Card
       css={{
         borderLeft: `3px solid ${token.colorPrimaryBorder}`,
-        margin: '1em',
+        margin: '1em 0 1em 0',
         backgroundColor: 'var(--light-gray)',
-        // },
         transform: 'translateX(0)',
       }}
     >
