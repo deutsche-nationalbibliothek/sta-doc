@@ -4,7 +4,7 @@ import { Title } from '@/components/title';
 import { Item } from '@/types/item';
 import { StringGroup, StringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Card, Typography, theme } from 'antd';
+import { Card, Typography } from 'antd';
 import React, { Fragment } from 'react';
 import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
@@ -21,7 +21,6 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
-  const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
@@ -126,19 +125,8 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
 
       return (
         <>
-          <Modal
-            label={labelReactElement}
-            title={
-              <div
-                css={{
-                  backgroundColor: token.colorPrimaryBorder,
-                }}
-              >
-                {labelReactElement}
-              </div>
-            }
-          >
-            <Card css={{ backgroundColor: token.colorPrimaryBorder }} key={'1'}>
+          <Modal label={labelReactElement} title={labelReactElement}>
+            <Card css={{}} key={'1'}>
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
               >
