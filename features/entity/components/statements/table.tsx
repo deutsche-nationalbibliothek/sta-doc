@@ -64,12 +64,13 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     {
       key: 'propertyLabel',
       dataIndex: 'propertyLabel',
-      className: 'table-cell-align-top',
+      className: 'table-cell-align-top statement-table-property-column',
       width: '20%',
     },
     {
       key: 'values',
       dataIndex: 'values',
+      className: 'statement-table-values-column',
       render: (values: TableStatementsData['values'], record) => {
         if (record.property === Property.Subfields && field) {
           return (
@@ -145,12 +146,19 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   ];
 
   return (
-    <Table<TableStatementsData>
-      size="small"
-      dataSource={data}
-      columns={columns}
-      pagination={false}
-      showHeader={false}
-    />
+    <div
+      css={{
+        // '.statement-table-values-column': {},
+        '.statement-table-property-column': { verticalAlign: 'top' },
+      }}
+    >
+      <Table<TableStatementsData>
+        size="small"
+        dataSource={data}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
+      />
+    </div>
   );
 };
