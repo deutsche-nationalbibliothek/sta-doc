@@ -73,8 +73,6 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
             <Card
               css={{
                 border: `2px solid ${token.colorPrimaryBorder}`,
-                padding: 4,
-                margin: 16,
               }}
               key={index}
             >

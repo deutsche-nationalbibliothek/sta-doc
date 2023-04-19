@@ -126,7 +126,8 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                 Property['Recording-method-or-item']) ||
                               !stringValue.qualifiers) && (
                               <StringValueComponent
-                                code={record.property === Property.Encoding}
+                                itemType={stringValue.itemType}
+                                property={record.property}
                                 stringValue={stringValue}
                               />
                             )}

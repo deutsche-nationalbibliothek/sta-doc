@@ -11,6 +11,7 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { theme } from 'antd';
 
 interface StringStatementProps {
   statements: StringGroup[];
@@ -21,6 +22,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
+  const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
@@ -61,7 +63,8 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
               <React.Fragment key={stringValue.value}>
                 <Typography.Text>
                   <StringValueComponent
-                    code={property === Property.Encoding}
+                    itemType={stringValueContainer.itemType}
+                    property={property}
                     stringValue={stringValue}
                   />
                   {references}
@@ -82,7 +85,11 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent stringValue={stringValue} />
+              <StringValueComponent
+                itemType={stringValueContainer.itemType}
+                property={property}
+                stringValue={stringValue}
+              />
               {references}
               {qualifiers}
             </li>
@@ -97,7 +104,11 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
           {(stringValue, qualifiers, references) => (
             <li key={stringValue.value}>
-              <StringValueComponent stringValue={stringValue} />
+              <StringValueComponent
+                itemType={stringValueContainer.itemType}
+                property={property}
+                stringValue={stringValue}
+              />
               {references}
               {qualifiers}
             </li>
@@ -126,7 +137,12 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
       return (
         <>
           <Modal label={labelReactElement} title={labelReactElement}>
-            <Card css={{}} key={'1'}>
+            <Card
+              css={{
+                border: `2px solid ${token.colorPrimaryBorder}`,
+              }}
+              key={'1'}
+            >
               <GenericStringValueMapper
                 stringValueContainer={stringValueContainer}
               >
@@ -162,7 +178,11 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
             return (
               <Collapse defaultOpen={false} labelClosed={introLabel?.value}>
                 <Typography.Paragraph key={stringValue.value}>
-                  <StringValueComponent stringValue={stringValue} />
+                  <StringValueComponent
+                    itemType={stringValueContainer.itemType}
+                    property={property}
+                    stringValue={stringValue}
+                  />
                   {references}
                   {qualifiers}
                 </Typography.Paragraph>
@@ -177,7 +197,8 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent
-              css={{ color: 'gray' }}
+              itemType={stringValueContainer.itemType}
+              property={property}
               stringValue={stringValue}
             />
             {references}
