@@ -45,7 +45,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
             <Col>
               <Typography.Text strong>{labelReactElement}</Typography.Text>
             </Col>
-            {namespace === Namespace.GND && (
+            {namespace === Namespace.GND || namespace=== Namespace.STA && (
               <Col>
                 <Select
                   placeholder="Codierung wählen"
