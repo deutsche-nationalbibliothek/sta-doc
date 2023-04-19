@@ -233,7 +233,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
       css={{
         borderLeft: `3px solid ${token.colorPrimaryBorder}`,
         margin: '1em',
-        backgroundColor: 'var(--dark-gray)',
+        backgroundColor: 'var(--light-gray)',
         // },
         transform: 'translateX(0)',
       }}

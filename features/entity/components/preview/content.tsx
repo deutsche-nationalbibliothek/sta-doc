@@ -27,7 +27,7 @@ export const EntityPreviewContent: React.FC<EntityPreviewContentProps> = ({
     <div
       css={{
         borderLeft: `3px solid ${token.colorPrimaryBorder}`,
-        backgroundColor: 'var(--dark-gray)',
+        backgroundColor: 'var(--light-gray)',
         padding: '0 9px 0 5px',
         borderRadius: `${token.borderRadius}px !important`,
       }}

@@ -23,7 +23,7 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
       css={{
         '& .dragger.Horizontal': {
           height: '100%',
-          backgroundColor: 'var(--dark-gray)',
+          backgroundColor: 'var(--light-gray)',
           width: 3,
           '&:hover': {
             width: 4,

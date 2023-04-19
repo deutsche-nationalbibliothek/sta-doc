@@ -32,7 +32,7 @@ export default function RdaPropertiesPage({
 
   const columns: ColumnsTypes<RdaProperty> = [
     {
-      title: 'Sta-Notation',
+      title: 'STA-Notation',
       dataIndex: 'staNotationLabel',
       key: 'staNotationLabel',
       width: '20%',

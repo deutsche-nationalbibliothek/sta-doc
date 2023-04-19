@@ -27,7 +27,7 @@ const HorizontalLayoutDivivder = () => (
       minWidth: 'unset',
       marginTop: 'calc(var(--divider-top-height) / 2)',
       marginBottom: 'calc(var(--divider-top-height) / 2)',
-      background: 'var(--dark-gray)',
+      background: 'var(--light-gray)',
     }}
   />
 );

@@ -27,7 +27,7 @@ export const Breadcrumb: React.FC = () => {
     <div
       css={{
         fontSize: 'small',
-        background: 'var(--dark-gray)',
+        background: 'var(--light-gray)',
         '& .ant-breadcrumb a': {
           color: token.colorTextSecondary,
         },

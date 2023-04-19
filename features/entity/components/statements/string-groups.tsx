@@ -1,4 +1,5 @@
 import { Modal } from '@/components/modal';
+import { QueryHighlighter } from '@/lib/highlighter';
 import { Title } from '@/components/title';
 import { Item } from '@/types/item';
 import { StringGroup, StringValue } from '@/types/parsed/entity';
@@ -31,7 +32,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
           <React.Fragment key={stringValue.value}>
             {stringValue.headline && (
               <Title headline={stringValue.headline}>
-                <StringValueComponent stringValue={stringValue} />
+                <QueryHighlighter textToHighlight={stringValue.value} />
                 {references}
               </Title>
             )}

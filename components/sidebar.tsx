@@ -18,7 +18,7 @@ export const Sidebar: React.FC = () => {
       <div
         css={{
           height: layoutContentHeight,
-          background: 'var(--dark-gray)',
+          background: 'var(--light-gray)',
         }}
       >
         <TableOfContent headlines={headlines} />

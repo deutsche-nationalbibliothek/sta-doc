@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
         height: 'var(--footer-height)',
         padding: '2.5px 0 0 0',
         margin: '0 8px 0 8px',
-        background: 'var(--dark-gray)',
+        background: 'var(--light-gray)',
       }}
     >
       {contextHolder}
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
         align="middle"
         css={{
           padding: '0 10px 0 10px',
-          background: 'var(--dark-gray)',
+          background: 'var(--light-gray)',
           '& span:hover': {
             color: theme.useToken().token.colorPrimary,
           },
