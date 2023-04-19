@@ -47,6 +47,15 @@ export const parseStatement = (props: ParseStatementProps) => {
   const embeddedEntityId =
     !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
+  if (
+    embeddedEntityId &&
+    namespaceConfig.notUsed.includes(
+      namespaceConfig.map[schemas[embeddedEntityId]]
+    )
+  ) {
+    return;
+  }
+
   const hasEmbedding =
     !isMissingValue &&
     embeddedEntityId &&

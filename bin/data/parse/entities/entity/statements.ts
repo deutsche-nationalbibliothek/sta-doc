@@ -114,15 +114,17 @@ export const parseStatements = (
           )
         : undefined;
 
-      const dataTypeSpecifics = occs.map((occ: StatementRaw | Claim) =>
-        parseStatement({
-          ...defaultedProps,
-          occ,
-          keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
-          hasHeadline,
-          simplifiedDataType: dataType,
-          isElementsPropOnRdaRessourceType,
-        })
+      const dataTypeSpecifics = compact(
+        occs.map((occ: StatementRaw | Claim) =>
+          parseStatement({
+            ...defaultedProps,
+            occ,
+            keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
+            hasHeadline,
+            simplifiedDataType: dataType,
+            isElementsPropOnRdaRessourceType,
+          })
+        )
       );
 
       const preMappedStatemant: PreMappedStatement = {
