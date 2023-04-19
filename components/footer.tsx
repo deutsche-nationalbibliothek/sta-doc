@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
             entity?.staNotationLabel as string
           }`
         );
-        messageApi.success('STA Link kopiert!');
+        messageApi.success('Link kopiert!');
       },
       scrollTop: () =>
         document.getElementById('main-scroll-container')?.scroll(0, 0),

@@ -27,7 +27,7 @@ export default function RdaPropertiesPage({
 
   useEffect(() => {
     unloadEntity(true);
-    setNamespace(Namespace.GND);
+    setNamespace(Namespace.RDA);
   }, [unloadEntity, setNamespace]);
 
   const columns: ColumnsTypes<RdaProperty> = [
