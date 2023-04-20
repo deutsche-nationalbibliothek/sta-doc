@@ -102,6 +102,24 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
       !nonDefaultRenderProperties.includes(statement.property),
   };
 
+  const filterElementStatementForWemi = (
+    wikibasePointer: WikibasePointerValue
+  ): boolean => {
+    console.log(wikibasePointer.label, wikibasePointer);
+    return [
+      // Property.Status <- is defined in specs, but breaks logic
+      Property.Repetition,
+      Property.description,
+      Property['embedded-(item)'],
+      Property['description-(at-the-end)'],
+    ].some(
+      (wemiNeededProperty) =>
+        wikibasePointer.qualifiers &&
+        wikibasePointer.qualifiers.some(
+          (qualifier) => qualifier.property === wemiNeededProperty
+        )
+    );
+  };
   return (
     <>
       <Statements
@@ -149,16 +167,16 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                         ...qualifier,
                         wikibasePointers:
                           qualifier.wikibasePointers &&
-                          (qualifier.wikibasePointers.map(
-                            (wikibasePointer) => ({
+                          (qualifier.wikibasePointers
+                            .filter(filterElementStatementForWemi)
+                            .map((wikibasePointer) => ({
                               ...wikibasePointer,
                               qualifiers:
                                 wikibasePointer.qualifiers &&
                                 sortQualifiers(
                                   wikibasePointer.qualifiers
                                 ).filter(nonDefaultRender.filter),
-                            })
-                          ) as WikibasePointerValue[]),
+                            })) as WikibasePointerValue[]),
                       }))
                     )}
                   />
