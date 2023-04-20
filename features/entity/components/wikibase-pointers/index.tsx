@@ -10,11 +10,13 @@ import { UnorderedList } from '@/components/unorderd-list';
 interface WikibasePointersProps {
   wikibasePointers: WikibasePointerValue[];
   property: Property;
+  hideLinkLabels?: boolean;
 }
 
 export const WikibasePointers: React.FC<WikibasePointersProps> = ({
   wikibasePointers,
   property,
+  hideLinkLabels,
 }) => {
   const isSeeItemOrProperty =
     property === Property['see-(Item)'] ||
@@ -40,6 +42,7 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
             <WikibaseLink
               showArrow={isSeeItemOrProperty}
               wikibasePointer={wikibasePointer}
+              hideLinkLabels={hideLinkLabels}
             />
           </li>
         ))}
@@ -56,6 +59,7 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
             key={index}
             property={property}
             isSeeItemOrProperty={isSeeItemOrProperty}
+            hideLinkLabels={hideLinkLabels}
           />
         ))
       )}
