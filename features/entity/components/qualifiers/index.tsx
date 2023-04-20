@@ -20,9 +20,9 @@ interface QualifiersProps {
 
 export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
-  showHeadline = true,
   shouldRenderLabel,
   hideLinkLabels,
+  showHeadline = true,
 }) => {
   const qualifierMap = {
     [Property['embedded-(item)']]: (qualifier: Statement) => {

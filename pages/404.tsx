@@ -1,6 +1,7 @@
 import { useEntity } from '@/hooks/entity-provider';
 import { ToolOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
+import Head from 'next/head';
 import { useEffect } from 'react';
 
 interface NotFoundProps {
@@ -16,20 +17,25 @@ export const NotFound: React.FC<NotFoundProps> = ({
   useEffect(unloadEntity, [unloadEntity]);
 
   return (
-    <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
-      <Typography.Title level={2}>
-        {isUnderConstruction ? (
-          <>
-            <ToolOutlined style={{ fontSize: 'xxx-large' }} />
-            <br />
-            In Bearbeitung
-          </>
-        ) : (
-          '404 - Seite nicht gefunden'
-        )}
-      </Typography.Title>
-      {subtitle && <Typography.Paragraph>{subtitle}</Typography.Paragraph>}
-    </div>
+    <>
+      <Head>
+        <title>404 | {subtitle ?? 'Nicht gefunden'}</title>
+      </Head>
+      <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
+        <Typography.Title level={2}>
+          {isUnderConstruction ? (
+            <>
+              <ToolOutlined style={{ fontSize: 'xxx-large' }} />
+              <br />
+              In Bearbeitung
+            </>
+          ) : (
+            '404 - Seite nicht gefunden'
+          )}
+        </Typography.Title>
+        {subtitle && <Typography.Paragraph>{subtitle}</Typography.Paragraph>}
+      </div>
+    </>
   );
 };
 

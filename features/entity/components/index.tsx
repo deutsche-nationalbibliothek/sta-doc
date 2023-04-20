@@ -8,6 +8,7 @@ import { NamespaceImage } from './namespace-image';
 import { EntityLink } from './preview/link';
 import { PageHeader } from '@/components/page-header';
 import { useEntity } from '@/hooks/entity-provider';
+import Head from 'next/head';
 
 export interface EntityIndexModel {
   label: string;
@@ -70,6 +71,10 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
 
   return (
     <>
+      <Head>
+        <title>{namespace} Index</title>
+      </Head>
+
       <PageHeader
         title={
           <Title
