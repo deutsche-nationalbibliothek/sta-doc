@@ -60,43 +60,21 @@ export const filterSortTransformStatemants = (
         'parentProperty' in statements[0] &&
         statements[0].parentProperty === Property.Elements;
 
-      const filterStatementsForWemi = (occs: Claim) => {
-        return (
-          'qualifiers' in occs &&
-          occs.qualifiers &&
-          Property['WEMI-level'] in occs.qualifiers &&
-          [
-            // Property.Status <- is defined in specs, but breaks logic
-            Property.Repetition,
-            Property.description,
-            Property['embedded-(item)'],
-            Property['description-(at-the-end)'],
-          ].some(
-            (wemiNeededProperty) =>
-              wemiNeededProperty in
-              (occs.qualifiers as Record<Property, StatementRaw[]>)
-          )
-        );
-      };
-
       if (elementsStatement) {
-        const wemiGroups = groupBy(
-          statements.filter(filterStatementsForWemi),
-          (occs: Claim) => {
-            if (
-              'qualifiers' in occs &&
-              occs.qualifiers &&
-              Property['WEMI-level'] in occs.qualifiers
-            ) {
-              const id =
-                occs.qualifiers[Property['WEMI-level']][0]?.datavalue?.value.id;
-              if (id) {
-                return labelsDe[id];
-              }
+        const wemiGroups = groupBy(statements, (occs: Claim) => {
+          if (
+            'qualifiers' in occs &&
+            occs.qualifiers &&
+            Property['WEMI-level'] in occs.qualifiers
+          ) {
+            const id =
+              occs.qualifiers[Property['WEMI-level']][0]?.datavalue?.value.id;
+            if (id) {
+              return labelsDe[id];
             }
-            return 'Kein Wert';
           }
-        );
+          return 'Kein Wert';
+        });
 
         // traverse datastructure for Wemi Levels
         const wemiMapped = flatten(
@@ -158,9 +136,7 @@ export const filterSortTransformStatemants = (
       }
     };
 
-    return releavantClaims
-      .reduce(claimsReducer, [])
-      .filter((statements) => statements.length);
+    return releavantClaims.reduce(claimsReducer, []); // as Claim[][]).filter((statements) => statements.length);
   };
 
   const bodyStatemants = isRdaRessourceEntity
