@@ -36,6 +36,7 @@ export const defaultGroupsDefinition: Groups = {
     Property['Explanation'],
     Property['DACH-Directions-for-use'],
     Property['P659'],
+    Property['P665'],
     Property['Sources-of-information'],
     Property['description'],
     Property['Basic-rules'],

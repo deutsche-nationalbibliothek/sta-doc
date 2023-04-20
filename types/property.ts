@@ -621,4 +621,5 @@ export enum Property {
   'medium-of-performance-of-musical-content-of-representative-expression' = 'P662',
   'P663' = 'P663',
   'parent-or-element' = 'P664',
+  'P665' = 'P665',
 }
