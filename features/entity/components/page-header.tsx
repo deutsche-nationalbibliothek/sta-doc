@@ -53,7 +53,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
             {entity.staNotationLabel && (
               <>
                 <Typography.Paragraph css={{ textAlign: 'center' }}>
-                  <Typography.Text strong>Sta Notation:</Typography.Text>
+                  <Typography.Text strong>STA-Notation:</Typography.Text>
                   <br />
                   <Typography.Text>{entity.staNotationLabel}</Typography.Text>
                 </Typography.Paragraph>
