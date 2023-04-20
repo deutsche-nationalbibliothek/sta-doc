@@ -79,7 +79,7 @@ export const TopBar: React.FC = () => {
               {
                 label: (
                   <span className="ant-menu-item">
-                    <Link href="/entities/Q8469">RDA Dach</Link>
+                    <Link href="/entities/Q8469">RDA DACH</Link>
                   </span>
                 ),
                 key: 'RDA',
