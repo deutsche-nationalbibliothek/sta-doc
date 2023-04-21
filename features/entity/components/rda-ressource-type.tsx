@@ -35,6 +35,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const relevantStatements = {
     definition: propFinder(Property.definition, entity.statements.header),
     common: propFinder(Property['P659']),
+    staDefinition: propFinder(Property['P665']),
     sourcesOfInformation: propFinder(Property['Sources-of-information']),
     description: propFinder(Property['description']),
     wemi: propFinder(Property['WEMI-level']),
@@ -126,6 +127,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
         statements={compact([
           relevantStatements.definition,
           relevantStatements.common,
+          relevantStatements.staDefinition,
           relevantStatements.sourcesOfInformation,
           relevantStatements.description,
         ])}
