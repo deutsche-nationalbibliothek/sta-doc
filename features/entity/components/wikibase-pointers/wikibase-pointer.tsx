@@ -14,14 +14,12 @@ interface WikibasePointerProps {
   wikibasePointer: WikibasePointerValue;
   isSeeItemOrProperty: boolean;
   property: Property;
-  hideLinkLabels?: boolean;
 }
 
 export const WikibasePointer: React.FC<WikibasePointerProps> = ({
   wikibasePointer,
   isSeeItemOrProperty,
   property,
-  hideLinkLabels,
 }) => {
   return (
     <MissingValueGuard data={wikibasePointer}>
@@ -37,7 +35,6 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
             <WikibaseLink
               showArrow={isSeeItemOrProperty}
               wikibasePointer={wikibasePointer}
-              hideLinkLabels={hideLinkLabels}
             />
           </Typography.Paragraph>
         )}

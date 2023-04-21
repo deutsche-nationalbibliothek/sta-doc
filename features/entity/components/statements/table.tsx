@@ -110,40 +110,28 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                     }}
                   >
                     {stringStatement.map((stringValue, index) => {
-                      const isRecordingMethod =
-                        stringValue.property === Property['Recording-method'];
                       return (
-                        <Typography.Paragraph
-                          css={{
-                            '& div': {
-                              display: `${
-                                isRecordingMethod ? 'inline-block' : 'initial'
-                              }`,
-                              padding: '0 2px 0 2px',
-                            },
-                          }}
-                          key={index}
-                        >
+                        <Typography.Paragraph key={index}>
                           <>
                             {stringValue.qualifiers && (
                               <>
                                 <Qualifiers
                                   showHeadline={false}
                                   qualifiers={stringValue.qualifiers}
-                                  hideLinkLabels={
-                                    stringValue.property ===
-                                    Property['Recording-method']
-                                  }
                                 />
                               </>
                             )}
-                            {
+                            {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
+                            {((stringValue.qualifiers &&
+                              stringValue.qualifiers[0]?.property !==
+                                Property['Recording-method-or-item']) ||
+                              !stringValue.qualifiers) && (
                               <StringValueComponent
                                 itemType={stringValue.itemType}
                                 property={record.property}
                                 stringValue={stringValue}
                               />
-                            }
+                            )}
                           </>
                         </Typography.Paragraph>
                       );

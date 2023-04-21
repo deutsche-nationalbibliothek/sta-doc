@@ -15,13 +15,11 @@ interface QualifiersProps {
   showHeadline?: boolean;
   // only used in default render
   shouldRenderLabel?: (qualifier: Statement) => boolean;
-  hideLinkLabels?: boolean;
 }
 
 export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
   shouldRenderLabel,
-  hideLinkLabels,
   showHeadline = true,
 }) => {
   const qualifierMap = {
@@ -74,7 +72,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
               <WikibasePointers
                 property={qualifier.property}
                 wikibasePointers={qualifier.wikibasePointers}
-                hideLinkLabels={hideLinkLabels}
               />
             )
           )}
