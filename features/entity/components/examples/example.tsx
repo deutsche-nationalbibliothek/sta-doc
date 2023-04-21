@@ -309,8 +309,8 @@ const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
 
   const columns: ColumnsTypes<TableData> = [
     {
-      // title: 'STA-Notation',
       dataIndex: 'label',
+      className: 'va-top',
       key: 'label',
       render: (label: string, { statement }) => {
         return (

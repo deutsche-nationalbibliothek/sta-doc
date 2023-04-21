@@ -15,6 +15,7 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
               '.GND-seperator': { color: 'var(--gnd-color)' },
             },
           },
+          '.va-top': { verticalAlign: 'top' },
           img: { display: 'block' },
           '@media print': {
             '.no-print, .ant-table-thead, .ant-pagination, .ant-tooltip, .ant-layout-header, .ant-layout-footer, .ant-breadcrumb':

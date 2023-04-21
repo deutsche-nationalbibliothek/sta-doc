@@ -65,7 +65,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     {
       key: 'propertyLabel',
       dataIndex: 'propertyLabel',
-      className: 'table-cell-align-top statement-table-property-column',
+      className: 'va-top',
       width: '20%',
     },
     {
@@ -196,19 +196,12 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   ];
 
   return (
-    <div
-      css={{
-        // '.statement-table-values-column': {},
-        '.statement-table-property-column': { verticalAlign: 'top' },
-      }}
-    >
-      <Table<TableStatementsData>
-        size="small"
-        dataSource={data}
-        columns={columns}
-        pagination={false}
-        showHeader={false}
-      />
-    </div>
+    <Table<TableStatementsData>
+      size="small"
+      dataSource={data}
+      columns={columns}
+      pagination={false}
+      showHeader={false}
+    />
   );
 };
