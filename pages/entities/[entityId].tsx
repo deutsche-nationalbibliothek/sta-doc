@@ -14,12 +14,14 @@ import namespaceConfig from 'config/namespace';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect } from 'react';
 import { NotFound } from '../404';
+import { useNamespace } from '@/hooks/use-namespace';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
   entityId: string;
   notFound: boolean;
   isUnderConstruction?: boolean;
+  namespace?: Namespace;
 }
 
 export default function EntityDetailsPage({
@@ -27,8 +29,17 @@ export default function EntityDetailsPage({
   entityId,
   notFound,
   isUnderConstruction,
+  namespace,
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
+
+  const { setNamespace } = useNamespace();
+
+  useEffect(() => {
+    if (namespace) {
+      setNamespace(namespace);
+    }
+  }, [setNamespace, namespace]);
 
   useEffect(() => {
     if (headlines) {
@@ -93,6 +104,7 @@ export const getStaticProps: GetStaticProps<
         entityId,
         headlines: entityEntry.headlines,
         notFound: false,
+        namespace: entityEntry.entity.namespace,
       },
     };
   } else {
