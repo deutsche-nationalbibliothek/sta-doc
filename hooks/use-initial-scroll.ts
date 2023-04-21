@@ -1,4 +1,3 @@
-import { useRouter } from '@/lib/next-use-router';
 import { useEffect } from 'react';
 
 export const useInitialScroll = (shouldDoAnchorScrolling: boolean) => {
@@ -26,20 +25,11 @@ const useInitialScrollToAnchor = (shouldDo: boolean) => {
 
 const useInitialScrollToTop = () => {
   const { hash } = window.location;
-  const router = useRouter();
   useEffect(() => {
     if (!hash) {
-      const scrollToTop = () =>
-        document
-          .getElementById('main-scroll-container')
-          ?.scroll({ left: 0, top: 0, behavior: 'smooth' });
-      // document.getElementById('main-scroll-container')?.scroll(0, 0);
-
-      router.events.on('routeChangeComplete', scrollToTop);
-
-      return () => {
-        router.events.off('routeChangeComplete', scrollToTop);
-      };
+      document
+        .getElementById('main-scroll-container')
+        ?.scroll({ left: 0, top: 0, behavior: 'smooth' });
     }
-  }, [hash, router.events]);
+  }, [hash]);
 };

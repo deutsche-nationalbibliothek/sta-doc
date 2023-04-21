@@ -6,7 +6,7 @@ import {
 } from '@/types/parsed/entity';
 import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
-import { DownOutlined, RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { Divider, Typography } from 'antd';
 import { GndSubFieldTable } from '@/features/gnd/subfield-table';
 import { compact } from 'lodash';
