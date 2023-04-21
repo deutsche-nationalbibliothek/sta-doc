@@ -115,9 +115,12 @@ export function Table<T extends object>(props: TableProps<T>) {
               Suchen
             </Button>
             <Button
-              onClick={() =>
-                clearFilters && handleReset(clearFilters, dataIndex)
-              }
+              onClick={() => {
+                if (clearFilters) {
+                  handleReset(clearFilters, dataIndex);
+                  handleSearch(selectedKeys as string[], confirm, dataIndex);
+                }
+              }}
               size="small"
             >
               Zurücksetzen
