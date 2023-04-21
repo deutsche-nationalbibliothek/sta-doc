@@ -14,6 +14,7 @@ import React from 'react';
 import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
 import { WikibasePointers } from '../wikibase-pointers';
+import { Item } from '@/types/item';
 
 interface TableStatementsProps {
   statements: Statement[];
@@ -110,29 +111,81 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                     }}
                   >
                     {stringStatement.map((stringValue, index) => {
+                      const isRecordingMethod =
+                        stringValue.property === Property['Recording-method'];
+
+                      // kinda hack requested: if we render Recording-method and have
+                      // the following WikibasePointers then we want to render only the wikibasePointer
+                      // but with value of the stringValue.value
+                      const hasExceptionalWikibasePointer =
+                        isRecordingMethod &&
+                        [
+                          Item['unstructured-description'],
+                          Item['Q2039'],
+                          Item['Identifier'],
+                        ].some(
+                          (exceptionalPointer) =>
+                            stringValue.qualifiers &&
+                            stringValue.qualifiers.length === 1 &&
+                            stringValue.qualifiers.some(
+                              (qualifier) =>
+                                qualifier.wikibasePointers &&
+                                qualifier.wikibasePointers.length === 1 &&
+                                qualifier.wikibasePointers.some(
+                                  (wikibasePointer) =>
+                                    wikibasePointer.id === exceptionalPointer
+                                )
+                            )
+                        );
                       return (
-                        <Typography.Paragraph key={index}>
-                          <>
-                            {stringValue.qualifiers && (
-                              <>
-                                <Qualifiers
-                                  showHeadline={false}
-                                  qualifiers={stringValue.qualifiers}
-                                />
-                              </>
-                            )}
-                            {/* if qualifiers, then only if first qualifier is not Recording-method-or-item */}
-                            {((stringValue.qualifiers &&
-                              stringValue.qualifiers[0]?.property !==
-                                Property['Recording-method-or-item']) ||
-                              !stringValue.qualifiers) && (
-                              <StringValueComponent
-                                itemType={stringValue.itemType}
-                                property={record.property}
-                                stringValue={stringValue}
+                        <Typography.Paragraph
+                          css={{
+                            '& div': {
+                              display: `${
+                                isRecordingMethod ? 'inline-block' : 'initial'
+                              }`,
+                              padding: '0 2px 0 2px',
+                            },
+                          }}
+                          key={index}
+                        >
+                          {hasExceptionalWikibasePointer ? (
+                            <>
+                              <Qualifiers
+                                showHeadline={false}
+                                qualifiers={(
+                                  stringValue.qualifiers as Statement[]
+                                ).map((qualifier) => ({
+                                  ...qualifier,
+                                  wikibasePointers:
+                                    qualifier.wikibasePointers?.map(
+                                      (wikibasePointer) => ({
+                                        ...wikibasePointer,
+                                        label: stringValue.value,
+                                      })
+                                    ),
+                                }))}
                               />
-                            )}
-                          </>
+                            </>
+                          ) : (
+                            <>
+                              {stringValue.qualifiers && (
+                                <>
+                                  <Qualifiers
+                                    showHeadline={false}
+                                    qualifiers={stringValue.qualifiers}
+                                  />
+                                </>
+                              )}
+                              {
+                                <StringValueComponent
+                                  itemType={stringValue.itemType}
+                                  property={record.property}
+                                  stringValue={stringValue}
+                                />
+                              }
+                            </>
+                          )}
                         </Typography.Paragraph>
                       );
                     })}
