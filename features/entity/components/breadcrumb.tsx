@@ -10,12 +10,14 @@ export const Breadcrumb: React.FC = () => {
   const { currentHeadlinesPath, showHeadlines } = useHeadlines();
   const { token } = theme.useToken();
   const { entity } = useEntity();
-  // colorTextSecondary
+
   const entityDetails = entity
-    ? compact([entity.namespace, entity.title, entity.label]).map((x) => ({
-        title: x,
-        namespace: entity.namespace,
-      }))
+    ? compact([entity.namespace, entity.title, entity.label]).map(
+        (entityLabel) => ({
+          title: entityLabel,
+          namespace: entity.namespace,
+        })
+      )
     : [];
 
   const breadcrumbItems: {
@@ -60,14 +62,21 @@ export const Breadcrumb: React.FC = () => {
                         </>
                       }
                     >
-                      <a href={`#${key}`}>
+                      <a
+                        css={{
+                          '&.ant-tooltip-open': {
+                            backgroundColor: `${token.colorPrimaryBgHover} !important`,
+                          },
+                        }}
+                        href={`#${key}`}
+                      >
                         {isLastIndex ? title : truncate(title, { length: 64 })}
                       </a>
                     </Tooltip>
                   ) : (
-                    <a>
+                    <span>
                       {isLastIndex ? title : truncate(title, { length: 64 })}
-                    </a>
+                    </span>
                   )}
                 </AntdBreadcrumb.Item>
                 {!isLastIndex && (
