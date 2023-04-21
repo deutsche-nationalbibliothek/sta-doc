@@ -1,7 +1,5 @@
 import { Modal } from '@/components/modal';
 import { useCodingsPreference } from '@/hooks/use-codings-preference';
-import { useNamespace } from '@/hooks/use-namespace';
-import { Namespace } from '@/types/namespace';
 import { Entity } from '@/types/parsed/entity';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
@@ -15,7 +13,6 @@ interface ExamplesProps {
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
 
-  const { namespace } = useNamespace();
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
 
@@ -25,6 +22,10 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
     <>
       {label} <MenuUnfoldOutlined />
     </>
+  );
+
+  const examplesHaveCodingValues = examples.some((example) =>
+    example.statements.body.some((statement) => statement.codings)
   );
 
   return (
@@ -45,7 +46,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
             <Col>
               <Typography.Text strong>{labelReactElement}</Typography.Text>
             </Col>
-            {namespace === Namespace.GND || namespace=== Namespace.STA && (
+            {examplesHaveCodingValues && (
               <Col>
                 <Select
                   placeholder="Codierung wählen"
