@@ -78,7 +78,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
             <GndSubFieldTable
               id={record.property}
               subfields={field.subfields}
-              className="gnd-subfield-table"
+              isTopLevel
               showHeader
             />
           );

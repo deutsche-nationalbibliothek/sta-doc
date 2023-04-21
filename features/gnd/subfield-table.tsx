@@ -9,6 +9,7 @@ interface GndSubFieldTableProps {
   subfields: Subfield[];
   showHeader?: boolean;
   className?: string;
+  isTopLevel?: boolean;
 }
 
 export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
@@ -70,12 +71,16 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       key={props.id}
       pagination={false}
       showHeader={props.showHeader || false}
-      columns={[
-        {
-          key: 'subfield-table',
-          children: columns,
-        },
-      ]}
+      columns={
+        props.isTopLevel
+          ? columns
+          : [
+              {
+                key: 'subfield-table',
+                children: columns,
+              },
+            ]
+      }
       dataSource={props.subfields.map((subfield) => ({
         ...subfield,
         key: subfield.id,
