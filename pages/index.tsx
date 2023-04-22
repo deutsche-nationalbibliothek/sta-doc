@@ -6,22 +6,27 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Item } from '@/types/item';
+import { Namespace } from '@/types/namespace';
 import { EntitiesEntries } from '@/types/parsed/entity';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
 
 interface HomeProps {
   headlines: Headline[];
+  namespace?: Namespace;
 }
 
-export default function Home({ headlines }: HomeProps) {
+export default function Home({ headlines, namespace }: HomeProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
 
   useEffect(() => {
     setHeadlines(headlines);
-    setNamespace(undefined);
-  }, [headlines, setHeadlines, setNamespace]);
+  }, [headlines, setHeadlines]);
+
+  useEffect(() => {
+    setNamespace(namespace);
+  }, [namespace, setNamespace]);
 
   return (
     <FetchEntity entityId={Item.Q10177} showSpinner={false}>
@@ -43,6 +48,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = () => {
   return {
     props: {
       headlines: entityEntry.headlines,
+      namespace: entityEntry.entity.namespace,
     },
   };
 };
