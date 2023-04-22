@@ -65,7 +65,7 @@ export const CollapsiblesProvider: React.FC<CollapsiblesProviderProps> = ({
             collapsibles?.filter((collapsible2) => collapsible2 === collapsible)
           );
         }, []),
-        onResetCollapsibles: useCallback(() => setCollapsibles([]), []),
+        onResetCollapsibles: useCallback(() => setCollapsibles(undefined), []),
       }}
     >
       {children}

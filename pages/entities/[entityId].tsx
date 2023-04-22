@@ -15,6 +15,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect } from 'react';
 import { NotFound } from '../404';
 import { useNamespace } from '@/hooks/use-namespace';
+import { useCollapsibles } from '@/hooks/use-collapsibles';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -32,8 +33,8 @@ export default function EntityDetailsPage({
   namespace,
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
-
   const { setNamespace } = useNamespace();
+  const { onResetCollapsibles } = useCollapsibles();
 
   useEffect(() => {
     if (namespace) {
@@ -46,6 +47,8 @@ export default function EntityDetailsPage({
       setHeadlines(headlines);
     }
   }, [setHeadlines, headlines]);
+
+  useEffect(() => onResetCollapsibles, [onResetCollapsibles]);
 
   return !notFound ? (
     <FetchEntity entityId={entityId} showSpinner={false}>
