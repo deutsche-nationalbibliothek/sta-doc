@@ -37,7 +37,7 @@ const getVersion = () => {
   const { exec } = require('child_process');
   return new Promise(function (resolve, reject) {
     exec(
-      'git tag -l |tail -1',
+      'git describe --abbrev=0',
       function (error, standardOutput, standardError) {
         if (error) {
           reject();
