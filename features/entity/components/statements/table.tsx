@@ -31,6 +31,7 @@ interface TableStatementsData {
 }
 
 export const TableStatements: React.FC<TableStatementsProps> = ({
+
   statements,
   field,
 }) => {

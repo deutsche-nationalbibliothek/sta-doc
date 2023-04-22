@@ -64,7 +64,7 @@ export const Breadcrumb: React.FC = () => {
                     >
                       <a
                         css={{
-                          '&.ant-tooltip-open': {
+                          '&:hover': {
                             backgroundColor: `${token.colorPrimaryBgHover} !important`,
                           },
                         }}
