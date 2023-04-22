@@ -1,5 +1,5 @@
 import { Link } from '@/lib/next-link';
-import { RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, SearchOutlined } from '@ant-design/icons';
 import { Menu, Drawer, Tooltip } from 'antd';
 import { useState } from 'react';
 import { SolrSearch } from './solr';
@@ -29,7 +29,7 @@ export const SearchDrawer: React.FC = () => {
                 extra={
                   <Tooltip placement="left" title="Suche auf seperater Seite">
                     <Link onClick={onCloseDrawer} href={'/search'}>
-                      <RightOutlined />
+                      <ArrowRightOutlined />
                     </Link>
                   </Tooltip>
                 }
