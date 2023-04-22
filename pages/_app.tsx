@@ -18,6 +18,7 @@ import { GlobalDynamicStyles, GlobalStaticStyles } from '@/lib/emotion/global';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import { EntityProvider } from '@/hooks/entity-provider';
+import { CollapsiblesProvider } from '@/hooks/use-collapsibles';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -36,9 +37,11 @@ export default function App({ Component, pageProps }: AppProps) {
                             <CodingsPreferencesProvider>
                               <GlobalDynamicStyles>
                                 <EntityProvider>
-                                  <Layout>
-                                    <Component {...pageProps} />
-                                  </Layout>
+                                  <CollapsiblesProvider>
+                                    <Layout>
+                                      <Component {...pageProps} />
+                                    </Layout>
+                                  </CollapsiblesProvider>
                                 </EntityProvider>
                               </GlobalDynamicStyles>
                             </CodingsPreferencesProvider>

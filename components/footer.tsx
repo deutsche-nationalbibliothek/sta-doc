@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useEntity } from '@/hooks/entity-provider';
 import {
+  FullscreenExitOutlined,
   FullscreenOutlined,
   GithubOutlined,
   PrinterOutlined,
@@ -11,6 +12,7 @@ import { Layout as AntdLayout, Col, message, Row, theme, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
 import { useMemo } from 'react';
 import { ExternalLink } from './external-link';
+import { useCollapsibles } from '@/hooks/use-collapsibles';
 
 const styles: Record<string, CSSObject> = {
   icon: {
@@ -28,6 +30,7 @@ const styles: Record<string, CSSObject> = {
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
+  const { setCollapsibles, allOpen } = useCollapsibles();
 
   const onClick = useMemo(
     () => ({
@@ -120,12 +123,24 @@ export const Footer: React.FC = () => {
           <Tooltip className="no-print" title="Seiteninhalt drucken">
             <PrinterOutlined onClick={onClick.print} css={styles.icon} />
           </Tooltip>
-          <Tooltip title="Alle Klapptexte ein- bzw ausklappen">
-            <FullscreenOutlined
-              onClick={onClick.betaDisclaimer}
-              css={styles.icon}
-            />
-          </Tooltip>
+          {allOpen ? (
+            <Tooltip title="Alle Klapptexte einklappen">
+              <FullscreenExitOutlined
+                onClick={setCollapsibles.close}
+                css={styles.icon}
+              />
+            </Tooltip>
+          ) : (
+            allOpen !== undefined && (
+              <Tooltip title="Alle Klapptexte ausklappen">
+                <FullscreenOutlined
+                  onClick={setCollapsibles.open}
+                  disabled={allOpen === undefined}
+                  css={styles.icon}
+                />
+              </Tooltip>
+            )
+          )}
         </Col>
         <Col
           css={css(styles.col, {

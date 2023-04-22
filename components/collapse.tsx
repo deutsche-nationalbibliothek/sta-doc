@@ -1,10 +1,11 @@
+import { useCollapsibles } from '@/hooks/use-collapsibles';
 import {
   Collapse as AntdCollapse,
   CollapseProps as AntdCollapseProps,
   Typography,
   theme,
 } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CollapseProps extends AntdCollapseProps {
   defaultOpen?: boolean;
@@ -21,6 +22,15 @@ export const Collapse = ({
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const { token } = theme.useToken();
+
+  const { onAddCollapsible, onRemoveCollapsible } = useCollapsibles();
+
+  useEffect(() => {
+    const collapsible = { get: isOpen, set: setIsOpen };
+    onAddCollapsible(collapsible);
+    return () => onRemoveCollapsible(collapsible);
+  }, [onAddCollapsible, onRemoveCollapsible, isOpen]);
+
   return (
     <Typography.Paragraph>
       <AntdCollapse
