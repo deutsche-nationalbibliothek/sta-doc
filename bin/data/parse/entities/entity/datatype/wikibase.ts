@@ -1,6 +1,6 @@
 import { pick } from 'lodash';
 import { EntityId } from '../../../../../../types/entity-id';
-import { Namespace, NamespaceId } from '../../../../../../types/namespace';
+import { Namespace } from '../../../../../../types/namespace';
 import {
   WikibasePointerValue,
   CommonValue,
@@ -13,7 +13,6 @@ import namespaceConfig from '../../../../../../config/namespace';
 
 interface ParseWikibaseValueProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
-  addStaStatement?: boolean;
   keyAccessOcc: <T>(...keys: string[]) => T;
   isMissingValue: boolean;
 }
@@ -24,7 +23,6 @@ export const parseWikibaseValue = (
   const {
     occ,
     currentHeadlineLevel,
-    addStaStatement = false,
     isElementsPropOnRdaRessourceType,
     keyAccessOcc,
     data,
@@ -62,23 +60,23 @@ export const parseWikibaseValue = (
     return;
   }
 
+  const staNotationLabel =
+    id in staNotations ? staNotations[id].label.toUpperCase() : undefined;
+
+  const label =
+    isElementsPropOnRdaRessourceType && staNotationLabel
+      ? `${staNotationLabel.split('-').pop() ?? ''} - ${labelsDe[id]}`
+      : labelsDe[id];
+
   return {
     id,
     headline: hasHeadline
-      ? addHeadline(
-          labelsDe[id],
-          currentHeadlineLevel,
-          noHeadline,
-          pointingNamespace
-        )
+      ? addHeadline(label, currentHeadlineLevel, noHeadline, pointingNamespace)
       : undefined,
-    label: labelsDe[id],
+    label,
     link: `/entities/${id}`,
     namespace: pointingNamespace,
-    staNotationLabel:
-      addStaStatement && id in staNotations
-        ? staNotations[id].label.toUpperCase()
-        : undefined,
+    staNotationLabel,
     codings: codings[id],
   };
 };

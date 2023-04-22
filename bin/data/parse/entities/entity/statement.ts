@@ -87,7 +87,6 @@ export const parseStatement = (props: ParseStatementProps) => {
           occ,
           keyAccessOcc,
           currentHeadlineLevel: nextHeaderLevel,
-          addStaStatement: property === Property.Elements,
           isTopLevel,
           isElementsPropOnRdaRessourceType,
           isMissingValue,
