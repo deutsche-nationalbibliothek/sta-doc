@@ -9,7 +9,7 @@ import { PageHeader } from '@/components/page-header';
 interface EntityPageHeaderProps {
   entity: Entity;
   namespace?: Namespace;
-  isRdaRessourceType: boolean;
+  showSwitchApplicationProfile: boolean;
   view: {
     get: string;
     set: (newValue: string | undefined) => void;
@@ -19,7 +19,7 @@ interface EntityPageHeaderProps {
 export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
   entity,
   namespace,
-  isRdaRessourceType,
+  showSwitchApplicationProfile,
   view,
 }) => {
   const isApplicationProfileView = view.get === 'application-profile';
@@ -31,7 +31,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
         <>
           <div css={{ textAlign: 'center' }}>
             {namespace && <NamespaceImage />}
-            {isRdaRessourceType && (
+            {showSwitchApplicationProfile && (
               <span className="no-print">
                 <br />
                 <Switch

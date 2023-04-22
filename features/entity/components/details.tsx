@@ -69,6 +69,8 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
 
   const isRdaRessourceType = !!wemiStatement;
 
+  const showSwitchApplicationProfile = true; // clarify: how to test for Item.Q10199 || Item.Q10201
+
   const tableStatements =
     entity.pageType?.id === Item['GND-data-field']
       ? ([
@@ -85,7 +87,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
         <EntityPageHeader
           entity={entity}
           namespace={namespace}
-          isRdaRessourceType={isRdaRessourceType}
+          showSwitchApplicationProfile={showSwitchApplicationProfile}
           view={{ get: view, set: setViewAndSetShowHeadlines }}
         />
       )}
