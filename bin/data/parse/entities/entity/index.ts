@@ -18,7 +18,7 @@ import {
 } from './groups-definition';
 import { headlinesParser } from './util';
 import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
-import { Namespace, NamespaceId } from '../../../../../types/namespace';
+import { Namespace } from '../../../../../types/namespace';
 import namespaceConfig from '../../../../../config/namespace';
 
 export interface ParseEntityProps
@@ -134,6 +134,15 @@ export const parseRawEntity = (
         } as PageType)
       : undefined;
 
+    const contextOfUseId =
+      entity.claims[Property['Context-of-use']] &&
+      entity.claims[Property['Context-of-use']][0].mainsnak.datavalue?.value.id;
+
+    const contextOfUseLabel =
+      contextOfUseId && contextOfUseId in labelsDe
+        ? labelsDe[contextOfUseId]
+        : undefined;
+
     return {
       id: entityId,
       headline: entityHasHeadline
@@ -142,6 +151,7 @@ export const parseRawEntity = (
       label: !embedded ? label : undefined,
       title: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
       pageType,
+      contextOfUseLabel,
       namespace,
       field:
         pageType && pageType.id === Item['GND-data-field']

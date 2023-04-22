@@ -91,7 +91,6 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const filterElementStatementForWemi = (
     wikibasePointer: WikibasePointerValue
   ): boolean => {
-    console.log(wikibasePointer.label, wikibasePointer);
     return [
       // Property.Repetition,
       Property.description,

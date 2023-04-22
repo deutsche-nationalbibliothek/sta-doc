@@ -7,6 +7,7 @@ import { Claim, StatementRaw } from '../../../../../types/raw/entity';
 import { defaultGroupsDefinition, Group, Groups } from './groups-definition';
 import { parseStatements } from './statements';
 import { AddHeadline } from './util';
+import { Item } from '../../../../../types/item';
 
 export interface FilterSortTransformStatementsProps
   extends Required<ParseEntityProps> {
@@ -28,8 +29,6 @@ export const filterSortTransformStatemants = (
     relevantGroup,
     isRdaRessourceEntity,
   } = props;
-
-  const { labelsDe } = data;
 
   const filterByGroup = (group: Group) =>
     compact(
@@ -70,16 +69,31 @@ export const filterSortTransformStatemants = (
             const id =
               occs.qualifiers[Property['WEMI-level']][0]?.datavalue?.value.id;
             if (id) {
-              return labelsDe[id];
+              return id;
             }
           }
           return 'Kein Wert';
         });
 
+        // is white- and sortlist
+        const wemiGroupsDef = [
+          Item['STA-class:-manifestation'],
+          Item['STA-class:-expression'],
+          Item['STA-class:-Work'],
+        ];
+
         // traverse datastructure for Wemi Levels
         const wemiMapped = flatten(
           Object.keys(wemiGroups)
-            .filter((wemiGroupKey) => wemiGroupKey !== 'Kein Wert')
+            .filter((wemiGroupKey) =>
+              wemiGroupsDef.includes(wemiGroupKey as Item)
+            )
+            .sort((a, b) => {
+              return wemiGroupsDef.indexOf(a as Item) >
+                wemiGroupsDef.indexOf(b as Item)
+                ? 1
+                : -1;
+            })
             .map((wemiGroupKey) => {
               const occs = wemiGroups[wemiGroupKey]; // as Claim[];
               const claimStatement =

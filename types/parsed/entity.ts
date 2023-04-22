@@ -16,6 +16,7 @@ export interface Entity {
   field?: Field;
   headline?: Headline;
   description?: string;
+  contextOfUseLabel?: string;
   // logo?: string;
   pageType?: PageType;
   namespace?: Namespace;
