@@ -17,11 +17,16 @@ export interface Entity {
   headline?: Headline;
   description?: string;
   contextOfUseLabel?: string;
-  // logo?: string;
   pageType?: PageType;
   namespace?: Namespace;
   staNotationLabel?: string;
   statements: Statements;
+
+  // showOnlyApplicationProfile:
+  // if true, then show only ApplicationProfile
+  // if false, then never show only ApplicationProfile
+  // if undefined, habe both options
+  showOnlyApplicationProfile?: boolean;
 }
 
 export interface EntityEntry {

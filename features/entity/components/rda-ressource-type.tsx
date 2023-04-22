@@ -21,7 +21,10 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 }) => {
   const { setShowHeadlines } = useHeadlines();
 
-  const isApplicationProfileView = view === 'application-profile';
+  const isApplicationProfileView =
+    'showOnlyApplicationProfile' in entity
+      ? entity.showOnlyApplicationProfile
+      : view === 'application-profile';
 
   useEffect(() => {
     setShowHeadlines(!isApplicationProfileView);
@@ -44,7 +47,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     descriptionAtTheEnd: propFinder(Property['description-(at-the-end)']),
   };
 
-  if (isApplicationProfileView && relevantStatements.wemi) {
+  if (relevantStatements.wemi && isApplicationProfileView) {
     return <ApplicationProfile statement={relevantStatements.wemi} />;
   }
 

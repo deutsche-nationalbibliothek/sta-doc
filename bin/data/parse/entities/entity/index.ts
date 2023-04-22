@@ -143,6 +143,24 @@ export const parseRawEntity = (
         ? labelsDe[contextOfUseId]
         : undefined;
 
+    const showOnlyApplicationProfile = () => {
+      if (isRdaRessourceEntity) {
+        const typeOfLayoutId =
+          entity.claims[Property['Type-of-layout']] &&
+          entity.claims[Property['Type-of-layout']][0].mainsnak.datavalue?.value
+            .id;
+        const onlyApplicationProfile = typeOfLayoutId === Item.Q10201;
+        const hideApplicationProfile = typeOfLayoutId === Item.Q10199;
+
+        const showOnlyApplicationProfile = onlyApplicationProfile
+          ? true
+          : hideApplicationProfile
+          ? false
+          : undefined;
+        return showOnlyApplicationProfile;
+      }
+    };
+
     return {
       id: entityId,
       headline: entityHasHeadline
@@ -161,6 +179,7 @@ export const parseRawEntity = (
         entityId in staNotations
           ? staNotations[entityId].label.toUpperCase()
           : undefined,
+      showOnlyApplicationProfile: showOnlyApplicationProfile(),
       statements: filterSortTransformStatemants({
         ...defaultedProps,
         relevantGroup,
