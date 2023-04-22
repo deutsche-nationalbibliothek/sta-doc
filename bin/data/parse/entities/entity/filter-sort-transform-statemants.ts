@@ -94,34 +94,49 @@ export const filterSortTransformStatemants = (
 
                 const newStatement = {
                   ...wemiLevelStatemant,
-                  qualifiers: occs.reduce((acc, occ) => {
-                    const property = occ.mainsnak.property;
-                    if (property in acc) {
-                      const qualifiers = omit(
-                        occ.qualifiers as Record<Property, StatementRaw[]>,
-                        Property['WEMI-level']
-                      ) as Record<EntityId, StatementRaw[]>;
-                      const newQualifier = {
-                        ...(occ as unknown as StatementRaw),
-                        qualifiers,
-                      };
-                      acc[property] = [...acc[property], newQualifier];
-                    } else {
-                      acc = {
-                        ...acc,
-                        [property]: [
-                          {
-                            ...occ,
-                            qualifiers: omit(
-                              occ.qualifiers,
-                              Property['WEMI-level']
-                            ),
-                          },
-                        ],
-                      };
-                    }
-                    return acc;
-                  }, {} as Record<Property, StatementRaw[]>), //as Record<Property, (StatementRaw | Claim)[]>),
+                  qualifiers: occs
+                    .sort((occA, occB) => {
+                      const [idA, idB] = [occA, occB].map(
+                        (occ) => occ.mainsnak.datavalue?.value.id
+                      );
+                      const [staLabelA, staLabelB] = [idA, idB].map((id) =>
+                        id && id in data.staNotations
+                          ? data.staNotations[id].label
+                              .toUpperCase()
+                              .split('-')
+                              .pop()
+                          : undefined
+                      );
+                      return (staLabelA ?? 0) > (staLabelB ?? 0) ? 1 : -1;
+                    })
+                    .reduce((acc, occ) => {
+                      const property = occ.mainsnak.property;
+                      if (property in acc) {
+                        const qualifiers = omit(
+                          occ.qualifiers as Record<Property, StatementRaw[]>,
+                          Property['WEMI-level']
+                        ) as Record<EntityId, StatementRaw[]>;
+                        const newQualifier = {
+                          ...(occ as unknown as StatementRaw),
+                          qualifiers,
+                        };
+                        acc[property] = [...acc[property], newQualifier];
+                      } else {
+                        acc = {
+                          ...acc,
+                          [property]: [
+                            {
+                              ...occ,
+                              qualifiers: omit(
+                                occ.qualifiers,
+                                Property['WEMI-level']
+                              ),
+                            },
+                          ],
+                        };
+                      }
+                      return acc;
+                    }, {} as Record<Property, StatementRaw[]>), //as Record<Property, (StatementRaw | Claim)[]>),
                   datatype: 'wikibase-property',
                 } as unknown as Claim;
                 return [newStatement];
