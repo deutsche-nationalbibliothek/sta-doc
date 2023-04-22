@@ -9,8 +9,11 @@ import {
   nonDefaultRenderProperties,
 } from './example';
 import { Statement } from '@/types/parsed/entity';
+import { theme } from 'antd';
 
 export const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
+  const { token } = theme.useToken();
+
   const relevantStatemants = entity.statements.body.filter(
     (statement) => !nonDefaultRenderProperties.includes(statement.property)
   );
@@ -94,7 +97,16 @@ export const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
           pagination={false}
           columns={columns}
           showHeader={false}
-          className="example-table"
+          css={{
+            '& .ant-table': {
+              borderLeft: `3px solid ${token.colorPrimaryBorder}`,
+            },
+            '& .ant-table-cell': {
+              backgroundColor: 'var(--light-gray) !important',
+              borderTop: `1px solid white`,
+              borderRight: `2px solid white`,
+            },
+          }}
         />
       )}
     </>
