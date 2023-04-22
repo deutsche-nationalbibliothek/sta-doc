@@ -49,12 +49,11 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   }
 
   const qualifiersOrder = [
-    Property['title-proper-or-RDA-property'],
-    Property['embedded-(item)'],
     Property['description'],
-    Property['embedded-in-(item)'],
     Property['embedded-(item)'],
+    Property['title-proper-or-RDA-property'],
     Property['description-(at-the-end)'],
+    // Property['embedded-in-(item)'],
   ];
 
   const sortQualifiers = (claims: Statement[]) => {
@@ -66,26 +65,12 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     );
   };
 
-  const nonDefaultRenderProperties = [Property.Status, Property.Repetition];
+  const nonDefaultRenderProperties = [Property.Status];
   const nonDefaultRender = {
     properties: nonDefaultRenderProperties,
     statements: (wikibasePointer: WikibasePointerValue) => ({
       status: propFinder(
         Property.Status,
-        wikibasePointer.qualifiers &&
-          flattenDeep(
-            compact(
-              wikibasePointer.qualifiers.map((q) =>
-                compact(
-                  q.wikibasePointers &&
-                    q.wikibasePointers.map((w) => w.qualifiers)
-                )
-              )
-            )
-          )
-      ),
-      repetition: propFinder(
-        Property.Repetition,
         wikibasePointer.qualifiers &&
           flattenDeep(
             compact(
@@ -108,8 +93,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   ): boolean => {
     console.log(wikibasePointer.label, wikibasePointer);
     return [
-      // Property.Status <- is defined in specs, but breaks logic
-      Property.Repetition,
+      // Property.Repetition,
       Property.description,
       Property['embedded-(item)'],
       Property['description-(at-the-end)'],
@@ -135,8 +119,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
       {relevantStatements.wemi?.wikibasePointers &&
         relevantStatements.wemi.wikibasePointers.map(
           (wikibasePointer, index) => {
-            const { status, repetition } =
-              nonDefaultRender.statements(wikibasePointer);
+            const { status } = nonDefaultRender.statements(wikibasePointer);
             return (
               <React.Fragment key={index}>
                 {wikibasePointer.headline && (
@@ -145,11 +128,11 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                   </Title>
                 )}
 
-                {(status || repetition) && (
+                {status && (
                   <Typography.Paragraph
                   // style={{ paddingBottom: 5 }}
                   >
-                    {compact([status, repetition]).map((statement) => (
+                    {compact([status]).map((statement) => (
                       <Typography.Text
                         key={statement.property}
                         // style={{ paddingRight: 24 }}
@@ -173,6 +156,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                             .filter(filterElementStatementForWemi)
                             .map((wikibasePointer) => ({
                               ...wikibasePointer,
+                              headline: { ...wikibasePointer.headline },
                               qualifiers:
                                 wikibasePointer.qualifiers &&
                                 sortQualifiers(
