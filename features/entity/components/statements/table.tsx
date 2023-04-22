@@ -31,7 +31,6 @@ interface TableStatementsData {
 }
 
 export const TableStatements: React.FC<TableStatementsProps> = ({
-
   statements,
   field,
 }) => {
@@ -77,6 +76,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
         if (record.property === Property.Subfields && field) {
           return (
             <GndSubFieldTable
+              css={{
+                '& .ant-table': {
+                  margin: '0px !important',
+                },
+              }}
               id={record.property}
               subfields={field.subfields}
               isTopLevel
