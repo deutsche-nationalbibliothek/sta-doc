@@ -41,12 +41,14 @@ export const Link: React.FC<
       href={{
         pathname: nextPath,
         hash: anchor,
-        query: {
-          ...pickBy(router.query, (_value, key) => nextPath.includes(key)),
-          ...searchQuery,
-          ...fetchingQuery,
-          ...query,
-        },
+        query: props.legacyBehavior
+          ? {}
+          : {
+              ...pickBy(router.query, (_value, key) => nextPath.includes(key)),
+              ...searchQuery,
+              ...fetchingQuery,
+              ...query,
+            },
       }}
       {...nextLinkProps}
     >
