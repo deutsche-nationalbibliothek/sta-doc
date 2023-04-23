@@ -70,7 +70,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = ({
   const isRdaRessourceType = !!wemiStatement;
 
   const showSwitchApplicationProfile =
-    'showOnlyApplicationProfile' in entity ? false : true;
+    isRdaRessourceType && !('showOnlyApplicationProfile' in entity);
 
   const tableStatements =
     entity.pageType?.id === Item['GND-data-field']
