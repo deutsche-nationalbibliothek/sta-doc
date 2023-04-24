@@ -39,7 +39,7 @@ export const parseStatement = (props: ParseStatementProps) => {
     simplifiedDataType,
   } = props;
 
-  const { schemas } = data;
+  const { schemas, staNotations } = data;
   const snakType = keyAccessOcc<string>('snaktype');
   const isMissingValue = snakType === 'novalue' || snakType === 'somevalue';
 
@@ -133,6 +133,7 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const preMappedStatement: PreMappedStatement = {
     property,
+    staNotationLabel: staNotations[property]?.label,
     namespace,
     missingValue: isMissingValue ? snakType : undefined,
     ...(dataTypeSpecifics ?? {}),

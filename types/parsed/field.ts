@@ -2,7 +2,7 @@ import { EntityId } from '../entity-id';
 
 export type Fields = Field[];
 
-export interface Field {
+interface CommonField {
   id: EntityId;
   codings: Codings;
   description: string;
@@ -10,18 +10,14 @@ export interface Field {
   label: string;
   viewLink: string;
   repeatable: boolean;
-  subfields: Subfield[];
+  staNotationLabel: string;
 }
 
-export interface Subfield {
-  id: EntityId;
-  codings: Codings;
-  description: string;
-  editLink: string;
-  label: string;
-  viewLink: string;
-  repeatable: boolean;
+export interface Field extends CommonField {
+  subfields: CommonField[];
 }
+
+export type Subfield = CommonField;
 
 interface Codings {
   'PICA+': string;

@@ -115,6 +115,15 @@ export const parseRawEntity = (
       return undefined;
     }
 
+    if (!embedded && !staNotations[entityId]) {
+      console.warn(
+        '\t\t\tStaNotation not found for Enitity',
+        entityId,
+        '. Ignoring!'
+      );
+      return;
+    }
+
     const isRdaRessourceEntity =
       (entity.claims[Property.Elements] && !embedded) ||
       isRdaRessourceEntityParam;
@@ -158,6 +167,9 @@ export const parseRawEntity = (
           ? false
           : undefined;
         return showOnlyApplicationProfile;
+      } else {
+        // if it's not a rda ressource entity, then we'll never render ApplicationProfile
+        return false;
       }
     };
 
@@ -175,10 +187,7 @@ export const parseRawEntity = (
         pageType && pageType.id === Item['GND-data-field']
           ? fields.find((field) => field.id === entityId)
           : undefined,
-      staNotationLabel:
-        entityId in staNotations
-          ? staNotations[entityId].label.toUpperCase()
-          : undefined,
+      staNotationLabel: staNotations[entityId]?.label,
       showOnlyApplicationProfile: showOnlyApplicationProfile(),
       statements: filterSortTransformStatemants({
         ...defaultedProps,

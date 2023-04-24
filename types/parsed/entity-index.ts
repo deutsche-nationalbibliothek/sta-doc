@@ -1,9 +1,10 @@
-import { Item } from '../item';
-import { Property } from '../property';
+import { EntityId } from '../entity-id';
 
-export type EntitiesIndex = Record<Property | Item, EntityIndex>;
+export type EntitiesIndex = Record<EntityId, EntityIndex>;
 
-interface EntityIndex {
+export interface EntityIndex {
   label: string;
-  id: string;
+  id: EntityId;
+  pageTypeLabel?: string;
+  staNotationLabel: string;
 }

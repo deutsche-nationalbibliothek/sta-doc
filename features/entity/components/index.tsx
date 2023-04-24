@@ -1,7 +1,7 @@
 import { ColumnsTypes, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import { useNamespace } from '@/hooks/use-namespace';
-import { EntityId } from '@/types/entity-id';
+import { EntityIndex as EntityIndexModel } from '@/types/parsed/entity-index';
 import { Namespace } from '@/types/namespace';
 import { useEffect } from 'react';
 import { NamespaceImage } from './namespace-image';
@@ -9,12 +9,6 @@ import { EntityLink } from './preview/link';
 import { PageHeader } from '@/components/page-header';
 import { useEntity } from '@/hooks/entity-provider';
 import Head from 'next/head';
-
-export interface EntityIndexModel {
-  label: string;
-  id: EntityId;
-  pageTypeLabel: string;
-}
 
 interface EntityIndexProps {
   entities: EntityIndexModel[];
@@ -60,7 +54,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
       width: '20%',
       filters: entities
         .reduce((acc, entity) => {
-          const key = entity.pageTypeLabel;
+          const key = entity.pageTypeLabel as string;
           return acc.includes(key) ? [...acc] : [...acc, key];
         }, [] as string[])
         .map((key) => ({ text: key, value: key })),

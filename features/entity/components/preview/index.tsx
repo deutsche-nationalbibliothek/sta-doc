@@ -6,14 +6,16 @@ interface EntityPreviewProps {
   entityId: string;
   children: JSX.Element;
   label: string;
+  showPopover?: boolean;
 }
 
 export const EntityPreview: React.FC<EntityPreviewProps> = ({
   entityId,
   children,
   label,
+  showPopover = true,
 }) => {
-  return (
+  return showPopover ? (
     <Popover
       placement="bottomRight"
       title={<Typography.Text strong>{label}</Typography.Text>}
@@ -22,6 +24,8 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
     >
       {children}
     </Popover>
+  ) : (
+    <>{children}</>
   );
 };
 

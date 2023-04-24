@@ -2,6 +2,11 @@
  * @type {import('next').NextConfig}
  **/
 
+const fs = require('fs');
+const staNotations = JSON.parse(
+  fs.readFileSync('./data/parsed/sta-notations.json')
+);
+
 module.exports = async () => {
   const nextConfig = {
     basePath: '/doc',
@@ -22,6 +27,16 @@ module.exports = async () => {
           destination: '/entities/:entityId',
           permanent: true,
         },
+        ...Object.keys(staNotations).map((entityId) => ({
+          source: `/entities/${entityId}`,
+          destination: `/${staNotations[entityId].label}`,
+          permanent: false, // temp, until data is fixed
+        })),
+        ...Object.keys(staNotations).map((entityId) => ({
+          source: `/${entityId}`,
+          destination: `/${staNotations[entityId].label}`,
+          permanent: false, // temp, until data is fixed
+        })),
       ];
     },
   };

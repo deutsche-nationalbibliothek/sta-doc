@@ -10,6 +10,7 @@ import { Claim, StatementRaw } from '../../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../../utils/constants';
 import { ParseStatementsProps } from '../statements';
 import namespaceConfig from '../../../../../../config/namespace';
+import { Item } from '../../../../../../types/item';
 
 interface ParseWikibaseValueProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
@@ -37,12 +38,10 @@ export const parseWikibaseValue = (
     Property['description-(at-the-end)'],
   ];
 
-  if (isMissingValue) {
-    return;
-  }
-
   const { schemas, labelsDe, staNotations, codings } = data;
-  const id = keyAccessOcc<EntityId>('datavalue', 'value', 'id');
+  const id = isMissingValue
+    ? Item['undefined-or-Default-value']
+    : keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasHeadline =
     isTopLevel &&
@@ -60,8 +59,7 @@ export const parseWikibaseValue = (
     return;
   }
 
-  const staNotationLabel =
-    id in staNotations ? staNotations[id].label.toUpperCase() : undefined;
+  const staNotationLabel = staNotations[id]?.label;
 
   const label =
     isElementsPropOnRdaRessourceType && staNotationLabel

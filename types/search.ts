@@ -88,7 +88,7 @@ export interface Doc {
   'pageType.id': string[];
   'pageType.deLabel': string[];
   namespace: Namespace[];
-  staNotationLabel?: string[];
+  staNotationLabel: string[];
   'statements.header.label'?: string[];
   'statements.header.property'?: string[];
   'statements.header.namespace'?: string[];

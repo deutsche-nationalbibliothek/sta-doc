@@ -35,6 +35,7 @@ export const DEV = false;
 
   const parseSingleEntity = (entityId: EntityId) => {
     const readRaw = reader[DataState.raw];
+    const staNotations = staNotationsParser(readRaw.staNotations());
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
@@ -43,9 +44,9 @@ export const DEV = false;
         labelsDe: labelsParser.de(readRaw.labels.de()),
         labelsEn: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
-        staNotations: staNotationsParser(readRaw.staNotations()),
+        staNotations,
         schemas: schemasParser(readRaw.schemas()),
-        fields: fieldsParser(readRaw.fields()),
+        fields: fieldsParser(readRaw.fields(), staNotations),
       }
     );
     if (entity) {

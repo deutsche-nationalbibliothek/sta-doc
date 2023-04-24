@@ -101,6 +101,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   <EntityLink
                     linkProps={{ onClick: onCloseDrawer }}
                     label={doc['headline.title'][0]}
+                    staNotationLabel={doc['staNotationLabel'][0]}
                     id={doc.id}
                   />
                   <ul>

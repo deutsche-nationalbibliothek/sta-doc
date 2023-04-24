@@ -64,7 +64,10 @@ export default function RdaPropertiesPage({
       })),
       onFilter: (value, record) => value === record.type.label,
       render: (_label: string, rdaProperty) => (
-        <EntityLink {...rdaProperty.type} />
+        <EntityLink
+          {...rdaProperty.type}
+          staNotationLabel={rdaProperty.staNotationLabel}
+        />
       ),
     },
   ];

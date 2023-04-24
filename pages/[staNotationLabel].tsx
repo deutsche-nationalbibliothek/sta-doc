@@ -13,7 +13,7 @@ import { Typography } from 'antd';
 import namespaceConfig from 'config/namespace';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect } from 'react';
-import { NotFound } from '../404';
+import { NotFound } from './404';
 import { useNamespace } from '@/hooks/use-namespace';
 import { useCollapsibles } from '@/hooks/use-collapsibles';
 
@@ -21,6 +21,7 @@ interface EntityDetailsProps {
   headlines?: Headline[];
   entityId: string;
   notFound: boolean;
+  staNotationLabel: string;
   isUnderConstruction?: boolean;
   namespace?: Namespace;
 }
@@ -29,6 +30,7 @@ export default function EntityDetailsPage({
   headlines,
   entityId,
   notFound,
+  staNotationLabel,
   isUnderConstruction,
   namespace,
 }: EntityDetailsProps) {
@@ -68,7 +70,8 @@ export default function EntityDetailsPage({
           {entityId && (
             <Typography.Text>
               Datensatz mit der ID:{' '}
-              <Typography.Text code>{entityId}</Typography.Text> nicht verfügbar
+              <Typography.Text code>{staNotationLabel}</Typography.Text> nicht
+              verfügbar
             </Typography.Text>
           )}
         </>
@@ -79,32 +82,42 @@ export default function EntityDetailsPage({
 
 export const getStaticProps: GetStaticProps<
   EntityDetailsProps,
-  { entityId: EntityId }
+  { staNotationLabel: string }
 > = (context) => {
-  let entityId: EntityId | undefined;
+  let validEntityId: EntityId | undefined;
   let entityEntry: EntityEntry | undefined;
   let isUnderConstruction: boolean | undefined;
+  let staNotationLabel: string | undefined;
 
-  if (context.params && 'entityId' in context.params) {
-    const { entityId: id } = context.params;
-    entityId = !Array.isArray(id) ? id : undefined;
-    const validEntityId =
-      entityId && entityId in entities && !isPropertyBlacklisted(entityId)
-        ? entityId
+  if (context.params && 'staNotationLabel' in context.params) {
+    staNotationLabel = context.params.staNotationLabel;
+
+    entityEntry = Object.values(entities as unknown as EntitiesEntries).find(
+      (entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel
+    );
+
+    validEntityId =
+      entityEntry && !isPropertyBlacklisted(entityEntry.entity.id)
+        ? entityEntry.entity.id
         : undefined;
 
     if (validEntityId) {
-      entityEntry = (entities as unknown as EntitiesEntries)[validEntityId];
       const namespaceId = (schemas as unknown as Schemas)[validEntityId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       isUnderConstruction = namespace === Namespace.UC;
     }
   }
 
-  if (entityEntry && entityEntry.headlines && entityId) {
+  if (
+    entityEntry &&
+    staNotationLabel &&
+    entityEntry.headlines &&
+    validEntityId
+  ) {
     return {
       props: {
-        entityId,
+        staNotationLabel,
+        entityId: validEntityId,
         headlines: entityEntry.headlines,
         notFound: false,
         namespace: entityEntry.entity.namespace,
@@ -113,7 +126,8 @@ export const getStaticProps: GetStaticProps<
   } else {
     return {
       props: {
-        entityId: entityId ?? '',
+        entityId: validEntityId ?? '',
+        staNotationLabel: staNotationLabel ?? '',
         notFound: true,
         isUnderConstruction: isUnderConstruction ?? false,
       },
@@ -126,7 +140,11 @@ export const getStaticPaths: GetStaticPaths = () => {
     paths: Object.keys(entities as unknown as EntitiesEntries)
       .filter((entityId) => !isPropertyBlacklisted(entityId as EntityId))
       .map((entityId) => ({
-        params: { entityId },
+        params: {
+          staNotationLabel: (entities as unknown as EntitiesEntries)[
+            entityId as EntityId
+          ].entity.staNotationLabel,
+        },
       })),
     fallback: true,
   };

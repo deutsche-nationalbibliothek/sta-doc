@@ -46,7 +46,7 @@ export const parseStatements = (
     isRdaRessourceEntity,
   } = defaultedProps;
 
-  const { labelsDe, codings, schemas } = data;
+  const { labelsDe, codings, schemas, staNotations } = data;
 
   const keyAccess = <T>(
     occ: Claim | StatementRaw,
@@ -131,6 +131,7 @@ export const parseStatements = (
         label,
         headline,
         property,
+        staNotationLabel: staNotations[property]?.label,
         codings: codings[property],
         namespace: statementNamespace,
         // next todo: extract mapper function

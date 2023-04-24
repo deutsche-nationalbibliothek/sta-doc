@@ -74,7 +74,7 @@ const getLiveEntity = async (
     const codings = codingsParser(await fetch.codings());
     const staNotations = staNotationsParser(await fetch.staNotations());
     const schemas = schemasParser(await fetch.schemas());
-    const fields = fieldsParser(await fetch.fields());
+    const fields = fieldsParser(await fetch.fields(), staNotations);
 
     return parseEntities({
       rawEntities: { [entityId]: entity },

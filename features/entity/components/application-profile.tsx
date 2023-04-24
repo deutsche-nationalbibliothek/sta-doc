@@ -13,6 +13,7 @@ interface ApplicationProfileProps {
 interface RelevantProps {
   link: string;
   label: string;
+  staNotationLabel: string;
   id: EntityId;
 }
 
@@ -97,6 +98,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
           <EntityLink
             namespace={applicationProfileTableData.namespace}
             id={applicationProfileTableData.id}
+            staNotationLabel={applicationProfileTableData.staNotationLabel}
             label={label}
           >
             {children}

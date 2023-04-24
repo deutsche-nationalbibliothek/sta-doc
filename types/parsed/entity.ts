@@ -10,7 +10,7 @@ export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
 
 export interface Entity {
-  id: string;
+  id: EntityId;
   label?: string;
   title?: string;
   field?: Field;
@@ -19,7 +19,7 @@ export interface Entity {
   contextOfUseLabel?: string;
   pageType?: PageType;
   namespace?: Namespace;
-  staNotationLabel?: string;
+  staNotationLabel: string;
   statements: Statements;
 
   // showOnlyApplicationProfile:
@@ -59,6 +59,7 @@ export interface Statement extends Datatypes {
   headline?: Headline;
   namespace?: Namespace;
   codings?: Codings;
+  staNotationLabel?: string;
 }
 
 export type StatementValue = Statement & CommonValue;

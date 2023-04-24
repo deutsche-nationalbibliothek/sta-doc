@@ -68,6 +68,7 @@ export const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
             namespace={statement.namespace}
             id={statement.property}
             label={label}
+            staNotationLabel={statement.staNotationLabel}
           />
         );
       },

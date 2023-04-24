@@ -12,6 +12,7 @@ interface EntityLinkProps {
   label: string;
   id: EntityId;
   namespace?: Namespace;
+  staNotationLabel?: string;
   children?: JSX.Element | JSX.Element[] | string | string[];
   linkProps?: Omit<LinkProps, 'href' | 'style'>;
 }
@@ -20,6 +21,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   id,
   label,
   namespace: pointingNamespace,
+  staNotationLabel,
   children,
   linkProps,
 }) => {
@@ -29,37 +31,47 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   const isPointingDifferentNamespace =
     pointingNamespace && currentNamespace !== pointingNamespace;
 
+  const content = (
+    <>
+      {children ?? <QueryHighlighter textToHighlight={label} />}
+      {isPointingDifferentNamespace &&
+        !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
+          <>
+            <Tag
+              css={{
+                marginLeft: '0.3em',
+                borderColor:
+                  namespaceConfig.colors[namespaceToColor(pointingNamespace)]
+                    .primary,
+              }}
+            >
+              {pointingNamespace}
+            </Tag>
+          </>
+        )}{' '}
+    </>
+  );
+
   return (
-    <EntityPreview entityId={id} label={label}>
-      <Link
-        {...linkProps}
-        css={{
-          alignItems: 'center',
-          display: 'flex',
-          width: 'fit-content',
-          '&:hover': {
-            color: `${token.colorPrimary} !important`,
-          },
-        }}
-        href={`/entities/${id}`}
-      >
-        {children ?? <QueryHighlighter textToHighlight={label} />}
-        {isPointingDifferentNamespace &&
-          !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
-            <>
-              <Tag
-                css={{
-                  marginLeft: '0.3em',
-                  borderColor:
-                    namespaceConfig.colors[namespaceToColor(pointingNamespace)]
-                      .primary,
-                }}
-              >
-                {pointingNamespace}
-              </Tag>
-            </>
-          )}{' '}
-      </Link>
+    <EntityPreview entityId={id} label={label} showPopover={!!staNotationLabel}>
+      {staNotationLabel ? (
+        <Link
+          {...linkProps}
+          css={{
+            alignItems: 'center',
+            display: 'flex',
+            width: 'fit-content',
+            '&:hover': {
+              color: `${token.colorPrimary} !important`,
+            },
+          }}
+          href={`/${staNotationLabel}`}
+        >
+          {content}
+        </Link>
+      ) : (
+        <>{content}</>
+      )}
     </EntityPreview>
   );
 };

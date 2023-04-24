@@ -36,7 +36,7 @@ export const Footer: React.FC = () => {
     () => ({
       staNotation: () => {
         copy(
-          `${window.location.origin}${process.env.basePath ?? ''}/entities/${
+          `${window.location.origin}${process.env.basePath ?? ''}/${
             entity?.staNotationLabel as string
           }`
         );

@@ -111,7 +111,10 @@ export const entitiesParser = {
     ),
 };
 
-export const fieldsParser = (fields: FieldsRaw): Fields =>
+export const fieldsParser = (
+  fields: FieldsRaw,
+  staNotations: StaNotations
+): Fields =>
   Object.entries(fields).map(([key, field]) => {
     const {
       codings,
@@ -130,6 +133,7 @@ export const fieldsParser = (fields: FieldsRaw): Fields =>
       repeatable,
       label: labelStripper(label),
       viewLink,
+      staNotationLabel: staNotations[key as EntityId].label,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
         const { codings, description, editLink, label, viewLink, repeatable } =
           subfield;
@@ -141,6 +145,7 @@ export const fieldsParser = (fields: FieldsRaw): Fields =>
           repeatable,
           label: labelStripper(label),
           viewLink,
+          staNotationLabel: staNotations[key as EntityId].label,
         };
       }),
     };
@@ -293,13 +298,14 @@ export interface ParsedAllFromRead {
 export const parseAllFromRead = (
   read: (typeof reader)['raw']
 ): ParsedAllFromRead => {
+  const staNotations = staNotationsParser(read.staNotations());
   const data = {
-    staNotations: staNotationsParser(read.staNotations()),
+    staNotations,
     schemas: schemasParser(read.schemas()),
     labelsDe: labelsParser.de(read.labels.de()),
     labelsEn: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
-    fields: fieldsParser(read.fields()),
+    fields: fieldsParser(read.fields(), staNotations),
   };
   return {
     rdaProperties: rdaPropertiesParser(

@@ -79,31 +79,37 @@ export const TopBar: React.FC = () => {
               {
                 label: (
                   <span className="ant-menu-item">
-                    <Link href="/entities/Q8469">RDA DACH</Link>
+                    <Link href="/RDA-A-0">RDA DACH</Link>
                   </span>
                 ),
                 key: 'RDA',
                 children: [
                   {
-                    label: <Link href="/entities/Q8566">Allgemeines</Link>,
-                    key: '/entities/Q8566',
+                    label: <Link href="/RDA-A-0-ALLGEMEINES">Allgemeines</Link>,
+                    key: '/RDA-A-0-ALLGEMEINES',
                   },
                   {
-                    label: <Link href="/rda/elements">Elemente</Link>,
-                    key: '/rda/elements',
-                  },
-                  {
-                    label: <Link href="/entities/Q8567">Ressourcentypen</Link>,
-                    key: '/entities/Q8567',
+                    label: <Link href="/RDA-E">Elemente</Link>,
+                    key: '/RDA-E',
                   },
                   {
                     label: (
-                      <Link href="/entities/Q8568">Anwendungsprofile</Link>
+                      <Link href="/RDA-A-0-RESSOURCENTYPEN">
+                        Ressourcentypen
+                      </Link>
                     ),
-                    key: '/entities/Q8568',
+                    key: '/RDA-A-0-RESSOURCENTYPEN',
                   },
                   {
-                    label: <Link href="/entities/rda">Index</Link>,
+                    label: (
+                      <Link href="/RDA-A-0-ANWENDUNGSPROFILE">
+                        Anwendungsprofile
+                      </Link>
+                    ),
+                    key: '/RDA-A-0-ANWENDUNGSPROFILE',
+                  },
+                  {
+                    label: <Link href="/RDA-I">Index</Link>,
                     key: '/entities/rda',
                   },
                 ],
@@ -111,39 +117,39 @@ export const TopBar: React.FC = () => {
               {
                 label: (
                   <span className="ant-menu-item">
-                    <Link href="/entities/Q10170">GND</Link>
+                    <Link href="/GND-A-EINFUEHRUNG">GND</Link>
                   </span>
                 ),
-                key: 'GND',
+                key: '/GND-A-EINFUEHRUNG',
                 children: [
                   {
                     label: (
-                      <Link href="/entities/Q10171">
+                      <Link href="/GND-A-EC">
                         Satzarten und Entitätencodierungen
                       </Link>
                     ),
-                    key: '/entities/Q10171',
+                    key: '/GND-A-EC',
                   },
                   {
-                    label: <Link href="/gnd/fields">Datenfelder</Link>,
-                    key: '/gnd/fields',
+                    label: <Link href="/GND-DF">Datenfelder</Link>,
+                    key: '/GND-DF',
                   },
                   {
-                    label: <Link href="/entities/Q10172">Relationscodes</Link>,
-                    key: '/entities/Q10172',
+                    label: <Link href="/GND-A-RC">Relationscodes</Link>,
+                    key: '/GND-A-RC',
+                  },
+                  {
+                    label: <Link href="/GND-A-VW">normiertes Vokabular</Link>,
+                    key: '/GND-A-VW',
                   },
                   {
                     label: (
-                      <Link href="/entities/Q10173">normiertes Vokabular</Link>
+                      <Link href="/GND-VW-SYSTEMATIK">GND-Systematik</Link>
                     ),
-                    key: '/entities/Q10173',
+                    key: '/GND-VW-SYSTEMATIK',
                   },
                   {
-                    label: <Link href="/entities/Q1359">GND-Systematik</Link>,
-                    key: '/entities/Q1359',
-                  },
-                  {
-                    label: <Link href="/entities/gnd">Index</Link>,
+                    label: <Link href="/GND-I">Index</Link>,
                     key: '/entities/gnd',
                   },
                 ],
