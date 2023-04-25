@@ -152,9 +152,6 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                         <Typography.Paragraph
                           css={{
                             '& div': {
-                              display: `${
-                                isRecordingMethod ? 'inline-block' : 'initial'
-                              }`,
                               padding: '0 2px 0 2px',
                             },
                           }}
