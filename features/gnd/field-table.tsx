@@ -1,14 +1,13 @@
 import { ColumnsTypes, Table } from '@/components/table';
 import { EntityLink } from '@/entity/components/preview/link';
-import { GndFieldsProps } from '@/pages/gnd/fields';
 import { Field } from '@/types/parsed/field';
 import { Typography } from 'antd';
-import { CSSProperties } from 'react';
 import { GndSubFieldTable } from './subfield-table';
+import { GndFieldsProps } from '@/pages/GND-DF';
 
 export const GndFieldsTable: React.FC<
-  GndFieldsProps & { style?: CSSProperties; className?: string }
-> = ({ fields, style, className }) => {
+  GndFieldsProps & { className?: string }
+> = ({ fields, className }) => {
   const columns: ColumnsTypes<Field> = [
     {
       title: 'PICA3',
@@ -70,7 +69,6 @@ export const GndFieldsTable: React.FC<
 
   return (
     <Table<Field>
-      // style={style}
       className={className}
       columns={columns.map((column) => ({
         ...column,
