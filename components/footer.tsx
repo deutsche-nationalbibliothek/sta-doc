@@ -12,7 +12,7 @@ import { Layout as AntdLayout, Col, message, Row, theme, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
 import { useMemo } from 'react';
 import { ExternalLink } from './external-link';
-import { useCollapsibles } from '@/hooks/use-collapsibles';
+import { useCollapseToggleEvent } from '@/hooks/use-custom-events';
 
 const styles: Record<string, CSSObject> = {
   icon: {
@@ -30,7 +30,9 @@ const styles: Record<string, CSSObject> = {
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
-  const { setCollapsibles, allOpen } = useCollapsibles();
+
+  const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
+    useCollapseToggleEvent();
 
   const onClick = useMemo(
     () => ({
@@ -123,23 +125,20 @@ export const Footer: React.FC = () => {
           <Tooltip className="no-print" title="Seiteninhalt drucken">
             <PrinterOutlined onClick={onClick.print} css={styles.icon} />
           </Tooltip>
-          {allOpen ? (
+          {collapseStateIsOpen ? (
             <Tooltip title="Alle Klapptexte einklappen">
               <FullscreenExitOutlined
-                onClick={setCollapsibles.close}
+                onClick={onCollapseNextState}
                 css={styles.icon}
               />
             </Tooltip>
           ) : (
-            allOpen !== undefined && (
-              <Tooltip title="Alle Klapptexte ausklappen">
-                <FullscreenOutlined
-                  onClick={setCollapsibles.open}
-                  disabled={allOpen === undefined}
-                  css={styles.icon}
-                />
-              </Tooltip>
-            )
+            <Tooltip title="Alle Klapptexte ausklappen">
+              <FullscreenOutlined
+                onClick={onCollapseNextState}
+                css={styles.icon}
+              />
+            </Tooltip>
           )}
         </Col>
         <Col

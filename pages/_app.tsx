@@ -18,16 +18,15 @@ import { GlobalDynamicStyles, GlobalStaticStyles } from '@/lib/emotion/global';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import { EntityProvider } from '@/hooks/entity-provider';
-import { CollapsiblesProvider } from '@/hooks/use-collapsibles';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <GlobalStaticStyles>
-      <QueryParamProvider adapter={NextAdapter}>
-        <ApplicationProfileQueryParamProvider>
-          <FetchingQueryParamsProvider>
-            <SearchQueryParamsProvider>
-              <InitialHeadlinesProvider>
+      <InitialHeadlinesProvider>
+        <QueryParamProvider adapter={NextAdapter}>
+          <ApplicationProfileQueryParamProvider>
+            <FetchingQueryParamsProvider>
+              <SearchQueryParamsProvider>
                 <HeadlinesProvider>
                   <ThemeConfigProvider>
                     {(themeConfig) => (
@@ -37,11 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
                             <CodingsPreferencesProvider>
                               <GlobalDynamicStyles>
                                 <EntityProvider>
-                                  <CollapsiblesProvider>
-                                    <Layout>
-                                      <Component {...pageProps} />
-                                    </Layout>
-                                  </CollapsiblesProvider>
+                                  <Layout>
+                                    <Component {...pageProps} />
+                                  </Layout>
                                 </EntityProvider>
                               </GlobalDynamicStyles>
                             </CodingsPreferencesProvider>
@@ -51,11 +48,11 @@ export default function App({ Component, pageProps }: AppProps) {
                     )}
                   </ThemeConfigProvider>
                 </HeadlinesProvider>
-              </InitialHeadlinesProvider>
-            </SearchQueryParamsProvider>
-          </FetchingQueryParamsProvider>
-        </ApplicationProfileQueryParamProvider>
-      </QueryParamProvider>
+              </SearchQueryParamsProvider>
+            </FetchingQueryParamsProvider>
+          </ApplicationProfileQueryParamProvider>
+        </QueryParamProvider>
+      </InitialHeadlinesProvider>
     </GlobalStaticStyles>
   );
 }
