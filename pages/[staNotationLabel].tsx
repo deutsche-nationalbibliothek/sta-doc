@@ -89,6 +89,8 @@ export const getStaticProps: GetStaticProps<
   let isUnderConstruction: boolean | undefined;
   let staNotationLabel: string | undefined;
 
+  console.log(context.params);
+
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
 
@@ -138,7 +140,13 @@ export const getStaticProps: GetStaticProps<
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: Object.keys(entities as unknown as EntitiesEntries)
-      .filter((entityId) => !isPropertyBlacklisted(entityId as EntityId))
+      .filter(
+        (entityId) =>
+          !isPropertyBlacklisted(entityId as EntityId) &&
+          'staNotationLabel' in
+            (entities as unknown as EntitiesEntries)[entityId as EntityId]
+              .entity
+      )
       .map((entityId) => ({
         params: {
           staNotationLabel: (entities as unknown as EntitiesEntries)[

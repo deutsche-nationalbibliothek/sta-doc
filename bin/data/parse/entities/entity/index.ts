@@ -116,12 +116,7 @@ export const parseRawEntity = (
     }
 
     if (!embedded && !staNotations[entityId]) {
-      console.warn(
-        '\t\t\tStaNotation not found for Enitity',
-        entityId,
-        '. Ignoring!'
-      );
-      return;
+      console.warn('\t\t\tStaNotation not found for Enitity', entityId);
     }
 
     const isRdaRessourceEntity =
