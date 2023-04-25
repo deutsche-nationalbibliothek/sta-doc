@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const useInitialScroll = (shouldDoAnchorScrolling: boolean) => {
   useInitialScrollToAnchor(shouldDoAnchorScrolling);
-  useInitialScrollToTop();
+  // useInitialScrollToTop();
 };
 
 const useInitialScrollToAnchor = (shouldDo: boolean) => {
