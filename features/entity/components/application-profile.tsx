@@ -48,7 +48,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
             const relevantProps = ['id', 'label', 'link', 'namespace'];
             const applicationProfileTableData: ApplicationProfileTableData = {
               id: wikibasePointer.id,
-              label: wikibasePointer.label,
+              label: wikibasePointer.label.split('-').pop() ?? '',
               namespace: wikibasePointer.namespace,
               wemi: pick(
                 wemiLevelWikibasePointer,
