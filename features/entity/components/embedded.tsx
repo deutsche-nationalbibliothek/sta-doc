@@ -4,27 +4,31 @@ import { EntityDetails } from './details';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
+import { memo } from 'react';
 
 interface EmbeddedProps {
   entity: Entity;
 }
 
-export const Embedded: React.FC<EmbeddedProps> = ({ entity }) => {
-  return (
-    <NamespaceThemeConfigProvider namespace={entity.namespace}>
-      <Collapse
-        labelOpen={entity.contextOfUseLabel}
-        labelClosed={entity.contextOfUseLabel}
-        extra={
-          entity.contextOfUseLabel ? (
-            <Tooltip title="Anwendungskontext">
-              <PlusCircleOutlined />
-            </Tooltip>
-          ) : undefined
-        }
-      >
-        <EntityDetails embedded entity={entity} />
-      </Collapse>
-    </NamespaceThemeConfigProvider>
-  );
-};
+export const Embedded: React.FC<EmbeddedProps> = memo(
+  ({ entity }) => {
+    return (
+      <NamespaceThemeConfigProvider namespace={entity.namespace}>
+        <Collapse
+          labelOpen={entity.contextOfUseLabel}
+          labelClosed={entity.contextOfUseLabel}
+          extra={
+            entity.contextOfUseLabel ? (
+              <Tooltip title="Anwendungskontext">
+                <PlusCircleOutlined />
+              </Tooltip>
+            ) : undefined
+          }
+        >
+          <EntityDetails embedded entity={entity} />
+        </Collapse>
+      </NamespaceThemeConfigProvider>
+    );
+  },
+  (prevProps, nextProps) => prevProps.entity.id === nextProps.entity.id
+);

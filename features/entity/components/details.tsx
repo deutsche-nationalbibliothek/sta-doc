@@ -1,6 +1,6 @@
 import { useInitialScroll } from '@/hooks/use-initial-scroll';
 import { useNamespace } from '@/hooks/use-namespace';
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
 import { Entity, StatementValue } from '@/types/parsed/entity';
@@ -18,100 +18,104 @@ interface EntityDetailsProps {
   embedded?: boolean;
 }
 
-export const EntityDetails: React.FC<EntityDetailsProps> = ({
-  entity,
-  embedded = false,
-}) => {
-  const { namespace, setNamespace, onResetNamespace } = useNamespace();
-  const { setShowHeadlines } = useHeadlines();
-  const router = useRouter();
+export const EntityDetails: React.FC<EntityDetailsProps> = memo(
+  ({ entity, embedded = false }) => {
+    const { namespace, setNamespace, onResetNamespace } = useNamespace();
+    const { setShowHeadlines } = useHeadlines();
+    const router = useRouter();
 
-  useInitialScroll(!embedded);
-
-  const { setEntity: setEntityCache, entity: entityCached } = useEntity();
-
-  useEffect(() => {
     if (!embedded) {
-      setEntityCache(entity);
+      console.log('EntityDetails is rendering', entity.id);
     }
-  }, [embedded, entity, entityCached, setEntityCache]);
 
-  useEffect(() => {
-    if (!embedded && entity.namespace) {
-      setNamespace(entity.namespace);
-    }
-    return () => {
-      if (!embedded && entity.namespace) {
-        onResetNamespace();
+    useInitialScroll(!embedded);
+
+    const { setEntity: setEntityCache, entity: entityCached } = useEntity();
+
+    useEffect(() => {
+      if (!embedded) {
+        setEntityCache(entity);
       }
+    }, [embedded, entity, entityCached, setEntityCache]);
+
+    useEffect(() => {
+      if (!embedded && entity.namespace) {
+        setNamespace(entity.namespace);
+      }
+      return () => {
+        if (!embedded && entity.namespace) {
+          onResetNamespace();
+        }
+      };
+    }, [setNamespace, embedded, onResetNamespace, entity.namespace]);
+
+    const [view, setView] = useQueryParam<
+      string | undefined,
+      'application-profile'
+    >('view');
+
+    const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
+      if (nextViewParam === 'application-profile') {
+        // prevent issue with hooks/use-initial-scroll.ts
+        router
+          .push(undefined, undefined, { view: nextViewParam })
+          .catch((e) => console.error(e));
+      }
+      setView(nextViewParam);
+      setShowHeadlines(!nextViewParam);
     };
-  }, [setNamespace, embedded, onResetNamespace, entity.namespace]);
 
-  const [view, setView] = useQueryParam<
-    string | undefined,
-    'application-profile'
-  >('view');
+    const wemiStatement = entity.statements.body.find(
+      (statement) => statement.property === Property['WEMI-level']
+    );
 
-  const setViewAndSetShowHeadlines = (nextViewParam: string | undefined) => {
-    if (nextViewParam === 'application-profile') {
-      // prevent issue with hooks/use-initial-scroll.ts
-      router
-        .push(undefined, undefined, { view: nextViewParam })
-        .catch((e) => console.error(e));
-    }
-    setView(nextViewParam);
-    setShowHeadlines(!nextViewParam);
-  };
+    const isRdaRessourceType = !!wemiStatement;
 
-  const wemiStatement = entity.statements.body.find(
-    (statement) => statement.property === Property['WEMI-level']
-  );
+    const showSwitchApplicationProfile =
+      isRdaRessourceType && !('showOnlyApplicationProfile' in entity);
 
-  const isRdaRessourceType = !!wemiStatement;
+    const tableStatements =
+      entity.pageType?.id === Item['GND-data-field']
+        ? ([
+            ...entity.statements.table,
+            entity.statements.body.find(
+              (statement) => statement.property === Property.Subfields
+            ),
+          ] as StatementValue[])
+        : entity.statements.table;
 
-  const showSwitchApplicationProfile =
-    isRdaRessourceType && !('showOnlyApplicationProfile' in entity);
-
-  const tableStatements =
-    entity.pageType?.id === Item['GND-data-field']
-      ? ([
-          ...entity.statements.table,
-          entity.statements.body.find(
-            (statement) => statement.property === Property.Subfields
-          ),
-        ] as StatementValue[])
-      : entity.statements.table;
-
-  return (
-    <>
-      {!embedded && (
-        <EntityPageHeader
-          entity={entity}
-          namespace={namespace}
-          showSwitchApplicationProfile={showSwitchApplicationProfile}
-          view={{ get: view, set: setViewAndSetShowHeadlines }}
-        />
-      )}
+    return (
       <>
-        {isRdaRessourceType ? (
-          <RdaRessourceTypeEntity view={view} entity={entity} />
-        ) : (
-          <>
-            {entity.statements.header.length > 0 && (
-              <Statements statements={entity.statements.header} />
-            )}
-            {entity.statements.table.length > 0 && (
-              <TableStatements
-                statements={tableStatements}
-                field={entity.field}
-              />
-            )}
-            {entity.statements.body.length > 0 && (
-              <Statements statements={entity.statements.body} />
-            )}
-          </>
+        {!embedded && (
+          <EntityPageHeader
+            entity={entity}
+            namespace={namespace}
+            showSwitchApplicationProfile={showSwitchApplicationProfile}
+            view={{ get: view, set: setViewAndSetShowHeadlines }}
+          />
         )}
+        <>
+          {isRdaRessourceType ? (
+            <RdaRessourceTypeEntity view={view} entity={entity} />
+          ) : (
+            <>
+              {entity.statements.header.length > 0 && (
+                <Statements statements={entity.statements.header} />
+              )}
+              {entity.statements.table.length > 0 && (
+                <TableStatements
+                  statements={tableStatements}
+                  field={entity.field}
+                />
+              )}
+              {entity.statements.body.length > 0 && (
+                <Statements statements={entity.statements.body} />
+              )}
+            </>
+          )}
+        </>
       </>
-    </>
-  );
-};
+    );
+  },
+  (prevProps, nextProps) => prevProps.entity.id === nextProps.entity.id
+);
