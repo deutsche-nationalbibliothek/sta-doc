@@ -78,21 +78,16 @@ export const useScroll = (
     });
   }, [setHeadlineKeysInViewport, headlines]);
 
-  const debouncedOnScroll = debounce(onScroll, 50);
-  const useDebouncedOnScroll = useCallback(debouncedOnScroll, [
-    debouncedOnScroll,
-  ]);
-
-  useEffect(useDebouncedOnScroll, [useDebouncedOnScroll]);
-
   useEffect(() => {
+    const debouncedOnScroll = debounce(onScroll, 50);
+
     const scrollContainerElement = document.getElementById(
       'main-scroll-container'
     );
     scrollContainerElement?.addEventListener('scroll', debouncedOnScroll);
     return () =>
       scrollContainerElement?.removeEventListener('scroll', debouncedOnScroll);
-  }, [debouncedOnScroll]);
+  }, [onScroll]);
 
   useEffect(() => {
     headlineKeysInViewport.forEach((headlineKey) => {

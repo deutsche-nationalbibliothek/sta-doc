@@ -9,6 +9,7 @@ import { TopBar } from './top-bar';
 import 'antd/dist/reset.css';
 import { CSSObject } from '@emotion/react';
 import { compact } from 'lodash';
+import { PropsWithChildren } from 'react';
 
 export const layoutContentHeight =
   'calc(100vh - 2px - var(--topbar-height) - var(--breadcrumb-height) - var(--divider-top-height) - var(--divider-bottom-height) - var(--footer-height))';
@@ -44,8 +45,6 @@ const VerticalLayoutDivider = () => (
 );
 
 export default function Layout(props: LayoutProps) {
-  const { nestedHeadlines, showHeadlines } = useHeadlines();
-
   return (
     <AntdLayout>
       <LoadingIndicator />
@@ -66,14 +65,9 @@ export default function Layout(props: LayoutProps) {
             width: '100% !important',
           }}
         >
-          <Splitter>
-            {nestedHeadlines.length && showHeadlines
-              ? compact([
-                  nestedHeadlines.length > 0 && <Sidebar key="sidebar" />,
-                  <Content key="content">{props.children}</Content>,
-                ])
-              : [<Content key="content">{props.children}</Content>]}
-          </Splitter>
+          <ContentSplitter>
+            <Content key="content">{props.children}</Content>
+          </ContentSplitter>
         </div>
         <VerticalLayoutDivider />
       </AntdLayout>
@@ -83,7 +77,22 @@ export default function Layout(props: LayoutProps) {
   );
 }
 
-const Content: React.FC<{ children: JSX.Element }> = ({ children }) => {
+const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
+  const { nestedHeadlines, showHeadlines } = useHeadlines();
+
+  return (
+    <Splitter>
+      {nestedHeadlines.length && showHeadlines
+        ? compact([
+            nestedHeadlines.length > 0 && <Sidebar key="sidebar" />,
+            children,
+          ])
+        : [children]}
+    </Splitter>
+  );
+};
+
+const Content: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <AntdLayout
       css={{
