@@ -3,8 +3,9 @@ import { useCodingsPreference } from '@/hooks/use-codings-preference';
 import { Entity } from '@/types/parsed/entity';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
-import { Example } from './example';
+import { Example, ExampleProps } from './example';
 import { Fragment } from 'react';
+import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 
 interface ExamplesProps {
   examples: Entity[];
@@ -16,8 +17,6 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
 
-  const { token } = theme.useToken();
-
   const labelReactElement = (
     <>
       {label} <MenuUnfoldOutlined />
@@ -27,9 +26,14 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   const examplesHaveCodingValues = examples.some((example) =>
     example.statements.body.some((statement) => statement.codings)
   );
+  const examplesNamespace = examples
+    .find((example) =>
+      example.statements.body.find((statement) => statement.namespace)
+    )
+    ?.statements.body.find((statement) => statement.namespace)?.namespace;
 
   return (
-    <>
+    <NamespaceThemeConfigProvider namespace={examplesNamespace}>
       <Modal
         label={
           <Typography.Paragraph strong>
@@ -71,32 +75,44 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
           </Row>
         }
       >
-        {examples.map((example, index) => {
-          return (
-            <Fragment key={index}>
-              <Card
-                css={{
-                  '& > .ant-card-body': { padding: 2 },
-                  border: 'none',
-                }}
-              >
-                <Example
-                  entity={example}
-                  codingsPreferences={codingsPreferences}
-                />
-              </Card>
-              {index !== examples.length - 1 && (
-                <Divider
-                  css={{
-                    borderBlockStart: `1px solid ${token.colorPrimaryBorder}`,
-                    margin: '8px 0 16px 0',
-                  }}
-                />
-              )}
-            </Fragment>
-          );
-        })}
+        {examples.map((example, index) => (
+          <ExampleCard
+            entity={example}
+            codingsPreferences={codingsPreferences}
+            key={index}
+            lastIndex={index === examples.length - 1}
+          />
+        ))}
       </Modal>
-    </>
+    </NamespaceThemeConfigProvider>
+  );
+};
+
+const ExampleCard: React.FC<ExampleProps & { lastIndex: boolean }> = ({
+  entity,
+  codingsPreferences,
+  lastIndex,
+}) => {
+  const { token } = theme.useToken();
+
+  return (
+    <Fragment>
+      <Card
+        css={{
+          '& > .ant-card-body': { padding: 2 },
+          border: 'none',
+        }}
+      >
+        <Example entity={entity} codingsPreferences={codingsPreferences} />
+      </Card>
+      {!lastIndex && (
+        <Divider
+          css={{
+            borderBlockStart: `1px solid ${token.colorPrimaryBorder}`,
+            margin: '8px 0 16px 0',
+          }}
+        />
+      )}
+    </Fragment>
   );
 };
