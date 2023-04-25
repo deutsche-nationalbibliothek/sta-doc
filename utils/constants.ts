@@ -14,7 +14,7 @@ export const blacklist: {
     Property['Context-of-use'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
-    Property['Type-of-layout'],
+    // Property['Type-of-layout'],
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
   ],
@@ -39,7 +39,7 @@ export const blacklist: {
   // qualifier who never render
   qualifier: [
     Property['language-of-the-statement'],
-    Property['Type-of-layout'],
+    // Property['Type-of-layout'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
   ],

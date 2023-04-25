@@ -139,6 +139,15 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                 )
                             )
                         );
+
+                      const typeOfLayoutQualifier =
+                        stringValue.qualifiers?.find(
+                          (qualifier) =>
+                            qualifier.property === Property['Type-of-layout']
+                        );
+                      const typeOfLayout =
+                        typeOfLayoutQualifier?.wikibasePointers &&
+                        typeOfLayoutQualifier.wikibasePointers[0].id;
                       return (
                         <Typography.Paragraph
                           css={{
@@ -181,8 +190,10 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                               )}
                               {
                                 <StringValueComponent
-                                  itemType={stringValue.itemType}
-                                  property={record.property}
+                                  itemType={
+                                    stringValue.itemType ?? typeOfLayout
+                                  }
+                                  property={stringValue.property}
                                   stringValue={stringValue}
                                 />
                               }

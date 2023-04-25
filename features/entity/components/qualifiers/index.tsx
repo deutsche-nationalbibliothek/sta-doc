@@ -17,6 +17,8 @@ interface QualifiersProps {
   shouldRenderLabel?: (qualifier: Statement) => boolean;
 }
 
+const doNotRender = [Property['Type-of-layout']];
+
 export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
   shouldRenderLabel,
@@ -83,7 +85,11 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
     <>
       {qualifiers
         .filter(
-          (qualifier) => !isPropertyBlacklisted(qualifier.property, 'property')
+          (qualifier) =>
+            !(
+              isPropertyBlacklisted(qualifier.property, 'property') ||
+              doNotRender.includes(qualifier.property)
+            )
         )
         .sort(
           (qualifier1, qualifier2) =>
