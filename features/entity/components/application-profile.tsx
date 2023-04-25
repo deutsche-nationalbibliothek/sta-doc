@@ -170,7 +170,6 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       dataSource={data.map((d) => ({ ...d, key: d.id }))}
       columns={columns}
       expandable={{
-        expandedRowClassName: () => 'application-profile-table-expandable-row',
         rowExpandable: (record) =>
           record.expandable ? !!record.expandable.length : false,
         expandedRowRender: (record) => (

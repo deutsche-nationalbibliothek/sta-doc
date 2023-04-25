@@ -11,6 +11,7 @@ interface CollapseProps extends AntdCollapseProps {
   defaultOpen?: boolean;
   labelOpen?: string;
   labelClosed?: string;
+  extra?: JSX.Element;
   children: JSX.Element;
 }
 
@@ -18,6 +19,7 @@ export const Collapse = ({
   defaultOpen = true,
   labelOpen = '',
   labelClosed = 'Weiterführende Informationen',
+  extra,
   children,
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
@@ -47,7 +49,11 @@ export const Collapse = ({
         accordion={true}
         activeKey={isOpen ? ['1'] : undefined}
       >
-        <AntdCollapse.Panel header={isOpen ? labelOpen : labelClosed} key="1">
+        <AntdCollapse.Panel
+          extra={extra}
+          header={isOpen ? labelOpen : labelClosed}
+          key="1"
+        >
           {children}
         </AntdCollapse.Panel>
       </AntdCollapse>
