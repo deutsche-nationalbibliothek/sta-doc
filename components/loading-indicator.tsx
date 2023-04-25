@@ -12,7 +12,7 @@ export const LoadingIndicator: React.FC = () => {
         width: '100vw',
         zIndex: 1111,
         background:
-          'linear-gradient(120deg, var(--dark-gray), var(--gnd-color), var(--rda-color))',
+          'linear-gradient(120deg, var(--light-gray), var(--gnd-color), var(--rda-color))',
         backgroundSize: '600% 600%',
         animation: 'AnimationName 2s ease infinite',
         '@keyframes AnimationName': {

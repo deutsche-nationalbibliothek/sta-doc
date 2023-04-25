@@ -11,11 +11,11 @@ interface FetchProps<T> {
 
 export function Fetch<T>({ url, children, showSpinner = true }: FetchProps<T>) {
   const { data, loading, error } = useSWR<T>(url);
-  const { setIsLoading, isLoading } = useIsLoading();
+  const { setIsLoading } = useIsLoading();
 
   useEffect(() => {
     setIsLoading(loading);
-  }, [setIsLoading, loading, isLoading]);
+  }, [setIsLoading, loading]);
 
   if (showSpinner && loading) {
     return (

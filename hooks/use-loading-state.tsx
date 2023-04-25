@@ -23,10 +23,11 @@ export default function IsLoadingContextProvider({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    const currentUrl = `${process.env.basePath ?? ''}${router.asPath}`;
     const handleStart = (url: string) =>
-      url !== router.asPath && setIsLoading(true);
-    const handleComplete = (url: string) =>
-      url === router.asPath && setIsLoading(false);
+      url !== currentUrl && setIsLoading(true);
+
+    const handleComplete = () => setIsLoading(false);
 
     router.events.on('routeChangeStart', handleStart);
     router.events.on('routeChangeComplete', handleComplete);
