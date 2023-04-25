@@ -177,14 +177,6 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                             </>
                           ) : (
                             <>
-                              {stringValue.qualifiers && (
-                                <>
-                                  <Qualifiers
-                                    showHeadline={false}
-                                    qualifiers={stringValue.qualifiers}
-                                  />
-                                </>
-                              )}
                               {
                                 <StringValueComponent
                                   itemType={
@@ -194,6 +186,14 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                   stringValue={stringValue}
                                 />
                               }
+                              {stringValue.qualifiers && (
+                                <>
+                                  <Qualifiers
+                                    showHeadline={false}
+                                    qualifiers={stringValue.qualifiers}
+                                  />
+                                </>
+                              )}
                             </>
                           )}
                         </Typography.Paragraph>
