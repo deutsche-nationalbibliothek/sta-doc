@@ -5,7 +5,7 @@ import {
   Typography,
   theme,
 } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 interface CollapseProps extends AntdCollapseProps {
   defaultOpen?: boolean;
@@ -27,11 +27,17 @@ export const Collapse = ({
 
   const { onAddCollapsible, onRemoveCollapsible } = useCollapsibles();
 
+  const collapsible = useMemo(
+    () => ({ get: isOpen, set: setIsOpen }),
+    [isOpen]
+  );
+
+  const onChange = (nextState: boolean) => setIsOpen(nextState);
+
   useEffect(() => {
-    const collapsible = { get: isOpen, set: setIsOpen };
     onAddCollapsible(collapsible);
     return () => onRemoveCollapsible(collapsible);
-  }, [onAddCollapsible, onRemoveCollapsible, isOpen]);
+  }, [onAddCollapsible, onRemoveCollapsible, collapsible]);
 
   return (
     <Typography.Paragraph>
@@ -42,12 +48,11 @@ export const Collapse = ({
             borderRadius: `${token.borderRadiusOuter}px !important`,
           },
         }}
-        // css={{marginBottom: 15}}
-        onChange={(key) => {
-          setIsOpen(key === '1');
+        onChange={(keys) => {
+          onChange(!!(keys.length && keys[0] === '1'));
         }}
         accordion={true}
-        activeKey={isOpen ? ['1'] : undefined}
+        activeKey={isOpen ? '1' : undefined}
       >
         <AntdCollapse.Panel
           extra={extra}

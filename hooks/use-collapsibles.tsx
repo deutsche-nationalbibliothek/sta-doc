@@ -52,17 +52,17 @@ export const CollapsiblesProvider: React.FC<CollapsiblesProviderProps> = ({
             close: () => setEachCollapsible(false),
           };
         }, [collapsibles]),
-        onAddCollapsible: useCallback(
-          (collapsible: Collapsible) =>
-            setCollapsibles((collapsibles) => [
-              ...(collapsibles ?? []),
-              collapsible,
-            ]),
-          []
-        ),
+        onAddCollapsible: useCallback((collapsible: Collapsible) => {
+          setCollapsibles((collapsibles) => [
+            ...(collapsibles ?? []),
+            collapsible,
+          ]);
+        }, []),
         onRemoveCollapsible: useCallback((collapsible: Collapsible) => {
           setCollapsibles((collapsibles) =>
-            collapsibles?.filter((collapsible2) => collapsible2 === collapsible)
+            collapsibles?.filter(
+              (collapsible2) => collapsible2.set !== collapsible.set
+            )
           );
         }, []),
         onResetCollapsibles: useCallback(() => setCollapsibles(undefined), []),
