@@ -120,7 +120,7 @@ export const TopBar: React.FC = () => {
                     <Link href="/GND-A-EINFUEHRUNG">GND</Link>
                   </span>
                 ),
-                key: '/GND-A-EINFUEHRUNG',
+                key: 'GND',
                 children: [
                   {
                     label: (
