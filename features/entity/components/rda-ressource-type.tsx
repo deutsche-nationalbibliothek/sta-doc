@@ -2,8 +2,7 @@ import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
 import { Entity, Statement, WikibasePointerValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Typography } from 'antd';
-import { compact, flattenDeep } from 'lodash';
+import { compact } from 'lodash';
 import React, { useEffect } from 'react';
 import { ApplicationProfile } from './application-profile';
 import { EntityLink } from './preview/link';
@@ -68,33 +67,11 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     );
   };
 
-  const nonDefaultRenderProperties = [Property.Status];
-  const nonDefaultRender = {
-    properties: nonDefaultRenderProperties,
-    statements: (wikibasePointer: WikibasePointerValue) => ({
-      status: propFinder(
-        Property.Status,
-        wikibasePointer.qualifiers &&
-          flattenDeep(
-            compact(
-              wikibasePointer.qualifiers.map((q) =>
-                compact(
-                  q.wikibasePointers &&
-                    q.wikibasePointers.map((w) => w.qualifiers)
-                )
-              )
-            )
-          )
-      ),
-    }),
-    filter: (statement: Statement) =>
-      !nonDefaultRenderProperties.includes(statement.property),
-  };
-
   const filterElementStatementForWemi = (
     wikibasePointer: WikibasePointerValue
   ): boolean => {
     return [
+      // Property.Status,
       // Property.Repetition,
       Property.description,
       Property['embedded-(item)'],
@@ -121,30 +98,12 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
       {relevantStatements.wemi?.wikibasePointers &&
         relevantStatements.wemi.wikibasePointers.map(
           (wikibasePointer, index) => {
-            const { status } = nonDefaultRender.statements(wikibasePointer);
             return (
               <React.Fragment key={index}>
                 {wikibasePointer.headline && (
                   <Title headline={wikibasePointer.headline}>
                     <EntityLink {...wikibasePointer} />
                   </Title>
-                )}
-
-                {status && (
-                  <Typography.Paragraph
-                  // style={{ paddingBottom: 5 }}
-                  >
-                    {compact([status]).map((statement) => (
-                      <Typography.Text
-                        key={statement.property}
-                        // style={{ paddingRight: 24 }}
-                      >
-                        {statement.label}:{' '}
-                        {statement.wikibasePointers &&
-                          statement.wikibasePointers[0].label}
-                      </Typography.Text>
-                    ))}
-                  </Typography.Paragraph>
                 )}
 
                 {wikibasePointer.qualifiers && (
@@ -161,9 +120,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
                               headline: { ...wikibasePointer.headline },
                               qualifiers:
                                 wikibasePointer.qualifiers &&
-                                sortQualifiers(
-                                  wikibasePointer.qualifiers
-                                ).filter(nonDefaultRender.filter),
+                                sortQualifiers(wikibasePointer.qualifiers),
                             })) as WikibasePointerValue[]),
                       }))
                     )}

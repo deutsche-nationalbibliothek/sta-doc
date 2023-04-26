@@ -53,6 +53,10 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
           {showHeadline &&
             !isPropertyBlacklisted(qualifier.property) &&
             qualifier.headline && <Title headline={qualifier.headline} />}
+          {(qualifier.property === Property.Repetition ||
+            qualifier.property === Property.Status) && (
+            <Typography.Text strong>{qualifier.label}: </Typography.Text>
+          )}
           {qualifier.stringGroups ? (
             <Typography.Paragraph>
               {((shouldRenderLabel && shouldRenderLabel(qualifier)) ||
@@ -60,10 +64,6 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
                 !isPropertyBlacklisted(qualifier.property, 'headlines') && (
                   <Typography.Text strong>{qualifier.label}:</Typography.Text>
                 )}
-              {(qualifier.property === Property.Repetition ||
-                qualifier.property === Property.Status) && (
-                <Typography.Text strong>{qualifier.label}: </Typography.Text>
-              )}
               <StringGroupsStatement
                 property={qualifier.property}
                 statements={qualifier.stringGroups}

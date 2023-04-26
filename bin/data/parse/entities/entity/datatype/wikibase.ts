@@ -61,8 +61,12 @@ export const parseWikibaseValue = (
 
   const staNotationLabel = staNotations[id]?.label;
 
+  const parentPropertyId = 'parentProperty' in occ && occ.parentProperty;
+
   const label =
-    isElementsPropOnRdaRessourceType && staNotationLabel
+    isElementsPropOnRdaRessourceType &&
+    parentPropertyId === Property['Elements'] &&
+    staNotationLabel
       ? `${staNotationLabel.split('-').pop() ?? ''} - ${labelsDe[id]}`
       : labelsDe[id];
 
