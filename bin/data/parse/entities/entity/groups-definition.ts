@@ -29,6 +29,7 @@ export const defaultGroupsDefinition: Groups = {
     Property.Status,
     Property.Encoding,
     Property.P663,
+    Property['Repetition'],
   ],
   body: [
     // Property['STA-Notation'], // ??
@@ -45,7 +46,6 @@ export const defaultGroupsDefinition: Groups = {
     Property['P657'],
     Property['P658'],
     Property['URL'],
-    Property['Repetition'],
     Property['permited-values'],
     Property['Annotation'],
     Property['Context-of-use'],
