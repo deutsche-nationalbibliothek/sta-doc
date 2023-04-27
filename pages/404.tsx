@@ -1,8 +1,6 @@
-import { useEntity } from '@/hooks/entity-provider';
 import { ToolOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Head from 'next/head';
-import { useEffect } from 'react';
 
 interface NotFoundProps {
   subtitle?: JSX.Element;
@@ -13,9 +11,6 @@ export const NotFound: React.FC<NotFoundProps> = ({
   subtitle,
   isUnderConstruction,
 }) => {
-  const { unloadEntity } = useEntity();
-  useEffect(unloadEntity, [unloadEntity]);
-
   return (
     <>
       <Head>
