@@ -1,4 +1,4 @@
-import { useCollapseToggleEvent } from '@/hooks/use-custom-events';
+import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import {
   Collapse as AntdCollapse,
   CollapseProps as AntdCollapseProps,
@@ -24,10 +24,7 @@ export const Collapse = ({
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const { token } = theme.useToken();
-
   useCollapseToggleEvent((x) => setIsOpen(x.detail === 'open'));
-
-  const onChange = (nextState: boolean) => setIsOpen(nextState);
 
   return (
     <Typography.Paragraph>
@@ -39,7 +36,7 @@ export const Collapse = ({
           },
         }}
         onChange={(keys) => {
-          onChange(!!(keys.length && keys[0] === '1'));
+          setIsOpen(!!(keys.length && keys[0] === '1'));
         }}
         accordion={true}
         activeKey={isOpen ? '1' : undefined}

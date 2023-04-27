@@ -12,7 +12,7 @@ import { Layout as AntdLayout, Col, message, Row, theme, Tooltip } from 'antd';
 import copy from 'copy-to-clipboard';
 import { useMemo } from 'react';
 import { ExternalLink } from './external-link';
-import { useCollapseToggleEvent } from '@/hooks/use-custom-events';
+import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 
 const styles: Record<string, CSSObject> = {
   icon: {
