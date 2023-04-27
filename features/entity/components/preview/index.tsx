@@ -20,6 +20,7 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
       placement="bottomRight"
       title={<Typography.Text strong>{label}</Typography.Text>}
       content={<PreviewFetcher entityId={entityId} />}
+      mouseEnterDelay={0.3}
       trigger="hover"
     >
       {children}
