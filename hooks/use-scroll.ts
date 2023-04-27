@@ -6,6 +6,7 @@ import RcTree from 'rc-tree';
 import { useCallback, useEffect } from 'react';
 import { useHeadlines } from './headlines';
 import { useInitialHeadlines } from './initial-headlines';
+import { titleIdPrefix } from '@/components/title';
 
 export const useScroll = (
   treeRef: React.MutableRefObject<RcTree<DataNode> | null>
@@ -21,7 +22,9 @@ export const useScroll = (
   const onScroll = useCallback(() => {
     const headlinesInViewport: string[] = (headlines ?? [])
       .filter((headline) => {
-        const headlineElement = document.getElementById(headline.key);
+        const headlineElement = document.getElementById(
+          `${titleIdPrefix}${headline.key}`
+        );
         const scrollContainerElement = document.getElementById(
           'main-scroll-container'
         );
@@ -52,34 +55,12 @@ export const useScroll = (
         const currentLastHeadline =
           currentSelectedHeadlines[currentSelectedHeadlines.length - 1];
         return [currentLastHeadline];
-        // todo, need information if scrollDirection === ScrollDirection.up already happened
-        // if (scrollDirection === ScrollDirection.down) {
-        //   console.log('Fallback down', [currentLastHeadline]);
-        //     return [currentLastHeadline];
-        // } else if (scrollDirection === ScrollDirection.up) {
-        //   console.log('Fallback up');
-        //   try {
-        //     return [
-        //       headlines[
-        //         headlines.findIndex(
-        //           (headline) => headline.key === currentLastHeadline
-        //         ) - 1
-        //       ].key,
-        //     ];
-        //   } catch (error) {
-        //     const hs = headlines;
-        //     const c = currentLastHeadline;
-        //     debugger;
-        //   }
-        // } else {
-        //   return currentSelectedHeadlines;
-        // }
       }
     });
   }, [setHeadlineKeysInViewport, headlines]);
 
   useEffect(() => {
-    const debouncedOnScroll = debounce(onScroll, 50);
+    const debouncedOnScroll = debounce(onScroll, 150);
 
     const scrollContainerElement = document.getElementById(
       'main-scroll-container'
@@ -92,7 +73,7 @@ export const useScroll = (
   useEffect(() => {
     headlineKeysInViewport.forEach((headlineKey) => {
       treeRef.current?.scrollTo({
-        key: headlineKey,
+        key: `${titleIdPrefix}${headlineKey}`,
         align: 'auto',
         offset: 80,
       });
