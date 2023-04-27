@@ -73,9 +73,9 @@ export const useScroll = (
   useEffect(() => {
     headlineKeysInViewport.forEach((headlineKey) => {
       treeRef.current?.scrollTo({
-        key: `${titleIdPrefix}${headlineKey}`,
+        key: headlineKey,
         align: 'auto',
-        offset: 80,
+        offset: 150,
       });
     });
   }, [headlineKeysInViewport, treeRef]);
