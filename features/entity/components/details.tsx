@@ -1,6 +1,5 @@
-import { useInitialScroll } from '@/hooks/use-initial-scroll';
 import { useNamespace } from '@/hooks/use-namespace';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
 import { Entity, StatementValue } from '@/types/parsed/entity';
@@ -11,7 +10,6 @@ import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
 import { useHeadlines } from '@/hooks/headlines';
 import { useRouter } from '@/lib/next-use-router';
-import { useEntity } from '@/hooks/entity-provider';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -20,34 +18,9 @@ interface EntityDetailsProps {
 
 export const EntityDetails: React.FC<EntityDetailsProps> = memo(
   ({ entity, embedded = false }) => {
-    const { namespace, setNamespace, onResetNamespace } = useNamespace();
     const { setShowHeadlines } = useHeadlines();
     const router = useRouter();
-
-    if (!embedded) {
-      console.log('EntityDetails is rendering', entity.id);
-    }
-
-    useInitialScroll(!embedded);
-
-    const { setEntity: setEntityCache, entity: entityCached } = useEntity();
-
-    useEffect(() => {
-      if (!embedded) {
-        setEntityCache(entity);
-      }
-    }, [embedded, entity, entityCached, setEntityCache]);
-
-    useEffect(() => {
-      if (!embedded && entity.namespace) {
-        setNamespace(entity.namespace);
-      }
-      return () => {
-        if (!embedded && entity.namespace) {
-          onResetNamespace();
-        }
-      };
-    }, [setNamespace, embedded, onResetNamespace, entity.namespace]);
+    const { namespace } = useNamespace();
 
     const [view, setView] = useQueryParam<
       string | undefined,

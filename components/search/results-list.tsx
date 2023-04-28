@@ -99,6 +99,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
               >
                 <List.Item style={{ display: 'inherit' }}>
                   <EntityLink
+                    tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
                     label={doc['headline.title'][0]}
                     staNotationLabel={doc['staNotationLabel'][0]}

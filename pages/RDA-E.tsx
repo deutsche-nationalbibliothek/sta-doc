@@ -12,7 +12,6 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { uniq } from 'lodash';
 import { PageHeader } from '@/components/page-header';
-import { useEntity } from '@/hooks/entity-provider';
 
 interface RdaPropertiesProps {
   headlines: Headline[];
@@ -23,12 +22,10 @@ export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
   const { namespace, setNamespace } = useNamespace();
-  const { unloadEntity } = useEntity();
 
   useEffect(() => {
-    unloadEntity(true);
     setNamespace(Namespace.RDA);
-  }, [unloadEntity, setNamespace]);
+  }, [setNamespace]);
 
   const columns: ColumnsTypes<RdaProperty> = [
     {

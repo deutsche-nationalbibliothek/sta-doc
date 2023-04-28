@@ -7,10 +7,18 @@ import { DataNode } from 'antd/lib/tree';
 import RcTree from 'rc-tree';
 import React, { memo, useEffect, useState } from 'react';
 import layoutSizes from '../../../config/layout-sizes';
+import { scrollToHeadline } from '@/utils/scroll-to-headline';
 
 interface TableOfContentProps {
   headlines: Headline[];
 }
+
+export const treeHeight =
+  layoutSizes['topbar-height'] +
+  layoutSizes['breadcrumb-height'] +
+  layoutSizes['divider-top-height'] +
+  layoutSizes['divider-bottom-height'] +
+  layoutSizes['footer-height'];
 
 export const TableOfContent: React.FC<TableOfContentProps> = memo(
   ({ headlines }) => {
@@ -23,13 +31,6 @@ export const TableOfContent: React.FC<TableOfContentProps> = memo(
 
     const treeRef = React.useRef<RcTree<DataNode>>(null);
     useScroll(treeRef);
-
-    const treeHeight =
-      layoutSizes['topbar-height'] +
-      layoutSizes['breadcrumb-height'] +
-      layoutSizes['divider-top-height'] +
-      layoutSizes['divider-bottom-height'] +
-      layoutSizes['footer-height'];
 
     const { token } = theme.useToken();
 
@@ -53,7 +54,10 @@ export const TableOfContent: React.FC<TableOfContentProps> = memo(
           <Typography.Text
             id={`nav-${key}`}
             onClick={() => {
-              router.push(undefined, key).catch((e) => console.error(e));
+              router
+                .push(undefined, key)
+                .then(() => scrollToHeadline(key))
+                .catch((e) => console.error(e));
             }}
             strong={
               currentHeadlinesPath.findIndex(

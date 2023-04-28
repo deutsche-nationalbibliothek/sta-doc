@@ -7,6 +7,7 @@ import namespaceConfig from 'config/namespace';
 import { Link } from '@/lib/next-link';
 import { QueryHighlighter } from '@/lib/highlighter';
 import { LinkProps } from 'next/link';
+import type { TooltipPlacement } from 'antd/lib/tooltip';
 
 interface EntityLinkProps {
   label: string;
@@ -15,6 +16,7 @@ interface EntityLinkProps {
   staNotationLabel?: string;
   children?: JSX.Element | JSX.Element[] | string | string[];
   linkProps?: Omit<LinkProps, 'href' | 'style'>;
+  tooltipPlacement?: TooltipPlacement;
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({
@@ -24,6 +26,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   staNotationLabel,
   children,
   linkProps,
+  tooltipPlacement,
 }) => {
   const { namespace: currentNamespace } = useNamespace();
   const { token } = theme.useToken();
@@ -53,7 +56,12 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   );
 
   return (
-    <EntityPreview entityId={id} label={label} showPopover={!!staNotationLabel}>
+    <EntityPreview
+      tooltipPlacement={tooltipPlacement}
+      entityId={id}
+      label={label}
+      showPopover={!!staNotationLabel}
+    >
       {staNotationLabel ? (
         <Link
           {...linkProps}

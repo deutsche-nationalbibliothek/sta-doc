@@ -1,35 +1,24 @@
+import { scrollToHeadline } from '@/utils/scroll-to-headline';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export const useInitialScroll = (shouldDoAnchorScrolling: boolean) => {
-  useInitialScrollToAnchor(shouldDoAnchorScrolling);
-  // useInitialScrollToTop();
-};
+export const useInitialScroll = (condition = true) => {
+  const { query, asPath } = useRouter();
 
-const useInitialScrollToAnchor = (shouldDo: boolean) => {
+  const asPathFragmentRegex = /(?<=#).*/;
+  const anchorId = asPath.match(asPathFragmentRegex);
+
   useEffect(() => {
-    const { hash } = window.location;
-    if (hash) {
-      if (shouldDo) {
-        try {
-          const element = document.querySelector(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        } catch (e) {
-          console.error(e);
-        }
+    if (condition) {
+      if (anchorId) {
+        scrollToHeadline(anchorId[0]);
+      } else {
+        document
+          .getElementById('main-scroll-container')
+          ?.scroll({ left: 0, top: 0, behavior: 'smooth' });
       }
     }
-  }, [shouldDo]);
-};
-
-const useInitialScrollToTop = () => {
-  const { hash } = window.location;
-  useEffect(() => {
-    if (!hash) {
-      document
-        .getElementById('main-scroll-container')
-        ?.scroll({ left: 0, top: 0, behavior: 'smooth' });
-    }
-  }, [hash]);
+    // anchorId is not a dep!
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.staNotationLabel, condition]);
 };

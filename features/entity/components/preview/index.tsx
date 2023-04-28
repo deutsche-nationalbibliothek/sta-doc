@@ -1,12 +1,14 @@
 import { Popover, Typography } from 'antd';
 import { FetchEntity } from '../utils/fetch';
 import { EntityPreviewContent } from './content';
+import type { TooltipPlacement } from 'antd/lib/tooltip';
 
 interface EntityPreviewProps {
   entityId: string;
   children: JSX.Element;
   label: string;
   showPopover?: boolean;
+  tooltipPlacement?: TooltipPlacement;
 }
 
 export const EntityPreview: React.FC<EntityPreviewProps> = ({
@@ -14,12 +16,14 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
   children,
   label,
   showPopover = true,
+  tooltipPlacement = 'right',
 }) => {
   return showPopover ? (
     <Popover
-      placement="bottomRight"
+      placement={tooltipPlacement}
       title={<Typography.Text strong>{label}</Typography.Text>}
       content={<PreviewFetcher entityId={entityId} />}
+      mouseEnterDelay={0.3}
       trigger="hover"
     >
       {children}

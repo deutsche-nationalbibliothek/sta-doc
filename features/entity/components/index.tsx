@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { NamespaceImage } from './namespace-image';
 import { EntityLink } from './preview/link';
 import { PageHeader } from '@/components/page-header';
-import { useEntity } from '@/hooks/entity-provider';
 import Head from 'next/head';
 
 interface EntityIndexProps {
@@ -17,15 +16,10 @@ interface EntityIndexProps {
 
 export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
   const { setNamespace } = useNamespace();
-  const { unloadEntity } = useEntity();
 
   useEffect(() => {
     setNamespace(namespace);
   }, [namespace, setNamespace]);
-
-  useEffect(() => {
-    unloadEntity(true);
-  }, [unloadEntity]);
 
   const columns: ColumnsTypes<EntityIndexModel> = [
     {
