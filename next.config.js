@@ -14,6 +14,7 @@ module.exports = async () => {
       basePath: '/doc',
       solrHost: 'solr',
       NEXT_PUBLIC_VERSION: await getVersion(),
+      staEditorEntityLink: 'https://sta.dnb.de/entity',
     },
     images: {
       domains: ['www.cilip.org.uk'],

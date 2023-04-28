@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useEntity } from '@/hooks/entity-provider';
 import {
+  EditOutlined,
   FullscreenExitOutlined,
   FullscreenOutlined,
   GithubOutlined,
+  LinkOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
@@ -147,16 +149,37 @@ export const Footer: React.FC = () => {
           })}
         >
           {entity?.staNotationLabel && (
-            <span
-              css={{
-                position: 'relative',
-                right: 0,
-                cursor: 'pointer',
-              }}
-              onClick={onClick.staNotation}
-            >
-              STA-Notation: {entity.staNotationLabel}
-            </span>
+            <>
+              <span
+                css={{
+                  position: 'relative',
+                  right: 0,
+                  cursor: 'pointer',
+                }}
+                onClick={onClick.staNotation}
+              >
+                <LinkOutlined />
+                {entity.staNotationLabel}
+              </span>
+              <span
+                css={{
+                  'padding-left': '5px',
+                }}
+              >
+                <ExternalLink
+                  css={{
+                    color: `${token.colorText} !important`,
+                  }}
+                  linkProps={{
+                    href: `${process.env.staEditorEntityLink ?? ''}/${
+                      entity?.id as string
+                    }`,
+                  }}
+                >
+                  <EditOutlined />
+                </ExternalLink>
+              </span>
+            </>
           )}
         </Col>
       </Row>

@@ -33,7 +33,9 @@ export const FetchedEntity = ({
       <Head>
         {!loading && (
           <title>
-            {entityEntry.entity.title ??
+            {entityEntry.entity.namespace ?? ''}
+            {entityEntry.entity.namespace ? ' | ' : ''}
+            {entityEntry.entity.label ??
               (entityEntry.entity.headline &&
                 entityEntry.entity.headline.title)}
           </title>
