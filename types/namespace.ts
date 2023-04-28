@@ -3,7 +3,7 @@ export enum Namespace {
   RDA = 'RDA',
   STA = 'STA',
   UC = 'Under Construction',
-  Q15 = 'Q15',
+  Q15 = 'datamodel-documentation',
 }
 
 export type NamespaceId = 'Q1' | 'Q15' | 'Q3113' | 'Q263' | 'Q8540';

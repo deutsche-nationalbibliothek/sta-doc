@@ -196,14 +196,24 @@ export function Table<T extends object>(props: TableProps<T>) {
           };
 
     return {
+      // sorter:
+      //   !noSort && 'dataIndex' in column // !('children' in columnProps)
+      //     ? (a: T, b: T) =>
+      //         column.dataIndex &&
+      //         a[String(column.dataIndex) as keyof typeof a] >
+      //           b[String(column.dataIndex) as keyof typeof b]
+      //           ? 1
+      //           : -1
+      //     : () => 1,
       sorter:
         !noSort && 'dataIndex' in column // !('children' in columnProps)
           ? (a: T, b: T) =>
               column.dataIndex &&
-              a[String(column.dataIndex) as keyof typeof a] >
-                b[String(column.dataIndex) as keyof typeof b]
-                ? 1
-                : -1
+              (
+                a[String(column.dataIndex) as keyof typeof a] as string
+              ).localeCompare(
+                b[String(column.dataIndex) as keyof typeof b] as string
+              )
           : () => 1,
       onFilter: (value: string, record: T) => {
         if ('dataIndex' in column && column.dataIndex) {

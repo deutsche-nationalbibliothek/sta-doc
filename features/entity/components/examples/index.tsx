@@ -6,6 +6,8 @@ import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
 import { Example, ExampleProps } from './example';
 import { Fragment } from 'react';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
+import { Item } from '@/types/item';
+import { Namespace } from '@/types/namespace';
 
 interface ExamplesProps {
   examples: Entity[];
@@ -26,11 +28,20 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
   const examplesHaveCodingValues = examples.some((example) =>
     example.statements.body.some((statement) => statement.codings)
   );
-  const examplesNamespace = examples
-    .find((example) =>
-      example.statements.body.find((statement) => statement.namespace)
-    )
-    ?.statements.body.find((statement) => statement.namespace)?.namespace;
+  const examplesPageType =
+    examples.find((example) => example.pageType?.id)?.pageType?.id || undefined;
+  const examplesNamespace =
+    (examplesPageType &&
+      (examplesPageType === Item['Example-GND-or-STA-documentation']
+        ? Namespace.GND
+        : examplesPageType === Item['Example-RDA-or-STA-documentation']
+        ? Namespace.RDA
+        : Namespace.STA)) ||
+    Namespace.STA;
+  // .find((example) =>
+  //   example.statements.body.find((statement) => statement.namespace)
+  // )
+  // ?.statements.body.find((statement) => statement.namespace)?.namespace;
 
   return (
     <NamespaceThemeConfigProvider namespace={examplesNamespace}>
