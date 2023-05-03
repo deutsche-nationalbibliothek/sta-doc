@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+`sta-doc` is built to make the specific documentation data from the [MediaWiki instance](https://sta.dnb.de/wiki/Hauptseite) available in a readable way.
 
-## Getting Started
+The MediaWiki instance is holding documentation data from two different sources:
 
-First, run the development server:
+- [GND](https://gnd.network/)
+  - is the largest collection of cultural and research authority data in the German-speaking countries
+- [RDA](http://www.rda-rsc.org/)
+  - a standard for descriptive cataloging, providing instructions and guidelines on formulating bibliographic data
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+In the context of this application `GND` and `RDA` are namespaces, which are having a specific highlight color for distinction.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The goal of this application is to have a unified user interface to read and search these documentation standards.
+For example, the dataset about 'Preferred name: person or family' in [MediaWiki](https://sta.dnb.de/wiki/Property:P58) and in [this Application](https://sta.dnb.de/doc/GND-DF-BENENNUNG-BEVORZUGT-PERSON-FAMILIE).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Overview
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The data is pre-fetched to compose it in a flexible way, while having no performance dependencies to MediaWiki in production.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Update data with `yarn data`
 
-## Learn More
+This code is for fetching, parsing and saving the static data. It runs in the context of `node` and gets relevant data from a pre-defined MediaWiki instance.
 
-To learn more about Next.js, take a look at the following resources:
+#### `yarn data:fetch`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The fetched data gets saved in `/data/raw/*.json`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### `yarn data:parse`
 
-## Deploy on Vercel
+Transforms all data from `/data/raw/*.json` and saves the result in `/data/parsed/*.json`. The most relevant data file is `/data/parsed/entities.json`, which is the last result of the composition, and it's meant to hold all relevant data for the client, pre-sorted and structured, ready for rendering.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### `yarn data:fetch:properties-items`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This creates two typescript files, each with an `enum`. For readable code references to Items / Properties.
+Be aware, this command may break the build process and `enum` member references may need to be adapted if the corresponding label has changed.
+
+### Running the application
+
+The application may be run in docker containers or on the host system. The application is configured to use the `basePath` of `/doc`.
+
+#### Developer Mode
+
+Start with `yarn install && yarn dev` or `yarn install && yarn docker:dev:build; yarn docker:dev:up && sh ./docker/index-solr-dev.sh`
+
+#### Production Mode
+
+Start with `yarn build && yarn start` or `yarn docker:build; yarn docker:up`
+
+For updating, restarting and Solr-Search indexing: `git pull --rebase && yarn docker:build && docker-compose down; yarn docker:up && sh ./docker/index-solr.sh`
+
+## Documentation
+
+- [React](https://react.dev/reference/react)
+- [Next JS](https://nextjs.org/docs)
+- [Apache Solr](https://solr.apache.org/guide/solr/latest/index.html)
+- [Ant Design](https://ant.design/components/overview/)
+- [Emotion](https://emotion.sh/docs/introduction)
+- [SWR](https://swr.vercel.app/docs/getting-started)
+- [Lodash](https://lodash.com/docs)
+- [react-use](https://github.com/streamich/react-use#--------------------react-use------------------)
+- [useQueryParams](https://github.com/pbeshai/use-query-params#usequeryparams)
+- [solr-client](https://lbdremy.github.io/solr-node-client/)
+- [slugify](https://github.com/simov/slugify#slugify)
+- [react-highlight-words](https://github.com/bvaughn/react-highlight-words#usage)
+- [copy-to-clipboard](https://github.com/sudodoki/copy-to-clipboard#copy-to-clipboard-)
