@@ -8,11 +8,12 @@ export const useSWR = <T>(
   const { fetchingQueryParamsString } = useFetchingQueryParams();
   const swr = useSWRLib<T>(
     url && [url, fetchingQueryParamsString],
-    (apiUrl: string) =>
-      fetch(
-        apiUrl +
+    (apiUrl: string[]) => {
+      return fetch(
+        apiUrl[0] +
           (ignoreFetchingQueryParamString ? '' : fetchingQueryParamsString)
-      ).then((res) => res.json()),
+      ).then((res) => res.json());
+    },
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
