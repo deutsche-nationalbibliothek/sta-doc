@@ -10,6 +10,8 @@ interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
   headline: Headline;
 }
 
+const maxLevel = 5;
+
 // prefix to deactivate default scroll to anchor: https://stackoverflow.com/a/67477942
 export const titleIdPrefix = 'title-';
 
@@ -17,8 +19,13 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   const { headline, children, ...otherProps } = props;
   const { level, title, key } = headline;
 
-  const localLevel = (level <= 5 ? level : 5) as 1 | 2 | 3 | 4 | 5;
-  const levelsTooHigh = level - 4;
+  const localLevel = (level <= maxLevel ? level : maxLevel) as
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5;
+  const levelsTooHigh = level - maxLevel;
   const style = levelsTooHigh > 0 ? { fontSize: 18 - levelsTooHigh } : {};
   const iconSize = 20 - level * 1.2;
 
