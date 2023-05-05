@@ -1,6 +1,5 @@
 import fields from '@/data/parsed/fields.json';
 import { Title } from '@/components/title';
-import { NamespaceImage } from '@/entity/components/namespace-image';
 import { useNamespace } from '@/hooks/use-namespace';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -15,7 +14,7 @@ export interface GndFieldsProps {
 }
 
 export default function GndFields({ fields }: GndFieldsProps) {
-  const { namespace, setNamespace } = useNamespace();
+  const { setNamespace } = useNamespace();
 
   useEffect(() => {
     setNamespace(Namespace.GND);
@@ -37,7 +36,6 @@ export default function GndFields({ fields }: GndFieldsProps) {
             }}
           />
         }
-        extra={namespace && <NamespaceImage />}
       />
       <GndFieldsTable fields={fields} />
     </>

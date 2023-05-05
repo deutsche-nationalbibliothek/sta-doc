@@ -1,7 +1,6 @@
 import { ColumnsTypes, Table } from '@/components/table';
 import { Title } from '@/components/title';
 import rdaProperties from '@/data/parsed/rda-properties.json';
-import { NamespaceImage } from '@/entity/components/namespace-image';
 import { EntityLink } from '@/entity/components/preview/link';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
@@ -21,7 +20,7 @@ interface RdaPropertiesProps {
 export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
-  const { namespace, setNamespace } = useNamespace();
+  const { setNamespace } = useNamespace();
 
   useEffect(() => {
     setNamespace(Namespace.RDA);
@@ -85,7 +84,6 @@ export default function RdaPropertiesPage({
             }}
           />
         }
-        extra={namespace && <NamespaceImage />}
       />
       <Table<RdaProperty>
         columns={columns}

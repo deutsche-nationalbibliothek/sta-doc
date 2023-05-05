@@ -1,14 +1,11 @@
 import { Title } from '@/components/title';
-import { Namespace } from '@/types/namespace';
 import { Entity } from '@/types/parsed/entity';
 import { Switch, Typography } from 'antd';
 import React from 'react';
-import { NamespaceImage } from './namespace-image';
 import { PageHeader } from '@/components/page-header';
 
 interface EntityPageHeaderProps {
   entity: Entity;
-  namespace?: Namespace;
   showSwitchApplicationProfile: boolean;
   view: {
     get: string;
@@ -18,7 +15,6 @@ interface EntityPageHeaderProps {
 
 export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
   entity,
-  namespace,
   showSwitchApplicationProfile,
   view,
 }) => {
@@ -30,7 +26,6 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
       extra={
         <>
           <div css={{ textAlign: 'center' }}>
-            {namespace && <NamespaceImage />}
             {showSwitchApplicationProfile && (
               <span className="no-print">
                 <br />
@@ -52,7 +47,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
             )}
             {entity.staNotationLabel && (
               <>
-                <Typography.Paragraph css={{ textAlign: 'center' }}>
+                <Typography.Paragraph css={{ marginBottom: 0 }}>
                   <Typography.Text strong>STA-Notation:</Typography.Text>
                   <br />
                   <Typography.Text>{entity.staNotationLabel}</Typography.Text>

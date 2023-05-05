@@ -62,7 +62,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
         {!embedded && (
           <EntityPageHeader
             entity={entity}
-            namespace={namespace}
             showSwitchApplicationProfile={showSwitchApplicationProfile}
             view={{ get: view, set: setViewAndSetShowHeadlines }}
           />
