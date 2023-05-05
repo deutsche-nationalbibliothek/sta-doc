@@ -85,8 +85,6 @@ export const getStaticProps: GetStaticProps<
   let isUnderConstruction: boolean | undefined;
   let staNotationLabel: string | undefined;
 
-  console.log(context.params);
-
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
 

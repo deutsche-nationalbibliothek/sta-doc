@@ -43,9 +43,7 @@ Start with `yarn install && yarn dev` or `yarn install && yarn docker:dev:build;
 
 #### Production Mode
 
-Start with `yarn build && yarn start` or `yarn docker:build; yarn docker:up`
-
-For updating, restarting and Solr-Search indexing: `git pull --rebase && yarn docker:build && docker-compose down; yarn docker:up && sh ./docker/index-solr.sh`
+Start with `yarn build && yarn start` or `yarn docker:build; yarn docker:up && sh ./docker/index-solr.sh`
 
 ## Documentation
 
