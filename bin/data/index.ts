@@ -73,11 +73,13 @@ export const DEV = false;
           parseRawAndWriteParsed();
         }
         break;
-      case 'fetch-properties-items':
+      case 'fetch:properties-items':
         propertiesItemsListWriter(
           propertyItemListParser(await fetcher(API_URL.prod).propertyItemList())
         );
         break;
+      default:
+        console.warn('No matched subcommand');
     }
   }
 })();

@@ -349,29 +349,29 @@ export const propertyItemList = (
         uniqBy(data, (x) => x.eId.value),
         (x) => Number(x.eId.value.match(/\d+/))
       )
-        .map((b) => {
+        .map((enumMemberRaw) => {
           // return `\t'${'xml:lang' in b.elementLabel ? slugify(b.elementLabel.value.replace('\'', '')) : b.eId.value}' = '${b.eId.value}',`;
           return {
             label:
-              'xml:lang' in b.elementLabel
-                ? slugify(b.elementLabel.value.replace("'", ''))
-                : b.eId.value,
-            value: b.eId.value,
+              'xml:lang' in enumMemberRaw.elementLabel
+                ? slugify(enumMemberRaw.elementLabel.value.replace("'", ''))
+                : enumMemberRaw.eId.value,
+            value: enumMemberRaw.eId.value,
           };
         })
-        .map((b, index, arr) => {
-          const withSameLabel = arr
-            .map((b, index) => ({ ...b, index }))
-            .filter((ib) => ib.label === b.label);
+        .map((enumMemberRaw, _, arr) => {
+          const withSameLabel = arr.filter(
+            (ib) => ib.label === enumMemberRaw.label
+          );
 
           if (withSameLabel.length > 1) {
             return `  '${slugify(
-              `${b.label}-${
-                withSameLabel.find((ib) => ib.index === index)?.index || ''
+              `${enumMemberRaw.label}-${
+                withSameLabel.findIndex((ib) => ib === enumMemberRaw) || ''
               }`.replace("'", '')
-            )}' = '${b.value}',`;
+            )}' = '${enumMemberRaw.value}',`;
           } else {
-            return `  '${b.label}' = '${b.value}',`;
+            return `  '${enumMemberRaw.label}' = '${enumMemberRaw.value}',`;
           }
         })
         .join('\n'),

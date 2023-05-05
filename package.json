@@ -11,7 +11,7 @@
     "data:debug": "NODE_OPTIONS='--inspect' ts-node bin/data",
     "data:fetch": "ts-node bin/data fetch",
     "data:parse": "ts-node bin/data parse",
-    "data:fetch:properties-items": "ts-node bin/data fetch-properties-items",
+    "data:fetch:properties-items": "ts-node bin/data fetch:properties-items",
     "split-entities": "./bin/split-entities-solr.sh",
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
     "docker:build": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",

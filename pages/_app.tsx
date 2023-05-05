@@ -37,6 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
                               <GlobalDynamicStyles>
                                 <EntityProvider>
                                   <Layout>
+                                    {/* @ts-expect-error, https://github.com/vercel/next.js/issues/43537#issuecomment-1331054397 */}
                                     <Component {...pageProps} />
                                   </Layout>
                                 </EntityProvider>
