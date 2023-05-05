@@ -6,8 +6,7 @@ import {
 } from '@/types/parsed/entity';
 import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
-import { RightOutlined } from '@ant-design/icons';
-import { Divider, Typography } from 'antd';
+import { Typography } from 'antd';
 import { GndSubFieldTable } from '@/features/gnd/subfield-table';
 import { compact } from 'lodash';
 import React from 'react';
@@ -15,6 +14,7 @@ import { Qualifiers } from '../qualifiers';
 import { StringValueComponent } from '../values/string';
 import { WikibasePointers } from '../wikibase-pointers';
 import { Item } from '@/types/item';
+import { ExpandToggle } from '@/components/expand-toggle';
 
 interface TableStatementsProps {
   statements: Statement[];
@@ -99,19 +99,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
             {values.stringValues &&
               values.stringValues.map((stringStatement, index) => {
                 return (
-                  <Typography.Paragraph
-                    key={index}
-                    ellipsis={{
-                      rows: 6,
-                      expandable: true,
-                      symbol: (
-                        <Divider>
-                          <RightOutlined className="expandable-cell" />
-                        </Divider>
-                      ),
-                      suffix: '',
-                    }}
-                  >
+                  <ExpandToggle key={index}>
                     {stringStatement.map((stringValue, index) => {
                       const isRecordingMethod =
                         stringValue.property === Property['Recording-method'];
@@ -199,7 +187,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                         </Typography.Paragraph>
                       );
                     })}
-                  </Typography.Paragraph>
+                  </ExpandToggle>
                 );
               })}
           </>
