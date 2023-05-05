@@ -10,16 +10,24 @@ interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
   headline: Headline;
 }
 
+const maxLevel = 5;
+
 // prefix to deactivate default scroll to anchor: https://stackoverflow.com/a/67477942
 export const titleIdPrefix = 'title-';
 
 export const Title: React.FC<LocalTitleProps> = (props) => {
-  const { headline, children, ...otherProps } = props;
+  const { headline, children, ...otherTitleProps } = props;
   const { level, title, key } = headline;
 
-  const localLevel = (level <= 5 ? level : 5) as 1 | 2 | 3 | 4 | 5;
-  const levelsTooHigh = level - 4;
-  const style = levelsTooHigh > 0 ? { fontSize: 18 - levelsTooHigh } : {};
+  const localLevel = (level <= maxLevel ? level : maxLevel) as
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5;
+  const levelsTooHigh = level - maxLevel;
+  const style =
+    levelsTooHigh > 0 ? { fontSize: `${18 - levelsTooHigh}px !important` } : {};
   const iconSize = 20 - level * 1.2;
 
   return (
@@ -28,36 +36,36 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
         useHover((hovered) => (
           <div
             css={{
-              marginBottom: '0.5em',
-              marginLeft: -30,
-
+              position: 'relative',
               '@media print': {
                 marginLeft: 0,
               },
             }}
           >
+            <Typography.Title
+              data-actual-level={level}
+              css={{
+                ...style,
+                display: 'inline-block',
+                marginBottom: '0px !important',
+              }}
+              id={`${titleIdPrefix}${key}`}
+              level={localLevel}
+              {...otherTitleProps}
+            >
+              {children ?? <QueryHighlighter textToHighlight={title} />}
+            </Typography.Title>
             <CopyHeadlineAnchorLink
-              style={{
-                position: 'relative',
-                padding: `0px 0px 5px 15px`,
+              css={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                margin: 'auto',
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
                 fontSize: iconSize,
               }}
               anchor={key}
             />
-            <Typography.Title
-              data-actual-level={level}
-              style={{
-                ...style,
-                display: 'inline-block',
-                marginBottom: 0,
-              }}
-              id={`${titleIdPrefix}${key}`}
-              level={localLevel}
-              {...otherProps}
-            >
-              {children ?? <QueryHighlighter textToHighlight={title} />}
-            </Typography.Title>
           </div>
         ))[0]
       }

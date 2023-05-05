@@ -4,7 +4,6 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { EntityIndex as EntityIndexModel } from '@/types/parsed/entity-index';
 import { Namespace } from '@/types/namespace';
 import { useEffect } from 'react';
-import { NamespaceImage } from './namespace-image';
 import { EntityLink } from './preview/link';
 import { PageHeader } from '@/components/page-header';
 import Head from 'next/head';
@@ -73,7 +72,6 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
             }}
           />
         }
-        extra={namespace && <NamespaceImage />}
       />
       <Table
         columns={columns}

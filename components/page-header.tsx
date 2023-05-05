@@ -7,11 +7,17 @@ interface PageHeaderProps {
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {
   return (
-    <Row css={{ paddingTop: 5 }} align="middle">
-      <Col flex="6 0" css={{ maxWidth: '100%', flexGrow: 4 }}>
-        {title ?? ''}
-      </Col>
-      <Col flex="1 6" css={{ flexGrow: 1 }}>
+    <Row
+      css={{
+        display: 'flex',
+        paddingTop: 5,
+        alignItems: 'stretch',
+        flexWrap: 'nowrap',
+      }}
+      align="middle"
+    >
+      <Col flex="6 0 ">{title ?? ''}</Col>
+      <Col flex="1 0 " style={{ paddingTop: '0.4em', paddingLeft: '1em' }}>
         {' '}
         {extra}
       </Col>

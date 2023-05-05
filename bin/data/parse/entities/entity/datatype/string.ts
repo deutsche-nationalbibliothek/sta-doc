@@ -45,6 +45,7 @@ export const parseStringValue = ({
     Item['First-order-subheading-(type-of-layout)'],
     Item['Second-order-subheading-(type-of-layout)'],
     Item['Third-order-subheading-(type-of-layout)'],
+    Item['Fourth-order-subheading-(type-of-layout)'],
   ];
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);

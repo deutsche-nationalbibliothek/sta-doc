@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
                   color: `${token.colorText} !important`,
                 }}
                 linkProps={{
-                  href: `https://github.com/tbauer2811/gnd-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
+                  href: `https://github.com/deutsche-nationalbibliothek/sta-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
                 }}
               >
                 <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>

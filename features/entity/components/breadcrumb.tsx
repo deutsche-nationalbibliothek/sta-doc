@@ -3,6 +3,7 @@ import { useEntity } from '@/hooks/entity-provider';
 import { useHeadlines } from '@/hooks/headlines';
 import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
+import namespaceConfig from 'config/namespace';
 import { compact, truncate } from 'lodash';
 import { Fragment } from 'react';
 
@@ -11,13 +12,24 @@ export const Breadcrumb: React.FC = () => {
   const { token } = theme.useToken();
   const { entity } = useEntity();
 
+  const stripNamespace = (entityTitle: string) => {
+    const relevantNamespace = namespaceConfig.primaryNamespaces.find(
+      (primaryNamespace) => entityTitle.includes(primaryNamespace)
+    );
+    return relevantNamespace
+      ? entityTitle.replace(`${relevantNamespace}-`, '')
+      : entityTitle;
+  };
+
   const entityDetails = entity
-    ? compact([entity.namespace, entity.title, entity.label]).map(
-        (entityLabel) => ({
-          title: entityLabel,
-          namespace: entity.namespace,
-        })
-      )
+    ? compact([
+        entity.namespace,
+        entity.title ? stripNamespace(entity.title) : undefined,
+        entity.label,
+      ]).map((entityLabel) => ({
+        title: entityLabel,
+        namespace: entity.namespace,
+      }))
     : [];
 
   const breadcrumbItems: {
