@@ -3,6 +3,7 @@ import { Entity } from '@/types/parsed/entity';
 import { Switch, Typography } from 'antd';
 import React from 'react';
 import { PageHeader } from '@/components/page-header';
+import { useHeadlines } from '@/hooks/headlines';
 
 interface EntityPageHeaderProps {
   entity: Entity;
@@ -19,6 +20,7 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
   view,
 }) => {
   const isApplicationProfileView = view.get === 'application-profile';
+  const { setShowHeadlines } = useHeadlines();
 
   return (
     <PageHeader
@@ -32,13 +34,13 @@ export const EntityPageHeader: React.FC<EntityPageHeaderProps> = ({
                 <Switch
                   title="Anwendungsprofil"
                   checked={isApplicationProfileView}
-                  onChange={() =>
-                    view.set(
-                      isApplicationProfileView
-                        ? undefined
-                        : 'application-profile'
-                    )
-                  }
+                  onChange={() => {
+                    const nextViewParam = isApplicationProfileView
+                      ? undefined
+                      : 'application-profile';
+                    view.set(nextViewParam);
+                    setShowHeadlines(!nextViewParam);
+                  }}
                 />
                 <Typography.Text strong={isApplicationProfileView}>
                   Anwendungsprofil

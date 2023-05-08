@@ -1,4 +1,3 @@
-import { useNamespace } from '@/hooks/use-namespace';
 import React, { memo } from 'react';
 import { Statements } from './statements';
 import { TableStatements } from './statements/table';
@@ -8,7 +7,6 @@ import { Item } from '@/types/item';
 import { RdaRessourceTypeEntity } from './rda-ressource-type';
 import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
-import { useHeadlines } from '@/hooks/headlines';
 import { useRouter } from '@/lib/next-use-router';
 
 interface EntityDetailsProps {
@@ -18,9 +16,7 @@ interface EntityDetailsProps {
 
 export const EntityDetails: React.FC<EntityDetailsProps> = memo(
   ({ entity, embedded = false }) => {
-    const { setShowHeadlines } = useHeadlines();
     const router = useRouter();
-    const { namespace } = useNamespace();
 
     const [view, setView] = useQueryParam<
       string | undefined,
@@ -35,7 +31,6 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
           .catch((e) => console.error(e));
       }
       setView(nextViewParam);
-      setShowHeadlines(!nextViewParam);
     };
 
     const wemiStatement = entity.statements.body.find(
