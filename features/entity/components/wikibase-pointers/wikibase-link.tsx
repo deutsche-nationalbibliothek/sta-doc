@@ -24,8 +24,7 @@ export const WikibaseLink = ({
         <NamespaceThemeConfigProvider namespace={wikibasePointer.namespace}>
           <EntityLink {...wikibasePointer}>
             <>
-              <ArrowRightOutlined />
-              {wikibasePointer.label}
+              <ArrowRightOutlined /> {wikibasePointer.label}
             </>
           </EntityLink>
         </NamespaceThemeConfigProvider>
