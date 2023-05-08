@@ -1,6 +1,11 @@
 import { Title } from '@/components/title';
 import { useHeadlines } from '@/hooks/headlines';
-import { Entity, Statement, WikibasePointerValue } from '@/types/parsed/entity';
+import {
+  Entity,
+  Statement,
+  StatementValue,
+  WikibasePointerValue,
+} from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { compact } from 'lodash';
 import React, { useEffect } from 'react';
@@ -8,6 +13,7 @@ import { ApplicationProfile } from './application-profile';
 import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
 import { Statements } from './statements';
+import { propFinder } from '@/utils/prop-finder';
 
 interface RdaRessourceTypeEntityProps {
   entity: Entity;
@@ -29,21 +35,21 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
     setShowHeadlines(!isApplicationProfileView);
   }, [isApplicationProfileView, setShowHeadlines]);
 
-  const propFinder = (
+  const propFinderLocal = (
     property: Property,
     statements = entity.statements.body
-  ) => statements.find((statement) => statement.property === property);
+  ) => propFinder<StatementValue>(property, statements);
 
   const relevantStatements = {
-    definition: propFinder(Property.definition, entity.statements.header),
-    common: propFinder(Property['P659']),
-    staDefinition: propFinder(Property['P665']),
-    sourcesOfInformation: propFinder(Property['Sources-of-information']),
-    description: propFinder(Property['description']),
-    wemi: propFinder(Property['WEMI-level']),
-    relationsActor: propFinder(Property['P657']),
-    relationsRessource: propFinder(Property['P658']),
-    descriptionAtTheEnd: propFinder(Property['description-(at-the-end)']),
+    definition: propFinderLocal(Property.definition, entity.statements.header),
+    common: propFinderLocal(Property['P659']),
+    staDefinition: propFinderLocal(Property['P665']),
+    sourcesOfInformation: propFinderLocal(Property['Sources-of-information']),
+    description: propFinderLocal(Property['description']),
+    wemi: propFinderLocal(Property['WEMI-level']),
+    relationsActor: propFinderLocal(Property['P657']),
+    relationsRessource: propFinderLocal(Property['P658']),
+    descriptionAtTheEnd: propFinderLocal(Property['description-(at-the-end)']),
   };
 
   if (relevantStatements.wemi && isApplicationProfileView) {

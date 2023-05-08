@@ -1,7 +1,7 @@
 import { Link } from '@/lib/next-link';
 
 interface ExternalLinkProps {
-  children: JSX.Element;
+  children: JSX.Element | string;
   className?: string;
   linkProps: Omit<Parameters<typeof Link>[0], 'children'>;
 }

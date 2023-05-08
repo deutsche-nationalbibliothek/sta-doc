@@ -59,7 +59,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       width: '10%',
       dataIndex: 'repeatable',
       noSort: true,
-      key: 'label',
+      key: 'repeatable',
       render: (_data, record) => {
         return record.repeatable ? 'Ja' : 'Nein';
       },

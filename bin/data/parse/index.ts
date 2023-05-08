@@ -367,7 +367,7 @@ export const propertyItemList = (
           if (withSameLabel.length > 1) {
             return `  '${slugify(
               `${enumMemberRaw.label}-${
-                withSameLabel.findIndex((ib) => ib === enumMemberRaw) || ''
+                withSameLabel.findIndex((ib) => ib === enumMemberRaw) ?? ''
               }`.replace("'", '')
             )}' = '${enumMemberRaw.value}',`;
           } else {

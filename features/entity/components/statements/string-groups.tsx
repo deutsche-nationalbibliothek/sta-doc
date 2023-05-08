@@ -191,7 +191,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       );
     },
-    [Item['English-1']]: (stringValueContainer: StringGroup) => (
+    [Item['English-0']]: (stringValueContainer: StringGroup) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>

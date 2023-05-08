@@ -1,48 +1,54 @@
 import { Reference } from '@/types/parsed/entity';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Card, Popover, Typography, theme } from 'antd';
-import React, { Fragment } from 'react';
-import { UrlStatements } from '../statements/url';
-import { GenericStringValueMapper } from '../utils/string-value-mapper';
+import { Card, Popover, Tooltip, Typography, theme } from 'antd';
+import React from 'react';
+import { Property } from '@/types/property';
+import { ExternalLink } from '@/components/external-link';
+import { CopyHeadlineAnchorLink } from '@/components/copy-headline-anchor-link';
 
 interface ReferencesProps {
   references: Reference[];
 }
+
 export const References: React.FC<ReferencesProps> = ({ references }) => {
-  // todo, data structure not ideal
-  const groupedReferences = references.reduce((acc, val, index) => {
-    index % 2 === 0 ? acc.push([val]) : acc[acc.length - 1].push(val);
-    return acc;
-  }, [] as Reference[][]);
   const { token } = theme.useToken();
+
   return (
     <>
       <Popover
-        content={groupedReferences.map((references, index) => (
-          <Card key={index}>
-            {references.map((reference, index2) => (
-              <Fragment key={index2}>
-                {reference.stringGroup &&
-                  reference.stringGroup.map((stringValueContainer, index3) => (
-                    <Typography.Paragraph
-                      key={index3}
-                      // style={{ marginBottom: 0 }}
-                    >
-                      <GenericStringValueMapper
-                        stringValueContainer={stringValueContainer}
-                      >
-                        {(stringValue) => <>{stringValue.value}</>}
-                      </GenericStringValueMapper>
+        content={references.map((reference, index) => {
+          const url = reference[Property.URL] || reference[Property.URI];
+          const linkElement = url && (
+            <>
+              <ExternalLink linkProps={{ href: url }}>
+                {reference[Property.description] ?? url}
+              </ExternalLink>{' '}
+              <CopyHeadlineAnchorLink url={url} />
+            </>
+          );
+          return (
+            url && (
+              <Card key={index}>
+                <Typography.Paragraph>
+                  {reference[Property.description] ? (
+                    <Tooltip title={url}>{linkElement}</Tooltip>
+                  ) : (
+                    linkElement
+                  )}
+                  {reference[Property['description-(at-the-end)']] && (
+                    <Typography.Paragraph>
+                      {reference[Property['description-(at-the-end)']]}
                     </Typography.Paragraph>
-                  ))}
-                {reference.urls && <UrlStatements urls={reference.urls} />}
-              </Fragment>
-            ))}
-          </Card>
-        ))}
+                  )}
+                </Typography.Paragraph>
+              </Card>
+            )
+          );
+        })}
         // open // <- good for debugging
         trigger="hover"
       >
+        <Typography.Text strong>Siehe </Typography.Text>
         <QuestionCircleOutlined
           css={{
             color: token.colorPrimaryActive,
