@@ -4,7 +4,7 @@ import { Title } from '@/components/title';
 import { Item } from '@/types/item';
 import { StringGroup, StringValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Card, Typography } from 'antd';
+import { Card, Divider, Typography, theme } from 'antd';
 import React, { Fragment } from 'react';
 import { StringValueExamples } from '../examples/string-value-examples';
 import { GenericStringValueMapper } from '../utils/string-value-mapper';
@@ -21,6 +21,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
+  const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
@@ -146,12 +147,22 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                 stringValueContainer={stringValueContainer}
               >
                 {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-                {(stringValue, _qualifiers, _references) => (
-                  <StringValueExamples
-                    stringValue={stringValue}
-                    // qualifiers={qualifiers}
-                    // references={references}
-                  />
+                {(stringValue, _qualifiers, _references, index) => (
+                  <>
+                    <StringValueExamples
+                      stringValue={stringValue}
+                      // qualifiers={qualifiers}
+                      // references={references}
+                    />
+                    {index !== stringValueContainer.values.length - 1 && (
+                      <Divider
+                        css={{
+                          borderBlockStart: `1px solid ${token.colorPrimaryBorder}`,
+                          margin: '8px 0 16px 0',
+                        }}
+                      />
+                    )}
+                  </>
                 )}
               </GenericStringValueMapper>
             </Card>
@@ -191,7 +202,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         </GenericStringValueMapper>
       );
     },
-    [Item['English-122']]: (stringValueContainer: StringGroup) => (
+    [Item['English-0']]: (stringValueContainer: StringGroup) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
         {(stringValue, qualifiers, references) => (
           <Typography.Paragraph key={stringValue.value}>

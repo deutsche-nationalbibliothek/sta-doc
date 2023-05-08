@@ -8,6 +8,9 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
     <>
       <Global
         styles={{
+          '.ant-typography ul': {
+            listStyleType: 'initial',
+          },
           '.ant-typography a': {
             color: 'var(--link-color)',
             '.ant-breadcrumb-separator': {

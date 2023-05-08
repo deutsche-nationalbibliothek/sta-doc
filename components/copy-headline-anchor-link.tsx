@@ -1,18 +1,21 @@
 import { useRouter } from '@/lib/next-use-router';
-import { CopyOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import copy from 'copy-to-clipboard';
 import { PropsWithStyle } from 'index';
 import React from 'react';
 
+// pass either anchor or url
 interface CopyIconProps extends PropsWithStyle {
-  anchor: string;
+  anchor?: string;
+  url?: string;
   className?: string;
 }
 
 export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   className,
   anchor,
+  url,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const { asPath } = useRouter();
@@ -20,14 +23,19 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   const asPathWithoutFragmentRegex = /.*(?=#.*)|.*/;
   const pathMatch = asPath.match(asPathWithoutFragmentRegex) ?? [''];
 
+  const relevantUrl =
+    url ??
+    (anchor &&
+      `${window.location.origin}${process.env.basePath ?? ''}${
+        pathMatch[0]
+      }#${anchor}`);
+
+  if (!relevantUrl) {
+    return null;
+  }
+
   const onCopy = () => {
-    const hasCopied =
-      pathMatch &&
-      copy(
-        `${window.location.origin}${process.env.basePath ?? ''}${
-          pathMatch[0]
-        }#${anchor}`
-      );
+    const hasCopied = pathMatch && copy(relevantUrl);
     const messageProps: { content: string; type: 'success' | 'error' } =
       hasCopied
         ? {
@@ -46,7 +54,8 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   return (
     <>
       {contextHolder}
-      <CopyOutlined
+      <LinkOutlined
+        css={{ color: 'gray' }}
         className={`${className ? className : ''} no-print`}
         onClick={onCopy}
       />

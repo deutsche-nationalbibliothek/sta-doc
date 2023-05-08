@@ -1,24 +1,52 @@
-import { Reference, StatementRaw } from '../../../../../../types/raw/entity';
-import { parseStatements, ParseStatementsProps } from '../statements';
+import { Reference } from '../../../../../../types/parsed/entity';
+import { Property } from '../../../../../../types/property';
+import { ReferenceRaw, StatementRaw } from '../../../../../../types/raw/entity';
+import { ParseStatementsProps } from '../statements';
 
 interface ParseReferencesProps extends Required<ParseStatementsProps> {
-  references: Reference[];
+  references: ReferenceRaw[];
 }
+
+const relevantReferenceProperties = [
+  Property.URI,
+  Property.URL,
+  Property.description,
+  Property['description-(at-the-end)'],
+];
 
 export const parseReferences = (props: ParseReferencesProps) => {
   const { references } = props;
-  const statements = references
-    .map((ref) =>
-      Object.keys(ref.snaks).map(
-        (refKey) => ref.snaks[refKey as keyof typeof ref.snaks]
-      )
-    )
-    .flat() as StatementRaw[][];
 
-  return parseStatements({
-    ...props,
-    statements,
-    embedded: true,
-    noHeadline: true,
+  return references.map((reference) => {
+    const propFinder = (property: Property): StatementRaw | undefined => {
+      if (reference.snaks[property] && reference.snaks[property].length > 0) {
+        if (reference.snaks[property].length > 1) {
+          console.warn(
+            '\t\t\t\tWarning, reference parser has found unexpected dataset',
+            reference.snaks[property]
+          );
+        }
+        return reference.snaks[property][0];
+      }
+    };
+
+    references.forEach((reference) =>
+      Object.keys(reference.snaks).forEach(
+        (presentProperty) =>
+          !relevantReferenceProperties.includes(presentProperty as Property) &&
+          console.warn(
+            '\t\t\t\tWarning, reference parser has found unexpected property',
+            presentProperty
+          )
+      )
+    );
+
+    return relevantReferenceProperties.reduce(
+      (acc, property) => ({
+        ...acc,
+        [property]: propFinder(property)?.datavalue?.value,
+      }),
+      {} as Reference
+    );
   });
 };

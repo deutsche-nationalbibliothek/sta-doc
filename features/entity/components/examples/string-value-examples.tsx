@@ -1,5 +1,5 @@
 import { StringValue } from '@/types/parsed/entity';
-import { Card, theme } from 'antd';
+import { Card } from 'antd';
 import { StringValueComponent } from '../values/string';
 
 interface StringValueExamplesProps {
@@ -13,14 +13,12 @@ export const StringValueExamples: React.FC<StringValueExamplesProps> = ({
   // references,
   // qualifiers,
 }) => {
-  const { token } = theme.useToken();
   return (
     <>
       <Card
         css={{
-          borderLeft: `3px solid ${token.colorPrimaryBorder}`,
           margin: '1em 0 1em 0',
-          backgroundColor: 'var(--light-gray)',
+          border: 'none',
           transform: 'translateX(0)',
         }}
       >

@@ -39,7 +39,7 @@ export interface Claim {
   rank: string;
   qualifiers?: Record<Property, StatementRaw[]>;
   'qualifiers-order'?: string[];
-  references?: Reference[];
+  references?: ReferenceRaw[];
   parentProperty?: Property;
 }
 
@@ -70,9 +70,9 @@ interface Datavalue {
   type: string;
 }
 
-export interface Reference {
+export interface ReferenceRaw {
   hash: string;
-  snaks: StatementRaw[][];
+  snaks: Record<Property, StatementRaw[]>;
   'snaks-order': string[];
 }
 

@@ -92,9 +92,14 @@ export interface NoValue {
 }
 
 export interface Reference {
-  label?: string;
-  stringGroup?: StringGroup[];
-  urls?: UrlValue[];
+  // data should have eithter Property.URL or Property.URI
+  [Property.URL]: string;
+  [Property.URI]: string;
+  [Property.description]: string;
+  // with Property['description-(at-the-end)']:
+  //  typescript: A computed property name in an interface must refer to
+  //  an expression whose type is a literal type or a 'unique symbol' type.
+  ['P642']: string;
 }
 
 export interface TimeValue extends CommonValue {
