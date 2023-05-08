@@ -19,7 +19,12 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
 
   const labelReactElement = (
     <>
-      {label} <MenuUnfoldOutlined />
+      <Typography.Paragraph strong>
+        {label}{' '}
+        <MenuUnfoldOutlined
+          style={{ color: 'var(--link-color)', fontSize: 'large' }}
+        />
+      </Typography.Paragraph>
     </>
   );
 

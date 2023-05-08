@@ -1,6 +1,6 @@
 import { Reference } from '@/types/parsed/entity';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Card, Popover, Tooltip, Typography, theme } from 'antd';
+import { Card, Divider, Popover, Tooltip, Typography, theme } from 'antd';
 import React from 'react';
 import { Property } from '@/types/property';
 import { ExternalLink } from '@/components/external-link';
@@ -28,20 +28,36 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
           );
           return (
             url && (
-              <Card key={index}>
-                <Typography.Paragraph>
-                  {reference[Property.description] ? (
-                    <Tooltip title={url}>{linkElement}</Tooltip>
-                  ) : (
-                    linkElement
-                  )}
-                  {reference[Property['description-(at-the-end)']] && (
-                    <Typography.Paragraph>
-                      {reference[Property['description-(at-the-end)']]}
-                    </Typography.Paragraph>
-                  )}
-                </Typography.Paragraph>
-              </Card>
+              <>
+                <Card
+                  css={{
+                    border: 'none',
+                    '& > .ant-card-body': { padding: '1em' },
+                  }}
+                  key={index}
+                >
+                  <Typography.Paragraph>
+                    {reference[Property.description] ? (
+                      <Tooltip title={url}>{linkElement}</Tooltip>
+                    ) : (
+                      linkElement
+                    )}
+                    {reference[Property['description-(at-the-end)']] && (
+                      <Typography.Paragraph>
+                        {reference[Property['description-(at-the-end)']]}
+                      </Typography.Paragraph>
+                    )}
+                  </Typography.Paragraph>
+                </Card>
+                {index !== references.length - 1 && (
+                  <Divider
+                    css={{
+                      borderBlockStart: `1px solid ${token.colorPrimaryBorder}`,
+                      margin: 0,
+                    }}
+                  />
+                )}
+              </>
             )
           );
         })}
