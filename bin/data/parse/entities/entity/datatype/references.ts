@@ -1,3 +1,4 @@
+import { Reference } from '../../../../../../types/parsed/entity';
 import { Property } from '../../../../../../types/property';
 import { ReferenceRaw, StatementRaw } from '../../../../../../types/raw/entity';
 import { ParseStatementsProps } from '../statements';
@@ -45,7 +46,7 @@ export const parseReferences = (props: ParseReferencesProps) => {
         ...acc,
         [property]: propFinder(property)?.datavalue?.value,
       }),
-      {}
+      {} as Reference
     );
   });
 };
