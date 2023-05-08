@@ -1,5 +1,5 @@
 import { useRouter } from '@/lib/next-use-router';
-import { CopyOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import copy from 'copy-to-clipboard';
 import { PropsWithStyle } from 'index';
@@ -54,7 +54,8 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   return (
     <>
       {contextHolder}
-      <CopyOutlined
+      <LinkOutlined
+        css={{ color: 'gray' }}
         className={`${className ? className : ''} no-print`}
         onClick={onCopy}
       />
