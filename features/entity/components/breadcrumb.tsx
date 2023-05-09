@@ -55,6 +55,7 @@ export const Breadcrumb: React.FC = () => {
             ? 'var(--breadcrumb-mobile-height)'
             : 'var(--breadcrumb-height)',
           padding: '0 1% 0 1%',
+          marginRight: isSmallScreen ? 42 : undefined,
         }}
         separator=""
       >

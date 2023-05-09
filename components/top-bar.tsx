@@ -13,7 +13,7 @@ import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
 import { HomeOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 export const TopBar: React.FC = () => {
@@ -25,10 +25,6 @@ export const TopBar: React.FC = () => {
   const { token } = theme.useToken();
 
   const isSmallScreen = useIsSmallScreen();
-
-  useEffect(() => {
-    console.log({ isSmallScreen });
-  }, [isSmallScreen]);
 
   const menuColorStyles: CSSObject = useMemo(
     () => ({
@@ -80,7 +76,7 @@ export const TopBar: React.FC = () => {
                   flexGrow: '1 !important',
                   display: 'flex !important',
                   justifyContent: 'space-around',
-                  width: isSmallScreen ? 90 : 120,
+                  width: isSmallScreen ? 64 : 120,
                 },
                 ...menuColorStyles,
               }}

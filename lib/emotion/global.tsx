@@ -10,9 +10,6 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
     <>
       <Global
         styles={{
-          ':root': {
-            overflow: isMobile ? 'hidden' : undefined,
-          },
           '.ant-layout-header': {
             paddingInline: isMobile ? 'inherit' : undefined,
           },

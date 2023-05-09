@@ -4,6 +4,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import { TableOfContent } from '@/features/entity/components/table-of-content';
 import { layoutContentHeight } from './layout';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import layoutSizes from 'config/layout-sizes';
 
 export const SidebarSmallScreen: React.FC = () => {
   const { headlines } = useInitialHeadlines();
@@ -15,7 +16,7 @@ export const SidebarSmallScreen: React.FC = () => {
       disableLabelOnOpen
       renderSpan
       css={{
-        top: 10,
+        top: 20,
         '& .ant-modal-content': {
           padding: '39px 24px !important',
         },
@@ -25,7 +26,7 @@ export const SidebarSmallScreen: React.FC = () => {
           css={{
             position: 'absolute',
             fontSize: 20,
-            top: 95,
+            top: layoutSizes['topbar-height'] - 5,
             right: 20,
             zIndex: 4,
             cursor: 'pointer',
