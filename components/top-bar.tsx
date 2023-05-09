@@ -13,7 +13,7 @@ import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
 import { HomeOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 export const TopBar: React.FC = () => {
@@ -48,6 +48,12 @@ export const TopBar: React.FC = () => {
     [token.colorPrimary, token.colorText]
   );
 
+  // quickfix, some render race condition (maybe with emotion styles)
+  // menu will collapse on init with small viewport width otherwise
+  // -> invalidate instance of Menu once after init to force new lifecycle
+  const [counterKey, setCounterKey] = useState(1);
+  useEffect(() => setCounterKey((counterKey) => counterKey + 1), []);
+
   return (
     <ConfigProvider
       theme={{
@@ -70,12 +76,14 @@ export const TopBar: React.FC = () => {
         <Row justify={'space-between'}>
           <Col>
             <Menu
+              key={counterKey}
               css={{
                 justifyContent: 'space-around',
                 '& li': {
                   flexGrow: '1 !important',
                   display: 'flex !important',
                   justifyContent: 'space-around',
+                  // minWidth: isSmallScreen ? 64 : 120,
                   width: isSmallScreen ? 64 : 120,
                 },
                 ...menuColorStyles,
@@ -89,9 +97,11 @@ export const TopBar: React.FC = () => {
               items={[
                 {
                   label: (
-                    <Link href="/">
-                      <HomeOutlined />
-                    </Link>
+                    <span className="ant-menu-item">
+                      <Link href="/">
+                        <HomeOutlined />
+                      </Link>
+                    </span>
                   ),
                   key: '/',
                 },
