@@ -24,6 +24,8 @@ import { Fields } from '../../types/parsed/field';
 import { Schemas } from '../../types/parsed/schema';
 import { StaNotations } from '../../types/parsed/sta-notation';
 import { Descriptions } from '../../types/parsed/description';
+import { RdaElementStatusesRaw } from '../../types/raw/rda-element-status';
+import { RdaElementStatuses } from '../../types/parsed/rda-element-status';
 
 interface ReadParsed {
   labels: {
@@ -41,6 +43,7 @@ interface ReadParsed {
   codings: () => Codings;
   descriptions: () => Descriptions;
   rdaProperties: () => RdaProperties;
+  rdaElementStatuses: () => RdaElementStatuses;
 }
 
 export interface ReadRaw {
@@ -59,6 +62,7 @@ export interface ReadRaw {
   codings: () => CodingsRaw;
   descriptions: () => DescriptionRaws;
   rdaProperties: () => RdaPropertiesRaw;
+  rdaElementStatuses: () => RdaElementStatusesRaw;
 }
 
 const readRaw: ReadRaw = {
@@ -85,6 +89,11 @@ const readRaw: ReadRaw = {
     readJSONFile<DescriptionRaws>(NAMES.description, DataState.raw),
   rdaProperties: () =>
     readJSONFile<RdaPropertiesRaw>(NAMES.rdaProperty, DataState.raw),
+  rdaElementStatuses: () =>
+    readJSONFile<RdaElementStatusesRaw>(
+      NAMES.rdaElementStatuses,
+      DataState.raw
+    ),
   // rdaRules: () => readJSONFile(NAMES.rdaRule, dataState),
 };
 
@@ -115,6 +124,11 @@ const readParsed: ReadParsed = {
     readJSONFile<Descriptions>(NAMES.description, DataState.parsed),
   rdaProperties: () =>
     readJSONFile<RdaProperties>(NAMES.rdaProperty, DataState.parsed),
+  rdaElementStatuses: () =>
+    readJSONFile<RdaElementStatuses>(
+      NAMES.rdaElementStatuses,
+      DataState.parsed
+    ),
   // rdaRules: () => readJSONFile(NAMES.rdaRule, dataState),
 };
 

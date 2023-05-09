@@ -325,3 +325,27 @@ SELECT DISTINCT ?eId ?elementLabel_de ?staNotationLabel WHERE {
 }
 ORDER BY ASC(?elementLabel_de)
 `;
+
+export const RDA_ELEMENT_STATUSES = (apiUrl: API_URL) => `
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX p: <${apiUrl}/prop/>
+PREFIX prop: <${apiUrl}/prop/direct/>
+PREFIX item: <${apiUrl}/entity/>
+PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+PREFIX statement: <${apiUrl}/prop/statement/>
+
+SELECT ?eId ?entityLabel ?elementId ?elementLabel ?statusId ?statusLabel ?descriptionLabel ?embeddedId
+WHERE {
+?entity prop:P2 item:Q308 . #element of -> RDA-Ressource Type
+?entity p:P637 ?statement . #elements
+?statement statement:P637 ?element .
+?statement qualifier:P640 ?status . #status
+OPTIONAL { ?statement qualifier:P7 ?description . } #description
+OPTIONAL { ?statement qualifier:P396 ?embedded . } #description
+SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+BIND(STRAFTER(STR(?entity), '/entity/') as ?eId)
+BIND(STRAFTER(STR(?element), '/entity/') as ?elementId)
+BIND(STRAFTER(STR(?status), '/entity/') as ?statusId)
+BIND(STRAFTER(STR(?embedded), '/entity/') as ?embeddedId)
+}`;

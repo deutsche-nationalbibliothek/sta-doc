@@ -43,4 +43,8 @@ export const NAMES = {
     file: { singular: 'field' },
     type: 'Field',
   },
+  rdaElementStatuses: {
+    file: { singular: 'rda-element-status', plural: 'rda-element-statuses' },
+    type: 'RdaElementStatus',
+  },
 };

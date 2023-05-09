@@ -46,6 +46,13 @@ export const writeRaw = (
   const rdaProperties = () =>
     writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.raw);
 
+  const rdaElementStatuses = () =>
+    writeJSONFile(
+      data.rdaElementStatuses,
+      NAMES.rdaElementStatuses,
+      DataState.raw
+    );
+
   const writeAll = () => {
     entities.index();
     entities.all();
@@ -56,8 +63,8 @@ export const writeRaw = (
     schemas();
     codings();
     descriptions();
-    // rdaRules();
     rdaProperties();
+    rdaElementStatuses();
   };
 
   return {
@@ -70,6 +77,7 @@ export const writeRaw = (
     descriptions,
     // rdaRules,
     rdaProperties,
+    rdaElementStatuses,
     writeAll,
     // propertiesItemsList,
   };
@@ -114,6 +122,12 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   const rdaProperties = () =>
     writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
 
+  const rdaElementStatuses = () =>
+    writeJSONFile(
+      data.rdaElementStatuses,
+      NAMES.rdaElementStatuses,
+      DataState.parsed
+    );
   const writeAll = () => {
     entities.index();
     entities.all();
@@ -124,6 +138,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     schemas();
     codings();
     descriptions();
+    rdaElementStatuses();
     // rdaRules();
     rdaProperties();
   };
@@ -138,6 +153,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     descriptions,
     // rdaRules,
     rdaProperties,
+    rdaElementStatuses,
     writeAll,
     // propertiesItemsList,
   };
