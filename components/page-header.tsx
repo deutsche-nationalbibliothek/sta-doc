@@ -1,3 +1,4 @@
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Row, Col } from 'antd';
 
 interface PageHeaderProps {
@@ -6,6 +7,7 @@ interface PageHeaderProps {
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {
+  const isSmallScreen = useIsSmallScreen();
   return (
     <Row
       css={{
@@ -17,10 +19,18 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {
       align="middle"
     >
       <Col flex="6 0 ">{title ?? ''}</Col>
-      <Col flex="1 0 " style={{ paddingTop: '0.4em', paddingLeft: '1em' }}>
-        {' '}
-        {extra}
-      </Col>
+      {extra && (
+        <Col
+          flex="1 0 "
+          style={{
+            paddingTop: isSmallScreen ? '1.8em' : '0.4em',
+            paddingLeft: '1em',
+          }}
+        >
+          {' '}
+          {extra}
+        </Col>
+      )}
     </Row>
   );
 };

@@ -1,8 +1,11 @@
 :root {
   /* duplicates config/layout-sizes.ts  */
   --topbar-height: 64px;
+  --topbar-mobile-height: 48px;
   --breadcrumb-height: 22px;
+  --breadcrumb-mobile-height: 38px;
   --divider-top-height: 5px;
   --divider-bottom-height: 5px;
   --footer-height: 26px;
+  --footer-mobile-height: 30px;
 }

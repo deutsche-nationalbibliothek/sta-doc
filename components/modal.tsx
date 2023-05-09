@@ -1,14 +1,28 @@
+import { useRouter } from '@/lib/next-use-router';
 import { css } from '@emotion/react';
 import { Modal as AntdModal, ModalProps as AntdModalProps, theme } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
   label?: JSX.Element | string;
+  disableLabelOnOpen?: boolean;
+  // flag to control to render either a span or an anchor
+  renderSpan?: boolean;
+  closeOnRouteChange?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { token } = theme.useToken();
+  const { asPath } = useRouter();
+
+  useEffect(() => {
+    if (props.closeOnRouteChange) {
+      return () => {
+        setIsOpen(false);
+      };
+    }
+  }, [asPath, props.closeOnRouteChange]);
 
   const { label, ...otherProps } = props;
 
@@ -22,13 +36,20 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
   return (
     <>
-      <a onClick={showModal}>{label}</a>
+      {props.renderSpan ? (
+        <span onClick={showModal}>{label}</span>
+      ) : (
+        <a onClick={showModal}>{label}</a>
+      )}
       <AntdModal
         open={isOpen}
         onCancel={onCancel}
         footer={[]}
         width={720}
-        title={otherProps.title || label}
+        title={
+          props.disableLabelOnOpen !== undefined &&
+          (isOpen ? '' : otherProps.title || label)
+        }
         {...otherProps}
         css={css(otherProps.className ?? '', {
           '& .ant-modal-header': {

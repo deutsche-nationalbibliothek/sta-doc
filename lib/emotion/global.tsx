@@ -1,13 +1,21 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Global } from '@emotion/react';
 
 export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
+  const isMobile = useIsSmallScreen();
   return (
     <>
       <Global
         styles={{
+          ':root': {
+            overflow: isMobile ? 'hidden' : undefined,
+          },
+          '.ant-layout-header': {
+            paddingInline: isMobile ? 'inherit' : undefined,
+          },
           '.ant-typography ul': {
             listStyleType: 'initial',
           },
@@ -17,6 +25,9 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
               '.RDA-seperator': { color: 'var(--rda-color)' },
               '.GND-seperator': { color: 'var(--gnd-color)' },
             },
+          },
+          '.ant-drawer-content-wrapper': {
+            width: `${isMobile ? '95vw' : '40vw'} !important`,
           },
           '.va-top': { verticalAlign: 'top' },
           img: { display: 'block' },
