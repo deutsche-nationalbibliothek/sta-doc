@@ -10,6 +10,7 @@ import {
   propertyItemList as propertyItemListParser,
   fieldsParser,
   schemasParser,
+  rdaElementStatusesParser,
 } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
@@ -36,6 +37,7 @@ export const DEV = false;
   const parseSingleEntity = (entityId: EntityId) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations());
+    const schemas = schemasParser(readRaw.schemas());
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
@@ -45,8 +47,13 @@ export const DEV = false;
         labelsEn: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
         staNotations,
-        schemas: schemasParser(readRaw.schemas()),
+        schemas,
         fields: fieldsParser(readRaw.fields(), staNotations),
+        rdaElementStatuses: rdaElementStatusesParser(
+          readRaw.rdaElementStatuses(),
+          staNotations,
+          schemas
+        ),
       }
     );
     if (entity) {

@@ -9,6 +9,7 @@ import { LabelsEn } from '../../../../types/parsed/label-en';
 import { StaNotations } from '../../../../types/parsed/sta-notation';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
+import { RdaElementStatuses } from '../../../../types/parsed/rda-element-status';
 
 export interface ParseEntitiesProps {
   data: ParseEntitiesData;
@@ -23,6 +24,7 @@ export interface ParseEntitiesData {
   staNotations: StaNotations;
   schemas: Schemas;
   fields: Fields;
+  rdaElementStatuses: RdaElementStatuses;
 }
 
 export const parseEntities = ({

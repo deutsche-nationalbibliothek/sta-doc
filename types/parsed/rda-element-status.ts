@@ -1,11 +1,10 @@
 import { EntityId } from '../entity-id';
+import { WikibasePointerValue } from './entity';
 
-export type RdaElementStatuses = RdaElementStatus[];
+export type RdaElementStatuses = Record<EntityId, RdaElementStatus[]>;
 
 export interface RdaElementStatus {
-  entityId: EntityId;
-  statusLabel: string;
-  statusId?: EntityId;
+  ressourceType: WikibasePointerValue;
+  status: WikibasePointerValue;
   description?: string;
-  embeddedId?: string;
 }

@@ -63,7 +63,14 @@ export const parseRawEntity = (
     noHeadline,
   } = defaultedProps;
 
-  const { labelsDe, labelsEn, staNotations, fields, schemas } = data;
+  const {
+    labelsDe,
+    labelsEn,
+    staNotations,
+    fields,
+    schemas,
+    rdaElementStatuses,
+  } = data;
 
   const entity = getRawEntityById(entityId);
 
@@ -122,6 +129,9 @@ export const parseRawEntity = (
     const isRdaRessourceEntity =
       (entity.claims[Property.Elements] && !embedded) ||
       isRdaRessourceEntityParam;
+
+    const isRdaElementEntity =
+      elementOfId === Item['Property-or-RDA-documentation'];
 
     const entityHasHeadline = !embedded && !isPropertyBlacklisted(entityId);
 
@@ -184,6 +194,9 @@ export const parseRawEntity = (
           : undefined,
       staNotationLabel: staNotations[entityId]?.label,
       showOnlyApplicationProfile: showOnlyApplicationProfile(),
+      rdaElementStatuses: isRdaElementEntity
+        ? rdaElementStatuses[entityId]
+        : undefined,
       statements: filterSortTransformStatemants({
         ...defaultedProps,
         relevantGroup,

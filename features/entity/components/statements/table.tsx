@@ -15,10 +15,13 @@ import { StringValueComponent } from '../values/string';
 import { WikibasePointers } from '../wikibase-pointers';
 import { Item } from '@/types/item';
 import { ExpandToggle } from '@/components/expand-toggle';
+import { RdaElementStatus } from '@/types/parsed/rda-element-status';
+import { WikibasePointer } from '../wikibase-pointers/wikibase-pointer';
 
 interface TableStatementsProps {
   statements: Statement[];
   field?: Field;
+  rdaElementStatuses?: RdaElementStatus[];
 }
 
 interface TableStatementsData {
@@ -33,9 +36,10 @@ interface TableStatementsData {
 export const TableStatements: React.FC<TableStatementsProps> = ({
   statements,
   field,
+  rdaElementStatuses,
 }) => {
-  const data: TableStatementsData[] = compact(
-    statements.map((statement) => {
+  const data: TableStatementsData[] = compact([
+    ...statements.map((statement) => {
       return (
         statement.label && {
           key: statement.label,
@@ -58,8 +62,18 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
           },
         }
       );
-    })
-  );
+    }),
+    rdaElementStatuses && {
+      key: 'Status',
+      property: Property.Status,
+      propertyLabel: 'Status',
+      // just for type satisfaction, values will come from rdaElementStatuses
+      values: {
+        stringValues: [],
+        wikibasePointers: [],
+      },
+    },
+  ]);
 
   const columns: ColumnsTypes<TableStatementsData> = [
     {
@@ -86,6 +100,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
               isTopLevel
               showHeader
             />
+          );
+        }
+        if (record.property === Property.Status && rdaElementStatuses) {
+          return (
+            <RdaElementStatusTable rdaElementStatus={rdaElementStatuses} />
           );
         }
         return (
@@ -203,6 +222,65 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       columns={columns}
       pagination={false}
       showHeader={false}
+    />
+  );
+};
+
+interface RdaElementStatusTableProps {
+  rdaElementStatus: RdaElementStatus[];
+}
+
+interface RdaElementStatusTableColumnType extends RdaElementStatus {
+  key: string;
+}
+
+const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
+  rdaElementStatus,
+}) => {
+  // const data = []
+  const columns: ColumnsTypes<RdaElementStatusTableColumnType> = [
+    {
+      key: 'ressource-type',
+      dataIndex: 'ressourceType',
+      width: '35%',
+      title: 'Ressourcentyp',
+      noSort: true,
+      render: (ressourceTypeWikibasePointer: WikibasePointerValue) => (
+        <WikibasePointer wikibasePointer={ressourceTypeWikibasePointer} />
+      ),
+    },
+    {
+      key: 'status',
+      dataIndex: 'status',
+      width: '15%',
+      title: 'Status',
+      noSort: true,
+      render: (statusWikibasePointer: WikibasePointerValue) => (
+        <WikibasePointer wikibasePointer={statusWikibasePointer} />
+      ),
+    },
+  ];
+  if (rdaElementStatus.some((s) => s.description)) {
+    columns.push({
+      key: ' description',
+      dataIndex: 'description',
+      width: '50%',
+      title: 'Beschreibung',
+      render: (description: string) => (
+        <StringValueComponent stringValue={{ value: description }} />
+      ),
+    });
+  }
+  return (
+    <Table<RdaElementStatus>
+      css={{
+        '& .ant-table': {
+          margin: '0px !important',
+        },
+      }}
+      dataSource={rdaElementStatus.map((e) => ({ ...e, key: e.status.id }))}
+      columns={columns}
+      pagination={false}
     />
   );
 };

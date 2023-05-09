@@ -8,6 +8,7 @@ import {
   codingsParser,
   fieldsParser,
   labelsParser,
+  rdaElementStatusesParser,
   schemasParser,
   staNotationsParser,
 } from '@/bin/data/parse';
@@ -75,6 +76,11 @@ const getLiveEntity = async (
     const staNotations = staNotationsParser(await fetch.staNotations());
     const schemas = schemasParser(await fetch.schemas());
     const fields = fieldsParser(await fetch.fields(), staNotations);
+    const rdaElementStatuses = rdaElementStatusesParser(
+      await fetch.rdaElementStatuses(),
+      staNotations,
+      schemas
+    );
 
     return parseEntities({
       rawEntities: { [entityId]: entity },
@@ -86,6 +92,7 @@ const getLiveEntity = async (
         staNotations,
         schemas,
         fields,
+        rdaElementStatuses,
       },
     });
   }
