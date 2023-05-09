@@ -8,6 +8,7 @@ import RcTree from 'rc-tree';
 import React, { memo, useEffect, useState } from 'react';
 import layoutSizes from '../../../config/layout-sizes';
 import { scrollToHeadline } from '@/utils/scroll-to-headline';
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 interface TableOfContentProps {
   headlines: Headline[];
@@ -33,11 +34,12 @@ export const TableOfContent: React.FC<TableOfContentProps> = memo(
     useScroll(treeRef);
 
     const { token } = theme.useToken();
+    const isSmallScreen = useIsSmallScreen();
 
     return (
       <Tree
         css={{
-          background: 'var(--light-gray)',
+          background: isSmallScreen ? undefined : 'var(--light-gray)',
           '& .ant-tree-node-selected': {
             backgroundColor: `${token.colorPrimaryBgHover} !important`,
           },

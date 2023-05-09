@@ -3,16 +3,26 @@ import { ArrowRightOutlined, SearchOutlined } from '@ant-design/icons';
 import { Menu, Drawer, Tooltip } from 'antd';
 import { useState } from 'react';
 import { SolrSearch } from './solr';
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 export const SearchDrawer: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const onClose = () => setIsSearchOpen(false);
   const onCloseDrawer = () => setIsSearchOpen(false);
 
+  const isSmallScreen = useIsSmallScreen();
+
   return (
     <Menu
       css={{
+        width: isSmallScreen ? 45 : 90,
         background: 'var(--top-bar-color) !important',
+        lineHeight: isSmallScreen
+          ? 'var(--topbar-mobile-height)'
+          : 'var(--topbar-height)',
+        height: isSmallScreen
+          ? 'var(--topbar-mobile-height)'
+          : 'var(--topbar-height)',
       }}
       mode="horizontal"
       selectedKeys={[]}
@@ -20,9 +30,8 @@ export const SearchDrawer: React.FC = () => {
         {
           label: (
             <>
-              <SearchOutlined style={{ fontSize: 20 }} />
+              <SearchOutlined css={{ fontSize: isSmallScreen ? 16 : 20 }} />
               <Drawer
-                size="large"
                 placement="right"
                 onClose={onClose}
                 open={isSearchOpen}

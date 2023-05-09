@@ -13,6 +13,8 @@ interface ReferencesProps {
 export const References: React.FC<ReferencesProps> = ({ references }) => {
   const { token } = theme.useToken();
 
+  // const isSmallScreen = useIsSmallScreen();
+
   return (
     <>
       <Popover
@@ -62,6 +64,7 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
           );
         })}
         // open // <- good for debugging
+        // trigger={isSmallScreen ? 'click' : 'hover'}
         trigger="hover"
       >
         <Typography.Text strong>Siehe </Typography.Text>

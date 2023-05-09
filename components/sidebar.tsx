@@ -12,12 +12,12 @@ export const Sidebar: React.FC = () => {
       theme={'light'}
       width={'100%'}
       css={{
-        height: layoutContentHeight,
+        height: layoutContentHeight(false),
       }}
     >
       <div
         css={{
-          height: layoutContentHeight,
+          height: layoutContentHeight(false),
           background: 'var(--light-gray)',
         }}
       >

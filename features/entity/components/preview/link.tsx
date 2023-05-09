@@ -67,7 +67,6 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
           {...linkProps}
           css={{
             alignItems: 'center',
-            // display: 'flex',
             width: 'fit-content',
             '&:hover': {
               color: `${token.colorPrimary} !important`,

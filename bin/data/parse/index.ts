@@ -31,6 +31,8 @@ import namespaceConfig from '../../../config/namespace';
 import { EntitiesEntries } from '../../../types/parsed/entity';
 import { Fields } from '../../../types/parsed/field';
 import { Namespace } from '../../../types/namespace';
+import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
+import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -225,6 +227,19 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
   }, {} as StaNotations);
 };
 
+export const rdaElementStatusesParser = (
+  rdaElementStatuses: RdaElementStatusesRaw
+): RdaElementStatuses =>
+  rdaElementStatuses.map((rdaElementStatus) => ({
+    entityId: rdaElementStatus.eId.value,
+    statusLabel: labelStripper(rdaElementStatus.statusLabel.value),
+    statusId: rdaElementStatus.statusId?.value,
+    description: rdaElementStatus.descriptionLabel
+      ? labelStripper(rdaElementStatus.descriptionLabel?.value)
+      : undefined,
+    embeddedId: rdaElementStatus.embeddedId?.value,
+  }));
+
 // todo, needed?
 // export const rdaRulesParser = () =>
 //   commonParseFunc<RdaRuleRaw[], RdaRules>(
@@ -292,6 +307,7 @@ export interface ParsedAllFromRead {
   staNotations: StaNotations;
   codings: Codings;
   descriptions: Descriptions;
+  rdaElementStatuses: RdaElementStatuses;
 }
 
 // const readParsed = reader(DataState.parsed)
@@ -306,6 +322,7 @@ export const parseAllFromRead = (
     labelsEn: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
     fields: fieldsParser(read.fields(), staNotations),
+    rdaElementStatuses: rdaElementStatusesParser(read.rdaElementStatuses()),
   };
   return {
     rdaProperties: rdaPropertiesParser(
@@ -328,8 +345,9 @@ export const parseAllFromRead = (
     fields: data.fields,
     schemas: data.schemas,
     staNotations: data.staNotations,
-    codings: codingsParser(read.codings()),
+    codings: data.codings,
     descriptions: descriptionsParser(read.descriptions()),
+    rdaElementStatuses: data.rdaElementStatuses,
     // rdaRules: rdaRulesParser(read.rdaRules()),
   };
 };

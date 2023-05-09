@@ -13,7 +13,6 @@ import {
   useState,
 } from 'react';
 import { themeConfigDefault, useThemeConfig } from './theme-provider';
-import { theme } from 'antd';
 
 interface NamespaceContext {
   namespace: Namespace | undefined;
@@ -31,7 +30,6 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
   children,
 }) => {
   const [namespace, setNamespace] = useState<Namespace>();
-  const { darkAlgorithm, compactAlgorithm } = theme;
 
   const { setThemeConfig } = useThemeConfig();
   // @primary-color

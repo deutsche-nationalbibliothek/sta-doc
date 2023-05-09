@@ -2,7 +2,7 @@ import { StringValueComponent } from '@/entity/components/values/string';
 import { useSolrSearch } from '@/hooks/use-solr-search';
 import { debounce } from 'lodash';
 import { SearchResults } from './results-list';
-import { AutoComplete, Input } from 'antd';
+import { AutoComplete, ConfigProvider, Input } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 
@@ -34,7 +34,14 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
 
   return (
     <NamespaceThemeConfigProvider namespace={'unspecific' as Namespace}>
-      <div>
+      {/* restore fontSize, since TobBar is changing it */}
+      <ConfigProvider
+        theme={{
+          token: {
+            fontSize: 14,
+          },
+        }}
+      >
         <AutoComplete
           css={{ width: '100%' }}
           autoFocus
@@ -78,7 +85,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
             onCloseDrawer={onCloseDrawer}
           />
         )}
-      </div>
+      </ConfigProvider>
     </NamespaceThemeConfigProvider>
   );
 };

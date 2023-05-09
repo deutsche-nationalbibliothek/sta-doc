@@ -1,6 +1,7 @@
 import { CopyHeadlineAnchorLink } from '@/components/copy-headline-anchor-link';
 import { useEntity } from '@/hooks/entity-provider';
 import { useHeadlines } from '@/hooks/headlines';
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import namespaceConfig from 'config/namespace';
@@ -11,6 +12,8 @@ export const Breadcrumb: React.FC = () => {
   const { currentHeadlinesPath, showHeadlines } = useHeadlines();
   const { token } = theme.useToken();
   const { entity } = useEntity();
+
+  const isSmallScreen = useIsSmallScreen();
 
   const stripNamespace = (entityTitle: string) => {
     const relevantNamespace = namespaceConfig.primaryNamespaces.find(
@@ -40,7 +43,6 @@ export const Breadcrumb: React.FC = () => {
   return (
     <div
       css={{
-        fontSize: 'small',
         background: 'var(--light-gray)',
         '& .ant-breadcrumb a': {
           color: token.colorTextSecondary,
@@ -49,8 +51,11 @@ export const Breadcrumb: React.FC = () => {
     >
       <AntdBreadcrumb
         css={{
-          height: 'var(--breadcrumb-height)',
+          height: isSmallScreen
+            ? 'var(--breadcrumb-mobile-height)'
+            : 'var(--breadcrumb-height)',
           padding: '0 1% 0 1%',
+          marginRight: isSmallScreen ? 42 : undefined,
         }}
         separator=""
       >
@@ -62,7 +67,7 @@ export const Breadcrumb: React.FC = () => {
                 <AntdBreadcrumb.Item
                   css={{
                     paddingTop: 2,
-                    fontSize: 'small',
+                    fontSize: isSmallScreen ? 12 : 14,
                   }}
                 >
                   {key ? (
@@ -82,12 +87,18 @@ export const Breadcrumb: React.FC = () => {
                         }}
                         href={`#${key}`}
                       >
-                        {isLastIndex ? title : truncate(title, { length: 64 })}
+                        {isLastIndex
+                          ? title
+                          : truncate(title, {
+                              length: isSmallScreen ? 48 : 64,
+                            })}
                       </a>
                     </Tooltip>
                   ) : (
                     <span>
-                      {isLastIndex ? title : truncate(title, { length: 64 })}
+                      {isLastIndex
+                        ? title
+                        : truncate(title, { length: isSmallScreen ? 48 : 64 })}
                     </span>
                   )}
                 </AntdBreadcrumb.Item>

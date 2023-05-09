@@ -15,6 +15,7 @@ import { entitiesParser } from '../parse';
 import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
+import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 
 export enum API_URL {
   test = 'https://doku.wikibase.wiki',
@@ -112,6 +113,10 @@ const propertyItemListFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<PropertiesItemsListRaw>(
     sparql.propertyItemList(apiUrl)
   );
+const rdaElementStatusesFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<RdaElementStatusesRaw>(
+    sparql.RDA_ELEMENT_STATUSES(apiUrl)
+  );
 
 export const fetcher = (apiUrl = API_URL.prod) => {
   const entities = {
@@ -135,6 +140,8 @@ export const fetcher = (apiUrl = API_URL.prod) => {
   const rdaRules = async () => await rdaRulesFetcher(apiUrl);
   const rdaProperties = async () => await rdaPropertiesFetcher(apiUrl);
   const propertyItemList = async () => await propertyItemListFetcher(apiUrl);
+  const rdaElementStatuses = async () =>
+    await rdaElementStatusesFetcher(apiUrl);
 
   const fetchAll = async () => {
     console.log('Data fetching is starting');
@@ -151,6 +158,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
       descriptions: await descriptions(),
       rdaRules: await rdaRules(),
       rdaProperties: await rdaProperties(),
+      rdaElementStatuses: await rdaElementStatuses(),
     };
     console.log('Data fetching has finished');
     return data;
@@ -164,6 +172,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     codings,
     fetchAll,
     propertyItemList,
+    rdaElementStatuses,
     schemas,
   };
 };
