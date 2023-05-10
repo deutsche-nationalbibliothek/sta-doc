@@ -31,6 +31,7 @@
     "lib/**/*",
     "pages/**/*",
     "types/**/*",
-    "utils/**/*"
+    "utils/**/*",
+    "bin/data/fetcher"
   ]
 }

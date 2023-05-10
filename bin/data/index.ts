@@ -65,28 +65,32 @@ export const DEV = false;
     }
   };
 
-  if (process.argv.length === 2) {
-    await fetchRawAndWrite();
-    parseRawAndWriteParsed();
-  } else if (process.argv[2]) {
-    switch (process.argv[2]) {
-      case 'fetch':
-        await fetchRawAndWrite();
-        break;
-      case 'parse':
-        if (process.argv[3]) {
-          parseSingleEntity(process.argv[3] as EntityId);
-        } else {
-          parseRawAndWriteParsed();
-        }
-        break;
-      case 'fetch:properties-items':
-        propertiesItemsListWriter(
-          propertyItemListParser(await fetcher(API_URL.prod).propertyItemList())
-        );
-        break;
-      default:
-        console.warn('No matched subcommand');
+  if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
+    if (process.argv.length === 2) {
+      await fetchRawAndWrite();
+      parseRawAndWriteParsed();
+    } else if (process.argv.length > 2) {
+      switch (process.argv[2]) {
+        case 'fetch':
+          await fetchRawAndWrite();
+          break;
+        case 'parse':
+          if (process.argv[3]) {
+            parseSingleEntity(process.argv[3] as EntityId);
+          } else {
+            parseRawAndWriteParsed();
+          }
+          break;
+        case 'fetch:properties-items':
+          propertiesItemsListWriter(
+            propertyItemListParser(
+              await fetcher(API_URL.prod).propertyItemList()
+            )
+          );
+          break;
+        default:
+          console.warn('No matched subcommand');
+      }
     }
   }
 })();
