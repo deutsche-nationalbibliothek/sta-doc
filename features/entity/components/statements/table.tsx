@@ -281,7 +281,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       showHeader={false}
       dataSource={rdaElementStatus.map((e) => ({ ...e, key: e.status.id }))}
       columns={columns}
-      pagination={false}
+      pagination={rdaElementStatus.length > 3 ? { pageSize: 3 } : false}
     />
   );
 };
