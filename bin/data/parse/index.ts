@@ -247,45 +247,55 @@ export const rdaElementStatusesParser = (
         [entityId]: uniqBy(
           rdaElementStatusesByEntityId,
           (rdaElementStatusByEntityId) => rdaElementStatusByEntityId.eId.value
-        ).map((rdaElementStatusByEntityId) => {
-          const statusId = rdaElementStatusByEntityId.statusId?.value;
-          const namespaceIdStatus = statusId && schemas[statusId];
-          const namespaceStatus: Namespace | undefined =
-            namespaceIdStatus && namespaceConfig.map[namespaceIdStatus];
+        )
+          .map((rdaElementStatusByEntityId) => {
+            const statusId = rdaElementStatusByEntityId.statusId?.value;
+            const namespaceIdStatus = statusId && schemas[statusId];
+            const namespaceStatus: Namespace | undefined =
+              namespaceIdStatus && namespaceConfig.map[namespaceIdStatus];
 
-          const ressourceTypeId = rdaElementStatusByEntityId.eId.value;
-          const namespaceIdRessourceType =
-            ressourceTypeId && schemas[ressourceTypeId];
-          const namespaceRessourceType: Namespace | undefined =
-            namespaceIdRessourceType &&
-            namespaceConfig.map[namespaceIdRessourceType];
+            const ressourceTypeId = rdaElementStatusByEntityId.eId.value;
+            const namespaceIdRessourceType =
+              ressourceTypeId && schemas[ressourceTypeId];
+            const namespaceRessourceType: Namespace | undefined =
+              namespaceIdRessourceType &&
+              namespaceConfig.map[namespaceIdRessourceType];
 
-          return {
-            ressourceType: {
-              id: ressourceTypeId,
-              label: labelStripper(
-                rdaElementStatusByEntityId.entityLabel.value
-              ),
-              staNotationLabel: staNotations[ressourceTypeId].label,
-              namespace: namespaceRessourceType,
-            },
-            status: {
-              id: statusId,
-              label: labelStripper(
-                rdaElementStatusByEntityId.statusLabel.value
-              ),
-              staNotationLabel: statusId
-                ? staNotations[statusId].label
+            return {
+              ressourceType: {
+                id: ressourceTypeId,
+                label: labelStripper(
+                  rdaElementStatusByEntityId.entityLabel.value
+                ),
+                staNotationLabel: staNotations[ressourceTypeId].label,
+                namespace: namespaceRessourceType,
+              },
+              status: {
+                id: statusId,
+                label: labelStripper(
+                  rdaElementStatusByEntityId.statusLabel.value
+                ),
+                staNotationLabel: statusId
+                  ? staNotations[statusId].label
+                  : undefined,
+                namespace: namespaceStatus,
+              },
+              description: rdaElementStatusByEntityId.descriptionLabel
+                ? labelStripper(
+                    rdaElementStatusByEntityId.descriptionLabel?.value
+                  )
                 : undefined,
-              namespace: namespaceStatus,
-            },
-            description: rdaElementStatusByEntityId.descriptionLabel
-              ? labelStripper(
-                  rdaElementStatusByEntityId.descriptionLabel?.value
-                )
-              : undefined,
-          };
-        }),
+            };
+          })
+          .sort((rdaElementStatusByEntityIdA, rdaElementStatusByEntityIdB) =>
+            new Intl.Collator(undefined, {
+              numeric: true,
+              sensitivity: 'base',
+            }).compare(
+              rdaElementStatusByEntityIdA.ressourceType.staNotationLabel,
+              rdaElementStatusByEntityIdB.ressourceType.staNotationLabel
+            )
+          ),
       };
     },
     {} as RdaElementStatuses
