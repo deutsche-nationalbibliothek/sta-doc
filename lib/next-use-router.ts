@@ -6,7 +6,6 @@ import { useCallback, useMemo } from 'react';
 
 type UseRouter = Omit<ReturnType<typeof useNextRouter>, 'push'> & {
   push: PushFunc;
-  anchorId?: string;
 };
 
 type PushFunc = (
@@ -39,16 +38,11 @@ export const useRouter = (): UseRouter => {
     [searchQuery, fetchingQuery, router]
   );
 
-  const asPathFragmentRegex = /(?<=#).*/;
-  const anchorIdMatch = router.asPath.match(asPathFragmentRegex);
-  const anchorId = anchorIdMatch ? anchorIdMatch[0] : undefined;
-
   return useMemo(
     () => ({
       ...router,
       push,
-      anchorId,
     }),
-    [router, push, anchorId]
+    [router, push]
   );
 };

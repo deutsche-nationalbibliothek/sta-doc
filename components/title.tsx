@@ -2,11 +2,9 @@ import { QueryHighlighter } from '@/lib/highlighter';
 import { Headline } from '@/types/headline';
 import { Typography } from 'antd';
 import { TitleProps } from 'antd/lib/typography/Title';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHover } from 'react-use';
 import { CopyHeadlineAnchorLink } from './copy-headline-anchor-link';
-import { scrollToHeadline } from '@/utils/scroll-to-headline';
-import { useRouter } from '@/lib/next-use-router';
 
 interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
   headline: Headline;
@@ -31,13 +29,6 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   const style =
     levelsTooHigh > 0 ? { fontSize: `${18 - levelsTooHigh}px !important` } : {};
   const iconSize = 20 - level * 1.2;
-
-  const { anchorId } = useRouter();
-  useEffect(() => {
-    if (anchorId && key === anchorId) {
-      scrollToHeadline(anchorId);
-    }
-  }, [anchorId, key]);
 
   return (
     <>

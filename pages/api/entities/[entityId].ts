@@ -41,9 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     }
-    const entity = (entities as unknown as EntitiesEntries)[entityId];
-    // do not pass headlines, since they have not changed without live param
-    res.status(200).json({ entity: entity.entity });
+    res.status(200).json((entities as unknown as EntitiesEntries)[entityId]);
   }
   res.status(404);
 };

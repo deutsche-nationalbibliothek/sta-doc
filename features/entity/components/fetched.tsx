@@ -1,5 +1,6 @@
 import { useEntity } from '@/hooks/entity-provider';
 import { useInitialScroll } from '@/hooks/use-initial-scroll';
+import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
 import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
 import Head from 'next/head';
@@ -16,6 +17,7 @@ interface FetchedEntityProps {
 
 export const FetchedEntity = memo(
   ({ entityEntry, loading, setHeadlines }: FetchedEntityProps) => {
+    const { setNamespace } = useNamespace();
     const { setEntity, unloadEntity } = useEntity();
 
     useInitialScroll(!loading);
@@ -28,6 +30,9 @@ export const FetchedEntity = memo(
         if (entityEntry?.headlines) {
           setHeadlines(entityEntry?.headlines);
         }
+        if (entityEntry?.entity.namespace) {
+          setNamespace(entityEntry.entity.namespace);
+        }
       }
       return unloadEntity;
     }, [
@@ -36,6 +41,7 @@ export const FetchedEntity = memo(
       loading,
       setHeadlines,
       setEntity,
+      setNamespace,
       unloadEntity,
     ]);
 
