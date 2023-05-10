@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { Dispatch, SetStateAction, memo, useEffect } from 'react';
 import { EntityDetails } from './details';
 import { EntityPlaceholder } from './placeholder';
+import { compact } from 'lodash';
 
 interface FetchedEntityProps {
   entityEntry?: EntityEntryWithOptionalHeadlines;
@@ -38,17 +39,14 @@ export const FetchedEntity = memo(
       unloadEntity,
     ]);
 
+    const titleLabel = compact([
+      entityEntry?.entity.namespace,
+      entityEntry?.entity.label,
+    ]).join(' | ');
+
     return (
       <>
-        <Head>
-          {!loading && entityEntry && (
-            <title>
-              {entityEntry.entity.title ??
-                (entityEntry.entity.headline &&
-                  entityEntry.entity.headline.title)}
-            </title>
-          )}
-        </Head>
+        <Head>{!loading && entityEntry && <title>{titleLabel}</title>}</Head>
         {!loading && entityEntry ? (
           <EntityDetails entity={entityEntry.entity} />
         ) : (
