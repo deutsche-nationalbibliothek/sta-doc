@@ -290,35 +290,7 @@ export const rdaElementStatusesParser = (
     },
     {} as RdaElementStatuses
   );
-
-  // return rdaElementStatuses.map((rdaElementStatus) => {
-  //   const statusId = rdaElementStatus.statusId?.value;
-  //   const entityId = rdaElementStatus.elementId.value;
-  //
-  //   const namespaceId = statusId && schemas[statusId];
-  //   const namespace: Namespace | undefined =
-  //     namespaceId && namespaceConfig.map[namespaceId];
-  //
-  //   return {
-  //     entityId,
-  //     statusLabel: labelStripper(rdaElementStatus.statusLabel.value),
-  //     statusId,
-  //     namespace,
-  //     staNotation: staNotations[entityId].label,
-  //     description: rdaElementStatus.descriptionLabel
-  //       ? labelStripper(rdaElementStatus.descriptionLabel?.value)
-  //       : undefined,
-  //     embeddedId: rdaElementStatus.embeddedId?.value,
-  //   };
-  // });
 };
-
-// todo, needed?
-// export const rdaRulesParser = () =>
-//   commonParseFunc<RdaRuleRaw[], RdaRules>(
-//     read.descriptions(),
-//     NAMES.description
-//   );
 
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,

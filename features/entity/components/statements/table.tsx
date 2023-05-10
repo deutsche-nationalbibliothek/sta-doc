@@ -79,7 +79,6 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     {
       key: 'propertyLabel',
       dataIndex: 'propertyLabel',
-      className: 'va-top',
       width: '20%',
     },
     {
@@ -266,6 +265,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       dataIndex: 'description',
       width: '50%',
       title: 'Beschreibung',
+      noSort: true,
       render: (description: string) => (
         <StringValueComponent stringValue={{ value: description }} />
       ),
