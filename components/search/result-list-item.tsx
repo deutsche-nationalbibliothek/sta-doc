@@ -4,6 +4,7 @@ import { Link } from '@/lib/next-link';
 import { Doc, DocSearchKey } from '@/types/search';
 import { compact } from 'lodash';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
+import { Typography } from 'antd';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -54,13 +55,15 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
     return (
       <>
         {headlineMatch.length && (
-          <Link
-            onClick={onCloseDrawer}
-            href={`/entities/${doc.id}`}
-            anchor={headlineMatch[0].id}
-          >
-            <QueryHighlighter textToHighlight={headlineMatch[0].value} />
-          </Link>
+          <Typography.Paragraph>
+            <Link
+              onClick={onCloseDrawer}
+              href={`/entities/${doc.id}`}
+              anchor={headlineMatch[0].id}
+            >
+              <QueryHighlighter textToHighlight={headlineMatch[0].value} />
+            </Link>
+          </Typography.Paragraph>
         )}
       </>
     );
