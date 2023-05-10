@@ -9,10 +9,7 @@ import React, { memo, useEffect, useState } from 'react';
 import layoutSizes from '../../../config/layout-sizes';
 import { scrollToHeadline } from '@/utils/scroll-to-headline';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
-
-interface TableOfContentProps {
-  headlines: Headline[];
-}
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
 
 export const treeHeight =
   layoutSizes['topbar-height'] +
@@ -21,60 +18,60 @@ export const treeHeight =
   layoutSizes['divider-bottom-height'] +
   layoutSizes['footer-height'];
 
-export const TableOfContent: React.FC<TableOfContentProps> = memo(
-  ({ headlines }) => {
-    const { nestedHeadlines, currentHeadlinesPath, headlineKeysInViewport } =
-      useHeadlines();
+export const TableOfContent: React.FC = memo(() => {
+  const { nestedHeadlines, currentHeadlinesPath, headlineKeysInViewport } =
+    useHeadlines();
 
-    const { expandedKeys, onExpand } = useExpandedKeys(headlines);
+  const { headlines } = useInitialHeadlines();
 
-    const router = useRouter();
+  const { expandedKeys, onExpand } = useExpandedKeys(headlines ?? []);
 
-    const treeRef = React.useRef<RcTree<DataNode>>(null);
-    useScroll(treeRef);
+  const router = useRouter();
 
-    const { token } = theme.useToken();
-    const isSmallScreen = useIsSmallScreen();
+  const treeRef = React.useRef<RcTree<DataNode>>(null);
+  useScroll(treeRef);
 
-    return (
-      <Tree
-        css={{
-          background: isSmallScreen ? undefined : 'var(--light-gray)',
-          '& .ant-tree-node-selected': {
-            backgroundColor: `${token.colorPrimaryBgHover} !important`,
-          },
-        }}
-        showLine
-        showIcon
-        expandedKeys={expandedKeys}
-        onExpand={onExpand}
-        ref={treeRef}
-        height={window.innerHeight - treeHeight}
-        selectedKeys={headlineKeysInViewport}
-        multiple
-        titleRender={({ key, title }: { key: string; title: string }) => (
-          <Typography.Text
-            id={`nav-${key}`}
-            onClick={() => {
-              router
-                .push(undefined, key)
-                .then(() => scrollToHeadline(key))
-                .catch((e) => console.error(e));
-            }}
-            strong={
-              currentHeadlinesPath.findIndex(
-                (nestedHeadline) => nestedHeadline.key === key
-              ) >= 0
-            }
-          >
-            {title}
-          </Typography.Text>
-        )}
-        treeData={nestedHeadlines}
-      />
-    );
-  }
-);
+  const { token } = theme.useToken();
+  const isSmallScreen = useIsSmallScreen();
+
+  return (
+    <Tree
+      css={{
+        background: isSmallScreen ? undefined : 'var(--light-gray)',
+        '& .ant-tree-node-selected': {
+          backgroundColor: `${token.colorPrimaryBgHover} !important`,
+        },
+      }}
+      showLine
+      showIcon
+      expandedKeys={expandedKeys}
+      onExpand={onExpand}
+      ref={treeRef}
+      height={window.innerHeight - treeHeight}
+      selectedKeys={headlineKeysInViewport}
+      multiple
+      titleRender={({ key, title }: { key: string; title: string }) => (
+        <Typography.Text
+          id={`nav-${key}`}
+          onClick={() => {
+            router
+              .push(undefined, key)
+              .then(() => scrollToHeadline(key))
+              .catch((e) => console.error(e));
+          }}
+          strong={
+            currentHeadlinesPath.findIndex(
+              (nestedHeadline) => nestedHeadline.key === key
+            ) >= 0
+          }
+        >
+          {title}
+        </Typography.Text>
+      )}
+      treeData={nestedHeadlines}
+    />
+  );
+});
 
 const useExpandedKeys = (headlines: Headline[]) => {
   const [expandedKeys, setExpandedKeys] = useState<string[]>();
