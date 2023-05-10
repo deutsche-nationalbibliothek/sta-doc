@@ -73,6 +73,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
                 <TableStatements
                   statements={tableStatements}
                   field={entity.field}
+                  rdaElementStatuses={entity.rdaElementStatuses}
                 />
               )}
               {entity.statements.body.length > 0 && (

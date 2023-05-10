@@ -10,6 +10,7 @@ import {
   propertyItemList as propertyItemListParser,
   fieldsParser,
   schemasParser,
+  rdaElementStatusesParser,
 } from './parse';
 import { reader } from './read';
 import { DataState } from './utils';
@@ -36,6 +37,7 @@ export const DEV = false;
   const parseSingleEntity = (entityId: EntityId) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations());
+    const schemas = schemasParser(readRaw.schemas());
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
@@ -45,8 +47,13 @@ export const DEV = false;
         labelsEn: labelsParser.en(readRaw.labels.en()),
         codings: codingsParser(readRaw.codings()),
         staNotations,
-        schemas: schemasParser(readRaw.schemas()),
+        schemas,
         fields: fieldsParser(readRaw.fields(), staNotations),
+        rdaElementStatuses: rdaElementStatusesParser(
+          readRaw.rdaElementStatuses(),
+          staNotations,
+          schemas
+        ),
       }
     );
     if (entity) {
@@ -58,28 +65,32 @@ export const DEV = false;
     }
   };
 
-  if (process.argv.length === 2) {
-    await fetchRawAndWrite();
-    parseRawAndWriteParsed();
-  } else if (process.argv[2]) {
-    switch (process.argv[2]) {
-      case 'fetch':
-        await fetchRawAndWrite();
-        break;
-      case 'parse':
-        if (process.argv[3]) {
-          parseSingleEntity(process.argv[3] as EntityId);
-        } else {
-          parseRawAndWriteParsed();
-        }
-        break;
-      case 'fetch:properties-items':
-        propertiesItemsListWriter(
-          propertyItemListParser(await fetcher(API_URL.prod).propertyItemList())
-        );
-        break;
-      default:
-        console.warn('No matched subcommand');
+  if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
+    if (process.argv.length === 2) {
+      await fetchRawAndWrite();
+      parseRawAndWriteParsed();
+    } else if (process.argv.length > 2) {
+      switch (process.argv[2]) {
+        case 'fetch':
+          await fetchRawAndWrite();
+          break;
+        case 'parse':
+          if (process.argv[3]) {
+            parseSingleEntity(process.argv[3] as EntityId);
+          } else {
+            parseRawAndWriteParsed();
+          }
+          break;
+        case 'fetch:properties-items':
+          propertiesItemsListWriter(
+            propertyItemListParser(
+              await fetcher(API_URL.prod).propertyItemList()
+            )
+          );
+          break;
+        default:
+          console.warn('No matched subcommand');
+      }
     }
   }
 })();

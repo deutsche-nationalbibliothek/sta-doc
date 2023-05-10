@@ -76,7 +76,6 @@ export const parseWikibaseValue = (
       ? addHeadline(label, currentHeadlineLevel, noHeadline, pointingNamespace)
       : undefined,
     label,
-    link: `/entities/${id}`,
     namespace: pointingNamespace,
     staNotationLabel,
     codings: codings[id],

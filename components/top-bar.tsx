@@ -52,7 +52,9 @@ export const TopBar: React.FC = () => {
   // menu will collapse on init with small viewport width otherwise
   // -> invalidate instance of Menu once after init to force new lifecycle
   const [counterKey, setCounterKey] = useState(1);
-  useEffect(() => setCounterKey((counterKey) => counterKey + 1), []);
+  useEffect(() => {
+    window.setTimeout(() => setCounterKey((counterKey) => counterKey + 1), 150);
+  }, []);
 
   return (
     <ConfigProvider

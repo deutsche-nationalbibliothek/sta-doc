@@ -207,7 +207,7 @@ export function Table<T extends object>(props: TableProps<T>) {
                 get(a, column.dataIndex) as string,
                 get(b, column.dataIndex) as string
               )
-          : () => 1,
+          : undefined,
       onFilter: (value: string, record: T) => {
         if ('dataIndex' in column && column.dataIndex) {
           const relevantValue = get(record, column.dataIndex) as

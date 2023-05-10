@@ -11,13 +11,13 @@ import { Embedded } from '../embedded';
 
 interface WikibasePointerProps {
   wikibasePointer: WikibasePointerValue;
-  isSeeItemOrProperty: boolean;
-  property: Property;
+  isSeeItemOrProperty?: boolean;
+  property?: Property;
 }
 
 export const WikibasePointer: React.FC<WikibasePointerProps> = ({
   wikibasePointer,
-  isSeeItemOrProperty,
+  isSeeItemOrProperty = false,
   property,
 }) => {
   return (
@@ -41,7 +41,7 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
         {wikibasePointer.qualifiers && (
           <Qualifiers
             qualifiers={
-              property === Property.Subfields
+              property && property === Property.Subfields
                 ? wikibasePointer.qualifiers.filter(
                     (qualifier) => qualifier.property !== Property.Repetition
                   )

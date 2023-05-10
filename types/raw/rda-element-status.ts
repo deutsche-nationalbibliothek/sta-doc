@@ -20,7 +20,7 @@ export interface EId {
 
 export interface ElementId {
   type: string;
-  value: string;
+  value: EntityId;
 }
 
 export interface StatusId {

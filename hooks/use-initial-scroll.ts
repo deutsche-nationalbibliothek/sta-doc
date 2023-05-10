@@ -20,7 +20,7 @@ export const useInitialScroll = (condition = true) => {
     if (condition && !isLoading && !hasScrolled) {
       if (anchorId) {
         // quickfix race condition, make sure rendering has finished
-        setTimeout(() => scrollToHeadline(anchorId[0]), 50);
+        setTimeout(() => scrollToHeadline(anchorId[0]), 150);
       } else {
         document
           .getElementById('main-scroll-container')

@@ -218,6 +218,7 @@ export const schemasParser = (schemas: SchemasRaw) => {
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
+  console.log('\tParsing StaNotations');
   return staNotations.reduce((acc, entry: StaNotationRaw) => {
     acc[entry.eId.value] = {
       label: entry.staNotationLabel.value.toUpperCase(),
@@ -228,24 +229,68 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 };
 
 export const rdaElementStatusesParser = (
-  rdaElementStatuses: RdaElementStatusesRaw
-): RdaElementStatuses =>
-  rdaElementStatuses.map((rdaElementStatus) => ({
-    entityId: rdaElementStatus.eId.value,
-    statusLabel: labelStripper(rdaElementStatus.statusLabel.value),
-    statusId: rdaElementStatus.statusId?.value,
-    description: rdaElementStatus.descriptionLabel
-      ? labelStripper(rdaElementStatus.descriptionLabel?.value)
-      : undefined,
-    embeddedId: rdaElementStatus.embeddedId?.value,
-  }));
+  rdaElementStatuses: RdaElementStatusesRaw,
+  staNotations: StaNotations,
+  schemas: Schemas
+): RdaElementStatuses => {
+  console.log('\tParsing RdaElementStatuses');
 
-// todo, needed?
-// export const rdaRulesParser = () =>
-//   commonParseFunc<RdaRuleRaw[], RdaRules>(
-//     read.descriptions(),
-//     NAMES.description
-//   );
+  const rdaElementStatusByElementId = groupBy(
+    rdaElementStatuses,
+    (rdaElementStatus) => rdaElementStatus.elementId.value
+  );
+
+  return Object.entries(rdaElementStatusByElementId).reduce(
+    (acc, [entityId, rdaElementStatusesByEntityId]) => {
+      return {
+        ...acc,
+        [entityId]: uniqBy(
+          rdaElementStatusesByEntityId,
+          (rdaElementStatusByEntityId) => rdaElementStatusByEntityId.eId.value
+        ).map((rdaElementStatusByEntityId) => {
+          const statusId = rdaElementStatusByEntityId.statusId?.value;
+          const namespaceIdStatus = statusId && schemas[statusId];
+          const namespaceStatus: Namespace | undefined =
+            namespaceIdStatus && namespaceConfig.map[namespaceIdStatus];
+
+          const ressourceTypeId = rdaElementStatusByEntityId.eId.value;
+          const namespaceIdRessourceType =
+            ressourceTypeId && schemas[ressourceTypeId];
+          const namespaceRessourceType: Namespace | undefined =
+            namespaceIdRessourceType &&
+            namespaceConfig.map[namespaceIdRessourceType];
+
+          return {
+            ressourceType: {
+              id: ressourceTypeId,
+              label: labelStripper(
+                rdaElementStatusByEntityId.entityLabel.value
+              ),
+              staNotationLabel: staNotations[ressourceTypeId].label,
+              namespace: namespaceRessourceType,
+            },
+            status: {
+              id: statusId,
+              label: labelStripper(
+                rdaElementStatusByEntityId.statusLabel.value
+              ),
+              staNotationLabel: statusId
+                ? staNotations[statusId].label
+                : undefined,
+              namespace: namespaceStatus,
+            },
+            description: rdaElementStatusByEntityId.descriptionLabel
+              ? labelStripper(
+                  rdaElementStatusByEntityId.descriptionLabel?.value
+                )
+              : undefined,
+          };
+        }),
+      };
+    },
+    {} as RdaElementStatuses
+  );
+};
 
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
@@ -310,19 +355,23 @@ export interface ParsedAllFromRead {
   rdaElementStatuses: RdaElementStatuses;
 }
 
-// const readParsed = reader(DataState.parsed)
 export const parseAllFromRead = (
   read: (typeof reader)['raw']
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations());
+  const schemas = schemasParser(read.schemas());
   const data = {
     staNotations,
-    schemas: schemasParser(read.schemas()),
+    schemas,
     labelsDe: labelsParser.de(read.labels.de()),
     labelsEn: labelsParser.en(read.labels.en()),
     codings: codingsParser(read.codings()),
     fields: fieldsParser(read.fields(), staNotations),
-    rdaElementStatuses: rdaElementStatusesParser(read.rdaElementStatuses()),
+    rdaElementStatuses: rdaElementStatusesParser(
+      read.rdaElementStatuses(),
+      staNotations,
+      schemas
+    ),
   };
   return {
     rdaProperties: rdaPropertiesParser(

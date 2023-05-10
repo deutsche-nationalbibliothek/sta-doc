@@ -118,6 +118,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     [Item['First-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Second-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['Third-order-subheading-(type-of-layout)']]: renderHeadline,
+    [Item['Fourth-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['example-(type-of-layout)']]: (stringValueContainer: StringGroup) => {
       const label =
         stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';

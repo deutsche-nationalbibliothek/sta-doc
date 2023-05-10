@@ -5,6 +5,7 @@ import { Item } from '../item';
 import { Namespace } from '../namespace';
 import { Property } from '../property';
 import { Field } from './field';
+import { RdaElementStatus } from './rda-element-status';
 
 export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
@@ -21,6 +22,7 @@ export interface Entity {
   namespace?: Namespace;
   staNotationLabel: string;
   statements: Statements;
+  rdaElementStatuses?: RdaElementStatus[];
 
   // showOnlyApplicationProfile:
   // if true, then show only ApplicationProfile
@@ -128,7 +130,6 @@ export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';
 export interface WikibasePointerValue extends CommonValue {
   id: EntityId;
   label: string;
-  link: string;
   codings?: Codings;
   headline?: Headline;
   staNotationLabel?: string;
