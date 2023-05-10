@@ -26,7 +26,7 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
           '.ant-drawer-content-wrapper': {
             width: `${isMobile ? '95vw' : '40vw'} !important`,
           },
-          '.va-top': { verticalAlign: 'top' },
+          td: { verticalAlign: 'top' },
           img: { display: 'block' },
           '@media print': {
             '.no-print, .ant-table-thead, .ant-pagination, .ant-tooltip, .ant-layout-header, .ant-layout-footer, .ant-breadcrumb':
