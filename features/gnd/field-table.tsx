@@ -59,7 +59,6 @@ export const GndFieldsTable: React.FC<
       title: 'Wiederholung',
       width: '10%',
       dataIndex: 'repeatable',
-      noSort: true,
       key: 'repeatable',
       render: (_data, record) => {
         return record.repeatable ? 'Ja' : 'Nein';
