@@ -6,10 +6,9 @@ import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import namespaceConfig from 'config/namespace';
 import { compact, truncate } from 'lodash';
-import { Fragment } from 'react';
 
 export const Breadcrumb: React.FC = () => {
-  const { currentHeadlinesPath, showHeadlines } = useHeadlines();
+  const { currentHeadlinesPath } = useHeadlines();
   const { token } = theme.useToken();
   const { entity } = useEntity();
 
@@ -57,64 +56,52 @@ export const Breadcrumb: React.FC = () => {
           padding: '0 1% 0 1%',
           marginRight: isSmallScreen ? 42 : undefined,
         }}
-        separator=""
-      >
-        {showHeadlines &&
-          breadcrumbItems.map(({ key, title, namespace }, index) => {
-            const isLastIndex = index === breadcrumbItems.length - 1;
-            return (
-              <Fragment key={key ?? title}>
-                <AntdBreadcrumb.Item
-                  css={{
-                    paddingTop: 2,
-                    fontSize: isSmallScreen ? 12 : 14,
-                  }}
-                >
-                  {key ? (
-                    <Tooltip
-                      placement="bottom"
-                      title={
-                        <>
-                          {title} <CopyHeadlineAnchorLink anchor={key} />
-                        </>
-                      }
+        items={breadcrumbItems.map(({ key, title }, index) => {
+          const isLastIndex = index === breadcrumbItems.length - 1;
+          return {
+            title: (
+              <span
+                css={{
+                  paddingTop: 2,
+                  fontSize: isSmallScreen ? 12 : 14,
+                }}
+              >
+                {key ? (
+                  <Tooltip
+                    placement="bottom"
+                    title={
+                      <>
+                        {title} <CopyHeadlineAnchorLink anchor={key} />
+                      </>
+                    }
+                  >
+                    <a
+                      css={{
+                        '&:hover': {
+                          backgroundColor: `${token.colorPrimaryBgHover} !important`,
+                        },
+                      }}
+                      href={`#${key}`}
                     >
-                      <a
-                        css={{
-                          '&:hover': {
-                            backgroundColor: `${token.colorPrimaryBgHover} !important`,
-                          },
-                        }}
-                        href={`#${key}`}
-                      >
-                        {isLastIndex
-                          ? title
-                          : truncate(title, {
-                              length: isSmallScreen ? 48 : 64,
-                            })}
-                      </a>
-                    </Tooltip>
-                  ) : (
-                    <span>
                       {isLastIndex
                         ? title
-                        : truncate(title, { length: isSmallScreen ? 48 : 64 })}
-                    </span>
-                  )}
-                </AntdBreadcrumb.Item>
-                {!isLastIndex && (
-                  <AntdBreadcrumb.Separator
-                    key={namespace ? `${namespace}-seperator` : ''}
-                  >
-                    <span className={namespace ? `${namespace}-seperator` : ''}>
-                      /
-                    </span>
-                  </AntdBreadcrumb.Separator>
+                        : truncate(title, {
+                            length: isSmallScreen ? 48 : 64,
+                          })}
+                    </a>
+                  </Tooltip>
+                ) : (
+                  <span>
+                    {isLastIndex
+                      ? title
+                      : truncate(title, { length: isSmallScreen ? 48 : 64 })}
+                  </span>
                 )}
-              </Fragment>
-            );
-          })}
-      </AntdBreadcrumb>
+              </span>
+            ),
+          };
+        })}
+      />
     </div>
   );
 };
