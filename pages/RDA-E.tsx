@@ -35,7 +35,7 @@ export default function RdaPropertiesPage({
       isSearchable: true,
     },
     {
-      title: 'RDA Eigenschaft Element',
+      title: 'Element',
       dataIndex: 'label',
       key: 'label',
       width: '30%',
@@ -49,8 +49,8 @@ export default function RdaPropertiesPage({
     },
     {
       title: 'Entitätstyp / WEMI-Ebene',
-      dataIndex: 'domainLabel',
-      key: 'domainLabel',
+      dataIndex: ['type', 'label'],
+      key: 'wemi-label',
       width: '20%',
       filters: uniq(
         rdaProperties.map((rdaProperty) => rdaProperty.type.label)
@@ -58,7 +58,10 @@ export default function RdaPropertiesPage({
         text: rdaPropertyLabel,
         value: rdaPropertyLabel,
       })),
-      onFilter: (value, record) => value === record.type.label,
+      onFilter: (value, record) => {
+        console.log({ record, value });
+        return value === record.type.label;
+      },
       render: (_label: string, rdaProperty) => (
         <EntityLink
           {...rdaProperty.type}
