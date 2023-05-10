@@ -27,9 +27,9 @@ export const defaultGroupsDefinition: Groups = {
     Property.P660,
     Property['RDA-Reference'],
     Property.Status,
+    Property['Repetition'],
     Property.Encoding,
     Property.P663,
-    Property['Repetition'],
   ],
   body: [
     // Property['STA-Notation'], // ??
