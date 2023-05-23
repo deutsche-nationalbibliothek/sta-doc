@@ -2,12 +2,9 @@ import { TableOfContent } from '@/features/entity/components/table-of-content';
 import { Layout } from 'antd';
 import React from 'react';
 import { layoutContentHeight } from './layout';
-import { useHeadlines } from '@/hooks/headlines';
 
 export const Sidebar: React.FC = () => {
-  const { showHeadlines } = useHeadlines();
-
-  return showHeadlines ? (
+  return (
     <Layout.Sider
       theme={'light'}
       width={'100%'}
@@ -24,5 +21,5 @@ export const Sidebar: React.FC = () => {
         <TableOfContent />
       </div>
     </Layout.Sider>
-  ) : null;
+  );
 };

@@ -13,6 +13,7 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { SidebarSmallScreen } from './sidebar-small-screen';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import React from 'react';
+import { useHeadlines } from '@/hooks/headlines';
 
 export const layoutContentHeight = (isSmallScreen: boolean) =>
   isSmallScreen
@@ -90,18 +91,20 @@ export default Layout;
 const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
   const { headlines } = useInitialHeadlines();
   const isSmallScreen = useIsSmallScreen();
+  const { showHeadlines } = useHeadlines();
 
   return (
     <>
       <Splitter>
         {compact([
-          !isSmallScreen && headlines && headlines.length > 1 && (
-            <Sidebar key="sidebar" />
-          ),
+          !isSmallScreen &&
+            headlines &&
+            headlines.length > 1 &&
+            showHeadlines && <Sidebar key="sidebar" />,
           children,
         ])}
       </Splitter>
-      {isSmallScreen && <SidebarSmallScreen />}
+      {isSmallScreen && showHeadlines && <SidebarSmallScreen />}
     </>
   );
 };
