@@ -1,74 +1,66 @@
-import { useRouter } from '@/lib/next-use-router';
-import { css } from '@emotion/react';
-import { Modal as AntdModal, ModalProps as AntdModalProps, theme } from 'antd';
-import { useEffect, useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
+
+import { Button, Modal } from 'antd';
+
 import type { DraggableData, DraggableEvent } from 'react-draggable';
+
 import Draggable from 'react-draggable';
 
-interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
-  label?: JSX.Element | string;
-  disableLabelOnOpen?: boolean;
-  // flag to control to render either a span or an anchor
-  renderSpan?: boolean;
-  closeOnRouteChange?: boolean;
-}
-
-export const Modal: React.FC<ModalProps> = (props) => {
+const App: React.FC = () => {
   const [open, setOpen] = useState(false);
+
   const [disabled, setDisabled] = useState(true);
+
   const [bounds, setBounds] = useState({
     left: 0,
     top: 0,
     bottom: 0,
     right: 0,
   });
+
   const draggleRef = useRef<HTMLDivElement>(null);
-  const { token } = theme.useToken();
-  const { asPath } = useRouter();
-
-  useEffect(() => {
-    if (props.closeOnRouteChange) {
-      return () => {
-        setOpen(false);
-      };
-    }
-  }, [asPath, props.closeOnRouteChange]);
-
-  const { label, ...otherProps } = props;
 
   const showModal = () => {
     setOpen(true);
   };
 
-  const onCancel = () => {
+  const handleOk = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e);
+
+    setOpen(false);
+  };
+
+  const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e);
+
     setOpen(false);
   };
 
   const onStart = (_event: DraggableEvent, uiData: DraggableData) => {
     const { clientWidth, clientHeight } = window.document.documentElement;
+
     const targetRect = draggleRef.current?.getBoundingClientRect();
+
     if (!targetRect) {
       return;
     }
+
     setBounds({
       left: -targetRect.left + uiData.x,
+
       right: clientWidth - (targetRect.right - uiData.x),
+
       top: -targetRect.top + uiData.y,
+
       bottom: clientHeight - (targetRect.bottom - uiData.y),
     });
   };
 
   return (
     <>
-      {props.renderSpan ? (
-        <span onClick={showModal}>{label}</span>
-      ) : (
-        <a onClick={showModal}>{label}</a>
-      )}
-      <AntdModal
+      <Button onClick={showModal}>Open Draggable Modal</Button>
+      <Modal
         title={
-          // props.disableLabelOnOpen !== undefined &&
-          // (open ? '' : otherProps.title || label)
           <div
             style={{
               width: '100%',
@@ -92,7 +84,8 @@ export const Modal: React.FC<ModalProps> = (props) => {
           </div>
         }
         open={open}
-        onCancel={onCancel}
+        onOk={handleOk}
+        onCancel={handleCancel}
         modalRender={(modal) => (
           <Draggable
             disabled={disabled}
@@ -102,16 +95,17 @@ export const Modal: React.FC<ModalProps> = (props) => {
             <div ref={draggleRef}>{modal}</div>
           </Draggable>
         )}
-        footer={[]}
-        width={720}
-        {...otherProps}
-        css={css(otherProps.className ?? '', {
-          '& .ant-modal-header': {
-            borderBottom: `1px solid ${token.colorPrimaryBorder}`,
-            paddingBottom: 4,
-          },
-        })}
-      />
+      >
+        <p>
+          Just don&apos;t learn physics at school and your life will be full of
+          magic and miracles.
+        </p>
+        <br />
+        <p>
+          Day before yesterday I saw a rabbit, and yesterday a deer, and today,
+          you.
+        </p>
+      </Modal>
     </>
   );
 };
