@@ -40,7 +40,7 @@ export const SidebarSmallScreen: React.FC = () => {
           zIndex: 99,
         }}
       >
-        <TableOfContent headlines={headlines} />
+        <TableOfContent />
       </div>
     </Modal>
   ) : null;

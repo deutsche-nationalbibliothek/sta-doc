@@ -56,7 +56,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             const headlineMatches = uniq<string>(
               doc['headline-text-search'].filter(
                 (docValue: string) =>
-                  docValue.includes(query) &&
+                  docValue.toLowerCase().includes(query.toLowerCase()) &&
                   docValue !== doc['headline.title'][0]
               )
             );
@@ -78,13 +78,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                             docValue.toLowerCase().includes(query.toLowerCase())
                         ),
                       ];
-                      // } else if (
-                      //   key in doc &&
-                      //   doc[key] &&
-                      //   typeof doc[key] === 'string' &&
-                      //   (doc[key] || '').includes(query)
-                      // ) {
-                      //   return [...acc, doc[key] as string];
                     }
                   }
                   return acc;

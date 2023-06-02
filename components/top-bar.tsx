@@ -1,24 +1,19 @@
 import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
-import {
-  Col,
-  Layout as AntdLayout,
-  Menu,
-  Row,
-  theme,
-  ConfigProvider,
-} from 'antd';
+import { Layout as AntdLayout, Menu, theme, ConfigProvider } from 'antd';
 import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
   const router = useRouter();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const namespaceDomain = router.query.domain as string | undefined;
 
   const pathMatch = router.asPath.match(/.*(?=(\?.*|=#.*))|.*/);
@@ -48,14 +43,6 @@ export const TopBar: React.FC = () => {
     [token.colorPrimary, token.colorText]
   );
 
-  // quickfix, some render race condition (maybe with emotion styles)
-  // menu will collapse on init with small viewport width otherwise
-  // -> invalidate instance of Menu once after init to force new lifecycle
-  const [counterKey, setCounterKey] = useState(1);
-  useEffect(() => {
-    window.setTimeout(() => setCounterKey((counterKey) => counterKey + 1), 150);
-  }, []);
-
   return (
     <ConfigProvider
       theme={{
@@ -75,134 +62,125 @@ export const TopBar: React.FC = () => {
           background: 'var(--top-bar-color)',
         }}
       >
-        <Row justify={'space-between'}>
-          <Col>
-            <Menu
-              key={counterKey}
-              css={{
-                justifyContent: 'space-around',
-                '& li': {
-                  flexGrow: '1 !important',
-                  display: 'flex !important',
-                  justifyContent: 'space-around',
-                  // minWidth: isSmallScreen ? 64 : 120,
-                  width: isSmallScreen ? 64 : 120,
-                },
-                ...menuColorStyles,
-              }}
-              mode="horizontal"
-              selectedKeys={compact([
-                namespace,
-                pathMatch && pathMatch[0],
-                namespaceDomain,
-              ])}
-              items={[
+        <Menu
+          css={{
+            ...menuColorStyles,
+          }}
+          mode="horizontal"
+          selectedKeys={compact([
+            namespace,
+            pathMatch && pathMatch[0],
+            namespaceDomain,
+          ])}
+          items={[
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <Link href="/">
+                    <HomeOutlined />
+                  </Link>
+                </span>
+              ),
+              key: '/',
+            },
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <Link href="/RDA-A-0">RDA DACH</Link>
+                </span>
+              ),
+              key: 'RDA',
+              children: [
                 {
-                  label: (
-                    <span className="ant-menu-item">
-                      <Link href="/">
-                        <HomeOutlined />
-                      </Link>
-                    </span>
-                  ),
-                  key: '/',
+                  label: <Link href="/RDA-A-0-ALLGEMEINES">Allgemeines</Link>,
+                  key: '/RDA-A-0-ALLGEMEINES',
                 },
                 {
-                  label: (
-                    <span className="ant-menu-item">
-                      <Link href="/RDA-A-0">RDA DACH</Link>
-                    </span>
-                  ),
-                  key: 'RDA',
-                  children: [
-                    {
-                      label: (
-                        <Link href="/RDA-A-0-ALLGEMEINES">Allgemeines</Link>
-                      ),
-                      key: '/RDA-A-0-ALLGEMEINES',
-                    },
-                    {
-                      label: <Link href="/RDA-E">Elemente</Link>,
-                      key: '/RDA-E',
-                    },
-                    {
-                      label: (
-                        <Link href="/RDA-A-0-RESSOURCENTYPEN">
-                          Ressourcentypen
-                        </Link>
-                      ),
-                      key: '/RDA-A-0-RESSOURCENTYPEN',
-                    },
-                    {
-                      label: (
-                        <Link href="/RDA-A-0-ANWENDUNGSPROFILE">
-                          Anwendungsprofile
-                        </Link>
-                      ),
-                      key: '/RDA-A-0-ANWENDUNGSPROFILE',
-                    },
-                    {
-                      label: <Link href="/RDA-I">Index</Link>,
-                      key: '/entities/rda',
-                    },
-                  ],
+                  label: <Link href="/RDA-E">Elemente</Link>,
+                  key: '/RDA-E',
                 },
                 {
                   label: (
-                    <span className="ant-menu-item">
-                      <Link href="/GND-A-EINFUEHRUNG">GND</Link>
-                    </span>
+                    <Link href="/RDA-A-0-RESSOURCENTYPEN">Ressourcentypen</Link>
                   ),
-                  key: 'GND',
-                  children: [
-                    {
-                      label: (
-                        <Link href="/GND-A-EC">
-                          Satzarten und Entitätencodierungen
-                        </Link>
-                      ),
-                      key: '/GND-A-EC',
-                    },
-                    {
-                      label: <Link href="/GND-DF">Datenfelder</Link>,
-                      key: '/GND-DF',
-                    },
-                    {
-                      label: <Link href="/GND-A-RC">Relationscodes</Link>,
-                      key: '/GND-A-RC',
-                    },
-                    {
-                      label: <Link href="/GND-A-VW">normiertes Vokabular</Link>,
-                      key: '/GND-A-VW',
-                    },
-                    {
-                      label: (
-                        <Link href="/GND-VW-SYSTEMATIK">GND-Systematik</Link>
-                      ),
-                      key: '/GND-VW-SYSTEMATIK',
-                    },
-                    {
-                      label: <Link href="/GND-I">Index</Link>,
-                      key: '/entities/gnd',
-                    },
-                  ],
+                  key: '/RDA-A-0-RESSOURCENTYPEN',
                 },
-              ]}
-            />
-          </Col>
-          {router.pathname !== '/search' && (
-            <Col
-              css={{
-                '& li': {
-                  display: 'flex !important',
-                  justifyContent: 'end',
+                {
+                  label: (
+                    <Link href="/RDA-A-0-ANWENDUNGSPROFILE">
+                      Anwendungsprofile
+                    </Link>
+                  ),
+                  key: '/RDA-A-0-ANWENDUNGSPROFILE',
                 },
-              }}
-            >
-              <SearchDrawer />
-            </Col>
-          )}
-        </Row>
+                {
+                  label: <Link href="/RDA-I">Index</Link>,
+                  key: '/entities/rda',
+                },
+              ],
+            },
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <Link href="/GND-A-EINFUEHRUNG">GND</Link>
+                </span>
+              ),
+              key: 'GND',
+              children: [
+                {
+                  label: (
+                    <Link href="/GND-A-EC">
+                      Satzarten und Entitätencodierungen
+                    </Link>
+                  ),
+                  key: '/GND-A-EC',
+                },
+                {
+                  label: <Link href="/GND-DF">Datenfelder</Link>,
+                  key: '/GND-DF',
+                },
+                {
+                  label: <Link href="/GND-A-RC">Relationscodes</Link>,
+                  key: '/GND-A-RC',
+                },
+                {
+                  label: <Link href="/GND-A-VW">normiertes Vokabular</Link>,
+                  key: '/GND-A-VW',
+                },
+                {
+                  label: <Link href="/GND-VW-SYSTEMATIK">GND-Systematik</Link>,
+                  key: '/GND-VW-SYSTEMATIK',
+                },
+                {
+                  label: <Link href="/GND-I">Index</Link>,
+                  key: '/entities/gnd',
+                },
+              ],
+            },
+            {
+              label: (
+                // todo, search icons li is transparent in collapsed state
+                <span className="ant-menu-item">
+                  {router.pathname !== '/search' && (
+                    <SearchOutlined
+                      css={{ fontSize: isSmallScreen ? 16 : 20 }}
+                    />
+                  )}
+                  <SearchDrawer
+                    setIsSearchOpen={setIsSearchOpen}
+                    isSearchOpen={isSearchOpen}
+                  />
+                </span>
+              ),
+              key: 'search',
+              style: {
+                position: 'absolute',
+                right: isSmallScreen ? 0 : 50,
+              },
+              onClick: () => !isSearchOpen && setIsSearchOpen(true),
+            },
+          ]}
+        />
       </AntdLayout.Header>
     </ConfigProvider>
   );

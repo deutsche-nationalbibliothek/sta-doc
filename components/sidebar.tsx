@@ -1,13 +1,13 @@
 import { TableOfContent } from '@/features/entity/components/table-of-content';
-import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { Layout } from 'antd';
 import React from 'react';
 import { layoutContentHeight } from './layout';
+import { useHeadlines } from '@/hooks/headlines';
 
 export const Sidebar: React.FC = () => {
-  const { headlines } = useInitialHeadlines();
+  const { showHeadlines } = useHeadlines();
 
-  return headlines && headlines.length > 1 ? (
+  return showHeadlines ? (
     <Layout.Sider
       theme={'light'}
       width={'100%'}
@@ -21,7 +21,7 @@ export const Sidebar: React.FC = () => {
           background: 'var(--light-gray)',
         }}
       >
-        <TableOfContent headlines={headlines} />
+        <TableOfContent />
       </div>
     </Layout.Sider>
   ) : null;

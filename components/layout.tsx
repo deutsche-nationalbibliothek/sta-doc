@@ -1,6 +1,5 @@
 import { Breadcrumb } from '@/entity/components/breadcrumb';
-import { useHeadlines } from '@/hooks/headlines';
-import { Layout as AntdLayout, ConfigProvider, Divider, theme } from 'antd';
+import { Layout as AntdLayout, Divider } from 'antd';
 import { Footer } from './footer';
 import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
@@ -12,6 +11,8 @@ import { compact } from 'lodash';
 import { PropsWithChildren } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { SidebarSmallScreen } from './sidebar-small-screen';
+import { useInitialHeadlines } from '@/hooks/initial-headlines';
+import React from 'react';
 
 export const layoutContentHeight = (isSmallScreen: boolean) =>
   isSmallScreen
@@ -51,65 +52,56 @@ const VerticalLayoutDivider = () => {
   );
 };
 
-export default function Layout(props: LayoutProps) {
-  const isSmallScreen = useIsSmallScreen();
-  const { compactAlgorithm } = theme;
-
+const Layout: React.FC<LayoutProps> = React.memo((props) => {
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: isSmallScreen ? compactAlgorithm : undefined,
-      }}
-    >
-      <AntdLayout>
-        <LoadingIndicator />
-        <TopBar />
-        <Breadcrumb />
-        <HorizontalLayoutDivivder />
-        <AntdLayout
+    <AntdLayout>
+      <LoadingIndicator />
+      <TopBar />
+      <Breadcrumb />
+      <HorizontalLayoutDivivder />
+      <AntdLayout
+        css={{
+          height: layoutContentHeight(false),
+          '@media print': {
+            height: 'initial',
+          },
+        }}
+      >
+        <VerticalLayoutDivider />
+        <div
           css={{
-            height: layoutContentHeight(isSmallScreen),
-            '@media print': {
-              height: 'initial',
-            },
+            width: '100% !important',
           }}
         >
-          <VerticalLayoutDivider />
-          <div
-            css={{
-              width: '100% !important',
-            }}
-          >
-            <ContentSplitter>
-              <Content key="content">{props.children}</Content>
-            </ContentSplitter>
-          </div>
-          <VerticalLayoutDivider />
-        </AntdLayout>
-        <HorizontalLayoutDivivder />
-        <Footer />
+          <ContentSplitter>
+            <Content key="content">{props.children}</Content>
+          </ContentSplitter>
+        </div>
+        <VerticalLayoutDivider />
       </AntdLayout>
-    </ConfigProvider>
+      <HorizontalLayoutDivivder />
+      <Footer />
+    </AntdLayout>
   );
-}
+});
+
+export default Layout;
 
 const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
-  const { nestedHeadlines, showHeadlines } = useHeadlines();
-  const hasHeadlinesToShow = nestedHeadlines.length > 0 && showHeadlines;
-
+  const { headlines } = useInitialHeadlines();
   const isSmallScreen = useIsSmallScreen();
 
   return (
     <>
       <Splitter>
-        {hasHeadlinesToShow && !isSmallScreen
-          ? compact([
-              nestedHeadlines.length > 0 && <Sidebar key="sidebar" />,
-              children,
-            ])
-          : [children]}
+        {compact([
+          !isSmallScreen && headlines && headlines.length > 1 && (
+            <Sidebar key="sidebar" />
+          ),
+          children,
+        ])}
       </Splitter>
-      {hasHeadlinesToShow && isSmallScreen && <SidebarSmallScreen />}
+      {isSmallScreen && <SidebarSmallScreen />}
     </>
   );
 };
