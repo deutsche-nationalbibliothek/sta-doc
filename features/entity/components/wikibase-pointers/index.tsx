@@ -57,18 +57,30 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
       {wikibasePointerGroups.simples &&
         wikibasePointerGroups.simples.length &&
         (wikibasePointerGroups.simples.length > 1 ? (
-          <UnorderedList>
-            <>
-              {wikibasePointerGroups.simples.map((wikibasePointer, index) => (
-                <li key={index}>
-                  <WikibaseLink
-                    showArrow={isSeeItemOrProperty}
-                    wikibasePointer={wikibasePointer}
-                  />
-                </li>
-              ))}
-            </>
-          </UnorderedList>
+          isSeeItemOrProperty ? (
+            wikibasePointerGroups.simples.map((wikibasePointer, index) => (
+              <>
+                <WikibaseLink
+                  showArrow={isSeeItemOrProperty}
+                  wikibasePointer={wikibasePointer}
+                />
+                {index !== wikibasePointerGroups.simples.length - 1 && <br />}
+              </>
+            ))
+          ) : (
+            <UnorderedList>
+              <>
+                {wikibasePointerGroups.simples.map((wikibasePointer, index) => (
+                  <li key={index}>
+                    <WikibaseLink
+                      showArrow={isSeeItemOrProperty}
+                      wikibasePointer={wikibasePointer}
+                    />
+                  </li>
+                ))}
+              </>
+            </UnorderedList>
+          )
         ) : (
           <WikibaseLink
             showArrow={isSeeItemOrProperty}
