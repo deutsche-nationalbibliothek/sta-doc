@@ -159,7 +159,6 @@ export const TopBar: React.FC = () => {
             },
             {
               label: (
-                // todo, search icons li is transparent in collapsed state
                 <span className="ant-menu-item">
                   {router.pathname !== '/search' && (
                     <SearchOutlined

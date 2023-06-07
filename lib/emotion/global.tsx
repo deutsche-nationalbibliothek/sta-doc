@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
-import { Global } from '@emotion/react';
+import { CSSObject, Global } from '@emotion/react';
 
 export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
   children,
@@ -37,6 +37,11 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
               height: '100%',
             },
           },
+
+          // fixes search icons li in TopBar is transparent on collapsed state
+          '.ant-menu-submenu-popup .ant-menu-item-only-child': {
+            position: 'relative !important',
+          } as unknown as CSSObject, // type assertion since !important breaks typing
         }}
       />
       {children}
