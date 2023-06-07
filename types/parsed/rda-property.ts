@@ -11,5 +11,6 @@ export interface RdaProperty {
     id: EntityId;
     label: string;
     namespace: Namespace;
+    staNotationLabel?: string;
   };
 }

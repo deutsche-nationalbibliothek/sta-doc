@@ -106,13 +106,14 @@ export const Example: React.FC<ExampleProps> = ({
                   )
                 : {
                     coding: qualifier.codings
-                      ? // todo
-                        (qualifier.codings[codingLabel]
+                      ? (qualifier.codings[codingLabel]
                           ? qualifier.codings[codingLabel][0]
                           : '') +
                         (qualifier.wikibasePointers
-                          ?.map((w) =>
-                            w.codings ? w.codings[codingLabel][0] : ''
+                          ?.map((wikibasePointer) =>
+                            wikibasePointer.codings
+                              ? wikibasePointer.codings[codingLabel][0]
+                              : ''
                           )
                           .join('') || '')
                       : '',
