@@ -318,6 +318,9 @@ export const rdaPropertiesParser = (
         id: rdaPropertyId,
         label: labelStripper(label),
         namespace,
+        staNotationLabel: rdaPropertyId
+          ? parsedStaNotations[rdaPropertyId].label
+          : undefined,
       };
     };
     const type =

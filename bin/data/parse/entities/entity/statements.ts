@@ -134,7 +134,6 @@ export const parseStatements = (
         staNotationLabel: staNotations[property]?.label,
         codings: codings[property],
         namespace: statementNamespace,
-        // next todo: extract mapper function
         [dataType]: dataTypeSpecifics,
       };
       return preMappedStatemant;

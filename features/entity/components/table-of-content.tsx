@@ -54,10 +54,7 @@ export const TableOfContent: React.FC = memo(() => {
         <Typography.Text
           id={`nav-${key}`}
           onClick={() => {
-            router
-              .push(undefined, key)
-              .then(() => scrollToHeadline(key))
-              .catch((e) => console.error(e));
+            router.push(undefined, key).finally(() => scrollToHeadline(key));
           }}
           strong={
             currentHeadlinesPath.findIndex(
