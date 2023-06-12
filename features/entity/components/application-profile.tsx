@@ -39,9 +39,9 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
 
   const data: ApplicationProfileTableData[] = compact(
     flattenDeep(
-      statement.wikibasePointers?.map((wemiLevelWikibasePointer) =>
-        wemiLevelWikibasePointer.qualifiers?.map((qualifier) => {
-          return qualifier.wikibasePointers?.map((wikibasePointer) => {
+      (statement.wikibasePointers ?? []).map((wemiLevelWikibasePointer) =>
+        (wemiLevelWikibasePointer.qualifiers ?? []).map((qualifier) => {
+          return (qualifier.wikibasePointers ?? []).map((wikibasePointer) => {
             const status = wikibasePointer.qualifiers?.find(
               (q) => q.property === Property.Status
             );
@@ -72,7 +72,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
         })
       )
     )
-  ) as ApplicationProfileTableData[] | [];
+  );
 
   const columns: ColumnsTypes<ApplicationProfileTableData> = [
     {
