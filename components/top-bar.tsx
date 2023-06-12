@@ -9,6 +9,9 @@ import { CSSObject } from '@emotion/react';
 import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
+// RDA-A-0-allgemeines ist jetzt RDA-A
+// RDA-A-0-ANWENDUNGSPROFILE ist jetzt RDA-A
+
 export const TopBar: React.FC = () => {
   const { namespace } = useNamespace();
   const router = useRouter();
@@ -86,32 +89,26 @@ export const TopBar: React.FC = () => {
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/RDA-A-0">RDA DACH</Link>
+                  <Link href="/RDA">RDA DACH</Link>
                 </span>
               ),
               key: 'RDA',
               children: [
                 {
-                  label: <Link href="/RDA-A-0-ALLGEMEINES">Allgemeines</Link>,
-                  key: '/RDA-A-0-ALLGEMEINES',
+                  label: <Link href="/RDA-A">Allgemeines</Link>,
+                  key: '/RDA-A',
                 },
                 {
                   label: <Link href="/RDA-E">Elemente</Link>,
                   key: '/RDA-E',
                 },
                 {
-                  label: (
-                    <Link href="/RDA-A-0-RESSOURCENTYPEN">Ressourcentypen</Link>
-                  ),
-                  key: '/RDA-A-0-RESSOURCENTYPEN',
+                  label: <Link href="/RDA-R">Ressourcentypen</Link>,
+                  key: '/RDA-R',
                 },
                 {
-                  label: (
-                    <Link href="/RDA-A-0-ANWENDUNGSPROFILE">
-                      Anwendungsprofile
-                    </Link>
-                  ),
-                  key: '/RDA-A-0-ANWENDUNGSPROFILE',
+                  label: <Link href="/RDA-AP">Anwendungsprofile</Link>,
+                  key: '/RDA-AP',
                 },
                 {
                   label: <Link href="/RDA-I">Index</Link>,
@@ -122,30 +119,30 @@ export const TopBar: React.FC = () => {
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/GND-A-EINFUEHRUNG">GND</Link>
+                  <Link href="/GND">GND</Link>
                 </span>
               ),
               key: 'GND',
               children: [
                 {
                   label: (
-                    <Link href="/GND-A-EC">
+                    <Link href="/GND-EC">
                       Satzarten und Entitätencodierungen
                     </Link>
                   ),
-                  key: '/GND-A-EC',
+                  key: '/GND-EC',
                 },
                 {
                   label: <Link href="/GND-DF">Datenfelder</Link>,
                   key: '/GND-DF',
                 },
                 {
-                  label: <Link href="/GND-A-RC">Relationscodes</Link>,
-                  key: '/GND-A-RC',
+                  label: <Link href="/GND-RC">Relationscodes</Link>,
+                  key: '/GND-RC',
                 },
                 {
-                  label: <Link href="/GND-A-VW">normiertes Vokabular</Link>,
-                  key: '/GND-A-VW',
+                  label: <Link href="/GND-VW">normiertes Vokabular</Link>,
+                  key: '/GND-VW',
                 },
                 {
                   label: <Link href="/GND-VW-SYSTEMATIK">GND-Systematik</Link>,
