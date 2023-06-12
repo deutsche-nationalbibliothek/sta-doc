@@ -41,15 +41,14 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
             />
           ) : (
             wikibasePointerGroups.extras.map((wikibasePointer, index) => (
-              <>
+              <React.Fragment key={index}>
                 <WikibasePointer
                   wikibasePointer={wikibasePointer}
-                  key={index}
                   property={property}
                   isSeeItemOrProperty={isSeeItemOrProperty}
                 />
                 {index !== wikibasePointerGroups.extras.length - 1 && <br />}
-              </>
+              </React.Fragment>
             ))
           )}
         </>

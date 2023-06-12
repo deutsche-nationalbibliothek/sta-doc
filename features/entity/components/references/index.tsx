@@ -13,36 +13,37 @@ interface ReferencesProps {
 export const References: React.FC<ReferencesProps> = ({ references }) => {
   const { token } = theme.useToken();
 
-  // const isSmallScreen = useIsSmallScreen();
-
   return (
     <>
       <Popover
         content={references.map((reference, index) => {
           const url = reference[Property.URL] || reference[Property.URI];
-          const linkElement = url && (
-            <>
+          const contentElement = url ? (
+            <React.Fragment key={index}>
               <ExternalLink linkProps={{ href: url }}>
                 {reference[Property.description] ?? url}
               </ExternalLink>{' '}
               <CopyHeadlineAnchorLink url={url} />
-            </>
+            </React.Fragment>
+          ) : (
+            reference[Property.description] && (
+              <>{reference[Property.description]}</>
+            )
           );
           return (
-            url && (
-              <>
+            contentElement && (
+              <React.Fragment key={index}>
                 <Card
                   css={{
                     border: 'none',
                     '& > .ant-card-body': { padding: '1em' },
                   }}
-                  key={index}
                 >
                   <Typography.Paragraph>
                     {reference[Property.description] ? (
-                      <Tooltip title={url}>{linkElement}</Tooltip>
+                      <Tooltip title={url}>{contentElement}</Tooltip>
                     ) : (
-                      linkElement
+                      contentElement
                     )}
                     {reference[Property['description-(at-the-end)']] && (
                       <Typography.Paragraph>
@@ -59,12 +60,11 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
                     }}
                   />
                 )}
-              </>
+              </React.Fragment>
             )
           );
         })}
         // open // <- good for debugging
-        // trigger={isSmallScreen ? 'click' : 'hover'}
         trigger="hover"
       >
         <Typography.Text strong>Siehe </Typography.Text>
