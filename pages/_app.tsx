@@ -9,7 +9,10 @@ import { ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
-import { QueryParamProvider } from 'use-query-params';
+import {
+  QueryParamProvider,
+  QueryParamAdapterComponent,
+} from 'use-query-params';
 import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profile-query-param-provider';
 import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
@@ -24,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <GlobalStaticStyles>
       <InitialHeadlinesProvider>
-        <QueryParamProvider adapter={NextAdapter}>
+        <QueryParamProvider adapter={NextAdapter as QueryParamAdapterComponent}>
           <ApplicationProfileQueryParamProvider>
             <FetchingQueryParamsProvider>
               <SearchQueryParamsProvider>
@@ -38,7 +41,6 @@ export default function App({ Component, pageProps }: AppProps) {
                               <GlobalDynamicStyles>
                                 <EntityProvider>
                                   <Layout>
-                                    {/* @ts-expect-error, https://github.com/vercel/next.js/issues/43537#issuecomment-1331054397 */}
                                     <Component {...pageProps} />
                                   </Layout>
                                 </EntityProvider>
