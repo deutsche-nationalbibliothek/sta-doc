@@ -46,9 +46,14 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
               (q) => q.property === Property.Status
             );
             const relevantProps = ['id', 'label', 'link', 'namespace'];
+            // changes e.g.: "M270 - Copyright-Datum" to "Copyright-Datum"
+            const strippedLabelMatch =
+              wikibasePointer.label.match(/(?<=.*\s-\s).*/);
             const applicationProfileTableData: ApplicationProfileTableData = {
               id: wikibasePointer.id,
-              label: wikibasePointer.label.split('-').pop() ?? '',
+              label: strippedLabelMatch
+                ? strippedLabelMatch[0]
+                : wikibasePointer.label,
               namespace: wikibasePointer.namespace,
               wemi: pick(
                 wemiLevelWikibasePointer,
