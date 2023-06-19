@@ -47,7 +47,6 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               css={{
                 ...style,
                 display: 'inline-block',
-                marginBottom: '0px !important',
               }}
               id={`${titleIdPrefix}${key}`}
               level={localLevel}
@@ -61,6 +60,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
                 top: 0,
                 bottom: 0,
                 margin: 'auto',
+                paddingBottom: '0.5em',
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
                 fontSize: iconSize,
               }}

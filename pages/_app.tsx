@@ -17,7 +17,7 @@ import ApplicationProfileQueryParamProvider from '@/hooks/use-application-profil
 import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
 import { ThemeConfigProvider } from '@/hooks/theme-provider';
-import { GlobalDynamicStyles, GlobalStaticStyles } from '@/lib/emotion/global';
+import { GlobalStaticStyles } from '@/lib/emotion/global';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import { EntityProvider } from '@/hooks/entity-provider';
@@ -37,13 +37,11 @@ export default function App({ Component, pageProps }: AppProps) {
                         <ConfigProvider locale={deDE} theme={themeConfig}>
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
-                              <GlobalDynamicStyles>
-                                <EntityProvider>
-                                  <Layout>
-                                    <Component {...pageProps} />
-                                  </Layout>
-                                </EntityProvider>
-                              </GlobalDynamicStyles>
+                              <EntityProvider>
+                                <Layout>
+                                  <Component {...pageProps} />
+                                </Layout>
+                              </EntityProvider>
                             </CodingsPreferencesProvider>
                           </IsLoadingContextProvider>
                         </ConfigProvider>
