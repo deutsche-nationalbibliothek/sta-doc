@@ -13,6 +13,9 @@ const { darkAlgorithm, compactAlgorithm } = theme;
 export const themeConfigDefault: ThemeConfig = {
   token: {
     colorPrimary: colors['unspecific-namespace-color'],
+    // fontFamily: 'sans-serif',
+    // fontFamily: 'EuclidCircularA, sans-serif',
+    fontFamily: '"Montserrat", sans-serif;',
   },
   // algorithm: [compactAlgorithm],
   // algorithm: [darkAlgorithm, compactAlgorithm],

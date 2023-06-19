@@ -20,6 +20,7 @@ import { ThemeConfigProvider } from '@/hooks/theme-provider';
 import { GlobalStaticStyles } from '@/lib/emotion/global';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
+import '../styles/fonts.css';
 import { EntityProvider } from '@/hooks/entity-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
