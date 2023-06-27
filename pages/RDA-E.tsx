@@ -71,7 +71,7 @@ export default function RdaPropertiesPage({
   return (
     <>
       <Head>
-        <title>Handbuch Gemeinsame Normdatei | Startseite</title>
+        <title>RDA DACH - Elementeliste</title>
       </Head>
 
       <PageHeader
@@ -79,7 +79,7 @@ export default function RdaPropertiesPage({
           <Title
             headline={{
               key: 'RDA-Elemente',
-              title: 'RDA Elemente',
+              title: 'RDA DACH Elemente',
               level: 1,
             }}
           />

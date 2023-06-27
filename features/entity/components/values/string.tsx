@@ -30,7 +30,11 @@ export const StringValueComponent: React.FC<
   return (
     <>
       <Typography.Paragraph
-        css={{ color: itemType === Item['English-0'] ? 'gray' : 'initial' }}
+        css={{
+          color: itemType === Item['English-0'] ? 'gray' : 'initial',
+          fontFamily: 'var(--font-secondary)',
+          fontSize: '17px',
+        }}
         className={className}
         code={property === Property.Encoding}
         italic={itemType === Item['italic-(type-of-layout)']}

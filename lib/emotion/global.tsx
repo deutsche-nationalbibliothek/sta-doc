@@ -10,11 +10,36 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
     <>
       <Global
         styles={{
+          '.ant-typography': {
+            fontFamily: 'var(--font-primary)',
+            lineHeight: 1.15,
+          },
+          '.ant-typography code': {
+            fontFamily: 'var(--font-primary)',
+          },
+          '.ant-table': {
+            fontFamily: 'var(--font-primary) !important',
+          },
+          '.ant-breadcrumb': {
+            fontFamily: 'var(--font-primary)',
+          },
+          '.ant-menu': {
+            fontFamily: 'var(--font-primary)',
+          },
+          '.ant-layout-footer': {
+            fontFamily: 'var(--font-primary)',
+          },
           '.ant-layout-header': {
             paddingInline: isMobile ? 'inherit' : undefined,
           },
           '.ant-typography ul': {
             listStyleType: 'initial',
+          },
+          a: {
+            fontFamily: 'var(--font-primary)',
+          },
+          strong: {
+            fontFamily: 'var(--font-primary)',
           },
           '.ant-typography a': {
             color: 'var(--link-color)',

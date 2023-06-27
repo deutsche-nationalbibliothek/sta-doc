@@ -74,6 +74,7 @@ export const Footer: React.FC = () => {
       theme={{
         token: {
           fontSize: isSmallScreen ? 12 : 14,
+          fontFamily: 'var(--font-primary)',
         },
       }}
     >

@@ -47,6 +47,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               css={{
                 ...style,
                 display: 'inline-block',
+                fontFamily: 'var(--font-primary)',
               }}
               id={`${titleIdPrefix}${key}`}
               level={localLevel}
