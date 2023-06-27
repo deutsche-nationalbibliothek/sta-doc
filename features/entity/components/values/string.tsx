@@ -33,7 +33,7 @@ export const StringValueComponent: React.FC<
         css={{
           color: itemType === Item['English-0'] ? 'gray' : 'initial',
           fontFamily: 'var(--font-secondary)',
-          fontSize: '17px',
+          fontSize: '16px',
         }}
         className={className}
         code={property === Property.Encoding}

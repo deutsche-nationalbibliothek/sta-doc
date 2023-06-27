@@ -34,6 +34,7 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
           },
           a: {
             fontFamily: 'var(--font-primary)',
+            fontSize: '14px',
           },
           '.ant-typography a': {
             color: 'var(--link-color)',
