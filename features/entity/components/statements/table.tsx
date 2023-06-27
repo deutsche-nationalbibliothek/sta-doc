@@ -92,6 +92,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
               css={{
                 '& .ant-table': {
                   margin: '0px !important',
+                  fontFamily: 'var(--font-primary)',
                 },
               }}
               id={record.property}
@@ -221,6 +222,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
       columns={columns}
       pagination={false}
       showHeader={false}
+      css={{ marginBottom: '1em', fontFamily: 'var(--font-primary)' }}
     />
   );
 };

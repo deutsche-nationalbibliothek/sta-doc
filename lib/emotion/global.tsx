@@ -17,9 +17,6 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
           '.ant-typography code': {
             fontFamily: 'var(--font-primary)',
           },
-          '.ant-table': {
-            fontFamily: 'var(--font-primary) !important',
-          },
           '.ant-breadcrumb': {
             fontFamily: 'var(--font-primary)',
           },
@@ -36,9 +33,6 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
             listStyleType: 'initial',
           },
           a: {
-            fontFamily: 'var(--font-primary)',
-          },
-          strong: {
             fontFamily: 'var(--font-primary)',
           },
           '.ant-typography a': {
