@@ -21,7 +21,7 @@ import {
   Tooltip,
 } from 'antd';
 import copy from 'copy-to-clipboard';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
@@ -29,7 +29,10 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
-
+  const [currentUrl, setCurrentUrl] = useState('');
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();
 
@@ -70,6 +73,8 @@ export const Footer: React.FC = () => {
     },
   };
 
+  const feedbackBodyMessage =
+    'Danke das Sie das Feedback Formular nutzen. Wir freuen uns auf Ihre detailierten Anmerkungen und Hinweise.%0D%0A%0D%0AEuer AfS-Team.';
   return (
     <ConfigProvider
       theme={{
@@ -168,7 +173,17 @@ export const Footer: React.FC = () => {
               title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
             >
               <MessageOutlined css={styles.icon} />
-              <a href="mailto:afs@dnb.de?bcc=m.manecke@dnb.de&subject=Seitentitel&body=Bitte%20feedback%20geben%20unter%20Beachtung%20der%20folgenden%20Regeln%3A%0A...%0A%0ALG%20AfS%20Team%20der%20DNB">
+              <a
+                href={
+                  `mailto:afs@dnb.de?cc=m.manecke@dnb.de&subject=` +
+                  `STA-Doku Plattform: Anmerkung zur Seite: ` +
+                  `${currentUrl}` +
+                  `&body=` +
+                  `${feedbackBodyMessage}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Feedback
               </a>
             </Tooltip>
