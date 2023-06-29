@@ -59,7 +59,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
   return (
     <>
       <Head>
-        <title>{namespace} Index</title>
+        <title>{namespace} | Index</title>
       </Head>
 
       <PageHeader

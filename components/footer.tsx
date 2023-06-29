@@ -6,6 +6,7 @@ import {
   FullscreenOutlined,
   GithubOutlined,
   LinkOutlined,
+  MessageOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
@@ -162,6 +163,15 @@ export const Footer: React.FC = () => {
                 />
               </Tooltip>
             )}
+            <Tooltip
+              className="no-print"
+              title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
+            >
+              <MessageOutlined css={styles.icon} />
+              <a href="mailto:afs@dnb.de?bcc=m.manecke@dnb.de&subject=Seitentitel&body=Bitte%20feedback%20geben%20unter%20Beachtung%20der%20folgenden%20Regeln%3A%0A...%0A%0ALG%20AfS%20Team%20der%20DNB">
+                Feedback
+              </a>
+            </Tooltip>
           </Col>
           <Col
             css={css(styles.col, {
