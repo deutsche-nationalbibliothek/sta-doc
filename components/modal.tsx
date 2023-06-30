@@ -42,14 +42,14 @@ export const Modal: React.FC<ModalProps> = (props) => {
         <a onClick={showModal}>{label}</a>
       )}
       <AntdModal
-        open={isOpen}
-        onCancel={onCancel}
-        footer={[]}
-        width={720}
         title={
           props.disableLabelOnOpen !== undefined &&
           (isOpen ? '' : otherProps.title || label)
         }
+        open={isOpen}
+        onCancel={onCancel}
+        footer={[]}
+        width={720}
         {...otherProps}
         css={css(otherProps.className ?? '', {
           '& .ant-modal-header': {

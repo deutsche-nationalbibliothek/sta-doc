@@ -1,4 +1,7 @@
 import { Modal } from '@/components/modal';
+import { useState, useRef } from 'react';
+import Draggable from 'react-draggable';
+import type { DraggableData, DraggableEvent } from 'react-draggable';
 import { useCodingsPreference } from '@/hooks/use-codings-preference';
 import { Entity } from '@/types/parsed/entity';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
@@ -14,6 +17,29 @@ interface ExamplesProps {
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
+  const [disabled, setDisabled] = useState(true);
+  const [bounds, setBounds] = useState({
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
+  });
+  const draggleRef = useRef<HTMLDivElement>(null);
+
+  const onStart = (_event: DraggableEvent, uiData: DraggableData) => {
+    const { clientWidth, clientHeight } = window.document.documentElement;
+    const targetRect = draggleRef.current?.getBoundingClientRect();
+    if (!targetRect) {
+      return;
+    }
+    setBounds({
+      left: -targetRect.left + uiData.x,
+      right: clientWidth - (targetRect.right - uiData.x),
+      top: -targetRect.top + uiData.y,
+      bottom: clientHeight - (targetRect.bottom - uiData.y),
+    });
+  };
+
   const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
 
   const { codingsPreferences, onChange, codingsOptions } =
@@ -44,6 +70,10 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
         : Namespace.STA)) ||
     Namespace.STA;
 
+  //quickfix because of opened type error:
+  //checkout https://github.com/react-grid-layout/react-draggable/issues/652
+  const Draggable1: any = Draggable;
+
   return (
     <NamespaceThemeConfigProvider namespace={examplesNamespace}>
       <Modal
@@ -61,6 +91,29 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
           >
             <Col>
               <Typography.Text strong>{labelReactElement}</Typography.Text>
+            </Col>
+            <Col>
+              <div
+                style={{
+                  width: '100%',
+                  cursor: 'move',
+                }}
+                onMouseOver={() => {
+                  if (disabled) {
+                    setDisabled(false);
+                  }
+                }}
+                onMouseOut={() => {
+                  setDisabled(true);
+                }}
+                // fix eslintjsx-a11y/mouse-events-have-key-events
+                // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/mouse-events-have-key-events.md
+                // onFocus={() => {}}
+                // onBlur={() => {}}
+                // expand-toggle
+              >
+                {`<<< Verschieben >>>`}
+              </div>
             </Col>
             {examplesHaveCodingValues && (
               <Col>
@@ -86,6 +139,17 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
             )}
           </Row>
         }
+        modalRender={(modal) => (
+          <Draggable1
+            disabled={disabled}
+            bounds={bounds}
+            onStart={(event: DraggableEvent, uiData: DraggableData) =>
+              onStart(event, uiData)
+            }
+          >
+            <div ref={draggleRef}>{modal}</div>
+          </Draggable1>
+        )}
       >
         {examples.map((example, index) => (
           <ExampleCard
