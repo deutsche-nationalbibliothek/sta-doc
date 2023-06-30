@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
   };
 
   const feedbackBodyMessage =
-    'Danke das Sie das Feedback Formular nutzen. Wir freuen uns auf Ihre detailierten Anmerkungen und Hinweise.%0D%0A%0D%0AEuer AfS-Team.';
+    'Vielen Dank, Ihr Feedback ist wichtig. Wir freuen uns auf Ihre Anmerkungen und Hinweise.%0D%0A%0D%0AIhr AfS-Team.';
   return (
     <ConfigProvider
       theme={{
@@ -172,11 +172,11 @@ export const Footer: React.FC = () => {
               className="no-print"
               title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
             >
-              <MessageOutlined css={styles.icon} />
               <a
+                css={{ paddingLeft: '15px' }}
                 href={
-                  `mailto:afs@dnb.de?cc=m.manecke@dnb.de&subject=` +
-                  `STA-Doku Plattform: Anmerkung zur Seite: ` +
+                  `mailto:afs@dnb.de&subject=` +
+                  `STA-Doku-Plattform: Anmerkung zur Seite: ` +
                   `${currentUrl}` +
                   `&body=` +
                   `${feedbackBodyMessage}`
