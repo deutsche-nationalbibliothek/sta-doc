@@ -48,14 +48,3 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
     </>
   );
 };
-
-export const GlobalDynamicStyles: React.FC<React.PropsWithChildren<{}>> = ({
-  children,
-}) => {
-  return (
-    <>
-      <Global styles={{}} />
-      {children}
-    </>
-  );
-};

@@ -71,7 +71,7 @@ export default function RdaPropertiesPage({
   return (
     <>
       <Head>
-        <title>Handbuch Gemeinsame Normdatei | Startseite</title>
+        <title>RDA | Elemente</title>
       </Head>
 
       <PageHeader

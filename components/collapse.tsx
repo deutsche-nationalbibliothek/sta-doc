@@ -30,6 +30,7 @@ export const Collapse = ({
     <Typography.Paragraph>
       <AntdCollapse
         css={{
+          marginBottom: '0.5em',
           '& .ant-collapse-item': {
             border: `1px solid ${token.colorPrimaryBorder}`,
             borderRadius: `${token.borderRadiusOuter}px !important`,

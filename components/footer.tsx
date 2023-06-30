@@ -6,6 +6,7 @@ import {
   FullscreenOutlined,
   GithubOutlined,
   LinkOutlined,
+  MessageOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
@@ -20,7 +21,7 @@ import {
   Tooltip,
 } from 'antd';
 import copy from 'copy-to-clipboard';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
@@ -28,7 +29,10 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
-
+  const [currentUrl, setCurrentUrl] = useState('');
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();
 
@@ -69,6 +73,8 @@ export const Footer: React.FC = () => {
     },
   };
 
+  const feedbackBodyMessage =
+    'Vielen Dank, Ihr Feedback ist wichtig. Wir freuen uns auf Ihre Anmerkungen und Hinweise.%0D%0A%0D%0AIhr AfS-Team.';
   return (
     <ConfigProvider
       theme={{
@@ -162,6 +168,25 @@ export const Footer: React.FC = () => {
                 />
               </Tooltip>
             )}
+            <Tooltip
+              className="no-print"
+              title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
+            >
+              <a
+                css={{ paddingLeft: '15px' }}
+                href={
+                  `mailto:afs@dnb.de&subject=` +
+                  `STA-Doku-Plattform: Anmerkung zur Seite: ` +
+                  `${currentUrl}` +
+                  `&body=` +
+                  `${feedbackBodyMessage}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Feedback
+              </a>
+            </Tooltip>
           </Col>
           <Col
             css={css(styles.col, {
