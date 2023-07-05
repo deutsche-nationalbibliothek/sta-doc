@@ -6,7 +6,6 @@ import {
   FullscreenOutlined,
   GithubOutlined,
   LinkOutlined,
-  MessageOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
