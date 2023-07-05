@@ -15,6 +15,7 @@ export const Embedded: React.FC<EmbeddedProps> = memo(
     return (
       <NamespaceThemeConfigProvider namespace={entity.namespace}>
         <Collapse
+          defaultOpen={entity.contextOfUseLabel ? false : true}
           labelOpen={entity.contextOfUseLabel}
           labelClosed={entity.contextOfUseLabel}
           extra={
