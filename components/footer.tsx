@@ -5,9 +5,11 @@ import {
   FullscreenExitOutlined,
   FullscreenOutlined,
   GithubOutlined,
+  InfoOutlined,
   LinkOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
+  WechatOutlined,
 } from '@ant-design/icons';
 import { CSSObject, css } from '@emotion/react';
 import {
@@ -24,6 +26,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -110,32 +113,57 @@ export const Footer: React.FC = () => {
             })}
           >
             {process.env['NEXT_PUBLIC_VERSION'] && (
-              <span
-                css={{
-                  '&:hover': {
-                    color: `${token.colorPrimary} !important`,
-                  },
-                  '& a:hover': {
-                    color: `${token.colorPrimary} !important`,
-                  },
-                }}
-              >
-                <GithubOutlined
+              <>
+                <span
                   css={{
-                    paddingRight: 2,
-                  }}
-                />
-                <ExternalLink
-                  css={{
-                    color: `${token.colorText} !important`,
-                  }}
-                  linkProps={{
-                    href: `https://github.com/deutsche-nationalbibliothek/sta-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
+                    '&:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
+                    '& a:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
                   }}
                 >
-                  <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
-                </ExternalLink>
-              </span>
+                  <GithubOutlined
+                    css={{
+                      paddingRight: 2,
+                    }}
+                  />
+                  <ExternalLink
+                    css={{
+                      color: `${token.colorText} !important`,
+                    }}
+                    linkProps={{
+                      href: `https://github.com/deutsche-nationalbibliothek/sta-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
+                    }}
+                  >
+                    <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
+                  </ExternalLink>
+                </span>
+                <span css={{ paddingLeft: '5px' }}> | </span>
+                <span
+                  css={{
+                    '&:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
+                    '& a:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
+                    paddingLeft: '5px',
+                  }}
+                >
+                  <ExternalLink
+                    css={{
+                      color: `${token.colorText} !important`,
+                    }}
+                    linkProps={{
+                      href: `https://sta.dnb.de/doc/STA-IMPRESSUM`,
+                    }}
+                  >
+                    <>Impressum</>
+                  </ExternalLink>
+                </span>
+              </>
             )}
           </Col>
           <Col
@@ -172,7 +200,6 @@ export const Footer: React.FC = () => {
               title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
             >
               <a
-                css={{ paddingLeft: '15px' }}
                 href={
                   `mailto:afs@dnb.de&subject=` +
                   `STA-Doku-Plattform: Anmerkung zur Seite: ` +
@@ -183,7 +210,7 @@ export const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Feedback
+                <WechatOutlined css={styles.icon} />
               </a>
             </Tooltip>
           </Col>
