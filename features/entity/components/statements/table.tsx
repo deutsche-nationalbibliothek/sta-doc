@@ -217,6 +217,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   return (
     <Table<TableStatementsData>
       size="small"
+      style={{ marginBottom: '10px' }}
       dataSource={data}
       columns={columns}
       pagination={false}
@@ -276,12 +277,13 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       css={{
         '& .ant-table': {
           margin: '0px !important',
+          marginBottom: '10px',
         },
       }}
       showHeader={false}
       dataSource={rdaElementStatus.map((e) => ({ ...e, key: e.status.id }))}
       columns={columns}
-      pagination={rdaElementStatus.length > 3 ? { pageSize: 3 } : false}
+      pagination={rdaElementStatus.length > 6 ? { pageSize: 6 } : false}
     />
   );
 };
