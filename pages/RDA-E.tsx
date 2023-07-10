@@ -33,6 +33,7 @@ export default function RdaPropertiesPage({
       key: 'staNotationLabel',
       width: '20%',
       isSearchable: true,
+      defaultSortOrder: 'ascend',
     },
     {
       title: 'Element',
