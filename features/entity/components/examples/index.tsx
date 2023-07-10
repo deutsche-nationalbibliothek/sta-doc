@@ -115,6 +115,7 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
                 {`<<< Verschieben >>>`}
               </div>
             </Col>
+            <Col></Col>
             {examplesHaveCodingValues && (
               <Col>
                 <Select
