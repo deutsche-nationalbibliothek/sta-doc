@@ -99,12 +99,15 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         .map((qualifier, index) => {
           const property = qualifier.property as keyof typeof qualifierMap;
           return (
-            <React.Fragment key={index}>
+            <div style={{ marginBottom: '14px' }}>
               {' '}
-              {qualifier.property in qualifierMap
-                ? qualifierMap[property](qualifier)
-                : qualifierMap.default(qualifier)}
-            </React.Fragment>
+              <React.Fragment key={index}>
+                {' '}
+                {qualifier.property in qualifierMap
+                  ? qualifierMap[property](qualifier)
+                  : qualifierMap.default(qualifier)}
+              </React.Fragment>
+            </div>
           );
         })}
     </>
