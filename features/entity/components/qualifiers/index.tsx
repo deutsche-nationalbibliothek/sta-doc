@@ -17,7 +17,7 @@ interface QualifiersProps {
   shouldRenderLabel?: (qualifier: Statement) => boolean;
 }
 
-const doNotRender = [Property['Type-of-layout']];
+const doNotRender = [Property['Type-of-layout'], Property['Introduction-text']];
 
 export const Qualifiers: React.FC<QualifiersProps> = ({
   qualifiers,
