@@ -25,6 +25,8 @@ export const Collapse = ({
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const { token } = theme.useToken();
   useCollapseToggleEvent((x) => setIsOpen(x.detail === 'open'));
+  console.log('labelOpen', labelOpen);
+  console.log('labelClosed', labelClosed);
 
   return (
     <Typography.Paragraph>
@@ -44,7 +46,11 @@ export const Collapse = ({
       >
         <AntdCollapse.Panel
           extra={extra}
-          header={isOpen ? labelOpen : labelClosed}
+          header={
+            isOpen && labelClosed === 'Weiterführende Informationen'
+              ? labelOpen
+              : labelClosed
+          }
           key="1"
         >
           {children}
