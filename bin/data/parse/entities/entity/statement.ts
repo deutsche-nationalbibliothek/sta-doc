@@ -64,7 +64,8 @@ export const parseStatement = (props: ParseStatementProps) => {
       property === Property['embedded-(property)']) &&
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-  const nextHeaderLevel = currentHeadlineLevel + (hasHeadline ? 1 : 0);
+  const nextHeaderLevel =
+    currentHeadlineLevel + (hasHeadline || hasEmbedding ? 1 : 0);
 
   const embedded = hasEmbedding
     ? parseRawEntity({
