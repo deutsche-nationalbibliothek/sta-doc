@@ -5,7 +5,6 @@ import {
   FullscreenExitOutlined,
   FullscreenOutlined,
   GithubOutlined,
-  InfoOutlined,
   LinkOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
@@ -26,7 +25,6 @@ import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
-import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
