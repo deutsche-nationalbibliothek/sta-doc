@@ -1,7 +1,7 @@
 .example-table {
-  background-color: #282c34;
-  color: white;
-  padding: 40px;
-  font-family: Arial;
-  text-align: center;
+  background-color: #fafafa;
+  color: black;
+  margin-bottom: 10px;
+  text-align: left;
+  vertical-align: top;
 }
