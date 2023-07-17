@@ -17,7 +17,7 @@ const namespaceConfig: NamespaceConfig = {
   },
   // color codes for rgb()
   colors: {
-    RDA: {
+    ['RDA DACH']: {
       primary: colors['rda-color'],
     },
     GND: {
