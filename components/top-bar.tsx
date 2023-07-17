@@ -92,7 +92,7 @@ export const TopBar: React.FC = () => {
                   <Link href="/RDA">RDA DACH</Link>
                 </span>
               ),
-              key: 'RDA',
+              key: 'RDA DACH',
               children: [
                 {
                   label: <Link href="/RDA-A">Allgemeines</Link>,
