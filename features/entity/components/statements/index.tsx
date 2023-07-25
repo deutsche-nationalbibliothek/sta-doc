@@ -5,6 +5,7 @@ import React, { memo } from 'react';
 import { WikibasePointers } from '../wikibase-pointers';
 import { StringGroupsStatement } from './string-groups';
 import { UrlStatements } from './url';
+import { Property } from '@/types/property';
 
 interface StatementsProps {
   statements: Statement[];
@@ -18,6 +19,7 @@ export const Statements: React.FC<StatementsProps> = memo(
         {statements
           .filter(
             (statement) =>
+              statement.property != Property.Annotation &&
               !isPropertyBlacklisted(statement.property, 'property')
           )
           .map((statement, index) => {

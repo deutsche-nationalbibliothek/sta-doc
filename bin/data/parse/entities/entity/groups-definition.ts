@@ -19,6 +19,7 @@ export const defaultGroupsDefinition: Groups = {
     Property.Scope,
     // Property.P663,
     // Property['WEMI-level'],
+    Property.Annotation,
   ],
   table: [
     Property['WEMI-level'],
@@ -48,7 +49,6 @@ export const defaultGroupsDefinition: Groups = {
     Property['P658'],
     Property['URL'],
     Property['permited-values'],
-    Property['Annotation'],
     Property['Context-of-use'],
     Property['example(s)'],
     Property['embedded-in-(item)'],
@@ -403,6 +403,7 @@ export const rdaRessourceTypeGroups: Groups = {
   header: [
     Property.definition,
     // Property['STA-Notation'],
+    Property.Annotation,
   ],
   table: [],
   body: [
@@ -414,8 +415,6 @@ export const rdaRessourceTypeGroups: Groups = {
     Property.P657,
     Property.P658,
     Property['description-(at-the-end)'],
-    // Property['description-(at-the-end)',
-
     Property['title-proper-or-RDA-property'],
     Property.Status,
     Property.Repetition,
