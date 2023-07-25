@@ -342,10 +342,13 @@ WHERE {
 ?statement statement:P637 ?element .
 ?statement qualifier:P640 ?status . #status
 OPTIONAL { ?statement qualifier:P7 ?description . } #description
-OPTIONAL { ?statement qualifier:P396 ?embedded . } #description
+OPTIONAL { ?statement qualifier:P396 ?embedded . } #embedded
+OPTIONAL { ?entity prop:P389 ?typeOfLayout . } #type of layout
 SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
 BIND(STRAFTER(STR(?entity), '/entity/') as ?eId)
 BIND(STRAFTER(STR(?element), '/entity/') as ?elementId)
 BIND(STRAFTER(STR(?status), '/entity/') as ?statusId)
 BIND(STRAFTER(STR(?embedded), '/entity/') as ?embeddedId)
+BIND(STRAFTER(STR(?typeOfLayout), '/entity/') as ?typeOfLayoutId)
+FILTER (?typeOfLayoutId != 'Q10199')
 }`;
