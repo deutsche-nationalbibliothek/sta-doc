@@ -10,6 +10,7 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
     <>
       <Global
         styles={{
+          // fontFamily: 'Montserrat',
           '.ant-layout-header': {
             paddingInline: isMobile ? 'inherit' : undefined,
           },
