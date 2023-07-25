@@ -1,6 +1,6 @@
-import { StringValueComponent } from '@/entity/components/values/string';
+// import { StringValueComponent } from '@/entity/components/values/string';
 import { useSolrSearch } from '@/hooks/use-solr-search';
-import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 import { SearchResults } from './results-list';
 import { AutoComplete, ConfigProvider, Input } from 'antd';
 import { Namespace } from '@/types/namespace';
@@ -16,18 +16,18 @@ interface SolrSearchProps {
 }
 
 export const SolrSearch: React.FC<SolrSearchProps> = ({
-  placeholder,
+  // placeholder,
   onCloseDrawer,
 }) => {
   const {
-    suggestionsResult,
+    // suggestionsResult,
     queryResult,
-    inputRef,
+    // inputRef,
     isLoadingSearchIfQuery,
-    isLoadingSuggestionsIfQuery,
-    setQuery,
+    // isLoadingSuggestionsIfQuery,
+    // setQuery,
     query,
-    onSearch,
+    // onSearch,
     currentPage,
     setCurrentPage,
   } = useSolrSearch();
@@ -42,39 +42,39 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
           },
         }}
       >
-        <AutoComplete
-          css={{ width: '100%' }}
-          autoFocus
-          onSelect={(value: string) =>
-            setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
-          }
-          defaultValue={query}
-          options={
-            query && suggestionsResult?.spellcheck.suggestions[1]
-              ? suggestionsResult.spellcheck.suggestions[1].suggestion
-                  .sort((s1, s2) => s2.freq - s1.freq)
-                  .map((x, index) => ({
-                    value: x.word,
-                    key: index,
-                    label: (
-                      <StringValueComponent stringValue={{ value: x.word }} />
-                    ),
-                  }))
-              : []
-          }
-        >
-          <Input.Search
-            placeholder={placeholder}
-            loading={isLoadingSuggestionsIfQuery}
-            ref={inputRef}
-            autoFocus
-            enterButton
-            defaultValue={query}
-            value={query}
-            onChange={debounce(onSearch, 400)}
-            allowClear
-          />
-        </AutoComplete>
+        {/* <AutoComplete */}
+        {/*   css={{ width: '100%' }} */}
+        {/*   autoFocus */}
+        {/*   onSelect={(value: string) => */}
+        {/*     setQuery(value.replaceAll(/(<([^>]+)>)/g, '')) */}
+        {/*   } */}
+        {/*   defaultValue={query} */}
+        {/*   options={ */}
+        {/*     query && suggestionsResult?.spellcheck.suggestions[1] */}
+        {/*       ? suggestionsResult.spellcheck.suggestions[1].suggestion */}
+        {/*           .sort((s1, s2) => s2.freq - s1.freq) */}
+        {/*           .map((x, index) => ({ */}
+        {/*             value: x.word, */}
+        {/*             key: index, */}
+        {/*             label: ( */}
+        {/*               <StringValueComponent stringValue={{ value: x.word }} /> */}
+        {/*             ), */}
+        {/*           })) */}
+        {/*       : [] */}
+        {/*   } */}
+        {/* > */}
+        {/*   <Input.Search */}
+        {/*     placeholder={placeholder} */}
+        {/*     loading={isLoadingSuggestionsIfQuery} */}
+        {/*     ref={inputRef} */}
+        {/*     autoFocus */}
+        {/*     enterButton */}
+        {/*     defaultValue={query} */}
+        {/*     value={query} */}
+        {/*     onChange={debounce(onSearch, 400)} */}
+        {/*     allowClear */}
+        {/*   /> */}
+        {/* </AutoComplete> */}
         {queryResult && (
           <SearchResults
             queryResult={queryResult}
