@@ -33,7 +33,7 @@ export const QueryHighlighter: React.FC<{ textToHighlight: string }> = ({
 
   return (
     <Highlighter
-      searchWords={compact([searchQuery])}
+      searchWords={compact([searchQuery.replace(/"+/g, '')])}
       textToHighlight={textToHighlight}
     />
   );
