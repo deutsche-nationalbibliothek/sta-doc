@@ -13,7 +13,7 @@ export type EntitiesEntries = Record<EntityId, EntityEntry>;
 export interface Entity {
   id: EntityId;
   label?: string;
-  title?: string;
+  elementOf?: string;
   field?: Field;
   headline?: Headline;
   description?: string;
@@ -44,6 +44,7 @@ export type EntityEntryWithOptionalHeadlines = PartialBy<
 export interface PageType {
   label?: string;
   deLabel: string;
+  schema: string;
   assignmentId: string;
   assignmentLabel: string;
   id: Item; //Item;
