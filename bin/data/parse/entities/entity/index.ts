@@ -145,6 +145,7 @@ export const parseRawEntity = (
       ? ({
           ...labelsEn[elementOfId],
           deLabel: labelsDe[elementOfId],
+          schema: labelsDe[namespaceId],
         } as PageType)
       : undefined;
 
@@ -184,7 +185,7 @@ export const parseRawEntity = (
         ? addHeadline(label, currentHeadlineLevel, false, namespace)
         : undefined,
       label: !embedded ? label : undefined,
-      title: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
+      elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
       pageType,
       contextOfUseLabel,
       namespace,

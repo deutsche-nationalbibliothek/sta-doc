@@ -58,12 +58,12 @@ const commonParseFunc = <T extends CommonTypeRaw[], K extends CommonTypeParsed>(
   name: Name
 ): K => {
   console.log('\tParsing', name.type);
-  const parsedData = data.reduce((acc, entry) => {
-    acc[entry.eId.value] = {
-      label: entry.elementLabel.value.toLowerCase().split(' ').join(''),
-      assignmentId: entry.assignmentId?.value,
-      assignmentLabel: entry.assignmentLabel?.value,
-      id: entry.eId.value,
+  const parsedData = data.reduce((acc, entity) => {
+    acc[entity.eId.value] = {
+      label: entity.elementLabel.value.toLowerCase().split(' ').join(''),
+      assignmentId: entity.assignmentId?.value,
+      assignmentLabel: entity.assignmentLabel?.value,
+      id: entity.eId.value,
     };
     return acc;
   }, {} as K);
@@ -219,10 +219,10 @@ export const schemasParser = (schemas: SchemasRaw) => {
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
   console.log('\tParsing StaNotations');
-  return staNotations.reduce((acc, entry: StaNotationRaw) => {
-    acc[entry.eId.value] = {
-      label: entry.staNotationLabel.value.toUpperCase(),
-      id: entry.eId.value,
+  return staNotations.reduce((acc, entity: StaNotationRaw) => {
+    acc[entity.eId.value] = {
+      label: entity.staNotationLabel.value.toUpperCase(),
+      id: entity.eId.value,
     };
     return acc;
   }, {} as StaNotations);
