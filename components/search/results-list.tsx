@@ -56,7 +56,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
             const headlineMatches = uniq<string>(
               doc['headline-text-search'].filter(
                 (docValue: string) =>
-                  docValue.toLowerCase().includes(query.toLowerCase()) &&
+                  docValue
+                    .toLowerCase()
+                    .includes(query.toLowerCase().replace(/"+/g, '')) &&
                   docValue !== doc['headline.title'][0]
               )
             );
@@ -75,7 +77,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                             headlineMatches.every(
                               (headlineMatch) => headlineMatch !== docValue
                             ) &&
-                            docValue.toLowerCase().includes(query.toLowerCase())
+                            docValue
+                              .toLowerCase()
+                              .includes(query.toLowerCase().replace(/"+/g, ''))
                         ),
                       ];
                     }
@@ -84,7 +88,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                 }, [] as string[])
               )
             );
-
             return 'headline-text-search' in doc ? (
               <NamespaceThemeConfigProvider
                 key={index}
@@ -94,8 +97,10 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   <EntityLink
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
-                    label={doc['headline.title'][0]}
-                    staNotationLabel={doc['staNotationLabel'][0]}
+                    label={`${doc['headline.title'][0]} | ${doc.namespace[0]} - ${doc['pageType.deLabel'][0]}`}
+                    staNotationLabel={
+                      doc['staNotationLabel'] ? doc['staNotationLabel'][0] : '/'
+                    }
                     id={doc.id}
                   />
                   <ul>
