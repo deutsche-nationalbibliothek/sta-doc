@@ -23,7 +23,7 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
   const wikibasePointerGroups = groupBy(wikibasePointers, (wikibasePointer) =>
     'headline' in wikibasePointer ||
     'references' in wikibasePointer ||
-    'qualifiers' in wikibasePointer ||
+    ('qualifiers' && 'headline' in wikibasePointer) ||
     'embedded' in wikibasePointer
       ? 'extras'
       : 'simples'
@@ -71,10 +71,13 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
               <>
                 {wikibasePointerGroups.simples.map((wikibasePointer, index) => (
                   <li key={index}>
-                    <WikibaseLink
-                      showArrow={isSeeItemOrProperty}
-                      wikibasePointer={wikibasePointer}
-                    />
+                    <React.Fragment key={index}>
+                      <WikibasePointer
+                        wikibasePointer={wikibasePointer}
+                        property={property}
+                        isSeeItemOrProperty={isSeeItemOrProperty}
+                      />
+                    </React.Fragment>
                   </li>
                 ))}
               </>
