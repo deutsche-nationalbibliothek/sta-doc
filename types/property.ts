@@ -101,7 +101,6 @@ export enum Property {
   'Instance-of' = 'P114',
   'has-element-(item)' = 'P115',
   'has-element-(property)' = 'P116',
-  'Label-or-RDA-Toolkit' = 'P117',
   'IRI' = 'P118',
   'Curie' = 'P119',
   'Unconstrained-URI' = 'P120',

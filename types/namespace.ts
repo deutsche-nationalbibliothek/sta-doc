@@ -1,6 +1,6 @@
 export enum Namespace {
   GND = 'GND',
-  RDA = 'RDA DACH',
+  RDA = 'RDA',
   STA = 'STA',
   UC = 'Under Construction',
   Q15 = 'Q15',
