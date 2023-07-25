@@ -69,6 +69,7 @@
     </fieldType>
 
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="staNotationLabel" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="full-text-search" type="text_general" indexed="true" stored="true" multiValued="true"/>
     <field name="headline-text-search" type="text_general" indexed="true" stored="true" multiValued="true"/>
     <field name="suggest_field" type="text_general" indexed="true" stored="false" multiValued="true"/>
