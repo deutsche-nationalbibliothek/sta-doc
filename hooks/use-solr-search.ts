@@ -26,15 +26,15 @@ export const useSolrSearch = () => {
     urlQuery && !(query && !queryLoading) && !!query ? queryLoading : false;
 
   // suggest solr logic
-  const [urlSuggest, setUrlSuggest] = useState<string>();
+  // const [urlSuggest, setUrlSuggest] = useState<string>();
 
-  const { data: suggestionsResult, loading: suggetionsLoading } =
-    useSWR<SuggestionsResult>(urlSuggest, true);
+  // const { data: suggestionsResult, loading: suggetionsLoading } =
+  //   useSWR<SuggestionsResult>(urlSuggest, true);
 
-  const isLoadingSuggestionsIfQuery =
-    urlSuggest && !(query && !suggetionsLoading) && !!query
-      ? suggetionsLoading
-      : false;
+  // const isLoadingSuggestionsIfQuery =
+  //   urlSuggest && !(query && !suggetionsLoading) && !!query
+  //     ? suggetionsLoading
+  //     : false;
 
   const onSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value || '');
@@ -61,24 +61,24 @@ export const useSolrSearch = () => {
           }`
         );
 
-        setUrlSuggest(
-          `${
-            process.env.basePath ?? ''
-          }/api/entities/search/suggest?query=${query}`
-        );
+        // setUrlSuggest(
+        //   `${
+        //     process.env.basePath ?? ''
+        //   }/api/entities/search/suggest?query=${query}`
+        // );
       } else {
         setUrlQuery(undefined);
-        setUrlSuggest(undefined);
+        // setUrlSuggest(undefined);
       }
     }
   }, [query, currentPage]);
 
   return {
-    suggestionsResult,
+    // suggestionsResult,
     queryResult,
     inputRef,
     isLoadingSearchIfQuery,
-    isLoadingSuggestionsIfQuery,
+    // isLoadingSuggestionsIfQuery,
     setQuery,
     query,
     onSearch,
