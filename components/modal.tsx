@@ -11,6 +11,26 @@ interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
   closeOnRouteChange?: boolean;
 }
 
+// TODO
+// export const DraggableModal: React.FC<ModalProps> = (props) => {
+//   return (
+//     <Modal
+//       {...props}
+//       modalRender={(modal) => (
+//         <Draggable
+//           disabled={disabled}
+//           bounds={bounds}
+//           onStart={(event: DraggableEvent, uiData: DraggableData) =>
+//             onStart(event, uiData)
+//           }
+//         >
+//           <div ref={draggleRef}>{modal}</div>
+//         </Draggable>
+//       )}
+//     ></Modal>
+//   );
+// };
+
 export const Modal: React.FC<ModalProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { token } = theme.useToken();
