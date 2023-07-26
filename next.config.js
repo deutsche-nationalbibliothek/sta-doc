@@ -18,6 +18,19 @@ module.exports = async () => {
     images: {
       domains: ['www.cilip.org.uk'],
     },
+    experimental: {
+      babel: {
+        presets: [
+          [
+            '@emotion/babel-preset-css-prop',
+            {
+              autoLabel: process.env.NODE_ENV !== 'production',
+              labelFormat: '[local]',
+            },
+          ],
+        ],
+      },
+    },
     reactStrictMode: true,
     async redirects() {
       // return redirectArr
@@ -45,7 +58,7 @@ module.exports = async () => {
 };
 
 /**
- * @returns {string} latest git tag
+ * @returns {Promise<string>} latest git tag
  */
 const getVersion = () => {
   const { trim } = require('lodash');
