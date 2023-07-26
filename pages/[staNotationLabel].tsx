@@ -15,6 +15,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect } from 'react';
 import { NotFound } from './404';
 import { useNamespace } from '@/hooks/use-namespace';
+import { useScroll } from '@/hooks/use-scroll';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -35,6 +36,11 @@ export default function EntityDetailsPage({
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
+  const { onScroll } = useScroll();
+
+  useEffect(() => {
+    window.setTimeout(onScroll, 150);
+  }, [onScroll]);
 
   useEffect(() => {
     if (namespace) {

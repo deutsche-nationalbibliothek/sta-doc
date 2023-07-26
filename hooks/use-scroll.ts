@@ -9,7 +9,7 @@ import { useInitialHeadlines } from './initial-headlines';
 import { titleIdPrefix } from '@/components/title';
 
 export const useScroll = (
-  treeRef: React.MutableRefObject<RcTree<DataNode> | null>
+  treeRef?: React.MutableRefObject<RcTree<DataNode> | null>
 ) => {
   const { headlines } = useInitialHeadlines();
   const {
@@ -72,7 +72,7 @@ export const useScroll = (
 
   useEffect(() => {
     headlineKeysInViewport.forEach((headlineKey) => {
-      treeRef.current?.scrollTo({
+      treeRef?.current?.scrollTo({
         key: headlineKey,
         align: 'auto',
         offset: 150,
@@ -117,4 +117,6 @@ export const useScroll = (
       setCurrentHeadlinesPath(nestedHeadlines.reduce(treeNodeReducer, []));
     }
   }, [setCurrentHeadlinesPath, headlineKeysInViewport, nestedHeadlines]);
+
+  return { onScroll };
 };
