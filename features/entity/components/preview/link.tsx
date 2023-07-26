@@ -1,13 +1,13 @@
 import { useNamespace } from '@/hooks/use-namespace';
-import { Namespace, namespaceToColor } from '@/types/namespace';
-import { EntityId } from '@/types/entity-id';
-import { Tag, theme } from 'antd';
-import { EntityPreview } from '.';
-import namespaceConfig from 'config/namespace';
-import { Link } from '@/lib/next-link';
 import { QueryHighlighter } from '@/lib/highlighter';
-import { LinkProps } from 'next/link';
+import { Link } from '@/lib/next-link';
+import { EntityId } from '@/types/entity-id';
+import { Namespace, namespaceToColor } from '@/types/namespace';
+import { Tag, theme } from 'antd';
 import type { TooltipPlacement } from 'antd/lib/tooltip';
+import namespaceConfig from 'config/namespace';
+import { LinkProps } from 'next/link';
+import { EntityPreview } from '.';
 
 interface EntityLinkProps {
   label: string;

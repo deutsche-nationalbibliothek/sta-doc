@@ -8,7 +8,7 @@ import { TopBar } from './top-bar';
 import 'antd/dist/reset.css';
 import { CSSObject } from '@emotion/react';
 import { compact } from 'lodash';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { SidebarSmallScreen } from './sidebar-small-screen';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
@@ -111,6 +111,32 @@ const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
 
 const Content: React.FC<PropsWithChildren> = ({ children }) => {
   const isSmallScreen = useIsSmallScreen();
+  const mainLayoutRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleArrowKeys = (e: KeyboardEvent) => {
+      const container = mainLayoutRef.current;
+      if (container) {
+        const actions: Record<string, () => void> = {
+          ArrowDown: () => (container.scrollTop += 50),
+          ArrowUp: () => (container.scrollTop -= 50),
+          PageDown: () => (container.scrollTop += container.clientHeight),
+          PageUp: () => (container.scrollTop -= container.clientHeight),
+          Home: () => (container.scrollTop = 0),
+          End: () => (container.scrollTop = container.scrollHeight),
+        };
+        if (e.key in actions) {
+          e.preventDefault();
+          actions[e.key]();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleArrowKeys);
+    return () => {
+      window.removeEventListener('keydown', handleArrowKeys);
+    };
+  }, []);
+
   return (
     <AntdLayout
       css={{
@@ -141,6 +167,7 @@ const Content: React.FC<PropsWithChildren> = ({ children }) => {
           }
           className="main-scroll-container"
           id="main-scroll-container"
+          ref={mainLayoutRef}
         >
           {children}
         </div>
