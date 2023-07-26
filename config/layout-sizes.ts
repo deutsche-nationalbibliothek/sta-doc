@@ -7,7 +7,7 @@ const layoutSizes = {
   'divider-top-height': 5,
   'divider-bottom-height': 5,
   'footer-height': 26,
-  'footer-mobile-height': 30,
+  'footer-mobile-height': 48,
 };
 
 export default layoutSizes;

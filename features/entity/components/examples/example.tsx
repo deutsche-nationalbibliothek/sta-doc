@@ -12,6 +12,7 @@ import { compact } from 'lodash';
 import React from 'react';
 import { Statements } from '../statements';
 import { RdaExample } from './rda-example';
+import useIsSmallScreen from '@/hooks/use-is-small-screen';
 
 export interface ExampleProps {
   entity: Entity;
@@ -217,6 +218,8 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   exampleValues,
 }) => {
   const { codingsPreferences } = useCodingsPreference();
+  const { token } = theme.useToken();
+  const isSmallScreen = useIsSmallScreen();
 
   if (
     !codingsPreferences.some(
@@ -225,7 +228,6 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
-  const { token } = theme.useToken();
   return (
     <Card
       css={{
@@ -238,8 +240,8 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
       <Tag
         css={{
           position: 'fixed',
-          top: '1em',
-          right: '1em',
+          top: isSmallScreen ? 0 : '1em',
+          right: isSmallScreen ? 0 : '1em',
         }}
       >
         {codingPreference}

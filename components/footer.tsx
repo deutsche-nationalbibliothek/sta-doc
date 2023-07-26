@@ -6,15 +6,16 @@ import {
   FullscreenOutlined,
   GithubOutlined,
   LinkOutlined,
+  MessageOutlined,
   PrinterOutlined,
   VerticalAlignTopOutlined,
-  WechatOutlined,
 } from '@ant-design/icons';
 import { CSSObject, css } from '@emotion/react';
 import {
   Layout as AntdLayout,
   Col,
   ConfigProvider,
+  Divider,
   message,
   Row,
   theme,
@@ -63,13 +64,14 @@ export const Footer: React.FC = () => {
   const styles: Record<string, CSSObject> = {
     icon: {
       fontSize: isSmallScreen ? 12 : 14,
-      padding: '0 6px',
+      padding: isSmallScreen ? '4px 6px' : '0 6px',
       cursor: 'pointer',
       marginTop: 2,
     },
     col: {
       flex: 1,
       display: 'flex',
+      flexDirection: isSmallScreen ? 'column' : 'row',
     },
   };
 
@@ -107,7 +109,9 @@ export const Footer: React.FC = () => {
         >
           <Col
             css={css(styles.col, {
+              flexGrow: 2,
               justifyContent: 'flex-start',
+              overflow: 'hidden',
             })}
           >
             {process.env['NEXT_PUBLIC_VERSION'] && (
@@ -120,6 +124,7 @@ export const Footer: React.FC = () => {
                     '& a:hover': {
                       color: `${token.colorPrimary} !important`,
                     },
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   <GithubOutlined
@@ -138,7 +143,7 @@ export const Footer: React.FC = () => {
                     <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
                   </ExternalLink>
                 </span>
-                <span css={{ paddingLeft: '5px' }}> | </span>
+                {!isSmallScreen && <Divider type="vertical" />}
                 <span
                   css={{
                     '&:hover': {
@@ -147,7 +152,7 @@ export const Footer: React.FC = () => {
                     '& a:hover': {
                       color: `${token.colorPrimary} !important`,
                     },
-                    paddingLeft: '5px',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   <ExternalLink
@@ -161,6 +166,7 @@ export const Footer: React.FC = () => {
                     <>Impressum</>
                   </ExternalLink>
                 </span>
+                {!isSmallScreen && <Divider type="vertical" />}
               </>
             )}
           </Col>
@@ -169,61 +175,69 @@ export const Footer: React.FC = () => {
               justifyContent: 'center',
             })}
           >
-            <Tooltip title="Nach oben scrollen">
-              <VerticalAlignTopOutlined
-                onClick={onClick.scrollTop}
-                css={styles.icon}
-              />
-            </Tooltip>
-            <Tooltip className="no-print" title="Seiteninhalt drucken">
-              <PrinterOutlined onClick={onClick.print} css={styles.icon} />
-            </Tooltip>
-            {collapseStateIsOpen ? (
-              <Tooltip title="Alle Klapptexte einklappen">
-                <FullscreenExitOutlined
-                  onClick={onCollapseNextState}
+            <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
+              <Tooltip title="Nach oben scrollen">
+                <VerticalAlignTopOutlined
+                  onClick={onClick.scrollTop}
                   css={styles.icon}
                 />
               </Tooltip>
-            ) : (
-              <Tooltip title="Alle Klapptexte ausklappen">
-                <FullscreenOutlined
-                  onClick={onCollapseNextState}
-                  css={styles.icon}
-                />
+              <Tooltip className="no-print" title="Seiteninhalt drucken">
+                <PrinterOutlined onClick={onClick.print} css={styles.icon} />
               </Tooltip>
-            )}
-            <Tooltip
-              className="no-print"
-              title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
-            >
-              <a
-                href={
-                  `mailto:afs@dnb.de&subject=` +
-                  `STA-Doku-Plattform: Anmerkung zur Seite: ` +
-                  `${currentUrl}` +
-                  `&body=` +
-                  `${feedbackBodyMessage}`
-                }
-                target="_blank"
-                rel="noopener noreferrer"
+            </div>
+            <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
+              {collapseStateIsOpen ? (
+                <Tooltip title="Alle Klapptexte einklappen">
+                  <FullscreenExitOutlined
+                    onClick={onCollapseNextState}
+                    css={styles.icon}
+                  />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Alle Klapptexte ausklappen">
+                  <FullscreenOutlined
+                    onClick={onCollapseNextState}
+                    css={styles.icon}
+                  />
+                </Tooltip>
+              )}
+              <Tooltip
+                className="no-print"
+                title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
               >
-                <WechatOutlined css={styles.icon} />
-              </a>
-            </Tooltip>
+                <a
+                  href={
+                    `mailto:afs@dnb.de&subject=` +
+                    `STA-Doku-Plattform: Anmerkung zur Seite: ` +
+                    `${currentUrl}` +
+                    `&body=` +
+                    `${feedbackBodyMessage}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  css={{ color: 'inherit' }}
+                >
+                  <MessageOutlined css={styles.icon} />
+                </a>
+              </Tooltip>
+            </div>
           </Col>
           <Col
             css={css(styles.col, {
               justifyContent: 'flex-end',
+              flexGrow: 2,
             })}
           >
             {entity?.staNotationLabel && (
               <>
+                {!isSmallScreen && <Divider type="vertical" />}
                 <span
                   css={{
                     position: 'relative',
                     right: 0,
                     cursor: 'pointer',
+                    // whiteSpace: 'nowrap',
                   }}
                   onClick={onClick.staNotation}
                 >
@@ -231,11 +245,8 @@ export const Footer: React.FC = () => {
                   STA-Notation: {entity.staNotationLabel}
                 </span>
                 {entity.id && (
-                  <span
-                    css={{
-                      paddingLeft: '5px',
-                    }}
-                  >
+                  <>
+                    {!isSmallScreen && <Divider type="vertical" />}
                     <ExternalLink
                       css={{
                         color: `${token.colorText} !important`,
@@ -244,9 +255,12 @@ export const Footer: React.FC = () => {
                         href: `https://sta.dnb.de/entity/${entity.id}`,
                       }}
                     >
-                      <EditOutlined />
+                      <>
+                        {' '}
+                        <EditOutlined />
+                      </>
                     </ExternalLink>
-                  </span>
+                  </>
                 )}
               </>
             )}

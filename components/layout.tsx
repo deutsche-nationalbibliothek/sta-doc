@@ -54,6 +54,7 @@ const VerticalLayoutDivider = () => {
 };
 
 const Layout: React.FC<LayoutProps> = React.memo((props) => {
+  const isSmallScreen = useIsSmallScreen();
   return (
     <AntdLayout>
       <LoadingIndicator />
@@ -62,7 +63,7 @@ const Layout: React.FC<LayoutProps> = React.memo((props) => {
       <HorizontalLayoutDivivder />
       <AntdLayout
         css={{
-          height: layoutContentHeight(false),
+          height: layoutContentHeight(isSmallScreen),
           '@media print': {
             height: 'initial',
           },
