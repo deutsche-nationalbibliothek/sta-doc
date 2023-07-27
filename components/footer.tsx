@@ -213,7 +213,7 @@ export const Footer: React.FC = () => {
               )}
               <Tooltip
                 className="no-print"
-                title="Sie haben eine Anmerkung? Schreiben Sie uns gerne in dem Sie auf den Link klicken! Vielen Dank."
+                title="Sie haben eine Anmerkung? Schreiben Sie uns gerne! Vielen Dank"
               >
                 <a
                   href={
@@ -235,6 +235,7 @@ export const Footer: React.FC = () => {
           <Col
             css={css(styles.col, {
               justifyContent: 'flex-end',
+              textAlign: 'right',
               flexGrow: 2,
             })}
           >

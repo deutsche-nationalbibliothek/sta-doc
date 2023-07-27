@@ -28,7 +28,7 @@ export interface Entity {
   // showOnlyApplicationProfile:
   // if true, then show only ApplicationProfile
   // if false, then never show only ApplicationProfile
-  // if undefined, habe both options
+  // if undefined, have both options with Switch
   showOnlyApplicationProfile?: boolean;
 }
 
