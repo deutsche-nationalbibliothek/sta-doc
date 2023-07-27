@@ -244,6 +244,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
     rdaElementStatus = rdaElementStatus.slice(0, 1);
     rdaElementStatus[0].ressourceType.id = Item.Q8568;
     rdaElementStatus[0].ressourceType.label = 'Alle Anwendungsprofile';
+    rdaElementStatus[0].ressourceType.staNotationLabel = 'RDA-AP';
   }
   const columns: ColumnsTypes<RdaElementStatusTableColumnType> = [
     {
@@ -290,7 +291,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       showHeader={false}
       dataSource={rdaElementStatus.map((e) => ({ ...e, key: e.status.id }))}
       columns={columns}
-      pagination={rdaElementStatus.length > 6 ? { pageSize: 6 } : false}
+      pagination={rdaElementStatus.length > 7 ? { pageSize: 7 } : false}
     />
   );
 };
