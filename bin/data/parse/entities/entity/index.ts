@@ -190,6 +190,7 @@ export const parseRawEntity = (
           id: annotationItemId,
           label: labelsDe[annotationItemId],
           property: Property.Annotation,
+          staNotationLabel: staNotations[annotationItemId]?.label,
         };
       }
     }

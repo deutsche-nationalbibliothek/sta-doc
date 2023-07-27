@@ -11,6 +11,9 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
       <Global
         styles={{
           // fontFamily: 'Montserrat',
+          '.ant-notification': {
+            zIndex: 5,
+          },
           '.ant-layout-header': {
             paddingInline: isMobile ? 'inherit' : undefined,
           },
