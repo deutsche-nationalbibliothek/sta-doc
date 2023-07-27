@@ -15,7 +15,7 @@ export const Breadcrumb: React.FC = () => {
   const entityDetails = entity
     ? compact([
         entity.namespace === 'RDA' ? 'RDA DACH' : entity.namespace,
-        entity.elementOf != entity.pageType?.schema
+        entity.elementOf !== entity.pageType?.schema
           ? entity.elementOf
           : undefined,
         entity.label === 'RDA DACH' || entity.label === 'GND-Dokumentation'
