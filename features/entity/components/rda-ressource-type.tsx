@@ -33,6 +33,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 
   useEffect(() => {
     setShowHeadlines(!isApplicationProfileView);
+    return () => setShowHeadlines(isApplicationProfileView ?? true);
   }, [isApplicationProfileView, setShowHeadlines]);
 
   const propFinderLocal = (
