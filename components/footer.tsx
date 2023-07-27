@@ -127,11 +127,6 @@ export const Footer: React.FC = () => {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  <GithubOutlined
-                    css={{
-                      paddingRight: 2,
-                    }}
-                  />
                   <ExternalLink
                     css={{
                       color: `${token.colorText} !important`,
@@ -140,8 +135,26 @@ export const Footer: React.FC = () => {
                       href: `https://github.com/deutsche-nationalbibliothek/sta-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
                     }}
                   >
-                    <>Version: {process.env['NEXT_PUBLIC_VERSION']}</>
+                    <GithubOutlined
+                      css={{
+                        paddingRight: 2,
+                      }}
+                    />
                   </ExternalLink>
+                </span>
+                {!isSmallScreen && <Divider type="vertical" />}
+                <span
+                  css={{
+                    '&:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
+                    '& a:hover': {
+                      color: `${token.colorPrimary} !important`,
+                    },
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Version: 2023/1
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
                 <span
