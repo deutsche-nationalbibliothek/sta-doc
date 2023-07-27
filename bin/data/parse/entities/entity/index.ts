@@ -8,6 +8,7 @@ import {
   PageType,
   StatementValue,
   StringValue,
+  WikibasePointerValue,
 } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
@@ -179,6 +180,20 @@ export const parseRawEntity = (
       }
     };
 
+    let annotation: WikibasePointerValue | undefined = undefined;
+    if (entity.claims[Property.Annotation]) {
+      const annotationItemId =
+        entity.claims[Property.Annotation][0].mainsnak.datavalue?.value.id;
+
+      if (annotationItemId) {
+        annotation = {
+          id: annotationItemId,
+          label: labelsDe[annotationItemId],
+          property: Property.Annotation,
+        };
+      }
+    }
+
     return {
       id: entityId,
       headline: entityHasHeadline
@@ -186,6 +201,7 @@ export const parseRawEntity = (
         : undefined,
       label: !embedded ? label : undefined,
       elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
+      annotation,
       pageType,
       contextOfUseLabel,
       namespace,
@@ -203,19 +219,12 @@ export const parseRawEntity = (
         relevantGroup,
         occurrences: entity.claims,
         isRdaRessourceEntity: isRdaRessourceEntity || false,
-        // isRdaRessourceEntityParam,
         addHeadline,
       }),
-      // logo:
-      //   !embedded &&
-      //   entity.claims[Property.logo],
     };
   };
 
   const parsedEntity = entityProps();
-  // const parsedEntity = {
-  //   ...entityProps(),
-  // };
 
   if (parsedEntity) {
     return { entity: parsedEntity, headlines };

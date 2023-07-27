@@ -1,4 +1,3 @@
-import { Alert } from 'antd';
 import { CopyHeadlineAnchorLink } from '@/components/copy-headline-anchor-link';
 import { useEntity } from '@/hooks/entity-provider';
 import { useHeadlines } from '@/hooks/headlines';
@@ -6,7 +5,6 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import { compact, truncate } from 'lodash';
-import { WikibaseLink } from './wikibase-pointers/wikibase-link';
 import { Property } from '@/types/property';
 
 export const Breadcrumb: React.FC = () => {
@@ -17,9 +15,7 @@ export const Breadcrumb: React.FC = () => {
 
   const annotationSet = entity?.statements.header.find(
     (statement) => statement.property == Property.Annotation
-  );
-
-  const annotations = annotationSet?.wikibasePointers;
+  )?.wikibasePointers;
 
   const entityDetails = entity
     ? compact([
@@ -52,7 +48,6 @@ export const Breadcrumb: React.FC = () => {
     >
       <AntdBreadcrumb
         css={{
-          float: 'left',
           height: isSmallScreen
             ? 'var(--breadcrumb-mobile-height)'
             : 'var(--breadcrumb-height)',
@@ -105,31 +100,6 @@ export const Breadcrumb: React.FC = () => {
           };
         })}
       />
-      {annotations && (
-        <div
-          css={{
-            float: 'right',
-            width: 'auto',
-            fontSize: isSmallScreen ? 12 : 14,
-            height: isSmallScreen
-              ? 'var(--breadcrumb-mobile-height)'
-              : 'var(--breadcrumb-height)',
-            padding: '2px 1% 0 1%',
-            marginRight: isSmallScreen ? 42 : undefined,
-            backgroundColor: 'red-6',
-            zIndex: '99',
-          }}
-        >
-          <Alert
-            css={{ zIndex: 99999 }}
-            message=""
-            type="warning"
-            showIcon
-            action={<WikibaseLink wikibasePointer={annotations[0]} />}
-            closable
-          />
-        </div>
-      )}
     </div>
   );
 };

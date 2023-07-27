@@ -14,6 +14,7 @@ export interface Entity {
   id: EntityId;
   label?: string;
   elementOf?: string;
+  annotation?: WikibasePointerValue;
   field?: Field;
   headline?: Headline;
   description?: string;

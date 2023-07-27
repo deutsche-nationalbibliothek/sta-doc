@@ -8,6 +8,7 @@ import { RdaRessourceTypeEntity } from './rda-ressource-type';
 import { EntityPageHeader } from './page-header';
 import { useQueryParam } from 'use-query-params';
 import { useRouter } from '@/lib/next-use-router';
+import { EntityAnnotation } from './annotation';
 
 interface EntityDetailsProps {
   entity: Entity;
@@ -60,6 +61,9 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
             showSwitchApplicationProfile={showSwitchApplicationProfile}
             view={{ get: view, set: setViewAndSetShowHeadlines }}
           />
+        )}
+        {entity.annotation && (
+          <EntityAnnotation annotation={entity.annotation} />
         )}
         <>
           {isRdaRessourceType ? (
