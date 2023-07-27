@@ -237,7 +237,14 @@ interface RdaElementStatusTableColumnType extends RdaElementStatus {
 const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
   rdaElementStatus,
 }) => {
-  // const data = []
+  const sameStatus = rdaElementStatus.filter(
+    (element) => element.status.id !== rdaElementStatus[0].status.id
+  );
+  if (sameStatus.length === 0) {
+    rdaElementStatus = rdaElementStatus.slice(0, 1);
+    rdaElementStatus[0].ressourceType.id = Item.Q8568;
+    rdaElementStatus[0].ressourceType.label = 'Alle Anwendungsprofile';
+  }
   const columns: ColumnsTypes<RdaElementStatusTableColumnType> = [
     {
       key: 'ressource-type',
