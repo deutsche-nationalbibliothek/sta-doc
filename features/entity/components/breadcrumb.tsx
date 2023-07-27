@@ -5,17 +5,12 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import { compact, truncate } from 'lodash';
-import { Property } from '@/types/property';
 
 export const Breadcrumb: React.FC = () => {
   const { currentHeadlinesPath } = useHeadlines();
   const { token } = theme.useToken();
   const { entity } = useEntity();
   const isSmallScreen = useIsSmallScreen();
-
-  const annotationSet = entity?.statements.header.find(
-    (statement) => statement.property == Property.Annotation
-  )?.wikibasePointers;
 
   const entityDetails = entity
     ? compact([
