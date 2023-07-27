@@ -5,6 +5,7 @@ import { Doc, DocSearchKey } from '@/types/search';
 import { compact } from 'lodash';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 import { Typography } from 'antd';
+import { Item } from '@/types/item';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -58,7 +59,9 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
           <Typography.Paragraph>
             <Link
               onClick={onCloseDrawer}
-              href={doc.id === 'Q10177' ? `/` : `/${doc.staNotationLabel[0]}`}
+              href={
+                doc.id === Item.Q10177 ? `/` : `/${doc.staNotationLabel[0]}`
+              }
               anchor={headlineMatch[0].id}
             >
               <QueryHighlighter textToHighlight={headlineMatch[0].value} />

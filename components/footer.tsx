@@ -135,11 +135,7 @@ export const Footer: React.FC = () => {
                       href: `https://github.com/deutsche-nationalbibliothek/sta-doc/releases/tag/${process.env['NEXT_PUBLIC_VERSION']}`,
                     }}
                   >
-                    <GithubOutlined
-                      css={{
-                        paddingRight: 2,
-                      }}
-                    />
+                    <GithubOutlined />
                   </ExternalLink>
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
