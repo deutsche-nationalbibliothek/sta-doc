@@ -53,6 +53,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
+            console.log('namespace', doc.namespace[0]);
+            console.log('staNotationLabel', doc.staNotationLabel[0]);
             const headlineMatches = uniq<string>(
               doc['headline-text-search'].filter(
                 (docValue: string) =>
@@ -98,9 +100,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
                     label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.deLabel'][0]}`}
-                    staNotationLabel={
-                      doc['staNotationLabel'] ? doc['staNotationLabel'][0] : '/'
-                    }
+                    staNotationLabel={doc.staNotationLabel.toString()}
                     id={doc.id}
                   />
                   <ul>

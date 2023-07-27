@@ -60,7 +60,9 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
             <Link
               onClick={onCloseDrawer}
               href={
-                doc.id === Item.Q10177 ? `/` : `/${doc.staNotationLabel[0]}`
+                doc.id === 'Q10177'
+                  ? `/`
+                  : `/${doc.staNotationLabel.toString()}`
               }
               anchor={headlineMatch[0].id}
             >
