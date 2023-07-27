@@ -53,8 +53,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
-            console.log('namespace', doc.namespace[0]);
-            console.log('staNotationLabel', doc.staNotationLabel[0]);
             const headlineMatches = uniq<string>(
               doc['headline-text-search'].filter(
                 (docValue: string) =>
