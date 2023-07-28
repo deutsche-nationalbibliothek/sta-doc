@@ -42,8 +42,11 @@ export const TopBar: React.FC = () => {
           color: `${token.colorText} !important`,
         },
       },
+      '& li.ant-menu-submenu-horizontal, li.ant-menu-item': {
+        paddingInline: isSmallScreen ? 10 : undefined,
+      },
     }),
-    [token.colorPrimary, token.colorText]
+    [token.colorPrimary, token.colorText, isSmallScreen]
   );
 
   return (
