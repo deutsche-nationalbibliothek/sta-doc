@@ -247,7 +247,9 @@ export const Footer: React.FC = () => {
                     position: 'relative',
                     right: 0,
                     cursor: 'pointer',
-                    // whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    maxHeight: '2.3em',
+                    lineHeight: '1.15',
                   }}
                   onClick={onClick.staNotation}
                 >
