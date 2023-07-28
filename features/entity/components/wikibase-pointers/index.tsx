@@ -58,13 +58,13 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
         (wikibasePointerGroups.simples.length > 1 ? (
           isSeeItemOrProperty ? (
             wikibasePointerGroups.simples.map((wikibasePointer, index) => (
-              <>
+              <React.Fragment key={index}>
                 <WikibaseLink
                   showArrow={isSeeItemOrProperty}
                   wikibasePointer={wikibasePointer}
                 />
                 {index !== wikibasePointerGroups.simples.length - 1 && <br />}
-              </>
+              </React.Fragment>
             ))
           ) : (
             <UnorderedList>

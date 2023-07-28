@@ -99,9 +99,9 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         .map((qualifier, index) => {
           const property = qualifier.property as keyof typeof qualifierMap;
           return (
-            <div style={{ marginBottom: '14px' }}>
+            <div key={index} css={{ marginBottom: '14px' }}>
               {' '}
-              <React.Fragment key={index}>
+              <React.Fragment>
                 {' '}
                 {qualifier.property in qualifierMap
                   ? qualifierMap[property](qualifier)
