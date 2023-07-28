@@ -94,18 +94,20 @@ const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
   const isSmallScreen = useIsSmallScreen();
   const { showHeadlines } = useHeadlines();
 
+  const hasAndShouldShowHeadlines =
+    headlines && headlines.length > 1 && showHeadlines;
+
   return (
     <>
       <Splitter>
         {compact([
-          !isSmallScreen &&
-            headlines &&
-            headlines.length > 1 &&
-            showHeadlines && <Sidebar key="sidebar" />,
+          !isSmallScreen && hasAndShouldShowHeadlines && (
+            <Sidebar key="sidebar" />
+          ),
           children,
         ])}
       </Splitter>
-      {isSmallScreen && showHeadlines && <SidebarSmallScreen />}
+      {isSmallScreen && hasAndShouldShowHeadlines && <SidebarSmallScreen />}
     </>
   );
 };

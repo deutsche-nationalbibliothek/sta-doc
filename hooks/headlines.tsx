@@ -24,6 +24,7 @@ interface HeadlinesContext {
   headlineKeysInViewport: string[];
   setHeadlineKeysInViewport: Dispatch<SetStateAction<string[]>>;
 
+  // controls if the headlines (TOC) get to render in ContentSplitter
   showHeadlines: boolean;
   setShowHeadlines: Dispatch<SetStateAction<boolean>>;
 }
