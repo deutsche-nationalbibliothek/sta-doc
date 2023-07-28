@@ -15,6 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {
         paddingTop: 5,
         alignItems: 'stretch',
         flexWrap: 'nowrap',
+        flexDirection: isSmallScreen ? 'column' : 'row',
       }}
       align="middle"
     >
@@ -23,8 +24,8 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {
         <Col
           flex="1 0 "
           style={{
-            paddingTop: isSmallScreen ? '1.8em' : '0.4em',
-            paddingLeft: '1em',
+            paddingTop: '0.4em',
+            paddingLeft: isSmallScreen ? undefined : '1em',
           }}
         >
           {' '}
