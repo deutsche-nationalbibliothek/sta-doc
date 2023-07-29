@@ -5,7 +5,6 @@ import { Doc, DocSearchKey } from '@/types/search';
 import { compact } from 'lodash';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 import { Typography } from 'antd';
-import { Item } from '@/types/item';
 
 interface SearchResultListItemProps {
   doc: Doc;

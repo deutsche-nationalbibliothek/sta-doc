@@ -11,8 +11,8 @@ import { useInitialHeadlines } from './initial-headlines';
 import { useNamespace } from './use-namespace';
 
 interface EntityContext {
-  entity?: Entity;
-  setEntity: Dispatch<SetStateAction<Entity | undefined>>;
+  entity?: Partial<Entity>;
+  setEntity: Dispatch<SetStateAction<Partial<Entity> | undefined>>;
   unloadEntity: (ignoreNamespace?: boolean) => void;
 }
 

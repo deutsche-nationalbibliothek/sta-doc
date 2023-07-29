@@ -6,7 +6,7 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
-import { EntitiesEntries, EntityEntry } from '@/types/parsed/entity';
+import { EntitiesEntries, Entity, EntityEntry } from '@/types/parsed/entity';
 import { Schemas } from '@/types/parsed/schema';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
@@ -16,26 +16,24 @@ import { useEffect } from 'react';
 import { NotFound } from './404';
 import { useNamespace } from '@/hooks/use-namespace';
 import { useScroll } from '@/hooks/use-scroll';
+import { useEntity } from '@/hooks/entity-provider';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
-  entityId: string;
   notFound: boolean;
-  staNotationLabel: string;
+  entity?: Partial<Entity>;
   isUnderConstruction?: boolean;
-  namespace?: Namespace;
 }
 
 export default function EntityDetailsPage({
   headlines,
-  entityId,
   notFound,
-  staNotationLabel,
+  entity,
   isUnderConstruction,
-  namespace,
 }: EntityDetailsProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
+  const { setEntity } = useEntity();
   const { onScroll } = useScroll();
 
   useEffect(() => {
@@ -43,10 +41,16 @@ export default function EntityDetailsPage({
   }, [onScroll]);
 
   useEffect(() => {
-    if (namespace) {
-      setNamespace(namespace);
+    if (entity?.namespace) {
+      setNamespace(entity.namespace);
     }
-  }, [setNamespace, namespace]);
+  }, [setNamespace, entity?.namespace]);
+
+  useEffect(() => {
+    if (entity) {
+      setEntity(entity);
+    }
+  }, [setEntity, entity]);
 
   useEffect(() => {
     if (headlines) {
@@ -54,8 +58,8 @@ export default function EntityDetailsPage({
     }
   }, [setHeadlines, headlines]);
 
-  return !notFound ? (
-    <FetchEntity entityId={entityId} showSpinner={false}>
+  return !notFound && entity?.id ? (
+    <FetchEntity entityId={entity.id} showSpinner={false}>
       {(entityEntry, loading) => (
         <FetchedEntity
           entityEntry={entityEntry}
@@ -69,11 +73,11 @@ export default function EntityDetailsPage({
       isUnderConstruction={isUnderConstruction}
       subtitle={
         <>
-          {entityId && (
+          {entity?.staNotationLabel && (
             <Typography.Text>
               Datensatz mit der ID:{' '}
-              <Typography.Text code>{staNotationLabel}</Typography.Text> nicht
-              verfügbar
+              <Typography.Text code>{entity.staNotationLabel}</Typography.Text>{' '}
+              nicht verfügbar
             </Typography.Text>
           )}
         </>
@@ -118,11 +122,15 @@ export const getStaticProps: GetStaticProps<
   ) {
     return {
       props: {
-        staNotationLabel,
-        entityId: validEntityId,
         headlines: entityEntry.headlines,
         notFound: false,
-        namespace: entityEntry.entity.namespace,
+        entity: {
+          id: validEntityId,
+          namespace: entityEntry.entity.namespace,
+          elementOf: entityEntry.entity.elementOf,
+          label: entityEntry.entity.label,
+          staNotationLabel,
+        },
       },
     };
   } else {
