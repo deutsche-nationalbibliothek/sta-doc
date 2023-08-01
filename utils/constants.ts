@@ -17,6 +17,7 @@ export const blacklist: {
     // Property['Type-of-layout'],
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
+    Property['Type-of-layout'],
   ],
   // properties/statements who never get a headline
   headlines: [
