@@ -30,7 +30,8 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
           '.ant-drawer-content-wrapper': {
             width: `${isMobile ? '95vw' : '40vw'} !important`,
           },
-          td: { verticalAlign: 'top' },
+          td: { verticalAlign: 'top', textAlign: 'left' },
+          th: { verticalAlign: 'top', textAlign: 'left' },
           img: { display: 'block' },
           '@media print': {
             '.no-print, .ant-table-thead, .ant-pagination, .ant-tooltip, .ant-layout-header, .ant-layout-footer, .ant-breadcrumb':
