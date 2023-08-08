@@ -52,7 +52,7 @@ const getVersion = () => {
   const { exec } = require('child_process');
   return new Promise(function (resolve, reject) {
     exec(
-      'git describe --abbrev=0',
+      'git describe --tags',
       function (error, standardOutput, standardError) {
         if (error) {
           reject();
