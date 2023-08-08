@@ -29,7 +29,10 @@ export default function Home({ headlines, namespace }: HomeProps) {
   }, [namespace, setNamespace]);
 
   return (
-    <FetchEntity entityId={Item.Q10177} showSpinner={false}>
+    <FetchEntity
+      entityId={Item['Documentation-platform-of-the-standardization-committee']}
+      showSpinner={false}
+    >
       {(entityEntry, loading) => (
         <FetchedEntity
           entityEntry={entityEntry}
@@ -42,7 +45,8 @@ export default function Home({ headlines, namespace }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = () => {
-  const entityId: EntityId = Item.Q10177;
+  const entityId: EntityId =
+    Item['Documentation-platform-of-the-standardization-committee'];
   const entityEntry = (entities as unknown as EntitiesEntries)[entityId];
 
   return {

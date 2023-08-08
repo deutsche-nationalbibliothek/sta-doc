@@ -10,6 +10,7 @@ import { StaNotations } from '../../../../types/parsed/sta-notation';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
 import { RdaElementStatuses } from '../../../../types/parsed/rda-element-status';
+import { Item } from '../../../../types/item';
 
 export interface ParseEntitiesProps {
   data: ParseEntitiesData;
@@ -36,7 +37,11 @@ export const parseEntities = ({
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = keys.reduce(
     (acc, entityId: EntityId) => {
-      if (entityId in data.staNotations || entityId === 'Q10177') {
+      if (
+        entityId in data.staNotations ||
+        entityId ===
+          Item['Documentation-platform-of-the-standardization-committee']
+      ) {
         const entityEntry = parseRawEntity({
           entityId,
           data,
