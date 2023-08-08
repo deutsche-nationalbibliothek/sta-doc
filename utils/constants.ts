@@ -18,6 +18,8 @@ export const blacklist: {
     Property['STA-Notation'],
     Item['collapsible-collapsed-(type-of-layout)'],
     Property['Type-of-layout'],
+    Property['Version-number-of-STA-documentation'],
+    Property['Release-number-of-STA-documentation'],
   ],
   // properties/statements who never get a headline
   headlines: [
