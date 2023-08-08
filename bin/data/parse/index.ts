@@ -434,7 +434,11 @@ export const propertyItemList = (
           return {
             label:
               'xml:lang' in enumMemberRaw.elementLabel
-                ? slugify(enumMemberRaw.elementLabel.value.replace("'", ''))
+                ? slugify(
+                    enumMemberRaw.elementLabel.value
+                      .replace("'", '')
+                      .replace('|', 'of')
+                  )
                 : enumMemberRaw.eId.value,
             value: enumMemberRaw.eId.value,
           };

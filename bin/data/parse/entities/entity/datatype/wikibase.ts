@@ -40,7 +40,7 @@ export const parseWikibaseValue = (
 
   const { schemas, labelsDe, staNotations, codings } = data;
   const id = isMissingValue
-    ? Item['undefined-or-Default-value']
+    ? Item['undefined-of-Default-value']
     : keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasHeadline =

@@ -37,9 +37,9 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
     examples.find((example) => example.pageType?.id)?.pageType?.id || undefined;
   const examplesNamespace =
     (examplesPageType &&
-      (examplesPageType === Item['Example-GND-or-STA-documentation']
+      (examplesPageType === Item['Example-GND-of-STA-documentation']
         ? Namespace.GND
-        : examplesPageType === Item['Example-RDA-or-STA-documentation']
+        : examplesPageType === Item['Example-RDA-of-STA-documentation']
         ? Namespace.RDA
         : Namespace.STA)) ||
     Namespace.STA;

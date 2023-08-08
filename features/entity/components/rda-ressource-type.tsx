@@ -60,7 +60,7 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
   const qualifiersOrder = [
     Property['description'],
     Property['embedded-(item)'],
-    Property['title-proper-or-RDA-property'],
+    Property['title-proper-of-RDA-property'],
     Property['description-(at-the-end)'],
     // Property['embedded-in-(item)'],
   ];

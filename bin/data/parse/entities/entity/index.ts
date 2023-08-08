@@ -132,7 +132,7 @@ export const parseRawEntity = (
       isRdaRessourceEntityParam;
 
     const isRdaElementEntity =
-      elementOfId === Item['Property-or-RDA-documentation'];
+      elementOfId === Item['Element-of-RDA-documentation'];
 
     const entityHasHeadline = !embedded && !isPropertyBlacklisted(entityId);
 
