@@ -138,7 +138,7 @@ export function Table<T extends object>(props: TableProps<T>) {
     render: (text: DataIndex) => {
       return searchTexts[dataIndex] ? (
         <Highlighter
-          searchWords={[searchTexts[dataIndex]]}
+          searchWords={searchTexts[dataIndex].split(' ')}
           textToHighlight={text ? text.toString() : ''}
         />
       ) : (
@@ -169,7 +169,9 @@ export function Table<T extends object>(props: TableProps<T>) {
                 index,
                 searchTexts[String(column.dataIndex)] ? (
                   <Highlighter
-                    searchWords={[searchTexts[String(column.dataIndex)]]}
+                    searchWords={searchTexts[String(column.dataIndex)].split(
+                      ' '
+                    )}
                     textToHighlight={value ? String(value) : ''}
                   />
                 ) : (
@@ -185,7 +187,9 @@ export function Table<T extends object>(props: TableProps<T>) {
                 {'dataIndex' in column &&
                 searchTexts[String(column.dataIndex)] ? (
                   <Highlighter
-                    searchWords={[searchTexts[String(column.dataIndex)]]}
+                    searchWords={searchTexts[String(column.dataIndex)].split(
+                      ' '
+                    )}
                     textToHighlight={value ? String(value) : ''}
                   />
                 ) : (
@@ -210,11 +214,14 @@ export function Table<T extends object>(props: TableProps<T>) {
           : undefined,
       onFilter: (value: string, record: T) => {
         if ('dataIndex' in column && column.dataIndex) {
+          const searchWords = value.toLowerCase().split(/\s+/);
           const relevantValue = get(record, column.dataIndex) as
             | string
             | undefined;
           return relevantValue &&
-            relevantValue.toString().toLowerCase().includes(value.toLowerCase())
+            searchWords.every((word) =>
+              relevantValue.toString().toLowerCase().includes(word)
+            )
             ? true
             : false;
         } else {
