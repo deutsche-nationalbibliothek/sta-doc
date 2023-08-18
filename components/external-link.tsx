@@ -11,11 +11,15 @@ export const ExternalLink: React.FC<ExternalLinkProps> = ({
   className,
   children,
 }) => {
+  console.log('linkProps', linkProps.href);
   return (
-    <Link {...linkProps} legacyBehavior passHref>
-      <a className={className} target="_blank" rel="noopener">
-        {children}
-      </a>
-    </Link>
+    <a
+      className={className}
+      target="_blank"
+      rel="noopener"
+      href={linkProps.href}
+    >
+      {children}
+    </a>
   );
 };
