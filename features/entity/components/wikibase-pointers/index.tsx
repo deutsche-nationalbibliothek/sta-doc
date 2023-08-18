@@ -5,7 +5,7 @@ import { Examples } from '../examples';
 import { compact, groupBy } from 'lodash';
 import { WikibasePointer } from './wikibase-pointer';
 import { WikibaseLink } from './wikibase-link';
-import { UnorderedList } from '@/components/unorderd-list';
+import { UnorderedList } from '@/components/unordered-list';
 
 interface WikibasePointersProps {
   wikibasePointers: WikibasePointerValue[];
@@ -20,11 +20,18 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
     property === Property['see-(Item)'] ||
     property === Property['see-(property)'];
 
+  const propSpecificGroups =
+    property === Property.Elements ||
+    property === Property.Subfields ||
+    property === Property['data-fields'] ||
+    property === Property['example(s)'];
+
   const wikibasePointerGroups = groupBy(wikibasePointers, (wikibasePointer) =>
-    'headline' in wikibasePointer ||
-    'references' in wikibasePointer ||
-    ('qualifiers' && 'headline' in wikibasePointer) ||
-    'embedded' in wikibasePointer
+    propSpecificGroups &&
+    ('headline' in wikibasePointer ||
+      'references' in wikibasePointer ||
+      ('qualifiers' && 'headline' in wikibasePointer) ||
+      'embedded' in wikibasePointer)
       ? 'extras'
       : 'simples'
   );
