@@ -32,6 +32,7 @@ export const parseWikibaseValue = (
     addHeadline,
     noHeadline,
   } = props;
+
   const wemiSpecificsWhitelist = [
     Property.description,
     Property['embedded-(item)'],
@@ -46,6 +47,10 @@ export const parseWikibaseValue = (
   const hasHeadline =
     isTopLevel &&
     !isPropertyBlacklisted(id) &&
+    'mainsnak' in occ &&
+    (occ.mainsnak.property === Property['data-fields'] ||
+      occ.mainsnak.property === Property.Subfields ||
+      occ.mainsnak.property === Property.Elements) &&
     'qualifiers' in occ &&
     occ.qualifiers &&
     (isElementsPropOnRdaRessourceType
