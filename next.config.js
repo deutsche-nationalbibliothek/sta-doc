@@ -52,7 +52,8 @@ const getVersion = () => {
   const { exec } = require('child_process');
   return new Promise(function (resolve, reject) {
     exec(
-      'git describe --tags',
+      // 'git describe --tags',
+      'git describe --tags --abbrev=0 --match="v*.*" --exclude="*-*" --first-parent',
       function (error, standardOutput, standardError) {
         if (error) {
           reject();
@@ -65,7 +66,6 @@ const getVersion = () => {
 
           return;
         }
-
         resolve(trim(standardOutput));
       }
     );
