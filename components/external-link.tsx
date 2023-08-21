@@ -11,7 +11,6 @@ export const ExternalLink: React.FC<ExternalLinkProps> = ({
   className,
   children,
 }) => {
-  console.log('linkProps', linkProps.href);
   return (
     <a
       className={className}
