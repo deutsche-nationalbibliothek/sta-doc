@@ -45,17 +45,16 @@ export const parseWikibaseValue = (
     : keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
   const hasHeadline =
-    isTopLevel &&
-    !isPropertyBlacklisted(id) &&
-    'mainsnak' in occ &&
-    (occ.mainsnak.property === Property['data-fields'] ||
-      occ.mainsnak.property === Property.Subfields ||
-      occ.mainsnak.property === Property.Elements) &&
-    'qualifiers' in occ &&
-    occ.qualifiers &&
-    (isElementsPropOnRdaRessourceType
-      ? Object.keys(pick(occ.qualifiers, wemiSpecificsWhitelist)).length > 0
-      : true);
+    (isTopLevel &&
+      !isPropertyBlacklisted(id) &&
+      'qualifiers' in occ &&
+      occ.qualifiers &&
+      (isElementsPropOnRdaRessourceType
+        ? Object.keys(pick(occ.qualifiers, wemiSpecificsWhitelist)).length > 0
+        : true)) ||
+    ('mainsnak' in occ &&
+      (occ.mainsnak.property === Property['data-fields'] ||
+        occ.mainsnak.property === Property.Subfields));
 
   const namespaceId = schemas[id];
   const pointingNamespace: Namespace = namespaceConfig.map[namespaceId];
