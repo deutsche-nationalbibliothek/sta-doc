@@ -26,6 +26,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import { API_URL } from '@/bin/data/fetcher';
 
 export const Footer: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -169,7 +170,7 @@ export const Footer: React.FC = () => {
                       color: `${token.colorText} !important`,
                     }}
                     linkProps={{
-                      href: `https://sta.dnb.de/doc/STA-IMPRESSUM`,
+                      href: `https://${API_URL.prod}/doc/STA-IMPRESSUM`,
                     }}
                   >
                     <>Impressum</>
@@ -264,7 +265,7 @@ export const Footer: React.FC = () => {
                         color: `${token.colorText} !important`,
                       }}
                       linkProps={{
-                        href: `https://sta.dnb.de/entity/${entity.id}`,
+                        href: `https://${API_URL.prod}/entity/${entity.id}`,
                       }}
                     >
                       <>

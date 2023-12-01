@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import entities from '@/data/parsed/entities.json';
 import { EntitiesEntries } from '@/types/parsed/entity';
-// import { fetcher, API_URL } from '@/bin/data/fetcher';
 import { EntityId } from '@/types/entity-id';
 import { parseEntities } from '@/bin/data/parse/entities';
 import {
@@ -28,6 +27,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         entitiesEntries = await getLiveEntity(fetcher(API_URL.prod), entityId);
       } else if (live === FetchingParam.test) {
         entitiesEntries = await getLiveEntity(fetcher(API_URL.test), entityId);
+      } else if (live === FetchingParam.live) {
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.live), entityId);
       }
       if (entitiesEntries) {
         res.status(200).json(entitiesEntries[entityId]);

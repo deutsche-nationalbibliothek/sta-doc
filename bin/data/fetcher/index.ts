@@ -18,8 +18,9 @@ import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 
 export enum API_URL {
-  test = 'https://doku.wikibase.wiki',
-  prod = 'https://sta.dnb.de',
+  test = 'http://apprwikibase0.dnb.de',
+  prod = 'https://testwikibase0.dnb.de',
+  live = 'https://sta.dnb.de',
 }
 
 /**

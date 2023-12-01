@@ -12,6 +12,7 @@ type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];
 export enum FetchingParam {
   prod = 'prod',
   test = 'test',
+  live = 'live',
 }
 
 interface RouterQuery {
@@ -38,7 +39,7 @@ export default function FetchingQueryParamsProvider({
 }) {
   const [live, setLive] = useQueryParam('live') as [
     FetchingParam | undefined,
-    UseQueryParamSetter<FetchingParam | undefined>
+    UseQueryParamSetter<FetchingParam | undefined>,
   ];
 
   useEffect(() => {
