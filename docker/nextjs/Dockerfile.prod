@@ -1,4 +1,4 @@
-FROM node:16-alpine AS dev-stage
+FROM node:18-alpine AS dev-stage
 
 RUN apk add --no-cache python3 make g++
 RUN apk add --no-cache git
@@ -31,7 +31,7 @@ RUN rm -rf node_modules
 RUN yarn install --production
 
 # production stage
-FROM node:16-alpine AS production-stage
+FROM node:18-alpine AS production-stage
 RUN apk add --no-cache git
 
 ARG NODE_ENV=production
