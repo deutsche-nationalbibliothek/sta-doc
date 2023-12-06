@@ -29,7 +29,7 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 // import { API_URL } from '@/bin/data/fetcher';
 
 export const Footer: React.FC = () => {
-  const websideUrl = process.env.NEXT_PUBLIC_URL as string
+  const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
   const [currentUrl, setCurrentUrl] = useState('');
@@ -219,7 +219,7 @@ export const Footer: React.FC = () => {
               >
                 <a
                   href={
-                    `mailto:afs@dnb.de&subject=` +
+                    `mailto:afs@dnb.de?subject=` +
                     `STA-Doku-Plattform: Anmerkung zur Seite: ` +
                     `${currentUrl}` +
                     `&body=` +
