@@ -61,7 +61,8 @@ export const parseStatement = (props: ParseStatementProps) => {
     embeddedEntityId &&
     (property === Property['example(s)'] ||
       property === Property['embedded-(item)'] ||
-      property === Property['embedded-(property)']) &&
+      property === Property['embedded-(property)'] ||
+      property === Property['Implementation-in-the-GND']) &&
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
   const nextHeaderLevel =

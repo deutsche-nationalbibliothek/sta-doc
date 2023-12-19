@@ -28,6 +28,7 @@ export const blacklist: {
     Property['description-(at-the-end)'],
     Property.definition,
     Property['Introduction-text'],
+    Property['Implementation-in-the-GND'],
     Property['embedded-(item)'],
     Property['see-(Item)'],
     Property['see-(property)'],
