@@ -135,7 +135,7 @@ export const fieldsParser = (
       repeatable,
       label: labelStripper(label),
       viewLink,
-      staNotationLabel: staNotations[key as EntityId].label,
+      staNotationLabel: staNotations[key as EntityId]?.label,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
         const { codings, description, editLink, label, viewLink, repeatable } =
           subfield;
@@ -147,7 +147,7 @@ export const fieldsParser = (
           repeatable,
           label: labelStripper(label),
           viewLink,
-          staNotationLabel: staNotations[key as EntityId].label,
+          staNotationLabel: staNotations[key as EntityId]?.label,
         };
       }),
     };
@@ -267,7 +267,7 @@ export const rdaElementStatusesParser = (
                 label: labelStripper(
                   rdaElementStatusByEntityId.entityLabel.value
                 ),
-                staNotationLabel: staNotations[ressourceTypeId].label,
+                staNotationLabel: staNotations[ressourceTypeId]?.label,
                 namespace: namespaceRessourceType,
               },
               status: {
