@@ -43,13 +43,19 @@ export const RdaRessourceTypeEntity: React.FC<RdaRessourceTypeEntityProps> = ({
 
   const relevantStatements = {
     definition: propFinderLocal(Property.definition, entity.statements.header),
-    common: propFinderLocal(Property['P659']),
-    staDefinition: propFinderLocal(Property['P665']),
+    common: propFinderLocal(Property['General-of-Doc:-STA-property']),
+    staDefinition: propFinderLocal(
+      Property['Definition-Delimitation-of-Doc:-STA-property']
+    ),
     sourcesOfInformation: propFinderLocal(Property['Sources-of-information']),
     description: propFinderLocal(Property['description']),
     wemi: propFinderLocal(Property['WEMI-level']),
-    relationsActor: propFinderLocal(Property['P657']),
-    relationsRessource: propFinderLocal(Property['P658']),
+    relationsActor: propFinderLocal(
+      Property['Relationships-Actors-of-Doc:-RDA-property']
+    ),
+    relationsRessource: propFinderLocal(
+      Property['Relationships-to-other-resources-of-Doc:-RDA-property']
+    ),
     descriptionAtTheEnd: propFinderLocal(Property['description-(at-the-end)']),
   };
 

@@ -129,7 +129,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                         isRecordingMethod &&
                         [
                           Item['unstructured-description'],
-                          Item['Q2039'],
+                          Item['Structured-description-of-RDA-default-value'],
                           Item['Identifier'],
                         ].some(
                           (exceptionalPointer) =>
@@ -242,7 +242,8 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
   );
   if (sameStatus.length === 0) {
     rdaElementStatus = rdaElementStatus.slice(0, 1);
-    rdaElementStatus[0].ressourceType.id = Item.Q8568;
+    rdaElementStatus[0].ressourceType.id =
+      Item['Application-profiles-of-RDA-general'];
     rdaElementStatus[0].ressourceType.label = 'Alle Anwendungsprofile';
     rdaElementStatus[0].ressourceType.staNotationLabel = 'RDA-AP';
   }
