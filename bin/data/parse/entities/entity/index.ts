@@ -165,8 +165,8 @@ export const parseRawEntity = (
           entity.claims[Property['Type-of-layout']] &&
           entity.claims[Property['Type-of-layout']][0].mainsnak.datavalue?.value
             .id;
-        const onlyApplicationProfile = typeOfLayoutId === Item.Q10201;
-        const hideApplicationProfile = typeOfLayoutId === Item.Q10199;
+        const onlyApplicationProfile = typeOfLayoutId === Item['Application-profile-only-of-Layout-type'];
+        const hideApplicationProfile = typeOfLayoutId === Item['Resource-type-description-only-of-Layout-type'];
 
         const showOnlyApplicationProfile = onlyApplicationProfile
           ? true
