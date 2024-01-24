@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "data": "ts-node bin/data",
     "data:debug": "NODE_OPTIONS='--inspect' ts-node bin/data",
