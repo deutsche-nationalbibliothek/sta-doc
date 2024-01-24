@@ -18,6 +18,7 @@ import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 
 export enum API_URL {
+  host = 'https://edit.sta.dnb.de',
   test = 'http://lab.sta.dnb.de',
   prod = 'https://edit.sta.dnb.de',
   live = 'https://sta.dnb.de',
@@ -119,7 +120,7 @@ const rdaElementStatusesFetcher = async (apiUrl: API_URL) =>
     sparql.RDA_ELEMENT_STATUSES(apiUrl)
   );
 
-export const fetcher = (apiUrl = API_URL.prod) => {
+export const fetcher = (apiUrl = API_URL.host) => {
   const entities = {
     single: async (entityId: EntityId) =>
       await entitiesFetcher.single(entityId, apiUrl),

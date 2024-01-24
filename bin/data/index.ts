@@ -24,7 +24,8 @@ export const DEV = false;
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const fetchRawAndWrite = async () => {
-    const data = await fetcher().fetchAll();
+    console.log('Fetch from database: ', API_URL.host);
+    const data = await fetcher(API_URL.host).fetchAll();
     console.log('going to write');
     writer.raw(data).writeAll();
   };
@@ -84,7 +85,7 @@ export const DEV = false;
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(
-              await fetcher(API_URL.prod).propertyItemList()
+              await fetcher(API_URL.host).propertyItemList()
             )
           );
           break;
