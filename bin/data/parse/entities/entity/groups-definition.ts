@@ -3,27 +3,21 @@ import { Property } from '../../../../../types/property';
 // header and table are whitelists
 // text is just for sorting, header values are blacklist for text group
 
-export type Group = 'header' | 'table' | 'body';
+export type Group = 'header' | 'table' | 'body' | 'infobox';
 export type Groups = Record<Group, Property[]>;
 
 export const defaultGroupsDefinition: Groups = {
   header: [
     Property['definition'],
     // Property['STA-Notation'], // staNotationLabel gets injected by static data
-    // Property['entity-type-domain'],
-    // Property['Recording-method'],
+    Property['Implementation-in-the-GND'],
     Property['Link-(Item)'],
-    // Property.P660,
-    // Property['Encoding'],
-    // Property['RDA-Reference'],
     Property.Scope,
-    // Property.P663,
-    // Property['WEMI-level'],
-    Property.Annotation,
+    // Property.Annotation,
   ],
   table: [
-    Property['WEMI-level'],
     Property['entity-type-domain'],
+    Property['WEMI-level'],
     Property['Recording-method'],
     Property['Standardised-vocabulary-of-Doc:-RDA-property'],
     Property['RDA-Reference'],
@@ -33,39 +27,40 @@ export const defaultGroupsDefinition: Groups = {
     Property['Relationships-to-other-elements-of-Doc:-RDA-property'],
   ],
   body: [
-    // Property['STA-Notation'], // ??
-    Property['Encoding'],
+    Property['subclass-of'],
+    Property['subordinate-classes'],
     Property['Explanation'],
-    Property['DACH-Directions-for-use'],
     Property['General-of-Doc:-STA-property'],
     Property['Definition-Delimitation-of-Doc:-STA-property'],
     Property['Sources-of-information'],
+    Property['Implementation-provisions'],
     Property['description'],
+    Property['Access-Points'],
+    Property['Other-characteristics'],
     Property['Basic-rules'],
     Property['Special-rules'],
     Property['Specific-rules'],
     Property['List-of-relationship-identifiers-of-Docu:-RDA-property'],
+    Property['Subfields'],
+    Property['Elements'],
     Property['Relationships-Actors-of-Doc:-RDA-property'],
+    Property['Validation'],
     Property['Relationships-to-other-resources-of-Doc:-RDA-property'],
+    Property['description-(at-the-end)'],
+    Property['example(s)'],
     Property['URL'],
     Property['permited-values'],
     Property['Context-of-use'],
     Property['Implementation-in-the-GND'],
-    Property['example(s)'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
-    Property['Elements'],
     Property['References'],
     Property['Standard-element-for'],
     Property['applicable-for-data-field'],
     Property['permitted-in-GND-class'],
-    Property['Implementation-provisions'],
-    Property['Subfields'],
     Property['data-fields'],
     Property['relation-to-GND-class'],
     Property['Authorizations'],
-    Property['Validation'],
-    Property['description-(at-the-end)'],
     Property['Source-and-date-of-first-entry'],
     Property['Source-and-date-of-last-change'],
     Property['Source-and-date-of-the-last-status-assignment'],
@@ -398,13 +393,16 @@ export const defaultGroupsDefinition: Groups = {
     Property['other-agent-associated-with-work-of-RDA-property'],
     Property['related-work-of-work-of-RDA-property'],
   ],
+  infobox: [
+    Property.Annotation
+  ]
 };
 
 export const rdaRessourceTypeGroups: Groups = {
   header: [
     Property.definition,
     // Property['STA-Notation'],
-    Property.Annotation,
+    // Property.Annotation,
   ],
   table: [],
   body: [
@@ -422,4 +420,7 @@ export const rdaRessourceTypeGroups: Groups = {
     Property['embedded-(item)'],
     Property['Implementation-in-the-GND'],
   ],
+  infobox: [
+    Property.Annotation
+  ]
 };
