@@ -807,4 +807,5 @@ export enum Property {
   'Actor-related-to-manifestation' = 'P848',
   'Access-Points' = 'P849',
   'Link-(Property)' = 'P850',
+  'Other-characteristics' = 'P854',
 }
