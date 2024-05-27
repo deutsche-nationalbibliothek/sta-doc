@@ -11,6 +11,7 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
+import sta from '@/pages/api/entities/sta';
 
 interface StringStatementProps {
   statements: StringGroup[];
@@ -21,10 +22,12 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
+  // console.log('statements',statements)
   const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
       {(stringValue, qualifiers, references) => {
+        // console.log('stringValueContainer',stringValueContainer)
         if (!stringValue.headline) {
           console.debug('headline missing in', stringValueContainer);
         }
@@ -67,7 +70,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                     stringValue={stringValue}
                   />
                   {references}
-                  {qualifiers}
+                  {/* {qualifiers} */}
                 </Typography.Text>
               </React.Fragment>
             ) : (

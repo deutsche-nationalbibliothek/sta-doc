@@ -48,7 +48,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     ...entity.statements.body,
   ];
 
-  console.log('statements', statements);
+  // console.log('statements', statements);
 
   const propFinder = (property: Property) =>
     statements.find((statement) => statement.property === property);
@@ -75,9 +75,9 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
       const formatNeutralStatementValue =
         formatNeutralStatement?.stringGroups &&
         formatNeutralStatement?.stringGroups[0].values[0].value;
-      console.log('statement label',statement.label)
-      console.log('exampleValue',exampleValue)
-      console.log('formatNeutralStatement',formatNeutralStatement)
+      // console.log('statement label',statement.label)
+      // console.log('exampleValue',exampleValue)
+      // console.log('formatNeutralStatement',formatNeutralStatement)
       acc.formatNeutral = compact([
         ...acc.formatNeutral,
         {

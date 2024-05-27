@@ -1,3 +1,4 @@
+import { EntityId } from '../../../../../../types/entity-id';
 import { Item } from '../../../../../../types/item';
 import {
   StringValue,
@@ -29,7 +30,6 @@ export const parseStringValue = ({
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
   const property = keyAccessOcc<Property>('property');
-
   const itemType: ItemType = isMissingValue
     ? keyAccessOcc('snaktype')
     : ('qualifiers-order' in occ &&
@@ -41,6 +41,11 @@ export const parseStringValue = ({
           ?.value?.id) ||
       'default';
 
+  const occIsLink = (property === Property['Link-(Item)'] || property === Property['Link-(Property)']) 
+  const link = occIsLink
+    ? keyAccessOcc<EntityId>('datavalue', 'value', 'id')
+    : undefined
+
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],
     Item['Second-order-subheading-(type-of-layout)'],
@@ -50,6 +55,7 @@ export const parseStringValue = ({
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
+  // console.log('value',value,currentHeadlineLevel,headingIndex,hasHeadline,itemType)
 
   return {
     value,
@@ -64,5 +70,6 @@ export const parseStringValue = ({
       : undefined,
     codings: codings[property],
     itemType,
+    link
   };
 };

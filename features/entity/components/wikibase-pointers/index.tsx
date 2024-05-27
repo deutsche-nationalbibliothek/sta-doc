@@ -6,6 +6,7 @@ import { compact, groupBy } from 'lodash';
 import { WikibasePointer } from './wikibase-pointer';
 import { WikibaseLink } from './wikibase-link';
 import { UnorderedList } from '@/components/unordered-list';
+import { GndImplementations } from '../gnd-implementation';
 
 interface WikibasePointersProps {
   wikibasePointers: WikibasePointerValue[];
@@ -24,7 +25,8 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
     property === Property.Elements ||
     property === Property.Subfields ||
     property === Property['data-fields'] ||
-    property === Property['example(s)'];
+    property === Property['example(s)'] || 
+    property === Property['Implementation-in-the-GND'];
 
   const wikibasePointerGroups = groupBy(wikibasePointers, (wikibasePointer) =>
     propSpecificGroups &&
@@ -35,17 +37,29 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
       ? 'extras'
       : 'simples'
   );
+  // console.log('wikibasePointerGroups',wikibasePointerGroups)
 
   return (
     <>
       {wikibasePointerGroups.extras && wikibasePointerGroups.extras.length && (
         <>
-          {property === Property['example(s)'] ? (
-            <Examples
-              examples={compact(
-                wikibasePointerGroups.extras.map((w) => w.embedded)
+          {property === Property['example(s)'] ||
+          property === Property['Implementation-in-the-GND'] ? (
+            <>
+              {property === Property['example(s)'] ? (
+                <Examples
+                  examples={compact(
+                    wikibasePointerGroups.extras.map((w) => w.embedded)
+                  )}
+                />
+              ) : (
+                <GndImplementations
+                  implementations={compact(
+                    wikibasePointerGroups.extras.map((w) => w.embedded)
+                  )}
+                />
               )}
-            />
+            </>
           ) : (
             wikibasePointerGroups.extras.map((wikibasePointer, index) => (
               <React.Fragment key={index}>

@@ -59,6 +59,7 @@ export interface Statements {
 
 export interface Statement extends Datatypes {
   label?: string;
+  link?: EntityId;
   property: Property;
   headline?: Headline;
   namespace?: Namespace;
@@ -125,6 +126,7 @@ export interface StringValue extends CommonValue {
   codings?: Codings;
   headline?: Headline;
   itemType?: ItemType;
+  link?: EntityId;
 }
 
 export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';

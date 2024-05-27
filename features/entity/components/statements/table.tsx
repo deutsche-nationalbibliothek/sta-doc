@@ -119,33 +119,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                 return (
                   <ExpandToggle key={index}>
                     {stringStatement.map((stringValue, index) => {
-                      const isRecordingMethod =
-                        stringValue.property === Property['Recording-method'];
-
-                      // kinda hack requested: if we render Recording-method and have
-                      // the following WikibasePointers then we want to render only the wikibasePointer
-                      // but with value of the stringValue.value
-                      const hasExceptionalWikibasePointer =
-                        isRecordingMethod &&
-                        [
-                          Item['unstructured-description'],
-                          Item['Structured-description-of-RDA-default-value'],
-                          Item['Identifier'],
-                        ].some(
-                          (exceptionalPointer) =>
-                            stringValue.qualifiers &&
-                            stringValue.qualifiers.length === 1 &&
-                            stringValue.qualifiers.some(
-                              (qualifier) =>
-                                qualifier.wikibasePointers &&
-                                qualifier.wikibasePointers.length === 1 &&
-                                qualifier.wikibasePointers.some(
-                                  (wikibasePointer) =>
-                                    wikibasePointer.id === exceptionalPointer
-                                )
-                            )
+                      const linkItemQualifier =
+                        stringValue.qualifiers?.find(
+                          (qualifier) =>
+                            qualifier.property === Property['Link-(Item)'] || Property['Link-(Property)']
                         );
-
                       const typeOfLayoutQualifier =
                         stringValue.qualifiers?.find(
                           (qualifier) =>
@@ -163,7 +141,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                           }}
                           key={index}
                         >
-                          {hasExceptionalWikibasePointer ? (
+                          {linkItemQualifier ? (
                             <>
                               <Qualifiers
                                 showHeadline={false}

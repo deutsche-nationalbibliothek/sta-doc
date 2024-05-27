@@ -1,13 +1,14 @@
 import { compact } from 'lodash';
 import { PreMappedStatement } from '.';
-import { Namespace } from '../../../../../types/namespace';
 import namespaceConfig from '../../../../../config/namespace';
+import { Namespace } from '../../../../../types/namespace';
 import { Datatypes, StatementValue } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
+import { EntityId } from '../../../../../types/entity-id';
 import {
   Claim,
-  StatementRaw,
   DatatypeRaw,
+  StatementRaw,
 } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { FilterSortTransformStatementsProps } from './filter-sort-transform-statemants';
@@ -113,6 +114,7 @@ export const parseStatements = (
             statementNamespace
           )
         : undefined;
+      // console.log('statements',property,label,currentHeadlineLevel,hasHeadline,headline)
 
       const dataTypeSpecifics = compact(
         occs.map((occ: StatementRaw | Claim) =>
@@ -126,8 +128,9 @@ export const parseStatements = (
           })
         )
       );
+      // console.log('dataTypeSpecifics',dataTypeSpecifics)
 
-      const preMappedStatemant: PreMappedStatement = {
+      const preMappedStatement: PreMappedStatement = {
         label,
         headline,
         property,
@@ -136,7 +139,7 @@ export const parseStatements = (
         namespace: statementNamespace,
         [dataType]: dataTypeSpecifics,
       };
-      return preMappedStatemant;
+      return preMappedStatement;
     }
   );
   return compact(parsedStatements).map(stringMapper);

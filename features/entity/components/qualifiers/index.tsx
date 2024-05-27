@@ -49,7 +49,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
       );
     },
     [Property['Implementation-in-the-GND']]: (qualifier: Statement) => {
-      console.log('true', qualifier);
+      // console.log('true', qualifier);
       return (
         qualifier.wikibasePointers && (
           <GndImplementations

@@ -62,6 +62,7 @@ export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
 };
 
 export const stringMapper = (val: PreMappedStatement): StatementValue => {
+  // console.log('val',val)
   const stringTransform = (stringValues: StringValue[]) => {
     const groupReducer = (acc: StringGroup[], value: StringValue) => {
       const { itemType, ...otherValues } = value;
@@ -95,15 +96,16 @@ export const stringMapper = (val: PreMappedStatement): StatementValue => {
       groupReducer,
       [] as StringGroup[]
     );
-
     return groupedContent;
   };
   if (val && 'stringGroups' in val && val.stringGroups) {
+    // console.log('if val', val);
     return {
       ...val,
       stringGroups: stringTransform(val.stringGroups),
     };
   } else {
+    // console.log('else val', val);
     return val as unknown as StatementValue;
   }
   // return val && 'string' in val && val.string

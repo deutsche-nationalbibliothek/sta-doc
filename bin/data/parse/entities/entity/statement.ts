@@ -46,6 +46,15 @@ export const parseStatement = (props: ParseStatementProps) => {
   const property = keyAccessOcc<Property>('property');
   const embeddedEntityId =
     !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
+  
+  const occIsLink = (property === Property['Link-(Item)'] || property === Property['Link-(Property)']) 
+  const link = occIsLink
+    ? keyAccessOcc<EntityId>('datavalue', 'value', 'id')
+    : undefined
+
+  // if (occIsLink) {
+  //   console.log('link',link)
+  // }
 
   if (
     embeddedEntityId &&
@@ -66,7 +75,8 @@ export const parseStatement = (props: ParseStatementProps) => {
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
   const nextHeaderLevel =
-    currentHeadlineLevel + (hasHeadline || hasEmbedding ? 1 : 0);
+    currentHeadlineLevel + (hasHeadline ? 1 : 0);
+    // currentHeadlineLevel + (hasHeadline || hasEmbedding ? 1 : 0);
 
   const embedded = hasEmbedding
     ? parseRawEntity({
@@ -114,6 +124,7 @@ export const parseStatement = (props: ParseStatementProps) => {
       dataTypeSpecifics.headline)
       ? 1
       : 0);
+  // console.log('dataTypeSpVa',currentHeadlineLevel,nextHeaderLevel,dataTypeSpecificNextHeaderLevel,isElementsPropOnRdaRessourceType,dataTypeSpecifics)
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers
@@ -134,6 +145,7 @@ export const parseStatement = (props: ParseStatementProps) => {
   const namespace: Namespace = namespaceConfig.map[namespaceId];
 
   const preMappedStatement: PreMappedStatement = {
+    link,
     property,
     staNotationLabel: staNotations[property]?.label,
     namespace,
@@ -151,6 +163,6 @@ export const parseStatement = (props: ParseStatementProps) => {
     embedded,
     qualifiers,
   };
-
+  
   return preMappedStatement;
 };
