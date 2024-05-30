@@ -52,8 +52,8 @@ export const blacklist: {
     // Property['Type-of-layout'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
-    // Property['Link-(Item)'],
-    // Property['Link-(Property)']
+    Property['Link-(Item)'],
+    Property['Link-(Property)']
   ],
 };
 

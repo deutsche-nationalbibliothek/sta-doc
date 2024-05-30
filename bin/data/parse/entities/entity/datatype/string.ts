@@ -25,7 +25,7 @@ export const parseStringValue = ({
   currentHeadlineLevel,
   isMissingValue,
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
-  const { codings } = data;
+  const { codings, labelsDe } = data;
   const value = !isMissingValue
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
@@ -40,11 +40,12 @@ export const parseStringValue = ({
         occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
           ?.value?.id) ||
       'default';
-
-  const occIsLink = (property === Property['Link-(Item)'] || property === Property['Link-(Property)']) 
-  const link = occIsLink
-    ? keyAccessOcc<EntityId>('datavalue', 'value', 'id')
+  const isLink: EntityId | undefined = ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Item)']] && occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id)
+    ? occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id
+    : ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Property)']] && occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id)
+    ? occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id
     : undefined
+  const linkLabel: string | undefined = isLink ? labelsDe[isLink] : undefined
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],
@@ -56,6 +57,7 @@ export const parseStringValue = ({
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
   // console.log('value',value,currentHeadlineLevel,headingIndex,hasHeadline,itemType)
+
 
   return {
     value,
@@ -70,6 +72,7 @@ export const parseStringValue = ({
       : undefined,
     codings: codings[property],
     itemType,
-    link
+    isLink,
+    linkLabel
   };
 };

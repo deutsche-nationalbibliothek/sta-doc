@@ -4,9 +4,11 @@ import { ItemType } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Typography } from 'antd';
 import { PropsWithStyle } from 'index';
+import { EntityLink } from '../preview/link';
+import { EntityId } from '@/types/entity-id';
 
 interface StringValueProps {
-  stringValue: { value: string };
+  stringValue: { value: string, isLink?: EntityId, linkLabel?: string };
   itemType?: ItemType;
   property?: Property;
 }
@@ -38,6 +40,12 @@ export const StringValueComponent: React.FC<
       >
         {isHtml(stringValue.value) ? (
           <span dangerouslySetInnerHTML={{ __html: stringValue.value }} />
+        ) : (stringValue.isLink && stringValue.linkLabel) ? (
+                <EntityLink
+                  id={stringValue.isLink}
+                  label={stringValue.linkLabel}
+                  staNotationLabel={stringValue.isLink}
+                >{stringValue.value}</EntityLink>
         ) : (
           <QueryHighlighter textToHighlight={stringValue.value} />
         )}
