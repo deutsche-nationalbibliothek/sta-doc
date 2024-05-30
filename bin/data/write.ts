@@ -1,9 +1,14 @@
 import { PropertiesItemsList } from '../../types/parsed/property-item-list';
+import { EntitiesRaw } from '../../types/raw/entity';
 import type { fetcher } from './fetcher';
 import type { ParsedAllFromRead } from './parse';
 import { DataState, writeJSONFile } from './utils';
 import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
+
+export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
+  writeJSONFile(data, NAMES.entity, DataState.raw);
+};
 
 export const writeRaw = (
   data: Partial<Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>>
@@ -161,6 +166,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
 export const writer = {
   raw: writeRaw,
+  rawSingle: writeSingleRaw,
   parsed: writeParsed,
 };
 

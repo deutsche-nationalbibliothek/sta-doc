@@ -1,5 +1,6 @@
 import { EntityId } from '../../types/entity-id';
 import { EntitiesEntries } from '../../types/parsed/entity';
+import { EntitiesRaw } from '../../types/raw/entity';
 import { API_URL, fetcher } from './fetcher';
 import {
   codingsParser,
@@ -29,6 +30,19 @@ export const DEV = false;
     console.log('going to write');
     writer.raw(data).writeAll();
   };
+
+  const fetchSingleEntityAndWrite = async (entityId: EntityId) => {
+    console.log('Fetch single entity from database: ', API_URL.host);
+    console.log('Fetch raw data of entity',entityId);
+    const entity = await fetcher(API_URL.host).entities.single(entityId);
+    if (entity) {
+      const entities: EntitiesRaw = {
+        ...reader[DataState.raw].entities.all(),
+        ...entity,
+      };
+      writer.rawSingle(entities)
+    }
+  }
 
   const parseRawAndWriteParsed = () => {
     const data = parseAllFromRead(reader[DataState.raw]);
@@ -74,6 +88,13 @@ export const DEV = false;
       switch (process.argv[2]) {
         case 'fetch':
           await fetchRawAndWrite();
+          break;
+        case 'fetch:single':
+          if (process.argv[3]) {
+            fetchSingleEntityAndWrite(process.argv[3] as EntityId);
+          } else {
+            console.warn('Missing EntityId as argument, like: data:fetch:single P395.');
+          }
           break;
         case 'parse':
           if (process.argv[3]) {

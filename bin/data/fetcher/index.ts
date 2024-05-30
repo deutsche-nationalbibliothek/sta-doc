@@ -3,7 +3,7 @@ import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { SchemasRaw } from '../../../types/raw/schema';
 import { DescriptionRaws } from '../../../types/raw/description';
-import { EntityRaw } from '../../../types/raw/entity';
+import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
@@ -178,3 +178,9 @@ export const fetcher = (apiUrl = API_URL.host) => {
     schemas,
   };
 };
+
+export interface ReadRawEntities {
+  entities: {
+    all: EntitiesRaw;
+  };
+}
