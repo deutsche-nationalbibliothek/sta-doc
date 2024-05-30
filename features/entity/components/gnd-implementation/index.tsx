@@ -4,13 +4,12 @@ import {
   GndImplementation,
   GndImplementationProps,
 } from './gnd-implementation';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
-import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
+import { MenuUnfoldOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Card, Col, Divider, Row, Select, Tooltip, Typography, theme } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
-import { DraggableModal } from '@/components/modal';
+import { Collapse } from '@/components/collapse';
 import { Fragment } from 'react';
-import { Example } from '../examples/example';
 
 interface GndImplementationsProps {
   implementations: Entity[];
@@ -44,57 +43,107 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
 
   return (
     <NamespaceThemeConfigProvider namespace={implementationsNamespace}>
-      <DraggableModal
-        label={
-          <Typography.Paragraph strong>
-            {labelReactElement}
-          </Typography.Paragraph>
-        }
-        title={
-          <Row
-            justify="space-between"
-            css={{
-              width: '98%',
-            }}
+      {implementations.map((implementation, index) => (
+        <>
+          <Collapse
+            defaultOpen={true}
+            labelOpen={'GND Umsetzung'}
+            labelClosed={'GND Umsetzung'}
+            extra={false ? <p>placeholder</p> : undefined}
           >
-            <Col>
-              <Typography.Text strong>{labelReactElement}</Typography.Text>
-            </Col>
-            {implementationsHaveCodingValues && (
-              <Col>
-                <Select
-                  placeholder="Codierung wählen"
-                  mode="multiple"
-                  value={codingsPreferences}
-                  onChange={onChange}
-                  size="small"
-                  css={{
-                    minWidth: 180,
-                    position: 'relative',
-                    bottom: 3,
-                    right: 24,
-                  }}
-                  options={codingsOptions.map((codingsOption, index) => ({
-                    label: codingsOption,
-                    value: codingsOption,
-                    key: index,
-                  }))}
-                />
-              </Col>
-            )}
-          </Row>
-        }
-      >
-        {implementations.map((implementation, index) => (
-          <GndImplementationCard
-            entity={implementation}
-            codingsPreferences={codingsPreferences}
-            key={index}
-            lastIndex={index === implementations.length - 1}
-          />
-        ))}
-      </DraggableModal>
+            <>
+              <Row
+                justify="end"
+                css={{
+                  width: '98%',
+                }}
+              >
+                {implementationsHaveCodingValues && (
+                  <Col>
+                    <Select
+                      placeholder="Codierung wählen"
+                      mode="multiple"
+                      value={codingsPreferences}
+                      onChange={onChange}
+                      size="small"
+                      css={{
+                        minWidth: 180,
+                        position: 'relative',
+                        bottom: 3,
+                        right: 24,
+                      }}
+                      options={codingsOptions.map((codingsOption, index) => ({
+                        label: codingsOption,
+                        value: codingsOption,
+                        key: index,
+                      }))}
+                    />
+                  </Col>
+                )}
+              </Row>
+              <GndImplementationCard
+                entity={implementation}
+                codingsPreferences={codingsPreferences}
+                key={index}
+                lastIndex={index === implementations.length - 1}
+              />
+            </>
+          </Collapse>
+        </>
+      ))}
     </NamespaceThemeConfigProvider>
+    // <NamespaceThemeConfigProvider namespace={implementationsNamespace}>
+    //   <DraggableModal
+    //     label={
+    //       <Typography.Paragraph strong>
+    //         {labelReactElement}
+    //       </Typography.Paragraph>
+    //     }
+    //     title={
+    //       <Row
+    //         justify="space-between"
+    //         css={{
+    //           width: '98%',
+    //         }}
+    //       >
+    //         <Col>
+    //           <Typography.Text strong>{labelReactElement}</Typography.Text>
+    //         </Col>
+    //         {implementationsHaveCodingValues && (
+    //           <Col>
+    //             <Select
+    //               placeholder="Codierung wählen"
+    //               mode="multiple"
+    //               value={codingsPreferences}
+    //               onChange={onChange}
+    //               size="small"
+    //               css={{
+    //                 minWidth: 180,
+    //                 position: 'relative',
+    //                 bottom: 3,
+    //                 right: 24,
+    //               }}
+    //               options={codingsOptions.map((codingsOption, index) => ({
+    //                 label: codingsOption,
+    //                 value: codingsOption,
+    //                 key: index,
+    //               }))}
+    //             />
+    //           </Col>
+    //         )}
+    //       </Row>
+    //     }
+    //   >
+    //     {implementations.map((implementation, index) => (
+    //       <GndImplementationCard
+    //         entity={implementation}
+    //         codingsPreferences={codingsPreferences}
+    //         key={index}
+    //         lastIndex={index === implementations.length - 1}
+    //       />
+    //     ))}
+    //   </DraggableModal>
+    // </NamespaceThemeConfigProvider>
   );
 };
 
