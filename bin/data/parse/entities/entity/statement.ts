@@ -47,15 +47,6 @@ export const parseStatement = (props: ParseStatementProps) => {
   const embeddedEntityId =
     !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
   
-  const occIsLink = (property === Property['Link-(Item)'] || property === Property['Link-(Property)']) 
-  const link = occIsLink
-    ? keyAccessOcc<EntityId>('datavalue', 'value', 'id')
-    : undefined
-
-  // if (occIsLink) {
-  //   console.log('link',link)
-  // }
-
   if (
     embeddedEntityId &&
     namespaceConfig.notUsed.includes(
@@ -115,7 +106,6 @@ export const parseStatement = (props: ParseStatementProps) => {
           isTopLevel,
           isElementsPropOnRdaRessourceType,
         });
-
   const dataTypeSpecificNextHeaderLevel =
     nextHeaderLevel +
     (isElementsPropOnRdaRessourceType ||
@@ -145,7 +135,6 @@ export const parseStatement = (props: ParseStatementProps) => {
   const namespace: Namespace = namespaceConfig.map[namespaceId];
 
   const preMappedStatement: PreMappedStatement = {
-    link,
     property,
     staNotationLabel: staNotations[property]?.label,
     namespace,

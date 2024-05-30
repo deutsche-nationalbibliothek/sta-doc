@@ -128,7 +128,6 @@ export const parseStatements = (
           })
         )
       );
-      // console.log('dataTypeSpecifics',dataTypeSpecifics)
 
       const preMappedStatement: PreMappedStatement = {
         label,
