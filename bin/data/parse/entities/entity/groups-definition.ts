@@ -34,7 +34,7 @@ export const defaultGroupsDefinition: Groups = {
     Property['Definition-Delimitation-of-Doc:-STA-property'],
     Property['Sources-of-information'],
     Property['Implementation-provisions'],
-    Property['description'],
+    Property.description,
     Property['Access-Points'],
     Property['Other-characteristics'],
     Property['Basic-rules'],
