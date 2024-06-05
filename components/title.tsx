@@ -12,6 +12,7 @@ interface LocalTitleProps extends Omit<TitleProps, 'level' | 'id' | 'style'> {
   headline: Headline;
   isLink?: EntityId;
   linkLabel?: string;
+  linkStaNotation?: string;
 }
 
 const maxLevel = 5;
@@ -20,10 +21,9 @@ const maxLevel = 5;
 export const titleIdPrefix = 'title-';
 
 export const Title: React.FC<LocalTitleProps> = (props) => {
-  const { headline, isLink, linkLabel, children, ...otherTitleProps } = props;
+  const { headline, isLink, linkLabel, linkStaNotation, children, ...otherTitleProps } = props;
   const { level, title, key } = headline;
 
-  console.log('title',title,isLink,linkLabel)
   const localLevel = (level <= maxLevel ? level : maxLevel) as
     | 1
     | 2
@@ -61,7 +61,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
                 <EntityLink
                   id={isLink}
                   label={linkLabel}
-                  staNotationLabel={isLink}
+                  staNotationLabel={linkStaNotation}
                 >{title}</EntityLink>
               </Typography.Title>
             ) : (

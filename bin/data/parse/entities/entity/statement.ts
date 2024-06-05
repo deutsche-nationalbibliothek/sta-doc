@@ -65,23 +65,8 @@ export const parseStatement = (props: ParseStatementProps) => {
       property === Property['Implementation-in-the-GND']) &&
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-  const nextHeaderLevel =
-    currentHeadlineLevel + (hasHeadline ? 1 : 0);
-    // currentHeadlineLevel + (hasHeadline || hasEmbedding ? 1 : 0);
-
-  const embedded = hasEmbedding
-    ? parseRawEntity({
-        entityId: embeddedEntityId,
-        headlines,
-        currentHeadlineLevel: nextHeaderLevel,
-        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
-        isRdaRessourceEntityParam,
-        embedded: true,
-        noHeadline: property === Property['example(s)'],
-        data,
-        getRawEntityById,
-      })?.entity
-    : undefined;
+  let nextHeaderLevel =
+    currentHeadlineLevel + ((hasHeadline ? 0 : 0) || (hasEmbedding ? 1 : 0));
 
   const dataTypeSpecifics =
     simplifiedDataType === 'wikibasePointers'
@@ -102,10 +87,19 @@ export const parseStatement = (props: ParseStatementProps) => {
           ...props,
           occ,
           keyAccessOcc,
+          currentHeadlineLevel: nextHeaderLevel,
           isMissingValue,
           isTopLevel,
           isElementsPropOnRdaRessourceType,
         });
+  const nextHe = (dataTypeSpecifics &&
+    'headline' in dataTypeSpecifics &&
+    dataTypeSpecifics.headline &&
+    dataTypeSpecifics.headline.level)
+    ? dataTypeSpecifics.headline.level
+    : undefined
+  nextHeaderLevel = nextHe ? nextHe : nextHeaderLevel
+
   const dataTypeSpecificNextHeaderLevel =
     nextHeaderLevel +
     (isElementsPropOnRdaRessourceType ||
@@ -114,7 +108,21 @@ export const parseStatement = (props: ParseStatementProps) => {
       dataTypeSpecifics.headline)
       ? 1
       : 0);
-  // console.log('dataTypeSpVa',currentHeadlineLevel,nextHeaderLevel,dataTypeSpecificNextHeaderLevel,isElementsPropOnRdaRessourceType,dataTypeSpecifics)
+
+  const embedded = hasEmbedding
+    ? parseRawEntity({
+        entityId: embeddedEntityId,
+        headlines,
+        currentHeadlineLevel: nextHe || nextHeaderLevel,
+        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
+        isRdaRessourceEntityParam,
+        embedded: true,
+        noHeadline: property === Property['example(s)'],
+        data,
+        getRawEntityById,
+      })?.entity
+    : undefined;
+
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers

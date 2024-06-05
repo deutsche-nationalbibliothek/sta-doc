@@ -25,7 +25,7 @@ export const parseStringValue = ({
   currentHeadlineLevel,
   isMissingValue,
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
-  const { codings, labelsDe } = data;
+  const { codings, labelsDe, staNotations } = data;
   const value = !isMissingValue
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
@@ -46,6 +46,7 @@ export const parseStringValue = ({
     ? occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id
     : undefined
   const linkLabel: string | undefined = isLink ? labelsDe[isLink] : undefined
+  const linkStaNotation: string | undefined = isLink && staNotations[isLink] ? staNotations[isLink].label : undefined
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],
@@ -56,23 +57,24 @@ export const parseStringValue = ({
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
-  // console.log('value',value,currentHeadlineLevel,headingIndex,hasHeadline,itemType)
-
+  const nextHeaderLevel = 
+    currentHeadlineLevel + 
+    headingIndex + 
+    (isPropertyBlacklisted(property, 'headlines') ? 0 : 1)
 
   return {
     value,
     headline: hasHeadline
       ? addHeadline(
           value,
-          currentHeadlineLevel +
-            headingIndex +
-            (isPropertyBlacklisted(property, 'headlines') ? 0 : 1),
+          nextHeaderLevel,
           noHeadline
         )
       : undefined,
     codings: codings[property],
     itemType,
     isLink,
-    linkLabel
+    linkLabel,
+    linkStaNotation
   };
 };

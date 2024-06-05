@@ -127,6 +127,7 @@ export interface StringValue extends CommonValue {
   itemType?: ItemType;
   isLink?: EntityId;
   linkLabel?: string;
+  linkStaNotation?: string;
 }
 
 export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';

@@ -8,7 +8,7 @@ import { EntityLink } from '../preview/link';
 import { EntityId } from '@/types/entity-id';
 
 interface StringValueProps {
-  stringValue: { value: string, isLink?: EntityId, linkLabel?: string };
+  stringValue: { value: string, isLink?: EntityId, linkLabel?: string, linkStaNotation?: string };
   itemType?: ItemType;
   property?: Property;
 }
@@ -44,7 +44,7 @@ export const StringValueComponent: React.FC<
                 <EntityLink
                   id={stringValue.isLink}
                   label={stringValue.linkLabel}
-                  staNotationLabel={stringValue.isLink}
+                  staNotationLabel={stringValue.linkStaNotation}
                 >{stringValue.value}</EntityLink>
         ) : (
           <QueryHighlighter textToHighlight={stringValue.value} />

@@ -114,7 +114,6 @@ export const parseStatements = (
             statementNamespace
           )
         : undefined;
-      // console.log('statements',property,label,currentHeadlineLevel,hasHeadline,headline)
 
       const dataTypeSpecifics = compact(
         occs.map((occ: StatementRaw | Claim) =>

@@ -59,6 +59,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
       Property['description-(at-the-end)']
     ),
   };
+  // console.log('non',nonDefaultRenderStatements)
 
   const statementFilter = (gndImplementationStatement: Statement) =>
     !nonDefaultRenderProperties.includes(gndImplementationStatement.property);
@@ -158,7 +159,6 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
   };
 
   const filteredStatements = statements.filter(statementFilter);
-  console.log('filteredStatements',filteredStatements)
 
   const relevantExamples: ExampleValues = filteredStatements.reduce(
     exampleStatementsReducer,
@@ -168,7 +168,6 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
       'PICA+': [],
     } as ExampleValues
   );
-  console.log('relevantExamples', relevantExamples);
 
   return (
     <>
@@ -211,7 +210,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
           </Typography.Paragraph>
         </React.Fragment>
       }
-      {nonDefaultRenderStatements['description-(at-the-end)'] && (
+      {nonDefaultRenderStatements['description-(at-the-end)'] && nonDefaultRenderStatements['description-(at-the-end)'].stringGroups && (
         <Statements
           statements={[nonDefaultRenderStatements['description-(at-the-end)']]}
         />

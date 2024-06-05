@@ -16,7 +16,7 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
   children,
   label,
   showPopover = true,
-  tooltipPlacement = 'right',
+  tooltipPlacement = 'bottom',
 }) => {
   return showPopover ? (
     <Popover
