@@ -48,7 +48,8 @@ export const blacklist: {
   ],
   // qualifier who never render
   qualifier: [
-    Property['language-of-the-statement'],
+    Property['Language-of-the-statement'],
+    Property['original-language'],
     // Property['Type-of-layout'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
