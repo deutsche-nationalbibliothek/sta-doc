@@ -44,6 +44,7 @@ export const parseStatement = (props: ParseStatementProps) => {
   const isMissingValue = snakType === 'novalue' || snakType === 'somevalue';
 
   const property = keyAccessOcc<Property>('property');
+
   const embeddedEntityId =
     !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
   
@@ -66,7 +67,8 @@ export const parseStatement = (props: ParseStatementProps) => {
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
   let nextHeaderLevel =
-    currentHeadlineLevel + ((hasHeadline ? 0 : 0) || (hasEmbedding ? 1 : 0));
+    currentHeadlineLevel + 
+    (hasHeadline && simplifiedDataType === 'wikibasePointers' ? 1 : 0)
 
   const dataTypeSpecifics =
     simplifiedDataType === 'wikibasePointers'
@@ -102,10 +104,7 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const dataTypeSpecificNextHeaderLevel =
     nextHeaderLevel +
-    (isElementsPropOnRdaRessourceType ||
-    (dataTypeSpecifics &&
-      'headline' in dataTypeSpecifics &&
-      dataTypeSpecifics.headline)
+    (isElementsPropOnRdaRessourceType || simplifiedDataType === 'wikibasePointers'
       ? 1
       : 0);
 
@@ -122,7 +121,6 @@ export const parseStatement = (props: ParseStatementProps) => {
         getRawEntityById,
       })?.entity
     : undefined;
-
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers

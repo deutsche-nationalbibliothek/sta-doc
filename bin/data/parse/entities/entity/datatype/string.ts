@@ -58,9 +58,7 @@ export const parseStringValue = ({
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
   const nextHeaderLevel = 
-    currentHeadlineLevel + 
-    headingIndex + 
-    (isPropertyBlacklisted(property, 'headlines') ? 0 : 1)
+    currentHeadlineLevel + headingIndex + (currentHeadlineLevel == 2 && property === 'P7' ? 0 : 1)
 
   return {
     value,
