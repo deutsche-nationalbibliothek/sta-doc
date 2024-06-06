@@ -98,7 +98,7 @@ export interface NoValue {
 export interface Reference {
   // data should have eithter Property.URL or Property.URI
   [Property.URL]: string;
-  [Property.URI]: string;
+  [Property.P57]: string; //was Property.URI but now different name
   [Property.description]: string;
   // with Property['description-(at-the-end)']:
   //  typescript: A computed property name in an interface must refer to
