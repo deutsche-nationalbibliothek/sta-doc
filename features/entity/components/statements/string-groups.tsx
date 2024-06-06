@@ -71,7 +71,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                     stringValue={stringValue}
                   />
                   {references}
-                  {/* {qualifiers} */}
+                  {qualifiers}
                 </Typography.Text>
               </React.Fragment>
             ) : (
