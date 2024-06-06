@@ -32,7 +32,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
     | 5;
   const levelsTooHigh = level - maxLevel;
   const style =
-    levelsTooHigh > 0 ? { fontSize: `${18 - levelsTooHigh}px !important` } : {};
+    levelsTooHigh > 0 ? { fontSize: `${16 - levelsTooHigh}px !important` } : {};
   const iconSize = 20 - level * 1.2;
 
   return (
