@@ -34,6 +34,7 @@ export const blacklist: {
     Property['Link-(Property)'],
     Property['Introduction-text'],
     Property['Implementation-in-the-GND'],
+    Property['permitted-characteristics'],
     Property['Recording-method'],
     Property['Relationships-to-other-elements-of-Doc:-RDA-property'],
     Property.Repetition,
