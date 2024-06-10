@@ -83,7 +83,8 @@ export const prefetchEmbeddedEntities = async ({
               const hasEmbedding =
                 (propertyId === Property['example(s)'] ||
                   propertyId === Property['embedded-(item)'] ||
-                  propertyId === Property['embedded-(property)']) &&
+                  propertyId === Property['embedded-(property)']) ||
+                  propertyId === Property['Implementation-in-the-GND'] &&
                 !prevSeenEntities.some((id) => id === embeddedEntityId);
 
               const qualifiersEmbeddedIds =
