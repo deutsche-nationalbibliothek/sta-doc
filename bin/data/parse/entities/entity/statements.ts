@@ -101,6 +101,9 @@ export const parseStatements = (
           occs[0].parentProperty === Property.Elements &&
           isRdaRessourceEntity);
 
+      const isSubfieldsProp =
+        property === Property.Subfields
+
       const hasHeadline =
         isTopLevel &&
         !isPropertyBlacklisted(property) &&
@@ -122,6 +125,7 @@ export const parseStatements = (
             occ,
             keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
             hasHeadline,
+            currentHeadlineLevel: (hasHeadline && !isSubfieldsProp ? currentHeadlineLevel + 1 : currentHeadlineLevel),
             simplifiedDataType: dataType,
             isElementsPropOnRdaRessourceType,
           })
