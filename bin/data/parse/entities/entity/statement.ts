@@ -69,6 +69,10 @@ export const parseStatement = (props: ParseStatementProps) => {
   let nextHeaderLevel =
     currentHeadlineLevel + 
     (hasHeadline && simplifiedDataType === 'wikibasePointers' ? 1 : 0)
+    // (simplifiedDataType === 'wikibasePointers' ? 1 : 0)
+
+  // console.log('occ','datavalue' in occ && occ.datavalue ? occ.datavalue.value : occ)
+  // console.log('v',hasHeadline,simplifiedDataType,currentHeadlineLevel,nextHeaderLevel)
 
   const dataTypeSpecifics =
     simplifiedDataType === 'wikibasePointers'
@@ -107,12 +111,15 @@ export const parseStatement = (props: ParseStatementProps) => {
     (isElementsPropOnRdaRessourceType || simplifiedDataType === 'wikibasePointers'
       ? 1
       : 0);
+  // console.log('val',occ,'qualifiers' in occ && occ.qualifiers ? true : false)
+  // console.log('hasEmb',hasEmbedding,currentHeadlineLevel,nextHeaderLevel,simplifiedDataType,hasHeadline)
+  // console.log('nextHe',nextHe)
 
   const embedded = hasEmbedding
     ? parseRawEntity({
         entityId: embeddedEntityId,
         headlines,
-        currentHeadlineLevel: nextHe || nextHeaderLevel,
+        currentHeadlineLevel: (nextHe || nextHeaderLevel),
         prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
         isRdaRessourceEntityParam,
         embedded: true,
@@ -150,9 +157,9 @@ export const parseStatement = (props: ParseStatementProps) => {
       'references' in occ && occ.references
         ? parseReferences({
             ...props,
-            currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
+            // currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
             references: occ.references,
-            isTopLevel,
+            // isTopLevel,
           })
         : undefined,
     embedded,
