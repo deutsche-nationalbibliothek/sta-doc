@@ -37,7 +37,6 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
       ? 'extras'
       : 'simples'
   );
-  // console.log('wikibasePointerGroups',wikibasePointerGroups)
 
   return (
     <>
