@@ -35,6 +35,7 @@ export const blacklist: {
     Property['Introduction-text'],
     Property['Implementation-in-the-GND'],
     Property['permitted-characteristics'],
+    Property['permited-values'],
     Property['Recording-method'],
     Property['Relationships-to-other-elements-of-Doc:-RDA-property'],
     Property.Repetition,
@@ -49,13 +50,12 @@ export const blacklist: {
   ],
   // qualifier who never render
   qualifier: [
-    Property['Language-of-the-statement'],
-    Property['original-language'],
-    // Property['Type-of-layout'],
     Property['embedded-in-(item)'],
     Property['embedded-in-(property)'],
+    Property['Language-of-the-statement'],
     Property['Link-(Item)'],
-    Property['Link-(Property)']
+    Property['Link-(Property)'],
+    Property['original-language'],
   ],
 };
 
