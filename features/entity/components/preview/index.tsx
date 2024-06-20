@@ -44,7 +44,7 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
         display: 'grid',
       }}
     >
-      <FetchEntity entityId={entityId}>
+      <FetchEntity entityId={entityId} ignoreFetchingQueryParamString={true}>
         {({ entity }) => (
           <div
             css={{

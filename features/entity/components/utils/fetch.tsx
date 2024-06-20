@@ -7,12 +7,14 @@ interface FetchEntityProps {
     entityEntry: EntityEntryWithOptionalHeadlines,
     loading: boolean
   ) => JSX.Element;
+  ignoreFetchingQueryParamString?: boolean;
   showSpinner?: boolean;
 }
 
 export const FetchEntity: React.FC<FetchEntityProps> = ({
   entityId,
   children,
+  ignoreFetchingQueryParamString,
   showSpinner,
 }) => {
   return (
@@ -20,6 +22,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
       {entityId && (
         <Fetch<EntityEntryWithOptionalHeadlines>
           url={`${process.env.basePath ?? ''}/api/entities/${entityId}`}
+          ignoreFetchingQueryParamString={ignoreFetchingQueryParamString}
           showSpinner={showSpinner}
         >
           {children}
