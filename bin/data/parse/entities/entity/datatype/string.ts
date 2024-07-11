@@ -59,7 +59,6 @@ export const parseStringValue = ({
   const hasHeadline = !isMissingValue && headingIndex >= 0;
   const nextHeaderLevel = 
     currentHeadlineLevel + headingIndex
-    // (currentHeadlineLevel == 2 && property === 'P7' ? 0 : 0)
 
   return {
     value,

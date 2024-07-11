@@ -21,8 +21,6 @@ export interface ParseStatementsProps
   isTopLevel?: boolean;
   isElementsPropOnRdaRessourceType?: boolean;
   addHeadline: AddHeadline;
-  // parseRawEntity: typeof parseRawEntity;
-  // isRdaRessourceEntity: boolean;
 }
 
 export const parseStatements = (
@@ -71,7 +69,6 @@ export const parseStatements = (
       // property and datatype are the same over the occs collection
       const property = keyAccess<Property>(occs[0], 'property');
       const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
-
       const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
         url: 'urls',
         time: 'times',
@@ -117,7 +114,7 @@ export const parseStatements = (
             statementNamespace
           )
         : undefined;
-
+      
       const dataTypeSpecifics = compact(
         occs.map((occ: StatementRaw | Claim) =>
           parseStatement({
@@ -125,7 +122,10 @@ export const parseStatements = (
             occ,
             keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
             hasHeadline,
-            currentHeadlineLevel: (hasHeadline && !isSubfieldsProp ? currentHeadlineLevel + 1 : currentHeadlineLevel),
+            currentHeadlineLevel:
+              hasHeadline && !isSubfieldsProp || isElementsPropOnRdaRessourceType
+                ? currentHeadlineLevel + 1
+                : currentHeadlineLevel,
             simplifiedDataType: dataType,
             isElementsPropOnRdaRessourceType,
           })

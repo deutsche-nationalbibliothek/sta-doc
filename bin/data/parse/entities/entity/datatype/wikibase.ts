@@ -44,12 +44,9 @@ export const parseWikibaseValue = (
     ? Item['undefined-of-Default-value']
     : keyAccessOcc<EntityId>('datavalue', 'value', 'id');
 
-    // console.log('occ',occ)
   const hasHeadline =
     (isTopLevel &&
       !isPropertyBlacklisted(id) &&
-      'mainsnak' in occ &&
-      occ.mainsnak.property === Property.Elements &&
       'qualifiers' in occ &&
       occ.qualifiers &&
       (isElementsPropOnRdaRessourceType

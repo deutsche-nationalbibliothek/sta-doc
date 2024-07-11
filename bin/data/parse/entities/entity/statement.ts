@@ -68,8 +68,8 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   let nextHeaderLevel =
     currentHeadlineLevel + 
-    (hasHeadline && simplifiedDataType === 'wikibasePointers' ? 1 : 0)
-
+    ((hasHeadline && simplifiedDataType === 'wikibasePointers' || hasEmbedding) ? 1 : 0)
+  
   const dataTypeSpecifics =
     simplifiedDataType === 'wikibasePointers'
       ? parseWikibaseValue({
@@ -103,16 +103,14 @@ export const parseStatement = (props: ParseStatementProps) => {
   nextHeaderLevel = nextHe ? nextHe : nextHeaderLevel
 
   const dataTypeSpecificNextHeaderLevel =
-    nextHeaderLevel +
-    (isElementsPropOnRdaRessourceType || simplifiedDataType === 'wikibasePointers'
-      ? 1
-      : 0);
+    nextHeaderLevel -
+    (isElementsPropOnRdaRessourceType ? 1 : 0);
 
   const embedded = hasEmbedding
     ? parseRawEntity({
         entityId: embeddedEntityId,
         headlines,
-        currentHeadlineLevel: (nextHe || nextHeaderLevel),
+        currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
         prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
         isRdaRessourceEntityParam,
         embedded: true,
@@ -129,10 +127,8 @@ export const parseStatement = (props: ParseStatementProps) => {
           statements: (Object.keys(occ.qualifiers) as Property[])
             .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
             .map((qualiKey) => (occ as Required<Claim>).qualifiers[qualiKey]),
-          currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
+          currentHeadlineLevel: nextHeaderLevel,
           embedded: true,
-          // isTopLevel,
-          // noHeadline,
           isElementsPropOnRdaRessourceType,
         })
       : undefined;
@@ -150,9 +146,7 @@ export const parseStatement = (props: ParseStatementProps) => {
       'references' in occ && occ.references
         ? parseReferences({
             ...props,
-            // currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
             references: occ.references,
-            // isTopLevel,
           })
         : undefined,
     embedded,
