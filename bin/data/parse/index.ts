@@ -33,6 +33,8 @@ import { Fields } from '../../../types/parsed/field';
 import { Namespace } from '../../../types/namespace';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
+import { PropertyTypes } from '../../../types/parsed/property-type';
+import { PropertyTypeRaw, PropertyTypesRaw } from '../../../types/raw/property-type';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -209,6 +211,17 @@ export const descriptionsParser = (descriptions: DescriptionRaws) => {
   );
 };
 
+export const propertyTypesParser = (propertyTypes: PropertyTypesRaw) => {
+  console.log('\tParsing propertyTypes');
+  return propertyTypes.reduce((acc, entity: PropertyTypeRaw) => {
+    acc[entity.eId.value] = {
+      label: entity.typeLabel.value,
+      id: entity.typeId.value,
+    };
+    return acc;
+  }, {} as PropertyTypes);
+};
+
 export const schemasParser = (schemas: SchemasRaw) => {
   console.log('\tParsing Schemas');
   return schemas.reduce(
@@ -373,7 +386,9 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations());
   const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes());
   const data = {
+    propertyTypes,
     staNotations,
     schemas,
     labelsDe: labelsParser.de(read.labels.de()),

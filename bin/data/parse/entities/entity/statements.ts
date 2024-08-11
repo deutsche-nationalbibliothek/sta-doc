@@ -45,7 +45,7 @@ export const parseStatements = (
     isRdaRessourceEntity,
   } = defaultedProps;
 
-  const { labelsDe, codings, schemas, staNotations } = data;
+  const { labelsDe, codings, propertyTypes, schemas, staNotations } = data;
 
   const keyAccess = <T>(
     occ: Claim | StatementRaw,
@@ -60,6 +60,15 @@ export const parseStatements = (
     ) as T;
   };
 
+  const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
+    url: 'urls',
+    time: 'times',
+    'wikibase-item': 'wikibasePointers',
+    'wikibase-entityid': 'wikibasePointers',
+    'wikibase-property': 'wikibasePointers',
+    string: 'stringGroups',
+  };
+
   const parsedStatements: (PreMappedStatement | undefined)[] = statements.map(
     (occs: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
       if (occs.length === 0) {
@@ -69,21 +78,12 @@ export const parseStatements = (
       // property and datatype are the same over the occs collection
       const property = keyAccess<Property>(occs[0], 'property');
       const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
-      const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
-        url: 'urls',
-        time: 'times',
-        'wikibase-item': 'wikibasePointers',
-        'wikibase-entityid': 'wikibasePointers',
-        'wikibase-property': 'wikibasePointers',
-        string: 'stringGroups',
-      };
 
       const dataType = dataTypeMap[dataTypeRaw];
       const label = labelsDe[property];
 
       const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
-
       if (
         isPropertyBlacklisted(property, 'property') ||
         (statementNamespace &&
@@ -136,6 +136,7 @@ export const parseStatements = (
         label,
         headline,
         property,
+        propertyType: propertyTypes[property] ? propertyTypes[property] : undefined,
         staNotationLabel: staNotations[property]?.label,
         codings: codings[property],
         namespace: statementNamespace,

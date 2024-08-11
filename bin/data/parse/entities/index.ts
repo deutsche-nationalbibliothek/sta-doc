@@ -1,6 +1,7 @@
 import { GetRawEntityById } from '..';
 import { EntityId } from '../../../../types/entity-id';
 import { Codings } from '../../../../types/parsed/coding';
+import { PropertyTypes } from '../../../../types/parsed/property-type';
 import { Fields } from '../../../../types/parsed/field';
 import { EntitiesEntries } from '../../../../types/parsed/entity';
 import { Schemas } from '../../../../types/parsed/schema';
@@ -26,6 +27,7 @@ export interface ParseEntitiesData {
   schemas: Schemas;
   fields: Fields;
   rdaElementStatuses: RdaElementStatuses;
+  propertyTypes: PropertyTypes;
 }
 
 export const parseEntities = ({

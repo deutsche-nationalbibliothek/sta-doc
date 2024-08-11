@@ -1,7 +1,9 @@
 import { ParseEntitiesProps } from '..';
+import namespaceConfig from '../../../../../config/namespace';
 import { EntityId } from '../../../../../types/entity-id';
 import { Headline } from '../../../../../types/headline';
 import { Item } from '../../../../../types/item';
+import { Namespace } from '../../../../../types/namespace';
 import {
   Entity,
   EntityEntry,
@@ -12,15 +14,13 @@ import {
 } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
+import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
 import {
-  defaultGroupsDefinition,
   Groups,
+  defaultGroupsDefinition,
   rdaRessourceTypeGroups,
 } from './groups-definition';
 import { headlinesParser } from './util';
-import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
-import { Namespace } from '../../../../../types/namespace';
-import namespaceConfig from '../../../../../config/namespace';
 
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
@@ -38,7 +38,7 @@ export const parseRawEntity = (
 ): EntityEntry | undefined => {
   console.log(
     !props.embedded ? '\n' : '\t',
-    '\t\t\tParsing Entity',
+    '\t\tParsing Entity',
     props.entityId
   );
 
@@ -71,6 +71,7 @@ export const parseRawEntity = (
     fields,
     schemas,
     rdaElementStatuses,
+    propertyTypes
   } = data;
 
   const entity = getRawEntityById(entityId);
@@ -108,9 +109,10 @@ export const parseRawEntity = (
     if (!elementOfId) {
       console.warn(
         '\t\t\tno entity.claims with Property.elementof for',
-        entityId
+        entityId,
+        'not used, ignoring entity'
       );
-      // return undefined;
+      return undefined;
     }
 
     if (namespaceConfig.notUsed.includes(namespace)) {
@@ -124,7 +126,7 @@ export const parseRawEntity = (
     }
 
     if (!embedded && !staNotations[entityId]) {
-      console.warn('\t\t\tStaNotation not found for Enitity', entityId);
+      console.warn('\t\t\tStaNotation not found for Entity', entityId);
     }
 
     const isRdaRessourceEntity =
@@ -146,7 +148,7 @@ export const parseRawEntity = (
       ? ({
           ...labelsEn[elementOfId],
           deLabel: labelsDe[elementOfId],
-          schema: labelsDe[namespaceId],
+          schema: labelsDe[namespaceId]
         } as PageType)
       : undefined;
 

@@ -37,6 +37,8 @@ export const writeRaw = (
       writeJSONFile(data.labels.en, NAMES.labelEn, DataState.raw),
   };
 
+  const propertyTypes = () =>
+    writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.raw);
   const staNotations = () =>
     writeJSONFile(data.staNotations, NAMES.staNotation, DataState.raw);
   const schemas = () =>
@@ -64,6 +66,7 @@ export const writeRaw = (
     fields();
     labels.de();
     labels.en();
+    propertyTypes();
     staNotations();
     schemas();
     codings();
@@ -76,6 +79,7 @@ export const writeRaw = (
     entities,
     fields,
     labels,
+    propertyTypes,
     staNotations,
     schemas,
     codings,

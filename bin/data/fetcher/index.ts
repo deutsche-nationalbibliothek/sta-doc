@@ -16,6 +16,7 @@ import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
+import { PropertyTypesRaw } from '../../../types/raw/property-type';
 
 export enum API_URL {
   host = 'https://edit.sta.dnb.de',
@@ -105,6 +106,10 @@ export const descriptionsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<DescriptionRaws>(
     sparql.DESCRIPTIONS(apiUrl)
   );
+export const propertyTypesFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<PropertyTypesRaw>(
+    sparql.PROPERTYTYPES(apiUrl)
+  );
 export const rdaRulesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<RdaRulesRaw>(sparql.RDARULES(apiUrl));
 export const rdaPropertiesFetcher = async (apiUrl: API_URL) =>
@@ -135,6 +140,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
     en: async () => await labelsFetcher.en(apiUrl),
   };
 
+  const propertyTypes = async () => await propertyTypesFetcher(apiUrl);
   const staNotations = async () => await staNotationsFetcher(apiUrl);
   const schemas = async () => await schemasFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
@@ -154,6 +160,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
         de: await labels.de(),
         en: await labels.en(),
       },
+      propertyTypes: await propertyTypes(),
       staNotations: await staNotations(),
       schemas: await schemas(),
       codings: await codings(),
@@ -174,6 +181,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
     codings,
     fetchAll,
     propertyItemList,
+    propertyTypes,
     rdaElementStatuses,
     schemas,
   };
