@@ -7,6 +7,7 @@ import {
   codingsParser,
   fieldsParser,
   labelsParser,
+  propertyTypesParser,
   rdaElementStatusesParser,
   schemasParser,
   staNotationsParser,
@@ -75,6 +76,7 @@ const getLiveEntity = async (
     const labelsEn = labelsParser.en(await fetch.labels.en());
     const labelsDe = labelsParser.de(await fetch.labels.de());
     const codings = codingsParser(await fetch.codings());
+    const propertyTypes = propertyTypesParser(await fetch.propertyTypes());
     const staNotations = staNotationsParser(await fetch.staNotations());
     const schemas = schemasParser(await fetch.schemas());
     const fields = fieldsParser(await fetch.fields(), staNotations);
@@ -91,6 +93,7 @@ const getLiveEntity = async (
         labelsEn,
         labelsDe,
         codings,
+        propertyTypes,
         staNotations,
         schemas,
         fields,

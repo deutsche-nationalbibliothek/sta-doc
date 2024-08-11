@@ -6,6 +6,7 @@ import { Namespace } from '../namespace';
 import { Property } from '../property';
 import { Field } from './field';
 import { RdaElementStatus } from './rda-element-status';
+import { PropertyType } from './property-type';
 
 export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
@@ -48,7 +49,7 @@ export interface PageType {
   schema: string;
   assignmentId: string;
   assignmentLabel: string;
-  id: Item; //Item;
+  id: Item;
 }
 
 export interface Statements {
@@ -71,6 +72,7 @@ export type StatementValue = Statement & CommonValue;
 export interface CommonValue {
   references?: Reference[];
   property: Property;
+  propertyType?: PropertyType;
   embedded?: Entity;
   missingValue?: 'somevalue' | 'novalue';
   qualifiers?: Statement[];
