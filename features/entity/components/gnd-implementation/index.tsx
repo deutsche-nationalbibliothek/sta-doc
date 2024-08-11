@@ -92,58 +92,6 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
         </>
       ))}
     </NamespaceThemeConfigProvider>
-    // <NamespaceThemeConfigProvider namespace={implementationsNamespace}>
-    //   <DraggableModal
-    //     label={
-    //       <Typography.Paragraph strong>
-    //         {labelReactElement}
-    //       </Typography.Paragraph>
-    //     }
-    //     title={
-    //       <Row
-    //         justify="space-between"
-    //         css={{
-    //           width: '98%',
-    //         }}
-    //       >
-    //         <Col>
-    //           <Typography.Text strong>{labelReactElement}</Typography.Text>
-    //         </Col>
-    //         {implementationsHaveCodingValues && (
-    //           <Col>
-    //             <Select
-    //               placeholder="Codierung wählen"
-    //               mode="multiple"
-    //               value={codingsPreferences}
-    //               onChange={onChange}
-    //               size="small"
-    //               css={{
-    //                 minWidth: 180,
-    //                 position: 'relative',
-    //                 bottom: 3,
-    //                 right: 24,
-    //               }}
-    //               options={codingsOptions.map((codingsOption, index) => ({
-    //                 label: codingsOption,
-    //                 value: codingsOption,
-    //                 key: index,
-    //               }))}
-    //             />
-    //           </Col>
-    //         )}
-    //       </Row>
-    //     }
-    //   >
-    //     {implementations.map((implementation, index) => (
-    //       <GndImplementationCard
-    //         entity={implementation}
-    //         codingsPreferences={codingsPreferences}
-    //         key={index}
-    //         lastIndex={index === implementations.length - 1}
-    //       />
-    //     ))}
-    //   </DraggableModal>
-    // </NamespaceThemeConfigProvider>
   );
 };
 

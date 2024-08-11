@@ -208,14 +208,14 @@ export function Table<T extends object>(props: TableProps<T>) {
                 numeric: true,
                 sensitivity: 'base',
               }).compare(
-                get(a, column.dataIndex) as string,
-                get(b, column.dataIndex) as string
+                get(a, column.dataIndex as string) as string,
+                get(b, column.dataIndex as string) as string
               )
           : undefined,
       onFilter: (value: string, record: T) => {
         if ('dataIndex' in column && column.dataIndex) {
           const searchWords = value.toLowerCase().split(/\s+/);
-          const relevantValue = get(record, column.dataIndex) as
+          const relevantValue = get(record, column.dataIndex as string) as
             | string
             | undefined;
           return relevantValue &&

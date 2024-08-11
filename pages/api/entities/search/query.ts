@@ -69,7 +69,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     solrQuery.start(Number(start));
   }
 
-  const queryResult = (await client.search(solrQuery)) as QueryResult;
+  const queryResult = (await client.search(solrQuery)) as unknown as QueryResult;
 
   res.status(200).json(queryResult);
 };

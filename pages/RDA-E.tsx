@@ -60,7 +60,6 @@ export default function RdaPropertiesPage({
         value: rdaPropertyLabel,
       })),
       onFilter: (value, record) => {
-        console.log({ record, value });
         return value === record.type.label;
       },
       render: (_label: string, rdaProperty) => (
