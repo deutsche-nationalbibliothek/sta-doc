@@ -5,8 +5,10 @@ import {
 import { useNamespace } from '@/hooks/use-namespace';
 import { Namespace } from '@/types/namespace';
 import { PrefCodingsLabel } from '@/types/parsed/coding';
-import { Statement, Entity } from '@/types/parsed/entity';
+import { Statement, Entity, StatementValue, WikibasePointerValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
+import { Item } from '@/types/item';
+import { propFinder } from '@/utils/prop-finder';
 import { Card, Tag, Typography, theme } from 'antd';
 import { compact } from 'lodash';
 import React from 'react';
@@ -15,6 +17,8 @@ import { Statements } from '../statements';
 // import { RdaExample } from './rda-example';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { EntityId } from '@/types/entity-id';
+import { Embedded } from '../embedded';
+import { EntityDetails } from '../details';
 
 export interface GndImplementationProps {
   entity: Entity;
@@ -28,10 +32,43 @@ interface GndImplementationValues {
 }
 
 interface ExampleValues {
-  formatNeutral: { label: string; propertyId: EntityId; propertyLabel: string; staNotationLabel: string; value: string }[];
+  formatNeutral: { 
+    embedded?: WikibasePointerValue[];
+    label: string;
+    formatNeutralLayoutId?: EntityId;
+    propertyId: EntityId; 
+    propertyLabel: string; 
+    staNotationLabel: string; 
+    value: string;
+    subfieldsGroup: SubfieldGroups }[];
   PICA3: { value: string; coding?: string }[][];
   'PICA+': { value: string; coding?: string }[][];
 }
+
+interface SubfieldGroups {
+  naming: StatementValue[];
+  relationType: StatementValue[];
+  addition: StatementValue[];
+}
+
+function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
+  const result: SubfieldGroups = {
+    naming: [],
+    relationType: [],
+    addition: [],
+  };
+  arr?.forEach((element) => {
+    if (element.propertyType?.id === 'Q11829' || element.propertyType?.id === 'Q11830') {
+      result.naming.push(element);
+    } else if (element.property === 'P169') {
+      result.relationType.push(element);
+    } else if (element.propertyType?.id === 'Q11831') {
+      result.addition.push(element);
+    }
+  });
+  return result;
+}
+
 
 export const nonDefaultRenderProperties = [
   Property.description,
@@ -48,18 +85,17 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     ...entity.statements.body,
   ];
 
-  // console.log('statements', statements);
-
-  const propFinder = (property: Property) =>
-    statements.find((statement) => statement.property === property);
+  const propFinderLocal = (
+    property: Property,
+    statements = entity.statements.body
+  ) => propFinder<StatementValue>(property, statements);
 
   const nonDefaultRenderStatements = {
-    description: propFinder(Property.description),
-    'description-(at-the-end)': propFinder(
+    description: propFinderLocal(Property.description),
+    'description-(at-the-end)': propFinderLocal(
       Property['description-(at-the-end)']
     ),
   };
-  // console.log('non',nonDefaultRenderStatements)
 
   const statementFilter = (gndImplementationStatement: Statement) =>
     !nonDefaultRenderProperties.includes(gndImplementationStatement.property);
@@ -71,25 +107,35 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     if (statement.stringGroups) {
       const exampleValue = statement.stringGroups[0].values[0];
       const formatNeutralStatement = exampleValue.qualifiers?.find(
-        (qualifier) => qualifier.property === Property['format-neutral-label']
+        (qualifier) => qualifier.property === Property['Type']
       );
+      const embeddedEntities = exampleValue.qualifiers?.find(
+        (qualifier) => qualifier.property === Property['embedded-(item)']
+      )?.wikibasePointers;
+      const formatNeutralLayoutId = formatNeutralStatement?.wikibasePointers?.at(0)?.id 
+      const subfieldsGroup = mapSubfieldsToObject(exampleValue.qualifiers ? exampleValue.qualifiers : undefined)
+      
       const formatNeutralStatementValue =
         formatNeutralStatement?.stringGroups &&
         formatNeutralStatement?.stringGroups[0].values[0].value;
-      // console.log('statement label',statement.label)
-      // console.log('exampleValue',exampleValue)
-      // console.log('formatNeutralStatement',formatNeutralStatement)
-      acc.formatNeutral = compact([
-        ...acc.formatNeutral,
+      const formatNeutralObj = formatNeutralStatement ?
         {
+          embedded: embeddedEntities || undefined,
           label: formatNeutralStatementValue
             ? formatNeutralStatementValue
             : statement.label || 'formatNeutralStatement', // quickfix
+          formatNeutralLayoutId: formatNeutralLayoutId,
           propertyId: statement.property,
           propertyLabel: statement.label || '',
           staNotationLabel: statement.staNotationLabel || '',
           value: exampleValue.value,
-        },
+          subfieldsGroup: subfieldsGroup,
+        }
+      :
+        undefined
+      acc.formatNeutral = compact([
+        ...acc.formatNeutral,
+        formatNeutralObj
       ]);
 
       if ('qualifiers' in exampleValue) {
@@ -176,23 +222,131 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
       )}
       {
         <React.Fragment>
-          <Typography.Paragraph>
-            {relevantExamples.formatNeutral.map((formatNeutral, index) => (
-              <Typography.Paragraph key={index}>
-                <Typography.Text italic>Erfassen Sie </Typography.Text>
-                <Typography.Text strong>{formatNeutral.value}</Typography.Text>
-                <Typography.Text italic> im Datenfeld </Typography.Text>
-                <Typography.Text strong>
-                  <EntityLink
-                    id={formatNeutral.propertyId}
-                    label={formatNeutral.propertyLabel}
-                    staNotationLabel={formatNeutral.staNotationLabel}
-                  />
-                </Typography.Text>
-                <br />
-              </Typography.Paragraph>
-            ))}
-          </Typography.Paragraph>
+          {relevantExamples
+            ? relevantExamples.formatNeutral.map((formatNeutral, index) => (
+                <Typography.Paragraph key={index}>
+                  <Typography.Text>Erfassen Sie </Typography.Text>
+                  <Typography.Text strong>
+                    {formatNeutral.value}
+                  </Typography.Text>
+                  {formatNeutral.formatNeutralLayoutId == 'Q11801' ? ( //GND-Umsetzung 2: Beziehungen | Layouttyp
+                    <Typography.Text>
+                      {' '}
+                      als in Beziehung stehende Entität
+                    </Typography.Text>
+                  ) : undefined}
+                  <Typography.Text italic> im Datenfeld </Typography.Text>
+                  <Typography.Text strong>
+                    <EntityLink
+                      id={formatNeutral.propertyId}
+                      label={formatNeutral.propertyLabel}
+                      staNotationLabel={formatNeutral.staNotationLabel}
+                    />
+                  </Typography.Text>
+                  {formatNeutral.subfieldsGroup.naming.length > 1 ? (
+                    <Typography.Text italic>
+                      {' '}
+                      in den Unterfeldern{' '}
+                    </Typography.Text>
+                  ) : formatNeutral.subfieldsGroup.naming.length == 1 ? (
+                    <Typography.Text italic> im Unterfeld </Typography.Text>
+                  ) : undefined}
+                  {formatNeutral.subfieldsGroup.naming.map(
+                    (subfield, index) => (
+                      <Typography.Text strong>
+                        <EntityLink
+                          id={subfield.property as EntityId}
+                          label={subfield.label ? subfield.label : ''}
+                          staNotationLabel={
+                            subfield.staNotationLabel
+                              ? subfield.staNotationLabel
+                              : undefined
+                          }
+                        />
+                        {formatNeutral.subfieldsGroup.naming.length - 1 >
+                        index ? (
+                          <Typography.Text>{', '}</Typography.Text>
+                        ) : undefined}
+                      </Typography.Text>
+                    )
+                  )}
+                  {formatNeutral.subfieldsGroup.relationType.length > 0 ? (
+                    <Typography.Text italic>
+                      {' '}
+                      mit der Beziehungskennzeichnung{' '}
+                    </Typography.Text>
+                  ) : undefined}
+                  {formatNeutral.subfieldsGroup.relationType.length > 0
+                    ? formatNeutral.subfieldsGroup.relationType.map(
+                        (subfield, index) => (
+                          <React.Fragment key={index}>
+                            <Typography.Text strong>
+                              <EntityLink
+                                id={
+                                  subfield.wikibasePointers
+                                    ? subfield.wikibasePointers[0].id
+                                    : (Item['Unknown-Code'] as EntityId)
+                                }
+                                label={
+                                  subfield.wikibasePointers
+                                    ? subfield.wikibasePointers[0].label
+                                    : ''
+                                }
+                                staNotationLabel={
+                                  subfield.wikibasePointers
+                                    ? subfield.wikibasePointers[0]
+                                        .staNotationLabel
+                                    : undefined
+                                }
+                              />
+                            </Typography.Text>
+                          </React.Fragment>
+                        )
+                      )
+                    : undefined}
+                  <Typography.Text>{'. '}</Typography.Text>
+                  {formatNeutral.subfieldsGroup.addition.length > 0 ? (
+                    <>
+                      <Typography.Text>
+                        Ergänzen Sie je nach Bedarf zusätzliche Angaben in den
+                        Unterfeldern{' '}
+                      </Typography.Text>
+                      {formatNeutral.subfieldsGroup.addition.map(
+                        (subfield, index) => (
+                          <React.Fragment key={index}>
+                            <Typography.Text strong>
+                              <EntityLink
+                                id={subfield.property}
+                                label={subfield.label ? subfield.label : ''}
+                                staNotationLabel={
+                                  subfield.staNotationLabel
+                                    ? subfield.staNotationLabel
+                                    : undefined
+                                }
+                              />
+                              {formatNeutral.subfieldsGroup.addition.length -
+                                1 >
+                              index ? (
+                                <Typography.Text>{', '}</Typography.Text>
+                              ) : (
+                                <Typography.Text>{'.'}</Typography.Text>
+                              )}
+                            </Typography.Text>
+                          </React.Fragment>
+                        )
+                      )}
+                    </>
+                  ) : undefined}
+                  {formatNeutral.embedded ? (
+                    <>
+                      {formatNeutral.embedded.map((entity) => (
+                        <EntityDetails embedded entity={entity.embedded as Entity} />
+                      ))}
+                    </>
+                  ) : undefined}
+                </Typography.Paragraph>
+              ))
+            : undefined}
           <Typography.Paragraph>
             {['PICA3', 'PICA+']
               .filter((coding) =>
@@ -210,11 +364,14 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
           </Typography.Paragraph>
         </React.Fragment>
       }
-      {nonDefaultRenderStatements['description-(at-the-end)'] && nonDefaultRenderStatements['description-(at-the-end)'].stringGroups && (
-        <Statements
-          statements={[nonDefaultRenderStatements['description-(at-the-end)']]}
-        />
-      )}
+      {nonDefaultRenderStatements['description-(at-the-end)'] &&
+        nonDefaultRenderStatements['description-(at-the-end)'].stringGroups && (
+          <Statements
+            statements={[
+              nonDefaultRenderStatements['description-(at-the-end)'],
+            ]}
+          />
+        )}
     </>
   );
 };
