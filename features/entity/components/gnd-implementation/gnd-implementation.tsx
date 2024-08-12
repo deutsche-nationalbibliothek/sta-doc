@@ -310,13 +310,13 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                       <Typography.Text>
                         Ergänzen Sie je nach Bedarf zusätzliche Angaben{' '}
                       </Typography.Text>
-                  {formatNeutral.subfieldsGroup.addition.length > 1 ? (
-                    <Typography.Text italic>
-                      in den Unterfeldern{' '}
-                    </Typography.Text>
-                  ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
-                    <Typography.Text italic> im Unterfeld{' '}</Typography.Text>
-                  ) : undefined}
+                      {formatNeutral.subfieldsGroup.addition.length > 1 ? (
+                        <Typography.Text italic>
+                          in den Unterfeldern{' '}
+                        </Typography.Text>
+                      ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
+                        <Typography.Text italic> im Unterfeld </Typography.Text>
+                      ) : undefined}
                       {formatNeutral.subfieldsGroup.addition.map(
                         (subfield, index) => (
                           <React.Fragment key={index}>
@@ -346,7 +346,10 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                   {formatNeutral.embedded ? (
                     <>
                       {formatNeutral.embedded.map((entity) => (
-                        <EntityDetails embedded entity={entity.embedded as Entity} />
+                        <EntityDetails
+                          embedded
+                          entity={entity.embedded as Entity}
+                        />
                       ))}
                     </>
                   ) : undefined}
