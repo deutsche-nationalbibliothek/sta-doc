@@ -25,10 +25,8 @@ export interface GndImplementationProps {
   codingsPreferences: CodingsPreference[];
 }
 
-interface GndImplementationValues {
-  formatNeutral: { label: string; value: string }[];
-  PICA3: { value: string; coding?: string }[][];
-  'PICA+': { value: string; coding?: string }[][];
+interface GndImplementations {
+  gndImplementations: ExampleValues[];
 }
 
 interface ExampleValues {
@@ -60,9 +58,11 @@ function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
   arr?.forEach((element) => {
     if (element.propertyType?.id === 'Q11829' || element.propertyType?.id === 'Q11830') {
       result.naming.push(element);
-    } else if (element.property === 'P169') {
+    } 
+    if (element.property === 'P169') {
       result.relationType.push(element);
-    } else if (element.propertyType?.id === 'Q11831') {
+    } 
+    if (element.propertyType?.id === 'Q11831' || element.propertyType?.id === 'Q11882') {
       result.addition.push(element);
     }
   });
@@ -105,92 +105,93 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     statement: Statement
   ) => {
     if (statement.stringGroups) {
-      const exampleValue = statement.stringGroups[0].values[0];
-      const formatNeutralStatement = exampleValue.qualifiers?.find(
-        (qualifier) => qualifier.property === Property['Type']
-      );
-      const embeddedEntities = exampleValue.qualifiers?.find(
-        (qualifier) => qualifier.property === Property['embedded-(item)']
-      )?.wikibasePointers;
-      const formatNeutralLayoutId = formatNeutralStatement?.wikibasePointers?.at(0)?.id 
-      const subfieldsGroup = mapSubfieldsToObject(exampleValue.qualifiers ? exampleValue.qualifiers : undefined)
-      
-      const formatNeutralStatementValue =
-        formatNeutralStatement?.stringGroups &&
-        formatNeutralStatement?.stringGroups[0].values[0].value;
-      const formatNeutralObj = formatNeutralStatement ?
-        {
-          embedded: embeddedEntities || undefined,
-          label: formatNeutralStatementValue
-            ? formatNeutralStatementValue
-            : statement.label || 'formatNeutralStatement', // quickfix
-          formatNeutralLayoutId: formatNeutralLayoutId,
-          propertyId: statement.property,
-          propertyLabel: statement.label || '',
-          staNotationLabel: statement.staNotationLabel || '',
-          value: exampleValue.value,
-          subfieldsGroup: subfieldsGroup,
-        }
-      :
-        undefined
-      acc.formatNeutral = compact([
-        ...acc.formatNeutral,
-        formatNeutralObj
-      ]);
-
-      if ('qualifiers' in exampleValue) {
-        const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
-          (codingLabel: PrefCodingsLabel) =>
-            exampleValue.qualifiers?.map((qualifier) => {
-              return 'stringGroups' in qualifier
-                ? qualifier.stringGroups?.map((stringValueContainer) =>
-                    stringValueContainer.values.map((qualifierValue) => {
-                      const codingKey =
-                        codingLabel as keyof typeof qualifierValue.codings;
-                      return (
-                        'codings' in qualifierValue && {
-                          coding:
-                            qualifierValue.codings &&
-                            qualifierValue.codings[codingKey][0],
-                          value: qualifierValue.value,
-                        }
-                      );
-                    })
-                  )
-                : {
-                    coding: qualifier.codings
-                      ? (qualifier.codings[codingLabel]
-                          ? qualifier.codings[codingLabel][0]
-                          : '') +
-                        (qualifier.wikibasePointers
-                          ?.map((wikibasePointer) =>
-                            wikibasePointer.codings
-                              ? wikibasePointer.codings[codingLabel][0]
-                              : ''
-                          )
-                          .join('') || '')
-                      : '',
-                    value: '',
-                  };
-            })
+      statement.stringGroups[0].values.map((example) => {
+        const exampleValue = example;
+        const formatNeutralStatement = exampleValue.qualifiers?.find(
+          (qualifier) => qualifier.property === Property['Type']
         );
-        if (statement.codings) {
-          acc['PICA3'] = [
-            ...acc['PICA3'],
-            [
-              { coding: statement.codings['PICA3'][0], value: '' },
-              ...compact((picaThree ?? []).flat(2)),
-            ],
-          ];
-          acc['PICA+'] = [
-            ...acc['PICA+'],
-            [
-              { coding: statement.codings['PICA+'][0], value: '' },
-              ...compact((picaPlus ?? []).flat(2)),
-            ],
-          ];
+        const embeddedEntities = exampleValue.qualifiers?.find(
+          (qualifier) => qualifier.property === Property['embedded-(item)']
+        )?.wikibasePointers;
+        const formatNeutralLayoutId =
+          formatNeutralStatement?.wikibasePointers?.at(0)?.id;
+        const subfieldsGroup = mapSubfieldsToObject(
+          exampleValue.qualifiers ? exampleValue.qualifiers : undefined
+        );
+
+        const formatNeutralStatementValue =
+          formatNeutralStatement?.stringGroups &&
+          formatNeutralStatement?.stringGroups[0].values[0].value;
+        const formatNeutralObj = formatNeutralStatement
+          ? {
+              embedded: embeddedEntities || undefined,
+              label: formatNeutralStatementValue
+                ? formatNeutralStatementValue
+                : statement.label || 'formatNeutralStatement', // quickfix
+              formatNeutralLayoutId: formatNeutralLayoutId,
+              propertyId: statement.property,
+              propertyLabel: statement.label || '',
+              staNotationLabel: statement.staNotationLabel || '',
+              value: exampleValue.value,
+              subfieldsGroup: subfieldsGroup,
+            }
+          : undefined;
+        acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
+
+        if ('qualifiers' in exampleValue) {
+          const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
+            (codingLabel: PrefCodingsLabel) =>
+              exampleValue.qualifiers?.map((qualifier) => {
+                return 'stringGroups' in qualifier
+                  ? qualifier.stringGroups?.map((stringValueContainer) =>
+                      stringValueContainer.values.map((qualifierValue) => {
+                        const codingKey =
+                          codingLabel as keyof typeof qualifierValue.codings;
+                        return (
+                          'codings' in qualifierValue && {
+                            coding:
+                              qualifierValue.codings &&
+                              qualifierValue.codings[codingKey][0],
+                            value: qualifierValue.value,
+                          }
+                        );
+                      })
+                    )
+                  : {
+                      coding: qualifier.codings
+                        ? (qualifier.codings[codingLabel]
+                            ? qualifier.codings[codingLabel][0]
+                            : '') +
+                          (qualifier.wikibasePointers
+                            ?.map((wikibasePointer) =>
+                              wikibasePointer.codings
+                                ? wikibasePointer.codings[codingLabel][0]
+                                : ''
+                            )
+                            .join('') || '')
+                        : '',
+                      value: '',
+                    };
+              })
+          );
+          if (statement.codings) {
+            acc['PICA3'] = [
+              ...acc['PICA3'],
+              [
+                { coding: statement.codings['PICA3'][0], value: '' },
+                ...compact((picaThree ?? []).flat(2)),
+              ],
+            ];
+            acc['PICA+'] = [
+              ...acc['PICA+'],
+              [
+                { coding: statement.codings['PICA+'][0], value: '' },
+                ...compact((picaPlus ?? []).flat(2)),
+              ],
+            ];
+          }
         }
-      }
+      });
     } else if (statement.codings) {
       acc['PICA3'] = [
         ...acc['PICA3'],

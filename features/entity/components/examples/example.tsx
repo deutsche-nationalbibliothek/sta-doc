@@ -68,7 +68,8 @@ export const Example: React.FC<ExampleProps> = ({
     statement: Statement
   ) => {
     if (statement.stringGroups) {
-      const exampleValue = statement.stringGroups[0].values[0];
+      statement.stringGroups[0].values.map((example) => {
+        const exampleValue = example;
       const formatNeutralStatement = exampleValue.qualifiers?.find(
         (qualifier) => qualifier.property === Property['format-neutral-label']
       );
@@ -139,6 +140,7 @@ export const Example: React.FC<ExampleProps> = ({
           ];
         }
       }
+      });
     } else if (statement.codings) {
       acc['PICA3'] = [
         ...acc['PICA3'],
@@ -220,7 +222,6 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   const { codingsPreferences } = useCodingsPreference();
   const { token } = theme.useToken();
   const isSmallScreen = useIsSmallScreen();
-
   if (
     !codingsPreferences.some(
       (codingsPreference) => codingsPreference === codingPreference
