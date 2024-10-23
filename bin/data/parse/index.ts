@@ -73,7 +73,7 @@ const commonParseFunc = <T extends CommonTypeRaw[], K extends CommonTypeParsed>(
 };
 
 const labelStripper = (label: string) => {
-  const strippedLabelMatch = label.match(/^[^|(]+/);
+  const strippedLabelMatch = label.match(/^[^|]+/);
   return trim(strippedLabelMatch ? strippedLabelMatch[0] : label);
 };
 
