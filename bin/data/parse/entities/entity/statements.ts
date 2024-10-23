@@ -61,6 +61,7 @@ export const parseStatements = (
   };
 
   const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
+    'external-id': 'stringGroups',
     url: 'urls',
     time: 'times',
     'wikibase-item': 'wikibasePointers',
