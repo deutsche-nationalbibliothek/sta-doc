@@ -81,12 +81,17 @@ export interface CommonValue {
 
 // always only one key present
 export interface Datatypes {
+  externals?: StringGroup[];
   urls?: UrlValue[];
   stringGroups?: StringGroup[];
   times?: TimeValue[];
   wikibasePointers?: WikibasePointerValue[];
   // noValues?: NoValue[];
   // someValues?: UnknownValue[];
+}
+
+export interface ExternalValue extends CommonValue {
+  value: string;
 }
 
 export interface UnknownValue {
