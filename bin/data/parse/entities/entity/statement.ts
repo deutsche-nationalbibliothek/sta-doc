@@ -16,7 +16,7 @@ interface ParseStatementProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   keyAccessOcc: <T>(...keys: string[]) => T;
   hasHeadline: boolean;
-  simplifiedDataType: 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
+  simplifiedDataType: 'externals' | 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
 }
 
 // const keyAccessOcc = <T>(...keys: string[]) =>
@@ -69,9 +69,9 @@ export const parseStatement = (props: ParseStatementProps) => {
   let nextHeaderLevel =
     currentHeadlineLevel + 
     ((hasHeadline && simplifiedDataType === 'wikibasePointers' || hasEmbedding) ? 1 : 0)
-  
+
   const dataTypeSpecifics =
-    simplifiedDataType === 'wikibasePointers'
+    simplifiedDataType === 'wikibasePointers' 
       ? parseWikibaseValue({
           ...props,
           occ,
@@ -83,8 +83,8 @@ export const parseStatement = (props: ParseStatementProps) => {
         })
       : simplifiedDataType === 'times'
       ? parseTimeValue({ keyAccessOcc, isMissingValue })
-      : simplifiedDataType === 'urls'
-      ? parseUrlValue({ keyAccessOcc, isMissingValue })
+      //: simplifiedDataType === 'urls'
+      //? parseUrlValue({ keyAccessOcc, isMissingValue })
       : parseStringValue({
           ...props,
           occ,
