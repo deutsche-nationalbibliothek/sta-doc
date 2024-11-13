@@ -194,7 +194,7 @@ export const codingsParser = (codings: CodingsRaw) => {
           (codingValue) => codingValue === coding.coding.value
         ) ||
           acc[codingKey][codingLabel].push(
-            coding.coding.value === '-ohne-' ? '' : coding.coding.value
+            coding.coding.value.includes('-ohne-') ? coding.coding.value.replace('-ohne-','') : coding.coding.value
           );
       }
     } else {

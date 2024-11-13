@@ -13,6 +13,7 @@ import React from 'react';
 import { Statements } from '../statements';
 import { RdaExample } from './rda-example';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import { WikibasePointer } from '../wikibase-pointers/wikibase-pointer';
 
 export interface ExampleProps {
   entity: Entity;
@@ -86,16 +87,17 @@ export const Example: React.FC<ExampleProps> = ({
           value: exampleValue.value,
         },
       ]);
-
       if ('qualifiers' in exampleValue) {
         const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
           (codingLabel: PrefCodingsLabel) =>
             exampleValue.qualifiers?.map((qualifier) => {
+              console.log('codQuali',qualifier)
               return 'stringGroups' in qualifier
                 ? qualifier.stringGroups?.map((stringValueContainer) =>
                     stringValueContainer.values.map((qualifierValue) => {
                       const codingKey =
                         codingLabel as keyof typeof qualifierValue.codings;
+                        console.log('codKey',codingKey,qualifierValue)
                       return (
                         'codings' in qualifierValue && {
                           coding:
@@ -108,16 +110,18 @@ export const Example: React.FC<ExampleProps> = ({
                   )
                 : {
                     coding: qualifier.codings
-                      ? (qualifier.codings[codingLabel]
-                          ? qualifier.codings[codingLabel][0]
-                          : '') +
-                        (qualifier.wikibasePointers
-                          ?.map((wikibasePointer) =>
-                            wikibasePointer.codings
-                              ? wikibasePointer.codings[codingLabel][0]
+                      ? (qualifier.wikibasePointers
+                        ? qualifier.wikibasePointers.map((wikibasePointer, index) =>
+                          wikibasePointer.codings
+                          ? (index == 0 && qualifier.codings![codingLabel][0].indexOf('|') > -1 
+                            ? qualifier.codings![codingLabel][0].indexOf('|') > 0
+                              ? qualifier.codings![codingLabel][0].split('|')[0]
                               : ''
-                          )
-                          .join('') || '')
+                            : qualifier.codings![codingLabel][0].replace('|','')
+                            ) + wikibasePointer.codings[codingLabel][0]
+                          : '').join('') 
+                        : ''
+                        ) 
                       : '',
                     value: '',
                   };
@@ -164,6 +168,7 @@ export const Example: React.FC<ExampleProps> = ({
       'PICA+': [],
     } as ExampleValues
   );
+  console.log('relEx',relevantExamples)
 
   return (
     <>
@@ -229,6 +234,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
+  console.log('exampleValues',exampleValues)
   return (
     <Card
       css={{
@@ -251,12 +257,40 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
         <Typography.Paragraph key={index1}>
           {innerExampleValues.map(({ coding, value }, index2) => (
             <React.Fragment key={index2}>
-              {coding && (
+              {coding?.includes("...") && coding?.split("...")[0].length > 0 && coding?.split("...")[1].length > 0 ? (
+                <>
+                <Typography.Text code strong>
+                {coding?.split("...")[0]}
+                </Typography.Text>
+                <Typography.Text>{value}</Typography.Text>
+                <Typography.Text code strong>
+                {coding?.split("...")[1]}
+                </Typography.Text>
+                </>
+              ) : coding?.includes("...") && coding?.split("...")[0].length > 0 ? (
+                <>
+                <Typography.Text code strong>
+                {coding?.split("...")[0]}
+                </Typography.Text>
+                <Typography.Text>{value}</Typography.Text>
+                </>
+              ) : coding?.includes("...") && coding?.split("...")[1].length > 0 ? (
+                <>
+                <Typography.Text>{value}</Typography.Text>
+                <Typography.Text code strong>
+                {coding?.split("...")[1]}
+                </Typography.Text>
+                </>
+              ) : coding ? (
+                <>
                 <Typography.Text code strong>
                   {coding}
                 </Typography.Text>
-              )}
-              <Typography.Text>{value}</Typography.Text>
+                <Typography.Text>{value}</Typography.Text>
+                </>
+              ) : (
+                <Typography.Text>{value}</Typography.Text>
+              )} 
             </React.Fragment>
           ))}
         </Typography.Paragraph>
