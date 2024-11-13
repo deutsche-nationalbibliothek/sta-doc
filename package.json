@@ -13,6 +13,8 @@
     "data:fetch:single": "ts-node bin/data fetch:single",
     "data:fetch:properties-items": "ts-node bin/data fetch:properties-items",
     "data:parse": "ts-node bin/data parse",
+    "data:parse:single": "ts-node bin/data parse:single",
+    "data:parse:codings": "ts-node bin/data parse:codings",
     "split-entities": "./bin/split-entities-solr.sh",
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
     "docker:build": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",

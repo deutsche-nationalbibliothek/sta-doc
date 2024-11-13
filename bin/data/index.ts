@@ -50,6 +50,13 @@ export const DEV = false;
     writer.parsed(data).writeAll();
   };
 
+  const parseRawAndWriteCodings = () => {
+    const readRaw = reader[DataState.raw];
+    const codings = codingsParser(readRaw.codings())
+    const data = { codings: codings }
+    writer.parsed(data).codings();
+  }
+
   const parseSingleEntity = (entityId: EntityId) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations());
@@ -99,12 +106,17 @@ export const DEV = false;
           }
           break;
         case 'parse':
+            parseRawAndWriteParsed();
+          break;
+        case 'parse:single':
           if (process.argv[3]) {
             parseSingleEntity(process.argv[3] as EntityId);
           } else {
-            parseRawAndWriteParsed();
+            console.warn('Missing EntityId as argument, like: data:parse:single P395.');
           }
           break;
+        case 'parse:codings':
+          parseRawAndWriteCodings();
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(
