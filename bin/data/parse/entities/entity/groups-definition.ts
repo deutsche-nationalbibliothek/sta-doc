@@ -87,7 +87,7 @@ export const defaultGroupsDefinition: Groups = {
     Property['Preferred-title:-work'],
     Property['Preferred-name:-subject-heading'],
     Property['Preferred-name:-place'],
-    Property['Marker-for-the-match-and-merge-procedure'],
+    Property['Matching-information'],
     Property['Keywords-to-be-linked-in-reference-records'],
     Property['Content-type'],
     Property['Media-type'],
