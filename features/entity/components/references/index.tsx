@@ -17,7 +17,7 @@ export const References: React.FC<ReferencesProps> = ({ references }) => {
     <>
       <Popover
         content={references.map((reference, index) => {
-          const url = reference[Property.URL] || reference[Property.P57];
+          const url = reference[Property.URL] || reference[Property.URIGNDSubfield];
           const contentElement = url ? (
             <React.Fragment key={index}>
               <ExternalLink linkProps={{ href: url }}>
