@@ -57,6 +57,13 @@ export const DEV = false;
     writer.parsed(data).codings();
   }
 
+  const parseRawAndWriteStaNotations = () => {
+    const readRaw = reader[DataState.raw];
+    const staNotations = staNotationsParser(readRaw.staNotations())
+    const data = { staNotations: staNotations }
+    writer.parsed(data).staNotations();
+  }
+
   const parseSingleEntity = (entityId: EntityId) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations());
@@ -117,6 +124,8 @@ export const DEV = false;
           break;
         case 'parse:codings':
           parseRawAndWriteCodings();
+        case 'parse:staNotations':
+          parseRawAndWriteStaNotations();
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(

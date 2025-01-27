@@ -15,6 +15,7 @@
     "data:parse": "ts-node bin/data parse",
     "data:parse:single": "ts-node bin/data parse:single",
     "data:parse:codings": "ts-node bin/data parse:codings",
+    "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "split-entities": "./bin/split-entities-solr.sh",
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
     "docker:build": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
@@ -38,8 +39,8 @@
     "@types/lodash": "^4.14.192",
     "@types/node": "^20.1.1",
     "@types/node-fetch": "2.6.3",
-    "@types/react": "^18.2.6",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
     "@types/react-highlight-words": "^0.16.4",
     "antd": "^5.4.7",
     "copy-to-clipboard": "^3.3.3",
@@ -60,9 +61,11 @@
     "swr": "^2.1.5",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
-    "use-query-params": "^2.2.1"
+    "use-query-params": "^2.2.1",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.26.0",
     "@emotion/babel-plugin": "^11.12.0",
     "@emotion/eslint-plugin": "^11.12.0",
     "@emotion/react": "^11.13.0",
