@@ -50,25 +50,22 @@ interface SubfieldGroups {
 }
 
 function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
-  const result: SubfieldGroups = {
-    naming: [],
-    relationType: [],
-    addition: [],
-  };
-  arr?.forEach((element) => {
-    if (element.propertyType?.id === 'Q11829' || element.propertyType?.id === 'Q11830') {
-      result.naming.push(element);
-    } 
-    if (element.property === 'P169') {
-      result.relationType.push(element);
-    } 
-    if (element.propertyType?.id === 'Q11831' || element.propertyType?.id === 'Q11882') {
-      result.addition.push(element);
-    }
-  });
-  return result;
+  return arr?.reduce<SubfieldGroups>(
+    (result, element) => {
+      if (element.propertyType?.id === Item.Naming || element.propertyType?.id === Item['Time-specification']) {
+        result.naming.push(element);
+      }
+      if (element.property === Property['Type-of-relation-of-GND-Subfield']) {
+        result.relationType.push(element);
+      }
+      if (element.propertyType?.id === Item.Qualifier) {
+        result.addition.push(element);
+      }
+      return result;
+    },
+    { naming: [], relationType: [], addition: [] }
+  ) || { naming: [], relationType: [], addition: [] };
 }
-
 
 export const nonDefaultRenderProperties = [
   Property.description,
@@ -90,6 +87,15 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     statements = entity.statements.body
   ) => propFinder<StatementValue>(property, statements);
 
+  function findPredecessorProperty(arr: Statement[], value: Property): Statement | null {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]['property'] === value) {
+        return arr[i - 1] || null;
+      }
+    }
+    return null;
+  }
+
   const nonDefaultRenderStatements = {
     description: propFinderLocal(Property.description),
     'description-(at-the-end)': propFinderLocal(
@@ -107,17 +113,22 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
     if (statement.stringGroups) {
       statement.stringGroups[0].values.map((example) => {
         const exampleValue = example;
+        console.log('exVal',exampleValue)
         const formatNeutralStatement = exampleValue.qualifiers?.find(
           (qualifier) => qualifier.property === Property['Type']
         );
         const embeddedEntities = exampleValue.qualifiers?.find(
           (qualifier) => qualifier.property === Property['embedded-(item)']
         )?.wikibasePointers;
+        const permittedValues = exampleValue.qualifiers?.find(
+          (qualifier) => qualifier.property === Property['permited-values']
+        )
         const formatNeutralLayoutId =
           formatNeutralStatement?.wikibasePointers?.at(0)?.id;
         const subfieldsGroup = mapSubfieldsToObject(
           exampleValue.qualifiers ? exampleValue.qualifiers : undefined
         );
+        console.log('sub',subfieldsGroup)
 
         const formatNeutralStatementValue =
           formatNeutralStatement?.stringGroups &&
@@ -139,9 +150,14 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
         acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
 
         if ('qualifiers' in exampleValue) {
+          const permitted = propFinderLocal(Property['permited-values'], exampleValue.qualifiers)?.wikibasePointers?.map(obj => obj.label).join('; ') || undefined
+          const predecessorQualifier = permitted && findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || undefined
+          // console.log('perm',permitted)
+          // console.log('pred',predecessorQualifier)
           const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
             (codingLabel: PrefCodingsLabel) =>
               exampleValue.qualifiers?.map((qualifier) => {
+                const permittedValues = predecessorQualifier === qualifier
                 return 'stringGroups' in qualifier
                   ? qualifier.stringGroups?.map((stringValueContainer) =>
                       stringValueContainer.values.map((qualifierValue) => {
@@ -170,7 +186,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                             )
                             .join('') || '')
                         : '',
-                      value: '',
+                      value: permittedValues ? '(' + permitted + ')' : '',
                     };
               })
           );
@@ -407,6 +423,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
+  // console.log('exampleValues',exampleValues)
   return (
     <Card
       css={{

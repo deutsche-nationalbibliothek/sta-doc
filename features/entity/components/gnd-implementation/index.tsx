@@ -80,6 +80,7 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
                     />
                   </Col>
                 )}
+                <p>{implementation.id}</p>
               </Row>
               <GndImplementationCard
                 entity={implementation}
