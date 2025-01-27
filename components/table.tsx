@@ -16,7 +16,7 @@ import {
 import { get } from 'lodash';
 import { RenderedCell } from 'rc-table/lib/interface';
 import { useRef, useState } from 'react';
-import { Highlighter } from '@/lib/highlighter';
+import { MyHighlighter } from '@/lib/highlighter';
 
 export declare type DataIndex = string;
 
@@ -137,7 +137,7 @@ export function Table<T extends object>(props: TableProps<T>) {
     },
     render: (text: DataIndex) => {
       return searchTexts[dataIndex] ? (
-        <Highlighter
+        <MyHighlighter
           searchWords={searchTexts[dataIndex].split(' ')}
           textToHighlight={text ? text.toString() : ''}
         />
@@ -168,7 +168,7 @@ export function Table<T extends object>(props: TableProps<T>) {
                 record,
                 index,
                 searchTexts[String(column.dataIndex)] ? (
-                  <Highlighter
+                  <MyHighlighter
                     searchWords={searchTexts[String(column.dataIndex)].split(
                       ' '
                     )}
@@ -186,7 +186,7 @@ export function Table<T extends object>(props: TableProps<T>) {
               <Typography.Text>
                 {'dataIndex' in column &&
                 searchTexts[String(column.dataIndex)] ? (
-                  <Highlighter
+                  <MyHighlighter
                     searchWords={searchTexts[String(column.dataIndex)].split(
                       ' '
                     )}

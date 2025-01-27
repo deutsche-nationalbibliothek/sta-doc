@@ -32,7 +32,7 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
     propSpecificGroups &&
     ('headline' in wikibasePointer ||
       'references' in wikibasePointer ||
-      ('qualifiers' && 'headline' in wikibasePointer) ||
+      'qualifiers' in wikibasePointer ||
       'embedded' in wikibasePointer)
       ? 'extras'
       : 'simples'
