@@ -53,47 +53,52 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
           </Typography.Paragraph>
         }
         title={
-          <Row
-            justify="space-between"
-            css={{
-              width: '98%',
-            }}
-          >
-            <Col>
-              <Typography.Text strong>{labelReactElement}</Typography.Text>
-            </Col>
-            {examplesHaveCodingValues && (
+          <>
+            <Row
+              justify="space-between"
+              css={{
+                width: '98%',
+              }}
+            >
               <Col>
-                <Select
-                  placeholder="Codierung wählen"
-                  mode="multiple"
-                  value={codingsPreferences}
-                  onChange={onChange}
-                  size="small"
-                  css={{
-                    minWidth: 180,
-                    position: 'relative',
-                    bottom: 3,
-                    right: 24,
-                  }}
-                  options={codingsOptions.map((codingsOption, index) => ({
-                    label: codingsOption,
-                    value: codingsOption,
-                    key: index,
-                  }))}
-                />
+                <Typography.Text strong>{labelReactElement}</Typography.Text>
               </Col>
-            )}
-          </Row>
+              {examplesHaveCodingValues && (
+                <Col>
+                  <Select
+                    placeholder="Codierung wählen"
+                    mode="multiple"
+                    value={codingsPreferences}
+                    onChange={onChange}
+                    size="small"
+                    css={{
+                      minWidth: 180,
+                      position: 'relative',
+                      bottom: 3,
+                      right: 24,
+                    }}
+                    options={codingsOptions.map((codingsOption, index) => ({
+                      label: codingsOption,
+                      value: codingsOption,
+                      key: index,
+                    }))}
+                  />
+                </Col>
+              )}
+            </Row>
+          </>
         }
       >
         {examples.map((example, index) => (
-          <ExampleCard
-            entity={example}
-            codingsPreferences={codingsPreferences}
-            key={index}
-            lastIndex={index === examples.length - 1}
-          />
+          <>
+            <p>{example.id}</p>
+            <ExampleCard
+              entity={example}
+              codingsPreferences={codingsPreferences}
+              key={index}
+              lastIndex={index === examples.length - 1}
+            />
+          </>
         ))}
       </DraggableModal>
     </NamespaceThemeConfigProvider>
