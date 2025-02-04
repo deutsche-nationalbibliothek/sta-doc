@@ -184,8 +184,8 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
         acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
 
         if ('qualifiers' in exampleValue) {
-          const permitted = propFinderLocal(Property['permited-values'], exampleValue.qualifiers)?.wikibasePointers?.map(obj => obj.label).join('; ') || undefined
-          const predecessorQualifier = permitted && findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || undefined
+          const permittedValues = propFinderLocal(Property['permited-values'], exampleValue.qualifiers)?.wikibasePointers?.map(obj => obj.codings && obj.codings['PICA3'][0]).join('; ') || undefined
+          const predecessorQualifier = permittedValues && findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || undefined
           // map trough the qualifiers twice (for PICA3, then for PICA+)
           const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
             (codingLabel: PrefCodingsLabel) =>
@@ -193,12 +193,12 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                 const codingKey = codingLabel as keyof typeof qualifier.codings;
                 const currentCoding = qualifier.codings && qualifier.codings[codingKey][0]
                 const codingSeparator = findCodingSeparator(currentCoding)
-                const permittedValues = predecessorQualifier === qualifier
-                // console.log('qualifier',entity.id,codingKey,currentCoding,codingSeparator,qualifier)
+                const permittedValuesDetector = predecessorQualifier === qualifier
+                // console.log('qualifier',entity.id,qualifier,permittedValues)
                 return 'stringGroups' in qualifier
                   ? qualifier.stringGroups?.map((stringValueContainer) =>
                       stringValueContainer.values.map((strValObj,index) => {
-                        // console.log('strGrp',entity.id,strValObj)
+                        console.log('strGrp',entity.id,codingKey,strValObj)
                         return ([
                           index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value } 
                             : {coding: codingSeparator.predecessor, value: strValObj.value},
@@ -206,11 +206,11 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                         ]);
                       })
                     )
-                  : qualifier.property !== 'P3' && qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
+                  : qualifier.property !== Property.Type && qualifier.property !== Property['permited-values'] && qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
                     return ([
                       index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
                         : { coding: codingSeparator.predecessor, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'},
-                      { coding: codingSeparator.successor, value: permittedValues ? '(' + permitted + ')' : '' }
+                      { coding: codingSeparator.successor, value: permittedValuesDetector ? '(' + permittedValues + ')' : '' }
                     ]);
                   })
               })
