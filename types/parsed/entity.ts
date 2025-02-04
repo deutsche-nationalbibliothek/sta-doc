@@ -67,8 +67,6 @@ export interface Statement extends Datatypes {
   staNotationLabel?: string;
 }
 
-export type StatementValue = Statement & CommonValue;
-
 export interface CommonValue {
   references?: Reference[];
   property: Property;
@@ -76,8 +74,9 @@ export interface CommonValue {
   embedded?: Entity;
   missingValue?: 'somevalue' | 'novalue';
   qualifiers?: Statement[];
-  // headline?: Headline;
 }
+
+export type StatementValue = Statement & CommonValue;
 
 // always only one key present
 export interface Datatypes {
