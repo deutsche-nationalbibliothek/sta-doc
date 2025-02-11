@@ -13,7 +13,7 @@ import { ApplicationProfile } from './application-profile';
 import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
 import { Statements } from './statements';
-import { propFinder } from '@/utils/prop-finder';
+import { propFinder } from '@/utils/find-property';
 
 interface RdaRessourceTypeEntityProps {
   entity: Entity;
