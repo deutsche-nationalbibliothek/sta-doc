@@ -1,271 +1,75 @@
+import { EntityLink } from '@/entity/components/preview/link';
 import {
   CodingsPreference,
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
-import { PrefCodingsLabel } from '@/types/parsed/coding';
-import { Statement, Entity, StatementValue, WikibasePointerValue } from '@/types/parsed/entity';
-import { Property } from '@/types/property';
-import { Item } from '@/types/item';
-import { propFinder } from '@/utils/prop-finder';
-import { Card, Tag, Typography, theme } from 'antd';
-import { compact } from 'lodash';
-import React from 'react';
-import { EntityLink } from '@/entity/components/preview/link';
-import { Statements } from '../statements';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { EntityId } from '@/types/entity-id';
-import { EntityDetails } from '../details';
-import { WikibasePointer } from '../wikibase-pointers/wikibase-pointer';
+import { Entity } from '@/types/parsed/entity';
+import { Property } from '@/types/property';
+import { ExampleProcessingResult, exampleStatementsReducer } from '@/utils/example-statements-reducer';
+import { statementsFilter } from '@/utils/filter-statements';
+import { propFinder } from '@/utils/find-property';
+import { Card, Tag, Typography, theme } from 'antd';
+import React from 'react';
+import { nonDefaultRenderProperties } from '../examples/example';
+import { Statements } from '../statements';
+import { ExternalLink } from '@/components/external-link';
+import { EditOutlined } from '@ant-design/icons';
 
 export interface GndImplementationProps {
   entity: Entity;
   codingsPreferences: CodingsPreference[];
 }
 
-interface GndImplementations {
-  gndImplementations: ExampleValues[];
-}
-
-interface ExampleValues {
-  formatNeutral: { 
-    embedded?: WikibasePointerValue[];
-    label: string;
-    formatNeutralLayoutId?: EntityId;
-    permittedCharacteristics?: Statement[];
-    propertyId: EntityId; 
-    propertyLabel: string;
-    relationTypeValues?: WikibasePointerValue[];
-    staNotationLabel: string; 
-    value: string;
-    subfieldsGroup: SubfieldGroups }[];
-  PICA3: { coding: string, value: string }[][];
-  'PICA+': { coding: string, value: string }[][];
-}
-
-interface SubfieldGroups {
-  naming: StatementValue[];
-  relationType: StatementValue[];
-  addition: StatementValue[];
-}
-
-function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
-  return arr?.reduce<SubfieldGroups>(
-    (result, element) => {
-      if (element.propertyType?.id === Item.Naming || element.propertyType?.id === Item['Time-specification']) {
-        result.naming.push(element);
-      }
-      if (element.property === Property['Type-of-relation-of-GND-Subfield']) {
-        result.relationType.push(element);
-      }
-      if (element.propertyType?.id === Item.Qualifier) {
-        result.addition.push(element);
-      }
-      return result;
-    },
-    { naming: [], relationType: [], addition: [] }
-  ) || { naming: [], relationType: [], addition: [] };
-}
-
-const nonDefaultRenderProperties = [
-  Property.description,
-  Property['description-(at-the-end)'],
-];
-
 export const GndImplementation: React.FC<GndImplementationProps> = ({
   entity,
   codingsPreferences,
 }) => {
-  const statements = [
-    ...entity.statements.header,
-    ...entity.statements.table,
-    ...entity.statements.body,
-  ];
-
-  const propFinderLocal = (
-    property: Property,
-    statements = entity.statements.body
-  ) => propFinder<StatementValue>(property, statements);
-
-  function findCodingSeparator(str: string | undefined): {
-    predecessor: string;
-    successor: string;
-    separator: string;
-  } {
-    // Initialize all properties as empty strings
-    const result = {
-      predecessor: '',
-      successor: '',
-      separator: ''
-    };
-    if (str === undefined) {
-      return result;
-    }
-    // Find the first occurrence of either '...' or '|'
-    const delimiterIndex = str.indexOf('...') !== -1
-      ? str.indexOf('...')
-      : str.indexOf('|');
-    if (delimiterIndex !== -1) {
-      result.predecessor = str.slice(0, delimiterIndex);
-      if (str.slice(delimiterIndex, delimiterIndex + 3) === '...') {
-        result.successor = str.slice(delimiterIndex + 3);
-      } else if (str[delimiterIndex] === '|') {
-        result.separator = str.slice(delimiterIndex + 1);
-      }
-    }
-    else {
-      result.predecessor = str
-    }
-    return result;
-  }
-
-  function findPredecessorProperty(arr: Statement[], value: Property): Statement | null {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i]['property'] === value) {
-        return arr[i - 1] || null;
-      }
-    }
-    return null;
-  }
-
+  const websideUrl = process.env.NEXT_PUBLIC_URL as string;
+  const { token } = theme.useToken();
+  const statements = entity.statements.body
   const nonDefaultRenderStatements = {
-    description: propFinderLocal(Property.description),
-    'description-(at-the-end)': propFinderLocal(
-      Property['description-(at-the-end)']
+    description: propFinder(Property.description,entity.statements.body),
+    'description-(at-the-end)': propFinder(
+      Property['description-(at-the-end)'],entity.statements.body
     ),
   };
-
-  const statementFilter = (gndImplementationStatement: Statement) =>
-    !nonDefaultRenderProperties.includes(gndImplementationStatement.property);
-
-  const exampleStatementsReducer = (
-    acc: ExampleValues,
-    statement: Statement
-  ) => {
-    if (statement.stringGroups) {
-      statement.stringGroups[0].values.map((example) => {
-        const exampleValue = example;
-
-        const formatNeutralStatement = exampleValue.qualifiers?.find(
-          (qualifier) => qualifier.property === Property['Type']
-        );
-        const formatNeutralLayoutId =
-          formatNeutralStatement?.wikibasePointers?.at(0)?.id;
-
-        const embeddedEntities = exampleValue.qualifiers?.find(
-          (qualifier) => qualifier.property === Property['embedded-(item)']
-        )?.wikibasePointers;
-        const subfieldsGroup = mapSubfieldsToObject(
-          exampleValue.qualifiers ? exampleValue.qualifiers : undefined
-        );
-
-        const permittedCharacteristics = exampleValue.qualifiers?.find(
-          (qualifier) => qualifier.property === Property['permitted-characteristics']
-        )?.wikibasePointers;
-
-        const formatNeutralStatementValue =
-          formatNeutralStatement?.stringGroups &&
-          formatNeutralStatement?.stringGroups[0].values[0].value;
-        const formatNeutralObj = formatNeutralStatement
-          ? {
-              entityId: entity.id,
-              embedded: embeddedEntities || undefined,
-              label: formatNeutralStatementValue
-                ? formatNeutralStatementValue
-                : statement.label || 'formatNeutralStatement', // quickfix
-              formatNeutralLayoutId: formatNeutralLayoutId,
-              permittedCharacteristics: permittedCharacteristics,
-              propertyId: statement.property,
-              propertyLabel: statement.label || '',
-              staNotationLabel: statement.staNotationLabel || '',
-              value: exampleValue.value,
-              subfieldsGroup: subfieldsGroup,
-            }
-          : undefined;
-        acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
-
-        if ('qualifiers' in exampleValue) {
-          const permittedValues = propFinderLocal(Property['permited-values'], exampleValue.qualifiers)?.wikibasePointers?.map(obj => obj.codings && obj.codings['PICA3'][0]).join('; ') || undefined
-          const predecessorQualifier = permittedValues && findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || undefined
-          // map trough the qualifiers twice (for PICA3, then for PICA+)
-          const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
-            (codingLabel: PrefCodingsLabel) =>
-              exampleValue.qualifiers?.map((qualifier) => {
-                const codingKey = codingLabel as keyof typeof qualifier.codings;
-                const currentCoding = qualifier.codings && qualifier.codings[codingKey][0]
-                const codingSeparator = findCodingSeparator(currentCoding)
-                const permittedValuesDetector = predecessorQualifier === qualifier
-                // console.log('qualifier',entity.id,qualifier,permittedValues)
-                return 'stringGroups' in qualifier
-                  ? qualifier.stringGroups?.map((stringValueContainer) =>
-                      stringValueContainer.values.map((strValObj,index) => {
-                        console.log('strGrp',entity.id,codingKey,strValObj)
-                        return ([
-                          index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value } 
-                            : {coding: codingSeparator.predecessor, value: strValObj.value},
-                            {coding: codingSeparator.successor, value: ''}
-                        ]);
-                      })
-                    )
-                  : qualifier.property !== Property.Type && qualifier.property !== Property['permited-values'] && qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
-                    return ([
-                      index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
-                        : { coding: codingSeparator.predecessor, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'},
-                      { coding: codingSeparator.successor, value: permittedValuesDetector ? '(' + permittedValues + ')' : '' }
-                    ]);
-                  })
-              })
-          );
-          if (statement.codings) { //add the datafield (always with empty value)
-            acc['PICA3'] = [
-              ...acc['PICA3'],
-              [
-                { coding: statement.codings['PICA3'][0], value: '' },
-                ...compact((picaThree ?? []).flat(3)),
-              ],
-            ];
-            acc['PICA+'] = [
-              ...acc['PICA+'],
-              [
-                { coding: statement.codings['PICA+'][0], value: '' },
-                ...compact((picaPlus ?? []).flat(3)),
-              ],
-            ];
-          }
-        }
-      });
-    // } else if (statement.codings) {
-    //   console.log('else statment',statement)
-    //   acc['PICA3'] = [
-    //     ...acc['PICA3'],
-    //     [{ coding: statement.codings['PICA3'][0], value: '' }],
-    //   ];
-    //   acc['PICA+'] = [
-    //     ...acc['PICA+'],
-    //     [{ coding: statement.codings['PICA+'][0], value: '' }],
-    //   ];
-    }
-    return acc;
-  };
-
-  const filteredStatements = statements.filter(statementFilter);
-
-  const relevantExamples: ExampleValues = filteredStatements.reduce(
-    exampleStatementsReducer,
+  const filteredStatements = statements.filter(statement => statementsFilter(statement, nonDefaultRenderProperties));
+  const relevantExamples: ExampleProcessingResult = filteredStatements.reduce((acc,statement) =>
+    exampleStatementsReducer(acc, statement, entity),
     {
       formatNeutral: [],
       PICA3: [],
       'PICA+': [],
-    } as ExampleValues
+    }
   );
 
   return (
     <>
+      {websideUrl === 'https://edit.sta.dnb.de' ? (
+        <ExternalLink
+          css={{
+            color: `${token.colorText} !important`,
+            float: 'right',
+            paddingRight: '3px'
+          }}
+          linkProps={{
+            href: `${websideUrl}/entity/${entity.id}`,
+          }}
+        >
+          <>
+            {' '}
+            <EditOutlined />
+          </>
+        </ExternalLink>
+      ) : undefined}
       {nonDefaultRenderStatements.description && (
         <Statements statements={[nonDefaultRenderStatements.description]} />
       )}
       {
         <React.Fragment>
-          {relevantExamples
+          {relevantExamples && relevantExamples.formatNeutral
             ? relevantExamples.formatNeutral.map((formatNeutral, index) => (
                 <Typography.Paragraph key={index}>
                   <Typography.Text>Erfassen Sie </Typography.Text>
@@ -408,16 +212,6 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                           </React.Fragment>
                         )
                       )}
-                    </>
-                  ) : undefined}
-                  {formatNeutral.embedded ? (
-                    <>
-                      {formatNeutral.embedded.map((entity) => (
-                        <EntityDetails
-                          embedded
-                          entity={entity.embedded as Entity}
-                        />
-                      ))}
                     </>
                   ) : undefined}
                 </Typography.Paragraph>

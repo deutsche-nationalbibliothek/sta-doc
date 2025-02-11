@@ -91,7 +91,6 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
       >
         {examples.map((example, index) => (
           <>
-            <p>{example.id}</p>
             <ExampleCard
               entity={example}
               codingsPreferences={codingsPreferences}

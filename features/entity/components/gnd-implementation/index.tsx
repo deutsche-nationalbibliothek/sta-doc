@@ -4,8 +4,8 @@ import {
   GndImplementation,
   GndImplementationProps,
 } from './gnd-implementation';
-import { MenuUnfoldOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Card, Col, Divider, Row, Select, Tooltip, Typography, theme } from 'antd';
+import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 import { Collapse } from '@/components/collapse';
@@ -49,7 +49,26 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
             defaultOpen={true}
             labelOpen={'GND Umsetzung'}
             labelClosed={'GND Umsetzung'}
-            extra={false ? <p>placeholder</p> : undefined}
+            extra={true ?
+              <Select
+                placeholder="Codierung wählen"
+                mode="multiple"
+                value={codingsPreferences}
+                onChange={onChange}
+                size="small"
+                css={{
+                  minWidth: 180,
+                  position: 'relative',
+                  bottom: 3,
+                  right: 24,
+                }}
+                options={codingsOptions.map((codingsOption, index) => ({
+                  label: codingsOption,
+                  value: codingsOption,
+                  key: index,
+                }))}
+              />
+              : undefined}
           >
             <>
               <Row
@@ -58,29 +77,6 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
                   width: '98%',
                 }}
               >
-                {implementationsHaveCodingValues && (
-                  <Col>
-                    <Select
-                      placeholder="Codierung wählen"
-                      mode="multiple"
-                      value={codingsPreferences}
-                      onChange={onChange}
-                      size="small"
-                      css={{
-                        minWidth: 180,
-                        position: 'relative',
-                        bottom: 3,
-                        right: 24,
-                      }}
-                      options={codingsOptions.map((codingsOption, index) => ({
-                        label: codingsOption,
-                        value: codingsOption,
-                        key: index,
-                      }))}
-                    />
-                  </Col>
-                )}
-                <p>{implementation.id}</p>
               </Row>
               <GndImplementationCard
                 entity={implementation}
