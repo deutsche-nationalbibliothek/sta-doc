@@ -58,6 +58,9 @@ export interface Statements {
   body: StatementValue[];
 }
 
+/**
+ * A statement is a parsed claim from a wikibase entity
+ */
 export interface Statement extends Datatypes {
   label?: string;
   property: Property;
@@ -138,6 +141,9 @@ export interface StringValue extends CommonValue {
 
 export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';
 
+/**
+ * Represents a statement (claim) as a wikibase pointer with a specified EntityId
+ */
 export interface WikibasePointerValue extends CommonValue {
   id: EntityId;
   label: string;
