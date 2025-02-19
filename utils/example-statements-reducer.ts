@@ -88,8 +88,9 @@ export function exampleStatementsReducer(
       const formatNeutralStatementValue =
         formatNeutralStatement?.stringGroups &&
         formatNeutralStatement?.stringGroups[0].values[0].value;
-      const formatNeutralObj = formatNeutralStatement
-        ? {
+
+      const formatNeutralObj = 
+        {
             entityId: entity.id,
             label: formatNeutralStatementValue
               ? formatNeutralStatementValue
@@ -102,8 +103,6 @@ export function exampleStatementsReducer(
             value: exampleValue.value,
             subfieldsGroup: subfieldsGroup,
           }
-        : undefined;
-      console.log('form',entity.id,formatNeutralStatement,formatNeutralObj)
       acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
 
       if ('qualifiers' in exampleValue) {

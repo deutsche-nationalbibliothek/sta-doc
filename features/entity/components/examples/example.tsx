@@ -3,7 +3,6 @@ import {
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
 import { useNamespace } from '@/hooks/use-namespace';
-import { Namespace } from '@/types/namespace';
 import { Statement, Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Card, Tag, Typography, theme } from 'antd';
@@ -16,6 +15,7 @@ import { propFinder } from '@/utils/find-property';
 import { statementsFilter } from '@/utils/filter-statements';
 import { ExternalLink } from '@/components/external-link';
 import { EditOutlined } from '@ant-design/icons';
+import { Item } from '@/types/item';
 
 export interface ExampleProps {
   entity: Entity;
@@ -45,7 +45,7 @@ export const Example: React.FC<ExampleProps> = ({
   entity,
   codingsPreferences,
 }) => {
-  const { namespace } = useNamespace();
+  console.log(entity.id,entity)
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
   const statements = entity.statements.body
@@ -87,7 +87,7 @@ export const Example: React.FC<ExampleProps> = ({
       {nonDefaultRenderStatements.description && (
         <Statements statements={[nonDefaultRenderStatements.description]} />
       )}
-      {namespace === Namespace.RDA ? (
+      {entity.pageType?.id && entity.pageType.id === Item['Example-RDA-of-STA-documentation'] ? (
         <RdaExample entity={entity} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
