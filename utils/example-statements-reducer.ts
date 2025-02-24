@@ -52,6 +52,9 @@ function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
       if (element.propertyType?.id === Item.Qualifier) {
         result.addition.push(element);
       }
+      else {
+        result.naming.push(element)
+      }
       return result;
     },
     { naming: [], relationType: [], addition: [] }
@@ -89,7 +92,7 @@ export function exampleStatementsReducer(
         formatNeutralStatement?.stringGroups &&
         formatNeutralStatement?.stringGroups[0].values[0].value;
 
-      const formatNeutralObj = 
+      const formatNeutralObj = formatNeutralStatement ? 
         {
             entityId: entity.id,
             label: formatNeutralStatementValue
@@ -102,7 +105,7 @@ export function exampleStatementsReducer(
             staNotationLabel: statement.staNotationLabel || '',
             value: exampleValue.value,
             subfieldsGroup: subfieldsGroup,
-          }
+          } : undefined
       acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
 
       if ('qualifiers' in exampleValue) {
@@ -116,7 +119,6 @@ export function exampleStatementsReducer(
               const currentCoding = qualifier.codings && qualifier.codings[codingKey][0] as string
               const codingSeparator = findCodingSeparator(currentCoding)
               const permittedValuesDetector = predecessorQualifier === qualifier
-              // console.log('qualifier',entity.id,qualifier,permittedValues)
               return 'stringGroups' in qualifier &&
                   qualifier.property !== Property['format-neutral-label'] &&
                   qualifier.property !== Property.description 
