@@ -71,53 +71,57 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
         <React.Fragment>
           {relevantExamples && relevantExamples.formatNeutral
             ? relevantExamples.formatNeutral.map((formatNeutral, index) => (
-                <Typography.Paragraph key={index}>
-                  <Typography.Text>Erfassen Sie </Typography.Text>
-                  <Typography.Text strong>
-                    {formatNeutral.value}
+              <Typography.Paragraph key={index}>
+                <Typography.Text>Erfassen Sie </Typography.Text>
+                <Typography.Text strong>
+                  {formatNeutral.value}
+                </Typography.Text>
+                {formatNeutral.formatNeutralLayoutId == 'Q11801' ? ( //GND-Umsetzung 2: Beziehungen | Layouttyp
+                  <Typography.Text>
+                    {' '}
+                    als in Beziehung stehende Entität
                   </Typography.Text>
-                  {formatNeutral.formatNeutralLayoutId == 'Q11801' ? ( //GND-Umsetzung 2: Beziehungen | Layouttyp
-                    <Typography.Text>
-                      {' '}
-                      als in Beziehung stehende Entität
-                    </Typography.Text>
-                  ) : undefined}
-                  <Typography.Text italic> im Datenfeld </Typography.Text>
-                  <Typography.Text strong>
-                    <EntityLink
-                      id={formatNeutral.propertyId}
-                      label={formatNeutral.propertyLabel}
-                      staNotationLabel={formatNeutral.staNotationLabel}
-                    />
-                  </Typography.Text>
-                  {formatNeutral.subfieldsGroup.naming.length > 1 ? (
-                    <Typography.Text italic>
-                      {' '}
-                      in den Unterfeldern{' '}
-                    </Typography.Text>
-                  ) : formatNeutral.subfieldsGroup.naming.length == 1 ? (
-                    <Typography.Text italic> im Unterfeld </Typography.Text>
-                  ) : undefined}
-                  {formatNeutral.subfieldsGroup.naming.map(
-                    (subfield, index) => (
-                      <Typography.Text strong>
-                        <EntityLink
-                          id={subfield.property as EntityId}
-                          label={subfield.label ? subfield.label : ''}
-                          staNotationLabel={
-                            subfield.staNotationLabel
-                              ? subfield.staNotationLabel
-                              : undefined
-                          }
-                        />
-                        {formatNeutral.subfieldsGroup.naming.length - 1 >
-                        index ? (
-                          <Typography.Text>{', '}</Typography.Text>
-                        ) : undefined}
+                ) : undefined}
+                <Typography.Text italic> im Datenfeld </Typography.Text>
+                <Typography.Text strong>
+                  <EntityLink
+                    id={formatNeutral.propertyId}
+                    label={formatNeutral.propertyLabel}
+                    staNotationLabel={formatNeutral.staNotationLabel}
+                  />
+                </Typography.Text>
+                {formatNeutral.subfieldsGroup.naming.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11801' ? ( // nicht bei GND-Umsetzung 2: Beziehungen | Layouttyp
+                  <>
+                    {formatNeutral.subfieldsGroup.naming.length > 1 ? (
+                      <Typography.Text italic>
+                        {' '}
+                        in den Unterfeldern{' '}
                       </Typography.Text>
-                    )
-                  )}
-                  {formatNeutral.subfieldsGroup.relationType.length > 0 && !formatNeutral.permittedCharacteristics ? (
+                    ) : formatNeutral.subfieldsGroup.naming.length == 1 ? (
+                      <Typography.Text italic> im Unterfeld </Typography.Text>
+                    ) : undefined}
+                    {formatNeutral.subfieldsGroup.naming.map(
+                      (subfield, index) => (
+                        <Typography.Text strong>
+                          <EntityLink
+                            id={subfield.property as EntityId}
+                            label={subfield.label ? subfield.label : ''}
+                            staNotationLabel={
+                              subfield.staNotationLabel
+                                ? subfield.staNotationLabel
+                                : undefined
+                            }
+                          />
+                          {formatNeutral.subfieldsGroup.naming.length - 1 >
+                            index ? (
+                            <Typography.Text>{', '}</Typography.Text>
+                          ) : undefined}
+                        </Typography.Text>
+                      )
+                    )}
+                  </>
+                ) : undefined}
+                {formatNeutral.subfieldsGroup.relationType.length > 0 && !formatNeutral.permittedCharacteristics ? (
                   <>
                     {formatNeutral.subfieldsGroup.relationType[0].wikibasePointers && !formatNeutral.subfieldsGroup.relationType[0].wikibasePointers[0].missingValue ? (
                       <>
@@ -135,21 +139,25 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                         <Typography.Text>{'. '}</Typography.Text>
                       </>
                     ) : (
-                        <Typography.Text italic>
-                          {' '}
-                          mit einer geeigneten Beziehungskennzeichnung{'. '}
-                        </Typography.Text>
+                      <Typography.Text italic>
+                        {' '}
+                        mit einer geeigneten Beziehungskennzeichnung{'. '}
+                      </Typography.Text>
                     )
                     }
                   </>
-                  ) : undefined}
-                  {formatNeutral.subfieldsGroup.relationType.length > 0 && formatNeutral.permittedCharacteristics ? (
-                    <Typography.Text italic>
-                      {' '}
-                      mit einer der folgenden Beziehungskennzeichnungen{' '}
-                    </Typography.Text>
-                  ) : undefined}
-                  {formatNeutral.permittedCharacteristics ?
+                ) : undefined}
+                {formatNeutral.subfieldsGroup.relationType.length > 0 && formatNeutral.permittedCharacteristics && formatNeutral.permittedCharacteristics[0].property === 'P168' ? ( 
+                  <Typography.Text italic> {' '}
+                    mit einer der folgenden Beziehungskennzeichnungen{' '}
+                  </Typography.Text>
+                ) : undefined}
+                {formatNeutral.permittedCharacteristics && formatNeutral.permittedCharacteristics[0].property === 'P8' ? ( 
+                  <Typography.Text italic> {' '}
+                    mit einem der folgenden Werte{' '}
+                  </Typography.Text>
+                ) : undefined}
+                {formatNeutral.permittedCharacteristics ?
                   formatNeutral.permittedCharacteristics.map(
                     (characteristic, index) => (
                       <React.Fragment key={index}>
@@ -175,47 +183,47 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                     )
                   )
                   : undefined}
-                  <Typography.Text>{' '}</Typography.Text>
-                  {formatNeutral.subfieldsGroup.addition.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11792' ? ( // nicht bei GND-Umsetzung 1b
-                    <>
-                      <Typography.Text>
-                        Ergänzen Sie je nach Bedarf zusätzliche Angaben{' '}
+                <Typography.Text>{' '}</Typography.Text>
+                {formatNeutral.subfieldsGroup.addition.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11792' ? ( // nicht bei GND-Umsetzung 1b
+                  <>
+                    <Typography.Text>
+                      Ergänzen Sie je nach Bedarf zusätzliche Angaben{' '}
+                    </Typography.Text>
+                    {formatNeutral.subfieldsGroup.addition.length > 1 ? (
+                      <Typography.Text italic>
+                        in den Unterfeldern{' '}
                       </Typography.Text>
-                      {formatNeutral.subfieldsGroup.addition.length > 1 ? (
-                        <Typography.Text italic>
-                          in den Unterfeldern{' '}
-                        </Typography.Text>
-                      ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
-                        <Typography.Text italic> im Unterfeld </Typography.Text>
-                      ) : undefined}
-                      {formatNeutral.subfieldsGroup.addition.map(
-                        (subfield, index) => (
-                          <React.Fragment key={index}>
-                            <Typography.Text strong>
-                              <EntityLink
-                                id={subfield.property}
-                                label={subfield.label ? subfield.label : ''}
-                                staNotationLabel={
-                                  subfield.staNotationLabel
-                                    ? subfield.staNotationLabel
-                                    : undefined
-                                }
-                              />
-                              {formatNeutral.subfieldsGroup.addition.length -
-                                1 >
+                    ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
+                      <Typography.Text italic> im Unterfeld </Typography.Text>
+                    ) : undefined}
+                    {formatNeutral.subfieldsGroup.addition.map(
+                      (subfield, index) => (
+                        <React.Fragment key={index}>
+                          <Typography.Text strong>
+                            <EntityLink
+                              id={subfield.property}
+                              label={subfield.label ? subfield.label : ''}
+                              staNotationLabel={
+                                subfield.staNotationLabel
+                                  ? subfield.staNotationLabel
+                                  : undefined
+                              }
+                            />
+                            {formatNeutral.subfieldsGroup.addition.length -
+                              1 >
                               index ? (
-                                <Typography.Text>{', '}</Typography.Text>
-                              ) : (
-                                <Typography.Text>{'.'}</Typography.Text>
-                              )}
-                            </Typography.Text>
-                          </React.Fragment>
-                        )
-                      )}
-                    </>
-                  ) : undefined}
-                </Typography.Paragraph>
-              ))
+                              <Typography.Text>{', '}</Typography.Text>
+                            ) : (
+                              <Typography.Text>{'.'}</Typography.Text>
+                            )}
+                          </Typography.Text>
+                        </React.Fragment>
+                      )
+                    )}
+                  </>
+                ) : undefined}
+              </Typography.Paragraph>
+            ))
             : undefined}
           <Typography.Paragraph>
             {['PICA3', 'PICA+']

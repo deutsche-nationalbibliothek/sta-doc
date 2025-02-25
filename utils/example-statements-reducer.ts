@@ -46,13 +46,13 @@ function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
       if (element.propertyType?.id === Item.Naming || element.propertyType?.id === Item['Time-specification']) {
         result.naming.push(element);
       }
-      if (element.property === Property['Type-of-relation-of-GND-Subfield']) {
+      else if (element.propertyType?.id === Item['Relationship-label-of-property-type']) {
         result.relationType.push(element);
       }
-      if (element.propertyType?.id === Item.Qualifier) {
+      else if (element.propertyType?.id === Item.Qualifier) {
         result.addition.push(element);
       }
-      else {
+      else if (element.codings) {
         result.naming.push(element)
       }
       return result;
@@ -85,7 +85,7 @@ export function exampleStatementsReducer(
         exampleValue.qualifiers ? exampleValue.qualifiers : undefined
       );
       const permittedCharacteristics = exampleValue.qualifiers?.find(
-        (qualifier) => qualifier.property === Property['permitted-characteristics']
+        (qualifier) => qualifier.property === Property['permitted-characteristics'] || qualifier.property === Property['permited-values']
       )?.wikibasePointers;
 
       const formatNeutralStatementValue =
@@ -109,8 +109,8 @@ export function exampleStatementsReducer(
       acc.formatNeutral = compact([...acc.formatNeutral, formatNeutralObj]);
 
       if ('qualifiers' in exampleValue) {
-        const permittedValues = exampleValue.qualifiers && propFinder(Property['permited-values'], exampleValue.qualifiers)?.wikibasePointers?.map(obj => obj.codings && obj.codings['PICA3'][0]).join('; ') || undefined
-        const predecessorQualifier = permittedValues && findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || undefined
+        const permittedValues = exampleValue.qualifiers && (propFinder(Property['permited-values'], exampleValue.qualifiers) || propFinder(Property['permitted-characteristics'], exampleValue.qualifiers))?.wikibasePointers?.map(obj => obj.codings && obj.codings['PICA3'][0]).join('; ') || undefined
+        const predecessorQualifier = permittedValues && (findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permitted-characteristics'])) || undefined
         // map trough the qualifiers twice (for PICA3, then for PICA+)
         const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
           (codingLabel: PrefCodingsLabel) =>
@@ -133,6 +133,7 @@ export function exampleStatementsReducer(
                    )
                 : qualifier.property !== Property.Type && 
                   qualifier.property !== Property['permited-values'] && 
+                  qualifier.property !== Property['permitted-characteristics'] &&
                   qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
                   return ([
                     index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
