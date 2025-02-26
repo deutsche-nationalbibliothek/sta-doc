@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es2015",
+    "types": ["aria-query"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

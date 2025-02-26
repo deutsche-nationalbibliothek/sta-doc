@@ -1,13 +1,14 @@
 import { compact } from 'lodash';
 import { PreMappedStatement } from '.';
-import { Namespace } from '../../../../../types/namespace';
 import namespaceConfig from '../../../../../config/namespace';
+import { Namespace } from '../../../../../types/namespace';
 import { Datatypes, StatementValue } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
+import { EntityId } from '../../../../../types/entity-id';
 import {
   Claim,
-  StatementRaw,
   DatatypeRaw,
+  StatementRaw,
 } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { FilterSortTransformStatementsProps } from './filter-sort-transform-statemants';
@@ -20,8 +21,6 @@ export interface ParseStatementsProps
   isTopLevel?: boolean;
   isElementsPropOnRdaRessourceType?: boolean;
   addHeadline: AddHeadline;
-  // parseRawEntity: typeof parseRawEntity;
-  // isRdaRessourceEntity: boolean;
 }
 
 export const parseStatements = (
@@ -46,7 +45,7 @@ export const parseStatements = (
     isRdaRessourceEntity,
   } = defaultedProps;
 
-  const { labelsDe, codings, schemas, staNotations } = data;
+  const { labelsDe, codings, propertyTypes, schemas, staNotations } = data;
 
   const keyAccess = <T>(
     occ: Claim | StatementRaw,
@@ -61,6 +60,16 @@ export const parseStatements = (
     ) as T;
   };
 
+  const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
+    'external-id': 'stringGroups',
+    url: 'urls',
+    time: 'times',
+    'wikibase-item': 'wikibasePointers',
+    'wikibase-entityid': 'wikibasePointers',
+    'wikibase-property': 'wikibasePointers',
+    string: 'stringGroups',
+  };
+
   const parsedStatements: (PreMappedStatement | undefined)[] = statements.map(
     (occs: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
       if (occs.length === 0) {
@@ -71,21 +80,11 @@ export const parseStatements = (
       const property = keyAccess<Property>(occs[0], 'property');
       const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
 
-      const dataTypeMap: Record<DatatypeRaw, keyof Datatypes> = {
-        url: 'urls',
-        time: 'times',
-        'wikibase-item': 'wikibasePointers',
-        'wikibase-entityid': 'wikibasePointers',
-        'wikibase-property': 'wikibasePointers',
-        string: 'stringGroups',
-      };
-
       const dataType = dataTypeMap[dataTypeRaw];
       const label = labelsDe[property];
 
       const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
-
       if (
         isPropertyBlacklisted(property, 'property') ||
         (statementNamespace &&
@@ -100,6 +99,9 @@ export const parseStatements = (
           occs[0].parentProperty === Property.Elements &&
           isRdaRessourceEntity);
 
+      const isSubfieldsProp =
+        property === Property.Subfields
+
       const hasHeadline =
         isTopLevel &&
         !isPropertyBlacklisted(property) &&
@@ -113,7 +115,7 @@ export const parseStatements = (
             statementNamespace
           )
         : undefined;
-
+      
       const dataTypeSpecifics = compact(
         occs.map((occ: StatementRaw | Claim) =>
           parseStatement({
@@ -121,22 +123,27 @@ export const parseStatements = (
             occ,
             keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
             hasHeadline,
+            currentHeadlineLevel:
+              hasHeadline && !isSubfieldsProp || isElementsPropOnRdaRessourceType
+                ? currentHeadlineLevel + 1
+                : currentHeadlineLevel,
             simplifiedDataType: dataType,
             isElementsPropOnRdaRessourceType,
           })
         )
       );
 
-      const preMappedStatemant: PreMappedStatement = {
+      const preMappedStatement: PreMappedStatement = {
         label,
         headline,
         property,
+        propertyType: propertyTypes[property] ? propertyTypes[property] : undefined,
         staNotationLabel: staNotations[property]?.label,
         codings: codings[property],
         namespace: statementNamespace,
         [dataType]: dataTypeSpecifics,
       };
-      return preMappedStatemant;
+      return preMappedStatement;
     }
   );
   return compact(parsedStatements).map(stringMapper);

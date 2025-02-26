@@ -6,6 +6,7 @@ import { Namespace } from '../namespace';
 import { Property } from '../property';
 import { Field } from './field';
 import { RdaElementStatus } from './rda-element-status';
+import { PropertyType } from './property-type';
 
 export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
@@ -48,7 +49,7 @@ export interface PageType {
   schema: string;
   assignmentId: string;
   assignmentLabel: string;
-  id: Item; //Item;
+  id: Item;
 }
 
 export interface Statements {
@@ -57,6 +58,9 @@ export interface Statements {
   body: StatementValue[];
 }
 
+/**
+ * A statement is a parsed claim from a wikibase entity
+ */
 export interface Statement extends Datatypes {
   label?: string;
   property: Property;
@@ -66,25 +70,30 @@ export interface Statement extends Datatypes {
   staNotationLabel?: string;
 }
 
-export type StatementValue = Statement & CommonValue;
-
 export interface CommonValue {
   references?: Reference[];
   property: Property;
+  propertyType?: PropertyType;
   embedded?: Entity;
   missingValue?: 'somevalue' | 'novalue';
   qualifiers?: Statement[];
-  // headline?: Headline;
 }
+
+export type StatementValue = Statement & CommonValue;
 
 // always only one key present
 export interface Datatypes {
+  externals?: StringGroup[];
   urls?: UrlValue[];
   stringGroups?: StringGroup[];
   times?: TimeValue[];
   wikibasePointers?: WikibasePointerValue[];
   // noValues?: NoValue[];
   // someValues?: UnknownValue[];
+}
+
+export interface ExternalValue extends CommonValue {
+  value: string;
 }
 
 export interface UnknownValue {
@@ -98,7 +107,7 @@ export interface NoValue {
 export interface Reference {
   // data should have eithter Property.URL or Property.URI
   [Property.URL]: string;
-  [Property.URI]: string;
+  [Property.URIGNDSubfield]: string; //was Property.URI but now different name
   [Property.description]: string;
   // with Property['description-(at-the-end)']:
   //  typescript: A computed property name in an interface must refer to
@@ -125,10 +134,16 @@ export interface StringValue extends CommonValue {
   codings?: Codings;
   headline?: Headline;
   itemType?: ItemType;
+  isLink?: EntityId;
+  linkLabel?: string;
+  linkStaNotation?: string;
 }
 
 export type ItemType = EntityId | 'default' | 'somevalue' | 'novalue';
 
+/**
+ * Represents a statement (claim) as a wikibase pointer with a specified EntityId
+ */
 export interface WikibasePointerValue extends CommonValue {
   id: EntityId;
   label: string;

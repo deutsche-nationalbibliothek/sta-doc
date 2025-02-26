@@ -168,7 +168,7 @@ export const filterSortTransformStatemants = (
     return releavantClaims.reduce(claimsReducer, []); // as Claim[][]).filter((statements) => statements.length);
   };
 
-  const bodyStatemants = isRdaRessourceEntity
+  const bodyStatements = isRdaRessourceEntity
     ? reorganiseRdaRessourceType()
     : sortByProperties(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -203,7 +203,7 @@ export const filterSortTransformStatemants = (
     }),
     body: parseStatements({
       ...props,
-      statements: bodyStatemants,
+      statements: bodyStatements,
       currentHeadlineLevel: nextHeaderLevel,
       isTopLevel: !embedded,
       noHeadline: noHeadline,

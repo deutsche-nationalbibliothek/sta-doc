@@ -7,10 +7,11 @@ interface FetchProps<T> {
   url: string;
   children: (data: T | undefined, loading: boolean) => JSX.Element;
   showSpinner?: boolean;
+  ignoreFetchingQueryParamString?: boolean;
 }
 
-export function Fetch<T>({ url, children, showSpinner = true }: FetchProps<T>) {
-  const { data, loading, error } = useSWR<T>(url);
+export function Fetch<T>({ url, children, ignoreFetchingQueryParamString, showSpinner = true }: FetchProps<T>) {
+  const { data, loading, error } = useSWR<T>(url,ignoreFetchingQueryParamString);
   const { setIsLoading } = useIsLoading();
 
   useEffect(() => {

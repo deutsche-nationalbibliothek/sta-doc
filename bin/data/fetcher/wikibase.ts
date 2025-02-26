@@ -9,7 +9,7 @@ export const fetchWikibase = ({
 }: ReturnType<typeof fetchWithSparql>) => {
   const fetchWikiBaseRawData = async (
     id: string
-  ): Promise<Record<EntityId, EntityRaw | void>> => {
+  ): Promise<Record<EntityId, EntityRaw>> => {
     const res = await fetcher<{ entities: Record<EntityId, EntityRaw> }>(
       `w/api.php?action=wbgetentities&format=json&languages=de&ids=${id}`
     );
@@ -27,7 +27,7 @@ export const fetchWikibase = ({
   const fetchEntity = async (
     entityId: EntityId | string,
     count = 1
-  ): Promise<Record<EntityId, EntityRaw | void>> => {
+  ): Promise<Record<EntityId, EntityRaw>> => {
     try {
       if (count <= 3) {
         return await fetchWikiBaseRawData(entityId);

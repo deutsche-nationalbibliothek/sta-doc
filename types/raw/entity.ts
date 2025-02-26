@@ -46,6 +46,7 @@ export interface Claim {
 export type DatatypeRaw =
   // | 'novalue'
   // | 'somevalue'
+  | 'external-id'
   | 'time'
   | 'url'
   | 'wikibase-item'

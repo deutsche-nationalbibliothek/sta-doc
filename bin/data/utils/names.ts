@@ -7,6 +7,10 @@ export const NAMES = {
     file: { singular: 'entity-index', plural: 'entities-index' },
     type: 'EntityIndex',
   },
+  propertyType: {
+    file: { singular: 'property-type' },
+    type: 'PropertyType',
+  },
   schema: {
     file: { singular: 'schema' },
     type: 'Schema',

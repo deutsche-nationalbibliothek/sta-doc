@@ -286,13 +286,7 @@ export const EXAMPLES = (apiUrl: API_URL) => `
   ORDER BY ASC(?elementLabel)
 `;
 export const DESCRIPTIONS = (apiUrl: API_URL) => `
-  PREFIX wd: <http://www.wikidata.org/entity/>
-  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX wikibase: <http://wikiba.se/ontology#>
-  #PREFIX p: <http://www.wikidata.org/prop/>
-  PREFIX ps: <http://www.wikidata.org/prop/statement/>
-  PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
   PREFIX p: <${apiUrl}/prop/>
   PREFIX prop: <${apiUrl}/prop/direct/>
@@ -307,6 +301,26 @@ export const DESCRIPTIONS = (apiUrl: API_URL) => `
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
   }
   ORDER BY ASC(?elementLabel)
+`;
+
+export const PROPERTYTYPES = (apiUrl: API_URL) => `
+  PREFIX wikibase: <http://wikiba.se/ontology#>
+  PREFIX bd: <http://www.bigdata.com/rdf#>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
+
+  SELECT DISTINCT ?eId ?typeId ?typeLabel WHERE {
+    ?entity prop:P2 item:Q3 . #element of -> GND-Unterfeld
+    ?entity p:P6 ?statement . 
+    ?statement statement:P6 ?type . #property type -> 
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    BIND(STRAFTER(STR(?entity), '/entity/') as ?eId)
+    BIND(STRAFTER(STR(?type), '/entity/') as ?typeId)
+  }
+  ORDER BY ASC(?eId)
 `;
 
 export const STA_NOTATIONS = (apiUrl: API_URL) => `

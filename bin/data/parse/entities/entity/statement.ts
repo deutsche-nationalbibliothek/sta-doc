@@ -16,7 +16,7 @@ interface ParseStatementProps extends Required<ParseStatementsProps> {
   occ: Claim | StatementRaw;
   keyAccessOcc: <T>(...keys: string[]) => T;
   hasHeadline: boolean;
-  simplifiedDataType: 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
+  simplifiedDataType: 'externals' | 'urls' | 'times' | 'stringGroups' | 'wikibasePointers';
 }
 
 // const keyAccessOcc = <T>(...keys: string[]) =>
@@ -44,9 +44,10 @@ export const parseStatement = (props: ParseStatementProps) => {
   const isMissingValue = snakType === 'novalue' || snakType === 'somevalue';
 
   const property = keyAccessOcc<Property>('property');
+
   const embeddedEntityId =
     !isMissingValue && keyAccessOcc<EntityId>('datavalue', 'value', 'id');
-
+  
   if (
     embeddedEntityId &&
     namespaceConfig.notUsed.includes(
@@ -61,28 +62,16 @@ export const parseStatement = (props: ParseStatementProps) => {
     embeddedEntityId &&
     (property === Property['example(s)'] ||
       property === Property['embedded-(item)'] ||
-      property === Property['embedded-(property)']) &&
+      property === Property['embedded-(property)'] ||
+      property === Property['Implementation-in-the-GND']) &&
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-  const nextHeaderLevel =
-    currentHeadlineLevel + (hasHeadline || hasEmbedding ? 1 : 0);
-
-  const embedded = hasEmbedding
-    ? parseRawEntity({
-        entityId: embeddedEntityId,
-        headlines,
-        currentHeadlineLevel: nextHeaderLevel,
-        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
-        isRdaRessourceEntityParam,
-        embedded: true,
-        noHeadline: property === Property['example(s)'],
-        data,
-        getRawEntityById,
-      })?.entity
-    : undefined;
+  let nextHeaderLevel =
+    currentHeadlineLevel + 
+    ((hasHeadline && simplifiedDataType === 'wikibasePointers' || hasEmbedding) ? 1 : 0)
 
   const dataTypeSpecifics =
-    simplifiedDataType === 'wikibasePointers'
+    simplifiedDataType === 'wikibasePointers' 
       ? parseWikibaseValue({
           ...props,
           occ,
@@ -94,25 +83,42 @@ export const parseStatement = (props: ParseStatementProps) => {
         })
       : simplifiedDataType === 'times'
       ? parseTimeValue({ keyAccessOcc, isMissingValue })
-      : simplifiedDataType === 'urls'
-      ? parseUrlValue({ keyAccessOcc, isMissingValue })
+      //: simplifiedDataType === 'urls'
+      //? parseUrlValue({ keyAccessOcc, isMissingValue })
       : parseStringValue({
           ...props,
           occ,
           keyAccessOcc,
+          currentHeadlineLevel: nextHeaderLevel,
           isMissingValue,
           isTopLevel,
           isElementsPropOnRdaRessourceType,
         });
+  const nextHe = (dataTypeSpecifics &&
+    'headline' in dataTypeSpecifics &&
+    dataTypeSpecifics.headline &&
+    dataTypeSpecifics.headline.level)
+    ? dataTypeSpecifics.headline.level
+    : undefined
+  nextHeaderLevel = nextHe ? nextHe : nextHeaderLevel
 
   const dataTypeSpecificNextHeaderLevel =
-    nextHeaderLevel +
-    (isElementsPropOnRdaRessourceType ||
-    (dataTypeSpecifics &&
-      'headline' in dataTypeSpecifics &&
-      dataTypeSpecifics.headline)
-      ? 1
-      : 0);
+    nextHeaderLevel -
+    (isElementsPropOnRdaRessourceType ? 1 : 0);
+
+  const embedded = hasEmbedding
+    ? parseRawEntity({
+        entityId: embeddedEntityId,
+        headlines,
+        currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
+        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
+        isRdaRessourceEntityParam,
+        embedded: true,
+        noHeadline: property === Property['example(s)'],
+        data,
+        getRawEntityById,
+      })?.entity
+    : undefined;
 
   const qualifiers =
     'qualifiers' in occ && occ.qualifiers
@@ -121,10 +127,8 @@ export const parseStatement = (props: ParseStatementProps) => {
           statements: (Object.keys(occ.qualifiers) as Property[])
             .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
             .map((qualiKey) => (occ as Required<Claim>).qualifiers[qualiKey]),
-          currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
+          currentHeadlineLevel: nextHeaderLevel,
           embedded: true,
-          // isTopLevel,
-          // noHeadline,
           isElementsPropOnRdaRessourceType,
         })
       : undefined;
@@ -142,14 +146,12 @@ export const parseStatement = (props: ParseStatementProps) => {
       'references' in occ && occ.references
         ? parseReferences({
             ...props,
-            currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
             references: occ.references,
-            isTopLevel,
           })
         : undefined,
     embedded,
     qualifiers,
   };
-
+  
   return preMappedStatement;
 };

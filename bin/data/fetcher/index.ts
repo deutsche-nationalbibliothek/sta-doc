@@ -3,7 +3,7 @@ import { EntityId } from '../../../types/entity-id';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { SchemasRaw } from '../../../types/raw/schema';
 import { DescriptionRaws } from '../../../types/raw/description';
-import { EntityRaw } from '../../../types/raw/entity';
+import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
@@ -16,10 +16,12 @@ import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
+import { PropertyTypesRaw } from '../../../types/raw/property-type';
 
 export enum API_URL {
-  test = 'http://apprwikibase0.dnb.de',
-  prod = 'https://testwikibase0.dnb.de',
+  host = 'https://edit.sta.dnb.de',
+  test = 'http://lab.sta.dnb.de',
+  prod = 'https://edit.sta.dnb.de',
   live = 'https://sta.dnb.de',
 }
 
@@ -104,6 +106,10 @@ export const descriptionsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<DescriptionRaws>(
     sparql.DESCRIPTIONS(apiUrl)
   );
+export const propertyTypesFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<PropertyTypesRaw>(
+    sparql.PROPERTYTYPES(apiUrl)
+  );
 export const rdaRulesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<RdaRulesRaw>(sparql.RDARULES(apiUrl));
 export const rdaPropertiesFetcher = async (apiUrl: API_URL) =>
@@ -119,7 +125,7 @@ const rdaElementStatusesFetcher = async (apiUrl: API_URL) =>
     sparql.RDA_ELEMENT_STATUSES(apiUrl)
   );
 
-export const fetcher = (apiUrl = API_URL.prod) => {
+export const fetcher = (apiUrl = API_URL.host) => {
   const entities = {
     single: async (entityId: EntityId) =>
       await entitiesFetcher.single(entityId, apiUrl),
@@ -134,6 +140,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     en: async () => await labelsFetcher.en(apiUrl),
   };
 
+  const propertyTypes = async () => await propertyTypesFetcher(apiUrl);
   const staNotations = async () => await staNotationsFetcher(apiUrl);
   const schemas = async () => await schemasFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
@@ -153,6 +160,7 @@ export const fetcher = (apiUrl = API_URL.prod) => {
         de: await labels.de(),
         en: await labels.en(),
       },
+      propertyTypes: await propertyTypes(),
       staNotations: await staNotations(),
       schemas: await schemas(),
       codings: await codings(),
@@ -173,7 +181,14 @@ export const fetcher = (apiUrl = API_URL.prod) => {
     codings,
     fetchAll,
     propertyItemList,
+    propertyTypes,
     rdaElementStatuses,
     schemas,
   };
 };
+
+export interface ReadRawEntities {
+  entities: {
+    all: EntitiesRaw;
+  };
+}

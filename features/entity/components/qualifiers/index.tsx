@@ -9,6 +9,7 @@ import { Embedded } from '../embedded';
 import { Examples } from '../examples';
 import { StringGroupsStatement } from '../statements/string-groups';
 import { WikibasePointers } from '../wikibase-pointers';
+import { GndImplementations } from '../gnd-implementation';
 
 interface QualifiersProps {
   qualifiers: Statement[];
@@ -39,6 +40,19 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
         qualifier.wikibasePointers && (
           <Examples
             examples={compact(
+              qualifier.wikibasePointers.map(
+                (wikibaseValue) => wikibaseValue.embedded
+              )
+            )}
+          />
+        )
+      );
+    },
+    [Property['Implementation-in-the-GND']]: (qualifier: Statement) => {
+      return (
+        qualifier.wikibasePointers && (
+          <GndImplementations
+            implementations={compact(
               qualifier.wikibasePointers.map(
                 (wikibaseValue) => wikibaseValue.embedded
               )

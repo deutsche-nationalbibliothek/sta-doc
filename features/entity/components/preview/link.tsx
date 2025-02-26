@@ -51,7 +51,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
               {pointingNamespace}
             </Tag>
           </>
-        )}{' '}
+        )}{''}
     </>
   );
 

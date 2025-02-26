@@ -1,28 +1,28 @@
 import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
 import { theme } from 'antd';
 import { compact } from 'lodash';
-import ReactHighlighter from 'react-highlight-words';
+import Highlighter from 'react-highlight-words';
 
 interface HighlighterProps {
   searchWords: string[];
   textToHighlight: string;
 }
 
-export const Highlighter: React.FC<HighlighterProps> = ({
+export const MyHighlighter: React.FC<HighlighterProps> = ({
   searchWords,
   textToHighlight,
 }) => {
   const { token } = theme.useToken();
   return (
-    <ReactHighlighter
-      highlightStyle={{
-        backgroundColor: token.colorPrimaryBgHover,
-        padding: 0,
-      }}
-      searchWords={searchWords}
-      autoEscape
-      textToHighlight={textToHighlight}
-    />
+      <Highlighter
+        highlightStyle={{
+          backgroundColor: token.colorPrimaryBgHover,
+          padding: 0,
+        }}
+        searchWords={searchWords}
+        autoEscape
+        textToHighlight={textToHighlight}
+      />
   );
 };
 
@@ -32,7 +32,7 @@ export const QueryHighlighter: React.FC<{ textToHighlight: string }> = ({
   const { searchQuery } = useSearchQueryParams();
 
   return (
-    <Highlighter
+    <MyHighlighter
       searchWords={compact([searchQuery.replace(/"+/g, '')])}
       textToHighlight={textToHighlight}
     />

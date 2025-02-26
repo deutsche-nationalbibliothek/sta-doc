@@ -11,6 +11,7 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
+import sta from '@/pages/api/entities/sta';
 
 interface StringStatementProps {
   statements: StringGroup[];
@@ -31,7 +32,10 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         return (
           <React.Fragment key={stringValue.value}>
             {stringValue.headline && (
-              <Title headline={stringValue.headline}>
+              <Title headline={stringValue.headline} 
+                isLink={stringValue.isLink} 
+                linkLabel={stringValue.linkLabel} 
+                linkStaNotation={stringValue.linkStaNotation}>
                 <QueryHighlighter textToHighlight={stringValue.value} />
                 {references}
               </Title>

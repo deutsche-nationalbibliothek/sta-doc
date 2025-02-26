@@ -1,25 +1,25 @@
 import { ColumnsTypes, Table } from '@/components/table';
+import { Statement } from '@/types/parsed/entity';
+import { theme } from 'antd';
+import { compact, flattenDeep } from 'lodash';
 import { EntityLink } from '../preview/link';
 import { StringGroupsStatement } from '../statements/string-groups';
-import { compact, flattenDeep } from 'lodash';
 import {
   ExampleProps,
   PreData,
   TableData,
   nonDefaultRenderProperties,
 } from './example';
-import { Statement } from '@/types/parsed/entity';
-import { theme } from 'antd';
 
 export const RdaExample: React.FC<ExampleProps> = ({ entity }) => {
   const { token } = theme.useToken();
 
-  const relevantStatemants = entity.statements.body.filter(
+  const relevantStatements = entity.statements.body.filter(
     (statement) => !nonDefaultRenderProperties.includes(statement.property)
   );
   const preData: Record<string, PreData> = flattenDeep(
     compact(
-      relevantStatemants.map(
+      relevantStatements.map(
         (statement) =>
           statement.stringGroups &&
           statement.stringGroups.map((stringStatement) =>
