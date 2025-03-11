@@ -17,6 +17,7 @@
     "data:parse:codings": "ts-node bin/data parse:codings",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "split-entities": "./bin/split-entities-solr.sh",
+    "split-entities-powershell": "powershell -File ./bin/split-entities-solr.ps1",
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
     "docker:build": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
     "docker:solr:index": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec solr sh index.sh",
