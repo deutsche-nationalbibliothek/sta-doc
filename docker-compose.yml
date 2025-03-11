@@ -1,22 +1,10 @@
-version: '3'
-
 services:
   nextjs:
     build:
       context: .
-    networks:
-      - web_proxy
+    restart: unless-stopped
 
   solr:
     build:
       context: .
-      dockerfile: ./docker/solr/Dockerfile
-    networks:
-      - web_proxy
-    ports:
-      - '8983:8983'
-    user: '8983:8983'
-
-networks:
-  web_proxy:
-    name: web_proxy
+    restart: unless-stopped
