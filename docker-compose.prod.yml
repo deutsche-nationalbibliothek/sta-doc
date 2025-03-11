@@ -1,13 +1,9 @@
-version: '3'
-
 services:
   nextjs:
     build:
       dockerfile: ./docker/nextjs/Dockerfile.prod
     extra_hosts:
       - "edit.sta.dnb.de:10.10.14.212"
-    #ports:
-    #  - '3000:3000'
     networks:
       dnb-wikibase_default:
         aliases:
