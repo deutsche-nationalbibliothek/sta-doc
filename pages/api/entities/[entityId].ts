@@ -24,23 +24,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (typeof entityId === 'string') {
     if (live) {
       let entitiesEntries: EntitiesEntries | undefined;
-      switch (live) {
-        case FetchingParam.prod:
-          entitiesEntries = await getLiveEntity(fetcher(API_URL.prod), entityId);
-          break;
-        case FetchingParam.test:
-          entitiesEntries = await getLiveEntity(fetcher(API_URL.test), entityId);
-          break;
-        case FetchingParam.live:
-          entitiesEntries = await getLiveEntity(fetcher(API_URL.live), entityId);
-          break;
-        default:
-          console.error(`Invalid live query parameter: ${live}`);
-          res
-            .status(200)
-            .json((entities as unknown as EntitiesEntries)[entityId]);
-          return;
+      if (live === FetchingParam.prod) {
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.prod), entityId);
+      } else if (live === FetchingParam.test) {
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.test), entityId);
+      } else if (live === FetchingParam.live) {
+        entitiesEntries = await getLiveEntity(fetcher(API_URL.live), entityId);
       }
+      if (entitiesEntries) {
+        res.status(200).json(entitiesEntries[entityId]);
+      } else {
+        console.error(
+          'Live fetching did not work for entity-id',
+          entityId,
+          'with live query',
+          live
+        );
+      }
+      return;
     } else {
       res.status(200).json((entities as unknown as EntitiesEntries)[entityId]);
     }
