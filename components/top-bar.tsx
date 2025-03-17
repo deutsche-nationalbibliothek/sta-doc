@@ -82,12 +82,17 @@ export const TopBar: React.FC = () => {
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/">
-                    <HomeOutlined />
+                  <Link href="/"><HomeOutlined /><span>STA-Gesamt</span>
                   </Link>
                 </span>
               ),
               key: '/',
+              children: [
+                {
+                  label: <Link href="/STA-E">Elemente</Link>,
+                  key: '/STA-E',
+                }
+              ]
             },
             {
               label: (
@@ -102,21 +107,21 @@ export const TopBar: React.FC = () => {
                   key: '/RDA-A',
                 },
                 {
-                  label: <Link href="/RDA-E">Elemente</Link>,
-                  key: '/RDA-E',
-                },
-                {
                   label: <Link href="/RDA-R">Ressourcentypen</Link>,
                   key: '/RDA-R',
                 },
                 {
-                  label: <Link href="/RDA-AP">Anwendungsprofile</Link>,
-                  key: '/RDA-AP',
+                  label: <Link href="/RDA-IE">Inhaltserschließung</Link>,
+                  key: '/RDA-IE',
                 },
                 {
-                  label: <Link href="/RDA-I">Index</Link>,
-                  key: '/entities/rda',
+                  label: <Link href="/RDA-PROV">Provenienzerschließung</Link>,
+                  key: '/RDA-PROV',
                 },
+                {
+                  label: <Link href="/RDA-AP">Anwendungsprofile</Link>,
+                  key: '/RDA-AP',
+                }
               ],
             },
             {
