@@ -11,7 +11,6 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
-import sta from '@/pages/api/entities/sta';
 
 interface StringStatementProps {
   statements: StringGroup[];
