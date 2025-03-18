@@ -57,6 +57,13 @@ export const DEV = false;
     writer.parsed(data).codings();
   }
 
+  const parseRawAndWritePropertyTypes = () => {
+    const readRaw = reader[DataState.raw];
+    const propertyTypes = propertyTypesParser(readRaw.propertyTypes())
+    const data = { propertyTypes: propertyTypes }
+    writer.parsed(data).propertyTypes();
+  }
+
   const parseRawAndWriteStaNotations = () => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations())
@@ -124,6 +131,8 @@ export const DEV = false;
           break;
         case 'parse:codings':
           parseRawAndWriteCodings();
+        case 'parse:propertyTypes':
+          parseRawAndWritePropertyTypes();
         case 'parse:staNotations':
           parseRawAndWriteStaNotations();
         case 'fetch:properties-items':

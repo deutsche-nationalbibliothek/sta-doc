@@ -15,6 +15,7 @@
     "data:parse": "ts-node bin/data parse",
     "data:parse:single": "ts-node bin/data parse:single",
     "data:parse:codings": "ts-node bin/data parse:codings",
+    "data:parse:propertyTypes": "ts-node bin/data parse:propertyTypes",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "split-entities": "./bin/split-entities-solr.sh",
     "split-entities-powershell": "powershell -File ./bin/split-entities-solr.ps1",

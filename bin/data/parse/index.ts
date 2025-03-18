@@ -374,6 +374,7 @@ export interface ParsedAllFromRead {
     index?: EntitiesIndex;
   };
   fields: Fields;
+  propertyTypes: PropertyTypes;
   schemas: Schemas;
   staNotations: StaNotations;
   codings: Codings;
@@ -420,6 +421,7 @@ export const parseAllFromRead = (
       ),
     },
     fields: data.fields,
+    propertyTypes: data.propertyTypes,
     schemas: data.schemas,
     staNotations: data.staNotations,
     codings: data.codings,
