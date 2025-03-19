@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { Select } from 'antd';
-import setLanguage from 'next-translate/setLanguage';
 
 export default function localeSwitcher() {
   const router = useRouter();
