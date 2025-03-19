@@ -3,6 +3,7 @@
  **/
 
 const fs = require('fs');
+const nextTranslate = require('next-translate-plugin')
 const staNotations = JSON.parse(
   fs.readFileSync('./data/parsed/sta-notations.json')
 );
@@ -18,6 +19,7 @@ module.exports = async () => {
     images: {
       domains: ['www.cilip.org.uk'],
     },
+
     reactStrictMode: true,
     async redirects() {
       // return redirectArr
@@ -41,7 +43,7 @@ module.exports = async () => {
     },
   };
   // return withLess(nextConfig);
-  return nextConfig;
+  return nextTranslate(nextConfig);
 };
 
 /**

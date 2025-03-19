@@ -8,11 +8,15 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
 import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import LocaleSwitcher from './locale-switcher';
+import useTranslation from 'next-translate/useTranslation';
+
 
 // RDA-A-0-allgemeines ist jetzt RDA-A
 // RDA-A-0-ANWENDUNGSPROFILE ist jetzt RDA-A
 
 export const TopBar: React.FC = () => {
+  const { t, lang } = useTranslation('top-bar');
   const { namespace } = useNamespace();
   const router = useRouter();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -46,7 +50,7 @@ export const TopBar: React.FC = () => {
         paddingInline: isSmallScreen ? 10 : undefined,
       },
     }),
-    [token.colorPrimary, token.colorText, isSmallScreen]
+    [token.colorPrimary, token.colorText, isSmallScreen],
   );
 
   return (
@@ -98,23 +102,23 @@ export const TopBar: React.FC = () => {
               key: 'RDA',
               children: [
                 {
-                  label: <Link href="/RDA-A">Allgemeines</Link>,
+                  label: <Link href="/RDA-A">{t('RDA-A')}</Link>,
                   key: '/RDA-A',
                 },
                 {
-                  label: <Link href="/RDA-E">Elemente</Link>,
+                  label: <Link href="/RDA-E">{t('RDA-E')}</Link>,
                   key: '/RDA-E',
                 },
                 {
-                  label: <Link href="/RDA-R">Ressourcentypen</Link>,
+                  label: <Link href="/RDA-R">{t('RDA-R')}</Link>,
                   key: '/RDA-R',
                 },
                 {
-                  label: <Link href="/RDA-AP">Anwendungsprofile</Link>,
+                  label: <Link href="/RDA-AP">{t('RDA-AP')}</Link>,
                   key: '/RDA-AP',
                 },
                 {
-                  label: <Link href="/RDA-I">Index</Link>,
+                  label: <Link href="/RDA-I">{t('RDA-I')}</Link>,
                   key: '/entities/rda',
                 },
               ],
@@ -174,13 +178,26 @@ export const TopBar: React.FC = () => {
               key: 'search',
               style: {
                 position: 'absolute',
-                right: isSmallScreen ? 0 : 50,
+                right: isSmallScreen ? 100 : 100,
               },
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
+            },
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <LocaleSwitcher />
+                </span>
+              ),
+              key: 'switch-language',
+              style: {
+                position: 'absolute',
+                right: isSmallScreen ? 0 : 0,
+              },
             },
           ]}
         />
       </AntdLayout.Header>
+
     </ConfigProvider>
   );
 };
