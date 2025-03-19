@@ -24,8 +24,7 @@ import '../styles/custom.css';
 import '../styles/fonts.css';
 import { EntityProvider } from '@/hooks/entity-provider';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
+const MyApp = ({ Component, pageProps }: AppProps) => (
     <GlobalStaticStyles>
       <InitialHeadlinesProvider>
         <QueryParamProvider adapter={NextAdapter as QueryParamAdapterComponent}>
@@ -58,4 +57,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </InitialHeadlinesProvider>
     </GlobalStaticStyles>
   );
-}
+
+
+export default MyApp;
