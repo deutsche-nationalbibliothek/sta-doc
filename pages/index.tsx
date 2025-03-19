@@ -9,6 +9,7 @@ import { Namespace } from '@/types/namespace';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface HomeProps {
   headlines: Headline[];
