@@ -2,9 +2,9 @@ import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router';
 
 export const Test = () => {
-  const { t, lang } = useTranslation('common')
+  const { t } = useTranslation('common')
   const router = useRouter();
-  const { locale, locales, defaultLocale } = router;
+  const { locale } = router;
 
   return (
     <>
@@ -16,10 +16,4 @@ export const Test = () => {
 };
 
 export default Test;
-
-
-// export const getStaticProps =
-//  async ({ locale } : { locale: any}) => ({
-//  props: { ...(await serverSideTranslations(locale, ['common'])) },
-//});
 

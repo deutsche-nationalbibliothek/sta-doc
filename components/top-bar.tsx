@@ -16,7 +16,7 @@ import useTranslation from 'next-translate/useTranslation';
 // RDA-A-0-ANWENDUNGSPROFILE ist jetzt RDA-A
 
 export const TopBar: React.FC = () => {
-  const { t, lang } = useTranslation('top-bar');
+  const { t } = useTranslation('top-bar');
   const { namespace } = useNamespace();
   const router = useRouter();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
