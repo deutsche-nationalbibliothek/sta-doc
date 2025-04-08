@@ -91,6 +91,14 @@ export const TopBar: React.FC = () => {
                 {
                   label: <Link href="/STA-E">Elemente</Link>,
                   key: '/STA-E',
+                },
+                {
+                  label: <Link href="/STA-G">Glossar</Link>,
+                  key: '/STA-G',
+                },
+                {
+                  label: <Link href="/STA-HILFE">Hilfe</Link>,
+                  key: '/STA-HILFE',
                 }
               ]
             },
@@ -111,54 +119,42 @@ export const TopBar: React.FC = () => {
                   key: '/RDA-R',
                 },
                 {
+                  label: <Link href="/RDA-IE">Formalerschließung</Link>,
+                  key: '/RDA-FE',
+                },
+                {
                   label: <Link href="/RDA-IE">Inhaltserschließung</Link>,
                   key: '/RDA-IE',
                 },
                 {
                   label: <Link href="/RDA-PROV">Provenienzerschließung</Link>,
                   key: '/RDA-PROV',
-                },
-                {
-                  label: <Link href="/RDA-AP">Anwendungsprofile</Link>,
-                  key: '/RDA-AP',
                 }
               ],
             },
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/GND">GND</Link>
+                  <Link href="/GND">GND-Dokumentation</Link>
                 </span>
               ),
               key: 'GND',
               children: [
                 {
-                  label: (
-                    <Link href="/GND-EC">
-                      Satzarten und Entitätencodierungen
-                    </Link>
-                  ),
-                  key: '/GND-EC',
+                  label: <Link href="/GND-A">Allgemeines</Link>,
+                  key: '/GND-A',
                 },
                 {
-                  label: <Link href="/GND-DF">Datenfelder</Link>,
-                  key: '/GND-DF',
+                  label: <Link href="/GND-ET">Entitätstypen</Link>,
+                  key: '/GND-ET',
                 },
                 {
-                  label: <Link href="/GND-RC">Relationscodes</Link>,
-                  key: '/GND-RC',
+                  label: <Link href="/GND-D">Datenmodell</Link>,
+                  key: '/GND-D',
                 },
                 {
-                  label: <Link href="/GND-VW">normiertes Vokabular</Link>,
-                  key: '/GND-VW',
-                },
-                {
-                  label: <Link href="/GND-VW-SYSTEMATIK">GND-Systematik</Link>,
-                  key: '/GND-VW-SYSTEMATIK',
-                },
-                {
-                  label: <Link href="/GND-I">Index</Link>,
-                  key: '/entities/gnd',
+                  label: <Link href="/GND-AK">Anwendungskontexte und Teilbestände</Link>,
+                  key: '/GND-AK',
                 },
               ],
             },
