@@ -19,7 +19,8 @@ import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
 
 export enum API_URL {
-  host = 'https://edit.sta.dnb.de',
+  // host = 'https://edit.sta.dnb.de',
+  host = 'http://lab.sta.dnb.de',
   test = 'http://lab.sta.dnb.de',
   prod = 'https://edit.sta.dnb.de',
   live = 'https://sta.dnb.de',
