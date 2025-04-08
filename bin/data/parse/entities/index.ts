@@ -20,14 +20,14 @@ export interface ParseEntitiesProps {
 }
 
 export interface ParseEntitiesData {
+  codings: Codings;
+  fields: Fields;
   labelsEn: LabelsEn;
   labelsDe: LabelsDe;
-  codings: Codings;
+  propertyTypes: PropertyTypes;
+  rdaElementStatuses: RdaElementStatuses;
   staNotations: StaNotations;
   schemas: Schemas;
-  fields: Fields;
-  rdaElementStatuses: RdaElementStatuses;
-  propertyTypes: PropertyTypes;
 }
 
 export const parseEntities = ({
