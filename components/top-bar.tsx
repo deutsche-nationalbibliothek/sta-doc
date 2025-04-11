@@ -119,7 +119,7 @@ export const TopBar: React.FC = () => {
                   key: '/RDA-R',
                 },
                 {
-                  label: <Link href="/RDA-IE">Formalerschließung</Link>,
+                  label: <Link href="/RDA-FE">Formalerschließung</Link>,
                   key: '/RDA-FE',
                 },
                 {
@@ -127,7 +127,7 @@ export const TopBar: React.FC = () => {
                   key: '/RDA-IE',
                 },
                 {
-                  label: <Link href="/RDA-PROV">Provenienzerschließung</Link>,
+                  label: <Link href="/RDA-PE">Provenienzerschließung</Link>,
                   key: '/RDA-PROV',
                 }
               ],
