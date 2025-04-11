@@ -33,6 +33,8 @@ import { Fields } from '../../../types/parsed/field';
 import { Namespace } from '../../../types/namespace';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
+import { PropertyTypes } from '../../../types/parsed/property-type';
+import { PropertyTypeRaw, PropertyTypesRaw } from '../../../types/raw/property-type';
 
 export type GetRawEntityById = (entityId: EntityId) => EntityRaw | void;
 
@@ -71,7 +73,7 @@ const commonParseFunc = <T extends CommonTypeRaw[], K extends CommonTypeParsed>(
 };
 
 const labelStripper = (label: string) => {
-  const strippedLabelMatch = label.match(/^[^|(]+/);
+  const strippedLabelMatch = label.match(/^[^|]+/);
   return trim(strippedLabelMatch ? strippedLabelMatch[0] : label);
 };
 
@@ -135,7 +137,7 @@ export const fieldsParser = (
       repeatable,
       label: labelStripper(label),
       viewLink,
-      staNotationLabel: staNotations[key as EntityId].label,
+      staNotationLabel: staNotations[key as EntityId]?.label,
       subfields: Object.entries(subfields).map(([key, subfield]) => {
         const { codings, description, editLink, label, viewLink, repeatable } =
           subfield;
@@ -147,7 +149,7 @@ export const fieldsParser = (
           repeatable,
           label: labelStripper(label),
           viewLink,
-          staNotationLabel: staNotations[key as EntityId].label,
+          staNotationLabel: staNotations[key as EntityId]?.label,
         };
       }),
     };
@@ -192,7 +194,7 @@ export const codingsParser = (codings: CodingsRaw) => {
           (codingValue) => codingValue === coding.coding.value
         ) ||
           acc[codingKey][codingLabel].push(
-            coding.coding.value === '-ohne-' ? '' : coding.coding.value
+            coding.coding.value.includes('-ohne-') ? coding.coding.value.replace('-ohne-','') : coding.coding.value
           );
       }
     } else {
@@ -207,6 +209,17 @@ export const descriptionsParser = (descriptions: DescriptionRaws) => {
     descriptions,
     NAMES.description
   );
+};
+
+export const propertyTypesParser = (propertyTypes: PropertyTypesRaw) => {
+  console.log('\tParsing propertyTypes');
+  return propertyTypes.reduce((acc, entity: PropertyTypeRaw) => {
+    acc[entity.eId.value] = {
+      label: entity.typeLabel.value,
+      id: entity.typeId.value,
+    };
+    return acc;
+  }, {} as PropertyTypes);
 };
 
 export const schemasParser = (schemas: SchemasRaw) => {
@@ -267,7 +280,7 @@ export const rdaElementStatusesParser = (
                 label: labelStripper(
                   rdaElementStatusByEntityId.entityLabel.value
                 ),
-                staNotationLabel: staNotations[ressourceTypeId].label,
+                staNotationLabel: staNotations[ressourceTypeId]?.label,
                 namespace: namespaceRessourceType,
               },
               status: {
@@ -361,6 +374,7 @@ export interface ParsedAllFromRead {
     index?: EntitiesIndex;
   };
   fields: Fields;
+  propertyTypes: PropertyTypes;
   schemas: Schemas;
   staNotations: StaNotations;
   codings: Codings;
@@ -373,7 +387,9 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations());
   const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes());
   const data = {
+    propertyTypes,
     staNotations,
     schemas,
     labelsDe: labelsParser.de(read.labels.de()),
@@ -405,6 +421,7 @@ export const parseAllFromRead = (
       ),
     },
     fields: data.fields,
+    propertyTypes: data.propertyTypes,
     schemas: data.schemas,
     staNotations: data.staNotations,
     codings: data.codings,

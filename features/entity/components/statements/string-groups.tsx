@@ -31,7 +31,10 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
         return (
           <React.Fragment key={stringValue.value}>
             {stringValue.headline && (
-              <Title headline={stringValue.headline}>
+              <Title headline={stringValue.headline} 
+                isLink={stringValue.isLink} 
+                linkLabel={stringValue.linkLabel} 
+                linkStaNotation={stringValue.linkStaNotation}>
                 <QueryHighlighter textToHighlight={stringValue.value} />
                 {references}
               </Title>

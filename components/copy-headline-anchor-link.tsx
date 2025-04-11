@@ -20,14 +20,13 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   const [messageApi, contextHolder] = message.useMessage();
   const { asPath } = useRouter();
 
-  const asPathWithoutFragmentRegex = /.*(?=#.*)|.*/;
-  const pathMatch = asPath.match(asPathWithoutFragmentRegex) ?? [''];
+  const cleanPath = asPath.replace(/(\?q=.*?(?=#|$))|(#.*)/g,'');
 
   const relevantUrl =
     url ??
     (anchor &&
       `${window.location.origin}${process.env.basePath ?? ''}${
-        pathMatch[0]
+        cleanPath
       }#${anchor}`);
 
   if (!relevantUrl) {
@@ -35,7 +34,7 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   }
 
   const onCopy = () => {
-    const hasCopied = pathMatch && copy(relevantUrl);
+    const hasCopied = cleanPath && copy(relevantUrl);
     const messageProps: { content: string; type: 'success' | 'error' } =
       hasCopied
         ? {

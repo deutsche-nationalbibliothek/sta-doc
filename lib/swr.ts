@@ -3,7 +3,7 @@ import useSWRLib from 'swr';
 
 export const useSWR = <T>(
   url?: string,
-  ignoreFetchingQueryParamString = false
+  ignoreFetchingQueryParamString?: boolean
 ): ReturnType<typeof useSWRLib> & { loading: boolean; data?: T } => {
   const { fetchingQueryParamsString } = useFetchingQueryParams();
   const swr = useSWRLib<T>(

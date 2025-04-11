@@ -1,3 +1,4 @@
+import { EntityId } from '../../../../../../types/entity-id';
 import { Item } from '../../../../../../types/item';
 import {
   StringValue,
@@ -24,12 +25,11 @@ export const parseStringValue = ({
   currentHeadlineLevel,
   isMissingValue,
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
-  const { codings } = data;
+  const { codings, labelsDe, staNotations } = data;
   const value = !isMissingValue
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
   const property = keyAccessOcc<Property>('property');
-
   const itemType: ItemType = isMissingValue
     ? keyAccessOcc('snaktype')
     : ('qualifiers-order' in occ &&
@@ -40,6 +40,13 @@ export const parseStringValue = ({
         occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
           ?.value?.id) ||
       'default';
+  const isLink: EntityId | undefined = ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Item)']] && occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id)
+    ? occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id
+    : ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Property)']] && occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id)
+    ? occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id
+    : undefined
+  const linkLabel: string | undefined = isLink ? labelsDe[isLink] : undefined
+  const linkStaNotation: string | undefined = isLink && staNotations[isLink] ? staNotations[isLink].label : undefined
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],
@@ -50,19 +57,22 @@ export const parseStringValue = ({
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
+  const nextHeaderLevel = 
+    currentHeadlineLevel + headingIndex
 
   return {
     value,
     headline: hasHeadline
       ? addHeadline(
           value,
-          currentHeadlineLevel +
-            headingIndex +
-            (isPropertyBlacklisted(property, 'headlines') ? 0 : 1),
+          nextHeaderLevel,
           noHeadline
         )
       : undefined,
     codings: codings[property],
     itemType,
+    isLink,
+    linkLabel,
+    linkStaNotation
   };
 };

@@ -49,7 +49,6 @@ export const FetchedEntity = memo(
       entityEntry?.entity.namespace,
       entityEntry?.entity.label,
     ]).join(' | ');
-
     return (
       <>
         <Head>{!loading && entityEntry && <title>{titleLabel}</title>}</Head>

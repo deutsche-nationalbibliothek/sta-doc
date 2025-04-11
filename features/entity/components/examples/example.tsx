@@ -3,16 +3,19 @@ import {
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
 import { useNamespace } from '@/hooks/use-namespace';
-import { Namespace } from '@/types/namespace';
-import { PrefCodingsLabel } from '@/types/parsed/coding';
 import { Statement, Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import { Card, Tag, Typography, theme } from 'antd';
-import { compact } from 'lodash';
 import React from 'react';
 import { Statements } from '../statements';
 import { RdaExample } from './rda-example';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import { ExampleProcessingResult, exampleStatementsReducer } from '@/utils/example-statements-reducer';
+import { propFinder } from '@/utils/find-property';
+import { statementsFilter } from '@/utils/filter-statements';
+import { ExternalLink } from '@/components/external-link';
+import { EditOutlined } from '@ant-design/icons';
+import { Item } from '@/types/item';
 
 export interface ExampleProps {
   entity: Entity;
@@ -42,145 +45,61 @@ export const Example: React.FC<ExampleProps> = ({
   entity,
   codingsPreferences,
 }) => {
-  const { namespace } = useNamespace();
-
-  const statements = [
-    ...entity.statements.header,
-    ...entity.statements.table,
-    ...entity.statements.body,
-  ];
-
-  const propFinder = (property: Property) =>
-    statements.find((statement) => statement.property === property);
-
+  console.log(entity.id,entity)
+  const websideUrl = process.env.NEXT_PUBLIC_URL as string;
+  const { token } = theme.useToken();
+  const statements = entity.statements.body
   const nonDefaultRenderStatements = {
-    description: propFinder(Property.description),
+    description: propFinder(Property.description,entity.statements.body),
     'description-(at-the-end)': propFinder(
-      Property['description-(at-the-end)']
+      Property['description-(at-the-end)'],entity.statements.body
     ),
   };
-
-  const statementFilter = (exampleStatement: Statement) =>
-    !nonDefaultRenderProperties.includes(exampleStatement.property);
-
-  const exampleStatementsReducer = (
-    acc: ExampleValues,
-    statement: Statement
-  ) => {
-    if (statement.stringGroups) {
-      const exampleValue = statement.stringGroups[0].values[0];
-      const formatNeutralStatement = exampleValue.qualifiers?.find(
-        (qualifier) => qualifier.property === Property['format-neutral-label']
-      );
-      const formatNeutralStatementValue =
-        formatNeutralStatement?.stringGroups &&
-        formatNeutralStatement?.stringGroups[0].values[0].value;
-
-      acc.formatNeutral = compact([
-        ...acc.formatNeutral,
-        {
-          label: formatNeutralStatementValue
-            ? formatNeutralStatementValue
-            : statement.label || '', // quickfix
-          value: exampleValue.value,
-        },
-      ]);
-
-      if ('qualifiers' in exampleValue) {
-        const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
-          (codingLabel: PrefCodingsLabel) =>
-            exampleValue.qualifiers?.map((qualifier) => {
-              return 'stringGroups' in qualifier
-                ? qualifier.stringGroups?.map((stringValueContainer) =>
-                    stringValueContainer.values.map((qualifierValue) => {
-                      const codingKey =
-                        codingLabel as keyof typeof qualifierValue.codings;
-                      return (
-                        'codings' in qualifierValue && {
-                          coding:
-                            qualifierValue.codings &&
-                            qualifierValue.codings[codingKey][0],
-                          value: qualifierValue.value,
-                        }
-                      );
-                    })
-                  )
-                : {
-                    coding: qualifier.codings
-                      ? (qualifier.codings[codingLabel]
-                          ? qualifier.codings[codingLabel][0]
-                          : '') +
-                        (qualifier.wikibasePointers
-                          ?.map((wikibasePointer) =>
-                            wikibasePointer.codings
-                              ? wikibasePointer.codings[codingLabel][0]
-                              : ''
-                          )
-                          .join('') || '')
-                      : '',
-                    value: '',
-                  };
-            })
-        );
-        if (statement.codings) {
-          acc['PICA3'] = [
-            ...acc['PICA3'],
-            [
-              { coding: statement.codings['PICA3'][0], value: '' },
-              ...compact((picaThree ?? []).flat(2)),
-            ],
-          ];
-          acc['PICA+'] = [
-            ...acc['PICA+'],
-            [
-              { coding: statement.codings['PICA+'][0], value: '' },
-              ...compact((picaPlus ?? []).flat(2)),
-            ],
-          ];
-        }
-      }
-    } else if (statement.codings) {
-      acc['PICA3'] = [
-        ...acc['PICA3'],
-        [{ coding: statement.codings['PICA3'][0], value: '' }],
-      ];
-      acc['PICA+'] = [
-        ...acc['PICA+'],
-        [{ coding: statement.codings['PICA+'][0], value: '' }],
-      ];
-    }
-    return acc;
-  };
-
-  const filteredStatements = statements.filter(statementFilter);
-
-  const relevantExamples: ExampleValues = filteredStatements.reduce(
-    exampleStatementsReducer,
+  const filteredStatements = statements.filter(statement => statementsFilter(statement, nonDefaultRenderProperties));
+  const relevantExamples: ExampleProcessingResult = filteredStatements.reduce((acc,statement) =>
+    exampleStatementsReducer(acc, statement, entity),
     {
       formatNeutral: [],
       PICA3: [],
       'PICA+': [],
-    } as ExampleValues
+    }
   );
 
   return (
     <>
+      {websideUrl === 'https://edit.sta.dnb.de' ? (
+        <ExternalLink
+          css={{
+            color: `${token.colorText} !important`,
+            float: 'right',
+            paddingRight: '3px'
+          }}
+          linkProps={{
+            href: `${websideUrl}/entity/${entity.id}`,
+          }}
+        >
+          <>
+            {' '}
+            <EditOutlined />
+          </>
+        </ExternalLink>
+      ) : undefined}
       {nonDefaultRenderStatements.description && (
         <Statements statements={[nonDefaultRenderStatements.description]} />
       )}
-      {namespace === Namespace.RDA ? (
+      {entity.pageType?.id && entity.pageType.id === Item['Example-RDA-of-STA-documentation'] ? (
         <RdaExample entity={entity} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
-          <Typography.Paragraph>
-            {relevantExamples.formatNeutral.map((formatNeutral, index) => (
-              <Typography.Paragraph key={index}>
-                <Typography.Text italic>{formatNeutral.label}</Typography.Text>
-                <br />
-                <Typography.Text strong>{formatNeutral.value}</Typography.Text>
-              </Typography.Paragraph>
-            ))}
-          </Typography.Paragraph>
+          {relevantExamples && relevantExamples.formatNeutral
+            ? relevantExamples.formatNeutral.map((formatNeutral, index) => (
+                <Typography.Paragraph key={index}>
+                  <Typography.Text italic>{formatNeutral.label}</Typography.Text>
+                  <br/>
+                  <Typography.Text strong>{formatNeutral.value}</Typography.Text>
+                </Typography.Paragraph>
+              ))
+            : undefined}
           <Typography.Paragraph>
             {['PICA3', 'PICA+']
               .filter((coding) =>
@@ -197,12 +116,16 @@ export const Example: React.FC<ExampleProps> = ({
               ))}
           </Typography.Paragraph>
         </React.Fragment>
-      )}
-      {nonDefaultRenderStatements['description-(at-the-end)'] && (
-        <Statements
-          statements={[nonDefaultRenderStatements['description-(at-the-end)']]}
-        />
-      )}
+      )
+      }
+      {nonDefaultRenderStatements['description-(at-the-end)'] &&
+        nonDefaultRenderStatements['description-(at-the-end)'].stringGroups && (
+          <Statements
+            statements={[
+              nonDefaultRenderStatements['description-(at-the-end)'],
+            ]}
+          />
+        )}
     </>
   );
 };
@@ -228,6 +151,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
+  // console.log('exampleValues',exampleValues)
   return (
     <Card
       css={{

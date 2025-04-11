@@ -16,7 +16,7 @@ export const EntityPreview: React.FC<EntityPreviewProps> = ({
   children,
   label,
   showPopover = true,
-  tooltipPlacement = 'right',
+  tooltipPlacement = 'bottom',
 }) => {
   return showPopover ? (
     <Popover
@@ -44,7 +44,7 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
         display: 'grid',
       }}
     >
-      <FetchEntity entityId={entityId}>
+      <FetchEntity entityId={entityId} ignoreFetchingQueryParamString={true}>
         {({ entity }) => (
           <div
             css={{

@@ -95,7 +95,6 @@ export const stringMapper = (val: PreMappedStatement): StatementValue => {
       groupReducer,
       [] as StringGroup[]
     );
-
     return groupedContent;
   };
   if (val && 'stringGroups' in val && val.stringGroups) {

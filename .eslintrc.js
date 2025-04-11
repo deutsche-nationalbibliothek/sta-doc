@@ -16,6 +16,7 @@ module.exports = {
     '@emotion/pkg-renaming': 'error',
     // 'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
     // '@typescript-eslint/no-unsafe-assignment': 0,
     // '@typescript-eslint/no-misused-promises': 0,
     // '@typescript-eslint/no-unsafe-member-access': 0,

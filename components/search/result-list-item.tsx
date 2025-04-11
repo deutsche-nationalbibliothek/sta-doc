@@ -5,6 +5,7 @@ import { Doc, DocSearchKey } from '@/types/search';
 import { compact } from 'lodash';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 import { Typography } from 'antd';
+import { Item } from '@/types/item';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -59,7 +60,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
             <Link
               onClick={onCloseDrawer}
               href={
-                doc.id === 'Q10177'
+                doc.id === Item['Documentation-platform-of-the-standardization-committee']
                   ? `/`
                   : `/${doc.staNotationLabel.toString()}`
               }

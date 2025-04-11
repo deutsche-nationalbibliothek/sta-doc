@@ -26,6 +26,7 @@ import { StaNotations } from '../../types/parsed/sta-notation';
 import { Descriptions } from '../../types/parsed/description';
 import { RdaElementStatusesRaw } from '../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../types/parsed/rda-element-status';
+import { PropertyTypesRaw } from '../../types/raw/property-type';
 
 interface ReadParsed {
   labels: {
@@ -57,6 +58,7 @@ export interface ReadRaw {
     index: () => EntitiesIndexRaw;
   };
   fields: () => FieldsRaw;
+  propertyTypes: () => PropertyTypesRaw;
   schemas: () => SchemasRaw;
   staNotations: () => StaNotationsRaw;
   codings: () => CodingsRaw;
@@ -81,6 +83,7 @@ const readRaw: ReadRaw = {
     de: () => readJSONFile<LabelDeRaws>(NAMES.labelDe, DataState.raw),
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, DataState.raw),
   },
+  propertyTypes: () => readJSONFile<PropertyTypesRaw>(NAMES.propertyType, DataState.raw),
   staNotations: () =>
     readJSONFile<StaNotationsRaw>(NAMES.staNotation, DataState.raw),
   schemas: () => readJSONFile<SchemasRaw>(NAMES.schema, DataState.raw),

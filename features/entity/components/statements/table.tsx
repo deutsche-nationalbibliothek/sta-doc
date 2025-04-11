@@ -119,33 +119,11 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                 return (
                   <ExpandToggle key={index}>
                     {stringStatement.map((stringValue, index) => {
-                      const isRecordingMethod =
-                        stringValue.property === Property['Recording-method'];
-
-                      // kinda hack requested: if we render Recording-method and have
-                      // the following WikibasePointers then we want to render only the wikibasePointer
-                      // but with value of the stringValue.value
-                      const hasExceptionalWikibasePointer =
-                        isRecordingMethod &&
-                        [
-                          Item['unstructured-description'],
-                          Item['Q2039'],
-                          Item['Identifier'],
-                        ].some(
-                          (exceptionalPointer) =>
-                            stringValue.qualifiers &&
-                            stringValue.qualifiers.length === 1 &&
-                            stringValue.qualifiers.some(
-                              (qualifier) =>
-                                qualifier.wikibasePointers &&
-                                qualifier.wikibasePointers.length === 1 &&
-                                qualifier.wikibasePointers.some(
-                                  (wikibasePointer) =>
-                                    wikibasePointer.id === exceptionalPointer
-                                )
-                            )
+                      const linkItemQualifier =
+                        stringValue.qualifiers?.find(
+                          (qualifier) =>
+                            qualifier.property === Property['Link-(Item)'] || Property['Link-(Property)']
                         );
-
                       const typeOfLayoutQualifier =
                         stringValue.qualifiers?.find(
                           (qualifier) =>
@@ -163,7 +141,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                           }}
                           key={index}
                         >
-                          {hasExceptionalWikibasePointer ? (
+                          {linkItemQualifier ? (
                             <>
                               <Qualifiers
                                 showHeadline={false}
@@ -242,7 +220,8 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
   );
   if (sameStatus.length === 0) {
     rdaElementStatus = rdaElementStatus.slice(0, 1);
-    rdaElementStatus[0].ressourceType.id = Item.Q8568;
+    rdaElementStatus[0].ressourceType.id =
+      Item['Application-profiles-of-RDA-general'];
     rdaElementStatus[0].ressourceType.label = 'Alle Anwendungsprofile';
     rdaElementStatus[0].ressourceType.staNotationLabel = 'RDA-AP';
   }
@@ -290,7 +269,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       }}
       showHeader={false}
       dataSource={rdaElementStatus.map((e) => ({ ...e, key: e.status.id }))}
-      columns={columns}
+      columns={columns as ColumnsTypes<RdaElementStatus>}
       pagination={rdaElementStatus.length > 7 ? { pageSize: 7 } : false}
     />
   );

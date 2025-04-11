@@ -26,8 +26,10 @@ import { useMemo, useState, useEffect } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+// import { API_URL } from '@/bin/data/fetcher';
 
 export const Footer: React.FC = () => {
+  const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
   const [currentUrl, setCurrentUrl] = useState('');
@@ -150,7 +152,7 @@ export const Footer: React.FC = () => {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Version: 2023/1
+                  Version: 2024/2
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
                 <span
@@ -169,7 +171,7 @@ export const Footer: React.FC = () => {
                       color: `${token.colorText} !important`,
                     }}
                     linkProps={{
-                      href: `https://sta.dnb.de/doc/STA-IMPRESSUM`,
+                      href: `${websideUrl}/doc/STA-IMPRESSUM`,
                     }}
                   >
                     <>Impressum</>
@@ -217,7 +219,7 @@ export const Footer: React.FC = () => {
               >
                 <a
                   href={
-                    `mailto:afs@dnb.de&subject=` +
+                    `mailto:afs@dnb.de?subject=` +
                     `STA-Doku-Plattform: Anmerkung zur Seite: ` +
                     `${currentUrl}` +
                     `&body=` +
@@ -264,7 +266,7 @@ export const Footer: React.FC = () => {
                         color: `${token.colorText} !important`,
                       }}
                       linkProps={{
-                        href: `https://sta.dnb.de/entity/${entity.id}`,
+                        href: `${websideUrl}/entity/${entity.id}`,
                       }}
                     >
                       <>

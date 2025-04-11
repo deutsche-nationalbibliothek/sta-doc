@@ -1,5 +1,5 @@
 #!/bin/bash
 
-yarn split-entities &&
-	yarn docker:solr:index &&
+npm run split-entities &&
+	npm run docker:solr:index &&
 	echo 'done'

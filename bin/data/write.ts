@@ -1,9 +1,14 @@
 import { PropertiesItemsList } from '../../types/parsed/property-item-list';
+import { EntitiesRaw } from '../../types/raw/entity';
 import type { fetcher } from './fetcher';
 import type { ParsedAllFromRead } from './parse';
 import { DataState, writeJSONFile } from './utils';
 import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
+
+export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
+  writeJSONFile(data, NAMES.entity, DataState.raw);
+};
 
 export const writeRaw = (
   data: Partial<Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>>
@@ -32,6 +37,8 @@ export const writeRaw = (
       writeJSONFile(data.labels.en, NAMES.labelEn, DataState.raw),
   };
 
+  const propertyTypes = () =>
+    writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.raw);
   const staNotations = () =>
     writeJSONFile(data.staNotations, NAMES.staNotation, DataState.raw);
   const schemas = () =>
@@ -59,6 +66,7 @@ export const writeRaw = (
     fields();
     labels.de();
     labels.en();
+    propertyTypes();
     staNotations();
     schemas();
     codings();
@@ -71,6 +79,7 @@ export const writeRaw = (
     entities,
     fields,
     labels,
+    propertyTypes,
     staNotations,
     schemas,
     codings,
@@ -119,21 +128,24 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     writeJSONFile(data.descriptions, NAMES.description, DataState.parsed);
   // const rdaRules = () =>
   //   writeJSONFile(data.rdaRules, NAMES.rdaRule, DataState.parsed);
-  const rdaProperties = () =>
-    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
-
+  const propertyTypes= () =>
+    writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.parsed);
   const rdaElementStatuses = () =>
     writeJSONFile(
       data.rdaElementStatuses,
       NAMES.rdaElementStatuses,
       DataState.parsed
     );
+  const rdaProperties = () =>
+    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
+
   const writeAll = () => {
     entities.index();
     entities.all();
     fields();
     labels.de();
     labels.en();
+    propertyTypes();
     staNotations();
     schemas();
     codings();
@@ -147,6 +159,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     entities,
     fields,
     labels,
+    propertyTypes,
     staNotations,
     schemas,
     codings,
@@ -161,6 +174,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
 export const writer = {
   raw: writeRaw,
+  rawSingle: writeSingleRaw,
   parsed: writeParsed,
 };
 
