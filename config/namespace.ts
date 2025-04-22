@@ -1,4 +1,4 @@
-import { Namespace, NamespaceConfig } from '../types/namespace';
+import { Namespace, NamespaceConfig } from '@/types/namespace';
 import colors from './colors';
 
 const namespaceConfig: NamespaceConfig = {
@@ -17,6 +17,9 @@ const namespaceConfig: NamespaceConfig = {
   },
   // color codes for rgb()
   colors: {
+    STA:  {
+      primary: colors['sta-color'],
+    },
     RDA: {
       primary: colors['rda-color'],
     },

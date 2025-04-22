@@ -8,7 +8,7 @@ export enum Namespace {
 
 export type NamespaceId = 'Q1' | 'Q15' | 'Q3113' | 'Q263' | 'Q8540';
 
-export type PrimaryNamespace = Namespace.GND | Namespace.RDA;
+export type PrimaryNamespace =  Namespace.STA | Namespace.GND | Namespace.RDA;
 
 export type NamespaceColor = PrimaryNamespace | 'unspecific';
 
@@ -25,10 +25,10 @@ interface NamespaceColors {
   primary: string;
 }
 
-export const namespaceToColor = (namespace: Namespace): NamespaceColor =>
-  isPrimaryNamepsace(namespace) ? namespace : 'unspecific';
+export const namespaceToColor = (staNamespace: Namespace): NamespaceColor =>
+  isPrimaryStaNamespace(staNamespace) ? staNamespace : 'unspecific';
 
-export const isPrimaryNamepsace = (
+export const isPrimaryStaNamespace = (
   namespace: Namespace
 ): namespace is PrimaryNamespace =>
-  [Namespace.GND, Namespace.RDA].includes(namespace);
+  [Namespace.STA, Namespace.GND, Namespace.RDA].includes(namespace);

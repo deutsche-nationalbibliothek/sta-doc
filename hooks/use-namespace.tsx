@@ -1,5 +1,5 @@
 import {
-  isPrimaryNamepsace,
+  isPrimaryStaNamespace,
   Namespace,
   NamespaceColor,
 } from '@/types/namespace';
@@ -29,7 +29,7 @@ interface NamespaceProviderProps {
 export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
   children,
 }) => {
-  const [namespace, setNamespace] = useState<Namespace>();
+  const [namespace, setStaNamespace] = useState<Namespace>();
 
   const { setThemeConfig } = useThemeConfig();
   // @primary-color
@@ -37,6 +37,13 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     Record<NamespaceColor, { token: { colorPrimary?: string } }>
   >(
     () => ({
+      [Namespace.STA]: {
+        ...themeConfigDefault,
+        token: {
+          ...themeConfigDefault.token,
+          colorPrimary: namespaceConfig.colors[Namespace.STA].primary,
+        },
+      },
       [Namespace.RDA]: {
         ...themeConfigDefault,
         token: {
@@ -61,19 +68,19 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     }),
     []
   );
-  const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
-    if (nextNamespace) {
-      if (isPrimaryNamepsace(nextNamespace)) {
-        setThemeConfig(nameSpaceTokens[nextNamespace]);
+  const onSetStaNamespace: Dispatch<Namespace | undefined> = (nextStaNamespace) => {
+    if (nextStaNamespace) {
+      if (isPrimaryStaNamespace(nextStaNamespace)) {
+        setThemeConfig(nameSpaceTokens[nextStaNamespace]);
       } else {
         setThemeConfig(nameSpaceTokens['unspecific']);
       }
     }
-    setNamespace(nextNamespace);
+    setStaNamespace(nextStaNamespace);
   };
 
-  const onResetNamespace = useCallback(() => {
-    setNamespace(undefined);
+  const onResetStaNamespace = useCallback(() => {
+    setStaNamespace(undefined);
     setThemeConfig(nameSpaceTokens['unspecific']);
   }, [nameSpaceTokens, setThemeConfig]);
 
@@ -81,8 +88,8 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     <NamespaceContext.Provider
       value={{
         namespace,
-        setNamespace: onSetNamepsace,
-        onResetNamespace,
+        setNamespace: onSetStaNamespace,
+        onResetNamespace: onResetStaNamespace,
       }}
     >
       {children}
