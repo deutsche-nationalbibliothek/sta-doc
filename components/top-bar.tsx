@@ -105,7 +105,7 @@ export const TopBar: React.FC = () => {
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/RDA">RDA DACH</Link>
+                  <Link href="/RDA">Ressourcenerschließung</Link>
                 </span>
               ),
               key: 'RDA',

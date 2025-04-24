@@ -1,6 +1,7 @@
 :root {
   /* duplicates config/colors.ts  */
-  --unspecific-namespace-color: #979696;
+  --unspecific-namespace-color: #9796A0;
+  --sta-color: #898995;
   --rda-color: #ed7b15;
   --gnd-color: #0068ff;
   --light-gray: #f0f0f0;
