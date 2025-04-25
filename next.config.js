@@ -55,13 +55,13 @@ const getVersion = () => {
       'git describe --tags --abbrev=0',
       function (error, standardOutput, standardError) {
         if (error) {
-          reject();
+          reject("Problem in getVersion: " + error);
 
           return;
         }
 
         if (standardError) {
-          reject(standardError);
+          reject("Problem in getVersion: " + standardError);
 
           return;
         }
