@@ -15,7 +15,6 @@
     "data:parse": "ts-node bin/data parse",
     "data:parse:single": "ts-node bin/data parse:single",
     "data:parse:codings": "ts-node bin/data parse:codings",
-    "data:parse:propertyTypes": "ts-node bin/data parse:propertyTypes",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "split-entities": "./bin/split-entities-solr.sh",
     "split-entities-powershell": "powershell -File ./bin/split-entities-solr.ps1",
@@ -53,7 +52,6 @@
     "next-query-params": "^5.1.0",
     "next-router-mock": "^0.9.13",
     "node-fetch": "^2.7.0",
-    "npm": "^11.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.6",
@@ -64,7 +62,8 @@
     "swr": "^2.3.2",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "use-query-params": "^2.2.1"
+    "use-query-params": "^2.2.1",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.26.0",

@@ -1,5 +1,5 @@
 import {
-  isPrimaryStaNamespace,
+  isPrimaryNamepsace,
   Namespace,
   NamespaceColor,
 } from '@/types/namespace';
@@ -29,7 +29,7 @@ interface NamespaceProviderProps {
 export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
   children,
 }) => {
-  const [namespace, setStaNamespace] = useState<Namespace>();
+  const [namespace, setNamespace] = useState<Namespace>();
 
   const { setThemeConfig } = useThemeConfig();
   // @primary-color
@@ -68,19 +68,19 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     }),
     []
   );
-  const onSetStaNamespace: Dispatch<Namespace | undefined> = (nextStaNamespace) => {
-    if (nextStaNamespace) {
-      if (isPrimaryStaNamespace(nextStaNamespace)) {
-        setThemeConfig(nameSpaceTokens[nextStaNamespace]);
+  const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
+    if (nextNamespace) {
+      if (isPrimaryNamepsace(nextNamespace)) {
+        setThemeConfig(nameSpaceTokens[nextNamespace]);
       } else {
         setThemeConfig(nameSpaceTokens['unspecific']);
       }
     }
-    setStaNamespace(nextStaNamespace);
+    setNamespace(nextNamespace);
   };
 
-  const onResetStaNamespace = useCallback(() => {
-    setStaNamespace(undefined);
+  const onResetNamespace = useCallback(() => {
+    setNamespace(undefined);
     setThemeConfig(nameSpaceTokens['unspecific']);
   }, [nameSpaceTokens, setThemeConfig]);
 
@@ -88,8 +88,8 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     <NamespaceContext.Provider
       value={{
         namespace,
-        setNamespace: onSetStaNamespace,
-        onResetNamespace: onResetStaNamespace,
+        setNamespace: onSetNamepsace,
+        onResetNamespace,
       }}
     >
       {children}

@@ -1,13 +1,13 @@
-import { Namespace, NamespaceConfig } from '@/types/namespace';
+import { Namespace, NamespaceConfig } from '../types/namespace';
 import colors from './colors';
 
 const namespaceConfig: NamespaceConfig = {
   // Namespaces which are not used at all, entities will be ignored on parsing
   // and will render 404 pages
   notUsed: [Namespace.UC],
-  primaryNamespaces: [Namespace.RDA, Namespace.GND],
+  primaryNamespaces: [Namespace.RDA, Namespace.GND, Namespace.STA],
   // Namespaces which are not highlighted (no logo, no tags on internal links)
-  notPointedOut: [Namespace.Q15, Namespace.STA],
+  notPointedOut: [Namespace.Q15],
   map: {
     Q1: Namespace.GND,
     Q15: Namespace.Q15,

@@ -25,10 +25,10 @@ interface NamespaceColors {
   primary: string;
 }
 
-export const namespaceToColor = (staNamespace: Namespace): NamespaceColor =>
-  isPrimaryStaNamespace(staNamespace) ? staNamespace : 'unspecific';
+export const namespaceToColor = (namespace: Namespace): NamespaceColor =>
+  isPrimaryNamepsace(namespace) ? namespace : 'unspecific';
 
-export const isPrimaryStaNamespace = (
+export const isPrimaryNamepsace = (
   namespace: Namespace
 ): namespace is PrimaryNamespace =>
   [Namespace.STA, Namespace.GND, Namespace.RDA].includes(namespace);

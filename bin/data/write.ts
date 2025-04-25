@@ -128,24 +128,21 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     writeJSONFile(data.descriptions, NAMES.description, DataState.parsed);
   // const rdaRules = () =>
   //   writeJSONFile(data.rdaRules, NAMES.rdaRule, DataState.parsed);
-  const propertyTypes= () =>
-    writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.parsed);
+  const rdaProperties = () =>
+    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
+
   const rdaElementStatuses = () =>
     writeJSONFile(
       data.rdaElementStatuses,
       NAMES.rdaElementStatuses,
       DataState.parsed
     );
-  const rdaProperties = () =>
-    writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
-
   const writeAll = () => {
     entities.index();
     entities.all();
     fields();
     labels.de();
     labels.en();
-    propertyTypes();
     staNotations();
     schemas();
     codings();
@@ -159,7 +156,6 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     entities,
     fields,
     labels,
-    propertyTypes,
     staNotations,
     schemas,
     codings,
