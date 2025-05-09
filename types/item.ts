@@ -5434,7 +5434,7 @@ export enum Item {
   'Q11879' = 'Q11879',
   'Q11880' = 'Q11880',
   'Relation-of-Property-type' = 'Q11881',
-  'Relationship-label-of-property-type' = 'Q11882',
+  'Q11882' = 'Q11882',
   'Q11883' = 'Q11883',
   'Q11884' = 'Q11884',
   'Q11885' = 'Q11885',
