@@ -21,6 +21,7 @@ export interface EntityRaw {
 
 interface Labels {
   de: De;
+  fr: Fr;
 }
 
 interface De {
@@ -28,8 +29,14 @@ interface De {
   value: string;
 }
 
+interface Fr {
+  language: string;
+  value: string;
+}
+
 interface Aliases {
   de?: De[];
+  fr?: Fr[];
 }
 
 export interface Claim {
