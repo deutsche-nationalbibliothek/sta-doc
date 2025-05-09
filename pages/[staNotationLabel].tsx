@@ -1,4 +1,5 @@
-import entities from '@/data/parsed/entities.json';
+import entities from '@/data/parsed/entities-de.json';
+import entitiesFr from '@/data/parsed/entities-fr.json';
 import schemas from '@/data/parsed/schemas.json';
 import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
@@ -145,23 +146,43 @@ export const getStaticProps: GetStaticProps<
   }
 };
 
+const dePaths = Object.keys(entities as unknown as EntitiesEntries)
+  .filter(
+    (entityId) =>
+      !isPropertyBlacklisted(entityId as EntityId) &&
+      'staNotationLabel' in
+        (entities as unknown as EntitiesEntries)[entityId as EntityId]
+          .entity
+  )
+  .map((entityId) => ({
+    params: {
+      staNotationLabel: (entities as unknown as EntitiesEntries)[
+        entityId as EntityId
+      ].entity.staNotationLabel,
+    },
+    locale: 'de',
+  }));
+
+const frPaths = Object.keys(entitiesFr as unknown as EntitiesEntries)
+  .filter(
+    (entityId) =>
+      !isPropertyBlacklisted(entityId as EntityId) &&
+      'staNotationLabel' in
+        (entitiesFr as unknown as EntitiesEntries)[entityId as EntityId]
+          .entity
+  )
+  .map((entityId) => ({
+    params: {
+      staNotationLabel: (entitiesFr as unknown as EntitiesEntries)[
+        entityId as EntityId
+      ].entity.staNotationLabel,
+    },
+    locale: 'fr',
+  }));
+
 export const getStaticPaths: GetStaticPaths = () => {
   return {
-    paths: Object.keys(entities as unknown as EntitiesEntries)
-      .filter(
-        (entityId) =>
-          !isPropertyBlacklisted(entityId as EntityId) &&
-          'staNotationLabel' in
-            (entities as unknown as EntitiesEntries)[entityId as EntityId]
-              .entity
-      )
-      .map((entityId) => ({
-        params: {
-          staNotationLabel: (entities as unknown as EntitiesEntries)[
-            entityId as EntityId
-          ].entity.staNotationLabel,
-        },
-      })),
+    paths: [...dePaths, ...frPaths],
     fallback: true,
   };
 };
