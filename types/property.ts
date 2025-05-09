@@ -52,7 +52,7 @@ export enum Property {
   'URI-no-longer-valid-of-GND-Subfield' = 'P54',
   'Relationship:-Person-or-family' = 'P55',
   'Relationship:-Corporate-Body' = 'P56',
-  'URI-of-GND-Subfield' = 'P57',
+  'URIGNDSubfield' = 'P57',
   'Preferred-name:-person-or-family' = 'P58',
   'Variant-name-of-a-person-or-family' = 'P59',
   'applicable-for-data-field' = 'P60',
