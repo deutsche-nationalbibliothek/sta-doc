@@ -2,11 +2,13 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { EntityId } from '@/types/entity-id';
 import { EntitiesRaw } from '@/types/raw/entity';
 import { EntitiesEntries } from '@/types/parsed/entity';
-import entities from '@/data/parsed/entities.json';
+import entities from '@/data/parsed/entities-de.json';
+// import entitiesFr from '@/data/parsed/entities-fr.json';
 import parsedCodings from '@/data/parsed/codings.json';
 import parsedFields from '@/data/parsed/fields.json';
 import parsedLabelsDe from '@/data/parsed/labels-de.json';
 import parsedLabelsEn from '@/data/parsed/labels-en.json';
+import parsedLabelsFr from '@/data/parsed/labels-fr.json';
 import parsedPropertyTypes from '@/data/parsed/property-types.json';
 import parsedRdaElementStatuses from '@/data/parsed/rda-element-statuses.json';
 import parsedSchemas from '@/data/parsed/schemas.json';
@@ -51,6 +53,7 @@ const getLiveEntity = async (
   fetch: ReturnType<typeof fetcher>,
   entityId: EntityId
 ) => {
+  const lang = 'de'
   const prefetched = {} as EntitiesRaw;
 
   // prefetch to parse without async
@@ -72,8 +75,9 @@ const getLiveEntity = async (
 
   const entity = prefetched[entityId];
   if (entity) {
-    const labelsEn = parsedLabelsEn as unknown as ParseEntitiesData['labelsEn'];
     const labelsDe = parsedLabelsDe as unknown as ParseEntitiesData['labelsDe'];
+    const labelsEn = parsedLabelsEn as unknown as ParseEntitiesData['labelsEn'];
+    const labelsFr = parsedLabelsFr as unknown as ParseEntitiesData['labelsFr'];
     const codings = parsedCodings as unknown as ParseEntitiesData['codings'];
     const propertyTypes = parsedPropertyTypes as unknown as ParseEntitiesData['propertyTypes'];
     const staNotations = parsedStaNotations as unknown as ParseEntitiesData['staNotations'];
@@ -84,9 +88,11 @@ const getLiveEntity = async (
     return parseEntities({
       rawEntities: { [entityId]: entity },
       getRawEntityById: (id: EntityId) => prefetched[id],
+      lang,
       data: {
         labelsEn,
         labelsDe,
+        labelsFr,
         codings,
         propertyTypes,
         staNotations,
