@@ -56,6 +56,7 @@ export const blacklist: {
     Property['Link-(Item)'],
     Property['Link-(Property)'],
     Property['original-language'],
+    Property['Language-of-the-statement'],
   ],
 };
 
