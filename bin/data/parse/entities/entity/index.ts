@@ -14,7 +14,7 @@ import {
 } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
-import { filterSortTransformStatemants } from './filter-sort-transform-statemants';
+import { filterSortTransformStatements } from './filter-sort-transform-statements';
 import {
   Groups,
   defaultGroupsDefinition,
@@ -24,13 +24,14 @@ import { headlinesParser } from './util';
 
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
+  currentHeadlineLevel?: number;
+  embedded?: boolean;
   entityId: EntityId;
   headlines?: Headline[];
-  currentHeadlineLevel?: number;
-  prevParsedEntities?: EntityId[];
-  embedded?: boolean;
   isRdaRessourceEntityParam?: boolean;
+  lang: string
   noHeadline?: boolean;
+  prevParsedEntities?: EntityId[];
 }
 
 export const parseRawEntity = (
@@ -38,7 +39,7 @@ export const parseRawEntity = (
 ): EntityEntry | undefined => {
   console.log(
     !props.embedded ? '\n' : '\t',
-    '\t\tParsing Entity',
+    '\t\tParsing',props.lang, 'Entity',
     props.entityId
   );
 
@@ -57,6 +58,7 @@ export const parseRawEntity = (
     data,
     getRawEntityById,
     headlines,
+    lang,
     currentHeadlineLevel,
     prevParsedEntities,
     embedded,
@@ -67,18 +69,18 @@ export const parseRawEntity = (
   const {
     labelsDe,
     labelsEn,
+    labelsFr,
     staNotations,
     fields,
     schemas,
     rdaElementStatuses,
     propertyTypes
   } = data;
-
   const entity = getRawEntityById(entityId);
 
   if (!entity) {
     console.warn(
-      '\t\t\tentity not found:',
+      '\t\t\tEntity not found:',
       entityId,
       '. But referenced in the dataset:',
       prevParsedEntities.join(', ')
@@ -142,7 +144,18 @@ export const parseRawEntity = (
       ? rdaRessourceTypeGroups
       : defaultGroupsDefinition;
 
-    const label = labelsDe[entityId] ?? entity.labels.de?.value;
+    // const label = labelsDe[entityId] ?? entity.labels.de?.value;
+    let label = '';
+    switch(lang) {
+      case 'fr':
+        label = labelsFr[entityId] ?? entity.labels.fr?.value;
+        break;
+      case 'de':
+        label = labelsDe[entityId] ?? entity.labels.de?.value;
+        break;
+      default:
+        label = labelsDe[entityId] ?? entity.labels.de?.value;
+    }
 
     const pageType = elementOfId
       ? ({
@@ -205,7 +218,6 @@ export const parseRawEntity = (
       label: !embedded ? label : undefined,
       elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
       annotation,
-      pageType,
       contextOfUseLabel,
       namespace,
       field:
@@ -217,7 +229,7 @@ export const parseRawEntity = (
       rdaElementStatuses: isRdaElementEntity
         ? rdaElementStatuses[entityId]
         : undefined,
-      statements: filterSortTransformStatemants({
+      statements: filterSortTransformStatements({
         ...defaultedProps,
         relevantGroup,
         occurrences: entity.claims,

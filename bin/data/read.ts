@@ -8,12 +8,14 @@ import { EntitiesIndexRaw } from '../../types/raw/entity-index';
 import { FieldsRaw } from '../../types/raw/field';
 import { LabelDeRaws } from '../../types/raw/label-de';
 import { LabelEnRaws } from '../../types/raw/label-en';
+import { LabelFrRaws } from '../../types/raw/label-fr';
 import { RdaPropertiesRaw } from '../../types/raw/rda-property';
 import { DataState, readJSONFile } from './utils';
 import { NAMES } from './utils/names';
 import { RdaProperties } from '../../types/parsed/rda-property';
 import { LabelsDe } from '../../types/parsed/label-de';
 import { LabelsEn } from '../../types/parsed/label-en';
+import { LabelsFr } from '../../types/parsed/label-fr';
 import {
   Codings,
   EntitiesEntries,
@@ -32,9 +34,10 @@ interface ReadParsed {
   labels: {
     de: () => LabelsDe;
     en: () => LabelsEn;
+    fr: () => LabelsFr;
   };
   entities: {
-    all: () => EntitiesEntries;
+    all: (lang: string) => EntitiesEntries;
     single: (entityId: EntityId) => EntityEntry;
     index: () => EntitiesIndex;
   };
@@ -51,6 +54,7 @@ export interface ReadRaw {
   labels: {
     de: () => LabelDeRaws;
     en: () => LabelEnRaws;
+    fr: () => LabelFrRaws;
   };
   entities: {
     all: () => EntitiesRaw;
@@ -82,6 +86,7 @@ const readRaw: ReadRaw = {
   labels: {
     de: () => readJSONFile<LabelDeRaws>(NAMES.labelDe, DataState.raw),
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, DataState.raw),
+    fr: () => readJSONFile<LabelFrRaws>(NAMES.labelFr, DataState.raw),
   },
   propertyTypes: () => readJSONFile<PropertyTypesRaw>(NAMES.propertyType, DataState.raw),
   staNotations: () =>
@@ -102,7 +107,13 @@ const readRaw: ReadRaw = {
 
 const readParsed: ReadParsed = {
   entities: {
-    all: () => readJSONFile<EntitiesEntries>(NAMES.entity, DataState.parsed),
+    all: (lang: string) => {
+      if ( lang == 'fr') {
+        return readJSONFile<EntitiesEntries>(NAMES.entityFr, DataState.parsed);
+      } else {
+        return readJSONFile<EntitiesEntries>(NAMES.entityDe, DataState.parsed);
+      }
+    },
     single: (entityId: EntityId) => {
       const entity = readJSONFile<EntitiesEntries>(
         NAMES.entity,
@@ -118,6 +129,7 @@ const readParsed: ReadParsed = {
   labels: {
     de: () => readJSONFile<LabelsDe>(NAMES.labelDe, DataState.parsed),
     en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.parsed),
+    fr: () => readJSONFile<LabelsFr>(NAMES.labelFr, DataState.parsed),
   },
   staNotations: () =>
     readJSONFile<StaNotations>(NAMES.staNotation, DataState.parsed),

@@ -27,6 +27,7 @@ export const parseStatement = (props: ParseStatementProps) => {
     keyAccessOcc,
     prevParsedEntities,
     headlines,
+    lang,
     entityId,
     data,
     getRawEntityById,
@@ -110,6 +111,7 @@ export const parseStatement = (props: ParseStatementProps) => {
     ? parseRawEntity({
         entityId: embeddedEntityId,
         headlines,
+        lang,
         currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
         prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
         isRdaRessourceEntityParam,

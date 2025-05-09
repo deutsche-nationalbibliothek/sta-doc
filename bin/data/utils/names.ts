@@ -3,6 +3,14 @@ export const NAMES = {
     file: { singular: 'entity', plural: 'entities' },
     type: 'Entity',
   },
+  entityDe: {
+    file: { singular: 'entity-de', plural: 'entities-de' },
+    type: 'Entity',
+  },
+  entityFr: {
+    file: { singular: 'entity-fr', plural: 'entities-fr' },
+    type: 'Entity',
+  },
   entityIndex: {
     file: { singular: 'entity-index', plural: 'entities-index' },
     type: 'EntityIndex',
@@ -30,6 +38,10 @@ export const NAMES = {
   labelDe: {
     file: { singular: 'label-de', plural: 'labels-de' },
     type: 'LabelDe',
+  },
+  labelFr: {
+    file: { singular: 'label-fr', plural: 'labels-fr' },
+    type: 'LabelFr',
   },
   rdaProperty: {
     file: { singular: 'rda-property', plural: 'rda-properties' },

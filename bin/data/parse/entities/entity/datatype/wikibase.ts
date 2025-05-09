@@ -27,11 +27,13 @@ export const parseWikibaseValue = (
     isElementsPropOnRdaRessourceType,
     keyAccessOcc,
     data,
+    lang,
     isTopLevel,
     isMissingValue,
     addHeadline,
     noHeadline,
   } = props;
+
 
   const wemiSpecificsWhitelist = [
     Property.description,
@@ -39,7 +41,7 @@ export const parseWikibaseValue = (
     Property['description-(at-the-end)'],
   ];
 
-  const { schemas, labelsDe, staNotations, codings } = data;
+  const { schemas, labelsDe, labelsFr, staNotations, codings } = data;
   const id = isMissingValue
     ? Item['undefined-of-Default-value']
     : keyAccessOcc<EntityId>('datavalue', 'value', 'id');
@@ -67,12 +69,13 @@ export const parseWikibaseValue = (
 
   const parentPropertyId = 'parentProperty' in occ && occ.parentProperty;
 
+  const labelLang = lang === 'fr' ? labelsFr[id] : labelsDe[id]
   const label =
     isElementsPropOnRdaRessourceType &&
     parentPropertyId === Property['Elements'] &&
     staNotationLabel
-      ? `${staNotationLabel.split('-').pop() ?? ''} - ${labelsDe[id]}`
-      : labelsDe[id];
+      ? `${staNotationLabel.split('-').pop() ?? ''} - ${labelLang}`
+      : labelLang;
 
   return {
     id,

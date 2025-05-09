@@ -24,7 +24,12 @@ export const parseStringValue = ({
   noHeadline,
   currentHeadlineLevel,
   isMissingValue,
-}: ParseStringValue): Omit<StringValue, keyof CommonValue> => {
+  lang
+}: ParseStringValue): Omit<StringValue, keyof CommonValue> | undefined => {
+  const langFr = 'qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Language-of-the-statement']] ? occ.qualifiers[Property['Language-of-the-statement']][0].datavalue?.value as unknown as string : ''
+  if (lang === 'de' && langFr === 'fr' || lang === 'fr' && langFr === 'de') { 
+    return 
+  }
   const { codings, labelsDe, staNotations } = data;
   const value = !isMissingValue
     ? keyAccessOcc<string>('datavalue', 'value')

@@ -11,16 +11,16 @@ import {
   StatementRaw,
 } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
-import { FilterSortTransformStatementsProps } from './filter-sort-transform-statemants';
+import { FilterSortTransformStatementsProps } from './filter-sort-transform-statements';
 import { parseStatement } from './statement';
 import { AddHeadline, stringMapper } from './util';
 
 export interface ParseStatementsProps
   extends Required<FilterSortTransformStatementsProps> {
-  statements: StatementRaw[][] | Claim[][];
+  addHeadline: AddHeadline;
   isTopLevel?: boolean;
   isElementsPropOnRdaRessourceType?: boolean;
-  addHeadline: AddHeadline;
+  statements: StatementRaw[][] | Claim[][];
 }
 
 export const parseStatements = (
@@ -34,18 +34,19 @@ export const parseStatements = (
   };
 
   const {
+    addHeadline,
+    currentHeadlineLevel,
     data,
     entityId,
-    currentHeadlineLevel,
+    isRdaRessourceEntity,
+    isTopLevel,
+    lang,
     noHeadline,
     statements,
-    isTopLevel,
     // isElementsPropOnRdaRessourceType,
-    addHeadline,
-    isRdaRessourceEntity,
   } = defaultedProps;
 
-  const { labelsDe, codings, propertyTypes, schemas, staNotations } = data;
+  const { labelsDe, labelsFr, codings, propertyTypes, schemas, staNotations } = data;
 
   const keyAccess = <T>(
     occ: Claim | StatementRaw,
@@ -81,7 +82,7 @@ export const parseStatements = (
       const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
 
       const dataType = dataTypeMap[dataTypeRaw];
-      const label = labelsDe[property];
+      const label = lang === 'fr' ? labelsFr[property] : labelsDe[property];
 
       const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
