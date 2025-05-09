@@ -6,6 +6,7 @@ import { Descriptions } from '../../../types/parsed/description';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelsDe } from '../../../types/parsed/label-de';
 import { LabelsEn } from '../../../types/parsed/label-en';
+import { LabelsFr } from '../../../types/parsed/label-fr';
 import { RdaProperties } from '../../../types/parsed/rda-property';
 import { StaNotations } from '../../../types/parsed/sta-notation';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -17,6 +18,7 @@ import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { FieldsRaw } from '../../../types/raw/field';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
+import { LabelFrRaws } from '../../../types/raw/label-fr';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import {
@@ -82,20 +84,23 @@ export const entitiesParser = {
   all: (
     rawEntities: EntitiesRaw,
     getRawEntityById: GetRawEntityById,
-    data: ParseEntitiesData
+    data: ParseEntitiesData,
+    lang: string
   ) => {
     // return [undefined]
     return parseEntities({
       rawEntities,
       getRawEntityById,
       data,
+      lang
     });
   },
   single: (
     entityId: EntityId,
     entity: EntityRaw,
     getRawEntityById: GetRawEntityById,
-    data: ParseEntitiesData
+    data: ParseEntitiesData,
+    lang: string,
   ) => {
     // const entity = read.entities.single(entityId);
     if (entity) {
@@ -103,6 +108,7 @@ export const entitiesParser = {
         rawEntities: { [entityId]: entity },
         getRawEntityById,
         data,
+        lang
       });
     } else {
       console.warn('Entity not found', entityId);
@@ -156,18 +162,32 @@ export const fieldsParser = (
   });
 
 export const labelsParser = {
-  de: (labelsDe: LabelDeRaws) =>
-    labelsDe.reduce((acc, label) => {
+  de: (labelsDe: LabelDeRaws) => {
+    console.log('\tParsing LabelDe')
+    const parsedLabelDe = labelsDe.reduce((acc, label) => {
       acc[label.eId.value as keyof LabelsDe] = labelStripper(
         label.elementLabel.value
       );
       return acc;
-    }, {} as LabelsDe),
+    }, {} as LabelsDe);
+    return parsedLabelDe
+  },
   en: (labelsEn: LabelEnRaws) =>
     commonParseFunc<LabelEnRaws, LabelsEn>(labelsEn, NAMES.labelEn),
+  fr: (labelsFr: LabelFrRaws) => {
+    console.log('\tParsing LabelFr')
+    const parsedLabelFr = labelsFr.reduce((acc, label) => {
+      acc[label.eId.value as keyof LabelsFr] = labelStripper(
+        label.elementLabel.value
+      );
+      return acc;
+    }, {} as LabelsFr);
+    return parsedLabelFr
+  },
 };
 
 export const codingsParser = (codings: CodingsRaw) => {
+  console.log('\tParsing codings');
   const codingLabels: CodingLabel[] = [
     'PICA3',
     'PICA+',
@@ -368,6 +388,7 @@ export interface ParsedAllFromRead {
   labels: {
     de: LabelsDe;
     en: LabelsEn;
+    fr: LabelsFr;
   };
   entities: {
     all: EntitiesEntries;
@@ -383,17 +404,18 @@ export interface ParsedAllFromRead {
 }
 
 export const parseAllFromRead = (
-  read: (typeof reader)['raw']
+  read: (typeof reader)['raw'],
+  lang: string
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations());
   const schemas = schemasParser(read.schemas());
-  const propertyTypes = propertyTypesParser(read.propertyTypes());
   const data = {
-    propertyTypes,
-    staNotations,
-    schemas,
+    propertyTypes: propertyTypesParser(read.propertyTypes()),
+    staNotations: staNotations,
+    schemas: schemas,
     labelsDe: labelsParser.de(read.labels.de()),
     labelsEn: labelsParser.en(read.labels.en()),
+    labelsFr: labelsParser.fr(read.labels.fr()),
     codings: codingsParser(read.codings()),
     fields: fieldsParser(read.fields(), staNotations),
     rdaElementStatuses: rdaElementStatusesParser(
@@ -411,13 +433,15 @@ export const parseAllFromRead = (
     labels: {
       de: data.labelsDe,
       en: data.labelsEn,
+      fr: data.labelsFr,
     },
     entities: {
       index: entitiesParser.index(read.entities.index()),
       all: entitiesParser.all(
         read.entities.all(),
         (entityId: EntityId) => read.entities.single(entityId),
-        data
+        data,
+        lang
       ),
     },
     fields: data.fields,

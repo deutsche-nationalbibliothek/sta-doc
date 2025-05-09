@@ -7,6 +7,7 @@ import { EntitiesRaw, EntityRaw } from '../../../types/raw/entity';
 import { EntitiesIndexRaw } from '../../../types/raw/entity-index';
 import { LabelDeRaws } from '../../../types/raw/label-de';
 import { LabelEnRaws } from '../../../types/raw/label-en';
+import { LabelFrRaws } from '../../../types/raw/label-fr';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
 import { RdaRulesRaw } from '../../../types/raw/rda-rule';
@@ -93,6 +94,8 @@ export const labelsFetcher = {
     await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
   en: async (apiUrl: API_URL) =>
     await wikiBase(apiUrl).sparqlQuery<LabelEnRaws>(sparql.LABELEN(apiUrl)),
+  fr: async (apiUrl: API_URL) =>
+    await wikiBase(apiUrl).sparqlQuery<LabelFrRaws>(sparql.LABELFR(apiUrl)),
 };
 
 export const staNotationsFetcher = async (apiUrl: API_URL) =>
@@ -139,6 +142,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
   const labels = {
     de: async () => await labelsFetcher.de(apiUrl),
     en: async () => await labelsFetcher.en(apiUrl),
+    fr: async () => await labelsFetcher.fr(apiUrl),
   };
 
   const propertyTypes = async () => await propertyTypesFetcher(apiUrl);
@@ -160,6 +164,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
       labels: {
         de: await labels.de(),
         en: await labels.en(),
+        fr: await labels.fr(),
       },
       propertyTypes: await propertyTypes(),
       staNotations: await staNotations(),

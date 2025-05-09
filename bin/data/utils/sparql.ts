@@ -174,34 +174,6 @@ export const SCHEMAS = (apiUrl: API_URL) => `
   ORDER BY ASC(?eId)
 `;
 
-export const LABELEN = (apiUrl: API_URL) => `
-  PREFIX wd: <http://www.wikidata.org/entity/>
-  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-  PREFIX wikibase: <http://wikiba.se/ontology#>
-  #PREFIX p: <http://www.wikidata.org/prop/>
-  PREFIX ps: <http://www.wikidata.org/prop/statement/>
-  PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX bd: <http://www.bigdata.com/rdf#>
-
-  PREFIX p: <${apiUrl}/prop/>
-  PREFIX prop: <${apiUrl}/prop/direct/>
-  PREFIX item: <${apiUrl}/entity/>
-  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
-  PREFIX statement: <${apiUrl}/prop/statement/>
-
-  SELECT ?eId ?elementLabel ?assignmentId ?assignmentLabel WHERE {
-    { ?element prop:P110 ?assignment . } #Schema
-    OPTIONAL
-    { ?element p:P2 ?assignmentProp .
-    ?assignmentProp statement:P2 ?assignment . }
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-    BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
-    BIND(STRAFTER(STR(?assignment), '/entity/') as ?assignmentId)
-  }
-  ORDER BY ASC(?elementLabel) #LABELEN
-`;
-
 export const propertyItemList = (apiUrl: API_URL) => `
     PREFIX wikibase: <http://wikiba.se/ontology#>
     PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -246,20 +218,56 @@ export const LABELDE = (apiUrl: API_URL) => `
   ORDER BY ASC(?elementLabel) #LABELDE
 `;
 
-export const LABELDE2 = (apiUrl: API_URL) => `
-    PREFIX wikibase: <http://wikiba.se/ontology#>
-    PREFIX bd: <http://www.bigdata.com/rdf#>
-    PREFIX p: <${apiUrl}/prop/>
-    PREFIX prop: <${apiUrl}/prop/direct/>
-    PREFIX item: <${apiUrl}/entity/>
-    PREFIX qualifier: <${apiUrl}/prop/qualifier/>
-    PREFIX statement: <${apiUrl}/prop/statement/>
-    SELECT ?eId ?elementLabel WHERE {
-        ?element rdfs:label ?type .
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
-        BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
-    }
-    ORDER BY ASC(?elementLabel)
+export const LABELEN = (apiUrl: API_URL) => `
+  PREFIX wd: <http://www.wikidata.org/entity/>
+  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+  PREFIX wikibase: <http://wikiba.se/ontology#>
+  #PREFIX p: <http://www.wikidata.org/prop/>
+  PREFIX ps: <http://www.wikidata.org/prop/statement/>
+  PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX bd: <http://www.bigdata.com/rdf#>
+
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
+
+  SELECT ?eId ?elementLabel ?assignmentId ?assignmentLabel WHERE {
+    { ?element prop:P110 ?assignment . } #Schema
+    OPTIONAL
+    { ?element p:P2 ?assignmentProp .
+    ?assignmentProp statement:P2 ?assignment . }
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+    BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+    BIND(STRAFTER(STR(?assignment), '/entity/') as ?assignmentId)
+  }
+  ORDER BY ASC(?elementLabel) #LABELEN
+`;
+
+export const LABELFR = (apiUrl: API_URL) => `
+  PREFIX wd: <http://www.wikidata.org/entity/>
+  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+  PREFIX wikibase: <http://wikiba.se/ontology#>
+  #PREFIX p: <http://www.wikidata.org/prop/>
+  PREFIX ps: <http://www.wikidata.org/prop/statement/>
+  PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX bd: <http://www.bigdata.com/rdf#>
+
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
+
+  SELECT ?eId ?elementLabel  WHERE {
+    { ?element prop:P110 ?assignment . } #Schema: datamodel documentation
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr" }
+    BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+  }
+  ORDER BY ASC(?elementLabel) #LABELFR
 `;
 
 export const EXAMPLES = (apiUrl: API_URL) => `

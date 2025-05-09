@@ -7,7 +7,7 @@ import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
 export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
-  writeJSONFile(data, NAMES.entity, DataState.raw);
+  writeJSONFile(data, NAMES.entityDe, DataState.raw);
 };
 
 export const writeRaw = (
@@ -35,6 +35,9 @@ export const writeRaw = (
     en: () =>
       data.labels &&
       writeJSONFile(data.labels.en, NAMES.labelEn, DataState.raw),
+    fr: () =>
+      data.labels &&
+      writeJSONFile(data.labels.fr, NAMES.labelFr, DataState.raw),
   };
 
   const propertyTypes = () =>
@@ -66,6 +69,7 @@ export const writeRaw = (
     fields();
     labels.de();
     labels.en();
+    labels.fr();
     propertyTypes();
     staNotations();
     schemas();
@@ -94,9 +98,13 @@ export const writeRaw = (
 
 export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   const entities = {
-    all: () => {
+    de: () => {
       data.entities &&
         writeJSONFile(data.entities.all, NAMES.entity, DataState.parsed);
+    },
+    fr: () => {
+      data.entities &&
+        writeJSONFile(data.entities.all, NAMES.entityFr, DataState.parsed);
     },
     index: () => {
       data.entities &&
@@ -108,13 +116,13 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     writeJSONFile(data.fields, NAMES.fields, DataState.parsed);
   };
 
-  const labels = {
-    de: () =>
-      data.labels &&
-      writeJSONFile(data.labels.de, NAMES.labelDe, DataState.parsed),
-    en: () =>
-      data.labels &&
-      writeJSONFile(data.labels.en, NAMES.labelEn, DataState.parsed),
+  const labels = () => {
+      data.labels && data.labels.de &&
+      writeJSONFile(data.labels.de, NAMES.labelDe, DataState.parsed);
+      data.labels && data.labels.en &&
+      writeJSONFile(data.labels.en, NAMES.labelEn, DataState.parsed);
+      data.labels && data.labels.fr &&
+      writeJSONFile(data.labels.fr, NAMES.labelFr, DataState.parsed);
   };
 
   const staNotations = () =>
@@ -141,10 +149,10 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
   const writeAll = () => {
     entities.index();
-    entities.all();
+    entities.de();
+    entities.fr();
     fields();
-    labels.de();
-    labels.en();
+    labels();
     propertyTypes();
     staNotations();
     schemas();

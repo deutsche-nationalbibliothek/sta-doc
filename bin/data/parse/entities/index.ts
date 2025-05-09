@@ -7,6 +7,7 @@ import { EntitiesEntries } from '../../../../types/parsed/entity';
 import { Schemas } from '../../../../types/parsed/schema';
 import { LabelsDe } from '../../../../types/parsed/label-de';
 import { LabelsEn } from '../../../../types/parsed/label-en';
+import { LabelsFr } from '../../../../types/parsed/label-fr';
 import { StaNotations } from '../../../../types/parsed/sta-notation';
 import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
@@ -16,14 +17,16 @@ import { Item } from '../../../../types/item';
 export interface ParseEntitiesProps {
   data: ParseEntitiesData;
   getRawEntityById: GetRawEntityById;
+  lang: string;
   rawEntities: Partial<EntitiesRaw>;
 }
 
 export interface ParseEntitiesData {
   codings: Codings;
   fields: Fields;
-  labelsEn: LabelsEn;
   labelsDe: LabelsDe;
+  labelsEn: LabelsEn;
+  labelsFr: LabelsFr;
   propertyTypes: PropertyTypes;
   rdaElementStatuses: RdaElementStatuses;
   staNotations: StaNotations;
@@ -34,8 +37,10 @@ export const parseEntities = ({
   data,
   getRawEntityById,
   rawEntities,
+  lang
 }: ParseEntitiesProps) => {
-  console.log('\tParsing Entities');
+  console.log('\tParsing Entities ',lang);
+  // const lang = 'fr'
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = keys.reduce(
     (acc, entityId: EntityId) => {
@@ -45,9 +50,10 @@ export const parseEntities = ({
           Item['Documentation-platform-of-the-standardization-committee']
       ) {
         const entityEntry = parseRawEntity({
-          entityId,
           data,
+          entityId,
           getRawEntityById,
+          lang,
         });
         if (entityEntry) {
           const nextAcc = acc;

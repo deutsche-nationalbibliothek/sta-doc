@@ -17,13 +17,14 @@ export interface FilterSortTransformStatementsProps
   addHeadline: AddHeadline;
 }
 
-export const filterSortTransformStatemants = (
+export const filterSortTransformStatements = (
   props: FilterSortTransformStatementsProps
 ): Statements => {
   const {
     data,
     currentHeadlineLevel,
     embedded = false,
+    lang,
     noHeadline = false,
     occurrences,
     relevantGroup,

@@ -26,14 +26,14 @@ export const DEV = false;
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const fetchRawAndWrite = async () => {
-    console.log('Fetch from database: ', API_URL.host);
+    console.log('Fetch raw data from database: ', API_URL.host);
     const data = await fetcher(API_URL.host).fetchAll();
     console.log('going to write');
     writer.raw(data).writeAll();
   };
 
   const fetchSingleEntityAndWrite = async (entityId: EntityId) => {
-    console.log('Fetch single entity from database: ', API_URL.host);
+    console.log('Fetch raw single entity data from database: ', API_URL.host);
     console.log('Fetch raw data of entity',entityId);
     const entity = await fetcher(API_URL.host).entities.single(entityId);
     if (entity) {
@@ -45,8 +45,9 @@ export const DEV = false;
     }
   }
 
-  const parseRawAndWriteParsed = () => {
-    const data = parseAllFromRead(reader[DataState.raw]);
+  const parseRawAndWriteParsed = (lang: string) => {
+    console.log('Parse and write all data from raw state.')
+    const data = parseAllFromRead(reader[DataState.raw],lang);
     writer.parsed(data).writeAll();
   };
 
@@ -71,7 +72,20 @@ export const DEV = false;
     writer.parsed(data).staNotations();
   }
 
-  const parseSingleEntity = (entityId: EntityId) => {
+  const parseRawAndWriteLabels = () => {
+    const readRaw = reader[DataState.raw];
+    const labelsDe = labelsParser.de(readRaw.labels.de())
+    const labelsEn = labelsParser.en(readRaw.labels.en())
+    const labelsFr = labelsParser.fr(readRaw.labels.fr())
+    const data = { labels: {
+      de: labelsDe,
+      en: labelsEn,
+      fr: labelsFr
+    } }
+    writer.parsed(data).labels;
+  }
+
+  const parseSingleEntity = (entityId: EntityId, lang: string) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations());
     const schemas = schemasParser(readRaw.schemas());
@@ -82,6 +96,7 @@ export const DEV = false;
       {
         labelsDe: labelsParser.de(readRaw.labels.de()),
         labelsEn: labelsParser.en(readRaw.labels.en()),
+        labelsFr: labelsParser.fr(readRaw.labels.fr()),
         codings: codingsParser(readRaw.codings()),
         propertyTypes: propertyTypesParser(readRaw.propertyTypes()),
         staNotations,
@@ -92,49 +107,72 @@ export const DEV = false;
           staNotations,
           schemas
         ),
-      }
+      },
+      lang
     );
     if (entity) {
       const entities: EntitiesEntries = {
-        ...reader[DataState.parsed].entities.all(),
+        ...reader[DataState.parsed].entities.all(lang),
         ...entity,
       };
-      writer.parsed({ entities: { all: entities } }).entities.all();
+      if (lang == 'fr') {
+        writer.parsed({ entities: { all: entities } }).entities.fr();
+      } 
+      if (lang == 'de') {
+        writer.parsed({ entities: { all: entities } }).entities.de();
+      }
     }
   };
 
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
-      parseRawAndWriteParsed();
+      const lang = 'de';
+      parseRawAndWriteParsed(lang);
     } else if (process.argv.length > 2) {
       switch (process.argv[2]) {
         case 'fetch':
           await fetchRawAndWrite();
           break;
         case 'fetch:single':
-          if (process.argv[3]) {
+          if (process.argv[3]) { // fetch:single Q1234
             fetchSingleEntityAndWrite(process.argv[3] as EntityId);
           } else {
             console.warn('Missing EntityId as argument, like: data:fetch:single P395.');
           }
           break;
         case 'parse':
-            parseRawAndWriteParsed();
+            const lang = 'de';
+            parseRawAndWriteParsed(lang);
           break;
         case 'parse:single':
-          if (process.argv[3]) {
-            parseSingleEntity(process.argv[3] as EntityId);
+          if (process.argv[3]) { // parse:single Q1234
+            const lang = 'de';
+            parseSingleEntity(process.argv[3] as EntityId, lang);
           } else {
-            console.warn('Missing EntityId as argument, like: data:parse:single P395.');
+            console.warn('Missing EntityId as argument, like: data:parse:single Q1234.');
+          }
+          break;
+        case 'parse:single:fr':
+          if (process.argv[3]) { // parse:single:fr P513
+            const lang = 'fr';
+            parseSingleEntity(process.argv[3] as EntityId, lang);
+          } else {
+            console.warn('Missing EntityId as argument, like: data:parse:single P513.');
           }
           break;
         case 'parse:codings':
           parseRawAndWriteCodings();
+          break;
+        case 'parse:labels':
+          parseRawAndWriteLabels();
+          break;
         case 'parse:propertyTypes':
           parseRawAndWritePropertyTypes();
+          break;
         case 'parse:staNotations':
           parseRawAndWriteStaNotations();
+          break;
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(
