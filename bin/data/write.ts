@@ -110,6 +110,10 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
       data.entities &&
         writeJSONFile(data.entities.all, NAMES.entityFr, DataState.parsed);
     },
+    fr: () => {
+      data.entities &&
+        writeJSONFile(data.entities.all, NAMES.entityFr, DataState.parsed);
+    },
     index: () => {
       data.entities &&
         writeJSONFile(data.entities.index, NAMES.entityIndex, DataState.parsed);

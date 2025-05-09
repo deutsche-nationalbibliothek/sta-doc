@@ -8,7 +8,7 @@ interface ParseReferencesProps extends Required<ParseStatementsProps> {
 }
 
 const relevantReferenceProperties = [
-  Property.URIGNDSubfield,
+  Property['URI-of-GND-Subfield'],
   Property.URL,
   Property.description,
   Property['description-(at-the-end)'],
