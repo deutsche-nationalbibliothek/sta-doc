@@ -64,7 +64,7 @@ export interface ReadRaw {
   fields: () => FieldsRaw;
   propertyTypes: () => PropertyTypesRaw;
   schemas: () => SchemasRaw;
-  staNotations: () => StaNotationsRaw;
+  staNotations: (lang: string) => StaNotationsRaw;
   codings: () => CodingsRaw;
   descriptions: () => DescriptionRaws;
   rdaProperties: () => RdaPropertiesRaw;
@@ -89,8 +89,15 @@ const readRaw: ReadRaw = {
     fr: () => readJSONFile<LabelFrRaws>(NAMES.labelFr, DataState.raw),
   },
   propertyTypes: () => readJSONFile<PropertyTypesRaw>(NAMES.propertyType, DataState.raw),
-  staNotations: () =>
-    readJSONFile<StaNotationsRaw>(NAMES.staNotation, DataState.raw),
+  staNotations: (lang) => {
+    if (lang === 'fr') {
+      return readJSONFile<StaNotationsRaw>(NAMES.staNotationFr, DataState.raw)
+    } else {
+      return readJSONFile<StaNotationsRaw>(NAMES.staNotation, DataState.raw)
+    }
+  },
+  // staNotationsFr: () =>
+  //   readJSONFile<StaNotationsRaw>(NAMES.staNotationFr, DataState.raw),
   schemas: () => readJSONFile<SchemasRaw>(NAMES.schema, DataState.raw),
   codings: () => readJSONFile<CodingsRaw>(NAMES.coding, DataState.raw),
   descriptions: () =>

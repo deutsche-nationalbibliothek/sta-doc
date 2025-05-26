@@ -27,6 +27,10 @@ export const NAMES = {
     file: { singular: 'sta-notation' },
     type: 'StaNotation',
   },
+  staNotationFr: {
+    file: { singular: 'sta-notation-fr', plural: 'sta-notations-fr' },
+    type: 'StaNotation',
+  },
   coding: {
     file: { singular: 'coding' },
     type: 'Coding',

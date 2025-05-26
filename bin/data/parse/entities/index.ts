@@ -40,7 +40,6 @@ export const parseEntities = ({
   lang
 }: ParseEntitiesProps) => {
   console.log('\tParsing Entities ',lang);
-  // const lang = 'fr'
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = keys.reduce(
     (acc, entityId: EntityId) => {

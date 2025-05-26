@@ -1,6 +1,19 @@
 import { API_URL } from '../fetcher';
 
 // ---ENTRIES--- all wikibase entities, which are nessecary to render DOKU pages
+/**
+ * This function generates a SPARQL query to retrieve the entities index from the Wikibase SPARQL query instance.
+ * 
+ * The query retrieves all the entities that have a Schema property from the Wikibase database
+ * and returns them in a sorted list by label.
+ * 
+ * The query uses the Wikibase ontology and the Bigdata namespace to access the data.
+ * 
+ * The `apiUrl` parameter is used to construct the URLs for the Wikibase API.
+ * 
+ * @param {API_URL} apiUrl - The URL of the Wikibase API.
+ * @returns {string} The SPARQL query as a string. This can be directly used in the fetcher context.
+ */
 export const ENTITY_INDEX = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -347,6 +360,25 @@ SELECT DISTINCT ?eId ?elementLabel_de ?staNotationLabel WHERE {
 }
 ORDER BY ASC(?elementLabel_de)
 `;
+
+export const STA_NOTATIONS_FR = (apiUrl: API_URL) => `
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX p: <${apiUrl}/prop/>
+PREFIX prop: <${apiUrl}/prop/direct/>
+PREFIX item: <${apiUrl}/entity/>
+PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+PREFIX statement: <${apiUrl}/prop/statement/>
+SELECT DISTINCT ?eId ?elementLabel_fr ?staNotationLabel WHERE {
+  { ?element prop:P643 ?staNotation . }
+  { ?element p:P870 ?statement . }
+  OPTIONAL {?element rdfs:label ?elementLabelFr FILTER (LANG(?elementLabelFr) = "fr") .}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+  BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+}
+ORDER BY ASC(?staNotationLabel)
+`;
+
 
 export const RDA_ELEMENT_STATUSES = (apiUrl: API_URL) => `
 PREFIX wikibase: <http://wikiba.se/ontology#>

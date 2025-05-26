@@ -9,6 +9,7 @@ import {
   Claim,
   DatatypeRaw,
   StatementRaw,
+  isClaim
 } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { FilterSortTransformStatementsProps } from './filter-sort-transform-statements';
@@ -71,11 +72,25 @@ export const parseStatements = (
     string: 'stringGroups',
   };
 
-  const parsedStatements: (PreMappedStatement | undefined)[] = statements.map(
-    (occs: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
+  const parsedStatements: (PreMappedStatement | undefined)[] = statements
+  .map(
+    (occsRaw: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
+      let occs = occsRaw
       if (occs.length === 0) {
         console.log('\t\t\tno occs in entity, ignoring', entityId);
         return;
+      }
+      // On the claims level, filter for language, if undefined still return for 'de'
+      if (isClaim(occs[0])) {
+        occs = (occs as Claim[]).filter((occ) => {
+          const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
+          return (value === undefined) || value === lang;
+        });
+        if (occs.length === 0) {
+          const propertyRaw = keyAccess<Property>(occsRaw[0], 'property');
+          console.log('\t\t\tno',lang,' occs in Property,',propertyRaw,', ignoring');
+          return;
+        }
       }
       // property and datatype are the same over the occs collection
       const property = keyAccess<Property>(occs[0], 'property');

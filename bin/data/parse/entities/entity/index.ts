@@ -91,16 +91,6 @@ export const parseRawEntity = (
   const { addHeadline } = headlinesParser(headlines, noHeadline);
 
   const entityProps = (): Entity | void => {
-    // if (!entity.claims) {
-    //   console.warn(
-    //     '\t\t\tEntity has no claims:',
-    //     entityId,
-    //     'not used, ignoring entity',
-    //     entityId
-    //   );
-    //   return undefined;
-    // }
-
     const namespaceId = schemas[entityId];
     const namespace: Namespace = namespaceConfig.map[namespaceId];
     const elementOfId: EntityId | undefined =
