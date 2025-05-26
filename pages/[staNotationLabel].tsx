@@ -1,4 +1,4 @@
-import entities from '@/data/parsed/entities-de.json';
+import entities from '@/data/parsed/entities.json';
 import entitiesFr from '@/data/parsed/entities-fr.json';
 import schemas from '@/data/parsed/schemas.json';
 import { FetchedEntity } from '@/entity/components/fetched';
@@ -98,8 +98,8 @@ export const getStaticProps: GetStaticProps<
 
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
-
-    entityEntry = Object.values(entities as unknown as EntitiesEntries).find(
+    let localeEntities = context.locale === 'fr' ? entitiesFr : entities 
+    entityEntry = Object.values(localeEntities as unknown as EntitiesEntries).find(
       (entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel
     );
 

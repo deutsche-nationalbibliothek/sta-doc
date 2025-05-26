@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { EntityId } from '@/types/entity-id';
 import { EntitiesRaw } from '@/types/raw/entity';
 import { EntitiesEntries } from '@/types/parsed/entity';
-import entities from '@/data/parsed/entities.json';
-// import entitiesFr from '@/data/parsed/entities-fr.json';
+// import entities from '@/data/parsed/entities-de.json';
+import entitiesFr from '@/data/parsed/entities-fr.json';
 import parsedCodings from '@/data/parsed/codings.json';
 import parsedFields from '@/data/parsed/fields.json';
 import parsedLabelsDe from '@/data/parsed/labels-de.json';
@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       return;
     } else {
-      const entity = (entities as unknown as EntitiesEntries)[entityId]
+      const entity = (entitiesFr as unknown as EntitiesEntries)[entityId]
       res.status(200).json(entity);
     }
   }

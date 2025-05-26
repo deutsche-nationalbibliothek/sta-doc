@@ -44,6 +44,8 @@ export const writeRaw = (
     writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.raw);
   const staNotations = () =>
     writeJSONFile(data.staNotations, NAMES.staNotation, DataState.raw);
+  const staNotationsFr = () =>
+    writeJSONFile(data.staNotationsFr, NAMES.staNotationFr, DataState.raw);
   const schemas = () =>
     writeJSONFile(data.schemas, NAMES.schema, DataState.raw);
   const codings = () => {
@@ -72,6 +74,7 @@ export const writeRaw = (
     labels.fr();
     propertyTypes();
     staNotations();
+    staNotationsFr();
     schemas();
     codings();
     descriptions();
@@ -85,6 +88,7 @@ export const writeRaw = (
     labels,
     propertyTypes,
     staNotations,
+    staNotationsFr,
     schemas,
     codings,
     descriptions,
@@ -127,6 +131,8 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
   const staNotations = () =>
     writeJSONFile(data.staNotations, NAMES.staNotation, DataState.parsed);
+  const staNotationsFr = () =>
+    writeJSONFile(data.staNotations, NAMES.staNotationFr, DataState.parsed);
   const schemas = () =>
     writeJSONFile(data.schemas, NAMES.schema, DataState.parsed);
   const codings = () => {
@@ -147,14 +153,14 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   const rdaProperties = () =>
     writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.parsed);
 
-  const writeAll = () => {
+  // TODO
+  const writeAll = (lang: string) => {
     entities.index();
-    entities.de();
-    entities.fr();
+    lang === 'fr' ? entities.fr() : entities.de();
     fields();
     labels();
     propertyTypes();
-    staNotations();
+    lang === 'fr' ? staNotationsFr() : staNotations();
     schemas();
     codings();
     descriptions();
@@ -169,6 +175,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     labels,
     propertyTypes,
     staNotations,
+    staNotationsFr,
     schemas,
     codings,
     descriptions,

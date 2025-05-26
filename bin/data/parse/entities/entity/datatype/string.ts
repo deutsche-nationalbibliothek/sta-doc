@@ -16,6 +16,13 @@ interface ParseStringValue extends Required<ParseStatementsProps> {
   isMissingValue: boolean;
 }
 
+function getLinkId(occ: any, property: string): EntityId | undefined {
+  if ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[property]) {
+    return occ.qualifiers[property][0].datavalue?.value.id;
+  }
+  return undefined;
+}
+
 export const parseStringValue = ({
   keyAccessOcc,
   occ,
@@ -26,11 +33,7 @@ export const parseStringValue = ({
   isMissingValue,
   lang
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> | undefined => {
-  const langFr = 'qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Language-of-the-statement']] ? occ.qualifiers[Property['Language-of-the-statement']][0].datavalue?.value as unknown as string : ''
-  if (lang === 'de' && langFr === 'fr' || lang === 'fr' && langFr === 'de') { 
-    return 
-  }
-  const { codings, labelsDe, staNotations } = data;
+  const { codings, labelsDe, labelsFr, staNotations } = data;
   const value = !isMissingValue
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
@@ -45,13 +48,14 @@ export const parseStringValue = ({
         occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
           ?.value?.id) ||
       'default';
-  const isLink: EntityId | undefined = ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Item)']] && occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id)
-    ? occ.qualifiers[Property['Link-(Item)']][0].datavalue?.value.id
-    : ('qualifiers' in occ && occ.qualifiers && occ.qualifiers[Property['Link-(Property)']] && occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id)
-    ? occ.qualifiers[Property['Link-(Property)']][0].datavalue?.value.id
-    : undefined
-  const linkLabel: string | undefined = isLink ? labelsDe[isLink] : undefined
-  const linkStaNotation: string | undefined = isLink && staNotations[isLink] ? staNotations[isLink].label : undefined
+  const isLink: EntityId | undefined =
+    getLinkId(occ, Property['Link-(Item)']) ||
+    getLinkId(occ, Property['Link-(Property)']) ||
+    undefined;
+  const linkLabel: string | undefined = isLink && lang === 'de' ? labelsDe[isLink] 
+    : isLink && lang === 'fr' ? labelsFr[isLink] : undefined
+  const linkStaNotation: string | undefined = isLink && staNotations[isLink] 
+    ? staNotations[isLink].label : undefined
 
   const headings = [
     Item['First-order-subheading-(type-of-layout)'],

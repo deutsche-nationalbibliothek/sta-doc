@@ -102,6 +102,10 @@ export const staNotationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
     sparql.STA_NOTATIONS(apiUrl)
   );
+export const staNotationsFetcherFr = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
+    sparql.STA_NOTATIONS_FR(apiUrl)
+  );
 export const schemasFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<SchemasRaw>(sparql.SCHEMAS(apiUrl));
 export const codingsFetcher = async (apiUrl: API_URL) =>
@@ -147,6 +151,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
 
   const propertyTypes = async () => await propertyTypesFetcher(apiUrl);
   const staNotations = async () => await staNotationsFetcher(apiUrl);
+  const staNotationsFr = async () => await staNotationsFetcherFr(apiUrl);
   const schemas = async () => await schemasFetcher(apiUrl);
   const codings = async () => await codingsFetcher(apiUrl);
   const descriptions = async () => await descriptionsFetcher(apiUrl);
@@ -168,6 +173,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
       },
       propertyTypes: await propertyTypes(),
       staNotations: await staNotations(),
+      staNotationsFr: await staNotationsFr(),
       schemas: await schemas(),
       codings: await codings(),
       descriptions: await descriptions(),
@@ -184,6 +190,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
     fields,
     labels,
     staNotations,
+    staNotationsFr,
     codings,
     fetchAll,
     propertyItemList,

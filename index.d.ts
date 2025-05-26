@@ -37,6 +37,12 @@ declare module '@/data/parsed/labels-de.json' {
   export default data;
 }
 
+declare module '@/data/parsed/labels-fr.json' {
+  import { LabelsFr } from './types/parsed/label-fr';
+  const data: LabelsFr;
+  export default data;
+}
+
 declare module '@/data/parsed/property-types.json' {
   import { PropertyTypes } from './types/parsed/property-type';
   const data: PropertyTypes;

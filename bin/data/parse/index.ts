@@ -308,6 +308,7 @@ export const rdaElementStatusesParser = (
                 label: labelStripper(
                   rdaElementStatusByEntityId.statusLabel.value
                 ),
+                // TODO
                 staNotationLabel: statusId
                   ? staNotations[statusId].label
                   : undefined,
@@ -407,7 +408,8 @@ export const parseAllFromRead = (
   read: (typeof reader)['raw'],
   lang: string
 ): ParsedAllFromRead => {
-  const staNotations = staNotationsParser(read.staNotations());
+  const staNotations = staNotationsParser(read.staNotations(lang)); 
+  const staNotationsDe = staNotationsParser(read.staNotations('de')); 
   const schemas = schemasParser(read.schemas());
   const data = {
     propertyTypes: propertyTypesParser(read.propertyTypes()),
@@ -420,14 +422,14 @@ export const parseAllFromRead = (
     fields: fieldsParser(read.fields(), staNotations),
     rdaElementStatuses: rdaElementStatusesParser(
       read.rdaElementStatuses(),
-      staNotations,
+      staNotationsDe,
       schemas
     ),
   };
   return {
     rdaProperties: rdaPropertiesParser(
       read.rdaProperties(),
-      data.staNotations,
+      staNotationsDe,
       data.schemas
     ),
     labels: {

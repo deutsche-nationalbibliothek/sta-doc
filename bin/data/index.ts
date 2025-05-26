@@ -46,9 +46,9 @@ export const DEV = false;
   }
 
   const parseRawAndWriteParsed = (lang: string) => {
-    console.log('Parse and write all data from raw state.')
+    console.log('Parse and write all data from raw state.',lang)
     const data = parseAllFromRead(reader[DataState.raw],lang);
-    writer.parsed(data).writeAll();
+    writer.parsed(data).writeAll(lang);
   };
 
   const parseRawAndWriteCodings = () => {
@@ -65,9 +65,10 @@ export const DEV = false;
     writer.parsed(data).propertyTypes();
   }
 
-  const parseRawAndWriteStaNotations = () => {
+  const parseRawAndWriteStaNotations = (lang: string) => {
     const readRaw = reader[DataState.raw];
-    const staNotations = staNotationsParser(readRaw.staNotations())
+    // const staNotations = staNotationsParser(readRaw.staNotations(),lang)
+    const staNotations = staNotationsParser(readRaw.staNotations(lang)) 
     const data = { staNotations: staNotations }
     writer.parsed(data).staNotations();
   }
@@ -87,7 +88,7 @@ export const DEV = false;
 
   const parseSingleEntity = (entityId: EntityId, lang: string) => {
     const readRaw = reader[DataState.raw];
-    const staNotations = staNotationsParser(readRaw.staNotations());
+    const staNotations = staNotationsParser(readRaw.staNotations(lang));
     const schemas = schemasParser(readRaw.schemas());
     const entity = entitiesParser.single(
       entityId,
@@ -127,9 +128,10 @@ export const DEV = false;
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
-      const lang = 'de';
+      let lang = 'de';
       parseRawAndWriteParsed(lang);
     } else if (process.argv.length > 2) {
+      let lang = 'de';
       switch (process.argv[2]) {
         case 'fetch':
           await fetchRawAndWrite();
@@ -142,7 +144,11 @@ export const DEV = false;
           }
           break;
         case 'parse':
-            const lang = 'de';
+            lang = 'de';
+            parseRawAndWriteParsed(lang);
+          break;
+        case 'parse:fr':
+            lang = 'fr';
             parseRawAndWriteParsed(lang);
           break;
         case 'parse:single':
@@ -171,7 +177,12 @@ export const DEV = false;
           parseRawAndWritePropertyTypes();
           break;
         case 'parse:staNotations':
-          parseRawAndWriteStaNotations();
+          lang = 'de';
+          parseRawAndWriteStaNotations(lang);
+          break;
+        case 'parse:staNotationsFr':
+          lang = 'fr';
+          parseRawAndWriteStaNotations(lang);
           break;
         case 'fetch:properties-items':
           propertiesItemsListWriter(
