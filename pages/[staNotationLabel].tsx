@@ -1,4 +1,4 @@
-import entities from '@/data/parsed/entities.json';
+import entities from '@/data/parsed/entities-de.json';
 import entitiesFr from '@/data/parsed/entities-fr.json';
 import schemas from '@/data/parsed/schemas.json';
 import { FetchedEntity } from '@/entity/components/fetched';
