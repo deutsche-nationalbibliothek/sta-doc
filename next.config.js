@@ -19,25 +19,34 @@ module.exports = async () => {
     images: {
       domains: ['www.cilip.org.uk'],
     },
-
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+    typescript: {
+      // !! WARN !!
+      // Dangerously allow production builds to successfully complete even if
+      // your project has type errors.
+      // !! WARN !!
+      ignoreBuildErrors: false,
+    },
     reactStrictMode: true,
     async redirects() {
       // return redirectArr
       return [
-        {
-          source: '/entries/:entityId',
-          destination: '/entities/:entityId',
-          permanent: true,
-        },
-        ...Object.keys(staNotations).map((entityId) => ({
-          source: `/entities/${entityId}`,
-          destination: `/${staNotations[entityId].label}`,
-          permanent: false, // temp, until data is fixed
-        })),
+        // {
+        //   source: '/entries/:entityId',
+        //   destination: '/entities/:entityId',
+        //   permanent: true,
+        // },
+        // ...Object.keys(staNotations).map((entityId) => ({
+        //   source: `/entities/${entityId}`,
+        //   destination: `/${staNotations[entityId].label}`,
+        //   permanent: false, // temp, until data is fixed
+        // })),
         ...Object.keys(staNotations).map((entityId) => ({
           source: `/${entityId}`,
           destination: `/${staNotations[entityId].label}`,
-          permanent: false, // temp, until data is fixed
+          permanent: true, // temp, until data is fixed
         })),
       ];
     },

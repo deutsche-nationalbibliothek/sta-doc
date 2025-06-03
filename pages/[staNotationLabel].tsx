@@ -146,43 +146,44 @@ export const getStaticProps: GetStaticProps<
   }
 };
 
-const dePaths = Object.keys(entities as unknown as EntitiesEntries)
-  .filter(
-    (entityId) =>
-      !isPropertyBlacklisted(entityId as EntityId) &&
-      'staNotationLabel' in
+export const getStaticPaths: GetStaticPaths = () => {
+  const dePaths = Object.keys(entities as unknown as EntitiesEntries)
+    .filter(
+      (entityId) =>
+        !isPropertyBlacklisted(entityId as EntityId) &&
+        'staNotationLabel' in
         (entities as unknown as EntitiesEntries)[entityId as EntityId]
           .entity
-  )
-  .map((entityId) => ({
-    params: {
-      staNotationLabel: (entities as unknown as EntitiesEntries)[
-        entityId as EntityId
-      ].entity.staNotationLabel,
-    },
-    locale: 'de',
-  }));
+    )
+    .map((entityId) => ({
+      params: {
+        staNotationLabel: (entities as unknown as EntitiesEntries)[
+          entityId as EntityId
+        ].entity.staNotationLabel,
+      },
+      locale: 'de',
+    }));
 
-const frPaths = Object.keys(entitiesFr as unknown as EntitiesEntries)
-  .filter(
-    (entityId) =>
-      !isPropertyBlacklisted(entityId as EntityId) &&
-      'staNotationLabel' in
+  const frPaths = Object.keys(entitiesFr as unknown as EntitiesEntries)
+    .filter(
+      (entityId) =>
+        !isPropertyBlacklisted(entityId as EntityId) &&
+        'staNotationLabel' in
         (entitiesFr as unknown as EntitiesEntries)[entityId as EntityId]
           .entity
-  )
-  .map((entityId) => ({
-    params: {
-      staNotationLabel: (entitiesFr as unknown as EntitiesEntries)[
-        entityId as EntityId
-      ].entity.staNotationLabel,
-    },
-    locale: 'fr',
-  }));
+    )
+    .map((entityId) => ({
+      params: {
+        staNotationLabel: (entitiesFr as unknown as EntitiesEntries)[
+          entityId as EntityId
+        ].entity.staNotationLabel,
+      },
+      locale: 'fr',
+    }));
 
-export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [...dePaths, ...frPaths],
-    fallback: true,
+    // paths: [...frPaths],
+    fallback: false,
   };
 };
