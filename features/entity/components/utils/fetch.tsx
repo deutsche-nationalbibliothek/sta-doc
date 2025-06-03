@@ -20,9 +20,11 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
 }) => {
   const router = useRouter();
   const locale = router.locale;
-  let apiPath = locale === 'fr' ?
-    '/api/fr/entities/' + entityId as string :
-    '/api/entities/' + entityId as string
+  let apiPath =
+    locale === 'fr'
+      ? '/api/fr/entities/' + entityId
+      : '/api/entities/' + entityId;
+
   return (
     <>
       {entityId && (
