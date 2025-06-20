@@ -1,6 +1,6 @@
 import entities from '@/data/parsed/entities.json';
 import entities_fr from '@/data/parsed/entities-fr.json';
-import { EntitiesEntries } from '@/types/parsed/entity';
+import { EntitiesEntries, EntityEntry } from '@/types/parsed/entity';
 import { EntityId } from '@/types/entity-id';
 import { API_URL, fetcher } from '@/bin/data/fetcher';
 import { EntitiesRaw } from '@/types/raw/entity';
@@ -17,10 +17,10 @@ import parsedFields from '@/data/parsed/fields.json';
 import parsedRdaElementStatuses from '@/data/parsed/rda-element-statuses.json';
 import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import entitiesFr from '@/data/parsed/entities-fr.json';
+import { isPropertyBlacklisted } from '@/utils/constants';
 
 export function getPreparsedEntitiesEntries(language: string): EntitiesEntries {
-  console.log(language)
-
   if (language && language === 'fr') {
     return entities_fr as EntitiesEntries;
   } else {
@@ -28,20 +28,24 @@ export function getPreparsedEntitiesEntries(language: string): EntitiesEntries {
   }
 }
 
-export async function getEntityEntry(language :string, entityId :EntityId, live :FetchingParam) {
+export async function getEntityEntry(language: string, entityId: EntityId, live: FetchingParam) {
   if (live) {
-    let api_url : API_URL = API_URL.live;
+    let api_url: API_URL = API_URL.live;
     if (live === FetchingParam.prod) {
       api_url = API_URL.prod;
     } else if (live === FetchingParam.test) {
       api_url = API_URL.test;
     }
-    return getLiveEntity(language, fetcher(api_url), entityId);
+    return getLiveEntityEntry(language, fetcher(api_url), entityId);
   }
   return getPreparsedEntitiesEntries(language)[entityId];
 }
 
-async function getLiveEntity(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId) {
+export function getEntityEntryByStaNotation(language: string, staNotationLabel: string) {
+  return Object.values(getPreparsedEntitiesEntries(language)).find((entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel);
+}
+
+async function getLiveEntityEntry(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId) {
   const prefetched = {} as EntitiesRaw;
 
   // prefetch to parse without async
@@ -102,3 +106,12 @@ export async function getEntityJson(language: string, req: NextApiRequest, res: 
     res.status(200).json(entity);
   }
 }
+
+export function getAllStaNotations(language: string) {
+  return Object.values(getPreparsedEntitiesEntries(language)).filter(
+      (entityEntry: EntityEntry) =>
+        !isPropertyBlacklisted(entityEntry.entity.id) &&
+        'staNotationLabel' in entityEntry.entity,
+    ).map(entityEntry => entityEntry.entity.staNotationLabel);
+}
+
