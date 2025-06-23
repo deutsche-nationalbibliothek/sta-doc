@@ -187,3 +187,4 @@ export const getStaticPaths: GetStaticPaths = () => {
     fallback: false,
   };
 };
+
