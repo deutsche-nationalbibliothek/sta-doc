@@ -1,4 +1,3 @@
-import entities from '@/data/parsed/entities.json';
 import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
@@ -7,7 +6,7 @@ import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
-import { EntitiesEntries } from '@/types/parsed/entity';
+import { entityRepository } from '@/features/entity/entity-repository';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
 
@@ -44,15 +43,15 @@ export default function Home({ headlines, namespace }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const entityId: EntityId =
     Item['Documentation-platform-of-the-standardization-committee'];
-  const entityEntry = (entities as unknown as EntitiesEntries)[entityId];
+  const entityEntry = await entityRepository.get(entityId, "de", undefined);
 
   return {
     props: {
-      headlines: entityEntry.headlines,
-      namespace: entityEntry.entity.namespace,
+      headlines: entityEntry?.headlines ?? [],
+      namespace: entityEntry?.entity.namespace ?? undefined,
     },
   };
 };
