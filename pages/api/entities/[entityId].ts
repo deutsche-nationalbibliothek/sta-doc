@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { EntityId } from '@/types/entity-id';
 import { FetchingParam } from '@/hooks/fetch-query-params-provider';
-import logger from 'bs-logger';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   return getEntityJson("de", req, res);
