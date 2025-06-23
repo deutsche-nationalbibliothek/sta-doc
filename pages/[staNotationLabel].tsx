@@ -17,11 +17,6 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { useScroll } from '@/hooks/use-scroll';
 import { useEntity } from '@/hooks/entity-provider';
 import { entityRepository } from '@/features/entity/entity-repository';
-import logger from 'bs-logger';
-import entities from '@/data/parsed/entities-de.json';
-import entitiesFr from '@/data/parsed/entities-fr.json';
-
-
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -93,9 +88,6 @@ export default function EntityDetailsPage({
 
 export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel: string }> =
   (context) => {
-    console.log("getStaticProps", context);
-    logger.debug("getStaticProps", context);
-
   let validEntityId: EntityId | undefined;
   let entityEntry: EntityEntry | undefined;
   let isUnderConstruction: boolean | undefined;
@@ -103,8 +95,7 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
 
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
-    let locale : string = context.locale ? context.locale : "de";
-    logger.debug("getStaticProps", locale, staNotationLabel);
+    const locale : string = context.locale ? context.locale : "de";
     entityEntry = entityRepository.getByStaNotation(locale, staNotationLabel);
     validEntityId =
       entityEntry && !isPropertyBlacklisted(entityEntry.entity.id)
@@ -151,22 +142,13 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
 
 export const getStaticPaths: GetStaticPaths = () => {
   const dePaths = entityRepository.getAllStaNotations("de").map(staNotationLabel => ({
-    params: {
-      staNotationLabel: staNotationLabel,
-      locale: 'de'
-    }
-  }));
+    params: { staNotationLabel: staNotationLabel},
+    locale: 'de' }));
   const frPaths = entityRepository.getAllStaNotations("fr").map(staNotationLabel => ({
-    params: {
-      staNotationLabel: staNotationLabel,
-      locale: 'fr'
-    }
-  }));
-  logger.debug("getStaticPaths", dePaths, frPaths);
+    params: { staNotationLabel: staNotationLabel },
+    locale: 'fr' }));
   return {
     paths: [...dePaths, ...frPaths],
-    // paths: [...frPaths],
     fallback: false,
   };
 };
-
