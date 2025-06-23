@@ -1,8 +1,6 @@
 import React from 'react';
 import { genericMatchSnapshot } from '../../../test-utils';
 import { EntityDetails } from '../../../features/entity/components/details';
-import entities from '../../../data/parsed/entities.json';
-import { Entity } from '../../../types/parsed/entity';
 import { screen, waitFor } from '@testing-library/react';
 import { entityRepository } from '../../../features/entity/entity-repository';
 

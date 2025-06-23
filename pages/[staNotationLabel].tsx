@@ -5,7 +5,7 @@ import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
 import { Namespace } from '@/types/namespace';
-import { EntitiesEntries, Entity, EntityEntry } from '@/types/parsed/entity';
+import { Entity, EntityEntry } from '@/types/parsed/entity';
 import { Schemas } from '@/types/parsed/schema';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Typography } from 'antd';
