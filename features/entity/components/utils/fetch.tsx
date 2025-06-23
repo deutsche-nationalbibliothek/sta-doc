@@ -24,7 +24,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
     locale === 'fr'
       ? '/api/fr/entities/' + entityId
       : '/api/entities/' + entityId;
-
+console.log(apiPath);
   return (
     <>
       {entityId && (

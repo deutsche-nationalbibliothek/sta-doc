@@ -2,6 +2,7 @@ import { useSearchQueryParams } from '@/hooks/search-query-params-provider';
 import { theme } from 'antd';
 import { compact } from 'lodash';
 import Highlighter from 'react-highlight-words';
+import React from 'react';
 
 interface HighlighterProps {
   searchWords: string[];

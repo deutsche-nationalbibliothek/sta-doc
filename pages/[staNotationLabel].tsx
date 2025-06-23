@@ -1,5 +1,3 @@
-import entities from '@/data/parsed/entities-de.json';
-import entitiesFr from '@/data/parsed/entities-fr.json';
 import schemas from '@/data/parsed/schemas.json';
 import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
@@ -18,6 +16,12 @@ import { NotFound } from './404';
 import { useNamespace } from '@/hooks/use-namespace';
 import { useScroll } from '@/hooks/use-scroll';
 import { useEntity } from '@/hooks/entity-provider';
+import { entityRepository } from '@/features/entity/entity-repository';
+import logger from 'bs-logger';
+import entities from '@/data/parsed/entities-de.json';
+import entitiesFr from '@/data/parsed/entities-fr.json';
+
+
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -58,7 +62,6 @@ export default function EntityDetailsPage({
       setHeadlines(headlines);
     }
   }, [setHeadlines, headlines]);
-
   return !notFound && entity?.id ? (
     <FetchEntity entityId={entity.id} showSpinner={false}>
       {(entityEntry, loading) => (
@@ -87,10 +90,12 @@ export default function EntityDetailsPage({
   );
 }
 
-export const getStaticProps: GetStaticProps<
-  EntityDetailsProps,
-  { staNotationLabel: string }
-> = (context) => {
+
+export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel: string }> =
+  (context) => {
+    console.log("getStaticProps", context);
+    logger.debug("getStaticProps", context);
+
   let validEntityId: EntityId | undefined;
   let entityEntry: EntityEntry | undefined;
   let isUnderConstruction: boolean | undefined;
@@ -98,11 +103,9 @@ export const getStaticProps: GetStaticProps<
 
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
-    let localeEntities = context.locale === 'fr' ? entitiesFr : entities 
-    entityEntry = Object.values(localeEntities as unknown as EntitiesEntries).find(
-      (entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel
-    );
-
+    let locale : string = context.locale ? context.locale : "de";
+    logger.debug("getStaticProps", locale, staNotationLabel);
+    entityEntry = entityRepository.getByStaNotation(locale, staNotationLabel);
     validEntityId =
       entityEntry && !isPropertyBlacklisted(entityEntry.entity.id)
         ? entityEntry.entity.id
@@ -147,43 +150,23 @@ export const getStaticProps: GetStaticProps<
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const dePaths = Object.keys(entities as unknown as EntitiesEntries)
-    .filter(
-      (entityId) =>
-        !isPropertyBlacklisted(entityId as EntityId) &&
-        'staNotationLabel' in
-        (entities as unknown as EntitiesEntries)[entityId as EntityId]
-          .entity
-    )
-    .map((entityId) => ({
-      params: {
-        staNotationLabel: (entities as unknown as EntitiesEntries)[
-          entityId as EntityId
-        ].entity.staNotationLabel,
-      },
-      locale: 'de',
-    }));
-
-  const frPaths = Object.keys(entitiesFr as unknown as EntitiesEntries)
-    .filter(
-      (entityId) =>
-        !isPropertyBlacklisted(entityId as EntityId) &&
-        'staNotationLabel' in
-        (entitiesFr as unknown as EntitiesEntries)[entityId as EntityId]
-          .entity
-    )
-    .map((entityId) => ({
-      params: {
-        staNotationLabel: (entitiesFr as unknown as EntitiesEntries)[
-          entityId as EntityId
-        ].entity.staNotationLabel,
-      },
-      locale: 'fr',
-    }));
-
+  const dePaths = entityRepository.getAllStaNotations("de").map(staNotationLabel => ({
+    params: {
+      staNotationLabel: staNotationLabel,
+      locale: 'de'
+    }
+  }));
+  const frPaths = entityRepository.getAllStaNotations("fr").map(staNotationLabel => ({
+    params: {
+      staNotationLabel: staNotationLabel,
+      locale: 'fr'
+    }
+  }));
+  logger.debug("getStaticPaths", dePaths, frPaths);
   return {
     paths: [...dePaths, ...frPaths],
     // paths: [...frPaths],
     fallback: false,
   };
 };
+

@@ -4,15 +4,16 @@ import { EntityDetails } from '../../../features/entity/components/details';
 import entities from '../../../data/parsed/entities.json';
 import { Entity } from '../../../types/parsed/entity';
 import { screen, waitFor } from '@testing-library/react';
+import { entityRepository } from '../../../features/entity/entity-repository';
+
 jest.mock('next/router', () => require('next-router-mock'));
 
 describe('renders EntityDetails', () => {
-  Object.keys(entities).forEach((entityId) => {
-    it(`${entityId} unchanged`, async () => {
-      const { entity } = entities[entityId] as { entity: Entity };
-      genericMatchSnapshot(<EntityDetails entity={entity} />, entityId);
+  entityRepository.getAll("de").forEach((entityEntry) => {
+    it(`${entityEntry.entity.id} unchanged`, async () => {
+      genericMatchSnapshot(<EntityDetails entity={entityEntry.entity} />, entityEntry.entity.id);
       await waitFor(() => {
-        expect(screen.getByText(entity.headline?.title as string));
+        expect(screen.getByText(entityEntry.headline?.title as string));
       });
     });
   });
