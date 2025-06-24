@@ -65,7 +65,8 @@ class EntityRepository {
       });
   };
 
-  async get(entityId: EntityId, language: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
+  async get(entityId: EntityId, language: string | undefined, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
+    if (!language) { language = "de"}
     let ret;
     if (live) {
       ret = this.getLiveEntityEntry(language, fetcher(API_URL.live), entityId);
