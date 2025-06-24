@@ -5,7 +5,12 @@ export function getLocaleFromReq(req: NextApiRequest) {
 }
 
 export function normalizeLocale(localeToCheck: any): string {
-  return typeof localeParam === 'string' && SUPPORTED_LOCALES.indexOf(localeToCheck) > 0 ? localeToCheck : DEFAULT_LOCALE;
+  return (typeof localeToCheck === 'string') && SUPPORTED_LOCALES.indexOf(localeToCheck) > 0 ? localeToCheck : DEFAULT_LOCALE;
+}
+
+export function setLocaleParam(url : string, localeParam : any) : string {
+  let delimiter : string =(url.indexOf('?') > 0) ? '&' : '?';
+  return url + delimiter + "locale=" + normalizeLocale(localeParam);
 }
 
 

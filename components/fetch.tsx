@@ -2,6 +2,8 @@ import { useIsLoading } from '@/hooks/use-loading-state';
 import { useSWR } from '@/lib/swr';
 import { Spin } from 'antd';
 import { useEffect } from 'react';
+import { setLocaleParam } from '@/utils/locale-utils';
+import { useRouter } from 'next/router';
 
 interface FetchProps<T> {
   url: string;
@@ -11,7 +13,7 @@ interface FetchProps<T> {
 }
 
 export function Fetch<T>({ url, children, ignoreFetchingQueryParamString, showSpinner = true }: FetchProps<T>) {
-  const { data, loading, error } = useSWR<T>(url,ignoreFetchingQueryParamString);
+  const { data, loading, error } = useSWR<T>(setLocaleParam(url, useRouter().locale),ignoreFetchingQueryParamString);
   const { setIsLoading } = useIsLoading();
 
   useEffect(() => {
