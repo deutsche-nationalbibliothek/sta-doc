@@ -18,7 +18,6 @@ interface EntityDetailsProps {
 
 export const EntityDetails: React.FC<EntityDetailsProps> = memo(
   ({ entity, embedded = false }) => {
-    console.log('[EntityDetails] Render, entity:', entity);
     const router = useRouter();
 
     const [view, setView] = useQueryParam<
