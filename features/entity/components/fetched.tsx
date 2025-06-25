@@ -13,10 +13,11 @@ interface FetchedEntityProps {
   entityEntry?: EntityEntryWithOptionalHeadlines;
   loading: boolean;
   setHeadlines: Dispatch<SetStateAction<Headline[]>>;
+  locale: string;
 }
 
 export const FetchedEntity = memo(
-  ({ entityEntry, loading, setHeadlines }: FetchedEntityProps) => {
+  ({ entityEntry, loading, setHeadlines, locale }: FetchedEntityProps) => {
     const { setNamespace } = useNamespace();
     const { setEntity, unloadEntity } = useEntity();
 
@@ -53,7 +54,7 @@ export const FetchedEntity = memo(
       <>
         <Head>{!loading && entityEntry && <title>{titleLabel}</title>}</Head>
         {!loading && entityEntry ? (
-          <EntityDetails entity={entityEntry.entity} />
+          <EntityDetails entity={entityEntry.entity} locale={locale} />
         ) : (
           <EntityPlaceholder />
         )}
@@ -62,5 +63,6 @@ export const FetchedEntity = memo(
   },
   (prevProps, nextProps) =>
     prevProps.entityEntry?.entity.id === nextProps.entityEntry?.entity.id &&
-    prevProps.loading === nextProps.loading
+    prevProps.loading === nextProps.loading &&
+    prevProps.locale === nextProps.locale
 );

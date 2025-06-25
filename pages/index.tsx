@@ -9,6 +9,7 @@ import { Namespace } from '@/types/namespace';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface HomeProps {
   headlines: Headline[];
@@ -18,6 +19,7 @@ interface HomeProps {
 export default function Home({ headlines, namespace }: HomeProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
+  const locale = useRouter().locale || 'de';
 
   useEffect(() => {
     setHeadlines(headlines);
@@ -37,16 +39,17 @@ export default function Home({ headlines, namespace }: HomeProps) {
           entityEntry={entityEntry}
           loading={loading}
           setHeadlines={setHeadlines}
+          locale={locale}
         />
       )}
     </FetchEntity>
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   const entityId: EntityId =
     Item['Documentation-platform-of-the-standardization-committee'];
-  const entityEntry = await entityRepository.get(entityId, "de", undefined);
+  const entityEntry = await entityRepository.get(entityId, context.locale, undefined);
 
   return {
     props: {
