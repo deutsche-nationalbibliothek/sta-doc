@@ -1,5 +1,7 @@
+import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQueryParam } from 'use-query-params';
+
 
 declare global {
   interface Window {
@@ -54,13 +56,15 @@ export default function FetchingQueryParamsProvider({
     ? `?${new URLSearchParams({ live }).toString()}`
     : '';
 
+  const locale = useRouter().locale;
+
   const query = useMemo(() => {
     const query = {} as RouterQuery;
     if (live) {
       query.live = live;
     }
     return query;
-  }, [live]);
+  }, [live, locale]);
 
   return (
     <FetchingQueryParamsContext.Provider

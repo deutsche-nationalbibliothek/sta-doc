@@ -13,10 +13,12 @@ import { EntityAnnotation } from './annotation';
 interface EntityDetailsProps {
   entity: Entity;
   embedded?: boolean;
+  locale: string;
 }
 
 export const EntityDetails: React.FC<EntityDetailsProps> = memo(
   ({ entity, embedded = false }) => {
+    console.log('[EntityDetails] Render, entity:', entity);
     const router = useRouter();
 
     const [view, setView] = useQueryParam<
@@ -89,5 +91,8 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
       </>
     );
   },
-  (prevProps, nextProps) => prevProps.entity.id === nextProps.entity.id
+  (prevProps, nextProps) =>
+    prevProps.entity.id === nextProps.entity.id &&
+    prevProps.entity.label === nextProps.entity.label &&
+    prevProps.locale === nextProps.locale
 );
