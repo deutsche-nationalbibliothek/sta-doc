@@ -14,7 +14,7 @@ FROM dev-stage AS build-stage
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
-ENV NODE_OPTIONS=--max_old_space_size=4072
+ENV NODE_OPTIONS=--max_old_space_size=9072
 ENV basePath="/doc"
 
 RUN npm run build
@@ -27,7 +27,7 @@ FROM node:20-alpine AS production-stage
 RUN apk add --no-cache git
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
-ENV NODE_OPTIONS=--max_old_space_size=4072
+ENV NODE_OPTIONS=--max_old_space_size=9072
 ENV basePath="/doc"
 WORKDIR /srv
 COPY --from=build-stage /srv /srv
