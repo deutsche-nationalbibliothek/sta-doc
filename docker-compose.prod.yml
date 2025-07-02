@@ -3,7 +3,8 @@ services:
     build:
       dockerfile: ./docker/nextjs/Dockerfile.prod
     extra_hosts:
-      - "edit.sta.dnb.de:10.10.14.212"
+      - "edit.sta.dnb.de:10.10.14.210"
+      # - "lab.sta.dnb.de:10.10.14.226"
     networks:
       dnb-wikibase_default:
         aliases:
