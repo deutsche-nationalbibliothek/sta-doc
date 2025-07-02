@@ -49,7 +49,8 @@ export default function Home({ headlines, namespace }: HomeProps) {
 export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   const entityId: EntityId =
     Item['Documentation-platform-of-the-standardization-committee'];
-  const entityEntry = await entityRepository.get(entityId, context.locale, undefined);
+  const locale: string = context.locale ? context.locale : "de";
+  const entityEntry = await entityRepository.get(entityId, locale, undefined);
 
   return {
     props: {

@@ -128,7 +128,7 @@ export const DEV = false;
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
-      let lang = 'de';
+      const lang = 'de';
       parseRawAndWriteParsed(lang);
     } else if (process.argv.length > 2) {
       let lang = 'de';
@@ -138,7 +138,7 @@ export const DEV = false;
           break;
         case 'fetch:single':
           if (process.argv[3]) { // fetch:single Q1234
-            fetchSingleEntityAndWrite(process.argv[3] as EntityId);
+            await fetchSingleEntityAndWrite(process.argv[3] as EntityId);
           } else {
             console.warn('Missing EntityId as argument, like: data:fetch:single P395.');
           }

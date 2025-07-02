@@ -22,11 +22,6 @@ import { EntityIndex } from '@/types/parsed/entity-index';
 
 
 class EntityRepository {
-  
-  constructor() {
-  
-  }
-
   getAll(language: string | undefined) : EntityEntry[] {
     if (!language) {
       language = "de";
@@ -65,11 +60,14 @@ class EntityRepository {
       });
   };
 
-  async get(entityId: EntityId, language: string | undefined, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
+  async get(entityId: EntityId, locale: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
+    let language = locale as unknown as string
+    console.log('language',language,'locale',locale, 'live',live)
     if (!language) { language = "de"}
     let ret;
     if (live) {
-      ret = this.getLiveEntityEntry(language, fetcher(API_URL.live), entityId);
+      // console.log('live',live,API_URL[live])
+      ret = await this.getLiveEntityEntry(language, fetcher(API_URL[live]), entityId);
     } else {
       ret = this.getPreparsedEntitiesEntries(language)[entityId];
     }
@@ -78,15 +76,16 @@ class EntityRepository {
 
   getPreparsedEntitiesEntries(language: string): EntitiesEntries {
     if (language && language === 'fr') {
-      return entitiesFr as EntitiesEntries;
+      return entitiesFr as unknown as EntitiesEntries;
     } else {
-      return entities as EntitiesEntries;
+      return entities as unknown as EntitiesEntries;
     }
   }
   
 
   async getLiveEntityEntry(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId) {
     const prefetched = {} as EntitiesRaw;
+    console.log('lang - getLiveEntityEntry',lang)
   
     // prefetch to parse without async
     await prefetchEmbeddedEntities({

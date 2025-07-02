@@ -84,7 +84,7 @@ export const parseStatements = (
       if (isClaim(occs[0])) {
         occs = (occs as Claim[]).filter((occ) => {
           const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
-          return (value === undefined) || value === lang;
+          return value === lang || value === undefined && lang == 'de';
         });
         if (occs.length === 0) {
           const propertyRaw = keyAccess<Property>(occsRaw[0], 'property');

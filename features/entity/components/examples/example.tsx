@@ -45,7 +45,6 @@ export const Example: React.FC<ExampleProps> = ({
   entity,
   codingsPreferences,
 }) => {
-  console.log(entity.id,entity)
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
   const statements = entity.statements.body
