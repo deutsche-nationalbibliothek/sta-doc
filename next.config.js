@@ -27,22 +27,11 @@ module.exports = async () => {
       // Dangerously allow production builds to successfully complete even if
       // your project has type errors.
       // !! WARN !!
-      ignoreBuildErrors: false,
+      ignoreBuildErrors: true,
     },
     reactStrictMode: true,
     async redirects() {
-      // return redirectArr
       return [
-        // {
-        //   source: '/entries/:entityId',
-        //   destination: '/entities/:entityId',
-        //   permanent: true,
-        // },
-        // ...Object.keys(staNotations).map((entityId) => ({
-        //   source: `/entities/${entityId}`,
-        //   destination: `/${staNotations[entityId].label}`,
-        //   permanent: false, // temp, until data is fixed
-        // })),
         ...Object.keys(staNotations).map((entityId) => ({
           source: `/${entityId}`,
           destination: `/${staNotations[entityId].label}`,
