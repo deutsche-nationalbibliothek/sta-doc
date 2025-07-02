@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "node --max-old-space-size=3192 node_modules/next/dist/bin/next build",
+    "build": "node --max-old-space-size=9192 node_modules/next/dist/bin/next build",
     "start": "next start",
     "data": "ts-node bin/data",
     "data:debug": "NODE_OPTIONS='--inspect' ts-node bin/data",
@@ -44,7 +44,7 @@
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.15",
     "@types/node": "^20.17.18",
-    "@types/node-fetch": "2.6.3",
+    "@types/node-fetch": "2.6.7",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.3.0",
     "@types/react-highlight-words": "0.16.7",
@@ -59,8 +59,7 @@
     "next-i18next": "^15.4.2",
     "next-query-params": "^5.1.0",
     "next-router-mock": "^0.9.13",
-    "next-translate": "^2.6.2",
-    "node-fetch": "^3.3.0",
+    "node-fetch": "2.7.0",
     "npm": "^10.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -92,6 +91,5 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "next-translate-plugin": "^2.6.2",
     "typescript": "^5.7.3"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }
