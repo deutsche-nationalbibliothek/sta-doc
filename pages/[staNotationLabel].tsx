@@ -60,7 +60,7 @@ export default function EntityDetailsPage({
     }
   }, [setHeadlines, headlines, locale]);
   return !notFound && entity?.id ? (
-    <FetchEntity entityId={entity.id} showSpinner={false}>
+    <FetchEntity entityId={entity.id} showSpinner={false} >
       {(entityEntry, loading) => (
         <FetchedEntity
           entityEntry={entityEntry}

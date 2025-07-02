@@ -7,6 +7,7 @@ import { theme } from 'antd';
 import { Tooltip } from 'antd';
 import { memo } from 'react';
 import { ExternalLink } from '@/components/external-link';
+import { useRouter } from 'next/router';
 
 interface EmbeddedProps {
   entity: Entity;
@@ -16,6 +17,7 @@ export const Embedded: React.FC<EmbeddedProps> = memo(
   ({ entity }) => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
+  const locale = useRouter().locale || 'de';
     return (
       <NamespaceThemeConfigProvider namespace={entity.namespace}>
         <Collapse
@@ -49,7 +51,7 @@ export const Embedded: React.FC<EmbeddedProps> = memo(
             </>
           }
         >
-          <EntityDetails embedded entity={entity} />
+          <EntityDetails embedded entity={entity} locale={locale} />
         </Collapse>
       </NamespaceThemeConfigProvider>
     );

@@ -19,11 +19,13 @@ export enum FetchingParam {
 
 interface RouterQuery {
   live: FetchingParam;
+  locale: string;
 }
 
 type FetchingQueryParamsContext = {
   // string with param set
-  fetchingQueryParamsString: string;
+  fetchingLiveParamsString: string;
+  fetchingLocaleParamsString: string;
   query: RouterQuery;
 };
 
@@ -43,6 +45,7 @@ export default function FetchingQueryParamsProvider({
     FetchingParam | undefined,
     UseQueryParamSetter<FetchingParam | undefined>,
   ];
+  const locale = useRouter().locale;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -52,25 +55,32 @@ export default function FetchingQueryParamsProvider({
     }
   }, [setLive]);
 
-  const fetchingQueryParamsString = live
-    ? `?${new URLSearchParams({ live }).toString()}`
+  const fetchingLiveParamsString = live
+    ? `${new URLSearchParams({ live }).toString()}`
     : '';
 
-  const locale = useRouter().locale;
+  const fetchingLocaleParamsString = locale
+    ? `${new URLSearchParams({ locale }).toString()}`
+    : '';
+
 
   const query = useMemo(() => {
     const query = {} as RouterQuery;
     if (live) {
       query.live = live;
     }
+    // if (locale) {
+    //   query.locale = locale;
+    // }
     return query;
-  }, [live, locale]);
+  }, [live]);
 
   return (
     <FetchingQueryParamsContext.Provider
       value={{
-        fetchingQueryParamsString,
-        query,
+        fetchingLiveParamsString,
+        fetchingLocaleParamsString,
+        query
       }}
     >
       {children}

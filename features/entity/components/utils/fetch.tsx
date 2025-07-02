@@ -17,7 +17,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   ignoreFetchingQueryParamString,
   showSpinner,
 }) => {
-  let url = (process.env.basePath ?? '') + "/api/entities/" + entityId;
+  const url = (process.env.basePath ?? '') + "/api/entities/" + entityId;
   return (
     <>
       {entityId && (

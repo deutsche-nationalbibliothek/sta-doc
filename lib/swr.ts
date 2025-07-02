@@ -5,13 +5,16 @@ export const useSWR = <T>(
   url?: string,
   ignoreFetchingQueryParamString?: boolean
 ): ReturnType<typeof useSWRLib> & { loading: boolean; data?: T } => {
-  const { fetchingQueryParamsString } = useFetchingQueryParams();
+  const { fetchingLiveParamsString, fetchingLocaleParamsString } = useFetchingQueryParams();
   const swr = useSWRLib<T>(
-    url && [url, fetchingQueryParamsString],
+    url && [url, fetchingLiveParamsString, fetchingLocaleParamsString],
     (apiUrl: string[]) => {
+      console.log('useSWR', fetchingLiveParamsString, fetchingLocaleParamsString);
       return fetch(
         apiUrl[0] +
-          (ignoreFetchingQueryParamString ? '' : fetchingQueryParamsString)
+          (ignoreFetchingQueryParamString ? '' : '?' + fetchingLiveParamsString) +
+          (fetchingLiveParamsString && fetchingLocaleParamsString ? '&' : '') +
+          (ignoreFetchingQueryParamString ? '?' : '' + fetchingLocaleParamsString ? fetchingLocaleParamsString : '')
       ).then((res) => res.json());
     },
     {
