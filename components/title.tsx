@@ -34,6 +34,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
   const style =
     levelsTooHigh > 0 ? { fontSize: `${16 - levelsTooHigh}px !important` } : {};
   const iconSize = 20 - level * 1.2;
+  const defaultStyle = level > 1 ? { marginTop: '18px' } : {}
 
   return (
     <>
@@ -51,6 +52,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               <Typography.Title
                 data-actual-level={level}
                 css={{
+                  ...defaultStyle,
                   ...style,
                   display: 'inline-block',
                 }}
@@ -68,8 +70,9 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
               <Typography.Title
                 data-actual-level={level}
                 css={{
+                  ...defaultStyle,
                   ...style,
-                  display: 'inline-block',
+                  display: 'inline-block'
                 }}
                 id={`${titleIdPrefix}${key}`}
                 level={localLevel}
@@ -84,7 +87,7 @@ export const Title: React.FC<LocalTitleProps> = (props) => {
                 top: 0,
                 bottom: 0,
                 margin: 'auto',
-                paddingBottom: '0.5em',
+                paddingBottom: '0.0em',
                 visibility: hovered && level !== 1 ? 'visible' : 'hidden',
                 fontSize: iconSize,
               }}
