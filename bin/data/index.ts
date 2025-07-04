@@ -70,7 +70,7 @@ export const DEV = false;
     // const staNotations = staNotationsParser(readRaw.staNotations(),lang)
     const staNotations = staNotationsParser(readRaw.staNotations(lang)) 
     const data = { staNotations: staNotations }
-    writer.parsed(data).staNotations();
+    writer.parsed(data).staNotations(lang);
   }
 
   const parseRawAndWriteLabels = () => {
@@ -177,12 +177,10 @@ export const DEV = false;
           parseRawAndWritePropertyTypes();
           break;
         case 'parse:staNotations':
-          lang = 'de';
-          parseRawAndWriteStaNotations(lang);
+            parseRawAndWriteStaNotations('de');
           break;
-        case 'parse:staNotationsFr':
-          lang = 'fr';
-          parseRawAndWriteStaNotations(lang);
+        case 'parse:staNotations:fr':
+            parseRawAndWriteStaNotations('fr');
           break;
         case 'fetch:properties-items':
           propertiesItemsListWriter(

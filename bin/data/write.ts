@@ -133,8 +133,8 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
       writeJSONFile(data.labels.fr, NAMES.labelFr, DataState.parsed);
   };
 
-  const staNotations = () =>
-    writeJSONFile(data.staNotations, NAMES.staNotation, DataState.parsed);
+  const staNotations = (lang: string) =>
+    writeJSONFile(data.staNotations, lang === 'fr' ? NAMES.staNotationFr : NAMES.staNotation, DataState.parsed);
   const staNotationsFr = () =>
     writeJSONFile(data.staNotations, NAMES.staNotationFr, DataState.parsed);
   const schemas = () =>
@@ -164,7 +164,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
     fields();
     labels();
     propertyTypes();
-    lang === 'fr' ? staNotationsFr() : staNotations();
+    staNotations(lang);
     schemas();
     codings();
     descriptions();

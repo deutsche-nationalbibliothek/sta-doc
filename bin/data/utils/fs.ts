@@ -12,6 +12,7 @@ export const writeFile = (data: string, filePath: string) => {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
   }
+  console.log('Write file', filePath)
   fs.writeFileSync(filePath, data);
 };
 

@@ -9,7 +9,6 @@ export const useSWR = <T>(
   const swr = useSWRLib<T>(
     url && [url, fetchingLiveParamsString, fetchingLocaleParamsString],
     (apiUrl: string[]) => {
-      console.log('useSWR', fetchingLiveParamsString, fetchingLocaleParamsString);
       return fetch(
         apiUrl[0] +
           (ignoreFetchingQueryParamString ? '' : '?' + fetchingLiveParamsString) +
