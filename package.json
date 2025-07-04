@@ -1,6 +1,6 @@
 {
   "name": "sta-doc",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -20,7 +20,7 @@
     "data:parse:labels": "ts-node bin/data parse:labels",
     "data:parse:propertyTypes": "ts-node bin/data parse:propertyTypes",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
-    "data:parse:staNotationsFr": "ts-node bin/data parse:staNotationsFr",
+    "data:parse:staNotations:fr": "ts-node bin/data parse:staNotations:fr",
     "split-entities": "./bin/split-entities-solr.sh",
     "split-entities-powershell": "powershell -File ./bin/split-entities-solr.ps1",
     "docker:up": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",

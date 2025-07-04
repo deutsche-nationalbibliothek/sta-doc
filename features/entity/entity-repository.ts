@@ -62,11 +62,9 @@ class EntityRepository {
 
   async get(entityId: EntityId, locale: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
     let language = locale as unknown as string
-    console.log('language',language,'locale',locale, 'live',live)
     if (!language) { language = "de"}
     let ret;
     if (live) {
-      // console.log('live',live,API_URL[live])
       ret = await this.getLiveEntityEntry(language, fetcher(API_URL[live]), entityId);
     } else {
       ret = this.getPreparsedEntitiesEntries(language)[entityId];
@@ -85,7 +83,6 @@ class EntityRepository {
 
   async getLiveEntityEntry(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId) {
     const prefetched = {} as EntitiesRaw;
-    console.log('lang - getLiveEntityEntry',lang)
   
     // prefetch to parse without async
     await prefetchEmbeddedEntities({
