@@ -7,7 +7,7 @@ New-Item -ItemType Directory -Path "./docker/solr/data" -Force
 Remove-Item -Path "./docker/solr/data/*" -Force
 
 # Load the JSON file
-$json = Get-Content -Path "./data/parsed/entities.json" -Raw | ConvertFrom-Json
+$json = Get-Content -Path "./data/parsed/entities-de.json" -Raw | ConvertFrom-Json
 
 # Split the entities into separate files
 foreach ($key in $json.PSObject.Properties.Name) {
