@@ -4,7 +4,7 @@ import { EntityIndex } from '@/types/parsed/entity-index';
 import { Namespace } from '@/types/namespace';
 
 export default function RDAEntitiesIndex() {
-  let url: string = (process.env.basePath ?? "") + "/api/entities/rda";
+  const url: string = (process.env.basePath ?? "") + "/api/entities/rda";
   return (
     <Fetch<EntityIndex[]>
       url={url}
