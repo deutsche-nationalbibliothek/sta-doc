@@ -7,7 +7,7 @@ import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
 export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
-  writeJSONFile(data, NAMES.entityDe, DataState.raw);
+  writeJSONFile(data, NAMES.entity, DataState.raw);
 };
 
 export const writeRaw = (

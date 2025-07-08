@@ -300,7 +300,7 @@ export const rdaElementStatusesParser = (
                 label: labelStripper(
                   rdaElementStatusByEntityId.entityLabel.value
                 ),
-                staNotationLabel: staNotations[ressourceTypeId]?.label,
+                staNotationLabel: staNotations[ressourceTypeId]?.label || 'missing sta' + lang +' label',
                 namespace: namespaceRessourceType,
               },
               status: {
@@ -310,8 +310,8 @@ export const rdaElementStatusesParser = (
                 ),
                 // TODO
                 staNotationLabel: statusId
-                  ? staNotations[statusId].label
-                  : undefined,
+                  ? staNotations[statusId]?.label
+                  : 'missing sta' + lang +' label',
                 namespace: namespaceStatus,
               },
               description: rdaElementStatusByEntityId.descriptionLabel
