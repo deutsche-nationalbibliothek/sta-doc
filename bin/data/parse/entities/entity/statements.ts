@@ -74,31 +74,12 @@ export const parseStatements = (
 
   const parsedStatements: (PreMappedStatement | undefined)[] = statements
   .map(
-    (occsRaw: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
-      let occs = occsRaw
+    (occs: StatementRaw[] | Claim[]): PreMappedStatement | undefined => {
       if (occs.length === 0) {
         console.log('\t\t\tno occs in entity, ignoring', entityId);
         return;
       }
-      // On the claims level, filter for language, if undefined still return for 'de'
-      if (isClaim(occs[0])) {
-        occs = (occs as Claim[]).filter((occ) => {
-          const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
-          return value === lang || value === undefined && lang == 'de';
-        });
-        if (occs.length === 0) {
-          const propertyRaw = keyAccess<Property>(occsRaw[0], 'property');
-          console.log('\t\t\tno',lang,' occs in Property,',propertyRaw,', ignoring');
-          return;
-        }
-      }
-      // property and datatype are the same over the occs collection
       const property = keyAccess<Property>(occs[0], 'property');
-      const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
-
-      const dataType = dataTypeMap[dataTypeRaw];
-      const label = lang === 'fr' ? labelsFr[property] : labelsDe[property];
-
       const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
       if (
@@ -108,6 +89,22 @@ export const parseStatements = (
       ) {
         return undefined;
       }
+      // On the claims level, filter for language, if undefined still return for 'de'
+      if (isClaim(occs[0])) {
+        occs = (occs as Claim[]).filter((occ) => {
+          const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
+          return (value === lang) || (value === undefined && lang === 'de');
+        });
+        if (occs.length === 0) {
+          console.log('\t\t\tno',lang,' occs in Property,',property,', ignoring');
+          return;
+        }
+      }
+      // property and datatype are the same over the occs collection
+      const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
+
+      const dataType = dataTypeMap[dataTypeRaw];
+      const label = lang === 'fr' ? labelsFr[property] : labelsDe[property];
 
       const isElementsPropOnRdaRessourceType =
         defaultedProps.isElementsPropOnRdaRessourceType ||
