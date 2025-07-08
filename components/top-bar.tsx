@@ -126,29 +126,29 @@ export const TopBar: React.FC = () => {
             {
               label: (
                 <span className="ant-menu-item">
-                  <Link href="/GND">GND-Dokumentation</Link>
+                  <Link href="/GND">{t('GND')}</Link>
                 </span>
               ),
               key: 'GND',
               children: [
                 {
-                  label: <Link href="/GND-A">Allgemeines</Link>,
+                  label: <Link href="/GND-A">{t('GND-A')}</Link>,
                   key: '/GND-A',
                 },
                 {
-                  label: <Link href="/GND-ET">Entitätstypen</Link>,
+                  label: <Link href="/GND-ET">{t('GND-ET')}</Link>,
                   key: '/GND-ET',
                 },
                 {
-                  label: <Link href="/GND-D">Datenmodell</Link>,
+                  label: <Link href="/GND-D">{t('GND-D')}</Link>,
                   key: '/GND-D',
                 },
                 {
-                  label: <Link href="/GND-AK">Anwendungskontexte und Teilbestände</Link>,
+                  label: <Link href="/GND-AK">{t('GND-AK')}</Link>,
                   key: '/GND-AK',
                 },
                 {
-                  label: <Link href="/GND-I">Index</Link>,
+                  label: <Link href="/GND-I">{t('GND-I')}</Link>,
                   key: '/entities/gnd',
                 },
               ],
