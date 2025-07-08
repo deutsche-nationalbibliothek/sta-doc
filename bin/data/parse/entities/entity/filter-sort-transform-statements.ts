@@ -24,7 +24,6 @@ export const filterSortTransformStatements = (
     data,
     currentHeadlineLevel,
     embedded = false,
-    lang,
     noHeadline = false,
     occurrences,
     relevantGroup,
