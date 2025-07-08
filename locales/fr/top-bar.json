@@ -3,5 +3,11 @@
   "RDA-E": "Éléments",
   "RDA-R": "Types de ressources",
   "RDA-AP": "Profils d'application",
-  "RDA-I": "Indice"
+  "RDA-I": "Indice",
+  "GND": "GND-Documentation",
+  "GND-A": "Général",
+  "GND-ET": "Types d'entités",
+  "GND-D": "Modèle de données",
+  "GND-AK": "Contextes d'application et fonds partiels",
+  "GND-I": "Indice"
 }

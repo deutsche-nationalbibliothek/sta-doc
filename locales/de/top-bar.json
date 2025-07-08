@@ -2,6 +2,12 @@
   "RDA-A": "Allgemeines",
   "RDA-E": "Elemente",
   "RDA-R": "Ressourcentypen",
-  "RDA-AP": "Ressourcentypen",
-  "RDA-I": "Index"
+  "RDA-AP": "Anwendungsprofile",
+  "RDA-I": "Index",
+  "GND": "GND-Dokumentation",
+  "GND-A": "Allgemeines",
+  "GND-ET": "Entitätstypen",
+  "GND-D": "Datenmodell",
+  "GND-AK": "Anwendungskontexte und Teilbestände",
+  "GND-I": "Index"
 }
