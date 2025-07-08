@@ -74,7 +74,6 @@ export const parseRawEntity = (
     fields,
     schemas,
     rdaElementStatuses,
-    propertyTypes
   } = data;
   const entity = getRawEntityById(entityId);
 
