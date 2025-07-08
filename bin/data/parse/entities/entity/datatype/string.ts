@@ -38,15 +38,11 @@ export const parseStringValue = ({
     ? keyAccessOcc<string>('datavalue', 'value')
     : '';
   const property = keyAccessOcc<Property>('property');
+  const withLayoutId = occ.qualifiers?.[Property['Type-of-layout']]?.[0]?.datavalue
+    ?.value?.id as unknown as EntityId || undefined;
   const itemType: ItemType = isMissingValue
     ? keyAccessOcc('snaktype')
-    : ('qualifiers-order' in occ &&
-        occ.qualifiers &&
-        occ['qualifiers-order'] &&
-        occ['qualifiers-order'][0] &&
-        occ.qualifiers[occ['qualifiers-order'][0] as Property] &&
-        occ.qualifiers[occ['qualifiers-order'][0] as Property][0].datavalue
-          ?.value?.id) ||
+    : withLayoutId && withLayoutId ||
       'default';
   const isLink: EntityId | undefined =
     getLinkId(occ, Property['Link-(Item)']) ||
