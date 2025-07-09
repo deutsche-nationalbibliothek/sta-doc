@@ -207,6 +207,7 @@ export const parseRawEntity = (
       label: !embedded ? label : undefined,
       elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
       annotation,
+      pageType,
       contextOfUseLabel,
       namespace,
       field:
