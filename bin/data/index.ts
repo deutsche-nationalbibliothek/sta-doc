@@ -28,7 +28,7 @@ export const DEV = false;
   const fetchRawAndWrite = async () => {
     console.log('Fetch raw data from database: ', API_URL.host);
     const data = await fetcher(API_URL.host).fetchAll();
-    console.log('going to write');
+    console.log('Going to write complete data.');
     writer.raw(data).writeAll();
   };
 
@@ -41,6 +41,7 @@ export const DEV = false;
         ...reader[DataState.raw].entities.all(),
         ...entity,
       };
+      console.log('Going to write single raw data.');
       writer.rawSingle(entities)
     }
   }
