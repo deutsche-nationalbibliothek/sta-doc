@@ -41,8 +41,9 @@ export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX qualifier: <${apiUrl}/prop/qualifier/>
   PREFIX statement: <${apiUrl}/prop/statement/>
 
-  SELECT ?element ?eId ?elementLabel ?entitytypeId ?entitytypeLabel ?wemilevelId ?wemilevelLabel WHERE {
-    { ?element prop:P2 item:Q264 . } #Element von: RDA-Eigenschaft
+  SELECT DISTINCT ?element ?eId ?elementLabel ?entitytypeId ?entitytypeLabel ?wemilevelId ?wemilevelLabel ?wemilevelLabelFr WHERE {
+    ?element prop:P2 item:Q264 . # Element von: RDA-Eigenschaft (RDA-Element)
+    FILTER NOT EXISTS { ?element prop:P110 item:Q8540 } . # Filter Schema: Baustelle
     OPTIONAL { ?element p:P124 ?assignmentProp .
     ?assignmentProp statement:P124 ?entitytype . }
     OPTIONAL { ?element prop:P639 ?wemilevel . }

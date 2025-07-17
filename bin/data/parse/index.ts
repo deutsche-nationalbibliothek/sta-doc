@@ -339,44 +339,39 @@ export const rdaElementStatusesParser = (
 export const rdaPropertiesParser = (
   rdaProperties: RdaPropertiesRaw,
   parsedStaNotations: StaNotations,
-  parsedSchemas: Schemas
+  parsedSchemas: Schemas,
+  labelsDe: LabelsDe,
+  labelsFr: LabelsFr,
+  lang: string
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
-    const id = rdaProperty.eId.value;
+    const rdaPropertyId = rdaProperty.eId.value;
+    const rdaPropertyLabel = lang === 'fr' ? labelsFr[rdaPropertyId] as unknown as string : labelsDe[rdaPropertyId] as unknown as string
+    const rdaEntityTypeOrWemiLevelId = rdaProperty.entitytypeId?.value || rdaProperty.wemilevelId?.value!
+    const rdaEntityTypeOrWemiLevelLabel = lang === 'fr' ? labelsFr[rdaEntityTypeOrWemiLevelId] : labelsDe[rdaEntityTypeOrWemiLevelId] as unknown as string
 
-    const typeData = (rdaPropertyId: EntityId, label: string) => {
-      const namespaceId = parsedSchemas[id];
+    const typeData = (typeDataId: EntityId, label: string) => {
+      const namespaceId = parsedSchemas[rdaPropertyId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       return {
-        id: rdaPropertyId,
-        label: labelStripper(label),
+        id: typeDataId,
+        label: label,
         namespace,
-        staNotationLabel: rdaPropertyId
-          ? parsedStaNotations[rdaPropertyId].label
+        staNotationLabel: typeDataId
+          ? parsedStaNotations[typeDataId].label
           : undefined,
       };
     };
-    const type =
-      rdaProperty.entitytypeId && rdaProperty.entitytypeLabel
-        ? typeData(
-            rdaProperty.entitytypeId.value,
-            rdaProperty.entitytypeLabel.value
-          )
-        : rdaProperty.wemilevelId &&
-          rdaProperty.wemilevelLabel &&
-          typeData(
-            rdaProperty.wemilevelId.value,
-            rdaProperty.wemilevelLabel.value
-          );
+    const type = typeData(rdaEntityTypeOrWemiLevelId,rdaEntityTypeOrWemiLevelLabel)
 
     return type
       ? [
           ...acc,
           {
-            id,
-            label: labelStripper(rdaProperty.elementLabel.value),
-            staNotationLabel: parsedStaNotations[id].label,
+            id: rdaPropertyId,
+            label: rdaPropertyLabel,
+            staNotationLabel: parsedStaNotations[rdaPropertyId].label,
             type,
           },
         ]
@@ -422,7 +417,7 @@ export const parseAllFromRead = (
     fields: fieldsParser(read.fields(), staNotations),
     rdaElementStatuses: rdaElementStatusesParser(
       read.rdaElementStatuses(),
-      staNotationsDe,
+      staNotations,
       schemas
     ),
   };
@@ -430,7 +425,10 @@ export const parseAllFromRead = (
     rdaProperties: rdaPropertiesParser(
       read.rdaProperties(),
       staNotationsDe,
-      data.schemas
+      data.schemas,
+      data.labelsDe,
+      data.labelsFr,
+      lang
     ),
     labels: {
       de: data.labelsDe,
