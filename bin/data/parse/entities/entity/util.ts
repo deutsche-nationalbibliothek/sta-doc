@@ -38,7 +38,7 @@ export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
       }
     };
 
-    const sluggedLabel = slugify(title)
+    const sluggedLabel = slugify(title || 'missingEnglishLabel')
       // remove everything except letters, dashes and numbers
       .replace(/[^a-zA-Z0-9\- ]/g, '');
     const headline = {
