@@ -1,5 +1,6 @@
 import { Fetch } from '@/components/fetch';
 import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
+import { useRouter } from 'next/router';
 
 interface FetchEntityProps {
   entityId: string;
@@ -17,12 +18,14 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   ignoreFetchingQueryParamString,
   showSpinner,
 }) => {
+  const locale = useRouter().locale
   const url = (process.env.basePath ?? '') + "/api/entities/" + entityId;
   return (
     <>
       {entityId && (
         <Fetch<EntityEntryWithOptionalHeadlines>
           url={url}
+          locale={locale}
           ignoreFetchingQueryParamString={ignoreFetchingQueryParamString}
           showSpinner={showSpinner}
         >
