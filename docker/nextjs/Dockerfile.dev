@@ -1,70 +1,12 @@
-FROM node:20-alpine
+FROM node:20-alpine AS dev-stage
 
 RUN apk add --no-cache python3 make g++
 RUN apk add --no-cache git
-# Set /srv as the working directory
 WORKDIR /srv
-# Copy package.json and package-lock.json
-COPY package*.json ./
-# # Install dependencies
+COPY ./package*.json ./
 RUN npm install
-# Copy the rest of our Next.js
 COPY . .
-# Ensure port 3000 is accessible to our system
-EXPOSE 3000
-# Run npm run dev, as we would via the command line
-CMD [ "npm", "run", "dev"]
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CMD [ "npm", "dev"]
