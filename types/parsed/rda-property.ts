@@ -5,11 +5,13 @@ export type RdaProperties = RdaProperty[];
 
 export interface RdaProperty {
   id: EntityId;
-  label: string;
+  label?: string;
+  labelFr?: string;
   staNotationLabel: string;
   type: {
     id: EntityId;
-    label: string;
+    label?: string;
+    labelFr?: string;
     namespace: Namespace;
     staNotationLabel?: string;
   };

@@ -5,17 +5,20 @@ export type RdaPropertiesRaw = RdaPropertyRaw[];
 interface EntityType {
   entitytypeId: Element;
   entitytypeLabel: ElementLabel;
+  entitytypeLabelFr: ElementLabel;
 }
 
 interface WemiType {
   wemilevelId: Element;
   wemilevelLabel: ElementLabel;
+  wemilevelLabelFr: ElementLabel;
 }
 
 export interface RdaPropertyRaw extends Partial<EntityType>, Partial<WemiType> {
   element: Element;
   eId: Element;
   elementLabel: ElementLabel;
+  elementLabelFr: ElementLabel;
 }
 
 interface ElementLabel {
