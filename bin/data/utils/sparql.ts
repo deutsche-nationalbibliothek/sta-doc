@@ -40,14 +40,24 @@ export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX item: <${apiUrl}/entity/>
   PREFIX qualifier: <${apiUrl}/prop/qualifier/>
   PREFIX statement: <${apiUrl}/prop/statement/>
-
-  SELECT DISTINCT ?element ?eId ?elementLabel ?entitytypeId ?entitytypeLabel ?wemilevelId ?wemilevelLabel ?wemilevelLabelFr WHERE {
-    ?element prop:P2 item:Q264 . # Element von: RDA-Eigenschaft (RDA-Element)
-    FILTER NOT EXISTS { ?element prop:P110 item:Q8540 } . # Filter Schema: Baustelle
-    OPTIONAL { ?element p:P124 ?assignmentProp .
-    ?assignmentProp statement:P124 ?entitytype . }
-    OPTIONAL { ?element prop:P639 ?wemilevel . }
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+  SELECT DISTINCT ?element ?eId ?elementLabel ?elementLabelFr ?entitytypeId ?entitytypeLabel ?entitytypeLabelFr ?wemilevelId ?wemilevelLabel ?wemilevelLabelFr WHERE {
+  ?element prop:P2 item:Q264 .
+  FILTER NOT EXISTS { ?element prop:P110 item:Q8540 }.
+  OPTIONAL { ?element p:P124 ?assignmentProp.
+    ?assignmentProp statement:P124 ?entitytype.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "de".
+      ?entitytype rdfs:label ?entitytypeLabel.}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr".
+      ?entitytype rdfs:label ?entitytypeLabelFr.}}
+    OPTIONAL { ?element prop:P639 ?wemilevel. 
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "de".
+        ?wemilevel rdfs:label ?wemilevelLabel.}
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "fr".
+        ?wemilevel rdfs:label ?wemilevelLabelFr.}}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "de".
+      ?element rdfs:label ?elementLabel.}
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "fr".
+      ?element rdfs:label ?elementLabelFr.}
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
     BIND(STRAFTER(STR(?entitytype), '/entity/') as ?entitytypeId)
     BIND(STRAFTER(STR(?wemilevel), '/entity/') as ?wemilevelId)

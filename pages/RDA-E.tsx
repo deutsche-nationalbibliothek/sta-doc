@@ -11,6 +11,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { uniq } from 'lodash';
 import { PageHeader } from '@/components/page-header';
+import { useRouter } from 'next/router';
 
 interface RdaPropertiesProps {
   headlines: Headline[];
@@ -21,10 +22,17 @@ export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
   const { setNamespace } = useNamespace();
+  console.log('rdap',rdaProperties)
+  const locale = useRouter().locale || 'de';
 
   useEffect(() => {
     setNamespace(Namespace.RDA);
   }, [setNamespace]);
+
+  const dataIndex = {
+    de: ['type', 'label'],
+    fr: ['type', 'labelFr'],
+  };
 
   const columns: ColumnsTypes<RdaProperty> = [
     {
@@ -37,7 +45,7 @@ export default function RdaPropertiesPage({
     },
     {
       title: 'Element',
-      dataIndex: 'label',
+      dataIndex: locale==='fr'?'labelFr':'label',
       key: 'label',
       width: '30%',
       isSearchable: true,
@@ -50,14 +58,14 @@ export default function RdaPropertiesPage({
     },
     {
       title: 'Entitätstyp / WEMI-Ebene',
-      dataIndex: ['type', 'label'],
+      dataIndex: dataIndex[locale as 'de' | 'fr'],
       key: 'wemi-label',
       width: '20%',
       filters: uniq(
-        rdaProperties.map((rdaProperty) => rdaProperty.type.label)
+        rdaProperties.map((rdaProperty) => locale==='fr' ? rdaProperty.type.labelFr : rdaProperty.type.label)
       ).map((rdaPropertyLabel) => ({
-        text: rdaPropertyLabel,
-        value: rdaPropertyLabel,
+        text: rdaPropertyLabel||'Missing',
+        value: rdaPropertyLabel||'Missing',
       })),
       onFilter: (value, record) => {
         return value === record.type.label;

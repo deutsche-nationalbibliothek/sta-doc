@@ -342,28 +342,30 @@ export const rdaPropertiesParser = (
   parsedSchemas: Schemas,
   labelsDe: LabelsDe,
   labelsFr: LabelsFr,
-  lang: string
 ) => {
   console.log('\tParsing RdaProperties');
   return rdaProperties.reduce((acc, rdaProperty) => {
     const rdaPropertyId = rdaProperty.eId.value;
-    const rdaPropertyLabel = lang === 'fr' ? labelsFr[rdaPropertyId] as unknown as string : labelsDe[rdaPropertyId] as unknown as string
-    const rdaEntityTypeOrWemiLevelId = rdaProperty.entitytypeId?.value || rdaProperty.wemilevelId?.value!
-    const rdaEntityTypeOrWemiLevelLabel = lang === 'fr' ? labelsFr[rdaEntityTypeOrWemiLevelId] : labelsDe[rdaEntityTypeOrWemiLevelId] as unknown as string
+    const rdaPropertyLabel = labelsDe[rdaPropertyId]
+    const rdaPropertyLabelFr = labelsFr[rdaPropertyId] || 'Missing label'
+    const rdaEntityTypeOrWemiLevelId = rdaProperty.entitytypeId?.value || rdaProperty.wemilevelId?.value || 'Q264' as EntityId;
+    const rdaEntityTypeOrWemiLevelLabel = labelsDe[rdaEntityTypeOrWemiLevelId]
+    const rdaEntityTypeOrWemiLevelLabelFr = labelsFr[rdaEntityTypeOrWemiLevelId] || 'Missing label'
 
-    const typeData = (typeDataId: EntityId, label: string) => {
+    const typeData = (typeDataId: EntityId, label?: string, labelFr?: string) => {
       const namespaceId = parsedSchemas[rdaPropertyId];
       const namespace: Namespace = namespaceConfig.map[namespaceId];
       return {
         id: typeDataId,
         label: label,
+        labelFr: labelFr,
         namespace,
-        staNotationLabel: typeDataId
+        staNotationLabel: parsedStaNotations[typeDataId]
           ? parsedStaNotations[typeDataId].label
           : undefined,
       };
     };
-    const type = typeData(rdaEntityTypeOrWemiLevelId,rdaEntityTypeOrWemiLevelLabel)
+    const type = typeData(rdaEntityTypeOrWemiLevelId,rdaEntityTypeOrWemiLevelLabel,rdaEntityTypeOrWemiLevelLabelFr)
 
     return type
       ? [
@@ -371,6 +373,7 @@ export const rdaPropertiesParser = (
           {
             id: rdaPropertyId,
             label: rdaPropertyLabel,
+            labelFr: rdaPropertyLabelFr,
             staNotationLabel: parsedStaNotations[rdaPropertyId].label,
             type,
           },
@@ -428,7 +431,6 @@ export const parseAllFromRead = (
       data.schemas,
       data.labelsDe,
       data.labelsFr,
-      lang
     ),
     labels: {
       de: data.labelsDe,

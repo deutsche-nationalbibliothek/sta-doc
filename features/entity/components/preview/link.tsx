@@ -10,7 +10,7 @@ import { LinkProps } from 'next/link';
 import { EntityPreview } from '.';
 
 interface EntityLinkProps {
-  label: string;
+  label?: string;
   id: EntityId;
   namespace?: Namespace;
   staNotationLabel?: string;
@@ -36,7 +36,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
 
   const content = (
     <>
-      {children ?? <QueryHighlighter textToHighlight={label} />}
+      {children ?? <QueryHighlighter textToHighlight={label || 'No value'} />}
       {isPointingDifferentNamespace &&
         !namespaceConfig.notPointedOut.includes(pointingNamespace) && (
           <>
@@ -59,7 +59,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     <EntityPreview
       tooltipPlacement={tooltipPlacement}
       entityId={id}
-      label={label}
+      label={label || 'No value'}
       showPopover={!!staNotationLabel}
     >
       {staNotationLabel ? (
