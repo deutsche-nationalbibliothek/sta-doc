@@ -49,7 +49,7 @@ function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
       else if (element.propertyType?.id === Item['Relationship-label-of-property-type']) {
         result.relationType.push(element);
       }
-      else if (element.propertyType?.id === Item.Qualifier) {
+      else if (element.propertyType?.id === Item.Qualifier || element.propertyType?.id === Item['Identifying-addition']) {
         result.addition.push(element);
       }
       else if (element.codings) {
@@ -138,7 +138,7 @@ export function exampleStatementsReducer(
                   return ([
                     index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
                       : { coding: codingSeparator.predecessor, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'},
-                    { coding: codingSeparator.successor, value: permittedValuesDetector ? '(' + permittedValues + ')' : '' }
+                    { coding: codingSeparator.successor, value: permittedValues && permittedValuesDetector ? '(' + permittedValues + ')' : '' }
                   ]);
                 })
             })
