@@ -15,7 +15,6 @@ import parsedStaNotations from '@/data/parsed/sta-notations.json';
 import parsedSchemas from '@/data/parsed/schemas.json';
 import parsedFields from '@/data/parsed/fields.json';
 import parsedRdaElementStatuses from '@/data/parsed/rda-element-statuses.json';
-import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Namespace } from '@/types/namespace';
 import { EntityIndex } from '@/types/parsed/entity-index';
@@ -60,12 +59,12 @@ class EntityRepository {
       });
   };
 
-  async get(entityId: EntityId, locale: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
+  async get(entityId: EntityId, locale: string, live: API_URL | undefined) : Promise<EntityEntry | undefined> {
     let language = locale as unknown as string
     if (!language) { language = "de"}
     let ret;
     if (live) {
-      ret = await this.getLiveEntityEntry(language, fetcher(API_URL[live]), entityId);
+      ret = await this.getLiveEntityEntry(language, fetcher(API_URL.live), entityId);
     } else {
       ret = this.getPreparsedEntitiesEntries(language)[entityId];
     }
