@@ -8,26 +8,31 @@ import type { TooltipPlacement } from 'antd/lib/tooltip';
 import namespaceConfig from 'config/namespace';
 import { LinkProps } from 'next/link';
 import { EntityPreview } from '.';
+import { useRouter } from 'next/router';
 
 interface EntityLinkProps {
-  label?: string;
   id: EntityId;
-  namespace?: Namespace;
-  staNotationLabel?: string;
   children?: JSX.Element | JSX.Element[] | string | string[];
+  label?: string;
   linkProps?: Omit<LinkProps, 'href' | 'style'>;
+  locale?: string;
+  namespace?: Namespace;
   tooltipPlacement?: TooltipPlacement;
+  staNotationLabel?: string;
 }
 
 export const EntityLink: React.FC<EntityLinkProps> = ({
   id,
   label,
+  locale: propLocale,
   namespace: pointingNamespace,
   staNotationLabel,
   children,
   linkProps,
   tooltipPlacement,
 }) => {
+  const router = useRouter();
+  const locale = propLocale || router.locale || 'de';
   const { namespace: currentNamespace } = useNamespace();
   const { token } = theme.useToken();
 
@@ -73,6 +78,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
             },
           }}
           href={`/${staNotationLabel}`}
+          locale={locale}
         >
           {content}
         </Link>
