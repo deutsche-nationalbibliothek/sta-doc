@@ -2,11 +2,10 @@ import { ToolOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { entityRepository } from '@/features/entity/entity-repository';
 import { EntityLink } from '@/features/entity/components/preview/link';
-import { Item } from '@/types/item';
-import { Link } from '@/lib/next-link';
 import useTranslation from 'next-translate/useTranslation';
+import staNotations from '@/data/parsed/sta-notations.json'
+import { StaNotations} from '@/types/parsed/sta-notation';
 
 interface NotFoundProps {
   subtitle?: JSX.Element;
@@ -21,30 +20,28 @@ export const NotFound: React.FC<NotFoundProps> = ({
   const { locale, asPath } = router;
   const currentPath = asPath.substring(1)
   const lang = locale === 'fr' ? 'French' : '' 
-  const findStaNotation = true
   const { t } = useTranslation('common');
-  // const findStaNotation = entityRepository.getAllStaNotations("de").includes(currentPath)
-  // const findEntity = entityRepository.getByStaNotation("de",currentPath)?.entity 
-  // const entityLink = findEntity?.id || Item['Documentation-platform-of-the-standardization-committee']
-  // const entityLabel = findEntity?.label || 'Label missing'
+  const findStaNotationIncluded = Object.values(staNotations as unknown as StaNotations).find(staNot => staNot.label.includes(currentPath))
 
-  return findStaNotation ? (
+  return findStaNotationIncluded ? (
     <>
       <Head>
-        <title>404 | {lang ? `Page is not available in ${lang}.` : 'Not found.'}</title>
+        <title>404 | {lang ? `Page is not available in ${lang}.` : 'Page not found.'}</title>
       </Head>
       <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
         <>
-          <Typography.Text>
-            {t('notFound')}
+          <Typography.Text style={{ fontSize: 'x-large' }}>
+            {t('notFoundInLanguage')}
           </Typography.Text>
           <br></br>
-          <Link href={currentPath} locale={'de'}>{t('versionDe')}</Link>
-          {/* <EntityLink
-                  id={entityLink}
-                  label={entityLabel}
-                  staNotationLabel={currentPath}
-                ></EntityLink> */}
+          <Typography.Text style={{ fontSize: 'x-large' }}>
+            <EntityLink
+              id={findStaNotationIncluded.id}
+              label={findStaNotationIncluded.label}
+              locale={'de'}
+              staNotationLabel={currentPath}
+            ></EntityLink>
+          </Typography.Text>
         </>
       </div>
     </>
@@ -52,18 +49,22 @@ export const NotFound: React.FC<NotFoundProps> = ({
     : (
       <>
         <Head>
-          <title>404 | {subtitle ?? 'Nicht gefunden'}</title>
+        <title>404 | Page not found.</title>
         </Head>
         <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
           <Typography.Title level={2}>
             {isUnderConstruction ? (
               <>
-                <ToolOutlined style={{ fontSize: 'xxx-large' }} />
+                <ToolOutlined style={{ fontSize: 'x-large' }} />
                 <br />
                 In Bearbeitung
               </>
             ) : (
-              '404 - Seite nicht gefunden'
+                <>
+                  <Typography.Text style={{ fontSize: 'x-large' }}>
+                    {t('notFound')}
+                  </Typography.Text>
+                </>
             )}
           </Typography.Title>
           {subtitle && <Typography.Paragraph>{subtitle}</Typography.Paragraph>}

@@ -1,5 +1,6 @@
 {
   "title": "Salut",
-  "notFound": "La page n'est pas disponible. Veuillez consulter la version allemande en cliquant sur le lien suivant.",
+  "notFound": "404 | Page introuvable",
+  "notFoundInLanguage": "La page n'est pas disponible. Veuillez consulter la version allemande en cliquant sur le lien suivant.",
   "versionDe": "--> Version allemande"
 }
