@@ -4,7 +4,6 @@ import namespaceConfig from '../../../../../config/namespace';
 import { Namespace } from '../../../../../types/namespace';
 import { Datatypes, StatementValue } from '../../../../../types/parsed/entity';
 import { Property } from '../../../../../types/property';
-import { EntityId } from '../../../../../types/entity-id';
 import {
   Claim,
   DatatypeRaw,
