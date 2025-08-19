@@ -19,9 +19,10 @@ export const NotFound: React.FC<NotFoundProps> = ({
   const router = useRouter();
   const { locale, asPath } = router;
   const currentPath = asPath.substring(1)
+  const cleanPath = currentPath.replace(/\?.*$/, '');
   const lang = locale === 'fr' ? 'French' : '' 
   const { t } = useTranslation('common');
-  const findStaNotationIncluded = Object.values(staNotations as unknown as StaNotations).find(staNot => staNot.label.includes(currentPath))
+  const findStaNotationIncluded = Object.values(staNotations as unknown as StaNotations).find(staNot => staNot.label.includes(cleanPath))
 
   return findStaNotationIncluded ? (
     <>

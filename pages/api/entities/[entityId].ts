@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 export async function getEntityJson(req: NextApiRequest, res: NextApiResponse) {
   res.json(await entityRepository.get(
     req.query.entityId as EntityId,
-    req.query.locale as FetchingParam,
+    req.query.locale as string,
     req.query.live as FetchingParam
   ));
 }

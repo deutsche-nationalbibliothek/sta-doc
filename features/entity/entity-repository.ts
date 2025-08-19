@@ -2,6 +2,7 @@ import entities from '@/data/parsed/entities-de.json';
 import entitiesFr from '@/data/parsed/entities-fr.json';
 import { EntitiesEntries, EntityEntry } from '@/types/parsed/entity';
 import { EntityId } from '@/types/entity-id';
+import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 import { API_URL, fetcher } from '@/bin/data/fetcher';
 import { EntitiesRaw } from '@/types/raw/entity';
 import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
@@ -59,12 +60,13 @@ class EntityRepository {
       });
   };
 
-  async get(entityId: EntityId, locale: string, live: API_URL | undefined) : Promise<EntityEntry | undefined> {
+  async get(entityId: EntityId, locale: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
     let language = locale as unknown as string
     if (!language) { language = "de"}
     let ret;
     if (live) {
-      ret = await this.getLiveEntityEntry(language, fetcher(API_URL.live), entityId);
+      const apiUrl = API_URL[live]
+      ret = await this.getLiveEntityEntry(language, fetcher(apiUrl), entityId);
     } else {
       ret = this.getPreparsedEntitiesEntries(language)[entityId];
     }

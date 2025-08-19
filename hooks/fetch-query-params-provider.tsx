@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQueryParam } from 'use-query-params';
 
@@ -14,9 +13,7 @@ type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];
 export enum FetchingParam {
   prod = 'prod',
   test = 'test',
-  live = 'live',
-  de = 'de',
-  fr = 'fr'
+  live = 'live'
 }
 
 interface RouterQuery {
