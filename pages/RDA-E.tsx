@@ -22,7 +22,6 @@ export default function RdaPropertiesPage({
   rdaProperties,
 }: RdaPropertiesProps) {
   const { setNamespace } = useNamespace();
-  console.log('rdap',rdaProperties)
   const locale = useRouter().locale || 'de';
 
   useEffect(() => {

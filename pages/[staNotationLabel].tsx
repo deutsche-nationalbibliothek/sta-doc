@@ -144,41 +144,6 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const dePaths = Object.keys(entities as unknown as EntitiesEntries)
-    .filter(
-      (entityId) =>
-        !isPropertyBlacklisted(entityId as EntityId) &&
-        'staNotationLabel' in
-        (entities as unknown as EntitiesEntries)[entityId as EntityId]
-          .entity
-    )
-    .map((entityId) => ({
-      params: {
-        staNotationLabel: (entities as unknown as EntitiesEntries)[
-          entityId as EntityId
-        ].entity.staNotationLabel,
-      },
-      locale: 'de',
-    }));
-
-  const frPaths = Object.keys(entitiesFr as unknown as EntitiesEntries)
-    .filter(
-      (entityId) =>
-        !isPropertyBlacklisted(entityId as EntityId) &&
-        'staNotationLabel' in
-        (entitiesFr as unknown as EntitiesEntries)[entityId as EntityId]
-          .entity
-    )
-    .map((entityId) => ({
-      params: {
-        staNotationLabel: (entitiesFr as unknown as EntitiesEntries)[
-          entityId as EntityId
-        ].entity.staNotationLabel,
-      },
-      locale: 'fr',
-    }));
-
-export const getStaticPaths: GetStaticPaths = () => {
   const dePaths = entityRepository.getAllStaNotations("de").map(staNotationLabel => ({
     params: { staNotationLabel: staNotationLabel},
     locale: 'de' }));
