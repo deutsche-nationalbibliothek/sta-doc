@@ -33,23 +33,23 @@ export const GndFieldsTable: React.FC<
         ) : null;
       },
     },
-    {
-      title: 'MARC21',
-      dataIndex: ['codings', 'MARC 21'],
-      width: '25%',
-      key: 'MARC21',
-      isSearchable: true,
-      render: (coding, _record, _index, highlighted) => {
-        return coding ? (
-          <Typography.Text code>{highlighted}</Typography.Text>
-        ) : null;
-      },
-    },
+    // {
+    //   title: 'MARC21',
+    //   dataIndex: ['codings', 'MARC 21'],
+    //   width: '25%',
+    //   key: 'MARC21',
+    //   isSearchable: true,
+    //   render: (coding, _record, _index, highlighted) => {
+    //     return coding ? (
+    //       <Typography.Text code>{highlighted}</Typography.Text>
+    //     ) : null;
+    //   },
+    // },
     {
       title: 'Bezeichnung',
       dataIndex: 'label',
       key: 'label',
-      width: '35%',
+      width: '60%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return <EntityLink {...record}>{highlightedContent}</EntityLink>;
@@ -76,7 +76,13 @@ export const GndFieldsTable: React.FC<
       }))}
       pagination={fields.length > 10 ? undefined : false}
       dataSource={fields.map((field) => ({ ...field, key: field.id }))}
-      expandable={{ expandedRowRender: GndSubFieldTable }}
+      expandable={{
+        expandedRowRender: (props) => (
+          <GndSubFieldTable
+            {...props}
+          />
+        ),
+      }}
     />
   );
 };

@@ -34,19 +34,19 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
         return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
-    {
-      title: 'MARC21',
-      dataIndex: ['codings', 'MARC 21'],
-      width: '25%',
-      noSort: true,
-      key: 'PICA3',
-      render: (_coding, _record, _index, highlighted) => {
-        return <Typography.Text code>{highlighted}</Typography.Text>;
-      },
-    },
+    // {
+    //   title: 'MARC21',
+    //   dataIndex: ['codings', 'MARC 21'],
+    //   width: '25%',
+    //   noSort: true,
+    //   key: 'PICA3',
+    //   render: (_coding, _record, _index, highlighted) => {
+    //     return <Typography.Text code>{highlighted}</Typography.Text>;
+    //   },
+    // },
     {
       title: 'Bezeichnung',
-      width: '35%',
+      width: '55%',
       dataIndex: 'label',
       noSort: true,
       key: 'label',
@@ -56,7 +56,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
     },
     {
       title: 'Wiederholung',
-      width: '10%',
+      width: '15%',
       dataIndex: 'repeatable',
       noSort: true,
       key: 'repeatable',
@@ -85,6 +85,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
         ...subfield,
         key: subfield.id,
       }))}
+      rowClassName='grey-background'
     />
   );
 };
