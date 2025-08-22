@@ -6,7 +6,7 @@ import {
 } from '@/types/parsed/entity';
 import { Field } from '@/types/parsed/field';
 import { Property } from '@/types/property';
-import { Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import { GndSubFieldTable } from '@/features/gnd/subfield-table';
 import { compact } from 'lodash';
 import React from 'react';
@@ -121,13 +121,19 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                     {stringStatement.map((stringValue, index) => {
                       const linkItemQualifier =
                         stringValue.qualifiers?.find(
-                          (qualifier) =>
-                            qualifier.property === Property['Link-(Item)'] || Property['Link-(Property)']
+                          (qualifier) => {
+                            return qualifier.property === Property['Link-(Item)'] || 
+                            qualifier.property === Property['Link-(Property)']}
                         );
                       const typeOfLayoutQualifier =
                         stringValue.qualifiers?.find(
                           (qualifier) =>
                             qualifier.property === Property['Type-of-layout']
+                        );
+                      const typeQualifier =
+                        stringValue.qualifiers?.find(
+                          (qualifier) =>
+                            qualifier.property === Property.Type
                         );
                       const typeOfLayout =
                         typeOfLayoutQualifier?.wikibasePointers &&
@@ -141,6 +147,28 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                           }}
                           key={index}
                         >
+                          {typeQualifier && stringValue.qualifiers && (
+                            <>
+                              <Row>
+                                <Col span={5} style={{ paddingLeft: 0, marginLeft: 0 }}>
+                                  <StringValueComponent
+                                    itemType={
+                                      stringValue.itemType ?? typeOfLayout
+                                    }
+                                    property={stringValue.property}
+                                    stringValue={stringValue}
+                                  >
+                                  </StringValueComponent>
+                                </Col>
+                                <Col span={12}>
+                                  <Qualifiers
+                                    showHeadline={false}
+                                    qualifiers={stringValue.qualifiers}
+                                  />
+                                </Col>
+                              </Row>
+                            </>
+                          )}
                           {linkItemQualifier ? (
                             <>
                               <Qualifiers
@@ -159,7 +187,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                 }))}
                               />
                             </>
-                          ) : (
+                          ) : !typeQualifier && (
                             <>
                               {
                                 <StringValueComponent
@@ -171,12 +199,10 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                 />
                               }
                               {stringValue.qualifiers && (
-                                <>
                                   <Qualifiers
                                     showHeadline={false}
                                     qualifiers={stringValue.qualifiers}
                                   />
-                                </>
                               )}
                             </>
                           )}
@@ -195,7 +221,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   return (
     <Table<TableStatementsData>
       size="small"
-      style={{ marginBottom: '10px' }}
+      style={{ marginBottom: '6px' }}
       dataSource={data}
       columns={columns}
       pagination={false}
