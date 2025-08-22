@@ -4,8 +4,7 @@ import {
   GndImplementation,
   GndImplementationProps,
 } from './gnd-implementation';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
-import { Card, Col, Divider, Row, Select, Typography, theme } from 'antd';
+import { Card, Divider, Row, Select, theme } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 import { Collapse } from '@/components/collapse';
@@ -19,26 +18,9 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
   implementations,
 }) => {
   const label =
-    implementations.length > 1 ? 'GND Umsetzungen ' : 'GND Umsetzung ';
-
+    implementations.length > 1 ? 'GND-Umsetzungen ' : 'GND-Umsetzung ';
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
-
-  const labelReactElement = (
-    <>
-      <Typography.Paragraph strong>
-        {label}{' '}
-        <MenuUnfoldOutlined
-          style={{ color: 'var(--link-color)', fontSize: 'large' }}
-        />
-      </Typography.Paragraph>
-    </>
-  );
-
-  const implementationsHaveCodingValues = implementations.some(
-    (implementation) =>
-      implementation.statements.body.some((statement) => statement.codings)
-  );
   const implementationsNamespace = Namespace.GND;
 
   return (
@@ -47,9 +29,9 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
         <>
           <Collapse
             defaultOpen={true}
-            labelOpen={'GND Umsetzung'}
-            labelClosed={'GND Umsetzung'}
-            extra={true ?
+            labelOpen={label}
+            labelClosed={label}
+            extra={
               <Select
                 placeholder="Codierung wählen"
                 mode="multiple"
@@ -68,7 +50,7 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
                   key: index,
                 }))}
               />
-              : undefined}
+            }
           >
             <>
               <Row

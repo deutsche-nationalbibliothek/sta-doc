@@ -67,7 +67,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
       label={label || 'No value'}
       showPopover={!!staNotationLabel}
     >
-      {staNotationLabel ? (
+      {staNotationLabel || id ? (
         <Link
           {...linkProps}
           css={{
@@ -77,7 +77,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
               color: `${token.colorPrimary} !important`,
             },
           }}
-          href={`/${staNotationLabel}`}
+          href={staNotationLabel ? `/${staNotationLabel}` : `/${id}`}
           locale={locale}
         >
           {content}
