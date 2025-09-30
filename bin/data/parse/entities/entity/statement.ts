@@ -6,7 +6,7 @@ import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { parseReferences } from './datatype/references';
 import { parseStringValue } from './datatype/string';
 import { parseTimeValue } from './datatype/time';
-import { parseUrlValue } from './datatype/url';
+// import { parseUrlValue } from './datatype/url';
 import { parseWikibaseValue } from './datatype/wikibase';
 import { parseStatements, ParseStatementsProps } from './statements';
 import { Namespace } from '../../../../../types/namespace';
@@ -113,7 +113,7 @@ export const parseStatement = (props: ParseStatementProps) => {
         headlines,
         lang,
         currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
-        prevParsedEntities: [...prevParsedEntities, entityId, embeddedEntityId],
+        prevParsedEntities: [...prevParsedEntities, embeddedEntityId],
         isRdaRessourceEntityParam,
         embedded: true,
         noHeadline: property === Property['example(s)'],

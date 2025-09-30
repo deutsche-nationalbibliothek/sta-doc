@@ -88,8 +88,13 @@ export const parseStatements = (
       ) {
         return undefined;
       }
-      // On the claims level, filter for language, if undefined still return for 'de'
-      if (isClaim(occs[0])) {
+
+      // property and datatype are the same over the occs collection
+      const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
+      const dataType = dataTypeMap[dataTypeRaw];
+
+      // On the claims level, filter for language (except wikibasePointers), if undefined still return for 'de'
+      if (isClaim(occs[0]) && dataType != 'wikibasePointers') {
         occs = (occs as Claim[]).filter((occ) => {
           const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
           return (value === lang) || (value === undefined && lang === 'de');
@@ -99,10 +104,7 @@ export const parseStatements = (
           return;
         }
       }
-      // property and datatype are the same over the occs collection
-      const dataTypeRaw = keyAccess<DatatypeRaw>(occs[0], 'datatype');
 
-      const dataType = dataTypeMap[dataTypeRaw];
       const label = lang === 'fr' ? labelsFr[property] : labelsDe[property];
 
       const isElementsPropOnRdaRessourceType =
