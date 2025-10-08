@@ -90,7 +90,7 @@ export const DEV = false;
   const parseSingleEntity = (entityId: EntityId, lang: string) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations(lang));
-    const schemas = schemasParser(readRaw.schemas());
+    const schemas = reader[DataState.parsed].schemas();
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
