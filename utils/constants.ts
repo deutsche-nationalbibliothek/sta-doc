@@ -3,10 +3,15 @@ import { Item } from '../types/item';
 import { Property } from '../types/property';
 
 export const blacklist: {
+  bodies: (Item|Property)[];
   property: (Item | Property)[];
   headlines: (Item | Property)[];
   qualifier: (Item | Property)[];
 } = {
+  // properties who not render in body
+  bodies: [
+    Property.Encoding
+  ],
   // properties/statements who never render
   property: [
     Property.Schema,
@@ -19,7 +24,7 @@ export const blacklist: {
     Property['Type-of-layout'],
     Property['Version-number-of-STA-documentation'],
     Property['Release-number-of-STA-documentation'],
-    Property['Language-of-the-page'],
+    Property['Language-of-the-page']
   ],
   // properties/statements who never get a headline
   headlines: [
@@ -68,6 +73,7 @@ export const isPropertyBlacklisted = (
     return blacklist[list].includes(property);
   } else {
     return [
+      ...blacklist.bodies,
       ...blacklist.property,
       ...blacklist.headlines,
       ...blacklist.qualifier,

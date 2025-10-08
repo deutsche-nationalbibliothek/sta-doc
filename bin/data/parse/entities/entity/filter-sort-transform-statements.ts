@@ -8,6 +8,7 @@ import { defaultGroupsDefinition, Group, Groups } from './groups-definition';
 import { parseStatements } from './statements';
 import { AddHeadline } from './util';
 import { Item } from '../../../../../types/item';
+import { isPropertyBlacklisted } from '../../../../../utils/constants';
 
 export interface FilterSortTransformStatementsProps
   extends Required<ParseEntityProps> {
@@ -173,12 +174,11 @@ export const filterSortTransformStatements = (
     : sortByProperties(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         Object.entries(occurrences).reduce((acc, [_entityId, occ]) => {
-          // filter props from groupsDefinition header
+          // filter props if already been used (header||table) or if blacklisted (bodies)
           if (
-            !defaultGroupsDefinition.header.includes(
-              occ[0].mainsnak.property
-            ) &&
-            !defaultGroupsDefinition.table.includes(occ[0].mainsnak.property)
+            !defaultGroupsDefinition.header.includes(occ[0].mainsnak.property) &&
+            !defaultGroupsDefinition.table.includes(occ[0].mainsnak.property) &&
+            !isPropertyBlacklisted(occ[0].mainsnak.property, 'bodies')
           ) {
             acc.push(occ);
           }

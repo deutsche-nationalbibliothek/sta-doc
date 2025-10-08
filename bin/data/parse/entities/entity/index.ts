@@ -133,7 +133,19 @@ export const parseRawEntity = (
       ? rdaRessourceTypeGroups
       : defaultGroupsDefinition;
 
-    // const label = labelsDe[entityId] ?? entity.labels.de?.value;
+    const pageType = elementOfId
+      ? ({
+          ...labelsEn[elementOfId],
+          deLabel: labelsDe[elementOfId],
+          schema: labelsDe[namespaceId]
+        } as PageType)
+      : undefined;
+
+    if (pageType && pageType.id !== Item['Element-of-RDA-documentation'] && 
+      pageType.id !== Item['GND-data-field'] && pageType.id !== Item['GND-subfield']) {
+        relevantGroup.table = relevantGroup.table.filter((prop) => prop != Property.Encoding)
+      }
+
     let label = '';
     switch(lang) {
       case 'fr':
@@ -145,14 +157,6 @@ export const parseRawEntity = (
       default:
         label = labelsDe[entityId] ?? entity.labels.de?.value;
     }
-
-    const pageType = elementOfId
-      ? ({
-          ...labelsEn[elementOfId],
-          deLabel: labelsDe[elementOfId],
-          schema: labelsDe[namespaceId]
-        } as PageType)
-      : undefined;
 
     const contextOfUseId =
       entity.claims[Property['Context-of-use']] &&
