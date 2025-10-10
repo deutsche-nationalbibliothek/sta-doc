@@ -50,7 +50,7 @@ export const filterSortTransformStatements = (
         : -1
     );
 
-  const nextHeaderLevel = currentHeadlineLevel + (embedded ? 0 : 1);
+  const nextHeadlineLevel = currentHeadlineLevel + (embedded ? 0 : 1);
 
   const reorganiseRdaRessourceType = () => {
     const releavantClaims = sortByProperties(filterByGroup('body'), 'body');
@@ -191,20 +191,21 @@ export const filterSortTransformStatements = (
     header: parseStatements({
       ...props,
       statements: sortByProperties(filterByGroup('header'), 'header'),
-      isTopLevel: !embedded,
-      currentHeadlineLevel: nextHeaderLevel,
+      // isTopLevel: !embedded,
+      // currentHeadlineLevel: nextHeadlineLevel,
+      noHeadline: true
     }),
     table: parseStatements({
       ...props,
       statements: sortByProperties(filterByGroup('table'), 'table'),
-      currentHeadlineLevel: nextHeaderLevel,
-      isTopLevel: !embedded,
+      // currentHeadlineLevel: nextHeadlineLevel,
+      // isTopLevel: !embedded,
       noHeadline: true,
     }),
     body: parseStatements({
       ...props,
       statements: bodyStatements,
-      currentHeadlineLevel: nextHeaderLevel,
+      currentHeadlineLevel: nextHeadlineLevel,
       isTopLevel: !embedded,
       noHeadline: noHeadline,
     }),

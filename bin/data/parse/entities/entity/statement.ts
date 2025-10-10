@@ -67,8 +67,8 @@ export const parseStatement = (props: ParseStatementProps) => {
       property === Property['Implementation-in-the-GND']) &&
     !prevParsedEntities.some((id) => id === embeddedEntityId);
 
-  let nextHeaderLevel =
-    currentHeadlineLevel + 
+  let nextHeadlineLevel =
+    currentHeadlineLevel +
     ((hasHeadline && simplifiedDataType === 'wikibasePointers' || hasEmbedding) ? 1 : 0)
 
   const dataTypeSpecifics =
@@ -77,7 +77,7 @@ export const parseStatement = (props: ParseStatementProps) => {
           ...props,
           occ,
           keyAccessOcc,
-          currentHeadlineLevel: nextHeaderLevel,
+          currentHeadlineLevel: nextHeadlineLevel,
           isTopLevel,
           isElementsPropOnRdaRessourceType,
           isMissingValue,
@@ -90,10 +90,10 @@ export const parseStatement = (props: ParseStatementProps) => {
           ...props,
           occ,
           keyAccessOcc,
-          currentHeadlineLevel: nextHeaderLevel,
+          currentHeadlineLevel: nextHeadlineLevel,
           isMissingValue,
           isTopLevel,
-          isElementsPropOnRdaRessourceType,
+          isElementsPropOnRdaRessourceType
         });
   const nextHe = (dataTypeSpecifics &&
     'headline' in dataTypeSpecifics &&
@@ -101,10 +101,10 @@ export const parseStatement = (props: ParseStatementProps) => {
     dataTypeSpecifics.headline.level)
     ? dataTypeSpecifics.headline.level
     : undefined
-  nextHeaderLevel = nextHe ? nextHe : nextHeaderLevel
+  nextHeadlineLevel = (nextHe ? nextHe : nextHeadlineLevel)
 
-  const dataTypeSpecificNextHeaderLevel =
-    nextHeaderLevel -
+  const dataTypeSpecificnextHeadlineLevel =
+    nextHeadlineLevel -
     (isElementsPropOnRdaRessourceType ? 1 : 0);
 
   const embedded = hasEmbedding
@@ -112,7 +112,7 @@ export const parseStatement = (props: ParseStatementProps) => {
         entityId: embeddedEntityId,
         headlines,
         lang,
-        currentHeadlineLevel: dataTypeSpecificNextHeaderLevel,
+        currentHeadlineLevel: dataTypeSpecificnextHeadlineLevel,
         prevParsedEntities: [...prevParsedEntities, embeddedEntityId],
         isRdaRessourceEntityParam,
         embedded: true,
@@ -129,7 +129,7 @@ export const parseStatement = (props: ParseStatementProps) => {
           statements: (Object.keys(occ.qualifiers) as Property[])
             .filter((x) => !isPropertyBlacklisted(x, 'qualifier'))
             .map((qualiKey) => (occ as Required<Claim>).qualifiers[qualiKey]),
-          currentHeadlineLevel: nextHeaderLevel,
+          currentHeadlineLevel: nextHeadlineLevel,
           embedded: true,
           isElementsPropOnRdaRessourceType,
         })

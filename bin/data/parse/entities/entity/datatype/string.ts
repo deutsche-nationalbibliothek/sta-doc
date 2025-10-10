@@ -12,7 +12,7 @@ import { ParseStatementsProps } from '../statements';
 
 interface ParseStringValue extends Required<ParseStatementsProps> {
   keyAccessOcc: <T>(...keys: string[]) => T;
-  occ: Claim | StatementRaw;
+  occ: Claim;
   isMissingValue: boolean;
 }
 
@@ -62,7 +62,7 @@ export const parseStringValue = ({
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
-  const nextHeaderLevel = 
+  const nextHeadlineLevel = 
     currentHeadlineLevel + headingIndex
 
   return {
@@ -70,7 +70,7 @@ export const parseStringValue = ({
     headline: hasHeadline
       ? addHeadline(
           value,
-          nextHeaderLevel,
+          nextHeadlineLevel,
           noHeadline
         )
       : undefined,
@@ -78,6 +78,6 @@ export const parseStringValue = ({
     itemType,
     isLink,
     linkLabel,
-    linkStaNotation
+    linkStaNotation,
   };
 };
