@@ -141,7 +141,7 @@ export const parseRawEntity = (
         } as PageType)
       : undefined;
 
-    if (pageType && pageType.id !== Item['Element-of-RDA-documentation'] && 
+    if (!embedded && pageType && pageType.id !== Item['Element-of-RDA-documentation'] && 
       pageType.id !== Item['GND-data-field'] && pageType.id !== Item['GND-subfield']) {
         relevantGroup.table = relevantGroup.table.filter((prop) => prop != Property.Encoding)
       }
