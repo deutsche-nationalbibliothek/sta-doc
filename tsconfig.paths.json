@@ -4,6 +4,7 @@
       "@/public/*": ["public/*"],
       "@/pages/*": ["pages/*"],
       "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
       "@/data/*": ["data/*"],
       "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"],
