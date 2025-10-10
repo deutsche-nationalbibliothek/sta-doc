@@ -40,3 +40,4 @@ __tests__/pages/entities/__snapshots__/
 docker/solr/data
 /.cursor/
 .chromium*
+.vscode
