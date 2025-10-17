@@ -22,9 +22,12 @@ import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import '../styles/custom.css';
 import '../styles/fonts.css';
+import '../styles/editor.css';
 import { EntityProvider } from '@/hooks/entity-provider';
+import { EditorProvider } from '@/features/editor/hooks/use-editor-state';
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const AppContent = (
     <GlobalStaticStyles>
       <InitialHeadlinesProvider>
         <QueryParamProvider adapter={NextAdapter as QueryParamAdapterComponent}>
@@ -57,6 +60,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       </InitialHeadlinesProvider>
     </GlobalStaticStyles>
   );
+
+  // Editor Provider nur hinzufügen wenn Editor aktiviert ist
+  if (process.env.NEXT_PUBLIC_EDITOR_ENABLED === 'true') {
+    return (
+      <EditorProvider>
+        {AppContent}
+      </EditorProvider>
+    );
+  }
+
+  return AppContent;
+};
 
 
 export default MyApp;

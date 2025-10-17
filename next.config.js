@@ -15,6 +15,8 @@ module.exports = async () => {
       basePath: '/doc',
       solrHost: 'solr',
       NEXT_PUBLIC_VERSION: await getVersion(),
+      NEXT_PUBLIC_EDITOR_ENABLED: process.env.EDITOR_ENABLED || 'false',
+      NEXT_PUBLIC_API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:8080',
     },
     images: {
       domains: ['www.cilip.org.uk'],

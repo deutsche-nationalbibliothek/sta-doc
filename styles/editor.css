@@ -1,0 +1,321 @@
+/**
+ * Editor-spezifische Styles
+ * Diese Styles sind isoliert von den bestehenden sta-doc Styles
+ */
+
+/* Editor Layout */
+.editor-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.editor-toolbar {
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.editor-content {
+  background: #f5f5f5;
+  min-height: calc(100vh - 64px);
+  padding: 20px;
+}
+
+/* Entity Editor */
+.entity-editor {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.entity-form {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.entity-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.entity-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Statement Editor */
+.statement-editor {
+  margin-bottom: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.statement-editor:hover {
+  border-color: #40a9ff;
+  box-shadow: 0 2px 8px rgba(64, 169, 255, 0.1);
+}
+
+.statement-editor.editing {
+  border-color: #1890ff;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+}
+
+.statement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.statement-property {
+  font-weight: 600;
+  color: #262626;
+}
+
+.statement-description {
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-top: 2px;
+}
+
+.statement-value {
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  min-height: 40px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.statement-value.empty {
+  color: #bfbfbf;
+  font-style: italic;
+}
+
+.statement-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* Property Selector */
+.property-selector {
+  border: 2px dashed #d9d9d9;
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 16px;
+  background: #fafafa;
+}
+
+.property-info {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background: #f0f8ff;
+  border-radius: 4px;
+  border: 1px solid #d6e4ff;
+}
+
+.property-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.property-description {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.property-datatype {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Validation Display */
+.validation-display {
+  margin-bottom: 16px;
+}
+
+.validation-error {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.validation-error-icon {
+  margin-right: 8px;
+  margin-top: 2px;
+}
+
+.validation-error-content {
+  flex: 1;
+}
+
+.validation-error-field {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.validation-error-message {
+  color: inherit;
+}
+
+/* Loading States */
+.editor-loading {
+  text-align: center;
+  padding: 50px;
+}
+
+.editor-loading .ant-spin {
+  margin-bottom: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .editor-toolbar {
+    padding: 0 16px;
+    flex-direction: column;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .editor-content {
+    padding: 16px;
+  }
+  
+  .entity-form-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .statement-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editor-content {
+    padding: 12px;
+  }
+  
+  .entity-editor {
+    max-width: 100%;
+  }
+}
+
+/* Dark Mode Support (optional) */
+@media (prefers-color-scheme: dark) {
+  .editor-container {
+    background-color: #141414;
+  }
+  
+  .entity-form {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .statement-value {
+    background: #262626;
+    color: #fff;
+  }
+  
+  .property-selector {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .property-info {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .editor-toolbar {
+    display: none;
+  }
+  
+  .editor-content {
+    background: #fff;
+    padding: 0;
+  }
+  
+  .statement-editor .ant-card-actions {
+    display: none;
+  }
+  
+  .property-selector {
+    display: none;
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Utility Classes */
+.editor-text-center {
+  text-align: center;
+}
+
+.editor-text-muted {
+  color: #8c8c8c;
+}
+
+.editor-mb-16 {
+  margin-bottom: 16px;
+}
+
+.editor-mt-16 {
+  margin-top: 16px;
+}
+
+.editor-p-16 {
+  padding: 16px;
+}
+
+.editor-border {
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+}
+
+.editor-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
