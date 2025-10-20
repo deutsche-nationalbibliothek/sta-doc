@@ -14,6 +14,7 @@ import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { FilterSortTransformStatementsProps } from './filter-sort-transform-statements';
 import { parseStatement } from './statement';
 import { AddHeadline, stringMapper } from './util';
+import { Item } from '../../../../../types/item';
 
 export interface ParseStatementsProps
   extends Required<FilterSortTransformStatementsProps> {
@@ -37,6 +38,7 @@ export const parseStatements = (
     addHeadline,
     currentHeadlineLevel,
     data,
+    elementOfId,
     entityId,
     isRdaRessourceEntity,
     isTopLevel,
@@ -79,13 +81,19 @@ export const parseStatements = (
         return;
       }
       const property = keyAccess<Property>(occs[0], 'property');
+      if (property === Property.Encoding && 
+        elementOfId !== Item['Element-of-RDA-documentation'] && 
+        elementOfId !== Item['GND-data-field'] && 
+        elementOfId !== Item['GND-subfield']) {
+          return;
+        }
       const namespaceId = schemas[property];
       const statementNamespace: Namespace = namespaceConfig.map[namespaceId];
       if (
         isPropertyBlacklisted(property, 'property') ||
         (statementNamespace &&
           namespaceConfig.notUsed.includes(statementNamespace))
-      ) {
+        ) {
         return undefined;
       }
 

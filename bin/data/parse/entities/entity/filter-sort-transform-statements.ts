@@ -24,6 +24,7 @@ export const filterSortTransformStatements = (
   const {
     data,
     currentHeadlineLevel,
+    elementOfId,
     embedded = false,
     noHeadline = false,
     occurrences,

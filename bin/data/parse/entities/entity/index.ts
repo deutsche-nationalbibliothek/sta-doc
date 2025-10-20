@@ -27,6 +27,7 @@ export interface ParseEntityProps
   currentHeadlineLevel?: number;
   embedded?: boolean;
   entityId: EntityId;
+  elementOfId: EntityId;
   headlines?: Headline[];
   isRdaRessourceEntityParam?: boolean;
   lang: string
@@ -92,14 +93,15 @@ export const parseRawEntity = (
   const entityProps = (): Entity | void => {
     const namespaceId = schemas[entityId];
     const namespace: Namespace = namespaceConfig.map[namespaceId];
-    const elementOfId: EntityId | undefined =
+    const elementOfId: EntityId =
       entity &&
       entity.claims[Property['Element-of']] &&
-      entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id;
+      entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id ||
+      Item['Under-construction'];
 
-    if (!elementOfId) {
+    if (elementOfId === Item['Under-construction']) {
       console.warn(
-        '\t\t\tno entity.claims with Property.elementof for',
+        'Entity has no Property.elementof or is under construction:',
         entityId,
         'not used, ignoring entity'
       );
@@ -140,11 +142,6 @@ export const parseRawEntity = (
           schema: labelsDe[namespaceId]
         } as PageType)
       : undefined;
-
-    if (!embedded && pageType && pageType.id !== Item['Element-of-RDA-documentation'] && 
-      pageType.id !== Item['GND-data-field'] && pageType.id !== Item['GND-subfield']) {
-        relevantGroup.table = relevantGroup.table.filter((prop) => prop != Property.Encoding)
-      }
 
     let label = '';
     switch(lang) {
@@ -225,6 +222,7 @@ export const parseRawEntity = (
         : undefined,
       statements: filterSortTransformStatements({
         ...defaultedProps,
+        elementOfId,
         relevantGroup,
         occurrences: entity.claims,
         isRdaRessourceEntity: isRdaRessourceEntity || false,
