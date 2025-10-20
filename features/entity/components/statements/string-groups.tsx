@@ -54,6 +54,12 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
       '<strong>Beispiel </strong>',
       '<strong>Beispiele</strong>',
       '<strong>Beispiele </strong>',
+      'Exemple',
+      'Exemples',
+      '<strong>Exemple</strong>',
+      '<strong>Exemple </strong>',
+      '<strong>Exemples</strong>',
+      '<strong>Exemples </strong>',
     ].some((pattern) => stringValue.value === pattern);
 
   const itemTypeMap = {
