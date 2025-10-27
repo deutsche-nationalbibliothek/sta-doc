@@ -33,6 +33,7 @@ interface SubfieldGroups {
   naming: StatementValue[];
   relationType: StatementValue[];
   addition: StatementValue[];
+  qualifier: StatementValue[];
 }
 
 /**
@@ -46,19 +47,22 @@ function mapSubfieldsToObject(arr?: StatementValue[]): SubfieldGroups {
       if (element.propertyType?.id === Item.Naming || element.propertyType?.id === Item['Time-specification']) {
         result.naming.push(element);
       }
+      else if (element.propertyType?.id === Item['Identifying-addition']) {
+        result.addition.push(element);
+      }
       else if (element.propertyType?.id === Item['Relationship-label-of-property-type']) {
         result.relationType.push(element);
       }
-      else if (element.propertyType?.id === Item.Qualifier || element.propertyType?.id === Item['Identifying-addition']) {
-        result.addition.push(element);
+      else if (element.propertyType?.id === Item.Qualifier) {
+        result.qualifier.push(element);
       }
       else if (element.codings) {
         result.naming.push(element)
       }
       return result;
     },
-    { naming: [], relationType: [], addition: [] }
-  ) || { naming: [], relationType: [], addition: [] };
+    { naming: [], relationType: [], addition: [], qualifier: [] }
+  ) || { naming: [], relationType: [], addition: [], qualifier: [] };
 }
 
 /**

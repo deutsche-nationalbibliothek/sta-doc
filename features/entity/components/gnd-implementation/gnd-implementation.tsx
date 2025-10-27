@@ -121,6 +121,42 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                     )}
                   </>
                 ) : undefined}
+                {formatNeutral.subfieldsGroup.addition.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11792' ? ( // nicht bei GND-Umsetzung 1b
+                  <>
+                    {formatNeutral.subfieldsGroup.addition && (
+                      <>
+                        <Typography.Text italic>
+                          {' '}
+                          mit identifizierende(m/n) Merkmal(en){' '}
+                        </Typography.Text>
+                        {formatNeutral.subfieldsGroup.addition.map(
+                          (subfield, index) => (
+                            <React.Fragment key={index}>
+                              <Typography.Text strong>
+                                <EntityLink
+                                  id={subfield.property}
+                                  label={subfield.label ? subfield.label : ''}
+                                  staNotationLabel={
+                                    subfield.staNotationLabel
+                                      ? subfield.staNotationLabel
+                                      : undefined
+                                  }
+                                />
+                                {formatNeutral.subfieldsGroup.addition.length -
+                                  1 >
+                                  index ? (
+                                  <Typography.Text>{', '}</Typography.Text>
+                                ) : (
+                                  undefined
+                                )}
+                              </Typography.Text>
+                            </React.Fragment>
+                          )
+                        )}
+                      </>
+                    )}
+                  </>
+                ) : undefined}
                 {formatNeutral.subfieldsGroup.relationType.length > 0 && !formatNeutral.permittedCharacteristics ? (
                   <>
                     {formatNeutral.subfieldsGroup.relationType[0].wikibasePointers && !formatNeutral.subfieldsGroup.relationType[0].wikibasePointers[0].missingValue ? (
@@ -136,12 +172,11 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                             staNotationLabel={formatNeutral.subfieldsGroup.relationType[0].wikibasePointers[0].staNotationLabel}
                           />
                         </Typography.Text>
-                        <Typography.Text>{'. '}</Typography.Text>
                       </>
                     ) : (
                       <Typography.Text italic>
                         {' '}
-                        mit einer geeigneten Beziehungskennzeichnung{'. '}
+                        mit einer geeigneten Beziehungskennzeichnung
                       </Typography.Text>
                     )
                     }
@@ -176,27 +211,27 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                             index ? (
                             <Typography.Text>{', '}</Typography.Text>
                           ) : (
-                            <Typography.Text>{'.'}</Typography.Text>
+                            undefined
                           )}
                         </Typography.Text>
                       </React.Fragment>
                     )
                   )
                   : undefined}
-                <Typography.Text>{' '}</Typography.Text>
-                {formatNeutral.subfieldsGroup.addition.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11792' ? ( // nicht bei GND-Umsetzung 1b
+                <Typography.Text>{'. '}</Typography.Text>
+                {formatNeutral.subfieldsGroup.qualifier.length > 0 && formatNeutral.formatNeutralLayoutId != 'Q11792' ? ( // nicht bei GND-Umsetzung 1b
                   <>
                     <Typography.Text>
                       Ergänzen Sie je nach Bedarf zusätzliche Angaben{' '}
                     </Typography.Text>
-                    {formatNeutral.subfieldsGroup.addition.length > 1 ? (
+                    {formatNeutral.subfieldsGroup.qualifier.length > 1 ? (
                       <Typography.Text italic>
                         in den Unterfeldern{' '}
                       </Typography.Text>
-                    ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
+                    ) : formatNeutral.subfieldsGroup.qualifier.length == 1 ? (
                       <Typography.Text italic> im Unterfeld </Typography.Text>
                     ) : undefined}
-                    {formatNeutral.subfieldsGroup.addition.map(
+                    {formatNeutral.subfieldsGroup.qualifier.map(
                       (subfield, index) => (
                         <React.Fragment key={index}>
                           <Typography.Text strong>
@@ -209,7 +244,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                                   : undefined
                               }
                             />
-                            {formatNeutral.subfieldsGroup.addition.length -
+                            {formatNeutral.subfieldsGroup.qualifier.length -
                               1 >
                               index ? (
                               <Typography.Text>{', '}</Typography.Text>
