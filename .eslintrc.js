@@ -26,7 +26,6 @@ module.exports = {
     // 'prefer-const': 0,
     'no-debugger': 'warn', // instead of default error
     'no-undef': 'off',
-
     indent: 'off',
   },
 };
