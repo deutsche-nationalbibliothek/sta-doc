@@ -22,5 +22,7 @@ export type Subfield = CommonField;
 interface Codings {
   'PICA+': string;
   PICA3: string;
+  'Alma': string;
+  'Aleph': string;
   'MARC 21'?: string;
 }

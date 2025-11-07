@@ -43,4 +43,6 @@ interface Codings {
   'PICA+': string;
   PICA3: string;
   'MARC 21': string;
+  'Alma': string;
+  'Aleph': string;
 }

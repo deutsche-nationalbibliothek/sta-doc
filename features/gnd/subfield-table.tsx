@@ -16,7 +16,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
   const columns: ColumnsTypes<Subfield> = [
     {
       title: 'PICA3',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       noSort: true,
@@ -26,7 +26,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
     },
     {
       title: 'PICA+',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA+'],
       noSort: true,
       key: 'PICA+',
@@ -34,16 +34,26 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
         return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
-    // {
-    //   title: 'MARC21',
-    //   dataIndex: ['codings', 'MARC 21'],
-    //   width: '25%',
-    //   noSort: true,
-    //   key: 'PICA3',
-    //   render: (_coding, _record, _index, highlighted) => {
-    //     return <Typography.Text code>{highlighted}</Typography.Text>;
-    //   },
-    // },
+    {
+      title: 'Alma',
+      width: '12%',
+      dataIndex: ['codings', 'Alma'],
+      noSort: true,
+      key: 'Alma',
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
+    {
+      title: 'Aleph',
+      width: '12%',
+      dataIndex: ['codings', 'Aleph'],
+      noSort: true,
+      key: 'Alma',
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
     {
       title: 'Bezeichnung',
       width: '55%',

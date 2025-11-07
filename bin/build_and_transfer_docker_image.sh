@@ -12,16 +12,16 @@ echo "Read the IP"
 IP_ADDRESS=$(grep IP_ADDRESS= .env | cut -d '=' -f 2)
 
 # Build the image for the nextjs project
-#npm run docker:build nextjs
+# npm run docker:build nextjs
 
 # Tag the Docker image
-# echo "Tagging the Docker image..."
-# docker tag sta-doc-nextjs sta-doc_nextjs
+echo "Tagging the Docker image..."
+docker tag sta-doc-nextjs sta-doc_nextjs
 
 # Save the Docker image to a tar file
 echo "Saving the Docker image to a tar file..."
-# docker save sta-doc_nextjs:latest > sta-doc-nextjs.tar
-docker save sta-doc-nextjs:latest > sta-doc-nextjs.tar
+docker save sta-doc_nextjs:latest > sta-doc-nextjs.tar
+# docker save sta-doc-nextjs:latest > sta-doc-nextjs.tar
 
 # Copy the tar file to a remote server using scp
 echo "Copying the tar file to a remote server..."

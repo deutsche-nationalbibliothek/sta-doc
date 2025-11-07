@@ -1,17 +1,16 @@
 FROM node:20-alpine AS dev-stage
 
-RUN apk add --no-cache python3 make g++
-RUN apk add --no-cache git
+# Install build dependencies only for development
+RUN apk add --no-cache python3 make g++ git
 WORKDIR /srv
 COPY ./package*.json ./
 RUN npm install
 COPY . .
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
 
-# build stage
+# Build stage
 FROM dev-stage AS build-stage
 
+# Set environment variables
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 ENV NODE_OPTIONS=--max_old_space_size=9072
@@ -21,15 +20,19 @@ RUN npm run build
 RUN rm -rf node_modules
 RUN npm install --production
 
-# production stage
+# Production stage
 FROM node:20-alpine AS production-stage
 
+# Install minimal runtime dependencies
 RUN apk add --no-cache git
+
+# Set environment variables
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 ENV NODE_OPTIONS=--max_old_space_size=9072
 ENV basePath="/doc"
+
 WORKDIR /srv
 COPY --from=build-stage /srv /srv
 
-CMD [ "npm", "start"]
+CMD ["npm", "start"]

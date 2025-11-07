@@ -34,6 +34,8 @@ interface ExampleValues {
   formatNeutral: { label: string; value: string }[];
   PICA3: { value: string; coding?: string }[][];
   'PICA+': { value: string; coding?: string }[][];
+  'Alma': { value: string; coding?: string }[][];
+  'Aleph': { value: string; coding?: string }[][];
 }
 
 export const nonDefaultRenderProperties = [
@@ -61,6 +63,8 @@ export const Example: React.FC<ExampleProps> = ({
       formatNeutral: [],
       PICA3: [],
       'PICA+': [],
+      'Alma': [],
+      'Aleph': []
     }
   );
 
@@ -100,20 +104,21 @@ export const Example: React.FC<ExampleProps> = ({
               ))
             : undefined}
           <Typography.Paragraph>
-            {['PICA3', 'PICA+']
-              .filter((coding) =>
-                codingsPreferences.some(
-                  (codingsPreference) => codingsPreference === coding
-                )
-              )
-              .map((coding: CodingsPreference) => (
-                <ExampleCodingCard
-                  codingPreference={coding}
-                  key={coding}
-                  exampleValues={relevantExamples[coding]}
-                />
-              ))}
-          </Typography.Paragraph>
+            {['PICA3', 'PICA+', 'Alma', 'Aleph']
+                .filter((coding) =>
+                  codingsPreferences.some(
+                    (codingsPreference) => codingsPreference === coding
+                  )
+                ).map((coding: CodingsPreference) => (
+                  <React.Fragment>
+                    <ExampleCodingCard
+                      codingPreference={coding}
+                      key={coding}
+                      exampleValues={relevantExamples[coding]}
+                    />
+                  </React.Fragment>
+                ))}
+            </Typography.Paragraph>
         </React.Fragment>
       )
       }
@@ -150,7 +155,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
-  // console.log('exampleValues',exampleValues)
+  console.log('exampleValuesCodingCard',exampleValues)
   return (
     <Card
       css={{
@@ -170,18 +175,26 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
         {codingPreference}
       </Tag>
       {exampleValues.map((innerExampleValues, index1) => (
-        <Typography.Paragraph key={index1}>
-          {innerExampleValues.map(({ coding, value }, index2) => (
-            <React.Fragment key={index2}>
-              {coding && (
-                <Typography.Text code strong>
-                  {coding}
-                </Typography.Text>
-              )}
-              <Typography.Text>{value}</Typography.Text>
-            </React.Fragment>
-          ))}
-        </Typography.Paragraph>
+        <React.Fragment>
+          {innerExampleValues[0].coding && (
+            <Typography.Paragraph key={index1}>
+              {innerExampleValues.map(({ coding, value }, index2) => (
+                <React.Fragment key={index2}>
+                  {coding != undefined && (
+                    <>
+                    { coding.length > 0 && (
+                      <Typography.Text code strong>
+                        {coding}
+                      </Typography.Text>
+                    )}
+                      <Typography.Text>{value}</Typography.Text>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+            </Typography.Paragraph>
+          )}
+        </React.Fragment>
       ))}
     </Card>
   );

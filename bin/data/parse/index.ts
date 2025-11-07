@@ -191,6 +191,8 @@ export const codingsParser = (codings: CodingsRaw) => {
   const codingLabels: CodingLabel[] = [
     'PICA3',
     'PICA+',
+    'Alma',
+    'Aleph',
     'MARC 21',
     'GND-Ontologie',
   ];
@@ -206,6 +208,8 @@ export const codingsParser = (codings: CodingsRaw) => {
           label: labelStripper(coding.elementLabel.value),
           PICA3: [],
           'PICA+': [],
+          'Alma': [],
+          'Aleph': [],
           'MARC 21': [],
           'GND-Ontologie': [],
         };

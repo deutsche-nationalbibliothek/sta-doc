@@ -42,6 +42,8 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
       formatNeutral: [],
       PICA3: [],
       'PICA+': [],
+      'Alma': [],
+      'Aleph': []
     }
   );
 
@@ -127,7 +129,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                       <>
                         <Typography.Text italic>
                           {' '}
-                          mit identifizierende(m/n) Merkmal(en){' '}
+                          und bei Bedarf de(n/m) identifizierenden Merkmale(n){' '}
                         </Typography.Text>
                         {formatNeutral.subfieldsGroup.addition.map(
                           (subfield, index) => (
@@ -261,7 +263,7 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
             ))
             : undefined}
           <Typography.Paragraph>
-            {['PICA3', 'PICA+']
+            {['PICA3', 'PICA+', 'Alma', 'Aleph']
               .filter((coding) =>
                 codingsPreferences.some(
                   (codingsPreference) => codingsPreference === coding
@@ -330,18 +332,26 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
         {codingPreference}
       </Tag>
       {exampleValues.map((innerExampleValues, index1) => (
-        <Typography.Paragraph key={index1}>
-          {innerExampleValues.map(({ coding, value }, index2) => (
-            <React.Fragment key={index2}>
-              {coding && (
-                <Typography.Text code strong>
-                  {coding}
-                </Typography.Text>
-              )}
-              <Typography.Text>{value}</Typography.Text>
-            </React.Fragment>
-          ))}
-        </Typography.Paragraph>
+        <React.Fragment>
+          {innerExampleValues[0].coding && (
+            <Typography.Paragraph key={index1}>
+              {innerExampleValues.map(({ coding, value }, index2) => (
+                <React.Fragment key={index2}>
+                  {coding != undefined && (
+                    <>
+                    { coding.length > 0 && (
+                      <Typography.Text code strong>
+                        {coding}
+                      </Typography.Text>
+                    )}
+                      <Typography.Text>{value}</Typography.Text>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+            </Typography.Paragraph>
+          )}
+        </React.Fragment>
       ))}
     </Card>
   );

@@ -1,0 +1,6 @@
+# Ignore overhead
+*.tar
+.chromium-browser-data
+.next
+.vscode
+node_modules/
