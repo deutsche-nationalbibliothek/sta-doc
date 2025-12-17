@@ -12,7 +12,7 @@ echo "Read the IP"
 IP_ADDRESS=$(grep IP_ADDRESS= .env | cut -d '=' -f 2)
 
 # Build the image for the nextjs project
-# npm run docker:build nextjs
+npm run docker:build nextjs
 
 # Tag the Docker image
 echo "Tagging the Docker image..."
