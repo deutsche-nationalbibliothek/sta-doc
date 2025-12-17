@@ -3,6 +3,7 @@ import { EntitiesEntries } from '../../types/parsed/entity';
 import { EntitiesRaw } from '../../types/raw/entity';
 import { API_URL, fetcher } from './fetcher';
 import {
+  breadcrumbsParser,
   codingsParser,
   entitiesParser,
   labelsParser,
@@ -45,27 +46,29 @@ export const DEV = false;
       writer.rawSingle(entities)
     }
   }
-
   const parseRawAndWriteParsed = (lang: string) => {
     console.log('Parse and write all data from raw state.',lang)
     const data = parseAllFromRead(reader[DataState.raw],lang);
     writer.parsed(data).writeAll(lang);
   };
-
+  const parseRawAndWriteBreadcrumbs = () => {
+    const readRaw = reader[DataState.raw];
+    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs())
+    const data = { breadcrumbs: breadcrumbs }
+    writer.parsed(data).breadcrumbs();
+  }
   const parseRawAndWriteCodings = () => {
     const readRaw = reader[DataState.raw];
     const codings = codingsParser(readRaw.codings())
     const data = { codings: codings }
     writer.parsed(data).codings();
   }
-
   const parseRawAndWritePropertyTypes = () => {
     const readRaw = reader[DataState.raw];
     const propertyTypes = propertyTypesParser(readRaw.propertyTypes())
     const data = { propertyTypes: propertyTypes }
     writer.parsed(data).propertyTypes();
   }
-
   const parseRawAndWriteStaNotations = (lang: string) => {
     const readRaw = reader[DataState.raw];
     // const staNotations = staNotationsParser(readRaw.staNotations(),lang)
@@ -73,6 +76,13 @@ export const DEV = false;
     const data = { staNotations: staNotations }
     writer.parsed(data).staNotations(lang);
   }
+
+  // const parseRawAndWriteFields = () => {
+  //   const readRaw = reader[DataState.raw];
+  //   const staNotations = fieldsParser(readRaw.fields()) 
+  //   const data = { fields: fields }
+  //   writer.parsed(data).fields();
+  // }
 
   const parseRawAndWriteLabels = () => {
     const readRaw = reader[DataState.raw];
@@ -99,6 +109,7 @@ export const DEV = false;
         labelsDe: labelsParser.de(readRaw.labels.de()),
         labelsEn: labelsParser.en(readRaw.labels.en()),
         labelsFr: labelsParser.fr(readRaw.labels.fr()),
+        breadcrumbs: breadcrumbsParser(readRaw.breadcrumbs()),
         codings: codingsParser(readRaw.codings()),
         propertyTypes: propertyTypesParser(readRaw.propertyTypes()),
         staNotations,
@@ -168,6 +179,9 @@ export const DEV = false;
             console.warn('Missing EntityId as argument, like: data:parse:single P513.');
           }
           break;
+        case 'parse:breadcrumbs':
+          parseRawAndWriteBreadcrumbs();
+          break;
         case 'parse:codings':
           parseRawAndWriteCodings();
           break;
@@ -183,6 +197,9 @@ export const DEV = false;
         case 'parse:staNotations:fr':
             parseRawAndWriteStaNotations('fr');
           break;
+        // case 'parse:fields':
+        //     parseRawAndWriteFields();
+        //   break;
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(

@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@/entity/components/breadcrumb';
+import { BreadcrumbComp } from '@/entity/components/breadcrumb';
 import { Layout as AntdLayout, Divider } from 'antd';
 import { Footer } from './footer';
 import { LoadingIndicator } from './loading-indicator';
@@ -59,7 +59,7 @@ const Layout: React.FC<LayoutProps> = React.memo((props) => {
     <AntdLayout>
       <LoadingIndicator />
       <TopBar />
-      <Breadcrumb />
+      <BreadcrumbComp />
       <HorizontalLayoutDivivder />
       <AntdLayout
         css={{

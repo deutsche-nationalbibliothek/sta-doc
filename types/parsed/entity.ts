@@ -7,6 +7,7 @@ import { Property } from '../property';
 import { Field } from './field';
 import { RdaElementStatus } from './rda-element-status';
 import { PropertyType } from './property-type';
+import { Breadcrumb } from './breadcrumb';
 
 export type Entities = Record<EntityId, Entity>;
 export type EntitiesEntries = Record<EntityId, EntityEntry>;
@@ -14,6 +15,7 @@ export type EntitiesEntries = Record<EntityId, EntityEntry>;
 export interface Entity {
   id: EntityId;
   label?: string;
+  breadcrumbLink?: Breadcrumb;
   elementOf?: string;
   annotation?: WikibasePointerValue;
   field?: Field;

@@ -1,4 +1,8 @@
 export const NAMES = {
+  breadcrumb: {
+    file: { singular: 'breadcrumb', plural: 'breadcrumbs'  },
+    type: 'Breadcrumb',
+  },
   entity: {
     file: { singular: 'entity', plural: 'entities' },
     type: 'Entity',
@@ -24,7 +28,7 @@ export const NAMES = {
     type: 'Schema',
   },
   staNotation: {
-    file: { singular: 'sta-notation' },
+    file: { singular: 'sta-notation', plural: 'sta-notations' },
     type: 'StaNotation',
   },
   staNotationFr: {
@@ -32,7 +36,7 @@ export const NAMES = {
     type: 'StaNotation',
   },
   coding: {
-    file: { singular: 'coding' },
+    file: { singular: 'coding', plural: 'codings' },
     type: 'Coding',
   },
   labelEn: {

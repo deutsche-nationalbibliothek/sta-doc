@@ -4,6 +4,7 @@ import { EntityId } from '../../../../../types/entity-id';
 import { Headline } from '../../../../../types/headline';
 import { Item } from '../../../../../types/item';
 import { Namespace } from '../../../../../types/namespace';
+import { Breadcrumb } from '../../../../../types/parsed/breadcrumb';
 import {
   Entity,
   EntityEntry,
@@ -27,7 +28,7 @@ export interface ParseEntityProps
   currentHeadlineLevel?: number;
   embedded?: boolean;
   entityId: EntityId;
-  elementOfId: EntityId;
+  // elementOfId?: EntityId;
   headlines?: Headline[];
   isRdaRessourceEntityParam?: boolean;
   lang: string
@@ -68,6 +69,7 @@ export const parseRawEntity = (
   } = defaultedProps;
 
   const {
+    breadcrumbs,
     labelsDe,
     labelsEn,
     labelsFr,
@@ -98,6 +100,7 @@ export const parseRawEntity = (
       entity.claims[Property['Element-of']] &&
       entity.claims[Property['Element-of']][0].mainsnak.datavalue?.value.id ||
       Item['Under-construction'];
+    const breadcrumb: Breadcrumb = breadcrumbs[elementOfId]
 
     if (elementOfId === Item['Under-construction']) {
       console.warn(
@@ -207,6 +210,7 @@ export const parseRawEntity = (
         : undefined,
       label: !embedded ? label : undefined,
       elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
+      breadcrumbLink: breadcrumb ? breadcrumb : undefined,
       annotation,
       pageType,
       contextOfUseLabel,

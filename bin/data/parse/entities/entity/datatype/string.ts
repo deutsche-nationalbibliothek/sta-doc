@@ -12,7 +12,7 @@ import { ParseStatementsProps } from '../statements';
 
 interface ParseStringValue extends Required<ParseStatementsProps> {
   keyAccessOcc: <T>(...keys: string[]) => T;
-  occ: Claim;
+  occ;
   isMissingValue: boolean;
 }
 

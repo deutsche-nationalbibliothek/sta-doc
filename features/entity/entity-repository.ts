@@ -10,6 +10,7 @@ import parsedLabelsDe from '@/data/parsed/labels-de.json';
 import { parseEntities, ParseEntitiesData } from '@/bin/data/parse/entities';
 import parsedLabelsEn from '@/data/parsed/labels-en.json';
 import parsedLabelsFr from '@/data/parsed/labels-fr.json';
+import parsedBreadcrumbs from '@/data/parsed/breadcrumbs.json';
 import parsedCodings from '@/data/parsed/codings.json';
 import parsedPropertyTypes from '@/data/parsed/property-types.json';
 import parsedStaNotations from '@/data/parsed/sta-notations.json';
@@ -104,6 +105,7 @@ class EntityRepository {
   
     const entity = prefetched[entityId];
     if (entity) {
+      const breadcrumbs = parsedBreadcrumbs as unknown as ParseEntitiesData['breadcrumbs'];
       const labelsDe = parsedLabelsDe as unknown as ParseEntitiesData['labelsDe'];
       const labelsEn = parsedLabelsEn as unknown as ParseEntitiesData['labelsEn'];
       const labelsFr = parsedLabelsFr as unknown as ParseEntitiesData['labelsFr'];
@@ -119,6 +121,7 @@ class EntityRepository {
         getRawEntityById: (id: EntityId) => prefetched[id],
         lang,
         data: {
+          breadcrumbs,
           labelsEn,
           labelsDe,
           labelsFr,
