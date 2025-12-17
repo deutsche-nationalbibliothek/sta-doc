@@ -13,6 +13,7 @@ import { EntitiesRaw } from '../../../../types/raw/entity';
 import { parseRawEntity } from './entity';
 import { RdaElementStatuses } from '../../../../types/parsed/rda-element-status';
 import { Item } from '../../../../types/item';
+import { Breadcrumbs } from '../../../../types/parsed/breadcrumb';
 
 export interface ParseEntitiesProps {
   data: ParseEntitiesData;
@@ -22,6 +23,7 @@ export interface ParseEntitiesProps {
 }
 
 export interface ParseEntitiesData {
+  breadcrumbs: Breadcrumbs;
   codings: Codings;
   fields: Fields;
   labelsDe: LabelsDe;

@@ -29,8 +29,11 @@ import { Descriptions } from '../../types/parsed/description';
 import { RdaElementStatusesRaw } from '../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../types/parsed/rda-element-status';
 import { PropertyTypesRaw } from '../../types/raw/property-type';
+import { BreadcrumbsRaw } from '../../types/raw/breadcrumb';
+import { Breadcrumbs } from '../../types/parsed/breadcrumb';
 
 interface ReadParsed {
+  breadcrumbs: () => Breadcrumbs;
   labels: {
     de: () => LabelsDe;
     en: () => LabelsEn;
@@ -63,6 +66,7 @@ export interface ReadRaw {
   };
   fields: () => FieldsRaw;
   propertyTypes: () => PropertyTypesRaw;
+  breadcrumbs: () => BreadcrumbsRaw;
   schemas: () => SchemasRaw;
   staNotations: (lang: string) => StaNotationsRaw;
   codings: () => CodingsRaw;
@@ -96,8 +100,7 @@ const readRaw: ReadRaw = {
       return readJSONFile<StaNotationsRaw>(NAMES.staNotation, DataState.raw)
     }
   },
-  // staNotationsFr: () =>
-  //   readJSONFile<StaNotationsRaw>(NAMES.staNotationFr, DataState.raw),
+  breadcrumbs: () => readJSONFile<BreadcrumbsRaw>(NAMES.breadcrumb, DataState.raw),
   schemas: () => readJSONFile<SchemasRaw>(NAMES.schema, DataState.raw),
   codings: () => readJSONFile<CodingsRaw>(NAMES.coding, DataState.raw),
   descriptions: () =>
@@ -113,6 +116,7 @@ const readRaw: ReadRaw = {
 };
 
 const readParsed: ReadParsed = {
+  breadcrumbs: () => readJSONFile<Breadcrumbs>(NAMES.breadcrumb, DataState.parsed),
   entities: {
     all: (lang: string) => {
       if ( lang == 'fr') {

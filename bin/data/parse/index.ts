@@ -8,7 +8,16 @@ import { LabelsDe } from '../../../types/parsed/label-de';
 import { LabelsEn } from '../../../types/parsed/label-en';
 import { LabelsFr } from '../../../types/parsed/label-fr';
 import { RdaProperties } from '../../../types/parsed/rda-property';
+import {
+  StaNotationRaw,
+  StaNotationsRaw,
+} from '../../../types/raw/sta-notation';
 import { StaNotations } from '../../../types/parsed/sta-notation';
+import {
+  BreadcrumbRaw,
+  BreadcrumbsRaw,
+} from '../../../types/raw/breadcrumb';
+import { Breadcrumbs } from '../../../types/parsed/breadcrumb';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { DescriptionRaws } from '../../../types/raw/description';
 import { SchemasRaw } from '../../../types/raw/schema';
@@ -21,10 +30,6 @@ import { LabelEnRaws } from '../../../types/raw/label-en';
 import { LabelFrRaws } from '../../../types/raw/label-fr';
 import { PropertiesItemsListRaw } from '../../../types/raw/property-item-list';
 import { RdaPropertiesRaw } from '../../../types/raw/rda-property';
-import {
-  StaNotationRaw,
-  StaNotationsRaw,
-} from '../../../types/raw/sta-notation';
 import { reader } from '../read';
 import { Name } from '../types/name';
 import { NAMES } from '../utils/names';
@@ -191,6 +196,8 @@ export const codingsParser = (codings: CodingsRaw) => {
   const codingLabels: CodingLabel[] = [
     'PICA3',
     'PICA+',
+    'Alma',
+    'Aleph',
     'MARC 21',
     'GND-Ontologie',
   ];
@@ -206,6 +213,8 @@ export const codingsParser = (codings: CodingsRaw) => {
           label: labelStripper(coding.elementLabel.value),
           PICA3: [],
           'PICA+': [],
+          'Alma': [],
+          'Aleph': [],
           'MARC 21': [],
           'GND-Ontologie': [],
         };
@@ -259,6 +268,18 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
     };
     return acc;
   }, {} as StaNotations);
+};
+
+export const breadcrumbsParser = (breadcrumbs: BreadcrumbsRaw) => {
+  console.log('\tParsing Breadcrumbs');
+  return breadcrumbs.reduce((acc, entity: BreadcrumbRaw) => {
+    acc[entity.eId.value] = {
+      id: entity.eId.value,
+      label: entity.elementLabel.value,
+      staNotation: entity.staNotation.value.toUpperCase(),
+    };
+    return acc;
+  }, {} as Breadcrumbs);
 };
 
 export const rdaElementStatusesParser = (
@@ -383,6 +404,7 @@ export const rdaPropertiesParser = (
 };
 
 export interface ParsedAllFromRead {
+  breadcrumbs: Breadcrumbs;
   rdaProperties: RdaProperties;
   labels: {
     de: LabelsDe;
@@ -410,6 +432,7 @@ export const parseAllFromRead = (
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
   const schemas = schemasParser(read.schemas());
   const data = {
+    breadcrumbs: breadcrumbsParser(read.breadcrumbs()),
     propertyTypes: propertyTypesParser(read.propertyTypes()),
     staNotations: staNotations,
     schemas: schemas,
@@ -425,6 +448,7 @@ export const parseAllFromRead = (
     ),
   };
   return {
+    breadcrumbs: data.breadcrumbs,
     rdaProperties: rdaPropertiesParser(
       read.rdaProperties(),
       staNotationsDe,

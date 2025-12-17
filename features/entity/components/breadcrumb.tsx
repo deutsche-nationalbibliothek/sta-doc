@@ -5,39 +5,42 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Namespace } from '@/types/namespace';
 import { Breadcrumb as AntdBreadcrumb, Tooltip, theme } from 'antd';
 import { compact, truncate } from 'lodash';
+import { EntityLink } from './preview/link';
+import { memo} from 'react';
+import { scrollToHeadline } from '@/utils/scroll-to-headline';
+import { useRouter } from '@/lib/next-use-router';
 
-export const Breadcrumb: React.FC = () => {
+export const BreadcrumbComp: React.FC = memo(() => {
   const { currentHeadlinesPath } = useHeadlines();
   const { token } = theme.useToken();
   const { entity } = useEntity();
   const isSmallScreen = useIsSmallScreen();
-
+  const router = useRouter();
   const entityDetails = entity
     ? compact([
-        entity.namespace === 'RDA' ? 'RDA DACH' : entity.namespace,
-        entity.elementOf !== entity.pageType?.schema
-          ? entity.elementOf
-          : undefined,
-        entity.label === 'RDA DACH' || entity.label === 'GND-Dokumentation'
-          ? undefined
-          : entity.label,
+      entity.namespace === 'RDA' ? 'RDA DACH' : entity.namespace,
+      entity.elementOf !== entity.pageType?.schema
+        ? entity.elementOf
+        : undefined,
+      entity.label === 'RDA DACH' || entity.label === 'GND-Dokumentation'
+        ? undefined
+        : entity.label,
       ]).map((entityLabel) => ({
         title: entityLabel,
         namespace: entity.namespace,
       }))
     : [];
-
   const breadcrumbItems: {
     key?: string;
     namespace?: Namespace;
     title: string;
   }[] = [...entityDetails, ...currentHeadlinesPath];
-  return (
+  return entityDetails && (
     <div
       css={{
         background: 'var(--light-gray)',
         '& .ant-breadcrumb a': {
-          color: token.colorTextSecondary,
+          color: token.colorInfo,
         },
       }}
     >
@@ -53,36 +56,49 @@ export const Breadcrumb: React.FC = () => {
           const isLastIndex = index === breadcrumbItems.length - 1;
           return {
             title: (
-              <span
-                css={{
-                  paddingTop: 2,
-                  fontSize: isSmallScreen ? 12 : 14,
-                }}
-              >
-                {key ? (
-                  <Tooltip
-                    placement="bottom"
-                    title={
-                      <>
-                        {title} <CopyHeadlineAnchorLink anchor={key} />
-                      </>
-                    }
+              <>
+                {entity?.breadcrumbLink && index == 1 ? (
+                  <EntityLink
+                    id={entity.breadcrumbLink.id}
+                    staNotationLabel={entity.breadcrumbLink.staNotation}
+                    label={entity.breadcrumbLink.label}
                   >
-                    <a
-                      css={{
-                        '&:hover': {
-                          backgroundColor: `${token.colorPrimaryBgHover} !important`,
-                        },
-                      }}
-                      href={`#${key}`}
+                    {title}
+                  </EntityLink>
+                ) : key ? (
+                  <span
+                    css={{
+                      paddingTop: 2,
+                      fontSize: isSmallScreen ? 12 : 14,
+                    }}
+                  >
+                    <Tooltip
+                      placement="bottom"
+                      title={
+                        <>
+                          {title} <CopyHeadlineAnchorLink anchor={key} />
+                        </>
+                      }
                     >
-                      {isLastIndex
-                        ? title
-                        : truncate(title, {
+                      <a
+                        css={{
+                          '&:hover': {
+                            backgroundColor: `${token.colorPrimaryBgHover} !important`,
+                          },
+                        }}
+                          onClick={() => {
+                            router.push(undefined, key).finally(() => scrollToHeadline(key));
+                          }}
+                          href={`#${key}`}
+                        >
+                        {isLastIndex
+                          ? title
+                          : truncate(title, {
                             length: isSmallScreen ? 48 : 64,
                           })}
-                    </a>
-                  </Tooltip>
+                      </a>
+                    </Tooltip>
+                  </span>
                 ) : (
                   <span>
                     {isLastIndex
@@ -90,11 +106,11 @@ export const Breadcrumb: React.FC = () => {
                       : truncate(title, { length: isSmallScreen ? 48 : 64 })}
                   </span>
                 )}
-              </span>
+              </>
             ),
           };
         })}
       />
     </div>
   );
-};
+});

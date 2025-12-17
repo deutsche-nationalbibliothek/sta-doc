@@ -9,10 +9,12 @@ import { NAMES } from './utils/names';
 export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
   writeJSONFile(data, NAMES.entity, DataState.raw);
 };
-
 export const writeRaw = (
   data: Partial<Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>>
 ) => {
+  const breadcrumbs = () => {
+    writeJSONFile(data.breadcrumbs, NAMES.breadcrumb, DataState.raw);
+  };
   const entities = {
     all: () => {
       data.entities &&
@@ -23,11 +25,9 @@ export const writeRaw = (
         writeJSONFile(data.entities.index, NAMES.entityIndex, DataState.raw);
     },
   };
-
   const fields = () => {
     writeJSONFile(data.fields, NAMES.fields, DataState.raw);
   };
-
   const labels = {
     de: () =>
       data.labels &&
@@ -39,7 +39,6 @@ export const writeRaw = (
       data.labels &&
       writeJSONFile(data.labels.fr, NAMES.labelFr, DataState.raw),
   };
-
   const propertyTypes = () =>
     writeJSONFile(data.propertyTypes, NAMES.propertyType, DataState.raw);
   const staNotations = () =>
@@ -57,15 +56,14 @@ export const writeRaw = (
   //   writeJSONFile(data.rdaRules, NAMES.rdaRule, DataState.raw);
   const rdaProperties = () =>
     writeJSONFile(data.rdaProperties, NAMES.rdaProperty, DataState.raw);
-
   const rdaElementStatuses = () =>
     writeJSONFile(
       data.rdaElementStatuses,
       NAMES.rdaElementStatuses,
       DataState.raw
     );
-
   const writeAll = () => {
+    breadcrumbs();
     entities.index();
     entities.all();
     fields();
@@ -83,6 +81,7 @@ export const writeRaw = (
   };
 
   return {
+    breadcrumbs,
     entities,
     fields,
     labels,
@@ -101,14 +100,13 @@ export const writeRaw = (
 };
 
 export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
+  const breadcrumbs = () => {
+    writeJSONFile(data.breadcrumbs, NAMES.breadcrumb, DataState.parsed);
+  };
   const entities = {
     de: () => {
       data.entities &&
         writeJSONFile(data.entities.all, NAMES.entityDe, DataState.parsed);
-    },
-    fr: () => {
-      data.entities &&
-        writeJSONFile(data.entities.all, NAMES.entityFr, DataState.parsed);
     },
     fr: () => {
       data.entities &&
@@ -159,6 +157,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
   // TODO
   const writeAll = (lang: string) => {
+    breadcrumbs();
     entities.index();
     lang === 'fr' ? entities.fr() : entities.de();
     fields();
@@ -174,6 +173,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   };
 
   return {
+    breadcrumbs,
     entities,
     fields,
     labels,

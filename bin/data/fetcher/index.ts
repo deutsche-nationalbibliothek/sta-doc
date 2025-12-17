@@ -1,5 +1,6 @@
 import { DEV } from '..';
 import { EntityId } from '../../../types/entity-id';
+import { BreadcrumbsRaw } from '../../../types/raw/breadcrumb';
 import { CodingsRaw } from '../../../types/raw/coding';
 import { SchemasRaw } from '../../../types/raw/schema';
 import { DescriptionRaws } from '../../../types/raw/description';
@@ -18,6 +19,7 @@ import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
+// import { FieldsRaw } from '../../../types/raw/field';
 
 export enum API_URL {
   host = 'https://sta.dnb.de',
@@ -37,7 +39,6 @@ const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
       arr.splice(1, chunkSize)
     );
   };
-
   const chunkSize = 50;
   const chunked = chunk([...entitiesIndexKeys], chunkSize);
   console.log(
@@ -49,21 +50,20 @@ const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
     chunked.length,
     'sets'
   );
-
   return chunked.map((bulk) => bulk.join('|'));
 };
-
 const wikiBase = (apiUrl: API_URL) => {
   const onFetch = fetchWithSparql(apiUrl);
   return fetchWikibase(onFetch);
 };
-
 const fetchIndex = async (apiUrl: API_URL) => {
   return await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
     sparql.ENTITY_INDEX(apiUrl)
   );
 };
 
+export const breadcrumbsFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<BreadcrumbsRaw>(sparql.BREADCRUMBS(apiUrl));
 export const entitiesFetcher = {
   index: fetchIndex,
   single: async (entityId: EntityId, apiUrl: API_URL) =>
@@ -74,7 +74,6 @@ export const entitiesFetcher = {
     const entitiesChunked = entitiesChunk(
       Object.keys(entitiesIndex) as EntityId[]
     );
-
     let entities = {} as Record<EntityId, EntityRaw | void>;
     for (let i = 0; i < (DEV ? 1 : entitiesChunked.length); i++) {
       const entityIds = entitiesChunked[i];
@@ -84,11 +83,9 @@ export const entitiesFetcher = {
     return entities;
   },
 };
-
 export const fieldsFetcher = async (apiUrl: API_URL) => {
   return (await wikiBase(apiUrl).fetchFields()).fields;
 };
-
 export const labelsFetcher = {
   de: async (apiUrl: API_URL) =>
     await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
@@ -97,7 +94,6 @@ export const labelsFetcher = {
   fr: async (apiUrl: API_URL) =>
     await wikiBase(apiUrl).sparqlQuery<LabelFrRaws>(sparql.LABELFR(apiUrl)),
 };
-
 export const staNotationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
     sparql.STA_NOTATIONS(apiUrl)
@@ -140,15 +136,13 @@ export const fetcher = (apiUrl = API_URL.host) => {
     all: async () => await entitiesFetcher.all(apiUrl),
     index: async () => await entitiesFetcher.index(apiUrl),
   };
-
   const fields = async () => await fieldsFetcher(apiUrl);
-
   const labels = {
     de: async () => await labelsFetcher.de(apiUrl),
     en: async () => await labelsFetcher.en(apiUrl),
     fr: async () => await labelsFetcher.fr(apiUrl),
   };
-
+  const breadcrumbs = async () => await breadcrumbsFetcher(apiUrl);
   const propertyTypes = async () => await propertyTypesFetcher(apiUrl);
   const staNotations = async () => await staNotationsFetcher(apiUrl);
   const staNotationsFr = async () => await staNotationsFetcherFr(apiUrl);
@@ -164,6 +158,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
+      breadcrumbs: await breadcrumbs(),
       entities: { all: await entities.all(), index: await entities.index() },
       fields: await fields(),
       labels: {
@@ -186,12 +181,13 @@ export const fetcher = (apiUrl = API_URL.host) => {
   };
 
   return {
+    breadcrumbs,
+    codings,
     entities,
     fields,
     labels,
     staNotations,
     staNotationsFr,
-    codings,
     fetchAll,
     propertyItemList,
     propertyTypes,
