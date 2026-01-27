@@ -9,8 +9,10 @@ export interface Coding extends CodingData {
 interface CodingData {
   PICA3: string[];
   'PICA+': string[];
-  'MARC 21': string[];
-  'GND-Ontologie': string[];
+  'Alma'?: string[];
+  'Aleph'?: string[];
+  'MARC 21'?: string[];
+  'GND-Ontologie'?: string[];
 }
 
 export type CodingLabel = keyof CodingData;

@@ -159,8 +159,8 @@ export interface Codings {
   label: string;
   PICA3: string[];
   'PICA+': string[];
-  'Alma': string[];
-  'Aleph': string[];
+  'Alma'?: string[];
+  'Aleph'?: string[];
   'MARC 21 Format für Normdaten'?: string[];
   'GND-Ontologie'?: string[];
 }
