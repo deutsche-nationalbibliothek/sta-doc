@@ -7,6 +7,17 @@ const nextTranslate = require('next-translate-plugin')
 const staNotations = JSON.parse(
   fs.readFileSync('./data/parsed/sta-notations.json')
 );
+const fields = JSON.parse(
+  fs.readFileSync('./data/parsed/fields.json')
+);
+const pica3ToStaNotation = fields.map((field) => {
+  if (field.codings.PICA3) {
+    return {
+      PICA3: field.codings.PICA3,
+      staNotationLabel: staNotations[field.id].label
+    }
+  }
+}).filter(Boolean);
 
 module.exports = async () => {
   const nextConfig = {
@@ -37,6 +48,11 @@ module.exports = async () => {
           destination: `/${staNotations[entityId].label}`,
           permanent: true, // temp, until data is fixed
         })),
+        ...pica3ToStaNotation.map((entry) => ({
+          source: `/PICA3/${entry.PICA3}`,
+          destination: `/${entry.staNotationLabel}`,
+          permanent: true
+        }))
       ];
     },
   };
