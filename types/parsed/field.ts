@@ -1,28 +1,22 @@
 import { EntityId } from '../entity-id';
+import { Codings } from './entity';
 
-export type Fields = Field[];
-
-interface CommonField {
+export type Fields = Record<EntityId, Field>;
+export interface Field {
   id: EntityId;
-  codings: Codings;
-  description: string;
-  editLink: string;
-  label: string;
-  viewLink: string;
-  repeatable: boolean;
   staNotationLabel: string;
+  codings: Codings;
+  labelDe: string;
+  labelFr: string;
+  repeatable?: string;
+  subfields: Subfield[];
 }
-
-export interface Field extends CommonField {
-  subfields: CommonField[];
-}
-
-export type Subfield = CommonField;
-
-interface Codings {
-  'PICA+': string;
-  PICA3: string;
-  'Alma': string;
-  'Aleph': string;
-  'MARC 21'?: string;
+export type Subfields = Subfield[];
+export interface Subfield {
+  id: EntityId;
+  repeatable?: string;
+  staNotationLabel: string;
+  codings: Codings;
+  labelDe: string;
+  labelFr: string;
 }

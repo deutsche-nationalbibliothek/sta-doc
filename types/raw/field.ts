@@ -1,48 +1,24 @@
-import { Item } from '../item';
-import { Property } from '../property';
+import { EntityId } from '../entity-id';
 
-export type FieldsRaw = Record<Property, FieldRaw>;
+export type FieldsRaw = FieldRaw[];
 
-interface FieldRaw {
-  label: string;
-  description: string;
-  aliases: string[];
-  definition: string;
-  repeatable: boolean;
-  subfields: Subfields;
-  codings: Codings;
-  allowedValues?: Record<Item, string>;
-  validation: string[];
-  rulesOfUse: string[];
-  examples: any[];
-  viewLink: string;
-  editLink: string;
+export interface FieldRaw {
+  eId: EId;
+  repeatable: Repeatable;
+  subId: EId;
+  subRepeatable: Repeatable;
+  subLink: Sublink;
 }
-
-type Subfields = Record<Property, Subfield>;
-interface Subfield {
-  label: string;
-  description: string;
-  codings: Codings;
-  allowedValues: any[];
-  references: any[];
-  repeatable: boolean;
-  viewLink: string;
-  editLink: string;
+interface Repeatable {
+  'xml:lang': string;
+  type: string;
+  value: string;
 }
-
-// Examples are either this type (if any), or en empty array
-// type Examples = Record<Item, Example> | []
-// interface Example {
-//   label: string;
-//   viewLink: string;
-//   editLink: string;
-// }
-
-interface Codings {
-  'PICA+': string;
-  PICA3: string;
-  'MARC 21': string;
-  'Alma': string;
-  'Aleph': string;
+interface EId {
+  type: string;
+  value: EntityId;
+}
+interface Sublink {
+  type: 'uri';
+  value: string;
 }

@@ -217,7 +217,7 @@ export const parseRawEntity = (
       namespace,
       field:
         pageType && pageType.id === Item['GND-data-field']
-          ? fields.find((field) => field.id === entityId)
+          ? fields[entityId]
           : undefined,
       staNotationLabel: staNotations[entityId]?.label,
       showOnlyApplicationProfile: showOnlyApplicationProfile(),

@@ -1,5 +1,11 @@
+import { read } from 'fs';
 import { EntityId } from '../../types/entity-id';
-import { EntitiesEntries } from '../../types/parsed/entity';
+// import { EntitiesEntries } from '../../types/parsed/entity';
+import {
+  Codings,
+  EntitiesEntries,
+  // EntityEntry,
+} from '../../types/parsed/entity';
 import { EntitiesRaw } from '../../types/raw/entity';
 import { API_URL, fetcher } from './fetcher';
 import {
@@ -33,6 +39,13 @@ export const DEV = false;
     writer.raw(data).writeAll();
   };
 
+  const fetchRawFieldsAndWrite = async () => {
+    console.log('Fetch raw fields from database: ', API_URL.host);
+    const data = await fetcher(API_URL.host).fields();
+    console.log('Going to write fields.');
+    writer.rawFields(data);
+  };
+
   const fetchSingleEntityAndWrite = async (entityId: EntityId) => {
     console.log('Fetch raw single entity data from database: ', API_URL.host);
     console.log('Fetch raw data of entity',entityId);
@@ -62,6 +75,17 @@ export const DEV = false;
     const codings = codingsParser(readRaw.codings())
     const data = { codings: codings }
     writer.parsed(data).codings();
+  }
+  const parseRawAndWriteFields = () => {
+    const readRaw = reader[DataState.raw];
+    const readParsed = reader[DataState.parsed]
+    const staNotations = readParsed.staNotations();
+    const codings = reader[DataState.parsed].codings();
+    const labelsDe = readParsed.labels.de();
+    const labelsFr = readParsed.labels.fr();
+    const fields = fieldsParser(readRaw.fields(), staNotations, codings, labelsDe, labelsFr);
+    const data = { fields: fields }
+    writer.parsed(data).fields();
   }
   const parseRawAndWritePropertyTypes = () => {
     const readRaw = reader[DataState.raw];
@@ -100,21 +124,25 @@ export const DEV = false;
   const parseSingleEntity = (entityId: EntityId, lang: string) => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations(lang));
+    const codings = reader[DataState.parsed].codings();
     const schemas = reader[DataState.parsed].schemas();
+    const labelsDe = labelsParser.de(readRaw.labels.de());
+    const labelsEn = labelsParser.en(readRaw.labels.en());
+    const labelsFr = labelsParser.fr(readRaw.labels.fr());
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
       (entityId: EntityId) => readRaw.entities.single(entityId),
       {
-        labelsDe: labelsParser.de(readRaw.labels.de()),
-        labelsEn: labelsParser.en(readRaw.labels.en()),
-        labelsFr: labelsParser.fr(readRaw.labels.fr()),
+        labelsDe: labelsDe,
+        labelsEn: labelsEn,
+        labelsFr: labelsFr,
         breadcrumbs: breadcrumbsParser(readRaw.breadcrumbs()),
         codings: codingsParser(readRaw.codings()),
         propertyTypes: propertyTypesParser(readRaw.propertyTypes()),
         staNotations,
         schemas,
-        fields: fieldsParser(readRaw.fields(), staNotations),
+        fields: fieldsParser(readRaw.fields(), staNotations, codings,labelsDe,labelsFr),
         rdaElementStatuses: rdaElementStatusesParser(
           readRaw.rdaElementStatuses(),
           staNotations,
@@ -155,6 +183,9 @@ export const DEV = false;
             console.warn('Missing EntityId as argument, like: data:fetch:single P395.');
           }
           break;
+        case 'fetch:fields':
+            await fetchRawFieldsAndWrite();
+          break;
         case 'parse':
             lang = 'de';
             parseRawAndWriteParsed(lang);
@@ -184,6 +215,9 @@ export const DEV = false;
           break;
         case 'parse:codings':
           parseRawAndWriteCodings();
+          break;
+        case 'parse:fields':
+          parseRawAndWriteFields();
           break;
         case 'parse:labels':
           parseRawAndWriteLabels();

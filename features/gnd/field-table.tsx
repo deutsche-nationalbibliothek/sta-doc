@@ -1,17 +1,26 @@
 import { ColumnsTypes, Table } from '@/components/table';
 import { EntityLink } from '@/entity/components/preview/link';
-import { Field } from '@/types/parsed/field';
+import { Field, Fields } from '@/types/parsed/field';
 import { Typography } from 'antd';
 import { GndSubFieldTable } from './subfield-table';
-import { GndFieldsProps } from '@/pages/GND-DF';
+// import { GndFieldsProps } from '@/pages/GND-DF';
+import useTranslation from 'next-translate/useTranslation';
+
+export interface GndFieldsProps {
+  fields: Fields;
+  locale: string;
+  singleColumn?: string;
+}
 
 export const GndFieldsTable: React.FC<
   GndFieldsProps & { className?: string }
-> = ({ fields, className }) => {
+> = ({ fields, className, locale, singleColumn }) => {
+  const { t } = useTranslation('common');
   const columns: ColumnsTypes<Field> = [
     {
+      hidden: singleColumn && singleColumn !== 'PICA' || false,
       title: 'PICA3',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
@@ -22,8 +31,9 @@ export const GndFieldsTable: React.FC<
       },
     },
     {
+      hidden: singleColumn && singleColumn !== 'PICA' || false,
       title: 'PICA+',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
@@ -33,35 +43,49 @@ export const GndFieldsTable: React.FC<
         ) : null;
       },
     },
-    // {
-    //   title: 'MARC21',
-    //   dataIndex: ['codings', 'MARC 21'],
-    //   width: '25%',
-    //   key: 'MARC21',
-    //   isSearchable: true,
-    //   render: (coding, _record, _index, highlighted) => {
-    //     return coding ? (
-    //       <Typography.Text code>{highlighted}</Typography.Text>
-    //     ) : null;
-    //   },
-    // },
     {
-      title: 'Bezeichnung',
-      dataIndex: 'label',
+      hidden: singleColumn && singleColumn !== 'Alma' || false,
+      title: 'Alma',
+      width: '12%',
+      dataIndex: ['codings', 'Alma'],
+      key: 'Alma',
+      isSearchable: true,
+      render: (coding, _record, _index, highlighted) => {
+        return coding ? (
+          <Typography.Text code>{highlighted}</Typography.Text>
+        ) : null;
+      },
+    },
+    {
+      hidden: singleColumn && singleColumn !== 'Aleph' || false,
+      title: 'Aleph',
+      width: '12%',
+      dataIndex: ['codings', 'Aleph'],
+      key: 'Aleph',
+      isSearchable: true,
+      render: (coding, _record, _index, highlighted) => {
+        return coding ? (
+          <Typography.Text code>{highlighted}</Typography.Text>
+        ) : null;
+      },
+    },
+    {
+      title: t('description'),
+      dataIndex: locale && locale === 'fr' ? 'labelFr' : 'labelDe',
       key: 'label',
-      width: '60%',
+      // width: '30%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
         return <EntityLink {...record}>{highlightedContent}</EntityLink>;
       },
     },
     {
-      title: 'Wiederholung',
-      width: '10%',
+      title: t('repetition'),
+      width: '12%',
       dataIndex: 'repeatable',
       key: 'repeatable',
       render: (_data, record) => {
-        return record.repeatable ? 'Ja' : 'Nein';
+        return record.repeatable ? record.repeatable : 'Value missing';
       },
     },
   ];
@@ -71,14 +95,16 @@ export const GndFieldsTable: React.FC<
       className={className}
       columns={columns.map((column) => ({
         ...column,
-        isSearchable: column.isSearchable && fields.length > 1,
-        noSort: column.noSort || fields.length < 2,
+        isSearchable: column.isSearchable && Object.values(fields).length > 1,
+        noSort: column.noSort || Object.values(fields).length < 2,
       }))}
-      pagination={fields.length > 10 ? undefined : false}
-      dataSource={fields.map((field) => ({ ...field, key: field.id }))}
+      pagination={Object.values(fields).length > 10 ? {locale: { items_per_page: '/ '+ t('site') }} : false}
+      dataSource={Object.values(fields).map((field) => ({ ...field, key: field.id, locale, singleColumn }))}
       expandable={{
+        expandedRowOffset: 1,
         expandedRowRender: (props) => (
           <GndSubFieldTable
+            className={className}
             {...props}
           />
         ),

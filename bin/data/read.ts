@@ -16,11 +16,12 @@ import { RdaProperties } from '../../types/parsed/rda-property';
 import { LabelsDe } from '../../types/parsed/label-de';
 import { LabelsEn } from '../../types/parsed/label-en';
 import { LabelsFr } from '../../types/parsed/label-fr';
+import { Codings } from '../../types/parsed/coding';
 import {
-  Codings,
   EntitiesEntries,
   EntityEntry,
 } from '../../types/parsed/entity';
+// import { Codings } from '../../types/parsed/coding';
 import { EntitiesIndex } from '../../types/parsed/entity-index';
 import { Fields } from '../../types/parsed/field';
 import { Schemas } from '../../types/parsed/schema';
@@ -86,7 +87,7 @@ const readRaw: ReadRaw = {
     index: () =>
       readJSONFile<EntitiesIndexRaw>(NAMES.entityIndex, DataState.raw),
   },
-  fields: () => readJSONFile<FieldsRaw>(NAMES.fields, DataState.raw),
+  fields: () => readJSONFile<FieldsRaw>(NAMES.field, DataState.raw),
   labels: {
     de: () => readJSONFile<LabelDeRaws>(NAMES.labelDe, DataState.raw),
     en: () => readJSONFile<LabelEnRaws>(NAMES.labelEn, DataState.raw),
@@ -136,7 +137,7 @@ const readParsed: ReadParsed = {
     index: () =>
       readJSONFile<EntitiesIndex>(NAMES.entityIndex, DataState.parsed),
   },
-  fields: () => readJSONFile<Fields>(NAMES.fields, DataState.parsed),
+  fields: () => readJSONFile<Fields>(NAMES.field, DataState.parsed),
   labels: {
     de: () => readJSONFile<LabelsDe>(NAMES.labelDe, DataState.parsed),
     en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.parsed),

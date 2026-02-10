@@ -31,6 +31,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   linkProps,
   tooltipPlacement,
 }) => {
+  // console.log('record',id,label,propLocale,pointingNamespace,staNotationLabel,children)
   const router = useRouter();
   const locale = propLocale || router.locale || 'de';
   const { namespace: currentNamespace } = useNamespace();

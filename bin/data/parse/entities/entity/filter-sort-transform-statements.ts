@@ -12,6 +12,7 @@ import { isPropertyBlacklisted } from '../../../../../utils/constants';
 
 export interface FilterSortTransformStatementsProps
   extends Required<ParseEntityProps> {
+  elementOfId: EntityId;
   relevantGroup: Groups;
   occurrences: Record<EntityId, Claim[]>;
   isRdaRessourceEntity: boolean;

@@ -1,5 +1,13 @@
 {
-  "title": "Salut",
+  "yes": "Oui",
+  "no": "Non",
+  "title-GND-list": "GND Liste des champs/sous-champs",
+  "title-PICA-list": "GND PICA Liste des champs/sous-champs",
+  "title-ALMA-list": "GND Alma Liste des champs/sous-champs",
+  "title-Aleph-list": "GND Aleph Liste des champs/sous-champs",
+  "description": "Désignation",
+  "repetition": "Répétition",
+  "site": "Page",
   "notFound": "404 | Page introuvable",
   "notFoundInLanguage": "La page n'est pas disponible. Veuillez consulter la version allemande en cliquant sur le lien suivant.",
   "versionDe": "--> Version allemande"

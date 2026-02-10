@@ -19,7 +19,7 @@ import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
-// import { FieldsRaw } from '../../../types/raw/field';
+import { FieldsRaw } from '../../../types/raw/field';
 
 export enum API_URL {
   host = 'https://edit.sta.dnb.de',
@@ -62,8 +62,6 @@ const fetchIndex = async (apiUrl: API_URL) => {
   );
 };
 
-export const breadcrumbsFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<BreadcrumbsRaw>(sparql.BREADCRUMBS(apiUrl));
 export const entitiesFetcher = {
   index: fetchIndex,
   single: async (entityId: EntityId, apiUrl: API_URL) =>
@@ -83,9 +81,10 @@ export const entitiesFetcher = {
     return entities;
   },
 };
-export const fieldsFetcher = async (apiUrl: API_URL) => {
-  return (await wikiBase(apiUrl).fetchFields()).fields;
-};
+export const breadcrumbsFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<BreadcrumbsRaw>(sparql.BREADCRUMBS(apiUrl));
+export const fieldsFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<FieldsRaw>(sparql.FIELDS(apiUrl));
 export const labelsFetcher = {
   de: async (apiUrl: API_URL) =>
     await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
