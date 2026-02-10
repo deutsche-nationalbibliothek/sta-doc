@@ -1,4 +1,12 @@
 {
-  "title": "Hallo",
+  "yes": "Ja",
+  "no": "Nein",
+  "title-GND-list": "GND Feld-/Unterfeldliste",
+  "title-PICA-list": "GND PICA Feld-/Unterfeldliste",
+  "title-ALMA-list": "GND Alma Feld-/Unterfeldliste",
+  "title-ALEPH-list": "GND Aleph Feld-/Unterfeldliste",
+  "description": "Beschreibung",
+  "repetition": "Wiederholung",
+  "site": "Seite",
   "notFound": "404 | Seite nicht gefunden"
 }

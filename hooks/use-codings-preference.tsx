@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { useLocalStorage } from 'react-use';
 
-export type CodingsPreference = 'PICA+' | 'PICA3';
+export type CodingsPreference = 'PICA+' | 'PICA3' | 'Alma' | 'Aleph';
 
 interface CodingsPreferencesContext {
   codingsPreferences: CodingsPreference[];
@@ -14,7 +14,7 @@ const CodingsPreferencesContext = createContext(
 );
 
 const useCodingsPreferenceLocal = () => {
-  const codingsOptions: CodingsPreference[] = ['PICA+', 'PICA3'];
+  const codingsOptions: CodingsPreference[] = ['PICA+', 'PICA3', 'Alma', 'Aleph'];
 
   const [codingsPreferences, setCodingsPreferencesState] = useLocalStorage<
     CodingsPreference[]

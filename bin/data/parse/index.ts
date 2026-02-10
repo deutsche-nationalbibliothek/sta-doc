@@ -1,7 +1,7 @@
 import { groupBy, sortBy, trim, uniqBy } from 'lodash';
 import slugify from 'slugify';
 import { EntityId } from '../../../types/entity-id';
-import { CodingLabel, Codings } from '../../../types/parsed/coding';
+import { CodingLabel, Codings, Coding } from '../../../types/parsed/coding';
 import { Descriptions } from '../../../types/parsed/description';
 import { EntitiesIndex } from '../../../types/parsed/entity-index';
 import { LabelsDe } from '../../../types/parsed/label-de';
@@ -36,7 +36,7 @@ import { NAMES } from '../utils/names';
 import { parseEntities, ParseEntitiesData } from './entities';
 import namespaceConfig from '../../../config/namespace';
 import { EntitiesEntries } from '../../../types/parsed/entity';
-import { Fields } from '../../../types/parsed/field';
+import { Fields, Subfields } from '../../../types/parsed/field';
 import { Namespace } from '../../../types/namespace';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
@@ -128,43 +128,49 @@ export const entitiesParser = {
 
 export const fieldsParser = (
   fields: FieldsRaw,
-  staNotations: StaNotations
-): Fields =>
-  Object.entries(fields).map(([key, field]) => {
-    const {
-      codings,
-      description,
-      editLink,
-      repeatable,
-      label,
-      subfields,
-      viewLink,
-    } = field;
-    return {
-      id: key as EntityId,
-      codings,
-      description,
-      editLink,
-      repeatable,
-      label: labelStripper(label),
-      viewLink,
-      staNotationLabel: staNotations[key as EntityId]?.label,
-      subfields: Object.entries(subfields).map(([key, subfield]) => {
-        const { codings, description, editLink, label, viewLink, repeatable } =
-          subfield;
-        return {
-          id: key as EntityId,
-          codings,
-          description,
-          editLink,
-          repeatable,
-          label: labelStripper(label),
-          viewLink,
-          staNotationLabel: staNotations[key as EntityId]?.label,
-        };
-      }),
-    };
-  });
+  staNotations: StaNotations,
+  codings: Codings,
+  labelsDe: LabelsDe,
+  labelsFr: LabelsFr,
+): Fields => {
+  console.log('Parsing Fields')
+  return fields.reduce((acc, field) => {
+    const key = field.eId.value;
+    const fieldLabel = labelsDe[key] || 'Kein Label'
+    const fieldLabelFr = labelsFr[key] || 'Missing label'
+    const previousKey = Object.keys(acc)[Object.keys(acc).length - 1];
+    const subfieldLabel = labelsDe[field.subId.value] || 'Kein Label'
+    const subfieldLabelFr = labelsFr[field.subId.value] || 'Missing Label'
+    if (previousKey && previousKey === key) {
+      acc[key].subfields.push({
+        id: field.subId.value,
+        codings: codings[field.subId.value],
+        labelDe: subfieldLabel,
+        labelFr: subfieldLabelFr,
+        repeatable: field.subRepeatable?.value || '',
+        staNotationLabel: staNotations[field.subId.value]?.label || ''
+      })
+    } else {
+      acc[key] = {
+        id: key,
+        staNotationLabel: staNotations[key].label,
+        codings: codings[key],
+        labelDe: fieldLabel,
+        labelFr: fieldLabelFr,
+        repeatable: field.repeatable?.value || '',
+        subfields: [{
+          id: field.subId.value,
+          codings: codings[field.subId.value],
+          labelDe: subfieldLabel,
+          labelFr: subfieldLabelFr,
+          repeatable: field.subRepeatable?.value || '',
+          staNotationLabel: staNotations[field.subId.value]?.label || ''
+        }]
+      }
+    }
+    return acc;
+  }, {} as Fields);
+}
 
 export const labelsParser = {
   de: (labelsDe: LabelDeRaws) => {
@@ -430,17 +436,21 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
+  const codings = codingsParser(read.codings());
   const schemas = schemasParser(read.schemas());
+  const labelsDe = labelsParser.de(read.labels.de());
+  const labelsEn = labelsParser.en(read.labels.en());
+  const labelsFr = labelsParser.fr(read.labels.fr());
   const data = {
     breadcrumbs: breadcrumbsParser(read.breadcrumbs()),
     propertyTypes: propertyTypesParser(read.propertyTypes()),
     staNotations: staNotations,
     schemas: schemas,
-    labelsDe: labelsParser.de(read.labels.de()),
-    labelsEn: labelsParser.en(read.labels.en()),
-    labelsFr: labelsParser.fr(read.labels.fr()),
+    labelsDe: labelsDe,
+    labelsEn: labelsEn,
+    labelsFr: labelsFr,
     codings: codingsParser(read.codings()),
-    fields: fieldsParser(read.fields(), staNotations),
+    fields: fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr),
     rdaElementStatuses: rdaElementStatusesParser(
       read.rdaElementStatuses(),
       staNotations,
@@ -461,6 +471,7 @@ export const parseAllFromRead = (
       en: data.labelsEn,
       fr: data.labelsFr,
     },
+    fields: data.fields,
     entities: {
       index: entitiesParser.index(read.entities.index()),
       all: entitiesParser.all(
@@ -470,7 +481,6 @@ export const parseAllFromRead = (
         lang
       ),
     },
-    fields: data.fields,
     propertyTypes: data.propertyTypes,
     schemas: data.schemas,
     staNotations: data.staNotations,

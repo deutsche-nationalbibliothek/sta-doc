@@ -16,4 +16,4 @@ interface CodingData {
 }
 
 export type CodingLabel = keyof CodingData;
-export type PrefCodingsLabel = 'PICA3' | 'PICA+';
+export type PrefCodingsLabel = 'PICA3' | 'PICA+' | 'Alma' | 'Aleph';

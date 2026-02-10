@@ -10,11 +10,11 @@ const staNotations = JSON.parse(
 const fields = JSON.parse(
   fs.readFileSync('./data/parsed/fields.json')
 );
-const pica3ToStaNotation = fields.map((field) => {
-  if (field.codings.PICA3) {
+const pica3ToStaNotation = Object.entries(fields).map(([key,field]) => {
+  if (field.codings.PICA3.length > 0) {
     return {
-      PICA3: field.codings.PICA3,
-      staNotationLabel: staNotations[field.id].label
+      PICA3: field.codings.PICA3[0],
+      staNotationLabel: field.staNotationLabel
     }
   }
 }).filter(Boolean);
@@ -42,11 +42,12 @@ module.exports = async () => {
     },
     reactStrictMode: true,
     async redirects() {
+      // https://sta.dnb.de/doc/PICA3/
       return [
         ...Object.keys(staNotations).map((entityId) => ({
           source: `/${entityId}`,
           destination: `/${staNotations[entityId].label}`,
-          permanent: true, // temp, until data is fixed
+          permanent: true
         })),
         ...pica3ToStaNotation.map((entry) => ({
           source: `/PICA3/${entry.PICA3}`,

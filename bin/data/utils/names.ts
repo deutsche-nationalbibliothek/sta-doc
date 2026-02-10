@@ -1,7 +1,11 @@
 export const NAMES = {
   breadcrumb: {
-    file: { singular: 'breadcrumb', plural: 'breadcrumbs'  },
+    file: { singular: 'breadcrumb', plural: 'breadcrumbs' },
     type: 'Breadcrumb',
+  },
+  field: {
+    file: { singular: 'field', plural: 'fields' },
+    type: 'Field',
   },
   entity: {
     file: { singular: 'entity', plural: 'entities' },
@@ -62,10 +66,6 @@ export const NAMES = {
   description: {
     file: { singular: 'description' },
     type: 'Description',
-  },
-  fields: {
-    file: { singular: 'field' },
-    type: 'Field',
   },
   rdaElementStatuses: {
     file: { singular: 'rda-element-status', plural: 'rda-element-statuses' },

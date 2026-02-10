@@ -9,7 +9,7 @@
 
 # testing
 /coverage
-# /data
+/data/
 
 # next.js
 /.next/
@@ -40,6 +40,7 @@ yarn-error.log*
 __tests__/pages/entities/__snapshots__/
 
 docker/solr/data
+/data
 /.cursor/
 .chromium*
 .vscode

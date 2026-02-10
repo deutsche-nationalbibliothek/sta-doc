@@ -24,6 +24,8 @@ export interface ExampleProcessingResult {
     subfieldsGroup: SubfieldGroups }[];
   PICA3: { coding: string, value: string }[][];
   'PICA+': { coding: string, value: string }[][];
+  'Alma': { coding: string, value: string }[][];
+  'Aleph': { coding: string, value: string }[][];
 }
 
 /**
@@ -80,6 +82,7 @@ export function exampleStatementsReducer(
   if (statement.stringGroups) {
     statement.stringGroups[0].values.map((example) => {
       const exampleValue = example;
+      console.log('ex',exampleValue)
       const formatNeutralStatement = exampleValue.qualifiers?.find(
         (qualifier) => qualifier.property === Property['Type'] || qualifier.property === Property['format-neutral-label']
       );
@@ -115,12 +118,13 @@ export function exampleStatementsReducer(
       if ('qualifiers' in exampleValue) {
         const permittedValues = exampleValue.qualifiers && (propFinder(Property['permited-values'], exampleValue.qualifiers) || propFinder(Property['permitted-characteristics'], exampleValue.qualifiers))?.wikibasePointers?.map(obj => obj.codings && obj.codings['PICA3'][0]).join('; ') || undefined
         const predecessorQualifier = permittedValues && (findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permitted-characteristics'])) || undefined
-        // map trough the qualifiers twice (for PICA3, then for PICA+)
-        const [picaThree, picaPlus] = ['PICA3', 'PICA+'].map(
+        // map trough the qualifiers multiple times (for PICA3, PICA+, Alma, Aleph)
+        const [picaThree, picaPlus, alma, aleph] = ['PICA3', 'PICA+', 'Alma', 'Aleph'].map(
           (codingLabel: PrefCodingsLabel) =>
             exampleValue.qualifiers?.map((qualifier) => {
               const codingKey = codingLabel as keyof typeof qualifier.codings;
               const currentCoding = qualifier.codings && qualifier.codings[codingKey][0] as string
+              console.log(codingKey,currentCoding)
               const codingSeparator = findCodingSeparator(currentCoding)
               const permittedValuesDetector = predecessorQualifier === qualifier
               return 'stringGroups' in qualifier &&
@@ -129,6 +133,7 @@ export function exampleStatementsReducer(
                 ? qualifier.stringGroups?.map((stringValueContainer) =>
                     stringValueContainer.values.map((strValObj,index) => {
                       return ([
+                        currentCoding === undefined ? undefined :
                         index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value } 
                           : {coding: codingSeparator.predecessor, value: strValObj.value},
                         {coding: codingSeparator.successor, value: ''}
@@ -140,6 +145,7 @@ export function exampleStatementsReducer(
                   qualifier.property !== Property['permitted-characteristics'] &&
                   qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
                   return ([
+                    currentCoding === undefined ? undefined :
                     index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
                       : { coding: codingSeparator.predecessor, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'},
                     { coding: codingSeparator.successor, value: permittedValues && permittedValuesDetector ? '(' + permittedValues + ')' : '' }
@@ -160,6 +166,20 @@ export function exampleStatementsReducer(
             [
               { coding: statement.codings['PICA+'][0], value: '' },
               ...compact((picaPlus ?? []).flat(3)),
+            ],
+          ];
+          acc['Alma'] = [
+            ...acc['Alma'],
+            [
+              { coding: statement.codings['Alma'][0], value: '' },
+              ...compact((alma ?? []).flat(3)),
+            ],
+          ];
+          acc['Aleph'] = [
+            ...acc['Aleph'],
+            [
+              { coding: statement.codings['Aleph'][0], value: '' },
+              ...compact((aleph ?? []).flat(3)),
             ],
           ];
         }

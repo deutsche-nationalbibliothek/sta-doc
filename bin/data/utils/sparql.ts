@@ -47,7 +47,21 @@ export const ENTITY_INDEX = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
+export const BREADCRUMBS = (apiUrl: API_URL) => `
+  PREFIX wikibase: <http://wikiba.se/ontology#>
+  PREFIX bd: <http://www.bigdata.com/rdf#>
+  PREFIX p: <${apiUrl}/prop/>
+  PREFIX prop: <${apiUrl}/prop/direct/>
+  PREFIX item: <${apiUrl}/entity/>
+  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
+  PREFIX statement: <${apiUrl}/prop/statement/>
 
+  SELECT ?eId ?elementLabel ?staNotation WHERE {
+  ?element prop:P987 ?staNotation .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
+  BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+}
+`;
 export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
@@ -120,13 +134,20 @@ export const FIELDS = (apiUrl: API_URL) => `
   PREFIX qualifier: <${apiUrl}/prop/qualifier/>
   PREFIX statement: <${apiUrl}/prop/statement/>
 
-  SELECT ?element ?eId ?elementLabel  WHERE {
-    { ?element prop:P2 item:Q2 . } #Element von: GND-Field
-    #SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  SELECT ?eId ?repeatable ?subId ?subRepeatable ?subLink WHERE {
+    ?element prop:P2 item:Q2 . 
+    OPTIONAL {?element prop:P12 ?repeatable .}
+    ?element p:P15 ?sub .
+    OPTIONAL {?sub statement:P15 ?subelement .}
+    OPTIONAL {?sub qualifier:P12 ?subRepeatable .}
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
+    BIND(STRAFTER(STR(?subelement), '/entity/') as ?subId)
+    BIND(STRAFTER(STR(?sub), '-') as ?subStatementId)
+    BIND(IRI(CONCAT("https://edit.sta.dnb.de/entity/", ?eId, '#', ?eId, '$', ?subStatementId)) as ?subLink)
+  #   FILTER(NOT EXISTS { ?sub qualifier:P12 ?subRepeatable })
+  #   FILTER(REGEX(STR(?eId), "P98"))
   }
-  ORDER BY ASC(?elementLabel)
+  ORDER BY ASC(?eId)
 `;
 
 export const SUBFIELDS = (apiUrl: API_URL) => `

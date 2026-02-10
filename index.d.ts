@@ -67,6 +67,12 @@ declare module '@/data/parsed/sta-notations.json' {
   export default data;
 }
 
+declare module '@/data/parsed/breadcrumbs.json' {
+  import { Breadcrumbs } from './types/parsed/Breadcrumbs';
+  const data: Breadcrumbs ;
+  export default data;
+}
+
 // declare module '@/data/parsed/.json' {
 //   const data: ;
 //   export default data;

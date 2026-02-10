@@ -16,9 +16,6 @@ export const fetchWikibase = ({
     return res.entities;
   };
 
-  const fetchFields = async (): Promise<{ fields: FieldsRaw }> =>
-    await fetcher('/w/rest.php/gnd/doku/v1/datafields');
-
   const sparqlQuery = async <T>(sparqlQueryString: string): Promise<T> => {
     const response = await sparqlQueryDispatcher<T>(sparqlQueryString);
     return response.results.bindings;
@@ -42,7 +39,6 @@ export const fetchWikibase = ({
   };
 
   return {
-    fetchFields,
     sparqlQuery,
     fetchEntity,
   };

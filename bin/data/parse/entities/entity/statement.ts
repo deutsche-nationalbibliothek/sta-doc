@@ -28,7 +28,6 @@ export const parseStatement = (props: ParseStatementProps) => {
     prevParsedEntities,
     headlines,
     lang,
-    entityId,
     data,
     getRawEntityById,
     currentHeadlineLevel,

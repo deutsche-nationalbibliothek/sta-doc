@@ -28,7 +28,7 @@ export interface ParseEntityProps
   currentHeadlineLevel?: number;
   embedded?: boolean;
   entityId: EntityId;
-  elementOfId?: EntityId;
+  // elementOfId?: EntityId;
   headlines?: Headline[];
   isRdaRessourceEntityParam?: boolean;
   lang: string
@@ -217,7 +217,7 @@ export const parseRawEntity = (
       namespace,
       field:
         pageType && pageType.id === Item['GND-data-field']
-          ? fields.find((field) => field.id === entityId)
+          ? fields[entityId]
           : undefined,
       staNotationLabel: staNotations[entityId]?.label,
       showOnlyApplicationProfile: showOnlyApplicationProfile(),

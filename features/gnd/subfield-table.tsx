@@ -6,8 +6,10 @@ import { Typography } from 'antd';
 
 interface GndSubFieldTableProps {
   id: EntityId;
+  locale?: string;
   subfields: Subfield[];
   showHeader?: boolean;
+  singleColumn?: string;
   className?: string;
   isTopLevel?: boolean;
 }
@@ -15,8 +17,9 @@ interface GndSubFieldTableProps {
 export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
   const columns: ColumnsTypes<Subfield> = [
     {
+      hidden: props.singleColumn && props.singleColumn !== 'PICA' || false,
       title: 'PICA3',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       noSort: true,
@@ -25,8 +28,9 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       },
     },
     {
+      hidden: props.singleColumn && props.singleColumn !== 'PICA' || false,
       title: 'PICA+',
-      width: '15%',
+      width: '12%',
       dataIndex: ['codings', 'PICA+'],
       noSort: true,
       key: 'PICA+',
@@ -34,34 +38,46 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
         return <Typography.Text code>{highlighted}</Typography.Text>;
       },
     },
-    // {
-    //   title: 'MARC21',
-    //   dataIndex: ['codings', 'MARC 21'],
-    //   width: '25%',
-    //   noSort: true,
-    //   key: 'PICA3',
-    //   render: (_coding, _record, _index, highlighted) => {
-    //     return <Typography.Text code>{highlighted}</Typography.Text>;
-    //   },
-    // },
+    {
+      hidden: props.singleColumn && props.singleColumn !== 'Alma' || false,
+      title: 'Alma',
+      width: '12%',
+      dataIndex: ['codings', 'Alma'],
+      noSort: true,
+      key: 'Alma',
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
+    {
+      hidden: props.singleColumn && props.singleColumn !== 'Aleph' || false,
+      title: 'Aleph',
+      width: '12%',
+      dataIndex: ['codings', 'Aleph'],
+      noSort: true,
+      key: 'Alma',
+      render: (_coding, _record, _index, highlighted) => {
+        return <Typography.Text code>{highlighted}</Typography.Text>;
+      },
+    },
     {
       title: 'Bezeichnung',
-      width: '55%',
-      dataIndex: 'label',
+      // width: '30%',
+      dataIndex: props.locale === 'fr' ? 'labelFr' : 'labelDe',
       noSort: true,
       key: 'label',
-      render: (_data, record) => {
-        return <EntityLink {...record} />;
+      render: (_data, record, _index, highlightedContent) => {
+        return <EntityLink {...record}>{highlightedContent}</EntityLink>;
       },
     },
     {
       title: 'Wiederholung',
-      width: '15%',
+      width: '12%',
       dataIndex: 'repeatable',
       noSort: true,
       key: 'repeatable',
       render: (_data, record) => {
-        return record.repeatable ? 'Ja' : 'Nein';
+        return record.repeatable ? record.repeatable : 'Wert nicht vergeben';
       },
     },
   ];

@@ -1,5 +1,6 @@
 import { PropertiesItemsList } from '../../types/parsed/property-item-list';
 import { EntitiesRaw } from '../../types/raw/entity';
+import { FieldsRaw } from '../../types/raw/field';
 import type { fetcher } from './fetcher';
 import type { ParsedAllFromRead } from './parse';
 import { DataState, writeJSONFile } from './utils';
@@ -8,6 +9,9 @@ import { NAMES } from './utils/names';
 
 export const writeSingleRaw = (data: Partial<EntitiesRaw>) => {
   writeJSONFile(data, NAMES.entity, DataState.raw);
+};
+export const writeFieldsRaw = (data: Partial<FieldsRaw>) => {
+  writeJSONFile(data, NAMES.field, DataState.raw);
 };
 export const writeRaw = (
   data: Partial<Awaited<ReturnType<ReturnType<typeof fetcher>['fetchAll']>>>
@@ -26,7 +30,7 @@ export const writeRaw = (
     },
   };
   const fields = () => {
-    writeJSONFile(data.fields, NAMES.fields, DataState.raw);
+    writeJSONFile(data.fields, NAMES.field, DataState.raw);
   };
   const labels = {
     de: () =>
@@ -119,7 +123,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   };
 
   const fields = () => {
-    writeJSONFile(data.fields, NAMES.fields, DataState.parsed);
+    writeJSONFile(data.fields, NAMES.field, DataState.parsed);
   };
 
   const labels = () => {
@@ -193,6 +197,7 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
 
 export const writer = {
   raw: writeRaw,
+  rawFields: writeFieldsRaw,
   rawSingle: writeSingleRaw,
   parsed: writeParsed,
 };

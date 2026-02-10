@@ -79,7 +79,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     {
       key: 'propertyLabel',
       dataIndex: 'propertyLabel',
-      width: '20%',
+      width: '12%',
     },
     {
       key: 'values',

@@ -1,19 +1,20 @@
 import fields from '@/data/parsed/fields.json';
+import { useRouter } from 'next/router';
 import { Title } from '@/components/title';
 import { useNamespace } from '@/hooks/use-namespace';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { GndFieldsTable } from 'features/gnd/field-table';
-import { Field, Fields } from '@/types/parsed/field';
+import { GndFieldsTable, GndFieldsProps } from 'features/gnd/field-table';
+import { Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
 import { PageHeader } from '@/components/page-header';
-
-export interface GndFieldsProps {
-  fields: Field[];
-}
+import useTranslation from 'next-translate/useTranslation';
 
 export default function GndFields({ fields }: GndFieldsProps) {
+  const router = useRouter();
+  const locale = router.locale || 'de';
+  const { t } = useTranslation('common');
   const { setNamespace } = useNamespace();
 
   useEffect(() => {
@@ -23,21 +24,21 @@ export default function GndFields({ fields }: GndFieldsProps) {
   return (
     <>
       <Head>
-        <title>GND Feld-/Unterfeldliste</title>
+        <title>{t('title-GND-list')}</title>
       </Head>
 
       <PageHeader
         title={
           <Title
             headline={{
-              title: 'GND Feld-/Unterfeldliste',
+              title: t('title-GND-list'),
               level: 1,
               key: 'GndIndex',
             }}
           />
         }
       />
-      <GndFieldsTable fields={fields} />
+      <GndFieldsTable fields={fields} locale={locale} />
     </>
   );
 }
@@ -45,7 +46,7 @@ export default function GndFields({ fields }: GndFieldsProps) {
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {
-      fields: fields as Fields,
+      fields: fields as unknown as Fields,
     },
   };
 };

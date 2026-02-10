@@ -19,10 +19,10 @@ import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
-// import { FieldsRaw } from '../../../types/raw/field';
+import { FieldsRaw } from '../../../types/raw/field';
 
 export enum API_URL {
-  host = 'https://sta.dnb.de',
+  host = 'https://edit.sta.dnb.de',
   // host = 'http://lab.sta.dnb.de',
   test = 'http://lab.sta.dnb.de',
   prod = 'https://edit.sta.dnb.de',
@@ -83,9 +83,8 @@ export const entitiesFetcher = {
     return entities;
   },
 };
-export const fieldsFetcher = async (apiUrl: API_URL) => {
-  return (await wikiBase(apiUrl).fetchFields()).fields;
-};
+export const fieldsFetcher = async (apiUrl: API_URL) =>
+  await wikiBase(apiUrl).sparqlQuery<FieldsRaw>(sparql.FIELDS(apiUrl));
 export const labelsFetcher = {
   de: async (apiUrl: API_URL) =>
     await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
