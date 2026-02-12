@@ -146,8 +146,9 @@ export function exampleStatementsReducer(
                   qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
                   return ([
                     currentCoding === undefined ? undefined :
-                    index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'}
-                      : { coding: codingSeparator.predecessor, value: wikibasePointer.codings ? wikibasePointer.codings[codingLabel][0] : '...'},
+                    index > 0 && codingSeparator.separator.length > 0 
+                      ? { coding: codingSeparator.separator, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...'}
+                      : { coding: codingSeparator.predecessor, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...'},
                     { coding: codingSeparator.successor, value: permittedValues && permittedValuesDetector ? '(' + permittedValues + ')' : '' }
                   ]);
                 })
@@ -171,14 +172,14 @@ export function exampleStatementsReducer(
           acc['Alma'] = [
             ...acc['Alma'],
             [
-              { coding: statement.codings['Alma'][0], value: '' },
+              { coding: statement.codings['Alma'] ? statement.codings['Alma'][0] : '', value: '' },
               ...compact((alma ?? []).flat(3)),
             ],
           ];
           acc['Aleph'] = [
             ...acc['Aleph'],
             [
-              { coding: statement.codings['Aleph'][0], value: '' },
+              { coding: statement.codings['Aleph']? statement.codings['Aleph'][0] : '', value: '' },
               ...compact((aleph ?? []).flat(3)),
             ],
           ];
