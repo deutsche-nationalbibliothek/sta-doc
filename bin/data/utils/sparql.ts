@@ -47,21 +47,6 @@ export const ENTITY_INDEX = (apiUrl: API_URL) => `
   }
   ORDER BY ASC(?elementLabel)
 `;
-export const BREADCRUMBS = (apiUrl: API_URL) => `
-  PREFIX wikibase: <http://wikiba.se/ontology#>
-  PREFIX bd: <http://www.bigdata.com/rdf#>
-  PREFIX p: <${apiUrl}/prop/>
-  PREFIX prop: <${apiUrl}/prop/direct/>
-  PREFIX item: <${apiUrl}/entity/>
-  PREFIX qualifier: <${apiUrl}/prop/qualifier/>
-  PREFIX statement: <${apiUrl}/prop/statement/>
-
-  SELECT ?eId ?elementLabel ?staNotation WHERE {
-  ?element prop:P987 ?staNotation .
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "de" }
-  BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
-}
-`;
 export const RDAPROPERTIES = (apiUrl: API_URL) => `
   PREFIX wikibase: <http://wikiba.se/ontology#>
   PREFIX bd: <http://www.bigdata.com/rdf#>
