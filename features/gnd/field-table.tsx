@@ -76,7 +76,7 @@ export const GndFieldsTable: React.FC<
       // width: '30%',
       isSearchable: true,
       render: (_data, record, _index, highlightedContent) => {
-        return <EntityLink {...record}>{highlightedContent}</EntityLink>;
+        return <EntityLink id={record.id} label={record.labelDe} staNotationLabel={record.staNotationLabel}>{highlightedContent}</EntityLink>;
       },
     },
     {
