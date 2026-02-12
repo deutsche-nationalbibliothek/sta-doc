@@ -26,6 +26,11 @@ export const blacklist: {
     Property['Release-number-of-STA-documentation'],
     Property['Language-of-the-page'],
     Property['breadcrumb-link'],
+    Property['text-data-type'],
+    Property.P852,
+    Property.P853,
+    Property['Language-of-the-statement'],
+    Property.P898,
   ],
   // properties/statements who never get a headline
   headlines: [
