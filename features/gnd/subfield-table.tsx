@@ -67,7 +67,7 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       noSort: true,
       key: 'label',
       render: (_data, record, _index, highlightedContent) => {
-        return <EntityLink {...record}>{highlightedContent}</EntityLink>;
+        return <EntityLink id={record.id} label={record.labelDe} staNotationLabel={record.staNotationLabel}>{highlightedContent}</EntityLink>;
       },
     },
     {
