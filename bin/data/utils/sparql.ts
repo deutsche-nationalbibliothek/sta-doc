@@ -125,14 +125,15 @@ export const FIELDS = (apiUrl: API_URL) => `
     ?element p:P15 ?sub .
     OPTIONAL {?sub statement:P15 ?subelement .}
     OPTIONAL {?sub qualifier:P12 ?subRepeatable .}
+    OPTIONAL {?sub qualifier:P1607 ?quantity .}
     BIND(STRAFTER(STR(?element), '/entity/') as ?eId)
     BIND(STRAFTER(STR(?subelement), '/entity/') as ?subId)
     BIND(STRAFTER(STR(?sub), '-') as ?subStatementId)
-    BIND(IRI(CONCAT("https://edit.sta.dnb.de/entity/", ?eId, '#', ?eId, '$', ?subStatementId)) as ?subLink)
+    BIND(IRI(CONCAT("https://sta.dnb.de/entity/", ?eId, '#', ?eId, '$', ?subStatementId)) as ?subLink)
   #   FILTER(NOT EXISTS { ?sub qualifier:P12 ?subRepeatable })
   #   FILTER(REGEX(STR(?eId), "P98"))
   }
-  ORDER BY ASC(?eId)
+  ORDER BY ASC(?eId) ASC(?quantity)
 `;
 
 export const SUBFIELDS = (apiUrl: API_URL) => `
