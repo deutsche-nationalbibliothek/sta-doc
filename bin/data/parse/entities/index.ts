@@ -3,7 +3,7 @@ import { EntityId } from '../../../../types/entity-id';
 import { Codings } from '../../../../types/parsed/coding';
 import { PropertyTypes } from '../../../../types/parsed/property-type';
 import { Fields } from '../../../../types/parsed/field';
-import { EntitiesEntries } from '../../../../types/parsed/entity';
+import { EntitiesEntries, EntityEntry } from '../../../../types/parsed/entity';
 import { Schemas } from '../../../../types/parsed/schema';
 import { LabelsDe } from '../../../../types/parsed/label-de';
 import { LabelsEn } from '../../../../types/parsed/label-en';
@@ -42,6 +42,7 @@ export const parseEntities = ({
   lang
 }: ParseEntitiesProps) => {
   console.log('\tParsing Entities ',lang);
+  const parsedEntityCache = new Map<EntityId, EntityEntry | null>();
   const keys = Object.keys(rawEntities) as EntityId[];
   const entitiesParsed: EntitiesEntries = keys.reduce(
     (acc, entityId: EntityId) => {
@@ -55,6 +56,7 @@ export const parseEntities = ({
           entityId,
           getRawEntityById,
           lang,
+          parsedEntityCache,
         });
         if (entityEntry) {
           const nextAcc = acc;

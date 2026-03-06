@@ -1,0 +1,12 @@
+# Dependabot: wöchentliche npm-Updates (Security-Updates über Repo-Einstellungen aktivieren)
+# https://docs.github.com/en/code-security/dependabot
+version: 2
+registries: {}
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase

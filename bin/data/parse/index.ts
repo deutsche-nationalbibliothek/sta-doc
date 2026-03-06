@@ -457,6 +457,7 @@ export const parseAllFromRead = (
       schemas
     ),
   };
+  const rawEntitiesAll = read.entities.all();
   return {
     breadcrumbs: data.breadcrumbs,
     rdaProperties: rdaPropertiesParser(
@@ -475,8 +476,8 @@ export const parseAllFromRead = (
     entities: {
       index: entitiesParser.index(read.entities.index()),
       all: entitiesParser.all(
-        read.entities.all(),
-        (entityId: EntityId) => read.entities.single(entityId),
+        rawEntitiesAll,
+        (entityId: EntityId) => rawEntitiesAll[entityId],
         data,
         lang
       ),

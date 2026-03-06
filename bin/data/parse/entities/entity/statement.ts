@@ -118,6 +118,7 @@ export const parseStatement = (props: ParseStatementProps) => {
         noHeadline: property === Property['example(s)'],
         data,
         getRawEntityById,
+        parsedEntityCache: props.parsedEntityCache,
       })?.entity
     : undefined;
 

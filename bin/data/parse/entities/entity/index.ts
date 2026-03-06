@@ -33,19 +33,28 @@ export interface ParseEntityProps
   isRdaRessourceEntityParam?: boolean;
   lang: string
   noHeadline?: boolean;
+  parsedEntityCache?: Map<EntityId, EntityEntry | null>;
   prevParsedEntities?: EntityId[];
 }
 
 export const parseRawEntity = (
   props: ParseEntityProps
 ): EntityEntry | undefined => {
+  const { entityId, parsedEntityCache } = props;
+  if (parsedEntityCache) {
+    const cached = parsedEntityCache.get(entityId);
+    if (cached !== undefined) {
+      return cached === null ? undefined : cached;
+    }
+  }
+
   console.log(
     !props.embedded ? '\n' : '\t',
     '\t\tParsing',props.lang, 'Entity',
     props.entityId
   );
 
-  const defaultedProps: Required<ParseEntityProps> = {
+  const defaultedProps: Required<Omit<ParseEntityProps, 'parsedEntityCache'>> & Pick<ParseEntityProps, 'parsedEntityCache'> = {
     headlines: [],
     currentHeadlineLevel: 1,
     prevParsedEntities: [],
@@ -56,7 +65,6 @@ export const parseRawEntity = (
   };
 
   const {
-    entityId,
     data,
     getRawEntityById,
     headlines,
@@ -87,6 +95,7 @@ export const parseRawEntity = (
       '. But referenced in the dataset:',
       prevParsedEntities.join(', ')
     );
+    parsedEntityCache?.set(entityId, null);
     return;
   }
 
@@ -238,8 +247,11 @@ export const parseRawEntity = (
   const parsedEntity = entityProps();
 
   if (parsedEntity) {
-    return { entity: parsedEntity, headlines };
+    const result: EntityEntry = { entity: parsedEntity, headlines };
+    parsedEntityCache?.set(entityId, result);
+    return result;
   }
+  parsedEntityCache?.set(entityId, null);
 };
 
 export type PreMappedStatement = Omit<StatementValue, 'stringGroups'> & {
