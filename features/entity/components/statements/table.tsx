@@ -17,6 +17,7 @@ import { Item } from '@/types/item';
 import { ExpandToggle } from '@/components/expand-toggle';
 import { RdaElementStatus } from '@/types/parsed/rda-element-status';
 import { WikibasePointer } from '../wikibase-pointers/wikibase-pointer';
+import useTranslation from 'next-translate/useTranslation';
 
 interface TableStatementsProps {
   statements: Statement[];
@@ -38,6 +39,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
   field,
   rdaElementStatuses,
 }) => {
+  const { t } = useTranslation('common');
   const data: TableStatementsData[] = compact([
     ...statements.map((statement) => {
       return (
@@ -66,7 +68,7 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
     rdaElementStatuses && {
       key: 'Status',
       property: Property.Status,
-      propertyLabel: 'Status',
+      propertyLabel: t('status'),
       // just for type satisfaction, values will come from rdaElementStatuses
       values: {
         stringValues: [],
@@ -241,6 +243,7 @@ interface RdaElementStatusTableColumnType extends RdaElementStatus {
 const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
   rdaElementStatus,
 }) => {
+  const { t } = useTranslation('common');
   const sameStatus = rdaElementStatus.filter(
     (element) => element.status.id !== rdaElementStatus[0].status.id
   );
@@ -248,7 +251,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
     rdaElementStatus = rdaElementStatus.slice(0, 1);
     rdaElementStatus[0].ressourceType.id =
       Item['Application-profiles-of-RDA-general'];
-    rdaElementStatus[0].ressourceType.label = 'Alle Anwendungsprofile';
+    rdaElementStatus[0].ressourceType.label = t('all-application-profiles');
     rdaElementStatus[0].ressourceType.staNotationLabel = 'RDA-AP';
   }
   const columns: ColumnsTypes<RdaElementStatusTableColumnType> = [
@@ -256,7 +259,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       key: 'ressource-type',
       dataIndex: 'ressourceType',
       width: '35%',
-      title: 'Ressourcentyp',
+      title: t('resource-type'),
       noSort: true,
       render: (ressourceTypeWikibasePointer: WikibasePointerValue) => (
         <WikibasePointer wikibasePointer={ressourceTypeWikibasePointer} />
@@ -266,7 +269,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       key: 'status',
       dataIndex: 'status',
       width: '15%',
-      title: 'Status',
+      title: t('status'),
       noSort: true,
       render: (statusWikibasePointer: WikibasePointerValue) => (
         <WikibasePointer wikibasePointer={statusWikibasePointer} />
@@ -278,7 +281,7 @@ const RdaElementStatusTable: React.FC<RdaElementStatusTableProps> = ({
       key: ' description',
       dataIndex: 'description',
       width: '50%',
-      title: 'Beschreibung',
+      title: t('description'),
       noSort: true,
       render: (description: string) => (
         <StringValueComponent stringValue={{ value: description }} />

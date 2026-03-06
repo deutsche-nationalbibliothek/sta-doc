@@ -6,6 +6,7 @@ import { Property } from '@/types/property';
 import { compact, flattenDeep, pick } from 'lodash';
 import { EntityLink } from './preview/link';
 import { Qualifiers } from './qualifiers';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ApplicationProfileProps {
   statement: Statement;
@@ -30,6 +31,7 @@ interface ApplicationProfileTableData {
 export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
   statement,
 }) => {
+  const { t } = useTranslation('common');
   const expandableProperties = [
     Property.description,
     Property['embedded-(item)'],
@@ -88,7 +90,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       isSearchable: true,
     },
     {
-      title: 'Elemente',
+      title: t('elements'),
       dataIndex: 'label',
       key: 'Elemente',
       width: '55%',
@@ -112,7 +114,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       },
     },
     {
-      title: 'WEMI-Ebene',
+      title: t('wemi-level'),
       dataIndex: 'wemi',
       key: 'wemiLabel',
       width: '14%',
@@ -134,7 +136,7 @@ export const ApplicationProfile: React.FC<ApplicationProfileProps> = ({
       },
     },
     {
-      title: 'Status',
+      title: t('status'),
       dataIndex: 'status',
       key: 'statusLabel',
       width: '14%',

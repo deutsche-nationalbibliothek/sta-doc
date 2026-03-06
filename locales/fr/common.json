@@ -10,5 +10,22 @@
   "site": "Page",
   "notFound": "404 | Page introuvable",
   "notFoundInLanguage": "La page n'est pas disponible. Veuillez consulter la version allemande en cliquant sur le lien suivant.",
-  "versionDe": "--> Version allemande"
+  "versionDe": "--> Version allemande",
+  "link-copied": "Lien copié !",
+  "error-copying-link": "Erreur lors de la copie du lien.",
+  "beta-version-warning": "En version bêta sans fonction",
+  "scroll-to-top": "Faire défiler vers le haut",
+  "print-page":"Imprimer le contenu de la page",
+  "collapse-all-texts": "Réduire tous les textes",
+  "expand-all-texts": "Déplier tous les textes repliables",
+  "leave-feedback-tooltip": "Vous avez une remarque ? N'hésitez pas à nous écrire ! Merci beaucoup.",
+  "status": "Statut",
+  "resource-type": "Type de ressource",
+  "all-application-profiles": "Profils d'application",
+  "wemi-level": "Niveau WEMI",
+  "elements": "Éléments",
+  "impressum": "Mention légales",
+  "entry": "Entrée",
+  "assignment": "Attribution",
+  "index": "Index"
 }

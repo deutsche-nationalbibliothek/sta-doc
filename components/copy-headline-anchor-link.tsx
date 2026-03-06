@@ -4,6 +4,7 @@ import { message } from 'antd';
 import copy from 'copy-to-clipboard';
 import { PropsWithStyle } from 'index';
 import React from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 // pass either anchor or url
 interface CopyIconProps extends PropsWithStyle {
@@ -19,6 +20,7 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const { asPath } = useRouter();
+  const { t } = useTranslation('common');
 
   const cleanPath = asPath.replace(/(\?q=.*?(?=#|$))|(#.*)/g,'');
 
@@ -39,13 +41,12 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
       hasCopied
         ? {
             type: 'success',
-            content: 'Link kopiert!',
+            content: t('link-copied'),
           }
         : {
             type: 'error',
-            content: 'Fehler beim Link kopieren',
+            content: t('error-copying-link'),
           };
-
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     messageApi.open(messageProps);
   };

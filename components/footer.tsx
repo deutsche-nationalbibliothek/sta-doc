@@ -27,6 +27,7 @@ import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 // import { API_URL } from '@/bin/data/fetcher';
+import useTranslation from 'next-translate/useTranslation';
 
 export const Footer: React.FC = () => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
@@ -39,6 +40,7 @@ export const Footer: React.FC = () => {
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();
 
+  const { t } = useTranslation('common');
   const onClick = useMemo(
     () => ({
       staNotation: () => {
@@ -47,16 +49,16 @@ export const Footer: React.FC = () => {
             entity?.staNotationLabel as string
           }`
         );
-        messageApi.success('Link kopiert!');
+        messageApi.success(t('link-copied'));
       },
       scrollTop: () =>
         document.getElementById('main-scroll-container')?.scroll(0, 0),
       print: () => window.print(),
       betaDisclaimer: () => {
-        messageApi.warning('In Beta Version ohne Funktion');
+        messageApi.warning(t('beta-version-warning'));
       },
     }),
-    [messageApi, entity?.staNotationLabel]
+    [messageApi, entity?.staNotationLabel, t]
   );
 
   const { token } = theme.useToken();
@@ -174,7 +176,7 @@ export const Footer: React.FC = () => {
                       href: `${websideUrl}/doc/STA-IMPRESSUM`,
                     }}
                   >
-                    <>Impressum</>
+                    <>{t('impressum')}</>
                   </ExternalLink>
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
@@ -187,26 +189,26 @@ export const Footer: React.FC = () => {
             })}
           >
             <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
-              <Tooltip title="Nach oben scrollen">
+              <Tooltip title={t('scroll-to-top')}>
                 <VerticalAlignTopOutlined
                   onClick={onClick.scrollTop}
                   css={styles.icon}
                 />
               </Tooltip>
-              <Tooltip className="no-print" title="Seiteninhalt drucken">
+              <Tooltip className="no-print" title={t('print-page')}>
                 <PrinterOutlined onClick={onClick.print} css={styles.icon} />
               </Tooltip>
             </div>
             <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
               {collapseStateIsOpen ? (
-                <Tooltip title="Alle Klapptexte einklappen">
+                <Tooltip title={t('collapse-all-texts')}>
                   <FullscreenExitOutlined
                     onClick={onCollapseNextState}
                     css={styles.icon}
                   />
                 </Tooltip>
               ) : (
-                <Tooltip title="Alle Klapptexte ausklappen">
+                <Tooltip title={t('expand-all-texts')}>
                   <FullscreenOutlined
                     onClick={onCollapseNextState}
                     css={styles.icon}
@@ -215,7 +217,7 @@ export const Footer: React.FC = () => {
               )}
               <Tooltip
                 className="no-print"
-                title="Sie haben eine Anmerkung? Schreiben Sie uns gerne! Vielen Dank"
+                title={t('leave-feedback-tooltip')}
               >
                 <a
                   href={

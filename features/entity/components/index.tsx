@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { EntityLink } from './preview/link';
 import { PageHeader } from '@/components/page-header';
 import Head from 'next/head';
+import useTranslation from 'next-translate/useTranslation';
 
 interface EntityIndexProps {
   entities: EntityIndexModel[];
@@ -14,6 +15,7 @@ interface EntityIndexProps {
 }
 
 export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
+  const { t } = useTranslation('common');
   const { setNamespace } = useNamespace();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
 
   const columns: ColumnsTypes<EntityIndexModel> = [
     {
-      title: 'Eintrag',
+      title: t('entry'),
       dataIndex: 'label',
       key: 'label',
       width: '30%',
@@ -41,7 +43,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
       },
     },
     {
-      title: 'Zuordnung',
+      title: t('assignment'),
       dataIndex: 'pageTypeLabel',
       key: 'pageTypeLabel',
       width: '20%',
@@ -59,7 +61,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
   return (
     <>
       <Head>
-        <title>{namespace} | Index</title>
+        <title>{namespace} | {t('index')}</title>
       </Head>
 
       <PageHeader
@@ -80,3 +82,4 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
     </>
   );
 }
+

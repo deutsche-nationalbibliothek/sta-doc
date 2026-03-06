@@ -196,7 +196,7 @@ export const parseRawEntity = (
       if (annotationItemId) {
         annotation = {
           id: annotationItemId,
-          label: labelsDe[annotationItemId],
+          label: lang === 'fr' ? labelsFr[annotationItemId] : labelsDe[annotationItemId],
           property: Property.Annotation,
           staNotationLabel: staNotations[annotationItemId]?.label,
         };
