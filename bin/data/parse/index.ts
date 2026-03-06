@@ -133,7 +133,7 @@ export const fieldsParser = (
   labelsDe: LabelsDe,
   labelsFr: LabelsFr,
 ): Fields => {
-  console.log('Parsing Fields')
+  console.log('\tParsing Fields')
   return fields.reduce((acc, field) => {
     const key = field.eId.value;
     const fieldLabel = labelsDe[key] || 'Kein Label'
