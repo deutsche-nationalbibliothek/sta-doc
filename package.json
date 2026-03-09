@@ -38,7 +38,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.6.1",
+    "@ant-design/icons": "^6.1.0",
     "@devbookhq/splitter": "^1.4.2",
     "@emotion/styled": "^11.14.1",
     "@testing-library/jest-dom": "5.16.5",
