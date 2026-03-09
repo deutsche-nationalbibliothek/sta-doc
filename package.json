@@ -76,7 +76,7 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "url-parse": "^1.5.10",
-    "use-query-params": "^2.2.1"
+    "use-query-params": "^2.2.2"
   },
   "overrides": {
     "@tootallnate/once": "3.0.1",
