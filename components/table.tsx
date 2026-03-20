@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {
   Button,
   Input,
@@ -6,6 +6,7 @@ import {
   Space,
   Table as AntdTable,
   Typography,
+  Tooltip,
 } from 'antd';
 import { TableProps as AntdTableProps } from 'antd/lib/table';
 import {
@@ -17,6 +18,7 @@ import { get } from 'lodash';
 import { RenderedCell } from 'rc-table/lib/interface';
 import { useRef, useState } from 'react';
 import { MyHighlighter } from '@/lib/highlighter';
+import useTranslation from 'next-translate/useTranslation';
 
 export declare type DataIndex = string;
 
@@ -27,6 +29,7 @@ interface TableProps<T> extends Omit<AntdTableProps<T>, 'columns'> {
 interface ColumnType<T> extends Omit<AntdColumnType<T>, 'render'> {
   isSearchable?: boolean;
   noSort?: boolean;
+  sorterTooltip?: string;
   render?: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
@@ -41,6 +44,7 @@ interface ColumnGroupType<T>
   children?: ColumnsTypes<T>;
   isSearchable?: boolean;
   noSort?: boolean;
+  sorterTooltip?: string;
   render?: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,
@@ -60,6 +64,7 @@ export declare type ColumnsTypes<T = unknown> = (
 )[];
 
 export function Table<T extends object>(props: TableProps<T>) {
+  const { t } = useTranslation('common');
   const [searchTexts, setSearchTexts] = useState<Record<string, DataIndex>>({});
   const searchInput = useRef<InputRef>(null);
 
@@ -93,7 +98,7 @@ export function Table<T extends object>(props: TableProps<T>) {
       <div css={{ padding: '0.5em' }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
-          placeholder={`Suche ${String(key)}`}
+          placeholder={`${t('search')} ${String(key)}`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -112,7 +117,7 @@ export function Table<T extends object>(props: TableProps<T>) {
               icon={<SearchOutlined />}
               size="small"
             >
-              Suchen
+              {t('search')}
             </Button>
             <Button
               onClick={() => {
@@ -123,7 +128,7 @@ export function Table<T extends object>(props: TableProps<T>) {
               }}
               size="small"
             >
-              Zurücksetzen
+              {t('reset')}
             </Button>
           </Space>
         </div>
@@ -150,13 +155,40 @@ export function Table<T extends object>(props: TableProps<T>) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const columnsMapper = (column: ColumnType<T> | ColumnGroupType<T>): any => {
     // eslint-disable-next-line prefer-const
-    let { render, isSearchable, noSort, ...columnProps } = column;
+    let { render, isSearchable, noSort, sorterTooltip, ...columnProps } = column;
     if (isSearchable && 'dataIndex' in column) {
       columnProps = {
         ...columnProps,
         ...getColumnSearchProps(String(column.dataIndex), String(column.key)),
       };
     }
+
+    const sorterWithTooltip = !noSort && 'dataIndex' in column
+      ? {
+          sorter: (a: T, b: T) =>
+            column.dataIndex &&
+            new Intl.Collator(undefined, {
+              numeric: true,
+              sensitivity: 'base',
+            }).compare(
+              get(a, column.dataIndex as string) as string,
+              get(b, column.dataIndex as string) as string
+            ),
+          sortDirections: ['ascend', 'descend', 'ascend'],
+          title: sorterTooltip ? (
+            <Tooltip title={t('sorterTooltip')}>
+              <span>
+                <QuestionCircleOutlined
+                  style={{ marginLeft: 4, color: 'rgba(0, 0, 0, 0.45)' }}
+                />
+              </span>
+            </Tooltip>
+          ) : (
+            column.title
+          ),
+        }
+      : undefined;
+
     const columnRender =
       render && 'dataIndex' in column
         ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -234,6 +266,7 @@ export function Table<T extends object>(props: TableProps<T>) {
         'children' in columnProps && columnProps.children
           ? columnProps.children.map(columnsMapper)
           : undefined,
+      ...sorterWithTooltip,
     };
   };
 

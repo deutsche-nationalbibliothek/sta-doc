@@ -28,15 +28,26 @@ import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 // import { API_URL } from '@/bin/data/fetcher';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from '@/lib/next-use-router';
 
 export const Footer: React.FC = () => {
+  const router = useRouter();
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
   const [currentUrl, setCurrentUrl] = useState('');
+  
   useEffect(() => {
     setCurrentUrl(window.location.href);
-  }, []);
+    const handleRouteChange = () => {
+      setCurrentUrl(window.location.href);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();
 

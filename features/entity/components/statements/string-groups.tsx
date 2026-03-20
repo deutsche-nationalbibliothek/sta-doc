@@ -11,6 +11,7 @@ import { GenericStringValueMapper } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { Collapse } from '@/components/collapse';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
+import useTranslation from 'next-translate/useTranslation';
 
 interface StringStatementProps {
   statements: StringGroup[];
@@ -21,6 +22,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   statements,
   property,
 }) => {
+  const { t } = useTranslation('common');
   const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
@@ -130,7 +132,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     [Item['Fourth-order-subheading-(type-of-layout)']]: renderHeadline,
     [Item['example-(type-of-layout)']]: (stringValueContainer: StringGroup) => {
       const label =
-        stringValueContainer.values.length > 1 ? 'Beispiele' : 'Beispiel';
+        stringValueContainer.values.length > 1 ? t('examples') : t('example');
 
       const labelReactElement = (
         <>

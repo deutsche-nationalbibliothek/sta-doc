@@ -22,8 +22,8 @@ import { PropertyTypesRaw } from '../../../types/raw/property-type';
 import { FieldsRaw } from '../../../types/raw/field';
 
 export enum API_URL {
+  // host = 'https://sta.dnb.de',
   host = 'https://edit.sta.dnb.de',
-  // host = 'http://lab.sta.dnb.de',
   test = 'http://lab.sta.dnb.de',
   prod = 'https://edit.sta.dnb.de',
   live = 'https://sta.dnb.de',
