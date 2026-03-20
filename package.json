@@ -22,6 +22,7 @@
     "data:parse:codings": "ts-node bin/data parse:codings",
     "data:parse:labels": "ts-node bin/data parse:labels",
     "data:parse:propertyTypes": "ts-node bin/data parse:propertyTypes",
+    "data:parse:schemas": "ts-node bin/data parse:schemas",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "data:parse:staNotations:fr": "ts-node bin/data parse:staNotations:fr",
     "split-entities": "./bin/split-entities-solr.sh",

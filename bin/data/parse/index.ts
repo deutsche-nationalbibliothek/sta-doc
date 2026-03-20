@@ -37,7 +37,7 @@ import { parseEntities, ParseEntitiesData } from './entities';
 import namespaceConfig from '../../../config/namespace';
 import { EntitiesEntries } from '../../../types/parsed/entity';
 import { Fields, Subfields } from '../../../types/parsed/field';
-import { Namespace } from '../../../types/namespace';
+import { Namespace, NamespaceId } from '../../../types/namespace';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
 import { PropertyTypes } from '../../../types/parsed/property-type';
@@ -198,7 +198,7 @@ export const labelsParser = {
 };
 
 export const codingsParser = (codings: CodingsRaw) => {
-  console.log('\tParsing codings');
+  console.log('\tParsing Codings');
   const codingLabels: CodingLabel[] = [
     'PICA3',
     'PICA+',
@@ -259,10 +259,11 @@ export const propertyTypesParser = (propertyTypes: PropertyTypesRaw) => {
 
 export const schemasParser = (schemas: SchemasRaw) => {
   console.log('\tParsing Schemas');
-  return schemas.reduce(
-    (acc, x) => ({ ...acc, [x.eId.value]: x.schemaId.value }),
-    {} as Schemas
-  );
+  return schemas.reduce((acc, schema) => {
+    const schemaId = schema.schemaId.value as NamespaceId;
+    acc[schema.eId.value] = schemaId;
+    return acc;
+  }, {} as Schemas);
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
@@ -436,21 +437,26 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs());
   const codings = codingsParser(read.codings());
+  const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes())
   const labelsDe = labelsParser.de(read.labels.de());
   const labelsEn = labelsParser.en(read.labels.en());
   const labelsFr = labelsParser.fr(read.labels.fr());
+  const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
   const data = {
-    breadcrumbs: breadcrumbsParser(read.breadcrumbs()),
-    propertyTypes: propertyTypesParser(read.propertyTypes()),
+    breadcrumbs: breadcrumbs,
+    descriptions: descriptions,
+    propertyTypes: propertyTypes,
     staNotations: staNotations,
     schemas: schemas,
     labelsDe: labelsDe,
     labelsEn: labelsEn,
     labelsFr: labelsFr,
-    codings: codingsParser(read.codings()),
-    fields: fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr),
+    codings: codings,
+    fields: fields,
     rdaElementStatuses: rdaElementStatusesParser(
       read.rdaElementStatuses(),
       staNotations,
@@ -486,7 +492,7 @@ export const parseAllFromRead = (
     schemas: data.schemas,
     staNotations: data.staNotations,
     codings: data.codings,
-    descriptions: descriptionsParser(read.descriptions()),
+    descriptions: data.descriptions,
     rdaElementStatuses: data.rdaElementStatuses,
     // rdaRules: rdaRulesParser(read.rdaRules()),
   };

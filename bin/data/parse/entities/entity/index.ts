@@ -240,7 +240,7 @@ export const parseRawEntity = (
         occurrences: entity.claims,
         isRdaRessourceEntity: isRdaRessourceEntity || false,
         addHeadline,
-        parsedEntityCache: parsedEntityCache || new Map(),
+        parsedEntityCache: parsedEntityCache || new Map()
       }),
     };
   };
@@ -252,14 +252,14 @@ export const parseRawEntity = (
       entity: parsedEntity,
       headlines
     };
-    if (parsedEntityCache) {
+    if (parsedEntityCache && !props.embedded) {
       parsedEntityCache.set(entityId, result);
     }
     return result;
   }
-  if (parsedEntityCache) {
-    parsedEntityCache.set(entityId, null);
-  }
+  // if (parsedEntityCache) {
+  //   parsedEntityCache.set(entityId, null);
+  // }
 };
 
 export type PreMappedStatement = Omit<StatementValue, 'stringGroups'> & {

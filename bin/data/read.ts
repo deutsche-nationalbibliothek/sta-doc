@@ -32,6 +32,7 @@ import { RdaElementStatuses } from '../../types/parsed/rda-element-status';
 import { PropertyTypesRaw } from '../../types/raw/property-type';
 import { BreadcrumbsRaw } from '../../types/raw/breadcrumb';
 import { Breadcrumbs } from '../../types/parsed/breadcrumb';
+import { PropertyTypes } from '../../types/parsed/property-type';
 
 interface ReadParsed {
   breadcrumbs: () => Breadcrumbs;
@@ -52,6 +53,7 @@ interface ReadParsed {
   descriptions: () => Descriptions;
   rdaProperties: () => RdaProperties;
   rdaElementStatuses: () => RdaElementStatuses;
+  propertyTypes: () => PropertyTypes;
 }
 
 export interface ReadRaw {
@@ -156,6 +158,7 @@ const readParsed: ReadParsed = {
       NAMES.rdaElementStatuses,
       DataState.parsed
     ),
+  propertyTypes: () => readJSONFile<PropertyTypes>(NAMES.propertyType, DataState.parsed),
   // rdaRules: () => readJSONFile(NAMES.rdaRule, dataState),
 };
 
