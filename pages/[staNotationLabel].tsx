@@ -124,9 +124,9 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
         notFound: false,
         entity: {
           id: validEntityId,
-          namespace: entityEntry.entity.namespace ?? null,
-          elementOf: entityEntry.entity.elementOf ?? null,
-          label: entityEntry.entity.label ?? null,
+          namespace: entityEntry.entity.namespace || undefined,
+          elementOf: entityEntry.entity.elementOf || undefined,
+          label: entityEntry.entity.label || undefined,
           staNotationLabel,
         },
       },
