@@ -27,6 +27,10 @@ module.exports = async () => {
       solrHost: 'solr',
       NEXT_PUBLIC_VERSION: await getVersion(),
     },
+    i18n: {
+      locales: ['de', 'fr'], // Both locales must be listed
+      defaultLocale: 'de',
+    },
     images: {
       domains: ['www.cilip.org.uk'],
     },
@@ -34,10 +38,6 @@ module.exports = async () => {
       ignoreDuringBuilds: true,
     },
     typescript: {
-      // !! WARN !!
-      // Dangerously allow production builds to successfully complete even if
-      // your project has type errors.
-      // !! WARN !!
       ignoreBuildErrors: true,
     },
     reactStrictMode: true,
