@@ -292,7 +292,10 @@ export const breadcrumbsParser = (breadcrumbs: BreadcrumbsRaw) => {
 export const rdaElementStatusesParser = (
   rdaElementStatuses: RdaElementStatusesRaw,
   staNotations: StaNotations,
-  schemas: Schemas
+  schemas: Schemas,
+  labelsDe: LabelsDe,
+  labelsFr: LabelsFr,
+  lang: string
 ): RdaElementStatuses => {
   console.log('\tParsing RdaElementStatuses');
 
@@ -310,7 +313,7 @@ export const rdaElementStatusesParser = (
           (rdaElementStatusByEntityId) => rdaElementStatusByEntityId.eId.value
         )
           .map((rdaElementStatusByEntityId) => {
-            const statusId = rdaElementStatusByEntityId.statusId?.value;
+            const statusId = rdaElementStatusByEntityId.statusId?.value || 'Q8540' as EntityId;
             const namespaceIdStatus = statusId && schemas[statusId];
             const namespaceStatus: Namespace | undefined =
               namespaceIdStatus && namespaceConfig.map[namespaceIdStatus];
@@ -325,21 +328,15 @@ export const rdaElementStatusesParser = (
             return {
               ressourceType: {
                 id: ressourceTypeId,
-                label: labelStripper(
-                  rdaElementStatusByEntityId.entityLabel.value
-                ),
-                staNotationLabel: staNotations[ressourceTypeId]?.label || 'missing staNotation label',
+                label: lang === 'fr' ? labelsFr[ressourceTypeId] : labelsDe[ressourceTypeId],
+                staNotationLabel: staNotations[ressourceTypeId]?.label || 'Missing staNotation label',
                 namespace: namespaceRessourceType,
               },
               status: {
                 id: statusId,
-                label: labelStripper(
-                  rdaElementStatusByEntityId.statusLabel.value
-                ),
-                // TODO
-                staNotationLabel: statusId
-                  ? staNotations[statusId]?.label
-                  : 'missing staNotation label',
+                label: lang === 'fr' ? labelsFr[ressourceTypeId] : labelsDe[ressourceTypeId],
+                labelFr: labelsFr[statusId] || 'Missing french label',
+                staNotationLabel: staNotations[statusId]?.label || 'Missing staNotation label',
                 namespace: namespaceStatus,
               },
               description: rdaElementStatusByEntityId.descriptionLabel
@@ -446,6 +443,14 @@ export const parseAllFromRead = (
   const labelsEn = labelsParser.en(read.labels.en());
   const labelsFr = labelsParser.fr(read.labels.fr());
   const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
+  const rdaElementStatuses = rdaElementStatusesParser(
+    read.rdaElementStatuses(),
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  )
   const data = {
     breadcrumbs: breadcrumbs,
     descriptions: descriptions,
@@ -457,11 +462,7 @@ export const parseAllFromRead = (
     labelsFr: labelsFr,
     codings: codings,
     fields: fields,
-    rdaElementStatuses: rdaElementStatusesParser(
-      read.rdaElementStatuses(),
-      staNotations,
-      schemas
-    ),
+    rdaElementStatuses: rdaElementStatuses
   };
   const rawEntitiesAll = read.entities.all();
   return {

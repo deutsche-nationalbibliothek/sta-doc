@@ -30,11 +30,6 @@ export default function RdaPropertiesPage({
     setNamespace(Namespace.RDA);
   }, [setNamespace]);
 
-  const typeIndex = {
-    de: ['type', 'label'],
-    fr: ['type', 'labelFr'],
-  };
-
   const columns: ColumnsTypes<RdaProperty> = [
     {
       title: 'STA-Notation',
@@ -55,7 +50,14 @@ export default function RdaPropertiesPage({
         rdaProperty,
         _index: number,
         children: JSX.Element
-      ) => <EntityLink {...rdaProperty}>{children}</EntityLink>,
+      ) => (
+        <EntityLink
+          {...rdaProperty}
+          label={locale === 'fr' ? rdaProperty.labelFr : rdaProperty.label}
+        >
+          {children}
+        </EntityLink>
+      ),
     },
     {
       title: t('entity-type'),
@@ -69,14 +71,16 @@ export default function RdaPropertiesPage({
         value: rdaPropertyLabel||'Missing',
       })),
       onFilter: (value, record) => {
-        if (locale === 'fr'){
-          return value === record.type.labelFr;
-        } else {
-          return value === record.type.label;
-        }
+        const typeLabel = locale === 'fr' ? record.type.labelFr : record.type.label;
+        return value === typeLabel;
       },
       render: (_label: string, rdaProperty) => (
-        <EntityLink {...rdaProperty.type}></EntityLink>
+        <EntityLink 
+          {...rdaProperty.type}
+          label={locale === 'fr' ? rdaProperty.type.labelFr : rdaProperty.type.label}
+        >
+          {locale === 'fr' ? rdaProperty.type.labelFr : rdaProperty.type.label}
+        </EntityLink>
       ),
     },
   ];
