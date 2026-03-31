@@ -18,6 +18,7 @@ import { useScroll } from '@/hooks/use-scroll';
 import { useEntity } from '@/hooks/entity-provider';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
 interface EntityDetailsProps {
   headlines?: Headline[];
@@ -32,11 +33,11 @@ export default function EntityDetailsPage({
   entity,
   isUnderConstruction,
 }: EntityDetailsProps) {
+  const { lang } = useTranslation('common');
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
   const { setEntity } = useEntity();
   const { onScroll } = useScroll();
-  const locale = useRouter().locale || 'de';
 
   useEffect(() => {
     window.setTimeout(onScroll, 150);
@@ -52,13 +53,13 @@ export default function EntityDetailsPage({
     if (entity) {
       setEntity(entity);
     }
-  }, [setEntity, entity, locale]);
+  }, [setEntity, entity, lang]);
 
   useEffect(() => {
     if (headlines) {
       setHeadlines(headlines);
     }
-  }, [setHeadlines, headlines, locale]);
+  }, [setHeadlines, headlines, lang]);
 
   return !notFound && entity?.id ? (
     <FetchEntity entityId={entity.id} showSpinner={false} >
@@ -67,11 +68,12 @@ export default function EntityDetailsPage({
           entityEntry={entityEntry}
           loading={loading}
           setHeadlines={setHeadlines}
-          locale={locale}
+          locale={lang}
         />
       )}
     </FetchEntity>
   ) : (
+    <>
     <NotFound
       isUnderConstruction={isUnderConstruction}
       subtitle={
@@ -86,6 +88,7 @@ export default function EntityDetailsPage({
         </>
       }
     />
+    </>
   );
 }
 

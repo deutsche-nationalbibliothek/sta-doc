@@ -19,7 +19,7 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   showSpinner,
 }) => {
   const locale = useRouter().locale
-  const url = (process.env.basePath ?? '') + "/api/entities/" + entityId;
+  const url = (process.env.basePath ?? '') + "/api/entities/" + entityId + "?locale=" + locale;
   return (
     <>
       {entityId && (

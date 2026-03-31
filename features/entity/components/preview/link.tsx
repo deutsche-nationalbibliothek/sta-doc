@@ -15,7 +15,6 @@ interface EntityLinkProps {
   children?: JSX.Element | JSX.Element[] | string | string[];
   label?: string;
   linkProps?: Omit<LinkProps, 'href' | 'style'>;
-  locale?: string;
   namespace?: Namespace;
   tooltipPlacement?: TooltipPlacement;
   staNotationLabel?: string;
@@ -24,18 +23,17 @@ interface EntityLinkProps {
 export const EntityLink: React.FC<EntityLinkProps> = ({
   id,
   label,
-  locale: propLocale,
   namespace: pointingNamespace,
   staNotationLabel,
   children,
   linkProps,
   tooltipPlacement,
 }) => {
-  // console.log('record',id,label,propLocale,pointingNamespace,staNotationLabel,children)
   const router = useRouter();
-  const locale = propLocale || router.locale || 'de';
+  const locale = router.locale || 'de';
   const { namespace: currentNamespace } = useNamespace();
   const { token } = theme.useToken();
+  // console.log('record',locale,id,label,pointingNamespace,staNotationLabel,children)
 
   const isPointingDifferentNamespace =
     pointingNamespace && currentNamespace !== pointingNamespace;

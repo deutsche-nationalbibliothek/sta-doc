@@ -1,13 +1,20 @@
 import { useRouter } from 'next/router';
 import { Select } from 'antd';
+import { useEffect, useState } from 'react';
 
 export const LocaleSwitcher = () => {
   const router = useRouter();
   const { locale: activeLocale, pathname, asPath, query } = router;
+  const [currentLocale, setCurrentLocale] = useState(activeLocale);
+
+  useEffect(() => {
+    setCurrentLocale(activeLocale);
+  }, [activeLocale]);
 
   const handleChange = async (value: string) => {
+    if (value === currentLocale) return;
+
     try {
-      // Use router.push with proper path handling
       await router.push(
         { pathname, query },
         asPath,
@@ -20,7 +27,7 @@ export const LocaleSwitcher = () => {
 
   return (
     <Select
-      value={activeLocale}
+      value={currentLocale}
       onChange={handleChange}
       style={{ width: 70 }}
       options={[

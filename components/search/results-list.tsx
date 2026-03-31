@@ -97,7 +97,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   <EntityLink
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
-                    label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.deLabel'][0]}`}
+                    label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.labelDe'][0]}`}
                     staNotationLabel={doc.staNotationLabel.toString()}
                     id={doc.id}
                   />

@@ -3,9 +3,9 @@ import { Typography } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { EntityLink } from '@/features/entity/components/preview/link';
-import useTranslation from 'next-translate/useTranslation';
-import staNotations from '@/data/parsed/sta-notations.json'
 import { StaNotations} from '@/types/parsed/sta-notation';
+import staNotations from '@/data/parsed/sta-notations.json'
+import useTranslation from 'next-translate/useTranslation';
 
 interface NotFoundProps {
   subtitle?: JSX.Element;
@@ -20,14 +20,13 @@ export const NotFound: React.FC<NotFoundProps> = ({
   const { locale, asPath } = router;
   const currentPath = asPath.substring(1)
   const cleanPath = currentPath.replace(/\?.*$/, '');
-  const lang = locale === 'fr' ? 'French' : '' 
-  const { t } = useTranslation('common');
+  const { t,lang } = useTranslation('common');
   const findStaNotationIncluded = Object.values(staNotations as unknown as StaNotations).find(staNot => staNot.label.includes(cleanPath))
 
   return findStaNotationIncluded ? (
     <>
       <Head>
-        <title>404 | {lang ? `Page is not available in ${lang}.` : 'Page not found.'}</title>
+        <title>404 | {`Page is not available.`}</title>
       </Head>
       <div css={{ textAlign: 'center', position: 'relative', top: '50%' }}>
         <>
@@ -39,7 +38,6 @@ export const NotFound: React.FC<NotFoundProps> = ({
             <EntityLink
               id={findStaNotationIncluded.id}
               label={findStaNotationIncluded.label}
-              locale={'de'}
               staNotationLabel={currentPath}
             ></EntityLink>
           </Typography.Text>

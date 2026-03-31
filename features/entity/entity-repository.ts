@@ -23,31 +23,31 @@ import { EntityIndex } from '@/types/parsed/entity-index';
 
 
 class EntityRepository {
-  getAll(language: string | undefined) : EntityEntry[] {
-    if (!language) {
-      language = "de";
+  getAll(lang: string | undefined) : EntityEntry[] {
+    if (!lang) {
+      lang = "de";
     }
-    return Object.values(this.getPreparsedEntitiesEntries(language));
+    return Object.values(this.getPreparsedEntitiesEntries(lang));
   }
 
-  getAllIds(language: string | undefined) : string[] {
-    return Object.keys(this.getAll(language));
+  getAllIds(lang: string | undefined) : string[] {
+    return Object.keys(this.getAll(lang));
   }
 
-  getByStaNotation(language: string | undefined, staNotationLabel: string) : EntityEntry | undefined {
-    return this.getAll(language).find((entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel);
+  getByStaNotation(lang: string | undefined, staNotationLabel: string) : EntityEntry | undefined {
+    return this.getAll(lang).find((entityEntry) => entityEntry.entity.staNotationLabel === staNotationLabel);
   }
 
-  getAllStaNotations(language: string | undefined) : string[] {
-    return this.getAll(language).filter(
+  getAllStaNotations(lang: string | undefined) : string[] {
+    return this.getAll(lang).filter(
       (entityEntry: EntityEntry) =>
         !isPropertyBlacklisted(entityEntry.entity.id) &&
         'staNotationLabel' in entityEntry.entity,
     ).map(entityEntry => entityEntry.entity.staNotationLabel);
   }
 
-  getEntityIndexByNamespace = (language: string, namespace: Namespace): EntityIndex[] => {
-    return Object.values(this.getAll(language) as unknown as Record<EntityId, EntityEntry>)
+  getEntityIndexByNamespace = (lang: string, namespace: Namespace): EntityIndex[] => {
+    return Object.values(this.getAll(lang) as unknown as Record<EntityId, EntityEntry>)
       .filter((entityValue) => entityValue.entity.namespace === namespace)
       .map((entityValue) => {
         const { entity } = entityValue;
@@ -55,27 +55,27 @@ class EntityRepository {
         return {
           label: label as string,
           id,
-          pageTypeLabel: pageType?.deLabel,
+          pageTypeLabel: lang === 'fr' ? pageType?.labelFr : pageType?.labelDe,
           staNotationLabel,
         };
       });
   };
 
   async get(entityId: EntityId, locale: string, live: FetchingParam | undefined) : Promise<EntityEntry | undefined> {
-    let language = locale as unknown as string
-    if (!language) { language = "de"}
+    let lang = locale as unknown as string
+    if (!lang) { lang = "de"}
     let ret;
     if (live) {
       const apiUrl = API_URL[live]
-      ret = await this.getLiveEntityEntry(language, fetcher(apiUrl), entityId);
+      ret = await this.getLiveEntityEntry(lang, fetcher(apiUrl), entityId);
     } else {
-      ret = this.getPreparsedEntitiesEntries(language)[entityId];
+      ret = this.getPreparsedEntitiesEntries(lang)[entityId];
     }
     return ret;
   }
 
-  getPreparsedEntitiesEntries(language: string): EntitiesEntries {
-    if (language && language === 'fr') {
+  getPreparsedEntitiesEntries(lang: string): EntitiesEntries {
+    if (lang && lang === 'fr') {
       return entitiesFr as unknown as EntitiesEntries;
     } else {
       return entities as unknown as EntitiesEntries;

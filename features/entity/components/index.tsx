@@ -45,7 +45,7 @@ export default function EntityIndex({ entities, namespace }: EntityIndexProps) {
     {
       title: t('assignment'),
       dataIndex: 'pageTypeLabel',
-      key: 'pageTypeLabel',
+      key: 'Page type',
       width: '20%',
       filters: entities
         .reduce((acc, entity) => {
