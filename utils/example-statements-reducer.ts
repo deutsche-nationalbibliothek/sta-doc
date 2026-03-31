@@ -82,7 +82,7 @@ export function exampleStatementsReducer(
   if (statement.stringGroups) {
     statement.stringGroups[0].values.map((example) => {
       const exampleValue = example;
-      console.log('ex',exampleValue)
+      // console.log('ex',exampleValue)
       const formatNeutralStatement = exampleValue.qualifiers?.find(
         (qualifier) => qualifier.property === Property['Type'] || qualifier.property === Property['format-neutral-label']
       );
@@ -124,7 +124,7 @@ export function exampleStatementsReducer(
             exampleValue.qualifiers?.map((qualifier) => {
               const codingKey = codingLabel as keyof typeof qualifier.codings;
               const currentCoding = qualifier.codings && qualifier.codings[codingKey][0] as string
-              console.log(codingKey,currentCoding)
+              // console.log(codingKey,currentCoding)
               const codingSeparator = findCodingSeparator(currentCoding)
               const permittedValuesDetector = predecessorQualifier === qualifier
               return 'stringGroups' in qualifier &&

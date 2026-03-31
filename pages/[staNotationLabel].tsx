@@ -59,6 +59,7 @@ export default function EntityDetailsPage({
       setHeadlines(headlines);
     }
   }, [setHeadlines, headlines, locale]);
+
   return !notFound && entity?.id ? (
     <FetchEntity entityId={entity.id} showSpinner={false} >
       {(entityEntry, loading) => (

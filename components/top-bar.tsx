@@ -11,10 +11,6 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
 
-
-// RDA-A-0-allgemeines ist jetzt RDA-A
-// RDA-A-0-ANWENDUNGSPROFILE ist jetzt RDA-A
-
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
   const { namespace } = useNamespace();

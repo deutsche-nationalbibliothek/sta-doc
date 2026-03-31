@@ -155,7 +155,7 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
   ) {
     return null;
   }
-  console.log('exampleValuesCodingCard',exampleValues)
+  // console.log('exampleValuesCodingCard',exampleValues)
   return (
     <Card
       css={{
