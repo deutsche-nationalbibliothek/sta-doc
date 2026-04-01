@@ -68,19 +68,20 @@
       </analyzer>
     </fieldType>
 
+    <field name="filename" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="staNotationLabel" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="full-text-search" type="text_general" indexed="true" stored="true" multiValued="true"/>
     <field name="headline-text-search" type="text_general" indexed="true" stored="true" multiValued="true"/>
     <field name="suggest_field" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
-    <copyField source="*label*" dest="full-text-search"/>
+    <copyField source="*label" dest="full-text-search"/>
     <copyField source="*value" dest="full-text-search" />
     <copyField source="*description" dest="full-text-search"/>
     <copyField source="*headline.title" dest="headline-text-search"/>
 
 
-    <copyField source="*label*" dest="suggest_field"/>
+    <copyField source="*label" dest="suggest_field"/>
     <copyField source="*value" dest="suggest_field" />
     <copyField source="*description" dest="suggest_field"/>
     <copyField source="*headline.title" dest="suggest_field"/>
@@ -112,5 +113,5 @@
     <!-- Field to use to determine and enforce document uniqueness.
       Unless this field is marked with required="false", it will be a required field
     -->
-    <uniqueKey>id</uniqueKey>
+    <uniqueKey>filename</uniqueKey>
 </schema>
