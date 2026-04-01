@@ -334,7 +334,7 @@ export const rdaElementStatusesParser = (
               },
               status: {
                 id: statusId,
-                label: lang === 'fr' ? labelsFr[ressourceTypeId] : labelsDe[ressourceTypeId],
+                label: lang === 'fr' ? labelsFr[statusId] : labelsDe[statusId],
                 labelFr: labelsFr[statusId] || 'Missing french label',
                 staNotationLabel: staNotations[statusId]?.label || 'Missing staNotation label',
                 namespace: namespaceStatus,
