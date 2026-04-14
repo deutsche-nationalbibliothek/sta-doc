@@ -24,6 +24,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
+      defaultSortOrder: 'ascend',
       render: (coding: string, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -37,6 +38,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
+      // defaultSortOrder: 'ascend',
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -50,6 +52,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'Alma'],
       key: 'Alma',
       isSearchable: true,
+      // defaultSortOrder: 'ascend',
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -63,6 +66,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'Aleph'],
       key: 'Aleph',
       isSearchable: true,
+      // defaultSortOrder: 'ascend',
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
