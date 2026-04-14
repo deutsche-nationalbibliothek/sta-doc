@@ -407,6 +407,21 @@ export const rdaPropertiesParser = (
   }, [] as RdaProperties);
 };
 
+export interface ParsedSparqlData {
+  breadcrumbs: Breadcrumbs;
+  rdaProperties: RdaProperties;
+  labelsDe: LabelsDe;
+  labelsEn: LabelsEn;
+  labelsFr: LabelsFr;
+  fields: Fields;
+  propertyTypes: PropertyTypes;
+  schemas: Schemas;
+  staNotations: StaNotations;
+  codings: Codings;
+  descriptions: Descriptions;
+  rdaElementStatuses: RdaElementStatuses;
+}
+
 export interface ParsedAllFromRead {
   breadcrumbs: Breadcrumbs;
   rdaProperties: RdaProperties;
@@ -426,6 +441,52 @@ export interface ParsedAllFromRead {
   codings: Codings;
   descriptions: Descriptions;
   rdaElementStatuses: RdaElementStatuses;
+}
+
+export const parseSparqlData = (
+  read: (typeof reader)['raw'],
+  lang: string
+): ParsedSparqlData => {
+  const staNotations = staNotationsParser(read.staNotations(lang)); 
+  const staNotationsDe = staNotationsParser(read.staNotations('de')); 
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs());
+  const codings = codingsParser(read.codings());
+  const descriptions = descriptionsParser(read.descriptions()); 
+  const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes())
+  const labelsDe = labelsParser.de(read.labels.de());
+  const labelsEn = labelsParser.en(read.labels.en());
+  const labelsFr = labelsParser.fr(read.labels.fr());
+  const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
+  const rdaElementStatuses = rdaElementStatusesParser(
+    read.rdaElementStatuses(),
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  )
+  const rdaProperties = rdaPropertiesParser(
+    read.rdaProperties(),
+    staNotationsDe,
+    schemas,
+    labelsDe,
+    labelsFr,
+  )
+  return {
+    breadcrumbs: breadcrumbs,
+    descriptions: descriptions,
+    propertyTypes: propertyTypes,
+    staNotations: staNotations,
+    schemas: schemas,
+    labelsDe: labelsDe,
+    labelsEn: labelsEn,
+    labelsFr: labelsFr,
+    codings: codings,
+    fields: fields,
+    rdaElementStatuses: rdaElementStatuses,
+    rdaProperties: rdaProperties
+  };
 }
 
 export const parseAllFromRead = (

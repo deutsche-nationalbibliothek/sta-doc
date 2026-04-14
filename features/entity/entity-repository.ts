@@ -20,6 +20,9 @@ import parsedRdaElementStatuses from '@/data/parsed/rda-element-statuses.json';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Namespace } from '@/types/namespace';
 import { EntityIndex } from '@/types/parsed/entity-index';
+import { parseSparqlData } from '@/bin/data/parse';
+import { reader } from '@/bin/data/read';
+import { DataState } from '@/bin/data/utils';
 
 
 class EntityRepository {
@@ -83,9 +86,8 @@ class EntityRepository {
   }
   
 
-  async getLiveEntityEntry(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId) {
+  async getLiveEntityEntry(lang: string, fetch: ReturnType<typeof fetcher>, entityId: EntityId ) {
     const prefetched = {} as EntitiesRaw;
-  
     // prefetch to parse without async
     await prefetchEmbeddedEntities({
       entityId,
@@ -105,33 +107,12 @@ class EntityRepository {
   
     const entity = prefetched[entityId];
     if (entity) {
-      const breadcrumbs = parsedBreadcrumbs as unknown as ParseEntitiesData['breadcrumbs'];
-      const labelsDe = parsedLabelsDe as unknown as ParseEntitiesData['labelsDe'];
-      const labelsEn = parsedLabelsEn as unknown as ParseEntitiesData['labelsEn'];
-      const labelsFr = parsedLabelsFr as unknown as ParseEntitiesData['labelsFr'];
-      const codings = parsedCodings as unknown as ParseEntitiesData['codings'];
-      const propertyTypes = parsedPropertyTypes as unknown as ParseEntitiesData['propertyTypes'];
-      const staNotations = parsedStaNotations as unknown as ParseEntitiesData['staNotations'];
-      const schemas = parsedSchemas as unknown as ParseEntitiesData['schemas'];
-      const fields = parsedFields as unknown as ParseEntitiesData['fields'];
-      const rdaElementStatuses = parsedRdaElementStatuses as unknown as ParseEntitiesData['rdaElementStatuses'];
-  
+      const data = parseSparqlData(reader[DataState.raw],lang);
       const parsedEntities = parseEntities({
         rawEntities: { [entityId]: entity },
         getRawEntityById: (id: EntityId) => prefetched[id],
         lang,
-        data: {
-          breadcrumbs,
-          labelsEn,
-          labelsDe,
-          labelsFr,
-          codings,
-          propertyTypes,
-          staNotations,
-          schemas,
-          fields,
-          rdaElementStatuses,
-        },
+        data: data,
       });
   
       return parsedEntities[entityId];
