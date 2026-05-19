@@ -19,6 +19,24 @@ const pica3ToStaNotation = Object.entries(fields).map(([key,field]) => {
   }
 }).filter(Boolean);
 
+const almaToStaNotation = Object.entries(fields).map(([key,field]) => {
+  if (field.codings.Alma.length > 0) {
+    return {
+      Alma: field.codings.Alma[0],
+      staNotationLabel: field.staNotationLabel
+    }
+  }
+}).filter(Boolean);
+
+const alephToStaNotation = Object.entries(fields).map(([key,field]) => {
+  if (field.codings.Aleph.length > 0) {
+    return {
+      Aleph: field.codings.Aleph[0],
+      staNotationLabel: field.staNotationLabel
+    }
+  }
+}).filter(Boolean);
+
 module.exports = async () => {
   const nextConfig = {
     basePath: '/doc',
@@ -51,6 +69,16 @@ module.exports = async () => {
         })),
         ...pica3ToStaNotation.map((entry) => ({
           source: `/PICA3/${entry.PICA3}`,
+          destination: `/${entry.staNotationLabel}`,
+          permanent: true
+        })),
+        ...almaToStaNotation.map((entry) => ({
+          source: `/ALMA/${entry.Alma}`,
+          destination: `/${entry.staNotationLabel}`,
+          permanent: true
+        })),
+        ...alephToStaNotation.map((entry) => ({
+          source: `/ALEPH/${entry.Aleph}`,
           destination: `/${entry.staNotationLabel}`,
           permanent: true
         }))
