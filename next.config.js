@@ -68,17 +68,17 @@ module.exports = async () => {
           permanent: true
         })),
         ...pica3ToStaNotation.map((entry) => ({
-          source: `/PICA3/${entry.PICA3}`,
+          source: `/GND-PICA3-${entry.PICA3}`,
           destination: `/${entry.staNotationLabel}`,
           permanent: true
         })),
         ...almaToStaNotation.map((entry) => ({
-          source: `/ALMA/${entry.Alma}`,
+          source: `/GND-ALMA-${entry.Alma}`,
           destination: `/${entry.staNotationLabel}`,
           permanent: true
         })),
         ...alephToStaNotation.map((entry) => ({
-          source: `/ALEPH/${entry.Aleph}`,
+          source: `/GND-ALEPH-${entry.Aleph}`,
           destination: `/${entry.staNotationLabel}`,
           permanent: true
         }))
