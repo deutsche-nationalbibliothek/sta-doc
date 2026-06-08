@@ -69,6 +69,7 @@ export const blacklist: {
     Property['Link-(Property)'],
     Property['original-language'],
     Property.order,
+    Property.P1009
   ],
 };
 
