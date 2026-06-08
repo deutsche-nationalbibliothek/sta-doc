@@ -3,7 +3,6 @@ import { EntityLink } from '@/entity/components/preview/link';
 import { Field, Fields } from '@/types/parsed/field';
 import { Typography } from 'antd';
 import { GndSubFieldTable } from './subfield-table';
-// import { GndFieldsProps } from '@/pages/GND-DF';
 import useTranslation from 'next-translate/useTranslation';
 
 export interface GndFieldsProps {
@@ -24,7 +23,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA3'],
       key: 'PICA3',
       isSearchable: true,
-      defaultSortOrder: 'ascend',
+      defaultSortOrder: singleColumn === 'PICA' ? 'ascend' : undefined,
       render: (coding: string, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -38,7 +37,6 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'PICA+'],
       key: 'PICA+',
       isSearchable: true,
-      // defaultSortOrder: 'ascend',
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -52,7 +50,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'Alma'],
       key: 'Alma',
       isSearchable: true,
-      // defaultSortOrder: 'ascend',
+      defaultSortOrder: singleColumn === 'Alma' ? 'ascend' : undefined,
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -66,7 +64,7 @@ export const GndFieldsTable: React.FC<
       dataIndex: ['codings', 'Aleph'],
       key: 'Aleph',
       isSearchable: true,
-      // defaultSortOrder: 'ascend',
+      defaultSortOrder: singleColumn === 'Aleph' ? 'ascend' : undefined,
       render: (coding, _record, _index, highlighted) => {
         return coding ? (
           <Typography.Text code>{highlighted}</Typography.Text>
@@ -79,6 +77,7 @@ export const GndFieldsTable: React.FC<
       key: 'label',
       // width: '30%',
       isSearchable: true,
+      defaultSortOrder: singleColumn === undefined ? 'ascend' : undefined,
       render: (_data, record, _index, highlightedContent) => {
         return <EntityLink id={record.id} label={record.labelDe} staNotationLabel={record.staNotationLabel}>{highlightedContent}</EntityLink>;
       },
