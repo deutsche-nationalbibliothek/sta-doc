@@ -1,4 +1,5 @@
 import fields from '@/data/parsed/fields.json';
+import { filterFields } from '@/utils/filter-fields';
 import { useRouter } from 'next/router';
 import { Title } from '@/components/title';
 import { useNamespace } from '@/hooks/use-namespace';
@@ -12,12 +13,8 @@ import { PageHeader } from '@/components/page-header';
 import useTranslation from 'next-translate/useTranslation';
 
 export default function GndFields({ fields }: GndFieldsProps) {
-  const filterFields = (obj: Fields) => {
-    return Object.fromEntries(
-      Object.entries(obj).filter(([key,field]) => field.codings.Alma.length !== 0)
-    ) as Fields;
-  };
-  const fieldsAlma = filterFields(fields)
+  const fieldsAlma = filterFields(fields, 'Alma')
+  console.log('fields',fieldsAlma)
   const router = useRouter();
   const locale = router.locale || 'de';
   const { t } = useTranslation('common');
