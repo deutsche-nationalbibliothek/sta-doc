@@ -82,7 +82,6 @@ export function exampleStatementsReducer(
   if (statement.stringGroups) {
     statement.stringGroups[0].values.map((example) => {
       const exampleValue = example;
-      // console.log('ex',exampleValue)
       const formatNeutralStatement = exampleValue.qualifiers?.find(
         (qualifier) => qualifier.property === Property['Type'] || qualifier.property === Property['format-neutral-label']
       );
@@ -121,34 +120,35 @@ export function exampleStatementsReducer(
         // map trough the qualifiers multiple times (for PICA3, PICA+, Alma, Aleph)
         const [picaThree, picaPlus, alma, aleph] = ['PICA3', 'PICA+', 'Alma', 'Aleph'].map(
           (codingLabel: PrefCodingsLabel) =>
-            exampleValue.qualifiers?.map((qualifier) => {
+            exampleValue.qualifiers?.map((qualifier,indexQuali) => {
               const codingKey = codingLabel as keyof typeof qualifier.codings;
               const currentCoding = qualifier.codings && qualifier.codings[codingKey][0] as string
-              // console.log(codingKey,currentCoding)
               const codingSeparator = findCodingSeparator(currentCoding)
               const permittedValuesDetector = predecessorQualifier === qualifier
+              const indicatorAlma = exampleValue.qualifiers && propFinder(Property['P917'], exampleValue.qualifiers)
               return 'stringGroups' in qualifier &&
-                  qualifier.property !== Property['format-neutral-label'] &&
-                  qualifier.property !== Property.description 
+                qualifier.property !== Property['format-neutral-label'] &&
+                qualifier.property !== Property.description
                 ? qualifier.stringGroups?.map((stringValueContainer) =>
-                    stringValueContainer.values.map((strValObj,index) => {
-                      return ([
-                        currentCoding === undefined ? undefined :
-                        index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value } 
-                          : {coding: codingSeparator.predecessor, value: strValObj.value},
-                        {coding: codingSeparator.successor, value: ''}
-                      ]);
-                    })
-                   )
-                : qualifier.property !== Property.Type && 
-                  qualifier.property !== Property['permited-values'] && 
-                  qualifier.property !== Property['permitted-characteristics'] &&
-                  qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer,index) => {
+                  stringValueContainer.values.map((strValObj, index) => {
+                    return ([
+                      indexQuali === 0 && codingKey === 'Alma' && !indicatorAlma ? { coding: '', value: '␣␣' } : undefined,
+                      currentCoding === undefined ? undefined :
+                        index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value }
+                          : { coding: codingSeparator.predecessor, value: strValObj.value },
+                      { coding: codingSeparator.successor, value: '' }
+                    ]);
+                  })
+                )
+                : qualifier.property !== Property.Type &&
+                qualifier.property !== Property['permited-values'] &&
+                qualifier.property !== Property['permitted-characteristics'] &&
+                qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer, index) => {
                   return ([
                     currentCoding === undefined ? undefined :
-                    index > 0 && codingSeparator.separator.length > 0 
-                      ? { coding: codingSeparator.separator, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...'}
-                      : { coding: codingSeparator.predecessor, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...'},
+                      index > 0 && codingSeparator.separator.length > 0
+                        ? { coding: codingSeparator.separator, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...' }
+                        : { coding: codingSeparator.predecessor, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...' },
                     { coding: codingSeparator.successor, value: permittedValues && permittedValuesDetector ? '(' + permittedValues + ')' : '' }
                   ]);
                 })
