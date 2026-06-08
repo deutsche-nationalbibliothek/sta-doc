@@ -97,10 +97,10 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                     {formatNeutral.subfieldsGroup.naming.length > 1 ? (
                       <Typography.Text>
                         {' '}
-                        in den Unterfeldern{' '}
+                        in den Unterfeldern / Datenelementen{' '}
                       </Typography.Text>
                     ) : formatNeutral.subfieldsGroup.naming.length == 1 ? (
-                      <Typography.Text> im Unterfeld </Typography.Text>
+                      <Typography.Text>{' '}im Unterfeld / Datenelement{' '}</Typography.Text>
                     ) : undefined}
                     {formatNeutral.subfieldsGroup.naming.map(
                       (subfield, index) => (
@@ -132,10 +132,10 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                         </Typography.Text>
                         {formatNeutral.subfieldsGroup.addition.length > 1 ? (
                           <Typography.Text>
-                            {' '}die Unterfelder{' '}
+                            {' '}die Unterfelder / Datenelemente{' '}
                           </Typography.Text>
                         ) : formatNeutral.subfieldsGroup.addition.length == 1 ? (
-                          <Typography.Text> das Unterfeld </Typography.Text>
+                          <Typography.Text>{' '}das Unterfeld / Datenelement{' '}</Typography.Text>
                         ) : undefined}
                         {formatNeutral.subfieldsGroup.addition.map(
                           (subfield, index) => (
@@ -234,10 +234,10 @@ export const GndImplementation: React.FC<GndImplementationProps> = ({
                     </Typography.Text>
                     {formatNeutral.subfieldsGroup.qualifier.length > 1 ? (
                       <Typography.Text>
-                        in den Unterfeldern{' '}
+                        in den Unterfeldern / Datenelementen{' '}
                       </Typography.Text>
                     ) : formatNeutral.subfieldsGroup.qualifier.length == 1 ? (
-                      <Typography.Text> im Unterfeld </Typography.Text>
+                      <Typography.Text> im Unterfeld / Datenelement{' '}</Typography.Text>
                     ) : undefined}
                     {formatNeutral.subfieldsGroup.qualifier.map(
                       (subfield, index) => (
