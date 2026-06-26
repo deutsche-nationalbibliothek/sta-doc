@@ -156,6 +156,6 @@ export const getStaticPaths: GetStaticPaths = () => {
     locale: 'fr' }));
   return {
     paths: [...dePaths, ...frPaths],
-    fallback: false,
+    fallback: true,
   };
 };
