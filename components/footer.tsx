@@ -163,7 +163,7 @@ export const Footer: React.FC = () => {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Version: 2025/2
+                  Version: 2026/1
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
                 <span
