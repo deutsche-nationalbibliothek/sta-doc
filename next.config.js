@@ -60,23 +60,29 @@ module.exports = async () => {
     },
     reactStrictMode: true,
     async redirects() {
-      // https://sta.dnb.de/doc/PICA3/
       return [
         ...Object.keys(staNotations).map((entityId) => ({
           source: `/${entityId}`,
           destination: `/${staNotations[entityId].label}`,
           permanent: true
         })),
-        ...pica3ToStaNotation.map((entry) => ({
-          source: `/GND-PICA3-${entry.PICA3}`,
-          destination: `/${entry.staNotationLabel}`,
-          permanent: true
-        })),
-        ...almaToStaNotation.map((entry) => ({
-          source: `/GND-ALMA-${entry.Alma}`,
-          destination: `/${entry.staNotationLabel}`,
-          permanent: true
-        })),
+        ...pica3ToStaNotation
+          .filter(entry => !['130', '430', '530', '730'].includes(entry.PICA3))
+          .map((entry) => ({
+            source: `/GND-PICA3-${entry.PICA3}`,
+            destination: `/${entry.staNotationLabel}`,
+            permanent: true
+          })),
+        ...almaToStaNotation
+          .filter(entry => !['035', '100', '110', '111',
+            '410','411','500','510','511',
+            '700','710','711'
+          ].includes(entry.Alma))
+          .map((entry) => ({
+            source: `/GND-ALMA-${entry.Alma}`,
+            destination: `/${entry.staNotationLabel}`,
+            permanent: true
+          })),
         ...alephToStaNotation.map((entry) => ({
           source: `/GND-ALEPH-${entry.Aleph}`,
           destination: `/${entry.staNotationLabel}`,
