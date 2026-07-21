@@ -68,7 +68,7 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   let nextHeadlineLevel =
     currentHeadlineLevel +
-    ((hasHeadline && simplifiedDataType === 'wikibasePointers' || hasEmbedding) ? 1 : 0)
+    (hasHeadline && simplifiedDataType === 'wikibasePointers' ? 1 : 0);
 
   const dataTypeSpecifics =
     simplifiedDataType === 'wikibasePointers' 
@@ -97,10 +97,11 @@ export const parseStatement = (props: ParseStatementProps) => {
   const nextHe = (dataTypeSpecifics &&
     'headline' in dataTypeSpecifics &&
     dataTypeSpecifics.headline &&
-    dataTypeSpecifics.headline.level)
+    typeof dataTypeSpecifics.headline.level === 'number')
     ? dataTypeSpecifics.headline.level
-    : undefined
-  nextHeadlineLevel = (nextHe ? nextHe : nextHeadlineLevel)
+    : undefined;
+  nextHeadlineLevel =
+    nextHe !== undefined ? nextHe + 1 : nextHeadlineLevel;
 
   const dataTypeSpecificnextHeadlineLevel =
     nextHeadlineLevel -
