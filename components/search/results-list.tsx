@@ -1,7 +1,7 @@
 import { EntityLink } from '@/entity/components/preview/link';
-import { DocSearchKey, QueryResult } from '@/types/search';
+import { QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
-import { compact, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 
@@ -53,41 +53,27 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
+            const normalizedQuery = query.toLowerCase().replace(/"+/g, '');
+
             const headlineMatches = uniq<string>(
               doc['headline-text-search'].filter(
                 (docValue: string) =>
-                  docValue
-                    .toLowerCase()
-                    .includes(query.toLowerCase().replace(/"+/g, '')) &&
+                  docValue.toLowerCase().includes(normalizedQuery) &&
                   docValue !== doc['headline.title'][0]
               )
             );
 
-            const fulltextMatches: string[] = compact(
-              uniq(
-                Object.keys(doc).reduce((acc, key: DocSearchKey) => {
-                  if (key in doc) {
-                    const docValue = doc[key] ?? [];
-                    if (Array.isArray(doc[key])) {
-                      return [
-                        ...acc,
-                        ...docValue.filter(
-                          (docValue: string) =>
-                            docValue !== doc['headline.title'][0] &&
-                            headlineMatches.every(
-                              (headlineMatch) => headlineMatch !== docValue
-                            ) &&
-                            docValue
-                              .toLowerCase()
-                              .includes(query.toLowerCase().replace(/"+/g, ''))
-                        ),
-                      ];
-                    }
-                  }
-                  return acc;
-                }, [] as string[])
+            const fulltextMatches: string[] = uniq(
+              (doc['full-text-search'] ?? []).filter(
+                (docValue: string) =>
+                  docValue !== doc['headline.title'][0] &&
+                  headlineMatches.every(
+                    (headlineMatch) => headlineMatch !== docValue
+                  ) &&
+                  docValue.toLowerCase().includes(normalizedQuery)
               )
             );
+
             return 'headline-text-search' in doc ? (
               <NamespaceThemeConfigProvider
                 key={index}
