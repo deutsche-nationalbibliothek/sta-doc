@@ -7,6 +7,7 @@ import { compact } from 'lodash';
 import React from 'react';
 import { Embedded } from '../embedded';
 import { Examples } from '../examples';
+import { examplesFromWikibasePointers } from '../examples/example-popup';
 import { StringGroupsStatement } from '../statements/string-groups';
 import { WikibasePointers } from '../wikibase-pointers';
 import { GndImplementations } from '../gnd-implementation';
@@ -39,11 +40,7 @@ export const Qualifiers: React.FC<QualifiersProps> = ({
       return (
         qualifier.wikibasePointers && (
           <Examples
-            examples={compact(
-              qualifier.wikibasePointers.map(
-                (wikibaseValue) => wikibaseValue.embedded
-              )
-            )}
+            examples={examplesFromWikibasePointers(qualifier.wikibasePointers)}
           />
         )
       );

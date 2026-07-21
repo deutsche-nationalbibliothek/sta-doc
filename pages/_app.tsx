@@ -1,5 +1,6 @@
 // import '../styles/globals.less';
 import type { AppProps } from 'next/app';
+import type { NextComponentType, NextPageContext } from 'next';
 import HeadlinesProvider from '@/hooks/headlines';
 import Layout from '@/components/layout';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
@@ -18,13 +19,22 @@ import FetchingQueryParamsProvider from '@/hooks/fetch-query-params-provider';
 import SearchQueryParamsProvider from '@/hooks/search-query-params-provider';
 import { ThemeConfigProvider } from '@/hooks/theme-provider';
 import { GlobalStaticStyles } from '@/lib/emotion/global';
+import 'antd/dist/reset.css';
 import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import '../styles/custom.css';
 import '../styles/fonts.css';
 import { EntityProvider } from '@/hooks/entity-provider';
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+type AppPageComponent = NextComponentType<NextPageContext, unknown, unknown> & {
+  isPopupPage?: boolean;
+};
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  const Page = Component as AppPageComponent;
+  const page = <Page {...pageProps} />;
+
+  return (
     <GlobalStaticStyles>
       <InitialHeadlinesProvider>
         <QueryParamProvider adapter={NextAdapter as QueryParamAdapterComponent}>
@@ -39,9 +49,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
                               <EntityProvider>
-                                <Layout>
-                                  <Component {...pageProps} />
-                                </Layout>
+                                {Page.isPopupPage ? page : <Layout>{page}</Layout>}
                               </EntityProvider>
                             </CodingsPreferencesProvider>
                           </IsLoadingContextProvider>
@@ -57,6 +65,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       </InitialHeadlinesProvider>
     </GlobalStaticStyles>
   );
+};
 
 
 export default MyApp;

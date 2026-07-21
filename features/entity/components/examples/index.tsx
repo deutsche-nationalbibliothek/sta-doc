@@ -94,14 +94,12 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
         }
       >
         {examples.map((example, index) => (
-          <>
-            <ExampleCard
-              entity={example}
-              codingsPreferences={codingsPreferences}
-              key={index}
-              lastIndex={index === examples.length - 1}
-            />
-          </>
+          <ExampleCard
+            entity={example}
+            codingsPreferences={codingsPreferences}
+            key={example.id}
+            lastIndex={index === examples.length - 1}
+          />
         ))}
       </DraggableModal>
     </NamespaceThemeConfigProvider>

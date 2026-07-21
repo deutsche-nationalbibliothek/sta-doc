@@ -2,11 +2,10 @@ import {
   CodingsPreference,
   useCodingsPreference,
 } from '@/hooks/use-codings-preference';
-import { useNamespace } from '@/hooks/use-namespace';
 import { Statement, Entity } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
-import { Card, Tag, Typography, theme } from 'antd';
-import React from 'react';
+import { Card, Tag, Tooltip, Typography, theme } from 'antd';
+import React, { type MouseEvent } from 'react';
 import { Statements } from '../statements';
 import { RdaExample } from './rda-example';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
@@ -14,12 +13,19 @@ import { ExampleProcessingResult, exampleStatementsReducer } from '@/utils/examp
 import { propFinder } from '@/utils/find-property';
 import { statementsFilter } from '@/utils/filter-statements';
 import { ExternalLink } from '@/components/external-link';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, ExportOutlined } from '@ant-design/icons';
 import { Item } from '@/types/item';
+import { useRouter } from '@/lib/next-use-router';
+import {
+  openExamplePopupWindow,
+  storeExamplePopupEntity,
+} from './example-popup';
 
 export interface ExampleProps {
   entity: Entity;
   codingsPreferences: CodingsPreference[];
+  /** Hide when already shown in the example popup window. Default: true */
+  showOpenInWindow?: boolean;
 }
 
 export interface PreData {
@@ -46,9 +52,12 @@ export const nonDefaultRenderProperties = [
 export const Example: React.FC<ExampleProps> = ({
   entity,
   codingsPreferences,
+  showOpenInWindow = true,
 }) => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
+  const { locale } = useRouter();
+  const showEditLink = websideUrl === 'https://edit.sta.dnb.de';
   const statements = entity.statements.body
   const nonDefaultRenderStatements = {
     description: propFinder(Property.description,entity.statements.body),
@@ -68,25 +77,56 @@ export const Example: React.FC<ExampleProps> = ({
     }
   );
 
+  const onOpenInWindow = (event: MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    storeExamplePopupEntity(entity);
+    openExamplePopupWindow(entity.id, locale);
+  };
+
   return (
     <>
-      {websideUrl === 'https://edit.sta.dnb.de' ? (
-        <ExternalLink
+      {(showOpenInWindow || showEditLink) && (
+        <div
           css={{
-            color: `${token.colorText} !important`,
             float: 'right',
-            paddingRight: '3px'
-          }}
-          linkProps={{
-            href: `${websideUrl}/entity/${entity.id}`,
+            paddingRight: '3px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            color: token.colorText,
           }}
         >
-          <>
-            {' '}
-            <EditOutlined />
-          </>
-        </ExternalLink>
-      ) : undefined}
+          {showOpenInWindow && (
+            <Tooltip title="Beispiel in eigenem Fenster öffnen">
+              <ExportOutlined
+                onClick={onOpenInWindow}
+                onMouseDown={(event) => event.stopPropagation()}
+                css={{
+                  color: `${token.colorText} !important`,
+                  cursor: 'pointer',
+                }}
+              />
+            </Tooltip>
+          )}
+          {showEditLink && (
+            <Tooltip title="Beispiel im Editor öffnen">
+              <span css={{ display: 'inline-flex', cursor: 'pointer' }}>
+                <ExternalLink
+                  css={{
+                    color: `${token.colorText} !important`,
+                  }}
+                  linkProps={{
+                    href: `${websideUrl}/entity/${entity.id}`,
+                  }}
+                >
+                  <EditOutlined />
+                </ExternalLink>
+              </span>
+            </Tooltip>
+          )}
+        </div>
+      )}
       {nonDefaultRenderStatements.description && (
         <Statements statements={[nonDefaultRenderStatements.description]} />
       )}
@@ -133,7 +173,6 @@ export const Example: React.FC<ExampleProps> = ({
     </>
   );
 };
-
 interface ExampleCodingCardProps {
   codingPreference: CodingsPreference;
   exampleValues: { value: string; coding?: string }[][];
