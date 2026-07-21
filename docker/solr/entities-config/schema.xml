@@ -79,11 +79,12 @@
     <copyField source="*value" dest="full-text-search" />
     <copyField source="*description" dest="full-text-search"/>
     <copyField source="*headline.title" dest="headline-text-search"/>
-
+    <copyField source="*staNotationLabel" dest="full-text-search"/>
 
     <copyField source="*label" dest="suggest_field"/>
-    <copyField source="*value" dest="suggest_field" />
-    <copyField source="*description" dest="suggest_field"/>
+    <copyField source="*staNotationLabel" dest="suggest_field"/>
+    <!-- <copyField source="*value" dest="suggest_field" /> -->
+    <!-- <copyField source="*description" dest="suggest_field"/> -->
     <copyField source="*headline.title" dest="suggest_field"/>
 
 

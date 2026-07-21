@@ -2,6 +2,19 @@ import { QueryResult } from '@/types/search';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from 'solr-client';
 
+const SEARCH_RESULT_FIELDS = [
+  'id',
+  'staNotationLabel',
+  'headline.title',
+  'headline-text-search',
+  'full-text-search',
+  'namespace',
+  'pageType.labelDe',
+  '*headline.title',
+  '*headline.key',
+  'score',
+].join(',');
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const client = createClient({
     core: 'entities',
@@ -62,7 +75,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .q(`${query}`)
     .qop('AND')
     .sort({ score: 'desc' })
-    .fl(`*,score`)
+    .fl(SEARCH_RESULT_FIELDS)
     .rows(10);
 
   if (start) {
