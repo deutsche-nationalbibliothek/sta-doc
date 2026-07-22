@@ -13,6 +13,27 @@ function normalizeLocale(localeToCheck: unknown): string {
 }
 
 /**
+ * Path prefix for Next.js i18n routing (default locale has no prefix).
+ */
+export function getLocalePathPrefix(locale?: string | null): string {
+  const normalized = normalizeLocale(locale);
+  return normalized === DEFAULT_LOCALE ? '' : `/${normalized}`;
+}
+
+/**
+ * Builds an absolute app path including basePath and locale prefix.
+ * @param path - Path starting with `/` (asPath-style, without locale)
+ */
+export function buildLocalizedAppPath(
+  path: string,
+  locale?: string | null
+): string {
+  const basePath = process.env.basePath ?? '';
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${basePath}${getLocalePathPrefix(locale)}${normalizedPath}`;
+}
+
+/**
  * Adds or updates a locale parameter in a URL string
  * @param url - The base URL to modify
  * @param localeParam - The locale value to add to the URL

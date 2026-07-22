@@ -1,4 +1,5 @@
 import { Entity, WikibasePointerValue } from '@/types/parsed/entity';
+import { getLocalePathPrefix } from '@/utils/locale-utils';
 import { compact } from 'lodash';
 
 const storageKey = (entityId: string) => `sta-example-popup:${entityId}`;
@@ -45,9 +46,8 @@ export const openExamplePopupWindow = (entityId: string, locale?: string) => {
     return;
   }
   const basePath = process.env.basePath ?? '';
-  const localePrefix = locale && locale !== 'de' ? `/${locale}` : '';
   window.open(
-    `${basePath}${localePrefix}/example/${entityId}`,
+    `${basePath}${getLocalePathPrefix(locale)}/example/${entityId}`,
     `sta-example-${entityId}`,
     'popup=yes,width=720,height=400'
   );

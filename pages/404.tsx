@@ -2,10 +2,10 @@ import { ToolOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { EntityLink } from '@/features/entity/components/preview/link';
-import { StaNotations} from '@/types/parsed/sta-notation';
-import staNotations from '@/data/parsed/sta-notations.json'
+import { StaNotations } from '@/types/parsed/sta-notation';
+import staNotations from '@/data/parsed/sta-notations.json';
 import useTranslation from 'next-translate/useTranslation';
+import { buildLocalizedAppPath } from '@/utils/locale-utils';
 
 interface NotFoundProps {
   subtitle?: JSX.Element;
@@ -17,13 +17,20 @@ export const NotFound: React.FC<NotFoundProps> = ({
   isUnderConstruction,
 }) => {
   const router = useRouter();
-  const { locale, asPath } = router;
-  const currentPath = asPath.substring(1)
+  const { asPath } = router;
+  const currentPath = asPath.substring(1);
   const cleanPath = currentPath.replace(/\?.*$/, '');
-  const { t,lang } = useTranslation('common');
-  const findStaNotationIncluded = Object.values(staNotations as unknown as StaNotations).find(staNot => staNot.label.includes(cleanPath))
+  const { t } = useTranslation('common');
+  const findStaNotationIncluded = Object.values(
+    staNotations as unknown as StaNotations
+  ).find((staNot) => staNot.label.includes(cleanPath));
 
-  return findStaNotationIncluded ? (
+  // Default locale has no /fr prefix — force a plain German path for the fallback.
+  const germanPath = findStaNotationIncluded
+    ? buildLocalizedAppPath(`/${findStaNotationIncluded.label}`, 'de')
+    : undefined;
+
+  return findStaNotationIncluded && germanPath ? (
     <>
       <Head>
         <title>404 | {`Page is not available.`}</title>
@@ -35,11 +42,7 @@ export const NotFound: React.FC<NotFoundProps> = ({
           </Typography.Text>
           <br></br>
           <Typography.Text style={{ fontSize: 'x-large' }}>
-            <EntityLink
-              id={findStaNotationIncluded.id}
-              label={findStaNotationIncluded.label}
-              staNotationLabel={currentPath}
-            ></EntityLink>
+            <a href={germanPath}>{findStaNotationIncluded.label}</a>
           </Typography.Text>
         </>
       </div>

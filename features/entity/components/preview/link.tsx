@@ -30,7 +30,8 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   tooltipPlacement,
 }) => {
   const router = useRouter();
-  const locale = router.locale || 'de';
+  const { locale: localeFromProps, ...restLinkProps } = linkProps ?? {};
+  const locale = localeFromProps || router.locale || 'de';
   const { namespace: currentNamespace } = useNamespace();
   const { token } = theme.useToken();
   // console.log('record',locale,id,label,pointingNamespace,staNotationLabel,children)
@@ -68,7 +69,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
     >
       {staNotationLabel || id ? (
         <Link
-          {...linkProps}
+          {...restLinkProps}
           css={{
             alignItems: 'center',
             width: 'fit-content',

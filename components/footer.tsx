@@ -29,6 +29,7 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 // import { API_URL } from '@/bin/data/fetcher';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from '@/lib/next-use-router';
+import { buildLocalizedAppPath } from '@/utils/locale-utils';
 
 export const Footer: React.FC = () => {
   const router = useRouter();
@@ -54,9 +55,10 @@ export const Footer: React.FC = () => {
     () => ({
       staNotation: () => {
         copy(
-          `${window.location.origin}${process.env.basePath ?? ''}/${
-            entity?.staNotationLabel as string
-          }`
+          `${window.location.origin}${buildLocalizedAppPath(
+            `/${entity?.staNotationLabel as string}`,
+            router.locale
+          )}`
         );
         messageApi.success(t('link-copied'));
       },
@@ -67,7 +69,7 @@ export const Footer: React.FC = () => {
         messageApi.warning(t('beta-version-warning'));
       },
     }),
-    [messageApi, entity?.staNotationLabel, t]
+    [messageApi, entity?.staNotationLabel, router.locale, t]
   );
 
   const { token } = theme.useToken();

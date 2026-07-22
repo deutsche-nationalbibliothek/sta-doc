@@ -1,4 +1,5 @@
 import { useRouter } from '@/lib/next-use-router';
+import { buildLocalizedAppPath } from '@/utils/locale-utils';
 import { LinkOutlined } from '@ant-design/icons';
 import { message } from 'antd';
 import copy from 'copy-to-clipboard';
@@ -19,17 +20,18 @@ export const CopyHeadlineAnchorLink: React.FC<CopyIconProps> = ({
   url,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
-  const { asPath } = useRouter();
+  const { asPath, locale } = useRouter();
   const { t } = useTranslation('common');
 
-  const cleanPath = asPath.replace(/(\?q=.*?(?=#|$))|(#.*)/g,'');
+  const cleanPath = asPath.replace(/(\?q=.*?(?=#|$))|(#.*)/g, '');
 
   const relevantUrl =
     url ??
     (anchor &&
-      `${window.location.origin}${process.env.basePath ?? ''}${
-        cleanPath
-      }#${anchor}`);
+      `${window.location.origin}${buildLocalizedAppPath(
+        cleanPath,
+        locale
+      )}#${anchor}`);
 
   if (!relevantUrl) {
     return null;
