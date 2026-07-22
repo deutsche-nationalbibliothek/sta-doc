@@ -64,6 +64,9 @@ module.exports = async () => {
       cpus: 2,
       staticGenerationMaxConcurrency: 4,
     },
+    compiler: {
+      emotion: true,
+    },
     reactStrictMode: true,
     async redirects() {
       return [
