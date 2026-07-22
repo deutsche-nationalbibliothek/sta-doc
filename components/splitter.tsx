@@ -1,21 +1,28 @@
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 interface SplitterProps {
   children: React.ReactNode[];
 }
 
 export const Splitter: React.FC<SplitterProps> = ({ children }) => {
-  const [sizes, setSizes] = useState<[number, number]>();
-  useEffect(() => {
-    setSizes(children.length === 2 ? [20, 80] : [100, 0]);
-  }, [children.length]);
+  const defaultSizes: [number, number] =
+    children.length === 2 ? [20, 80] : [100, 0];
+  const [userSizes, setUserSizes] = useState<[number, number] | null>(null);
+  const [trackedLength, setTrackedLength] = useState(children.length);
+
+  if (trackedLength !== children.length) {
+    setTrackedLength(children.length);
+    setUserSizes(null);
+  }
+
+  const sizes = userSizes ?? defaultSizes;
   const direction: SplitDirection = SplitDirection.Horizontal;
   // const cssClass = direction === SplitDirection.Vertical ? 'gutter-vertical' : 'gutter-horizontal'
   const cssClass = 'gutter-horizontal';
 
   const onResizeFinished = (_pairIdx: number, newSizes: [number, number]) => {
-    setSizes(newSizes);
+    setUserSizes(newSizes);
   };
 
   return (

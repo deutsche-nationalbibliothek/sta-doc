@@ -24,7 +24,7 @@ export default async function handler(
     if (live === undefined){ res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');}
 
     return res.status(200).json(entityData);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching entity:', error);
 
     // Handle different types of errors
@@ -34,7 +34,10 @@ export default async function handler(
 
     return res.status(500).json({
       message: 'Internal server error',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      error:
+        process.env.NODE_ENV === 'development' && error instanceof Error
+          ? error.message
+          : undefined,
     });
   }
 }

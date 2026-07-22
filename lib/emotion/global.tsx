@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { CSSObject, Global } from '@emotion/react';
 
-export const GlobalStaticStyles: React.FC<React.PropsWithChildren<{}>> = ({
+export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const isMobile = useIsSmallScreen();

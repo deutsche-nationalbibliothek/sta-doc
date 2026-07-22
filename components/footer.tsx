@@ -22,7 +22,7 @@ import {
   Tooltip,
 } from 'antd';
 import copy from 'copy-to-clipboard';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
@@ -35,18 +35,16 @@ export const Footer: React.FC = () => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
-  const [currentUrl, setCurrentUrl] = useState('');
-  
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-    const handleRouteChange = () => {
-      setCurrentUrl(window.location.href);
-    };
-    router.events.on('routeChangeComplete', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
+  const currentUrl = useSyncExternalStore(
+    (onStoreChange) => {
+      router.events.on('routeChangeComplete', onStoreChange);
+      return () => {
+        router.events.off('routeChangeComplete', onStoreChange);
+      };
+    },
+    () => window.location.href,
+    () => ''
+  );
 
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();

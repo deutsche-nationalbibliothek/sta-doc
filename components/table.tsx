@@ -63,6 +63,16 @@ export declare type ColumnsTypes<T = unknown> = (
   | ColumnType<T>
 )[];
 
+const dataIndexToKey = (dataIndex: unknown): string => {
+  if (typeof dataIndex === 'string' || typeof dataIndex === 'number') {
+    return String(dataIndex);
+  }
+  if (Array.isArray(dataIndex)) {
+    return dataIndex.map(String).join('.');
+  }
+  return '';
+};
+
 export function Table<T extends object>(props: TableProps<T>) {
   const { t } = useTranslation('common');
   const [searchTexts, setSearchTexts] = useState<Record<string, DataIndex>>({});
@@ -156,10 +166,12 @@ export function Table<T extends object>(props: TableProps<T>) {
   const columnsMapper = (column: ColumnType<T> | ColumnGroupType<T>): any => {
     // eslint-disable-next-line prefer-const
     let { render, isSearchable, noSort, sorterTooltip, ...columnProps } = column;
+    const dataIndexKey =
+      'dataIndex' in column ? dataIndexToKey(column.dataIndex) : '';
     if (isSearchable && 'dataIndex' in column) {
       columnProps = {
         ...columnProps,
-        ...getColumnSearchProps(String(column.dataIndex), String(column.key)),
+        ...getColumnSearchProps(dataIndexKey, String(column.key)),
       };
     }
 
@@ -199,11 +211,9 @@ export function Table<T extends object>(props: TableProps<T>) {
                 value,
                 record,
                 index,
-                searchTexts[String(column.dataIndex)] ? (
+                searchTexts[dataIndexKey] ? (
                   <MyHighlighter
-                    searchWords={searchTexts[String(column.dataIndex)].split(
-                      ' '
-                    )}
+                    searchWords={searchTexts[dataIndexKey].split(' ')}
                     textToHighlight={value ? String(value) : ''}
                   />
                 ) : (
@@ -216,12 +226,9 @@ export function Table<T extends object>(props: TableProps<T>) {
           (value: any) => {
             return (
               <Typography.Text>
-                {'dataIndex' in column &&
-                searchTexts[String(column.dataIndex)] ? (
+                {'dataIndex' in column && searchTexts[dataIndexKey] ? (
                   <MyHighlighter
-                    searchWords={searchTexts[String(column.dataIndex)].split(
-                      ' '
-                    )}
+                    searchWords={searchTexts[dataIndexKey].split(' ')}
                     textToHighlight={value ? String(value) : ''}
                   />
                 ) : (
@@ -270,13 +277,14 @@ export function Table<T extends object>(props: TableProps<T>) {
     };
   };
 
+  // columnsMapper closes over searchInput for filterDropdown; ref is only
+  // read in event callbacks, not during render.
+  // eslint-disable-next-line react-hooks/refs -- searchInput used in filter UI callbacks
+  const mappedColumns = props.columns?.map(columnsMapper) ?? [];
+
   return (
     <>
-      <AntdTable
-        sticky
-        {...props}
-        columns={props.columns?.map(columnsMapper) ?? []}
-      />
+      <AntdTable sticky {...props} columns={mappedColumns} />
     </>
   );
 }
