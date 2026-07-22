@@ -42,7 +42,8 @@ module.exports = async () => {
     basePath: '/doc',
     env: {
       basePath: '/doc',
-      solrHost: 'solr',
+      solrHost: process.env.SOLR_HOST || 'localhost',
+      solrPort: process.env.SOLR_PORT || '8983',
       NEXT_PUBLIC_VERSION: await getVersion(),
     },
     i18n: {

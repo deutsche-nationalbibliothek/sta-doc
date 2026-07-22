@@ -1,6 +1,6 @@
+import { solrGet } from '@/lib/solr/client';
 import { QueryResult } from '@/types/search';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createClient } from 'solr-client';
 
 const SEARCH_RESULT_FIELDS = [
   'id',
@@ -16,11 +16,6 @@ const SEARCH_RESULT_FIELDS = [
 ].join(',');
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const client = createClient({
-    core: 'entities',
-    host: `${process.env.solrHost ?? ''}`,
-  });
-
   const { query: requestedQuery, start } = req.query as {
     query: string;
     start: string;
@@ -70,19 +65,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return `((${statementScore1}) OR (${statementScore2}) OR (${statementScore3}) OR (${statementScore4}) OR (${statementScore5}) OR (${statementScore6}))`;
   };
   const query = buildQueryStatement(requestedQuery);
-  const solrQuery = client
-    .query()
-    .q(`${query}`)
-    .qop('AND')
-    .sort({ score: 'desc' })
-    .fl(SEARCH_RESULT_FIELDS)
-    .rows(10);
 
-  if (start) {
-    solrQuery.start(Number(start));
-  }
-
-  const queryResult = (await client.search(solrQuery)) as unknown as QueryResult;
+  const queryResult = await solrGet<QueryResult>('select', {
+    q: query,
+    'q.op': 'AND',
+    sort: 'score desc',
+    fl: SEARCH_RESULT_FIELDS,
+    rows: 10,
+    ...(start ? { start: Number(start) } : {}),
+  });
 
   res.status(200).json(queryResult);
 };

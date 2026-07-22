@@ -2,6 +2,8 @@ services:
   nextjs:
     build:
       dockerfile: ./docker/nextjs/Dockerfile.dev
+    environment:
+      - SOLR_HOST=solr
     labels:
       - traefik.http.routers.nextjs.rule=Host(`nextjs.localhost`)
       - traefik.http.routers.nextjs.service=nextjs
@@ -12,8 +14,8 @@ services:
   solr:
     build:
       dockerfile: ./docker/solr/Dockerfile
-    # ports:
-      # - '8983:8983'
+    ports:
+      - '8983:8983'
     user: '8983:8983'
     labels:
       - traefik.http.routers.solr.rule=Host(`solr.localhost`)

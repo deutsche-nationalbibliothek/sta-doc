@@ -44,8 +44,16 @@ The application can be run in docker containers or on the host system. The appli
 
 #### Developer Mode
 
-Start developing with 
-- `npm run install && npm run dev` or 
+Host Next.js with a local Docker Solr instance:
+
+1. `npm install`
+2. `npm run docker:dev:build` (first time / after Solr image changes)
+3. `npm run docker:dev:solr:up`
+4. `sh ./docker/index-solr-dev.sh` (split entities + index into Solr)
+5. `npm run dev` — app at `/doc`, Solr at `http://localhost:8983`
+
+`SOLR_HOST` / `SOLR_PORT` default to `localhost` / `8983` (see `.env`). Full docker-dev stack (Next + Solr + Traefik):
+
 - `npm run docker:dev:build; npm run docker:dev:up && sh ./docker/index-solr-dev.sh`
 
 #### Production Mode
@@ -67,7 +75,6 @@ Start testing the productive version with
 - [Lodash](https://lodash.com/docs)
 - [react-use](https://github.com/streamich/react-use#--------------------react-use------------------)
 - [useQueryParams](https://github.com/pbeshai/use-query-params#usequeryparams)
-- [solr-client](https://lbdremy.github.io/solr-node-client/)
 - [slugify](https://github.com/simov/slugify#slugify)
 - [react-highlight-words](https://github.com/bvaughn/react-highlight-words#usage)
 - [copy-to-clipboard](https://github.com/sudodoki/copy-to-clipboard#copy-to-clipboard-)
