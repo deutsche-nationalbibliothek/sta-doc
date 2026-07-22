@@ -7,7 +7,7 @@ import { EntityId } from '@/types/entity-id';
 import { Entity } from '@/types/parsed/entity';
 import { Item } from '@/types/item';
 import { Namespace } from '@/types/namespace';
-import { Col, Row, Select, Typography } from 'antd';
+import { Col, Row, Select, Spin, Typography } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
@@ -23,6 +23,19 @@ const resolveExampleNamespace = (entity: Entity): Namespace => {
   }
   return entity.namespace ?? Namespace.STA;
 };
+
+const LoadingSpinner = () => (
+  <div css={{ padding: '1em', textAlign: 'center', minHeight: '50vh' }}>
+    <Spin
+      size="large"
+      css={{
+        position: 'relative',
+        top: '50%',
+        transform: 'translateY(-50%)',
+      }}
+    />
+  </div>
+);
 
 const ExamplePopupContent: React.FC<{ entity: Entity }> = ({ entity }) => {
   const { t } = useTranslation('common');
@@ -83,19 +96,20 @@ export default function ExamplePopupPage() {
   const { t } = useTranslation('common');
   const router = useRouter();
   const entityId = router.query.entityId as EntityId | undefined;
-  const [storedEntity, setStoredEntity] = useState<Entity | null>(null);
-  const [checkedStorage, setCheckedStorage] = useState(false);
+  // undefined = not checked yet (SSR / before mount); null = no stored entity
+  const [storedEntity, setStoredEntity] = useState<Entity | null | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (!entityId) {
       return;
     }
     setStoredEntity(readExamplePopupEntity(entityId));
-    setCheckedStorage(true);
   }, [entityId]);
 
-  if (!entityId || !checkedStorage) {
-    return null;
+  if (!router.isReady || !entityId || storedEntity === undefined) {
+    return <LoadingSpinner />;
   }
 
   if (storedEntity) {
@@ -103,10 +117,10 @@ export default function ExamplePopupPage() {
   }
 
   return (
-    <FetchEntity entityId={entityId} showSpinner>
+    <FetchEntity entityId={entityId} showSpinner={false}>
       {(entityEntry, loading): JSX.Element => {
         if (loading) {
-          return <span />;
+          return <LoadingSpinner />;
         }
         if (!entityEntry?.entity) {
           return (
