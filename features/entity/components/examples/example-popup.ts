@@ -19,10 +19,16 @@ export const examplesFromWikibasePointers = (
   );
 
 export const storeExamplePopupEntity = (entity: Entity) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
   localStorage.setItem(storageKey(entity.id), JSON.stringify(entity));
 };
 
 export const readExamplePopupEntity = (entityId: string): Entity | null => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
   const raw = localStorage.getItem(storageKey(entityId));
   if (!raw) {
     return null;
@@ -35,6 +41,9 @@ export const readExamplePopupEntity = (entityId: string): Entity | null => {
 };
 
 export const openExamplePopupWindow = (entityId: string, locale?: string) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
   const basePath = process.env.basePath ?? '';
   const localePrefix = locale && locale !== 'de' ? `/${locale}` : '';
   window.open(
