@@ -4,6 +4,7 @@ import { FieldsRaw } from '../../types/raw/field';
 import type { fetcher } from './fetcher';
 import type { ParsedAllFromRead } from './parse';
 import { DataState, writeJSONFile } from './utils';
+import { buildEntitySsgIndex } from './utils/entity-ssg-index';
 import { writeFile } from './utils/fs';
 import { NAMES } from './utils/names';
 
@@ -109,12 +110,24 @@ export const writeParsed = (data: Partial<ParsedAllFromRead>) => {
   };
   const entities = {
     de: () => {
-      data.entities &&
+      if (data.entities) {
         writeJSONFile(data.entities.all, NAMES.entityDe, DataState.parsed);
+        writeJSONFile(
+          buildEntitySsgIndex(data.entities.all),
+          NAMES.entitySsgIndexDe,
+          DataState.parsed
+        );
+      }
     },
     fr: () => {
-      data.entities &&
+      if (data.entities) {
         writeJSONFile(data.entities.all, NAMES.entityFr, DataState.parsed);
+        writeJSONFile(
+          buildEntitySsgIndex(data.entities.all),
+          NAMES.entitySsgIndexFr,
+          DataState.parsed
+        );
+      }
     },
     index: () => {
       data.entities &&
