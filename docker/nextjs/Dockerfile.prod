@@ -13,7 +13,7 @@ FROM dev-stage AS build-stage
 # Set environment variables
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
-ENV NODE_OPTIONS=--max_old_space_size=9072
+ENV NODE_OPTIONS=--max_old_space_size=4096
 ENV basePath="/doc"
 
 RUN npm run build
@@ -29,7 +29,6 @@ RUN apk add --no-cache git
 # Set environment variables
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
-ENV NODE_OPTIONS=--max_old_space_size=9072
 ENV basePath="/doc"
 
 WORKDIR /srv

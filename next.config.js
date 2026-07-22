@@ -59,6 +59,11 @@ module.exports = async () => {
     typescript: {
       ignoreBuildErrors: true,
     },
+    // Cap SSG fan-out so peak RAM stays proportional to a few workers, not all CPUs.
+    experimental: {
+      cpus: 2,
+      staticGenerationMaxConcurrency: 4,
+    },
     reactStrictMode: true,
     async redirects() {
       return [
