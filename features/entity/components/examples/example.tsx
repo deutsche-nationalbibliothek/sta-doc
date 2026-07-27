@@ -21,11 +21,21 @@ import {
   storeExamplePopupEntity,
 } from './example-popup';
 
+export type FormatNeutralItem =
+  ExampleProcessingResult['formatNeutral'][number];
+
 export interface ExampleProps {
   entity: Entity;
   codingsPreferences: CodingsPreference[];
   /** Hide when already shown in the example popup window. Default: true */
   showOpenInWindow?: boolean;
+  /**
+   * Optional override for format-neutral rendering.
+   * Used by GndImplementation for GND-specific prose; default is label + value.
+   */
+  renderFormatNeutral?: (
+    formatNeutrals: FormatNeutralItem[]
+  ) => React.ReactNode;
 }
 
 export interface PreData {
@@ -53,6 +63,7 @@ export const Example: React.FC<ExampleProps> = ({
   entity,
   codingsPreferences,
   showOpenInWindow = true,
+  renderFormatNeutral,
 }) => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
@@ -134,31 +145,37 @@ export const Example: React.FC<ExampleProps> = ({
         <RdaExample entity={entity} codingsPreferences={codingsPreferences} />
       ) : (
         <React.Fragment>
-          {relevantExamples && relevantExamples.formatNeutral
-            ? relevantExamples.formatNeutral.map((formatNeutral, index) => (
-                <Typography.Paragraph key={index}>
-                  <Typography.Text italic>{formatNeutral.label}</Typography.Text>
-                  <br/>
-                  <Typography.Text strong>{formatNeutral.value}</Typography.Text>
-                </Typography.Paragraph>
-              ))
+          {relevantExamples?.formatNeutral?.length
+            ? renderFormatNeutral
+              ? renderFormatNeutral(relevantExamples.formatNeutral)
+              : relevantExamples.formatNeutral.map((formatNeutral, index) => (
+                  <Typography.Paragraph key={index}>
+                    <Typography.Text italic>
+                      {formatNeutral.label}
+                    </Typography.Text>
+                    <br />
+                    <Typography.Text strong>
+                      {formatNeutral.value}
+                    </Typography.Text>
+                  </Typography.Paragraph>
+                ))
             : undefined}
           <Typography.Paragraph>
             {['PICA3', 'PICA+', 'Alma', 'Aleph']
-                .filter((coding) =>
-                  codingsPreferences.some(
-                    (codingsPreference) => codingsPreference === coding
-                  )
-                ).map((coding: CodingsPreference) => (
-                  <React.Fragment>
-                    <ExampleCodingCard
-                      codingPreference={coding}
-                      key={coding}
-                      exampleValues={relevantExamples[coding]}
-                    />
-                  </React.Fragment>
-                ))}
-            </Typography.Paragraph>
+              .filter((coding) =>
+                codingsPreferences.some(
+                  (codingsPreference) => codingsPreference === coding
+                )
+              )
+              .map((coding: CodingsPreference) => (
+                <React.Fragment key={coding}>
+                  <ExampleCodingCard
+                    codingPreference={coding}
+                    exampleValues={relevantExamples[coding]}
+                  />
+                </React.Fragment>
+              ))}
+          </Typography.Paragraph>
         </React.Fragment>
       )
       }
