@@ -87,6 +87,7 @@ export function exampleStatementsReducer(
       );
       const formatNeutralLayoutId =
         formatNeutralStatement?.wikibasePointers?.at(0)?.id;
+      const datafieldAlma = exampleValue.codings?.Alma?.[0];
       const subfieldsGroup = mapSubfieldsToObject(
         exampleValue.qualifiers ? exampleValue.qualifiers : undefined
       );
@@ -127,6 +128,7 @@ export function exampleStatementsReducer(
         const predecessorQualifier = permittedValues && (findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permited-values']) || findPredecessorProperty(exampleValue.qualifiers as Statement[], Property['permitted-characteristics'])) || undefined
         const indicatorAlma = exampleValue.qualifiers && propFinder(Property['P917'], exampleValue.qualifiers)
         const indicatorValue = indicatorAlma && indicatorAlma!.stringGroups![0].values[0].value
+        const almaIndicatorEligible = !['000', '001', '003', '005', '008'].includes(datafieldAlma ?? '')
         // map trough the qualifiers multiple times (for PICA3, PICA+, Alma, Aleph)
         const [picaThree, picaPlus, alma, aleph] = ['PICA3', 'PICA+', 'Alma', 'Aleph'].map(
           (codingLabel: PrefCodingsLabel) =>
@@ -139,8 +141,8 @@ export function exampleStatementsReducer(
                 ? qualifier.stringGroups?.map((stringValueContainer) =>
                   stringValueContainer.values.map((strValObj, index) => {
                     return ([
-                      indexQuali === 0 && codingKey === 'Alma' && !indicatorAlma ? { coding: '', value: '␣␣' } : undefined,
-                      indexQuali === 0 && codingKey === 'Alma' && indicatorAlma ? { coding: '', value: indicatorValue! } : undefined,
+                      indexQuali === 0 && index === 0 && codingKey === 'Alma' && almaIndicatorEligible && !indicatorAlma ? { coding: '', value: '␣␣' } : undefined,
+                      indexQuali === 0 && index === 0 && codingKey === 'Alma' && almaIndicatorEligible && indicatorAlma ? { coding: '', value: indicatorValue! } : undefined,
                       currentCoding === undefined ? undefined :
                         index > 0 && codingSeparator.separator.length > 0 ? { coding: codingSeparator.separator, value: strValObj.value }
                           : { coding: codingSeparator.predecessor, value: strValObj.value },
@@ -150,8 +152,8 @@ export function exampleStatementsReducer(
                 )
                 : qualifier.wikibasePointers && qualifier.wikibasePointers.map((wikibasePointer, index) => {
                   return ([
-                    indexQuali === 0 && codingKey === 'Alma' && !indicatorAlma ? { coding: '', value: '␣␣' } : undefined,
-                    indexQuali === 0 && codingKey === 'Alma' && indicatorAlma ? { coding: '', value: indicatorValue! } : undefined,
+                    indexQuali === 0 && index === 0 && codingKey === 'Alma' && almaIndicatorEligible && !indicatorAlma ? { coding: '', value: '␣␣' } : undefined,
+                    indexQuali === 0 && index === 0 && codingKey === 'Alma' && almaIndicatorEligible && indicatorAlma ? { coding: '', value: indicatorValue! } : undefined,
                     currentCoding === undefined ? undefined :
                       index > 0 && codingSeparator.separator.length > 0
                         ? { coding: codingSeparator.separator, value: wikibasePointer.codings && wikibasePointer.codings[codingLabel] ? wikibasePointer.codings[codingLabel][0] : '...' }
