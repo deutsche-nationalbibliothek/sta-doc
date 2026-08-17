@@ -4,40 +4,12 @@ services:
       dockerfile: ./docker/nextjs/Dockerfile.dev
     environment:
       - SOLR_HOST=solr
-    labels:
-      - traefik.http.routers.nextjs.rule=Host(`nextjs.localhost`)
-      - traefik.http.routers.nextjs.service=nextjs
-      - traefik.http.services.nextjs.loadbalancer.server.port=3000
-    networks:
-      - web_proxy
+    ports:
+      - '3000:3000'
+    depends_on:
+      - solr
 
   solr:
-    build:
-      dockerfile: ./docker/solr/Dockerfile
     ports:
       - '8983:8983'
     user: '8983:8983'
-    labels:
-      - traefik.http.routers.solr.rule=Host(`solr.localhost`)
-      - traefik.http.routers.solr.service=solr
-      - traefik.http.services.solr.loadbalancer.server.port=8983
-    networks:
-      - web_proxy
-
-  proxy:
-    image: traefik:v2.3
-    networks:
-      - web_proxy
-    command: --api.insecure=true --providers.docker
-    ports:
-      - '80:80'
-      # The Web UI (enabled by --api.insecure=true)
-      - '8081:8081'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - traefik.http.routers.proxy.rule=Host(`localhost`)
-      - traefik.http.routers.proxy.service=proxy
-
-networks:
-  web_proxy:

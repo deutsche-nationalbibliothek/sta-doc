@@ -37,6 +37,7 @@
     "../.eslintrc.js",
     "../types",
     "../utils",
+    "../lib/solr/**/*.ts",
     "../bin/**/*.ts"
   ]
 }

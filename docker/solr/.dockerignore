@@ -1,0 +1,2 @@
+# Collection documents are posted at runtime (npm run solr:index), not baked in.
+data

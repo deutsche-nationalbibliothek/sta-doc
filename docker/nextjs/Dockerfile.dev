@@ -9,4 +9,4 @@ COPY . .
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
 
-CMD [ "npm", "dev"]
+CMD [ "npm", "run", "dev"]

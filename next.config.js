@@ -110,22 +110,16 @@ module.exports = async () => {
 const getVersion = () => {
   const { trim } = require('lodash');
   const { exec } = require('child_process');
-  return new Promise(function (resolve, reject) {
+  const { version } = require('./package.json');
+  return new Promise(function (resolve) {
     exec(
       'git describe --tags --abbrev=0',
       function (error, standardOutput, standardError) {
-        if (error) {
-          reject("Problem in getVersion: " + error);
-
+        if (error || standardError) {
+          resolve(process.env.APP_VERSION || version);
           return;
         }
-
-        if (standardError) {
-          reject("Problem in getVersion: " + standardError);
-
-          return;
-        }
-        resolve(trim(standardOutput));
+        resolve(trim(standardOutput) || process.env.APP_VERSION || version);
       }
     );
   });

@@ -1,6 +1,20 @@
-# Ignore overhead
-*.tar
-.chromium-browser-data
-.next
+# VCS and editor
+.git
+.github
+.cursor
 .vscode
-node_modules/
+.chromium-browser-data
+
+# Dependencies and build output
+node_modules
+.next
+coverage
+*.tar
+
+# Solr image has its own context; host dumps are posted via the HTTP API
+docker
+
+# Next.js needs data/parsed at build and runtime. Raw/edit dumps do not.
+data/raw
+data/rawEdit
+data/parsedEdit

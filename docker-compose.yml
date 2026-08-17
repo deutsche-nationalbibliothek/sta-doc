@@ -6,5 +6,5 @@ services:
 
   solr:
     build:
-      context: .
+      context: ./docker/solr
     restart: unless-stopped
