@@ -6,6 +6,7 @@ import { compact } from 'lodash';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
 import { Typography } from 'antd';
 import { Item } from '@/types/item';
+import { firstStaNotationLabel } from './snippets';
 
 interface SearchResultListItemProps {
   doc: Doc;
@@ -62,7 +63,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
               href={
                 doc.id === Item['Documentation-platform-of-the-standardization-committee']
                   ? `/`
-                  : `/${doc.staNotationLabel.toString()}`
+                  : `/${firstStaNotationLabel(doc.staNotationLabel)}`
               }
               anchor={headlineMatch[0].id}
             >

@@ -48,7 +48,7 @@ interface ReadParsed {
   };
   fields: () => Fields;
   schemas: () => Schemas;
-  staNotations: () => StaNotations;
+  staNotations: (lang?: string) => StaNotations;
   codings: () => Codings;
   descriptions: () => Descriptions;
   rdaProperties: () => RdaProperties;
@@ -145,8 +145,11 @@ const readParsed: ReadParsed = {
     en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.parsed),
     fr: () => readJSONFile<LabelsFr>(NAMES.labelFr, DataState.parsed),
   },
-  staNotations: () =>
-    readJSONFile<StaNotations>(NAMES.staNotation, DataState.parsed),
+  staNotations: (lang) =>
+    readJSONFile<StaNotations>(
+      lang === 'fr' ? NAMES.staNotationFr : NAMES.staNotation,
+      DataState.parsed
+    ),
   schemas: () => readJSONFile<Schemas>(NAMES.schema, DataState.parsed),
   codings: () => readJSONFile<Codings>(NAMES.coding, DataState.parsed),
   descriptions: () =>

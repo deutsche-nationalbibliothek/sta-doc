@@ -6,13 +6,11 @@ import { FetchingParam } from '@/hooks/fetch-query-params-provider';
 import { API_URL, fetcher } from '@/bin/data/fetcher';
 import { EntitiesRaw } from '@/types/raw/entity';
 import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
-import { parseEntities } from '@/bin/data/parse/entities';
+import { parseEntities, ParseEntitiesData } from '@/bin/data/parse/entities';
+import { parseEntitiesDataFromRaw } from '@/bin/data/parse';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Namespace } from '@/types/namespace';
 import { EntityIndex } from '@/types/parsed/entity-index';
-import { parseSparqlData } from '@/bin/data/parse';
-import { reader } from '@/bin/data/read';
-import { DataState } from '@/bin/data/utils';
 import {
   EntitySsgIndexEntry,
   EntitySsgIndexFile,
@@ -21,9 +19,63 @@ import ssgIndexDe from '@/data/parsed/entities-ssg-index-de.json';
 import ssgIndexFr from '@/data/parsed/entities-ssg-index-fr.json';
 
 const entitiesCache: Partial<Record<'de' | 'fr', EntitiesEntries>> = {};
+const liveLookupRawCache: Partial<
+  Record<API_URL, Awaited<ReturnType<ReturnType<typeof fetcher>['lookupRaw']>>>
+> = {};
+const liveParsedDataCache: Partial<Record<string, ParseEntitiesData>> = {};
 
 const resolveLang = (lang: string | undefined): 'de' | 'fr' =>
   lang === 'fr' ? 'fr' : 'de';
+
+const resolveLiveApiUrl = (live: FetchingParam): API_URL | undefined => {
+  switch (live) {
+    case FetchingParam.live:
+      return API_URL.live;
+    case FetchingParam.prod:
+      return API_URL.prod;
+    case FetchingParam.test:
+      return API_URL.test;
+    default:
+      return undefined;
+  }
+};
+
+const loadLiveEntitiesData = async (
+  lang: string,
+  fetch: ReturnType<typeof fetcher>,
+  apiUrl: API_URL
+): Promise<ParseEntitiesData> => {
+  const resolvedLang = resolveLang(lang);
+  const cacheKey = `${apiUrl}:${resolvedLang}`;
+  if (!liveParsedDataCache[cacheKey]) {
+    if (!liveLookupRawCache[apiUrl]) {
+      console.log('Fetching live lookup data from', apiUrl);
+      liveLookupRawCache[apiUrl] = await fetch.lookupRaw();
+    }
+    const raw = liveLookupRawCache[apiUrl];
+    if (!raw) {
+      throw new Error(`Failed to load live lookup data from ${apiUrl}`);
+    }
+    liveParsedDataCache[cacheKey] = parseEntitiesDataFromRaw(
+      {
+        breadcrumbs: raw.breadcrumbs,
+        codings: raw.codings,
+        fields: raw.fields,
+        labelsDe: raw.labelsDe,
+        labelsEn: raw.labelsEn,
+        labelsFr: raw.labelsFr,
+        propertyTypes: raw.propertyTypes,
+        rdaElementStatuses: raw.rdaElementStatuses,
+        staNotations:
+          resolvedLang === 'fr' ? raw.staNotationsFr : raw.staNotationsDe,
+        staNotationsDe: raw.staNotationsDe,
+        schemas: raw.schemas,
+      },
+      resolvedLang
+    );
+  }
+  return liveParsedDataCache[cacheKey] as ParseEntitiesData;
+};
 
 const loadEntitiesEntries = (lang: string | undefined): EntitiesEntries => {
   const key = resolveLang(lang);
@@ -120,8 +172,17 @@ class EntityRepository {
   ): Promise<EntityEntry | undefined> {
     const lang = resolveLang(locale);
     if (live) {
-      const apiUrl = API_URL[live];
-      return await this.getLiveEntityEntry(lang, fetcher(apiUrl), entityId);
+      const apiUrl = resolveLiveApiUrl(live);
+      if (!apiUrl) {
+        throw new Error(`Unknown live source: ${live}`);
+      }
+      console.log('Fetching live entity', entityId, 'from', apiUrl);
+      return await this.getLiveEntityEntry(
+        lang,
+        fetcher(apiUrl),
+        entityId,
+        apiUrl
+      );
     }
     return this.getPreparsedEntitiesEntries(lang)[entityId];
   }
@@ -133,7 +194,8 @@ class EntityRepository {
   async getLiveEntityEntry(
     lang: string,
     fetch: ReturnType<typeof fetcher>,
-    entityId: EntityId
+    entityId: EntityId,
+    apiUrl: API_URL
   ) {
     const prefetched = {} as EntitiesRaw;
     // prefetch to parse without async
@@ -155,12 +217,11 @@ class EntityRepository {
 
     const entity = prefetched[entityId];
     if (entity) {
-      const data = parseSparqlData(reader[DataState.raw], lang);
       const parsedEntities = parseEntities({
         rawEntities: { [entityId]: entity },
         getRawEntityById: (id: EntityId) => prefetched[id],
         lang,
-        data: data,
+        data: await loadLiveEntitiesData(lang, fetch, apiUrl),
       });
 
       return parsedEntities[entityId];

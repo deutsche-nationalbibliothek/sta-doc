@@ -19,9 +19,19 @@ export default async function handler(
     if (!entityId) {
       return res.status(400).json({ message: 'entityId is required' });
     }
-    const live = req.query.live ? req.query.live as FetchingParam : undefined;
+    const live = req.query.live
+      ? (req.query.live as FetchingParam)
+      : undefined;
     const entityData = await entityRepository.get(entityId, locale, live);
-    if (live === undefined){ res.setHeader('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');}
+    if (!entityData) {
+      return res.status(404).json({ message: 'Entity not found' });
+    }
+    if (live === undefined) {
+      res.setHeader(
+        'Cache-Control',
+        'public, max-age=3600, stale-while-revalidate=86400'
+      );
+    }
 
     return res.status(200).json(entityData);
   } catch (error: unknown) {

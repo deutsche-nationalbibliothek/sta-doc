@@ -23,10 +23,9 @@ import { FieldsRaw } from '../../../types/raw/field';
 
 export enum API_URL {
   host = 'https://sta.dnb.de',
-  // host = 'https://edit.sta.dnb.de',
-  test = 'http://lab.sta.dnb.de',
-  prod = 'https://edit.sta.dnb.de',
   live = 'https://sta.dnb.de',
+  prod = 'https://edit.sta.dnb.de',
+  test = 'http://lab.sta.dnb.de',
 }
 
 /**
@@ -154,6 +153,47 @@ export const fetcher = (apiUrl = API_URL.host) => {
   const rdaElementStatuses = async () =>
     await rdaElementStatusesFetcher(apiUrl);
 
+  const lookupRaw = async () => {
+    const [
+      breadcrumbsData,
+      codingsData,
+      fieldsData,
+      labelsDe,
+      labelsEn,
+      labelsFr,
+      propertyTypesData,
+      staNotationsDeData,
+      staNotationsFrData,
+      schemasData,
+      rdaElementStatusesData,
+    ] = await Promise.all([
+      breadcrumbs(),
+      codings(),
+      fields(),
+      labels.de(),
+      labels.en(),
+      labels.fr(),
+      propertyTypes(),
+      staNotations(),
+      staNotationsFr(),
+      schemas(),
+      rdaElementStatuses(),
+    ]);
+    return {
+      breadcrumbs: breadcrumbsData,
+      codings: codingsData,
+      fields: fieldsData,
+      labelsDe,
+      labelsEn,
+      labelsFr,
+      propertyTypes: propertyTypesData,
+      staNotationsDe: staNotationsDeData,
+      staNotationsFr: staNotationsFrData,
+      schemas: schemasData,
+      rdaElementStatuses: rdaElementStatusesData,
+    };
+  };
+
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
@@ -187,6 +227,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
     labels,
     staNotations,
     staNotationsFr,
+    lookupRaw,
     fetchAll,
     propertyItemList,
     propertyTypes,

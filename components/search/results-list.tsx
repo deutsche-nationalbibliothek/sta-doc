@@ -1,9 +1,12 @@
 import { EntityLink } from '@/entity/components/preview/link';
 import { QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
-import { uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
+import {
+  collectSearchSnippets,
+  firstStaNotationLabel,
+} from './snippets';
 
 interface SearchResultsProps {
   queryResult: QueryResult;
@@ -53,26 +56,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
-            const normalizedQuery = query.toLowerCase().replace(/"+/g, '');
-
-            const headlineMatches = uniq<string>(
-              doc['headline-text-search'].filter(
-                (docValue: string) =>
-                  docValue.toLowerCase().includes(normalizedQuery) &&
-                  docValue !== doc['headline.title'][0]
-              )
-            );
-
-            const fulltextMatches: string[] = uniq(
-              (doc['full-text-search'] ?? []).filter(
-                (docValue: string) =>
-                  docValue !== doc['headline.title'][0] &&
-                  headlineMatches.every(
-                    (headlineMatch) => headlineMatch !== docValue
-                  ) &&
-                  docValue.toLowerCase().includes(normalizedQuery)
-              )
-            );
+            const { staNotationMatch, headlineMatches, fulltextMatches } =
+              collectSearchSnippets(doc, query);
 
             return 'headline-text-search' in doc ? (
               <NamespaceThemeConfigProvider
@@ -84,12 +69,24 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
                     label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.labelDe'][0]}`}
-                    staNotationLabel={doc.staNotationLabel.toString()}
+                    staNotationLabel={firstStaNotationLabel(
+                      doc.staNotationLabel
+                    )}
                     id={doc.id}
                   />
                   <ul>
+                    {staNotationMatch && (
+                      <li key="sta-notation">
+                        <SearchResultListItem
+                          onCloseDrawer={onCloseDrawer}
+                          isFullTextSearchMatch
+                          doc={doc}
+                          matchedValue={staNotationMatch}
+                        />
+                      </li>
+                    )}
                     {headlineMatches.map((matchedValue, index2) => (
-                      <li key={index2}>
+                      <li key={`headline-${index2}`}>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isHeadlineTextSearchMatch
@@ -99,7 +96,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     ))}
                     {fulltextMatches.map((matchedValue, index2) => (
-                      <li key={index2}>
+                      <li key={`fulltext-${index2}`}>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch

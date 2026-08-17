@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const scoreLevel2 = `headline.title:*${word}*^20`;
       const scoreLevel3 = `headline-text-search:${word}^20`;
       const scoreLevel4 = `headline-text-search:*${word}*^10`;
-      const scoreLevel5 = `staNotationLabel:${word}*^10`;
+      const scoreLevel5 = `(staNotationLabel:${word}^50 OR staNotationLabel:${word.toLowerCase()}*^40)`;
       const scoreLevel6 = `full-text-search:${word}^10`;
       if (index == 0) {
         statementScore1 += scoreLevel1;

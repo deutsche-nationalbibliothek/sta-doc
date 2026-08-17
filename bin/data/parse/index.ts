@@ -443,6 +443,62 @@ export interface ParsedAllFromRead {
   rdaElementStatuses: RdaElementStatuses;
 }
 
+export interface SparqlLookupRaw {
+  breadcrumbs: BreadcrumbsRaw;
+  codings: CodingsRaw;
+  fields: FieldsRaw;
+  labelsDe: LabelDeRaws;
+  labelsEn: LabelEnRaws;
+  labelsFr: LabelFrRaws;
+  propertyTypes: PropertyTypesRaw;
+  rdaElementStatuses: RdaElementStatusesRaw;
+  staNotations: StaNotationsRaw;
+  staNotationsDe: StaNotationsRaw;
+  schemas: SchemasRaw;
+}
+
+export const parseEntitiesDataFromRaw = (
+  raw: SparqlLookupRaw,
+  lang: string
+): ParseEntitiesData => {
+  const staNotations = staNotationsParser(raw.staNotations);
+  const staNotationsDe = staNotationsParser(raw.staNotationsDe);
+  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs);
+  const codings = codingsParser(raw.codings);
+  const schemas = schemasParser(raw.schemas);
+  const propertyTypes = propertyTypesParser(raw.propertyTypes);
+  const labelsDe = labelsParser.de(raw.labelsDe);
+  const labelsEn = labelsParser.en(raw.labelsEn);
+  const labelsFr = labelsParser.fr(raw.labelsFr);
+  const fields = fieldsParser(
+    raw.fields,
+    staNotationsDe,
+    codings,
+    labelsDe,
+    labelsFr
+  );
+  const rdaElementStatuses = rdaElementStatusesParser(
+    raw.rdaElementStatuses,
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  );
+  return {
+    breadcrumbs,
+    codings,
+    fields,
+    labelsDe,
+    labelsEn,
+    labelsFr,
+    propertyTypes,
+    rdaElementStatuses,
+    staNotations,
+    schemas,
+  };
+};
+
 export const parseSparqlData = (
   read: (typeof reader)['raw'],
   lang: string
