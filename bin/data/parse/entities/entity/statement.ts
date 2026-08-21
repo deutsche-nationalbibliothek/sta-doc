@@ -116,6 +116,7 @@ export const parseStatement = (props: ParseStatementProps) => {
         prevParsedEntities: [...prevParsedEntities, embeddedEntityId],
         isRdaRessourceEntityParam,
         embedded: true,
+        embedHeadlineBaseline: props.embedHeadlineBaseline,
         noHeadline: property === Property['example(s)'],
         data,
         getRawEntityById,

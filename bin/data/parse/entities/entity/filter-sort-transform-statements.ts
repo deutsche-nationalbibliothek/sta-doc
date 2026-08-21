@@ -11,7 +11,8 @@ import { Item } from '../../../../../types/item';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
 
 export interface FilterSortTransformStatementsProps
-  extends Required<ParseEntityProps> {
+  extends Required<Omit<ParseEntityProps, 'embedHeadlineBaseline'>> {
+  embedHeadlineBaseline?: number | undefined;
   elementOfId: EntityId;
   relevantGroup: Groups;
   occurrences: Record<EntityId, Claim[]>;

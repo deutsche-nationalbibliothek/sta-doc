@@ -26,6 +26,8 @@ import { headlinesParser } from './util';
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
   currentHeadlineLevel?: number;
+  /** Snapshot of last headline.level when entering the outermost embed. */
+  embedHeadlineBaseline?: number;
   embedded?: boolean;
   entityId: EntityId;
   // elementOfId?: EntityId;
@@ -54,7 +56,10 @@ export const parseRawEntity = (
     props.entityId
   );
 
-  const defaultedProps: Required<Omit<ParseEntityProps, 'parsedEntityCache'>> & Pick<ParseEntityProps, 'parsedEntityCache'> = {
+  const defaultedProps: Required<
+    Omit<ParseEntityProps, 'parsedEntityCache' | 'embedHeadlineBaseline'>
+  > &
+    Pick<ParseEntityProps, 'parsedEntityCache' | 'embedHeadlineBaseline'> = {
     headlines: [],
     currentHeadlineLevel: 1,
     prevParsedEntities: [],
@@ -63,6 +68,17 @@ export const parseRawEntity = (
     noHeadline: false,
     ...props,
   };
+
+  if (defaultedProps.embedded) {
+    if (props.embedHeadlineBaseline === undefined) {
+      defaultedProps.embedHeadlineBaseline =
+        defaultedProps.headlines.length > 0
+          ? defaultedProps.headlines[defaultedProps.headlines.length - 1].level
+          : defaultedProps.currentHeadlineLevel;
+    }
+  } else {
+    defaultedProps.embedHeadlineBaseline = undefined;
+  }
 
   const {
     data,

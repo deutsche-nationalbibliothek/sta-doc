@@ -9,6 +9,7 @@ import { Property } from '../../../../../../types/property';
 import { Claim, StatementRaw } from '../../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../../utils/constants';
 import { ParseStatementsProps } from '../statements';
+import { layoutHeadingLevel } from '../util';
 
 interface ParseStringValue extends Required<ParseStatementsProps> {
   keyAccessOcc: <T>(...keys: string[]) => T;
@@ -30,6 +31,7 @@ export const parseStringValue = ({
   data,
   noHeadline,
   currentHeadlineLevel,
+  embedHeadlineBaseline,
   isMissingValue,
   lang
 }: ParseStringValue): Omit<StringValue, keyof CommonValue> | undefined => {
@@ -62,8 +64,11 @@ export const parseStringValue = ({
 
   const headingIndex = headings.findIndex((heading) => heading === itemType);
   const hasHeadline = !isMissingValue && headingIndex >= 0;
-  const nextHeadlineLevel = 
-    currentHeadlineLevel + headingIndex
+  const nextHeadlineLevel = layoutHeadingLevel(
+    headingIndex,
+    currentHeadlineLevel,
+    embedHeadlineBaseline
+  );
 
   return {
     value,

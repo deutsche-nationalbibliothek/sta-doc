@@ -19,6 +19,20 @@ export type AddHeadline = (
   level: number;
 };
 
+/** Layout heading: parent uses L + headingIndex. In an embed, first-order is at least last known + 1. */
+export const layoutHeadingLevel = (
+  headingIndex: number,
+  currentHeadlineLevel: number,
+  embedHeadlineBaseline?: number
+): number => {
+  if (embedHeadlineBaseline !== undefined) {
+    return (
+      Math.max(currentHeadlineLevel, embedHeadlineBaseline + 1) + headingIndex
+    );
+  }
+  return currentHeadlineLevel + headingIndex;
+};
+
 export const headlinesParser = (headlines: Headline[], noHeadline = false) => {
   const addHeadline = (
     title: string,
