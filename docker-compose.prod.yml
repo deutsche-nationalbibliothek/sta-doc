@@ -2,6 +2,8 @@ services:
   nextjs:
     build:
       dockerfile: ./docker/nextjs/Dockerfile.prod
+    environment:
+      - SOLR_HOST=solr
     extra_hosts:
       - "edit.sta.dnb.de:10.10.14.210"
       # - "lab.sta.dnb.de:10.10.14.226"
@@ -11,8 +13,8 @@ services:
           - next.svc
 
   solr:
-    # ports:
-      # - '8983:8983'
+    ports:
+      - '127.0.0.1:8983:8983'
     user: '8983:8983'
     networks:
       dnb-wikibase_default:

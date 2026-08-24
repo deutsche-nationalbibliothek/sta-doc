@@ -1,14 +1,21 @@
+import { execFileSync } from 'child_process';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { reader } from '../data/read';
 import { DataState } from '../data/utils';
 import { EntityId } from '../../types/entity-id';
 import { EntitiesEntries } from '../../types/parsed/entity';
 import {
   solrAddDocuments,
+  solrAdminIsUp,
   solrBaseUrl,
   solrCommit,
+  solrCreateCore,
   solrDeleteByIds,
+  solrHostCandidates,
   solrListFilenames,
   solrPing,
+  useSolrHost,
 } from '../../lib/solr/client';
 import {
   SOLR_INDEX_LANGS,
@@ -130,15 +137,88 @@ const chunk = <T>(items: T[], size: number): T[][] => {
   return chunks;
 };
 
+const repoRoot = join(__dirname, '../..');
+
+const createCollectionViaDocker = (): boolean => {
+  const composePairs = [
+    ['docker-compose.yml', 'docker-compose.prod.yml'],
+    ['docker-compose.yml', 'docker-compose.dev.yml'],
+  ];
+
+  for (const files of composePairs) {
+    if (!files.every((file) => existsSync(join(repoRoot, file)))) {
+      continue;
+    }
+    try {
+      execFileSync(
+        'docker-compose',
+        [
+          ...files.flatMap((file) => ['-f', file]),
+          'exec',
+          '-T',
+          'solr',
+          'bash',
+          'index.sh',
+        ],
+        { cwd: repoRoot, stdio: 'inherit' }
+      );
+      return true;
+    } catch {
+      // Try the other compose stack (prod vs dev).
+    }
+  }
+
+  return false;
+};
+
+const pingAnyHost = async (): Promise<string | undefined> => {
+  for (const host of solrHostCandidates()) {
+    useSolrHost(host);
+    if (await solrPing()) {
+      return host;
+    }
+  }
+  return undefined;
+};
+
+const ensureSolrCollection = async () => {
+  const reachableHost = await pingAnyHost();
+  if (reachableHost) {
+    return;
+  }
+
+  for (const host of solrHostCandidates()) {
+    useSolrHost(host);
+    if (await solrAdminIsUp()) {
+      console.log(`Creating Solr collection "entities" at ${solrBaseUrl()}`);
+      if ((await solrCreateCore()) && (await solrPing())) {
+        return;
+      }
+      break;
+    }
+  }
+
+  console.log('Creating Solr collection "entities" via the Solr container');
+  createCollectionViaDocker();
+
+  if (await pingAnyHost()) {
+    return;
+  }
+
+  const port = process.env.SOLR_PORT || process.env.solrPort || '8983';
+  const tried = solrHostCandidates()
+    .map((host) => `http://${host}:${port}/solr/entities`)
+    .join(' or ');
+  throw new Error(
+    `Solr collection "entities" is not reachable at ${tried}. ` +
+      'Start Solr first (npm run docker:up or npm run docker:dev:solr:up), then run npm run solr:index again.'
+  );
+};
+
 const indexDocuments = async (options: IndexOptions) => {
   const started = Date.now();
-  const reachable = await solrPing();
-  if (!reachable) {
-    throw new Error(
-      `Solr collection "entities" is not reachable at ${solrBaseUrl()}. ` +
-        'Start Solr and create the collection first (npm run docker:dev:solr:up, then index again).'
-    );
-  }
+  await ensureSolrCollection();
+  console.log(`Using Solr at ${solrBaseUrl()}`);
 
   const incremental = options.entityIds.length > 0;
   console.log(

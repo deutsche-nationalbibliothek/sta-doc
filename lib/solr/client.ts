@@ -7,11 +7,23 @@ export const escapeSpecialChars = (s: string): string =>
     .replace(/&&/g, '\\&\\&')
     .replace(/\|\|/g, '\\|\\|');
 
-const solrHost = () =>
-  process.env.solrHost || process.env.SOLR_HOST || 'localhost';
+export const solrHost = () =>
+  process.env.SOLR_HOST || process.env.solrHost || 'localhost';
 
-const solrPort = () =>
-  process.env.solrPort || process.env.SOLR_PORT || '8983';
+export const solrPort = () =>
+  process.env.SOLR_PORT || process.env.solrPort || '8983';
+
+export const solrHostCandidates = (): string[] => [
+  ...new Set(
+    [process.env.SOLR_HOST, process.env.solrHost, 'localhost'].filter(
+      (host): host is string => Boolean(host)
+    )
+  ),
+];
+
+export const useSolrHost = (host: string) => {
+  process.env.SOLR_HOST = host;
+};
 
 export const solrBaseUrl = () =>
   `http://${solrHost()}:${solrPort()}${SOLR_PATH}/${SOLR_CORE}`;
@@ -69,6 +81,38 @@ export const solrPing = async (): Promise<boolean> => {
   try {
     const response = await fetch(`${solrBaseUrl()}/admin/ping?wt=json`);
     return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+export const solrAdminIsUp = async (): Promise<boolean> => {
+  try {
+    const response = await fetch(
+      `http://${solrHost()}:${solrPort()}${SOLR_PATH}/admin/info/system?wt=json`
+    );
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+export const solrCreateCore = async (): Promise<boolean> => {
+  try {
+    const params = new URLSearchParams({
+      action: 'CREATE',
+      name: SOLR_CORE,
+      instanceDir: '/opt/solr-9.1.1/entities',
+      wt: 'json',
+    });
+    const response = await fetch(
+      `http://${solrHost()}:${solrPort()}${SOLR_PATH}/admin/cores?${params}`
+    );
+    if (response.ok) {
+      return true;
+    }
+    const body = await response.text();
+    return /already exists/i.test(body);
   } catch {
     return false;
   }
