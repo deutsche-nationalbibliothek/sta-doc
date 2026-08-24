@@ -10,9 +10,12 @@ export const fetchWikibase = ({
   const fetchWikiBaseRawData = async (
     id: string
   ): Promise<Record<EntityId, EntityRaw>> => {
-    const res = await fetcher<{ entities: Record<EntityId, EntityRaw> }>(
+    const res = await fetcher<{ entities?: Record<EntityId, EntityRaw> }>(
       `w/api.php?action=wbgetentities&format=json&languages=de&ids=${id}`
     );
+    if (!res?.entities) {
+      throw new Error(`wbgetentities returned no entities for ${id}`);
+    }
     return res.entities;
   };
 
@@ -26,14 +29,15 @@ export const fetchWikibase = ({
     count = 1
   ): Promise<Record<EntityId, EntityRaw>> => {
     try {
-      if (count <= 3) {
-        return await fetchWikiBaseRawData(entityId);
-      } else {
-        console.error('fetchEntity failed 3 times with', entityId);
-        return Promise.reject();
+      return await fetchWikiBaseRawData(entityId);
+    } catch (error) {
+      if (count >= 3) {
+        console.error('fetchEntity failed 3 times with', entityId, error);
+        throw error instanceof Error
+          ? error
+          : new Error(`fetchEntity failed 3 times with ${entityId}`);
       }
-    } catch {
-      console.warn('fetchEntity caught error on', entityId);
+      console.warn('fetchEntity caught error on', entityId, error);
       return await fetchEntity(entityId, count + 1);
     }
   };

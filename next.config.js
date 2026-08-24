@@ -44,6 +44,9 @@ module.exports = async () => {
       basePath: '/doc',
       solrHost: process.env.SOLR_HOST || 'localhost',
       solrPort: process.env.SOLR_PORT || '8983',
+      API_URL_LIVE: process.env.API_URL_LIVE || 'https://sta.dnb.de',
+      API_URL_PROD: process.env.API_URL_PROD || 'https://edit.sta.dnb.de',
+      API_URL_TEST: process.env.API_URL_TEST || 'http://lab.sta.dnb.de',
       NEXT_PUBLIC_VERSION: await getVersion(),
     },
     i18n: {

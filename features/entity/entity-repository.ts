@@ -204,13 +204,16 @@ class EntityRepository {
       getRawEntityById: async (entityId: EntityId) => {
         if (entityId in prefetched) {
           return prefetched[entityId];
-        } else {
+        }
+        try {
           const fetchedEntity = await fetch.entities.single(entityId);
           const prefetchedEntity = fetchedEntity[entityId];
           if (prefetchedEntity) {
             prefetched[entityId] = prefetchedEntity;
             return fetchedEntity[entityId];
           }
+        } catch (error) {
+          console.error('Failed to prefetch live entity', entityId, error);
         }
       },
     });

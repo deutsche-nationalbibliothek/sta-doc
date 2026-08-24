@@ -1,5 +1,10 @@
 import { DEV } from '..';
-import { mediawikiUrl } from '../../../lib/env';
+import {
+  apiUrlLive,
+  apiUrlProd,
+  apiUrlTest,
+  mediawikiUrl,
+} from '../../../lib/env';
 import { EntityId } from '../../../types/entity-id';
 import { BreadcrumbsRaw } from '../../../types/raw/breadcrumb';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -26,9 +31,15 @@ export const API_URL = {
   get host() {
     return mediawikiUrl();
   },
-  live: 'https://sta.dnb.de',
-  prod: 'https://edit.sta.dnb.de',
-  test: 'http://lab.sta.dnb.de',
+  get live() {
+    return apiUrlLive();
+  },
+  get prod() {
+    return apiUrlProd();
+  },
+  get test() {
+    return apiUrlTest();
+  },
 };
 
 export type API_URL = string;
