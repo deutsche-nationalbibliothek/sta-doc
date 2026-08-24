@@ -5,8 +5,8 @@ services:
     environment:
       - SOLR_HOST=solr
     extra_hosts:
-      - "edit.sta.dnb.de:10.10.14.210"
-      # - "lab.sta.dnb.de:10.10.14.226"
+      # Hostname comes from NEXT_PUBLIC_URL (npm run docker:up); IP from IP_ADDRESS.
+      - "${MEDIAWIKI_HOST}:${IP_ADDRESS}"
     networks:
       dnb-wikibase_default:
         aliases:

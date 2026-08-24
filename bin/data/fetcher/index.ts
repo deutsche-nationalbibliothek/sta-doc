@@ -1,4 +1,5 @@
 import { DEV } from '..';
+import { mediawikiUrl } from '../../../lib/env';
 import { EntityId } from '../../../types/entity-id';
 import { BreadcrumbsRaw } from '../../../types/raw/breadcrumb';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -21,12 +22,16 @@ import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
 import { FieldsRaw } from '../../../types/raw/field';
 
-export enum API_URL {
-  host = 'https://sta.dnb.de',
-  live = 'https://sta.dnb.de',
-  prod = 'https://edit.sta.dnb.de',
-  test = 'http://lab.sta.dnb.de',
-}
+export const API_URL = {
+  get host() {
+    return mediawikiUrl();
+  },
+  live: 'https://sta.dnb.de',
+  prod: 'https://edit.sta.dnb.de',
+  test: 'http://lab.sta.dnb.de',
+};
+
+export type API_URL = string;
 
 /**
  * @param entitiesIndexKeys - complete set of all relevant Entity Ids

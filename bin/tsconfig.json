@@ -38,6 +38,7 @@
     "../types",
     "../utils",
     "../lib/solr/**/*.ts",
+    "../lib/env.ts",
     "../bin/**/*.ts"
   ]
 }
