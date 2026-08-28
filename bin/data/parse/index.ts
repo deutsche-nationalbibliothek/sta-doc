@@ -277,13 +277,26 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
   }, {} as StaNotations);
 };
 
-export const breadcrumbsParser = (breadcrumbs: BreadcrumbsRaw) => {
+export const breadcrumbsParser = (
+  breadcrumbs: BreadcrumbsRaw,
+  staNotations?: StaNotations
+) => {
   console.log('\tParsing Breadcrumbs');
+  const staNotationToId = staNotations
+    ? Object.values(staNotations).reduce(
+        (acc, staNotation) => {
+          acc[staNotation.label] = staNotation.id;
+          return acc;
+        },
+        {} as Record<string, EntityId>
+      )
+    : {};
   return breadcrumbs.reduce((acc, entity: BreadcrumbRaw) => {
+    const staNotation = entity.staNotation.value.toUpperCase();
     acc[entity.eId.value] = {
-      id: entity.eId.value,
+      id: staNotationToId[staNotation] ?? entity.eId.value,
       label: entity.elementLabel.value,
-      staNotation: entity.staNotation.value.toUpperCase(),
+      staNotation,
     };
     return acc;
   }, {} as Breadcrumbs);
@@ -463,7 +476,7 @@ export const parseEntitiesDataFromRaw = (
 ): ParseEntitiesData => {
   const staNotations = staNotationsParser(raw.staNotations);
   const staNotationsDe = staNotationsParser(raw.staNotationsDe);
-  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs);
+  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs, staNotations);
   const codings = codingsParser(raw.codings);
   const schemas = schemasParser(raw.schemas);
   const propertyTypes = propertyTypesParser(raw.propertyTypes);
@@ -505,7 +518,7 @@ export const parseSparqlData = (
 ): ParsedSparqlData => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
-  const breadcrumbs = breadcrumbsParser(read.breadcrumbs());
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
   const codings = codingsParser(read.codings());
   const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());
@@ -551,7 +564,7 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
-  const breadcrumbs = breadcrumbsParser(read.breadcrumbs());
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
   const codings = codingsParser(read.codings());
   const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());

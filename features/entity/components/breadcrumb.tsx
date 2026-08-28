@@ -54,10 +54,14 @@ export const BreadcrumbComp: React.FC = memo(() => {
         }}
         items={breadcrumbItems.map(({ key, title }, index) => {
           const isLastIndex = index === breadcrumbItems.length - 1;
+          const isElementOfLink =
+            !!entity?.breadcrumbLink &&
+            !!entity.elementOf &&
+            title === entity.elementOf;
           return {
             title: (
               <>
-                {entity?.breadcrumbLink && index == 1 ? (
+                {isElementOfLink && entity.breadcrumbLink ? (
                   <EntityLink
                     id={entity.breadcrumbLink.id}
                     staNotationLabel={entity.breadcrumbLink.staNotation}

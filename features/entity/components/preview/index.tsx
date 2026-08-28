@@ -45,17 +45,21 @@ export const PreviewFetcher: React.FC<PreviewProps> = ({ entityId }) => {
       }}
     >
       <FetchEntity entityId={entityId} ignoreFetchingQueryParamString={true}>
-        {({ entity }) => (
-          <div
-            css={{
-              maxWidth: Math.min(window.innerWidth, 960),
-              maxHeight: Math.min(window.innerHeight, 480),
-              overflowX: 'auto',
-            }}
-          >
-            <EntityPreviewContent entity={entity} />
-          </div>
-        )}
+        {(entityEntry) =>
+          entityEntry?.entity ? (
+            <div
+              css={{
+                maxWidth: Math.min(window.innerWidth, 960),
+                maxHeight: Math.min(window.innerHeight, 480),
+                overflowX: 'auto',
+              }}
+            >
+              <EntityPreviewContent entity={entityEntry.entity} />
+            </div>
+          ) : (
+            <></>
+          )
+        }
       </FetchEntity>
     </div>
   );

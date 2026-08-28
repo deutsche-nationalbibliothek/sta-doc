@@ -165,26 +165,41 @@ class EntityRepository {
       });
   };
 
+  resolveEntityId(entityId: string, lang: string | undefined): EntityId {
+    const resolvedLang = resolveLang(lang);
+    const id = entityId as EntityId;
+    const preparsed = this.getPreparsedEntitiesEntries(resolvedLang);
+    if (preparsed[id]) {
+      return id;
+    }
+    const mappedId = this.getSsgIndex(resolvedLang).byStaNotation[entityId]?.id;
+    if (mappedId && preparsed[mappedId]) {
+      return mappedId;
+    }
+    return id;
+  }
+
   async get(
     entityId: EntityId,
     locale: string,
     live: FetchingParam | undefined
   ): Promise<EntityEntry | undefined> {
     const lang = resolveLang(locale);
+    const resolvedId = this.resolveEntityId(entityId, lang);
     if (live) {
       const apiUrl = resolveLiveApiUrl(live);
       if (!apiUrl) {
         throw new Error(`Unknown live source: ${live}`);
       }
-      console.log('Fetching live entity', entityId, 'from', apiUrl);
+      console.log('Fetching live entity', resolvedId, 'from', apiUrl);
       return await this.getLiveEntityEntry(
         lang,
         fetcher(apiUrl),
-        entityId,
+        resolvedId,
         apiUrl
       );
     }
-    return this.getPreparsedEntitiesEntries(lang)[entityId];
+    return this.getPreparsedEntitiesEntries(lang)[resolvedId];
   }
 
   getPreparsedEntitiesEntries(lang: string | undefined): EntitiesEntries {

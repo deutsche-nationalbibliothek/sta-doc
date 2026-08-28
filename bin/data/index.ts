@@ -66,7 +66,8 @@ export const DEV = false;
   };
   const parseRawAndWriteBreadcrumbs = () => {
     const readRaw = reader[DataState.raw];
-    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs())
+    const staNotations = staNotationsParser(readRaw.staNotations('de'));
+    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs(), staNotations)
     const data = { breadcrumbs: breadcrumbs }
     writer.parsed(data).breadcrumbs();
   }

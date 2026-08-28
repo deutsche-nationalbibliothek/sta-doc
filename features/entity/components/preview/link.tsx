@@ -63,7 +63,7 @@ export const EntityLink: React.FC<EntityLinkProps> = ({
   return (
     <EntityPreview
       tooltipPlacement={tooltipPlacement}
-      entityId={id}
+      entityId={staNotationLabel || id}
       label={label || 'No value'}
       showPopover={!!staNotationLabel}
     >
