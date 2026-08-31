@@ -1,4 +1,5 @@
-import { read } from 'fs';
+import { read, existsSync } from 'fs';
+import fs from "fs";
 import { EntityId } from '../../types/entity-id';
 // import { EntitiesEntries } from '../../types/parsed/entity';
 import {
@@ -29,6 +30,16 @@ import {
 } from './write';
 
 export const DEV = false;
+
+const checkDirDataAndWrite = () => {
+  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
+
+  const directories = ["./../data", "./../data/raw", "./../data/parsed"]
+
+  directories.forEach((dir) => {if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()){
+    console.log(`Directory ${dir} already exists.`)
+  } else {fs.mkdirSync(dir, {recursive: true} )}} )
+}
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
@@ -167,6 +178,7 @@ export const DEV = false;
   };
 
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
+    checkDirDataAndWrite() // hier nochmal prüfen, ob richtige Stelle
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
       let lang = 'de';
