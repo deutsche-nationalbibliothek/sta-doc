@@ -3,7 +3,10 @@ services:
     build:
       dockerfile: ./docker/nextjs/Dockerfile.dev
     environment:
-      - SOLR_HOST=solr
+      SOLR_HOST: solr
+      API_URL_LIVE: "${API_URL_LIVE:-https://sta.dnb.de}"
+      API_URL_PROD: "${API_URL_PROD:-https://edit.sta.dnb.de}"
+      API_URL_TEST: "${API_URL_TEST:-http://lab.sta.dnb.de}"
     ports:
       - '3000:3000'
     depends_on:
