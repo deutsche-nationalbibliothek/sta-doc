@@ -1,0 +1,1 @@
+console.log('\n Please run "npm run data" to get the required data before starting the app with "npm run dev". Without the data, the app is not executable.\n \n ');

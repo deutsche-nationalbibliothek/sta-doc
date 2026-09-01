@@ -34,15 +34,13 @@ import { fileURLToPath } from 'url';
 export const DEV = false;
 
 const ensureDataDirectories = async () => {
-  console.log("Check wether directory ./data and related subdirectories ./data/raw and ./data/parsed already exist within root directory");
+  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
 
-  // const directories = ["./data", "./data/raw", "./data/parsed"]
+  const projectRoot = process.cwd();
 
-  // const projectRoot = process.cwd();
-
-  const fileName = fileURLToPath(import.meta.url)
-  const dirName = path.dirname(fileName)
-  const projectRoot = path.resolve(dirName, "..")
+  // const fileName = fileURLToPath(import.meta.url)
+  // const dirName = path.dirname(fileName)
+  // const projectRoot = path.resolve(dirName, "..")
 
   const directories = ["data", "data/raw", "data/parsed"]
   .map(dir => path.join(projectRoot, dir))
