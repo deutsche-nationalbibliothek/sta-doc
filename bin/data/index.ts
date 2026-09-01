@@ -1,5 +1,6 @@
 import { read, existsSync } from 'fs';
-import fs from "fs";
+// import fs from "fs";
+import fs from "fs/promises";
 import { EntityId } from '../../types/entity-id';
 // import { EntitiesEntries } from '../../types/parsed/entity';
 import {
@@ -31,14 +32,25 @@ import {
 
 export const DEV = false;
 
-const checkDirDataAndWrite = () => {
+// const checkDirDataAndWrite = () => {
+//   console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
+
+//   const directories = ["./../data", "./../data/raw", "./../data/parsed"]
+
+//   directories.forEach((dir) => {if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()){
+//     console.log(`Directory ${dir} already exists.`)
+//   } else {console.log("Creating directories because they do not exist yet."); fs.mkdirSync(dir, {recursive: true} )}} )
+// }
+
+const ensureDataDirectories = async () => {
   console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
 
   const directories = ["./../data", "./../data/raw", "./../data/parsed"]
 
-  directories.forEach((dir) => {if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()){
-    console.log(`Directory ${dir} already exists.`)
-  } else {fs.mkdirSync(dir, {recursive: true} )}} )
+  for (const dir of directories) {try {
+    await fs.mkdir(dir, {recursive: true});
+    console.log(`Directory ${dir} already exists or was created.`)
+  } catch(e) {console.error(`Could not create ${dir}`, e); throw e}}
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -178,7 +190,7 @@ const checkDirDataAndWrite = () => {
   };
 
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
-    checkDirDataAndWrite() // hier nochmal prüfen, ob richtige Stelle
+    await ensureDataDirectories()
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
       let lang = 'de';
