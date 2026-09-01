@@ -1,1 +1,1 @@
-console.log('\n Please run "npm run data" to get the required data before starting the app with "npm run dev". Without the data, the app is not executable.\n \n ');
+console.log('\n Please run "npm run data" from the root directory before starting the app with "npm run dev". Without the required data, the app cannot be started.\n \n ');
