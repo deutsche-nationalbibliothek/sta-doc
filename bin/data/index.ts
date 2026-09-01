@@ -1,6 +1,6 @@
 import { read, existsSync } from 'fs';
-// import fs from "fs";
 import fs from "fs/promises";
+import path from "path";
 import { EntityId } from '../../types/entity-id';
 // import { EntitiesEntries } from '../../types/parsed/entity';
 import {
@@ -29,23 +29,23 @@ import {
   propertiesItemsList as propertiesItemsListWriter,
   writer,
 } from './write';
+import { fileURLToPath } from 'url';
 
 export const DEV = false;
 
-// const checkDirDataAndWrite = () => {
-//   console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
-
-//   const directories = ["./../data", "./../data/raw", "./../data/parsed"]
-
-//   directories.forEach((dir) => {if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()){
-//     console.log(`Directory ${dir} already exists.`)
-//   } else {console.log("Creating directories because they do not exist yet."); fs.mkdirSync(dir, {recursive: true} )}} )
-// }
-
 const ensureDataDirectories = async () => {
-  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
+  console.log("Check wether directory ./data and related subdirectories ./data/raw and ./data/parsed already exist within root directory");
 
-  const directories = ["./../data", "./../data/raw", "./../data/parsed"]
+  // const directories = ["./data", "./data/raw", "./data/parsed"]
+
+  // const projectRoot = process.cwd();
+
+  const fileName = fileURLToPath(import.meta.url)
+  const dirName = path.dirname(fileName)
+  const projectRoot = path.resolve(dirName, "..")
+
+  const directories = ["data", "data/raw", "data/parsed"]
+  .map(dir => path.join(projectRoot, dir))
 
   for (const dir of directories) {try {
     await fs.mkdir(dir, {recursive: true});
