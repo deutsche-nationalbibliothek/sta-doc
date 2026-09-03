@@ -20,6 +20,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: string;
     start: string;
   };
+
+  console.log(requestedQuery, start); // hinterher wieder entfernen
+
   const buildQueryStatement = (requestedQuery: string) => {
     let statementScore1 = '';
     let statementScore2 = '';
@@ -44,7 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const scoreLevel2 = `headline.title:*${word}*^20`;
       const scoreLevel3 = `headline-text-search:${word}^20`;
       const scoreLevel4 = `headline-text-search:*${word}*^10`;
-      const scoreLevel5 = `(staNotationLabel:${word}^50 OR staNotationLabel:${word.toLowerCase()}*^40)`;
+      const scoreLevel5 = `(staNotationLabel:${word}^50 OR staNotationLabel:${word.toLowerCase()}*^40)`; // hier liegt das problem
       const scoreLevel6 = `full-text-search:${word}^10`;
       if (index == 0) {
         statementScore1 += scoreLevel1;
@@ -66,14 +69,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   };
   const query = buildQueryStatement(requestedQuery);
 
+  // const query = `(headline.title:"bewegtes bild") OR (headline.title:*"bewegtes bild"*) OR (headline-text-search:"bewegtes bild") OR (headline-text-search: *"bewegtes bild"*) OR (staNotationLabel:"bewegtes bild") OR (staNotationLabel:"bewegtes bild"*) OR (full-text-search:"bewegtes bild")`;
+
+  // const query = `((headline.title:"bewegtes bild"^30) OR (headline.title:*"bewegtes bild"*^20) OR (headline-text-search:"bewegtes bild"^20) OR (headline-text-search:*"bewegtes bild"*^10) OR ((staNotationLabel:"bewegtes bild"^50 OR staNotationLabel:"bewegtes bild"*^40)) OR (full-text-search:"bewegtes bild"^10))`;
+
+  // const query = `(staNotationLabel:"bewegtes bild" OR staNotationLabel:"bewegtes bild"*)`;
+
+  // const query = `staNotationLabel:"bewegtes bild"* OR staNotationLabel:"bewegtes bild"`; // liefert 0 Treffer
+
+  // const query = `staNotationLabel:"bewegtes bild" OR staNotationLabel:"bewegtes bild"*`; // liefert 3680 Treffer
+
   const queryResult = await solrGet<QueryResult>('select', {
     q: query,
     'q.op': 'AND',
     sort: 'score desc',
     fl: SEARCH_RESULT_FIELDS,
     rows: 10,
+    // debug='all',
     ...(start ? { start: Number(start) } : {}),
   });
+
+  console.log("solr query:", query);
+  console.log("solr query result:", queryResult)
+  console.log("solr num found:", queryResult.response?.numFound);
+  console.log("solr docs:", queryResult.response?.docs?.length);
 
   res.status(200).json(queryResult);
 };
