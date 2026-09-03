@@ -8,7 +8,6 @@ The project runs on Windows using:
 - **Docker Desktop**
 - **VS Code**
 - **Git**
-- **Node.js and npm**
 
 > **Important:** The repository must be located inside the Ubuntu / WSL filesystem.
 > Do **not** clone or work with the repository under `/mnt/c/...` or directly on the Windows filesystem.
@@ -21,7 +20,6 @@ We will set up all required tools and components together in the following:
 - Docker Desktop with WSL integration
 - VS Code with the WSL extension
 - Git
-- Node.js and npm inside Ubuntu
 
 Follow the steps below in order to prepare your Windows development environment.
 
@@ -43,7 +41,7 @@ After the restart, open **Ubuntu** from the Windows Start menu and complete the 
 
 ### Verify WSL version
 
-In PowerShell, run:
+In **PowerShell**, run:
 
 ```powershell
 wsl --list --verbose
@@ -70,26 +68,15 @@ In Docker Desktop, go to:
 
 Enable the integration for **Ubuntu** and apply the changes.
 
-Then open Ubuntu and verify that Docker is available:
+Then open the **Ubuntu (WSL)** and verify that Docker is available:
 
 ```bash
 docker --version
 ```
 
-## 4. Check Node.js and npm
+If Docker is installed correctly, the command will display the installed Docker version.
 
-Open **Ubuntu** and check whether Node.js and npm are installed:
-
-```bash
-node --version
-npm --version
-```
-
-If both commands return a version number, no additional installation is required.
-
-If one of the commands is not available, install Node.js and npm before continuing.
-
-## 5. Clone the repository inside Ubuntu
+## 4. Clone the repository inside Ubuntu
 
 > **Important:** Clone the repository directly into the Linux filesystem used by Ubuntu.
 
@@ -102,12 +89,10 @@ git clone https://github.com/deutsche-nationalbibliothek/sta-doc.git
 cd sta-doc
 ```
 
-> Do **not** clone it into `C:\...` and access it from WSL through `/mnt/c/...`. 
-
 The project should be located somewhere similar to:
 
 ```text
-/linux/home/<user>/projects/sta-doc
+/home/<user>/projects/sta-doc
 ```
 
 and **not**:
@@ -116,9 +101,9 @@ and **not**:
 /mnt/c/Users/<user>/...
 ```
 
-Keeping the repository inside the WSL filesystem avoids filesystem-related compatibility issues!!!
+Keeping the repository inside the WSL filesystem avoids filesystem-related compatibility issues!
 
-## 6. Open the project in VS Code
+## 5. Open the project in VS Code
 
 From the Ubuntu terminal, inside the project directory, run:
 
@@ -128,17 +113,9 @@ code .
 
 VS Code should open the project in the **WSL / Ubuntu environment** then.
 
-Make sure the VS Code WSL extension is installed and that the project is connected to WSL.
+> Make sure the VS Code WSL extension is installed and that the project is connected to WSL.
 
-## 7. Install project dependencies
-
-From the project root, run:
-
-```bash
-npm install
-```
-
-## 8. Fetch the project data
+## 6. Fetch the project data
 
 Before starting the frontend, the required project data must be fetched. Therefore, from the project root, run:
 
@@ -148,7 +125,7 @@ npm run data
 
 Make sure this command completes successfully before continuing.
 
-## 9. Build the Docker images
+## 7. Build the Docker images
 
 The development environment uses Docker for the required services, including:
 
@@ -161,7 +138,7 @@ Build the development images:
 npm run docker:dev:build
 ```
 
-## 10. Start the development environment
+## 8. Start the development environment
 
 Start the Docker-based development environment:
 
@@ -175,7 +152,7 @@ Make sure the required containers are running:
 docker ps
 ```
 
-## 11. Start the frontend
+## 9. Start the frontend
 
 Once the required data has been fetched and the development environment is running, start the Next.js frontend:
 
@@ -191,7 +168,7 @@ Solr should be available at:
 
 http://localhost:8983
 
-## 12. Create or update the Solr index
+## 10. Create or update the Solr index
 
 If the Solr index needs to be initialized or updated, run:
 
@@ -210,9 +187,6 @@ For an already configured Windows / WSL machine, the basic workflow is:
 
 # Go to the project
 cd ~/projects/sta-doc
-
-# Install dependencies (only required after a fresh clone)
-npm install
 
 # Fetch or update project data (This is only required when setting up the project for the first time. Afterwards, run it only if you need to fetch or update the project data.)
 npm run data
