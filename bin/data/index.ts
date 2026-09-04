@@ -1,4 +1,6 @@
-import { read } from 'fs';
+import { read, existsSync } from 'fs';
+import fs from "fs/promises";
+import path from "path";
 import { EntityId } from '../../types/entity-id';
 // import { EntitiesEntries } from '../../types/parsed/entity';
 import {
@@ -29,6 +31,20 @@ import {
 } from './write';
 
 export const DEV = false;
+
+const ensureDataDirectories = async () => {
+  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
+  
+  const projectRoot = process.cwd();
+
+  const directories = ["data", "data/raw", "data/parsed"]
+  .map(dir => path.join(projectRoot, dir))
+
+  for (const dir of directories) {try {
+    await fs.mkdir(dir, {recursive: true});
+    console.log(`Directory ${dir} already exists or was created.`)
+  } catch(e) {console.error(`Could not create ${dir}`, e); throw e}}
+}
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
@@ -167,6 +183,7 @@ export const DEV = false;
   };
 
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
+    await ensureDataDirectories()
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
       let lang = 'de';
