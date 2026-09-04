@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const buildQueryStatement = (requestedQuery: string) => {
     const phraseSearch = requestedQuery.match(/"(.*?)"/g); // macht daraus ein Array
 
-    console.log("phaseSearch:", phraseSearch)
+    console.log("phraseSearch:", phraseSearch)
     
     let statementScore1 = '';
     let statementScore2 = '';
