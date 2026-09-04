@@ -152,7 +152,7 @@ From the project root, run:
 npm run data
 ```
 
-Make sure this command completes successfully before continuing.
+> Make sure this command completes successfully before continuing.
 
 ## 7. Build the Docker images
 
