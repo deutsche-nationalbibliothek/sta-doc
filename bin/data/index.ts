@@ -29,17 +29,12 @@ import {
   propertiesItemsList as propertiesItemsListWriter,
   writer,
 } from './write';
-import { fileURLToPath } from 'url';
 
 export const DEV = false;
 
 const ensureDataDirectories = async () => {
   console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
-
-  // const fileName = fileURLToPath(import.meta.url)
-  // const dirName = path.dirname(fileName)
-  // const projectRoot = path.resolve(dirName, "..")
-
+  
   const projectRoot = process.cwd();
 
   const directories = ["data", "data/raw", "data/parsed"]
