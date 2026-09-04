@@ -1,1 +1,0 @@
-console.log('\n Please run "npm run data" from the root directory before starting the app with "npm run dev" if the required data has not been fetched yet. Without the required data, the app cannot be started.\n \n ');
