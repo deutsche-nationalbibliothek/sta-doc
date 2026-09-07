@@ -7,6 +7,7 @@ import {
   collectSearchSnippets,
   firstStaNotationLabel,
 } from './snippets';
+import useTranslation from 'next-translate/useTranslation';
 
 interface SearchResultsProps {
   queryResult: QueryResult;
@@ -25,6 +26,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   setCurrentPage,
   onCloseDrawer,
 }) => {
+  const { t } = useTranslation('common');
+  
   return (
     <>
       {query && (
@@ -38,7 +41,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   queryResult.response.start + 10,
                   queryResult.response.numFound
                 )}{' '}
-                von {queryResult.response.numFound} Treffer
+                {/* von {queryResult.response.numFound} Treffern */}
+                {t('searchResultCount', { count: queryResult.response.numFound })}
               </>
             )
           }
@@ -110,7 +114,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
               </NamespaceThemeConfigProvider>
             ) : (
               <Card>
-                <Typography.Paragraph>Keine Treffer</Typography.Paragraph>
+                <Typography.Paragraph>{t('noResults')}</Typography.Paragraph>
               </Card>
             );
           })}
