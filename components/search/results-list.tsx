@@ -64,7 +64,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                 key={index}
                 namespace={doc.namespace[0]}
               >
-                <List.Item style={{ display: 'inherit' }}>
+                <List.Item className='search-result' style={{ display: 'inherit' }}>
                   <EntityLink
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
@@ -74,9 +74,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     )}
                     id={doc.id}
                   />
-                  <ul>
+                  <ul className='search-result-matches'>
                     {staNotationMatch && (
-                      <li key="sta-notation">
+                      <li key="sta-notation" className='search-result-match search-result-match--sta-notation'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch
@@ -86,7 +86,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     )}
                     {headlineMatches.map((matchedValue, index2) => (
-                      <li key={`headline-${index2}`}>
+                      <li key={`headline-${index2}`} className='search-result-match search-result-match--headline'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isHeadlineTextSearchMatch
@@ -96,7 +96,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     ))}
                     {fulltextMatches.map((matchedValue, index2) => (
-                      <li key={`fulltext-${index2}`}>
+                      <li key={`fulltext-${index2}`} className='search-result-match search-result-match--fulltext'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch
