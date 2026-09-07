@@ -36,9 +36,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     phrases.forEach((phrase, index) => {
     const scoreLevel1 = `headline.title:${phrase}^30`;
-    const scoreLevel2 = `headline.title:*${phrase}*^20`; // Brauchen wir den Score hier? Funktioniert wildcard wie angenommen?
+    const scoreLevel2 = `headline.title:*${phrase}*^20`;
     const scoreLevel3 = `headline-text-search:${phrase}^20`;
-    const scoreLevel4 = `headline-text-search:*${phrase}*^10`; // Hier genauso. Brauchen wir den Score hier?
+    const scoreLevel4 = `headline-text-search:*${phrase}*^10`;
     const scoreLevel6 = `full-text-search:${phrase}^10`;
 
     if (index == 0) {
