@@ -10,6 +10,18 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
       <Global
         styles={{
           // fontFamily: 'Montserrat',
+          '.search-result-headline-link': {
+            color: 'var(--link-color)',
+            '&:hover': {
+              color: 'var(--rda-color)',
+            },
+          },
+          '.search-result-headline-link mark': {
+            color: 'var(--link-color)',
+            '&:hover': {
+              color: 'var(--rda-color)',
+            },
+          },
           '.ant-notification': {
             zIndex: 5,
           },
