@@ -19,6 +19,7 @@ export const MyHighlighter: React.FC<HighlighterProps> = ({
         highlightStyle={{
           backgroundColor: token.colorPrimaryBgHover,
           padding: 0,
+          color: 'var(--link-color)'
         }}
         searchWords={searchWords}
         autoEscape
