@@ -11,23 +11,22 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
         styles={{
           // fontFamily: 'Montserrat',
 
-          '.ant-card.search-no-results': {
-            border: 'none'
+          '.search-no-results': {
+            border: 'none',
+          
+            '.ant-card-body': {
+              padding: '8px 12px',
+              marginTop: '8px',
+              marginBottom: '8px',
+              color: 'var(--top-bar-color)',
+              fontSize: '0.9rem',
+            },
+          
+            '.search-no-result': {
+              color: 'var(--top-bar-color)',
+              marginBottom: 0,
+            },
           },
-
-          '.ant-card.search-no-results .ant-card-body': {
-            padding: '8px 12px',
-            marginTop: '8px',
-            marginBottom: '8px',
-            color: 'var(--top-bar-color)',
-            fontSize: '0.9rem',
-          },
-
-          '.ant-typography': {
-            color: 'var(--top-bar-color)',
-            marginBottom: '0',
-          },
-
 
           '.ant-list .ant-list-header': {
             borderBlockEnd: 'none',
@@ -50,38 +49,30 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
             paddingLeft: '0', 
             marginTop: '12px'
           },
-
+          
           '.search-result-match': {
             paddingLeft: '12px',
             marginBottom: '10px',
-          },
           
-          '.search-result-match--headline': {
-            borderLeft: '2px solid var(--link-color)',
-          },
-
-          '.search-result-match-headline-link': {
-            color: 'var(--link-color)',
-
-            // '&:hover': {
-            //   color: 'var(--rda-color)',
-            // },
-          },
-
-          '.search-result-match-headline-link mark': {
-            color: 'inherit',
-
-            // '&:hover': {
-            //   color: 'var(--rda-color)',
-            // },
-          },
+            '&--headline': {
+              borderLeft: '2px solid var(--link-color)',
+            },
           
-          '.search-result-match--fulltext': {
-            borderLeft: '2px solid rgba(5, 5, 5, 0.12)',
-          },
+            '&--fulltext, &--sta-notation': {
+              borderLeft: '2px solid rgba(5, 5, 5, 0.12)',
+            },
+          
+            '&-headline-link': {
+              color: 'var(--link-color)',
+          
+              '& mark': {
+                color: 'inherit',
+              },
+            },
 
-          '.search-result-match--sta-notation': {
-            borderLeft: '2px solid rgba(5, 5, 5, 0.12)',
+            '&-sta-notation-link': {
+              color: 'var(--link-color)',
+            }
           },
 
           '.ant-notification': {
