@@ -27,11 +27,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   onCloseDrawer,
 }) => {
   const { t } = useTranslation('common');
-
-  // console.log("queryResult.response.start + 1", queryResult.response.start + 1);
-  // console.log("queryResult.response.start + 10",queryResult.response.start + 10);
-  // console.log("queryResult.response.numFound", queryResult.response.numFound)
-  // console.log("queryResult", queryResult)
   
   return (
     <>
