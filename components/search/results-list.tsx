@@ -27,10 +27,19 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   onCloseDrawer,
 }) => {
   const { t } = useTranslation('common');
+
+  // console.log("queryResult.response.start + 1", queryResult.response.start + 1);
+  // console.log("queryResult.response.start + 10",queryResult.response.start + 10);
+  // console.log("queryResult.response.numFound", queryResult.response.numFound)
+  // console.log("queryResult", queryResult)
   
   return (
     <>
-      {query && (
+      {(queryResult.response.numFound === 0) ? (
+              <Card>
+                <Typography.Paragraph>{t('noResults')}</Typography.Paragraph>
+              </Card>
+            ) : (
         <List
           loading={loading}
           header={
@@ -41,7 +50,6 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   queryResult.response.start + 10,
                   queryResult.response.numFound
                 )}{' '}
-                {/* von {queryResult.response.numFound} Treffern */}
                 {t('searchResultCount', { count: queryResult.response.numFound })}
               </>
             )
@@ -60,10 +68,14 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
+            if (!('headline-text-search' in doc)) {
+              return null;
+            }
+
             const { staNotationMatch, headlineMatches, fulltextMatches } =
               collectSearchSnippets(doc, query);
 
-            return 'headline-text-search' in doc ? (
+            return (
               <NamespaceThemeConfigProvider
                 key={index}
                 namespace={doc.namespace[0]}
@@ -112,11 +124,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   </ul>
                 </List.Item>
               </NamespaceThemeConfigProvider>
-            ) : (
-              <Card>
-                <Typography.Paragraph>{t('noResults')}</Typography.Paragraph>
-              </Card>
-            );
+            ) 
           })}
         </List>
       )}
