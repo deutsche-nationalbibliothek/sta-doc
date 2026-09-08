@@ -36,8 +36,8 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   return (
     <>
       {(queryResult.response.numFound === 0) ? (
-              <Card>
-                <Typography.Paragraph>{t('noResults')}</Typography.Paragraph>
+              <Card className='search-no-results'>
+                <Typography.Paragraph className='search-no-result'>{t('noResults')}</Typography.Paragraph>
               </Card>
             ) : (
         <List

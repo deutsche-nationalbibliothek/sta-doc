@@ -10,6 +10,25 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
       <Global
         styles={{
           // fontFamily: 'Montserrat',
+
+          '.ant-card.search-no-results': {
+            border: 'none'
+          },
+
+          '.ant-card.search-no-results .ant-card-body': {
+            padding: '8px 12px',
+            marginTop: '8px',
+            marginBottom: '8px',
+            color: 'var(--top-bar-color)',
+            fontSize: '0.9rem',
+          },
+
+          '.ant-typography': {
+            color: 'var(--top-bar-color)',
+            marginBottom: '0',
+          },
+
+
           '.ant-list .ant-list-header': {
             borderBlockEnd: 'none',
             padding: '8px 12px',
@@ -41,28 +60,20 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
             borderLeft: '2px solid var(--link-color)',
           },
 
-          // andere Style-Alternative mit Cards
-          // '.search-result-match-headline': {
-          //   backgroundColor: 'var(--light-gray)', 
-          //   padding: '10px', 
-          //   marginBottom: '8px', 
-          //   borderRadius: '5px',
-          // },
-
           '.search-result-match-headline-link': {
             color: 'var(--link-color)',
 
-            '&:hover': {
-              color: 'var(--rda-color)',
-            },
+            // '&:hover': {
+            //   color: 'var(--rda-color)',
+            // },
           },
 
           '.search-result-match-headline-link mark': {
             color: 'inherit',
 
-            '&:hover': {
-              color: 'var(--rda-color)', // ist die color hier so korrekt?
-            },
+            // '&:hover': {
+            //   color: 'var(--rda-color)',
+            // },
           },
           
           '.search-result-match--fulltext': {
