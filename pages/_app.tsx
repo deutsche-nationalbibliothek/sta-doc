@@ -8,6 +8,8 @@ import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
 import { NamespaceProvider } from '@/hooks/use-namespace';
 import { ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
+import frFR from 'antd/lib/locale/fr_FR';
+import { useRouter } from 'next/router';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
 import {
@@ -31,8 +33,15 @@ type AppPageComponent = NextComponentType<NextPageContext, unknown, unknown> & {
 };
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const router = useRouter();
+
   const Page = Component as AppPageComponent;
   const page = <Page {...pageProps} />;
+
+  const antdLocale = router.locale === 'de' ? deDE : frFR;
+
+  console.log('router.locale:', router.locale);
+  console.log('antd locale:', antdLocale);
 
   return (
     <GlobalStaticStyles>
@@ -45,7 +54,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                   <ThemeConfigProvider>
                     {(themeConfig) => (
                       <NamespaceProvider>
-                        <ConfigProvider locale={deDE} theme={themeConfig}>
+                        <ConfigProvider locale={antdLocale} theme={themeConfig}>
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
                               <EntityProvider>
