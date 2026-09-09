@@ -10,6 +10,22 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
       <Global
         styles={{
           // fontFamily: 'Montserrat',
+          '.ant-tooltip .ant-tooltip-inner': {
+            background: 'var(--top-bar-color) !important',
+            
+            fontSize: '13px !important',
+            fontWeight: '500 !important',
+            lineHeight: '1.6 !important',
+            borderRadius: '9px !important',
+            padding: '8px 12px !important',
+          },
+          
+          '.ant-tooltip-arrow::before': {
+            background: 'var(--top-bar-color) !important',
+            // border: '1px solid var(--light-gray)',
+            // display: 'none !important'
+          },
+          
           '.ant-notification': {
             zIndex: 5,
           },
