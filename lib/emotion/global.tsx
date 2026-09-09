@@ -10,15 +10,83 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
       <Global
         styles={{
           // fontFamily: 'Montserrat',
+
+          '.search-no-results': {
+            border: 'none',
+          
+            '.ant-card-body': {
+              padding: '8px 12px',
+              marginTop: '8px',
+              marginBottom: '8px',
+              color: 'var(--top-bar-color)',
+              fontSize: '0.9rem',
+            },
+          
+            '.search-no-result': {
+              color: 'var(--top-bar-color)',
+              marginBottom: 0,
+            },
+          },
+
+          '.ant-list .ant-list-header': {
+            borderBlockEnd: 'none',
+            padding: '8px 12px',
+            marginTop: '8px',
+            marginBottom: '8px',
+            color: 'var(--top-bar-color)',
+            fontSize: '0.9rem',
+          },
+
+          '.ant-list-item.search-result': {
+            display: 'inherit',
+            borderBlockEnd: '1px solid rgba(5,5,5,0.12)',
+            padding: '16px 8px 20px',
+            marginBottom: '8px',
+          },
+
+          '.search-result-matches': {
+            listStyleType: 'none', 
+            paddingLeft: '0', 
+            marginTop: '12px'
+          },
+          
+          '.search-result-match': {
+            paddingLeft: '12px',
+            marginBottom: '10px',
+          
+            '&--headline': {
+              borderLeft: '2px solid var(--link-color)',
+            },
+          
+            '&--fulltext, &--sta-notation': {
+              borderLeft: '2px solid rgba(5, 5, 5, 0.12)',
+            },
+          
+            '&-headline-link': {
+              color: 'var(--link-color)',
+          
+              '& mark': {
+                color: 'inherit',
+              },
+            },
+
+            '&-sta-notation-link': {
+              color: 'var(--link-color)',
+            }
+          },
+
           '.ant-notification': {
             zIndex: 5,
           },
+
           '.ant-layout-header': {
             paddingInline: isMobile ? 'inherit' : undefined,
           },
+
           '.ant-typography ul': {
             listStyleType: 'initial',
           },
+
           '.ant-typography a': {
             color: 'var(--link-color)',
             '.ant-breadcrumb-separator': {
@@ -26,12 +94,25 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
               '.GND-seperator': { color: 'var(--gnd-color)' },
             },
           },
+
           '.ant-drawer-content-wrapper': {
             width: `${isMobile ? '95vw' : '40vw'} !important`,
           },
-          td: { verticalAlign: 'top', textAlign: 'left' },
-          th: { verticalAlign: 'top', textAlign: 'left' },
-          img: { display: 'block' },
+
+          td: { 
+            verticalAlign: 'top', 
+            textAlign: 'left' 
+          },
+
+          th: { 
+            verticalAlign: 'top', 
+            textAlign: 'left' 
+          },
+
+          img: { 
+            display: 'block' 
+          },
+
           '@media print': {
             '.no-print, .ant-table-thead, .ant-pagination, .ant-tooltip, .ant-layout-header, .ant-layout-footer, .ant-breadcrumb':
               {

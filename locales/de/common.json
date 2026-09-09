@@ -24,6 +24,7 @@
   "mail-to":"afs@dnb.de",
   "mail-to-header":"STA-Doku-Plattform: Anmerkung zur Seite: ",
   "no": "Nein",
+  "noResults": "Keine Treffer",
   "notFound": "404 | Seite nicht gefunden",
   "notFoundInLanguage": "Not found in your language.", 
   "print-page": "Seiteninhalt drucken",
@@ -31,6 +32,7 @@
   "reset": "Zurücksetzen",
   "resource-type": "Ressourcentyp",
   "scroll-to-top": "Nach oben scrollen",
+  "searchResultCount": "von {{count}} Treffern",
   "search": "Suche",
   "site": "Seite",
   "sorterTooltip": "Sortieren nach Spalte",
@@ -41,4 +43,5 @@
   "title-PICA-list": "GND Datenfeld- / Unterfeldliste (PICA)",
   "wemi-level": "WEMI Ebene",
   "yes": "Ja"
+
 }

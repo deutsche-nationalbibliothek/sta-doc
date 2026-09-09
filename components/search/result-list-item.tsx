@@ -59,6 +59,7 @@ export const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
         {headlineMatch.length && (
           <Typography.Paragraph>
             <Link
+            className='search-result-match-headline-link'
               onClick={onCloseDrawer}
               href={
                 doc.id === Item['Documentation-platform-of-the-standardization-committee']

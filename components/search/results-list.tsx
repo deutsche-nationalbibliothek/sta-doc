@@ -7,6 +7,7 @@ import {
   collectSearchSnippets,
   firstStaNotationLabel,
 } from './snippets';
+import useTranslation from 'next-translate/useTranslation';
 
 interface SearchResultsProps {
   queryResult: QueryResult;
@@ -25,9 +26,15 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   setCurrentPage,
   onCloseDrawer,
 }) => {
+  const { t } = useTranslation('common');
+  
   return (
     <>
-      {query && (
+      {(queryResult.response.numFound === 0) ? (
+              <Card className='search-no-results'>
+                <Typography.Paragraph className='search-no-result'>{t('noResults')}</Typography.Paragraph>
+              </Card>
+            ) : (
         <List
           loading={loading}
           header={
@@ -38,7 +45,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   queryResult.response.start + 10,
                   queryResult.response.numFound
                 )}{' '}
-                von {queryResult.response.numFound} Treffer
+                {t('searchResultCount', { count: queryResult.response.numFound })}
               </>
             )
           }
@@ -56,15 +63,19 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
+            if (!('headline-text-search' in doc)) {
+              return null;
+            }
+
             const { staNotationMatch, headlineMatches, fulltextMatches } =
               collectSearchSnippets(doc, query);
 
-            return 'headline-text-search' in doc ? (
+            return (
               <NamespaceThemeConfigProvider
                 key={index}
                 namespace={doc.namespace[0]}
               >
-                <List.Item style={{ display: 'inherit' }}>
+                <List.Item className='search-result' style={{ display: 'inherit' }}>
                   <EntityLink
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
@@ -74,9 +85,9 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                     )}
                     id={doc.id}
                   />
-                  <ul>
+                  <ul className='search-result-matches'>
                     {staNotationMatch && (
-                      <li key="sta-notation">
+                      <li key="sta-notation" className='search-result-match search-result-match--sta-notation'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch
@@ -86,7 +97,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     )}
                     {headlineMatches.map((matchedValue, index2) => (
-                      <li key={`headline-${index2}`}>
+                      <li key={`headline-${index2}`} className='search-result-match search-result-match--headline'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isHeadlineTextSearchMatch
@@ -96,7 +107,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     ))}
                     {fulltextMatches.map((matchedValue, index2) => (
-                      <li key={`fulltext-${index2}`}>
+                      <li key={`fulltext-${index2}`} className='search-result-match search-result-match--fulltext'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch
@@ -108,11 +119,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   </ul>
                 </List.Item>
               </NamespaceThemeConfigProvider>
-            ) : (
-              <Card>
-                <Typography.Paragraph>Keine Treffer</Typography.Paragraph>
-              </Card>
-            );
+            ) 
           })}
         </List>
       )}
