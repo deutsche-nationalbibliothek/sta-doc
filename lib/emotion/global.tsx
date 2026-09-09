@@ -12,7 +12,6 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
           // fontFamily: 'Montserrat',
           '.ant-tooltip .ant-tooltip-inner': {
             background: 'var(--top-bar-color) !important',
-            
             fontSize: '13px !important',
             fontWeight: '500 !important',
             lineHeight: '1.6 !important',
@@ -22,8 +21,6 @@ export const GlobalStaticStyles: React.FC<React.PropsWithChildren> = ({
           
           '.ant-tooltip-arrow::before': {
             background: 'var(--top-bar-color) !important',
-            // border: '1px solid var(--light-gray)',
-            // display: 'none !important'
           },
           
           '.ant-notification': {
