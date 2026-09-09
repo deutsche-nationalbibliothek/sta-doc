@@ -40,9 +40,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   const antdLocale = router.locale === 'de' ? deDE : frFR;
 
-  console.log('router.locale:', router.locale); // später wieder löschen
-  console.log('antd locale:', antdLocale); // hier genauso
-
   return (
     <GlobalStaticStyles>
       <InitialHeadlinesProvider>
