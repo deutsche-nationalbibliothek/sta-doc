@@ -37,7 +37,7 @@ import { parseEntities, ParseEntitiesData } from './entities';
 import namespaceConfig from '../../../config/namespace';
 import { EntitiesEntries } from '../../../types/parsed/entity';
 import { Fields, Subfields } from '../../../types/parsed/field';
-import { Namespace } from '../../../types/namespace';
+import { Namespace, NamespaceId } from '../../../types/namespace';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { RdaElementStatuses } from '../../../types/parsed/rda-element-status';
 import { PropertyTypes } from '../../../types/parsed/property-type';
@@ -133,7 +133,7 @@ export const fieldsParser = (
   labelsDe: LabelsDe,
   labelsFr: LabelsFr,
 ): Fields => {
-  console.log('Parsing Fields')
+  console.log('\tParsing Fields')
   return fields.reduce((acc, field) => {
     const key = field.eId.value;
     const fieldLabel = labelsDe[key] || 'Kein Label'
@@ -198,7 +198,7 @@ export const labelsParser = {
 };
 
 export const codingsParser = (codings: CodingsRaw) => {
-  console.log('\tParsing codings');
+  console.log('\tParsing Codings');
   const codingLabels: CodingLabel[] = [
     'PICA3',
     'PICA+',
@@ -259,10 +259,11 @@ export const propertyTypesParser = (propertyTypes: PropertyTypesRaw) => {
 
 export const schemasParser = (schemas: SchemasRaw) => {
   console.log('\tParsing Schemas');
-  return schemas.reduce(
-    (acc, x) => ({ ...acc, [x.eId.value]: x.schemaId.value }),
-    {} as Schemas
-  );
+  return schemas.reduce((acc, schema) => {
+    const schemaId = schema.schemaId.value as NamespaceId;
+    acc[schema.eId.value] = schemaId;
+    return acc;
+  }, {} as Schemas);
 };
 
 export const staNotationsParser = (staNotations: StaNotationsRaw) => {
@@ -276,13 +277,26 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
   }, {} as StaNotations);
 };
 
-export const breadcrumbsParser = (breadcrumbs: BreadcrumbsRaw) => {
+export const breadcrumbsParser = (
+  breadcrumbs: BreadcrumbsRaw,
+  staNotations?: StaNotations
+) => {
   console.log('\tParsing Breadcrumbs');
+  const staNotationToId = staNotations
+    ? Object.values(staNotations).reduce(
+        (acc, staNotation) => {
+          acc[staNotation.label] = staNotation.id;
+          return acc;
+        },
+        {} as Record<string, EntityId>
+      )
+    : {};
   return breadcrumbs.reduce((acc, entity: BreadcrumbRaw) => {
+    const staNotation = entity.staNotation.value.toUpperCase();
     acc[entity.eId.value] = {
-      id: entity.eId.value,
+      id: staNotationToId[staNotation] ?? entity.eId.value,
       label: entity.elementLabel.value,
-      staNotation: entity.staNotation.value.toUpperCase(),
+      staNotation,
     };
     return acc;
   }, {} as Breadcrumbs);
@@ -291,7 +305,10 @@ export const breadcrumbsParser = (breadcrumbs: BreadcrumbsRaw) => {
 export const rdaElementStatusesParser = (
   rdaElementStatuses: RdaElementStatusesRaw,
   staNotations: StaNotations,
-  schemas: Schemas
+  schemas: Schemas,
+  labelsDe: LabelsDe,
+  labelsFr: LabelsFr,
+  lang: string
 ): RdaElementStatuses => {
   console.log('\tParsing RdaElementStatuses');
 
@@ -309,7 +326,7 @@ export const rdaElementStatusesParser = (
           (rdaElementStatusByEntityId) => rdaElementStatusByEntityId.eId.value
         )
           .map((rdaElementStatusByEntityId) => {
-            const statusId = rdaElementStatusByEntityId.statusId?.value;
+            const statusId = rdaElementStatusByEntityId.statusId?.value || 'Q8540' as EntityId;
             const namespaceIdStatus = statusId && schemas[statusId];
             const namespaceStatus: Namespace | undefined =
               namespaceIdStatus && namespaceConfig.map[namespaceIdStatus];
@@ -324,21 +341,15 @@ export const rdaElementStatusesParser = (
             return {
               ressourceType: {
                 id: ressourceTypeId,
-                label: labelStripper(
-                  rdaElementStatusByEntityId.entityLabel.value
-                ),
-                staNotationLabel: staNotations[ressourceTypeId]?.label || 'missing staNotation label',
+                label: lang === 'fr' ? labelsFr[ressourceTypeId] : labelsDe[ressourceTypeId],
+                staNotationLabel: staNotations[ressourceTypeId]?.label || 'Missing staNotation label',
                 namespace: namespaceRessourceType,
               },
               status: {
                 id: statusId,
-                label: labelStripper(
-                  rdaElementStatusByEntityId.statusLabel.value
-                ),
-                // TODO
-                staNotationLabel: statusId
-                  ? staNotations[statusId]?.label
-                  : 'missing staNotation label',
+                label: lang === 'fr' ? labelsFr[statusId] : labelsDe[statusId],
+                labelFr: labelsFr[statusId] || 'Missing french label',
+                staNotationLabel: staNotations[statusId]?.label || 'Missing staNotation label',
                 namespace: namespaceStatus,
               },
               description: rdaElementStatusByEntityId.descriptionLabel
@@ -409,6 +420,21 @@ export const rdaPropertiesParser = (
   }, [] as RdaProperties);
 };
 
+export interface ParsedSparqlData {
+  breadcrumbs: Breadcrumbs;
+  rdaProperties: RdaProperties;
+  labelsDe: LabelsDe;
+  labelsEn: LabelsEn;
+  labelsFr: LabelsFr;
+  fields: Fields;
+  propertyTypes: PropertyTypes;
+  schemas: Schemas;
+  staNotations: StaNotations;
+  codings: Codings;
+  descriptions: Descriptions;
+  rdaElementStatuses: RdaElementStatuses;
+}
+
 export interface ParsedAllFromRead {
   breadcrumbs: Breadcrumbs;
   rdaProperties: RdaProperties;
@@ -430,32 +456,143 @@ export interface ParsedAllFromRead {
   rdaElementStatuses: RdaElementStatuses;
 }
 
+export interface SparqlLookupRaw {
+  breadcrumbs: BreadcrumbsRaw;
+  codings: CodingsRaw;
+  fields: FieldsRaw;
+  labelsDe: LabelDeRaws;
+  labelsEn: LabelEnRaws;
+  labelsFr: LabelFrRaws;
+  propertyTypes: PropertyTypesRaw;
+  rdaElementStatuses: RdaElementStatusesRaw;
+  staNotations: StaNotationsRaw;
+  staNotationsDe: StaNotationsRaw;
+  schemas: SchemasRaw;
+}
+
+export const parseEntitiesDataFromRaw = (
+  raw: SparqlLookupRaw,
+  lang: string
+): ParseEntitiesData => {
+  const staNotations = staNotationsParser(raw.staNotations);
+  const staNotationsDe = staNotationsParser(raw.staNotationsDe);
+  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs, staNotations);
+  const codings = codingsParser(raw.codings);
+  const schemas = schemasParser(raw.schemas);
+  const propertyTypes = propertyTypesParser(raw.propertyTypes);
+  const labelsDe = labelsParser.de(raw.labelsDe);
+  const labelsEn = labelsParser.en(raw.labelsEn);
+  const labelsFr = labelsParser.fr(raw.labelsFr);
+  const fields = fieldsParser(
+    raw.fields,
+    staNotationsDe,
+    codings,
+    labelsDe,
+    labelsFr
+  );
+  const rdaElementStatuses = rdaElementStatusesParser(
+    raw.rdaElementStatuses,
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  );
+  return {
+    breadcrumbs,
+    codings,
+    fields,
+    labelsDe,
+    labelsEn,
+    labelsFr,
+    propertyTypes,
+    rdaElementStatuses,
+    staNotations,
+    schemas,
+  };
+};
+
+export const parseSparqlData = (
+  read: (typeof reader)['raw'],
+  lang: string
+): ParsedSparqlData => {
+  const staNotations = staNotationsParser(read.staNotations(lang)); 
+  const staNotationsDe = staNotationsParser(read.staNotations('de')); 
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
+  const codings = codingsParser(read.codings());
+  const descriptions = descriptionsParser(read.descriptions()); 
+  const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes())
+  const labelsDe = labelsParser.de(read.labels.de());
+  const labelsEn = labelsParser.en(read.labels.en());
+  const labelsFr = labelsParser.fr(read.labels.fr());
+  const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
+  const rdaElementStatuses = rdaElementStatusesParser(
+    read.rdaElementStatuses(),
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  )
+  const rdaProperties = rdaPropertiesParser(
+    read.rdaProperties(),
+    staNotationsDe,
+    schemas,
+    labelsDe,
+    labelsFr,
+  )
+  return {
+    breadcrumbs: breadcrumbs,
+    descriptions: descriptions,
+    propertyTypes: propertyTypes,
+    staNotations: staNotations,
+    schemas: schemas,
+    labelsDe: labelsDe,
+    labelsEn: labelsEn,
+    labelsFr: labelsFr,
+    codings: codings,
+    fields: fields,
+    rdaElementStatuses: rdaElementStatuses,
+    rdaProperties: rdaProperties
+  };
+}
+
 export const parseAllFromRead = (
   read: (typeof reader)['raw'],
   lang: string
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
   const codings = codingsParser(read.codings());
+  const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());
+  const propertyTypes = propertyTypesParser(read.propertyTypes())
   const labelsDe = labelsParser.de(read.labels.de());
   const labelsEn = labelsParser.en(read.labels.en());
   const labelsFr = labelsParser.fr(read.labels.fr());
+  const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
+  const rdaElementStatuses = rdaElementStatusesParser(
+    read.rdaElementStatuses(),
+    staNotations,
+    schemas,
+    labelsDe,
+    labelsFr,
+    lang
+  )
   const data = {
-    breadcrumbs: breadcrumbsParser(read.breadcrumbs()),
-    propertyTypes: propertyTypesParser(read.propertyTypes()),
+    breadcrumbs: breadcrumbs,
+    descriptions: descriptions,
+    propertyTypes: propertyTypes,
     staNotations: staNotations,
     schemas: schemas,
     labelsDe: labelsDe,
     labelsEn: labelsEn,
     labelsFr: labelsFr,
-    codings: codingsParser(read.codings()),
-    fields: fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr),
-    rdaElementStatuses: rdaElementStatusesParser(
-      read.rdaElementStatuses(),
-      staNotations,
-      schemas
-    ),
+    codings: codings,
+    fields: fields,
+    rdaElementStatuses: rdaElementStatuses
   };
   const rawEntitiesAll = read.entities.all();
   return {
@@ -486,7 +623,7 @@ export const parseAllFromRead = (
     schemas: data.schemas,
     staNotations: data.staNotations,
     codings: data.codings,
-    descriptions: descriptionsParser(read.descriptions()),
+    descriptions: data.descriptions,
     rdaElementStatuses: data.rdaElementStatuses,
     // rdaRules: rdaRulesParser(read.rdaRules()),
   };

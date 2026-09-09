@@ -2,6 +2,7 @@ import { WikibasePointerValue } from '@/types/parsed/entity';
 import { Property } from '@/types/property';
 import React from 'react';
 import { Examples } from '../examples';
+import { examplesFromWikibasePointers } from '../examples/example-popup';
 import { compact, groupBy } from 'lodash';
 import { WikibasePointer } from './wikibase-pointer';
 import { WikibaseLink } from './wikibase-link';
@@ -47,8 +48,8 @@ export const WikibasePointers: React.FC<WikibasePointersProps> = ({
             <>
               {property === Property['example(s)'] ? (
                 <Examples
-                  examples={compact(
-                    wikibasePointerGroups.extras.map((w) => w.embedded)
+                  examples={examplesFromWikibasePointers(
+                    wikibasePointerGroups.extras
                   )}
                 />
               ) : (

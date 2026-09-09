@@ -1,4 +1,10 @@
 import { DEV } from '..';
+import {
+  apiUrlLive,
+  apiUrlProd,
+  apiUrlTest,
+  mediawikiUrl,
+} from '../../../lib/env';
 import { EntityId } from '../../../types/entity-id';
 import { BreadcrumbsRaw } from '../../../types/raw/breadcrumb';
 import { CodingsRaw } from '../../../types/raw/coding';
@@ -21,13 +27,22 @@ import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
 import { FieldsRaw } from '../../../types/raw/field';
 
-export enum API_URL {
-  host = 'https://edit.sta.dnb.de',
-  // host = 'http://lab.sta.dnb.de',
-  test = 'http://lab.sta.dnb.de',
-  prod = 'https://edit.sta.dnb.de',
-  live = 'https://sta.dnb.de',
-}
+export const API_URL = {
+  get host() {
+    return mediawikiUrl();
+  },
+  get live() {
+    return apiUrlLive();
+  },
+  get prod() {
+    return apiUrlProd();
+  },
+  get test() {
+    return apiUrlTest();
+  },
+};
+
+export type API_URL = string;
 
 /**
  * @param entitiesIndexKeys - complete set of all relevant Entity Ids
@@ -154,6 +169,47 @@ export const fetcher = (apiUrl = API_URL.host) => {
   const rdaElementStatuses = async () =>
     await rdaElementStatusesFetcher(apiUrl);
 
+  const lookupRaw = async () => {
+    const [
+      breadcrumbsData,
+      codingsData,
+      fieldsData,
+      labelsDe,
+      labelsEn,
+      labelsFr,
+      propertyTypesData,
+      staNotationsDeData,
+      staNotationsFrData,
+      schemasData,
+      rdaElementStatusesData,
+    ] = await Promise.all([
+      breadcrumbs(),
+      codings(),
+      fields(),
+      labels.de(),
+      labels.en(),
+      labels.fr(),
+      propertyTypes(),
+      staNotations(),
+      staNotationsFr(),
+      schemas(),
+      rdaElementStatuses(),
+    ]);
+    return {
+      breadcrumbs: breadcrumbsData,
+      codings: codingsData,
+      fields: fieldsData,
+      labelsDe,
+      labelsEn,
+      labelsFr,
+      propertyTypes: propertyTypesData,
+      staNotationsDe: staNotationsDeData,
+      staNotationsFr: staNotationsFrData,
+      schemas: schemasData,
+      rdaElementStatuses: rdaElementStatusesData,
+    };
+  };
+
   const fetchAll = async () => {
     console.log('Data fetching is starting');
     const data = {
@@ -187,6 +243,7 @@ export const fetcher = (apiUrl = API_URL.host) => {
     labels,
     staNotations,
     staNotationsFr,
+    lookupRaw,
     fetchAll,
     propertyItemList,
     propertyTypes,

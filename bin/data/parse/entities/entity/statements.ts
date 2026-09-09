@@ -105,7 +105,7 @@ export const parseStatements = (
       if (isClaim(occs[0]) && dataType != 'wikibasePointers') {
         occs = (occs as Claim[]).filter((occ) => {
           const value = occ.qualifiers?.[Property['Language-of-the-statement']]?.[0]?.datavalue?.value as unknown as string;
-          return (value === lang) || (value === undefined && lang === 'de');
+          return (value === lang || value === 'all') || (value === undefined && lang === 'de')
         });
         if (occs.length === 0) {
           console.log('\t\t\tno',lang,' occs in Property,',property,', ignoring');

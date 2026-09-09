@@ -32,6 +32,7 @@ import { RdaElementStatuses } from '../../types/parsed/rda-element-status';
 import { PropertyTypesRaw } from '../../types/raw/property-type';
 import { BreadcrumbsRaw } from '../../types/raw/breadcrumb';
 import { Breadcrumbs } from '../../types/parsed/breadcrumb';
+import { PropertyTypes } from '../../types/parsed/property-type';
 
 interface ReadParsed {
   breadcrumbs: () => Breadcrumbs;
@@ -47,11 +48,12 @@ interface ReadParsed {
   };
   fields: () => Fields;
   schemas: () => Schemas;
-  staNotations: () => StaNotations;
+  staNotations: (lang?: string) => StaNotations;
   codings: () => Codings;
   descriptions: () => Descriptions;
   rdaProperties: () => RdaProperties;
   rdaElementStatuses: () => RdaElementStatuses;
+  propertyTypes: () => PropertyTypes;
 }
 
 export interface ReadRaw {
@@ -143,8 +145,11 @@ const readParsed: ReadParsed = {
     en: () => readJSONFile<LabelsEn>(NAMES.labelEn, DataState.parsed),
     fr: () => readJSONFile<LabelsFr>(NAMES.labelFr, DataState.parsed),
   },
-  staNotations: () =>
-    readJSONFile<StaNotations>(NAMES.staNotation, DataState.parsed),
+  staNotations: (lang) =>
+    readJSONFile<StaNotations>(
+      lang === 'fr' ? NAMES.staNotationFr : NAMES.staNotation,
+      DataState.parsed
+    ),
   schemas: () => readJSONFile<Schemas>(NAMES.schema, DataState.parsed),
   codings: () => readJSONFile<Codings>(NAMES.coding, DataState.parsed),
   descriptions: () =>
@@ -156,6 +161,7 @@ const readParsed: ReadParsed = {
       NAMES.rdaElementStatuses,
       DataState.parsed
     ),
+  propertyTypes: () => readJSONFile<PropertyTypes>(NAMES.propertyType, DataState.parsed),
   // rdaRules: () => readJSONFile(NAMES.rdaRule, dataState),
 };
 

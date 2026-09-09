@@ -27,12 +27,14 @@ The fetched data gets saved in `/data/raw/*.json`.
 `npm run data:parse`
 Transforms all data from `/data/raw/*.json` and saves the result in `/data/parsed/*.json`. The most relevant data file is `/data/parsed/entities.json`, which is the last result of the composition, and it's meant to hold all relevant data for the client, pre-sorted and structured, ready for rendering.
 
-### Prepare single entities to be used to fill the solr index
-#### `npm run split-entities (Linux)`
-This command runs the bash script located at `/bin/split-entities-solr.sh`
-It is used to split the whole parsed entities into single representatives (like P18.json, Q2.json, ...) and stores all of them in `docker/solr/data`.
-#### `npm run split-entities-powershell (Windows)`
-This command runs the bash script located at `/bin/split-entities-solr.ps1` for Windows developers.
+### Update the Solr search index
+After parsed entity data changed, post documents to the running Solr collection via the HTTP update API (batched, overwrite by unique key). Use `npm run solr:index` in development and production. The collection is created only if it does not exist — it is not recreated on every index.
+
+- `npm run solr:index` — index `data/parsed/entities-de.json` and `entities-fr.json` (creates the collection if missing)
+- `npm run solr:index -- --entity P18` — update one entity (de + fr) after `data:parse:single`
+- `npm run solr:index -- --ids P18,Q2 --lang de` — update selected documents only
+
+`docker:solr:index` and `docker:dev:solr:index` are aliases for `solr:index`. `split-entities` is no longer required for indexing.
 
 #### `npm run data:fetch:properties-items`
 This creates/updates two typescript files, each with an `enum`. For readable code references to Items / Properties.
@@ -44,9 +46,17 @@ The application can be run in docker containers or on the host system. The appli
 
 #### Developer Mode
 
-Start developing with 
-- `npm run install && npm run dev` or 
-- `npm run docker:dev:build; npm run docker:dev:up && sh ./docker/index-solr-dev.sh`
+Host Next.js with a local Docker Solr instance:
+
+1. `npm install`
+2. `npm run docker:dev:build` (first time / after Solr image changes)
+3. `npm run docker:dev:solr:up`
+4. `npm run solr:index` (create collection if needed + index via Solr API)
+5. `npm run dev` — app at `/doc`, Solr at `http://localhost:8983`
+
+`SOLR_HOST` / `SOLR_PORT` default to `localhost` / `8983` (see `.env`). Full docker-dev stack (Next + Solr, no Traefik):
+
+- `npm run docker:dev:build; npm run docker:dev:up && npm run solr:index` — app at `http://localhost:3000/doc`, Solr at `http://localhost:8983`
 
 #### Production Mode
 
@@ -54,7 +64,7 @@ Start testing the productive version with
 (Test local without solr search)
 - `npm run build && npm run start`
 (Test with docker compose setup)
-- `npm run docker:build; npm run docker:up && sh ./docker/index-solr.sh`
+- `npm run docker:build; npm run docker:up && npm run solr:index`
 
 ## Documentation
 
@@ -67,7 +77,6 @@ Start testing the productive version with
 - [Lodash](https://lodash.com/docs)
 - [react-use](https://github.com/streamich/react-use#--------------------react-use------------------)
 - [useQueryParams](https://github.com/pbeshai/use-query-params#usequeryparams)
-- [solr-client](https://lbdremy.github.io/solr-node-client/)
 - [slugify](https://github.com/simov/slugify#slugify)
 - [react-highlight-words](https://github.com/bvaughn/react-highlight-words#usage)
 - [copy-to-clipboard](https://github.com/sudodoki/copy-to-clipboard#copy-to-clipboard-)

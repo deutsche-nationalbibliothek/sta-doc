@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   const entityId: EntityId =
     Item['Documentation-platform-of-the-standardization-committee'];
   const locale: string = context.locale ? context.locale : "de";
-  const entityEntry = await entityRepository.get(entityId, locale, undefined);
+  const entityEntry = entityRepository.getByIdFromSsgIndex(locale, entityId);
 
   return {
     props: {

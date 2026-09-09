@@ -34,8 +34,17 @@ export const useSWR = <T>(
 
   const swr = useSWRLib<T>(
     fullUrl,
-    (apiUrl: string) => {
-      return fetch(apiUrl).then((res) => res.json());
+    async (apiUrl: string) => {
+      const res = await fetch(apiUrl);
+      const body = await res.json();
+      if (!res.ok) {
+        throw new Error(
+          (body && typeof body === 'object' && 'message' in body
+            ? String(body.message)
+            : undefined) || `Request failed with ${res.status}`
+        );
+      }
+      return body;
     },
     {
       revalidateIfStale: false,

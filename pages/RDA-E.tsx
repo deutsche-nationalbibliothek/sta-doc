@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { uniq } from 'lodash';
 import { PageHeader } from '@/components/page-header';
 import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
 interface RdaPropertiesProps {
   headlines: Headline[];
@@ -23,29 +24,25 @@ export default function RdaPropertiesPage({
 }: RdaPropertiesProps) {
   const { setNamespace } = useNamespace();
   const locale = useRouter().locale || 'de';
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     setNamespace(Namespace.RDA);
   }, [setNamespace]);
 
-  const dataIndex = {
-    de: ['type', 'label'],
-    fr: ['type', 'labelFr'],
-  };
-
   const columns: ColumnsTypes<RdaProperty> = [
     {
       title: 'STA-Notation',
       dataIndex: 'staNotationLabel',
-      key: 'staNotationLabel',
+      key: 'STA-Notation',
       width: '20%',
       isSearchable: true,
       defaultSortOrder: 'ascend',
     },
     {
-      title: 'Element',
+      title: t('element'),
       dataIndex: locale==='fr'?'labelFr':'label',
-      key: 'label',
+      key: t('element'),
       width: '30%',
       isSearchable: true,
       render: (
@@ -53,12 +50,19 @@ export default function RdaPropertiesPage({
         rdaProperty,
         _index: number,
         children: JSX.Element
-      ) => <EntityLink {...rdaProperty}>{children}</EntityLink>,
+      ) => (
+        <EntityLink
+          {...rdaProperty}
+          label={locale === 'fr' ? rdaProperty.labelFr : rdaProperty.label}
+        >
+          {children}
+        </EntityLink>
+      ),
     },
     {
-      title: 'Entitätstyp / WEMI-Ebene',
-      dataIndex: dataIndex[locale as 'de' | 'fr'],
-      key: 'wemi-label',
+      title: t('entity-type'),
+      dataIndex: locale==='fr' ? ['type', 'labelFr'] : ['type', 'label'],
+      key: 'Entity-Type',
       width: '20%',
       filters: uniq(
         rdaProperties.map((rdaProperty) => locale==='fr' ? rdaProperty.type.labelFr : rdaProperty.type.label)
@@ -67,10 +71,16 @@ export default function RdaPropertiesPage({
         value: rdaPropertyLabel||'Missing',
       })),
       onFilter: (value, record) => {
-        return value === record.type.label;
+        const typeLabel = locale === 'fr' ? record.type.labelFr : record.type.label;
+        return value === typeLabel;
       },
       render: (_label: string, rdaProperty) => (
-        <EntityLink {...rdaProperty.type} />
+        <EntityLink 
+          {...rdaProperty.type}
+          label={locale === 'fr' ? rdaProperty.type.labelFr : rdaProperty.type.label}
+        >
+          {locale === 'fr' ? rdaProperty.type.labelFr : rdaProperty.type.label}
+        </EntityLink>
       ),
     },
   ];
@@ -78,15 +88,15 @@ export default function RdaPropertiesPage({
   return (
     <>
       <Head>
-        <title>RDA | Elemente</title>
+        <title>RDA | {t('elements')}</title>
       </Head>
 
       <PageHeader
         title={
           <Title
             headline={{
-              key: 'RDA-Elemente',
-              title: 'RDA Elemente',
+              key: 'RDA-Elements',
+              title: `RDA ${t('elements')}`,
               level: 1,
             }}
           />

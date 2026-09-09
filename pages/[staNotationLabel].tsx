@@ -1,42 +1,32 @@
-import schemas from '@/data/parsed/schemas.json';
 import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
-import { Namespace } from '@/types/namespace';
 import { Entity, EntityEntry } from '@/types/parsed/entity';
-import { Schemas } from '@/types/parsed/schema';
 import { isPropertyBlacklisted } from '@/utils/constants';
-import { Typography } from 'antd';
-import namespaceConfig from 'config/namespace';
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import { useEffect } from 'react';
-import { NotFound } from './404';
 import { useNamespace } from '@/hooks/use-namespace';
 import { useScroll } from '@/hooks/use-scroll';
 import { useEntity } from '@/hooks/entity-provider';
 import { entityRepository } from '@/features/entity/entity-repository';
-import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
 
 interface EntityDetailsProps {
-  headlines?: Headline[];
-  notFound: boolean;
-  entity?: Partial<Entity>;
-  isUnderConstruction?: boolean;
+  headlines: Headline[];
+  entity: Partial<Entity> & { id: EntityId };
 }
 
 export default function EntityDetailsPage({
   headlines,
-  notFound,
   entity,
-  isUnderConstruction,
 }: EntityDetailsProps) {
+  const { lang } = useTranslation('common');
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
   const { setEntity } = useEntity();
   const { onScroll } = useScroll();
-  const locale = useRouter().locale || 'de';
 
   useEffect(() => {
     window.setTimeout(onScroll, 150);
@@ -52,39 +42,25 @@ export default function EntityDetailsPage({
     if (entity) {
       setEntity(entity);
     }
-  }, [setEntity, entity, locale]);
+  }, [setEntity, entity, lang]);
 
   useEffect(() => {
     if (headlines) {
       setHeadlines(headlines);
     }
-  }, [setHeadlines, headlines, locale]);
-  return !notFound && entity?.id ? (
+  }, [setHeadlines, headlines, lang]);
+
+  return (
     <FetchEntity entityId={entity.id} showSpinner={false} >
       {(entityEntry, loading) => (
         <FetchedEntity
           entityEntry={entityEntry}
           loading={loading}
           setHeadlines={setHeadlines}
-          locale={locale}
+          locale={lang}
         />
       )}
     </FetchEntity>
-  ) : (
-    <NotFound
-      isUnderConstruction={isUnderConstruction}
-      subtitle={
-        <>
-          {entity?.staNotationLabel && (
-            <Typography.Text>
-              Datensatz mit der ID:{' '}
-              <Typography.Text code>{entity.staNotationLabel}</Typography.Text>{' '}
-              nicht verfügbar
-            </Typography.Text>
-          )}
-        </>
-      }
-    />
   );
 }
 
@@ -93,7 +69,6 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
   (context) => {
   let validEntityId: EntityId | undefined;
   let entityEntry: EntityEntry | undefined;
-  let isUnderConstruction: boolean | undefined;
   let staNotationLabel: string | undefined;
 
   if (context.params && 'staNotationLabel' in context.params) {
@@ -104,12 +79,6 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
       entityEntry && !isPropertyBlacklisted(entityEntry.entity.id)
         ? entityEntry.entity.id
         : undefined;
-
-    if (validEntityId) {
-      const namespaceId = (schemas as unknown as Schemas)[validEntityId];
-      const namespace: Namespace = namespaceConfig.map[namespaceId];
-      isUnderConstruction = namespace === Namespace.UC;
-    }
   }
 
   if (
@@ -121,26 +90,19 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
     return {
       props: {
         headlines: entityEntry.headlines,
-        notFound: false,
         entity: {
           id: validEntityId,
-          namespace: entityEntry.entity.namespace ?? null,
-          elementOf: entityEntry.entity.elementOf ?? null,
-          label: entityEntry.entity.label ?? null,
+          namespace: entityEntry.entity.namespace || undefined,
+          elementOf: entityEntry.entity.elementOf || undefined,
+          label: entityEntry.entity.label || undefined,
           staNotationLabel,
         },
       },
     };
-  } else {
-    return {
-      props: {
-        entityId: validEntityId ?? '',
-        staNotationLabel: staNotationLabel ?? '',
-        notFound: true,
-        isUnderConstruction: isUnderConstruction ?? false,
-      },
-    };
   }
+ else {
+  return { notFound: true };
+ }
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
@@ -152,6 +114,6 @@ export const getStaticPaths: GetStaticPaths = () => {
     locale: 'fr' }));
   return {
     paths: [...dePaths, ...frPaths],
-    fallback: false,
+    fallback: 'blocking',
   };
 };

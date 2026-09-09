@@ -23,6 +23,20 @@ export const NAMES = {
     file: { singular: 'entity-index', plural: 'entities-index' },
     type: 'EntityIndex',
   },
+  entitySsgIndexDe: {
+    file: {
+      singular: 'entity-ssg-index-de',
+      plural: 'entities-ssg-index-de',
+    },
+    type: 'EntitySsgIndex',
+  },
+  entitySsgIndexFr: {
+    file: {
+      singular: 'entity-ssg-index-fr',
+      plural: 'entities-ssg-index-fr',
+    },
+    type: 'EntitySsgIndex',
+  },
   propertyType: {
     file: { singular: 'property-type' },
     type: 'PropertyType',

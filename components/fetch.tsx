@@ -37,8 +37,7 @@ export function Fetch<T>({ url, locale, children, ignoreFetchingQueryParamString
 
   if (error) {
     console.error(error);
-    // todo, create error page
-    return null;
+    return children(undefined, false);
   }
 
   return children(data, loading);
