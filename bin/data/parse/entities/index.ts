@@ -51,7 +51,6 @@ export const parseEntities = ({
         entityId ===
           Item['Documentation-platform-of-the-standardization-committee']
       ) {
-        console.log('Parse raw Entity')
         const entityEntry = parseRawEntity({
           data,
           entityId,

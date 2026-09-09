@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { initial } from 'lodash';
 import { Name } from '../types/name';
 
@@ -32,8 +33,11 @@ export const writeJSONFile = <T>(
 
 export const readJSONFile = <T>(name: Name, state: DataState): T => {
   return JSON.parse(
-    fs.readFileSync(`data/${state}/${fileName(name)}.json`, {
-      encoding: 'utf8',
-    })
+    fs.readFileSync(
+      path.join(process.cwd(), 'data', state, `${fileName(name)}.json`),
+      {
+        encoding: 'utf8',
+      }
+    )
   ) as T;
 };

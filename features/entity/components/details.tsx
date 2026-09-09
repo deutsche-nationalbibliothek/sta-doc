@@ -54,6 +54,7 @@ export const EntityDetails: React.FC<EntityDetailsProps> = memo(
           ] as StatementValue[])
         : entity.statements.table;
 
+
     return (
       <>
         {!embedded && (

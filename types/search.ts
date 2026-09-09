@@ -86,9 +86,9 @@ export interface Doc {
   'pageType.assignmentId': string[];
   'pageType.assignmentLabel': string[];
   'pageType.id': string[];
-  'pageType.deLabel': string[];
+  'pageType.labelDe': string[];
   namespace: Namespace[];
-  staNotationLabel: string[];
+  staNotationLabel: string | string[];
   'statements.header.label'?: string[];
   'statements.header.property'?: string[];
   'statements.header.namespace'?: string[];
@@ -139,7 +139,7 @@ export interface Doc {
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.pageType.assignmentId'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.pageType.assignmentLabel'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.pageType.id'?: string[];
-  'statements.body.string.values.qualifiers.wikibasePointer.embedded.pageType.deLabel'?: string[];
+  'statements.body.string.values.qualifiers.wikibasePointer.embedded.pageType.labelDe'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.namespace'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.label'?: string[];
   'statements.body.string.values.qualifiers.wikibasePointer.embedded.statements.body.property'?: string[];

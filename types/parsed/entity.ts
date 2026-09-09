@@ -47,7 +47,8 @@ export type EntityEntryWithOptionalHeadlines = PartialBy<
 
 export interface PageType {
   label?: string;
-  deLabel: string;
+  labelDe: string;
+  labelFr: string;
   schema: string;
   assignmentId: string;
   assignmentLabel: string;

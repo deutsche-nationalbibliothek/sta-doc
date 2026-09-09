@@ -1,9 +1,13 @@
 import { EntityLink } from '@/entity/components/preview/link';
-import { DocSearchKey, QueryResult } from '@/types/search';
+import { QueryResult } from '@/types/search';
 import { List, Card, Typography } from 'antd';
-import { compact, uniq } from 'lodash';
 import { SearchResultListItem } from './result-list-item';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
+import {
+  collectSearchSnippets,
+  firstStaNotationLabel,
+} from './snippets';
+import useTranslation from 'next-translate/useTranslation';
 
 interface SearchResultsProps {
   queryResult: QueryResult;
@@ -22,9 +26,15 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
   setCurrentPage,
   onCloseDrawer,
 }) => {
+  const { t } = useTranslation('common');
+  
   return (
     <>
-      {query && (
+      {(queryResult.response.numFound === 0) ? (
+              <Card className='search-no-results'>
+                <Typography.Paragraph className='search-no-result'>{t('noResults')}</Typography.Paragraph>
+              </Card>
+            ) : (
         <List
           loading={loading}
           header={
@@ -35,7 +45,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   queryResult.response.start + 10,
                   queryResult.response.numFound
                 )}{' '}
-                von {queryResult.response.numFound} Treffer
+                {t('searchResultCount', { count: queryResult.response.numFound })}
               </>
             )
           }
@@ -53,57 +63,41 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
-            const headlineMatches = uniq<string>(
-              doc['headline-text-search'].filter(
-                (docValue: string) =>
-                  docValue
-                    .toLowerCase()
-                    .includes(query.toLowerCase().replace(/"+/g, '')) &&
-                  docValue !== doc['headline.title'][0]
-              )
-            );
+            if (!('headline-text-search' in doc)) {
+              return null;
+            }
 
-            const fulltextMatches: string[] = compact(
-              uniq(
-                Object.keys(doc).reduce((acc, key: DocSearchKey) => {
-                  if (key in doc) {
-                    const docValue = doc[key] ?? [];
-                    if (Array.isArray(doc[key])) {
-                      return [
-                        ...acc,
-                        ...docValue.filter(
-                          (docValue: string) =>
-                            docValue !== doc['headline.title'][0] &&
-                            headlineMatches.every(
-                              (headlineMatch) => headlineMatch !== docValue
-                            ) &&
-                            docValue
-                              .toLowerCase()
-                              .includes(query.toLowerCase().replace(/"+/g, ''))
-                        ),
-                      ];
-                    }
-                  }
-                  return acc;
-                }, [] as string[])
-              )
-            );
-            return 'headline-text-search' in doc ? (
+            const { staNotationMatch, headlineMatches, fulltextMatches } =
+              collectSearchSnippets(doc, query);
+
+            return (
               <NamespaceThemeConfigProvider
                 key={index}
                 namespace={doc.namespace[0]}
               >
-                <List.Item style={{ display: 'inherit' }}>
+                <List.Item className='search-result' style={{ display: 'inherit' }}>
                   <EntityLink
                     tooltipPlacement={'left'}
                     linkProps={{ onClick: onCloseDrawer }}
-                    label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.deLabel'][0]}`}
-                    staNotationLabel={doc.staNotationLabel.toString()}
+                    label={`${doc['headline.title'][0]} | ${doc.namespace[0]} / ${doc['pageType.labelDe'][0]}`}
+                    staNotationLabel={firstStaNotationLabel(
+                      doc.staNotationLabel
+                    )}
                     id={doc.id}
                   />
-                  <ul>
+                  <ul className='search-result-matches'>
+                    {staNotationMatch && (
+                      <li key="sta-notation" className='search-result-match search-result-match--sta-notation'>
+                        <SearchResultListItem
+                          onCloseDrawer={onCloseDrawer}
+                          isFullTextSearchMatch
+                          doc={doc}
+                          matchedValue={staNotationMatch}
+                        />
+                      </li>
+                    )}
                     {headlineMatches.map((matchedValue, index2) => (
-                      <li key={index2}>
+                      <li key={`headline-${index2}`} className='search-result-match search-result-match--headline'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isHeadlineTextSearchMatch
@@ -113,7 +107,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                       </li>
                     ))}
                     {fulltextMatches.map((matchedValue, index2) => (
-                      <li key={index2}>
+                      <li key={`fulltext-${index2}`} className='search-result-match search-result-match--fulltext'>
                         <SearchResultListItem
                           onCloseDrawer={onCloseDrawer}
                           isFullTextSearchMatch
@@ -125,11 +119,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
                   </ul>
                 </List.Item>
               </NamespaceThemeConfigProvider>
-            ) : (
-              <Card>
-                <Typography.Paragraph>Keine Treffer</Typography.Paragraph>
-              </Card>
-            );
+            ) 
           })}
         </List>
       )}

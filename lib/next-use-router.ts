@@ -26,7 +26,7 @@ export const useRouter = (): UseRouter => {
       const nextPath = pathname ?? router.pathname;
       return await router.push({
         pathname: nextPath,
-        hash: anchor,
+        hash: anchor ?? '',
         query: {
           ...pickBy(router.query, (_value, key) => nextPath.includes(key)),
           ...searchQuery,

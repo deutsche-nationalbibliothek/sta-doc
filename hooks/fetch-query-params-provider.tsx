@@ -11,9 +11,9 @@ declare global {
 type UseQueryParamSetter<T> = ReturnType<typeof useQueryParam<T>>[1];
 
 export enum FetchingParam {
-  prod = 'prod',
   test = 'test',
-  live = 'live'
+  live = 'live',
+  prod = 'prod',
 }
 
 interface RouterQuery {

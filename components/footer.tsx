@@ -22,41 +22,54 @@ import {
   Tooltip,
 } from 'antd';
 import copy from 'copy-to-clipboard';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import { ExternalLink } from './external-link';
 import { useCollapseToggleEvent } from '@/hooks/use-collapsibles';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 // import { API_URL } from '@/bin/data/fetcher';
+import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from '@/lib/next-use-router';
+import { buildLocalizedAppPath } from '@/utils/locale-utils';
 
 export const Footer: React.FC = () => {
+  const router = useRouter();
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const [messageApi, contextHolder] = message.useMessage();
   const { entity } = useEntity();
-  const [currentUrl, setCurrentUrl] = useState('');
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
+  const currentUrl = useSyncExternalStore(
+    (onStoreChange) => {
+      router.events.on('routeChangeComplete', onStoreChange);
+      return () => {
+        router.events.off('routeChangeComplete', onStoreChange);
+      };
+    },
+    () => window.location.href,
+    () => ''
+  );
+
   const { onNextState: onCollapseNextState, state: collapseStateIsOpen } =
     useCollapseToggleEvent();
 
+  const { t } = useTranslation('common');
   const onClick = useMemo(
     () => ({
       staNotation: () => {
         copy(
-          `${window.location.origin}${process.env.basePath ?? ''}/${
-            entity?.staNotationLabel as string
-          }`
+          `${window.location.origin}${buildLocalizedAppPath(
+            `/${entity?.staNotationLabel as string}`,
+            router.locale
+          )}`
         );
-        messageApi.success('Link kopiert!');
+        messageApi.success(t('link-copied'));
       },
       scrollTop: () =>
         document.getElementById('main-scroll-container')?.scroll(0, 0),
       print: () => window.print(),
       betaDisclaimer: () => {
-        messageApi.warning('In Beta Version ohne Funktion');
+        messageApi.warning(t('beta-version-warning'));
       },
     }),
-    [messageApi, entity?.staNotationLabel]
+    [messageApi, entity?.staNotationLabel, router.locale, t]
   );
 
   const { token } = theme.useToken();
@@ -77,8 +90,6 @@ export const Footer: React.FC = () => {
     },
   };
 
-  const feedbackBodyMessage =
-    'Vielen Dank, Ihr Feedback ist wichtig. Wir freuen uns auf Ihre Anmerkungen und Hinweise.%0D%0A%0D%0AIhr AfS-Team.';
   return (
     <ConfigProvider
       theme={{
@@ -152,7 +163,7 @@ export const Footer: React.FC = () => {
                     whiteSpace: 'nowrap',
                   }}
                 >
-                  Version: 2025/2
+                  Version: 2026/1
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
                 <span
@@ -174,7 +185,7 @@ export const Footer: React.FC = () => {
                       href: `${websideUrl}/doc/STA-IMPRESSUM`,
                     }}
                   >
-                    <>Impressum</>
+                    <>{t('impressum')}</>
                   </ExternalLink>
                 </span>
                 {!isSmallScreen && <Divider type="vertical" />}
@@ -187,26 +198,26 @@ export const Footer: React.FC = () => {
             })}
           >
             <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
-              <Tooltip title="Nach oben scrollen">
+              <Tooltip title={t('scroll-to-top')}>
                 <VerticalAlignTopOutlined
                   onClick={onClick.scrollTop}
                   css={styles.icon}
                 />
               </Tooltip>
-              <Tooltip className="no-print" title="Seiteninhalt drucken">
+              <Tooltip className="no-print" title={t('print-page')}>
                 <PrinterOutlined onClick={onClick.print} css={styles.icon} />
               </Tooltip>
             </div>
             <div css={{ margin: isSmallScreen ? 'auto' : 0 }}>
               {collapseStateIsOpen ? (
-                <Tooltip title="Alle Klapptexte einklappen">
+                <Tooltip title={t('collapse-all-texts')}>
                   <FullscreenExitOutlined
                     onClick={onCollapseNextState}
                     css={styles.icon}
                   />
                 </Tooltip>
               ) : (
-                <Tooltip title="Alle Klapptexte ausklappen">
+                <Tooltip title={t('expand-all-texts')}>
                   <FullscreenOutlined
                     onClick={onCollapseNextState}
                     css={styles.icon}
@@ -215,15 +226,15 @@ export const Footer: React.FC = () => {
               )}
               <Tooltip
                 className="no-print"
-                title="Sie haben eine Anmerkung? Schreiben Sie uns gerne! Vielen Dank"
+                title={t('leave-feedback-tooltip')}
               >
                 <a
                   href={
-                    `mailto:afs@dnb.de?subject=` +
-                    `STA-Doku-Plattform: Anmerkung zur Seite: ` +
+                    `mailto:` + t('mail-to') + `?subject=` +
+                    t('mail-to-header') +
                     `${currentUrl}` +
                     `&body=` +
-                    `${feedbackBodyMessage}`
+                    t('feedback-body-message')
                   }
                   target="_blank"
                   rel="noopener noreferrer"

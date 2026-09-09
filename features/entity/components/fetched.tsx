@@ -20,24 +20,25 @@ export const FetchedEntity = memo(
   ({ entityEntry, loading, setHeadlines, locale }: FetchedEntityProps) => {
     const { setNamespace } = useNamespace();
     const { setEntity, unloadEntity } = useEntity();
+    const entity = entityEntry?.entity;
 
     useInitialScroll(!loading);
 
     useEffect(() => {
       if (!loading) {
-        if (entityEntry?.entity) {
-          setEntity(entityEntry?.entity);
+        if (entity) {
+          setEntity(entity);
         }
         if (entityEntry?.headlines) {
-          setHeadlines(entityEntry?.headlines);
+          setHeadlines(entityEntry.headlines);
         }
-        if (entityEntry?.entity.namespace) {
-          setNamespace(entityEntry.entity.namespace);
+        if (entity?.namespace) {
+          setNamespace(entity.namespace);
         }
       }
       return unloadEntity;
     }, [
-      entityEntry?.entity,
+      entity,
       entityEntry?.headlines,
       loading,
       setHeadlines,
@@ -46,15 +47,12 @@ export const FetchedEntity = memo(
       unloadEntity,
     ]);
 
-    const titleLabel = compact([
-      entityEntry?.entity.namespace,
-      entityEntry?.entity.label,
-    ]).join(' | ');
+    const titleLabel = compact([entity?.namespace, entity?.label]).join(' | ');
     return (
       <>
-        <Head>{!loading && entityEntry && <title>{titleLabel}</title>}</Head>
-        {!loading && entityEntry ? (
-          <EntityDetails entity={entityEntry.entity} locale={locale} />
+        <Head>{!loading && entity && <title>{titleLabel}</title>}</Head>
+        {!loading && entity ? (
+          <EntityDetails entity={entity} locale={locale} />
         ) : (
           <EntityPlaceholder />
         )}
@@ -62,7 +60,7 @@ export const FetchedEntity = memo(
     );
   },
   (prevProps, nextProps) =>
-    prevProps.entityEntry?.entity.id === nextProps.entityEntry?.entity.id &&
+    prevProps.entityEntry?.entity?.id === nextProps.entityEntry?.entity?.id &&
     prevProps.loading === nextProps.loading &&
     prevProps.locale === nextProps.locale
 );

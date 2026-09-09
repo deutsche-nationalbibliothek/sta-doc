@@ -6,6 +6,7 @@ import {
   theme,
 } from 'antd';
 import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface CollapseProps extends AntdCollapseProps {
   defaultOpen?: boolean;
@@ -18,13 +19,15 @@ interface CollapseProps extends AntdCollapseProps {
 export const Collapse = ({
   defaultOpen = true,
   labelOpen = '',
-  labelClosed = 'Weiterführende Informationen',
+  labelClosed = '',
   extra,
   children,
 }: CollapseProps) => {
+  const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const { token } = theme.useToken();
   useCollapseToggleEvent((x) => setIsOpen(x.detail === 'open'));
+  const defaultLabelClosed = labelClosed || t('furtherInformation');
 
   return (
     <Typography.Paragraph>
@@ -45,9 +48,9 @@ export const Collapse = ({
         <AntdCollapse.Panel
           extra={extra}
           header={
-            isOpen && labelClosed === 'Weiterführende Informationen'
+            isOpen && defaultLabelClosed === t('furtherInformation')
               ? labelOpen
-              : labelClosed
+              : defaultLabelClosed
           }
           key="1"
         >

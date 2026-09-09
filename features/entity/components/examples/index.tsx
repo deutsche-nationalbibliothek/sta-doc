@@ -8,13 +8,17 @@ import { Fragment } from 'react';
 import { NamespaceThemeConfigProvider } from '@/components/namespace-theme-config-provider';
 import { Namespace } from '@/types/namespace';
 import { Item } from '@/types/item';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ExamplesProps {
   examples: Entity[];
+  lang?: string;
 }
 
 export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
-  const label = examples.length > 1 ? 'Beispiele ' : 'Beispiel ';
+  const { t } = useTranslation('common');
+
+  const label = examples.length > 1 ? t('examples') : t('example');
 
   const { codingsPreferences, onChange, codingsOptions } =
     useCodingsPreference();
@@ -90,14 +94,12 @@ export const Examples: React.FC<ExamplesProps> = ({ examples }) => {
         }
       >
         {examples.map((example, index) => (
-          <>
-            <ExampleCard
-              entity={example}
-              codingsPreferences={codingsPreferences}
-              key={index}
-              lastIndex={index === examples.length - 1}
-            />
-          </>
+          <ExampleCard
+            entity={example}
+            codingsPreferences={codingsPreferences}
+            key={example.id}
+            lastIndex={index === examples.length - 1}
+          />
         ))}
       </DraggableModal>
     </NamespaceThemeConfigProvider>

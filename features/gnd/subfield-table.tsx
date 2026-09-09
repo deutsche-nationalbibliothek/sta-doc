@@ -1,8 +1,12 @@
 import { ColumnsTypes, Table } from '@/components/table';
-import { EntityLink } from '@/entity/components/preview/link';
 import { EntityId } from '@/types/entity-id';
 import { Subfield } from '@/types/parsed/field';
 import { Typography } from 'antd';
+import Link from 'next/link';
+import { slugifyLabel } from '@/utils/slugify';
+import { scrollToHeadline } from '@/utils/scroll-to-headline';
+import { EntityLink } from '../entity/components/preview/link';
+import { useRouter } from 'next/router';
 
 interface GndSubFieldTableProps {
   id: EntityId;
@@ -15,6 +19,9 @@ interface GndSubFieldTableProps {
 }
 
 export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
+  const router = useRouter();
+  const isStaNotationPage = router.pathname === '/[staNotationLabel]';
+
   const columns: ColumnsTypes<Subfield> = [
     {
       hidden: props.singleColumn && props.singleColumn !== 'PICA' || false,
@@ -67,11 +74,20 @@ export const GndSubFieldTable: React.FC<GndSubFieldTableProps> = (props) => {
       noSort: true,
       key: 'label',
       render: (_data, record, _index, highlightedContent) => {
-        return <EntityLink id={record.id} label={record.labelDe} staNotationLabel={record.staNotationLabel}>{highlightedContent}</EntityLink>;
+        if (isStaNotationPage) {
+          const anchorId = slugifyLabel(record.labelDe)
+          return <Link
+            onClick={() => {
+              scrollToHeadline(anchorId);
+            }}
+            href={`#${anchorId}`}>{record.labelDe}</Link>;
+        } else {
+          return <EntityLink id={record.id} label={record.labelDe} staNotationLabel={record.staNotationLabel}>{highlightedContent}</EntityLink>;
+        }
       },
     },
     {
-      title: 'Wiederholung',
+      title: 'Wdhlg.',
       width: '12%',
       dataIndex: 'repeatable',
       noSort: true,

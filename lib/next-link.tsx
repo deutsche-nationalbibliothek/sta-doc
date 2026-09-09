@@ -32,7 +32,14 @@ export const Link: React.FC<
   const { query: fetchingQuery } = useFetchingQueryParams();
   const { query: searchQuery } = useSearchQueryParams();
 
-  const nextPath = href ?? pathname ?? router.pathname;
+  const rawHref = href ?? pathname ?? router.asPath.split('#')[0].split('?')[0];
+  const hashIndex = rawHref.indexOf('#');
+  const nextPath =
+    hashIndex >= 0
+      ? rawHref.slice(0, hashIndex) ||
+        router.asPath.split('#')[0].split('?')[0]
+      : rawHref;
+  const hrefHash = hashIndex >= 0 ? rawHref.slice(hashIndex + 1) : undefined;
 
   return (
     <NextLink
@@ -40,7 +47,7 @@ export const Link: React.FC<
       className={className}
       href={{
         pathname: nextPath,
-        hash: anchor,
+        hash: anchor ?? hrefHash ?? '',
         query: props.legacyBehavior
           ? {}
           : {

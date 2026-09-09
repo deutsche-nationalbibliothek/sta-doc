@@ -3,6 +3,7 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { Drawer, Tooltip } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
 import { SolrSearch } from './solr';
+import useTranslation from 'next-translate/useTranslation';
 
 interface SearchDrawerProps {
   isSearchOpen: boolean;
@@ -14,6 +15,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
   setIsSearchOpen,
 }) => {
   const onCloseDrawer = () => setIsSearchOpen(false);
+  const { t } = useTranslation('common');
 
   return (
     <Drawer
@@ -28,7 +30,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
         </Tooltip>
       }
     >
-      <SolrSearch placeholder="Suche" onCloseDrawer={onCloseDrawer} />
+      <SolrSearch placeholder={t('search')} onCloseDrawer={onCloseDrawer} />
     </Drawer>
   );
 };

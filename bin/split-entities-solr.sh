@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p ./docker/solr/data
+mkdir -p ./docker/solr/data 
 rm ./docker/solr/data/*
 
 # jq -r 'to_entries[] | "\(.key)\t\(.value.entity)"' ./data/parsed/entities.json | while IFS=$'\t' read -r key value; do
@@ -8,10 +8,10 @@ rm ./docker/solr/data/*
 #   echo "$value" > ./docker/solr/data/"$key".json
 # done
 
-# Split entitites.json into separate files
+# Split de entitites into separate files
 key_count=$(jq 'keys | length' "./data/parsed/entities-de.json")
 echo jq 'keys | length' ./data/parsed/entities-de.json
-echo "Split $key_count entities into single files."
+echo "Split $key_count de entities into single files."
 mapfile -t key_arr < <(jq -r 'keys[]' ./data/parsed/entities-de.json)
 mapfile -t value_arr < <(jq -r 'keys[] as $key | .[$key].entity | @json' ./data/parsed/entities-de.json)
 
@@ -19,4 +19,17 @@ mapfile -t value_arr < <(jq -r 'keys[] as $key | .[$key].entity | @json' ./data/
 for i in "${!value_arr[@]}"; do
   # printf "%s\t%s\n" "${key_arr[$i]}" "${value_arr[$i]}"
   echo ${value_arr[$i]} > ./docker/solr/data/${key_arr[$i]}.json
+done
+
+# Split fr entitites into separate files
+key_count=$(jq 'keys | length' "./data/parsed/entities-fr.json")
+echo jq 'keys | length' ./data/parsed/entities-fr.json
+echo "Split $key_count fr entities into single files."
+mapfile -t key_arr < <(jq -r 'keys[]' ./data/parsed/entities-fr.json)
+mapfile -t value_arr < <(jq -r 'keys[] as $key | .[$key].entity | @json' ./data/parsed/entities-fr.json)
+
+#for i in {1..50}; do
+for i in "${!value_arr[@]}"; do
+  # printf "%s\t%s\n" "${key_arr[$i]}" "${value_arr[$i]}"
+  echo ${value_arr[$i]} > ./docker/solr/data/${key_arr[$i]}-fr.json
 done

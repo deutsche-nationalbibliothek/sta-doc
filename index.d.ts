@@ -13,6 +13,18 @@ declare module '@/data/parsed/entities.json' {
   export default data;
 }
 
+declare module '@/data/parsed/entities-ssg-index-de.json' {
+  import { EntitySsgIndexFile } from './types/parsed/entity-ssg-index';
+  const data: EntitySsgIndexFile;
+  export default data;
+}
+
+declare module '@/data/parsed/entities-ssg-index-fr.json' {
+  import { EntitySsgIndexFile } from './types/parsed/entity-ssg-index';
+  const data: EntitySsgIndexFile;
+  export default data;
+}
+
 declare module '@/data/parsed/codings.json' {
   import { Codings } from './types/parsed/coding';
   const data: Codings;

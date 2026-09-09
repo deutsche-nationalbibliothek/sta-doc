@@ -26,6 +26,8 @@ import { headlinesParser } from './util';
 export interface ParseEntityProps
   extends Omit<ParseEntitiesProps, 'rawEntities'> {
   currentHeadlineLevel?: number;
+  /** Snapshot of last headline.level when entering the outermost embed. */
+  embedHeadlineBaseline?: number;
   embedded?: boolean;
   entityId: EntityId;
   // elementOfId?: EntityId;
@@ -54,7 +56,10 @@ export const parseRawEntity = (
     props.entityId
   );
 
-  const defaultedProps: Required<Omit<ParseEntityProps, 'parsedEntityCache'>> & Pick<ParseEntityProps, 'parsedEntityCache'> = {
+  const defaultedProps: Required<
+    Omit<ParseEntityProps, 'parsedEntityCache' | 'embedHeadlineBaseline'>
+  > &
+    Pick<ParseEntityProps, 'parsedEntityCache' | 'embedHeadlineBaseline'> = {
     headlines: [],
     currentHeadlineLevel: 1,
     prevParsedEntities: [],
@@ -63,6 +68,17 @@ export const parseRawEntity = (
     noHeadline: false,
     ...props,
   };
+
+  if (defaultedProps.embedded) {
+    if (props.embedHeadlineBaseline === undefined) {
+      defaultedProps.embedHeadlineBaseline =
+        defaultedProps.headlines.length > 0
+          ? defaultedProps.headlines[defaultedProps.headlines.length - 1].level
+          : defaultedProps.currentHeadlineLevel;
+    }
+  } else {
+    defaultedProps.embedHeadlineBaseline = undefined;
+  }
 
   const {
     data,
@@ -150,7 +166,8 @@ export const parseRawEntity = (
     const pageType = elementOfId
       ? ({
           ...labelsEn[elementOfId],
-          deLabel: labelsDe[elementOfId],
+          labelDe: labelsDe[elementOfId],
+          labelFr: labelsFr[elementOfId],
           schema: labelsDe[namespaceId]
         } as PageType)
       : undefined;
@@ -167,14 +184,14 @@ export const parseRawEntity = (
         label = labelsDe[entityId] ?? entity.labels.de?.value;
     }
 
-    const contextOfUseId =
-      entity.claims[Property['Context-of-use']] &&
-      entity.claims[Property['Context-of-use']][0].mainsnak.datavalue?.value.id;
-
-    const contextOfUseLabel =
-      contextOfUseId && contextOfUseId in labelsDe
-        ? labelsDe[contextOfUseId]
-        : undefined;
+    const contextOfUseClaim = entity.claims[Property['Context-of-use']];
+    const contextOfUseId = contextOfUseClaim?.[0]?.mainsnak?.datavalue?.value?.id;
+    const getContextLabel = (id: EntityId | undefined, isFrench: boolean): string | undefined => {
+      if (!id) return undefined;
+      const labels = isFrench ? labelsFr : labelsDe;
+      return labels[id];
+    };
+    const contextOfUseLabel = getContextLabel(contextOfUseId, lang === 'fr');
 
     const showOnlyApplicationProfile = () => {
       if (isRdaRessourceEntity) {
@@ -205,7 +222,7 @@ export const parseRawEntity = (
       if (annotationItemId) {
         annotation = {
           id: annotationItemId,
-          label: labelsDe[annotationItemId],
+          label: lang === 'fr' ? labelsFr[annotationItemId] : labelsDe[annotationItemId],
           property: Property.Annotation,
           staNotationLabel: staNotations[annotationItemId]?.label,
         };
@@ -240,6 +257,7 @@ export const parseRawEntity = (
         occurrences: entity.claims,
         isRdaRessourceEntity: isRdaRessourceEntity || false,
         addHeadline,
+        parsedEntityCache: parsedEntityCache || new Map()
       }),
     };
   };
@@ -247,11 +265,18 @@ export const parseRawEntity = (
   const parsedEntity = entityProps();
 
   if (parsedEntity) {
-    const result: EntityEntry = { entity: parsedEntity, headlines };
-    parsedEntityCache?.set(entityId, result);
+    const result: EntityEntry = {
+      entity: parsedEntity,
+      headlines
+    };
+    if (parsedEntityCache && !props.embedded) {
+      parsedEntityCache.set(entityId, result);
+    }
     return result;
   }
-  parsedEntityCache?.set(entityId, null);
+  // if (parsedEntityCache) {
+  //   parsedEntityCache.set(entityId, null);
+  // }
 };
 
 export type PreMappedStatement = Omit<StatementValue, 'stringGroups'> & {

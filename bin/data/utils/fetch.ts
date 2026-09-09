@@ -13,7 +13,22 @@ export const fetchWithSparql = (apiUrl: API_URL) => {
 
   const fetcher = async <T>(path: string, options = {}): Promise<T> => {
     const url = `${apiUrl}/${path}`;
-    return await fetch(url, options).then((response) => response.json() as T);
+    const response = await fetch(url, options);
+    const body = await response.text();
+    if (!response.ok) {
+      throw new Error(
+        `Fetch ${response.status} ${response.statusText} from ${url}${
+          body ? ` — ${body.slice(0, 200)}` : ''
+        }`
+      );
+    }
+    try {
+      return JSON.parse(body) as T;
+    } catch {
+      throw new Error(
+        `Invalid JSON from ${url}${body ? `: ${body.slice(0, 200)}` : ''}`
+      );
+    }
   };
   return {
     sparqlQueryDispatcher,

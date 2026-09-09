@@ -1,4 +1,6 @@
-import { read } from 'fs';
+import { read, existsSync } from 'fs';
+import fs from "fs/promises";
+import path from "path";
 import { EntityId } from '../../types/entity-id';
 // import { EntitiesEntries } from '../../types/parsed/entity';
 import {
@@ -29,6 +31,20 @@ import {
 } from './write';
 
 export const DEV = false;
+
+const ensureDataDirectories = async () => {
+  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
+  
+  const projectRoot = process.cwd();
+
+  const directories = ["data", "data/raw", "data/parsed"]
+  .map(dir => path.join(projectRoot, dir))
+
+  for (const dir of directories) {try {
+    await fs.mkdir(dir, {recursive: true});
+    console.log(`Directory ${dir} already exists or was created.`)
+  } catch(e) {console.error(`Could not create ${dir}`, e); throw e}}
+}
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
@@ -66,7 +82,8 @@ export const DEV = false;
   };
   const parseRawAndWriteBreadcrumbs = () => {
     const readRaw = reader[DataState.raw];
-    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs())
+    const staNotations = staNotationsParser(readRaw.staNotations('de'));
+    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs(), staNotations)
     const data = { breadcrumbs: breadcrumbs }
     writer.parsed(data).breadcrumbs();
   }
@@ -93,6 +110,12 @@ export const DEV = false;
     const data = { propertyTypes: propertyTypes }
     writer.parsed(data).propertyTypes();
   }
+  const parseRawAndWriteSchemas = () => {
+    const readRaw = reader[DataState.raw];
+    const schemas = schemasParser(readRaw.schemas()) 
+    const data = { schemas: schemas }
+    writer.parsed(data).schemas();
+  }
   const parseRawAndWriteStaNotations = (lang: string) => {
     const readRaw = reader[DataState.raw];
     // const staNotations = staNotationsParser(readRaw.staNotations(),lang)
@@ -100,13 +123,6 @@ export const DEV = false;
     const data = { staNotations: staNotations }
     writer.parsed(data).staNotations(lang);
   }
-
-  // const parseRawAndWriteFields = () => {
-  //   const readRaw = reader[DataState.raw];
-  //   const staNotations = fieldsParser(readRaw.fields()) 
-  //   const data = { fields: fields }
-  //   writer.parsed(data).fields();
-  // }
 
   const parseRawAndWriteLabels = () => {
     const readRaw = reader[DataState.raw];
@@ -123,12 +139,17 @@ export const DEV = false;
 
   const parseSingleEntity = (entityId: EntityId, lang: string) => {
     const readRaw = reader[DataState.raw];
-    const staNotations = staNotationsParser(readRaw.staNotations(lang));
-    const codings = reader[DataState.parsed].codings();
-    const schemas = reader[DataState.parsed].schemas();
-    const labelsDe = labelsParser.de(readRaw.labels.de());
-    const labelsEn = labelsParser.en(readRaw.labels.en());
-    const labelsFr = labelsParser.fr(readRaw.labels.fr());
+    const readParsed = reader[DataState.parsed]
+    const breadcrumbs = readParsed.breadcrumbs();
+    const codings = readParsed.codings();
+    const fields = readParsed.fields();
+    const labelsDe = readParsed.labels.de();
+    const labelsEn = readParsed.labels.en();
+    const labelsFr = readParsed.labels.fr();
+    const propertyTypes = readParsed.propertyTypes();
+    const rdaElementStatuses = readParsed.rdaElementStatuses();
+    const schemas = readParsed.schemas();
+    const staNotations = readParsed.staNotations();
     const entity = entitiesParser.single(
       entityId,
       readRaw.entities.single(entityId),
@@ -137,17 +158,13 @@ export const DEV = false;
         labelsDe: labelsDe,
         labelsEn: labelsEn,
         labelsFr: labelsFr,
-        breadcrumbs: breadcrumbsParser(readRaw.breadcrumbs()),
-        codings: codingsParser(readRaw.codings()),
-        propertyTypes: propertyTypesParser(readRaw.propertyTypes()),
+        breadcrumbs: breadcrumbs,
+        codings: codings,
+        propertyTypes: propertyTypes,
         staNotations,
         schemas,
-        fields: fieldsParser(readRaw.fields(), staNotations, codings,labelsDe,labelsFr),
-        rdaElementStatuses: rdaElementStatusesParser(
-          readRaw.rdaElementStatuses(),
-          staNotations,
-          schemas
-        ),
+        fields: fields,
+        rdaElementStatuses: rdaElementStatuses,
       },
       lang
     );
@@ -166,10 +183,12 @@ export const DEV = false;
   };
 
   if (process.argv.length >= 2 && /data$/.test(process.argv[1])) {
+    await ensureDataDirectories()
     if (process.argv.length === 2) {
       await fetchRawAndWrite();
-      const lang = 'de';
+      let lang = 'de';
       parseRawAndWriteParsed(lang);
+      parseRawAndWriteParsed(lang='fr');
     } else if (process.argv.length > 2) {
       let lang = 'de';
       switch (process.argv[2]) {
@@ -187,16 +206,14 @@ export const DEV = false;
             await fetchRawFieldsAndWrite();
           break;
         case 'parse':
-            lang = 'de';
-            parseRawAndWriteParsed(lang);
+            parseRawAndWriteParsed(lang='de');
           break;
         case 'parse:fr':
-            lang = 'fr';
-            parseRawAndWriteParsed(lang);
+            parseRawAndWriteParsed(lang='fr');
           break;
         case 'parse:single':
           if (process.argv[3]) { // parse:single Q1234
-            const lang = 'de';
+            let lang = 'de';
             parseSingleEntity(process.argv[3] as EntityId, lang);
           } else {
             console.warn('Missing EntityId as argument, like: data:parse:single Q1234.');
@@ -204,7 +221,7 @@ export const DEV = false;
           break;
         case 'parse:single:fr':
           if (process.argv[3]) { // parse:single:fr P513
-            const lang = 'fr';
+            let lang = 'fr';
             parseSingleEntity(process.argv[3] as EntityId, lang);
           } else {
             console.warn('Missing EntityId as argument, like: data:parse:single P513.');
@@ -225,15 +242,15 @@ export const DEV = false;
         case 'parse:propertyTypes':
           parseRawAndWritePropertyTypes();
           break;
+        case 'parse:schemas':
+            parseRawAndWriteSchemas();
+          break;
         case 'parse:staNotations':
             parseRawAndWriteStaNotations('de');
           break;
         case 'parse:staNotations:fr':
             parseRawAndWriteStaNotations('fr');
           break;
-        // case 'parse:fields':
-        //     parseRawAndWriteFields();
-        //   break;
         case 'fetch:properties-items':
           propertiesItemsListWriter(
             propertyItemListParser(

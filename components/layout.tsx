@@ -5,7 +5,6 @@ import { LoadingIndicator } from './loading-indicator';
 import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
-import 'antd/dist/reset.css';
 import { CSSObject } from '@emotion/react';
 import { compact } from 'lodash';
 import { PropsWithChildren, useEffect, useRef } from 'react';
