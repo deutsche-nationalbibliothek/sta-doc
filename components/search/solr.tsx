@@ -5,6 +5,7 @@ import { SearchResults } from './results-list';
 import { AutoComplete, ConfigProvider, Input } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
+import useTranslation from 'next-translate/useTranslation';
 
 export interface SolrQueryFetcherOptions {
   query: string;
@@ -19,6 +20,8 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
   placeholder,
   onCloseDrawer,
 }) => {
+  const { t } = useTranslation('common');
+
   const {
     suggestionsResult,
     queryResult,
@@ -32,6 +35,11 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
     currentPage,
     setCurrentPage,
   } = useSolrSearch();
+
+  const queryErrorCode =
+  queryError instanceof Error
+    ? (queryError as Error & { code?: string }).code
+    : undefined;
 
   return (
     <NamespaceThemeConfigProvider namespace={'unspecific' as Namespace}>
@@ -79,7 +87,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
 
         {queryError instanceof Error && (
         // Error is created in swr.ts and passed through useSolrSearch
-        <div style={{ color: '#ff4d4f', marginTop: 10, fontSize: '12px' }}>{queryError.message}</div>)} 
+        <div style={{ color: 'var(--top-bar-color)', marginTop: 10, fontSize: '12px', lineHeight: 1.4, }}> {t(`searchErrors.${queryErrorCode}`)}</div>)} 
 
         {queryResult && (
           <SearchResults

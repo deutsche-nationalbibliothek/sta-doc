@@ -34,6 +34,11 @@
   "scroll-to-top": "Nach oben scrollen",
   "searchResultCount": "von {{count}} Treffern",
   "search": "Suche",
+  "searchErrors": {
+    "EMPTY_SEARCH_QUERY": "Bitte geben Sie einen Suchbegriff ein.",
+    "EMPTY_PHRASE": "Bitte geben Sie eine Phrase innerhalb der Anführungszeichen ein.",
+    "UNCLOSED_QUOTATION_MARK": "Die Suchanfrage enthält ein nicht geschlossenes Anführungszeichen."
+  },
   "site": "Seite",
   "sorterTooltip": "Sortieren nach Spalte",
   "status": "Status",
