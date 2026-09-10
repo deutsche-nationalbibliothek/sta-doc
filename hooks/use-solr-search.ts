@@ -17,7 +17,7 @@ export const useSolrSearch = () => {
   // query solr logic
   const [urlQuery, setUrlQuery] = useState<string>();
 
-  const { data: queryResult, loading: queryLoading } = useSWR<QueryResult>(
+  const { data: queryResult, loading: queryLoading, error: queryError } = useSWR<QueryResult>(
     urlQuery,
     true
   );
@@ -53,19 +53,24 @@ export const useSolrSearch = () => {
     if (query) {
       if (query.length > 1) {
         const pageSize = 10;
-        setUrlQuery(
+        const encodedQuery = encodeURIComponent(query)
+        
+        const searchURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/query?query=${query}${
+          }/api/entities/search/query?query=${encodedQuery}${
             '&start=' + String((currentPage - 1) * pageSize)
           }`
         );
 
-        setUrlSuggest(
+        const suggestURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/suggest?query=${query}`
+          }/api/entities/search/suggest?query=${encodedQuery}`
         );
+
+        setUrlQuery(searchURL);
+        setUrlSuggest(suggestURL);
       } else {
         setUrlQuery(undefined);
         setUrlSuggest(undefined);
@@ -76,6 +81,7 @@ export const useSolrSearch = () => {
   return {
     suggestionsResult,
     queryResult,
+    queryError,
     inputRef,
     isLoadingSearchIfQuery,
     isLoadingSuggestionsIfQuery,

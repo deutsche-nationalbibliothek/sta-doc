@@ -15,11 +15,29 @@ const SEARCH_RESULT_FIELDS = [
   'score',
 ].join(',');
 
+const validateSearchQuery = (query: string) => {
+  const queryTrimmed = query.trim();
+
+  if(!queryTrimmed) return {code: 'EMPTY_SEARCH_QUERY', message: 'Please insert a search term.'}
+
+  if(queryTrimmed.includes('""')) return {code: 'EMPTY_PHRASE', message: 'The search query contains an empty phrase. Please insert a phrase within the quotation marks.'}
+
+  const numberOfQuotationMarks = (queryTrimmed.match(/"/g) || []).length
+
+  if (numberOfQuotationMarks % 2 !== 0) return {code: 'UNCLOSED_QUOTATION_MARK', message: 'The search query contains an unclosed quotation mark.'}
+
+  return null
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { query: requestedQuery, start } = req.query as {
     query: string;
     start: string;
   };
+
+  const validationError = validateSearchQuery(requestedQuery);
+
+  if (validationError) return res.status(400).json(validationError);
 
   const buildQueryStatement = (requestedQuery: string) => {
     const phraseSearch = requestedQuery.match(/"(.*?)"/g);
@@ -33,26 +51,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     
     if (phraseSearch) {
       const phrases = phraseSearch;
-
-    phrases.forEach((phrase, index) => {
-    const scoreLevel1 = `headline.title:${phrase}^30`;
-    const scoreLevel2 = `headline.title:*${phrase}*^20`;
-    const scoreLevel3 = `headline-text-search:${phrase}^20`;
-    const scoreLevel4 = `headline-text-search:*${phrase}*^10`;
-    const scoreLevel6 = `full-text-search:${phrase}^10`;
-
-    if (index == 0) {
-      statementScore1 += scoreLevel1;
-      statementScore2 += scoreLevel2;
-      statementScore3 += scoreLevel3;
-      statementScore4 += scoreLevel4;
-      statementScore6 += scoreLevel6;
-    } else {
-      statementScore1 += ' AND ' + scoreLevel1;
-      statementScore2 += ' AND ' + scoreLevel2;
-      statementScore3 += ' AND ' + scoreLevel3;
-      statementScore4 += ' AND ' + scoreLevel4;
-      statementScore6 += ' AND ' + scoreLevel6;
+      
+      phrases.forEach((phrase, index) => {
+      const scoreLevel1 = `headline.title:${phrase}^30`;
+      const scoreLevel2 = `headline.title:*${phrase}*^20`;
+      const scoreLevel3 = `headline-text-search:${phrase}^20`;
+      const scoreLevel4 = `headline-text-search:*${phrase}*^10`;
+      const scoreLevel6 = `full-text-search:${phrase}^10`;
+      
+        if (index == 0) {
+          statementScore1 += scoreLevel1;
+          statementScore2 += scoreLevel2;
+          statementScore3 += scoreLevel3;
+          statementScore4 += scoreLevel4;
+          statementScore6 += scoreLevel6;
+        } else {
+          statementScore1 += ' AND ' + scoreLevel1;
+          statementScore2 += ' AND ' + scoreLevel2;
+          statementScore3 += ' AND ' + scoreLevel3;
+          statementScore4 += ' AND ' + scoreLevel4;
+          statementScore6 += ' AND ' + scoreLevel6;
     }});
 
     return `((${statementScore1}) OR (${statementScore2}) OR (${statementScore3}) OR (${statementScore4}) OR (${statementScore6}))`;
@@ -93,16 +111,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   };
   
-  const query = buildQueryStatement(requestedQuery);
+  try {
+    const query = buildQueryStatement(requestedQuery);
+  
+    const queryResult = await solrGet<QueryResult>('select', {
+      q: query,
+      'q.op': 'AND',
+      sort: 'score desc',
+      fl: SEARCH_RESULT_FIELDS,
+      rows: 10,
+      ...(start ? { start: Number(start) } : {}),
+    });
+  
+    return res.status(200).json(queryResult);
 
-  const queryResult = await solrGet<QueryResult>('select', {
-    q: query,
-    'q.op': 'AND',
-    sort: 'score desc',
-    fl: SEARCH_RESULT_FIELDS,
-    rows: 10,
-    ...(start ? { start: Number(start) } : {}),
-  });
-
-  res.status(200).json(queryResult);
+  } catch(e) {
+    console.error(e);
+    return res.status(500).json({message: 'An unexpected error occurred during the search.'})
+  }
 };

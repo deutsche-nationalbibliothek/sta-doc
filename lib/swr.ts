@@ -37,13 +37,22 @@ export const useSWR = <T>(
     async (apiUrl: string) => {
       const res = await fetch(apiUrl);
       const body = await res.json();
+
       if (!res.ok) {
-        throw new Error(
+        const error = new Error(
           (body && typeof body === 'object' && 'message' in body
             ? String(body.message)
             : undefined) || `Request failed with ${res.status}`
         );
+
+        if (body && typeof body === 'object' && 'code' in body){
+          // Extend the Error type with an optional code property because the standard Error type does not have a code property. The frontend uses this code to display the corresponding localized error message.
+          (error as Error & { code?: string }).code = String(body.code);
+        }
+
+        throw error;
       }
+
       return body;
     },
     {
@@ -52,6 +61,7 @@ export const useSWR = <T>(
       revalidateOnReconnect: false,
     }
   );
+
   return {
     ...swr,
     loading: !swr.error && !swr.data,

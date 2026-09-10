@@ -5,6 +5,7 @@ import { SearchResults } from './results-list';
 import { AutoComplete, ConfigProvider, Input } from 'antd';
 import { Namespace } from '@/types/namespace';
 import { NamespaceThemeConfigProvider } from '../namespace-theme-config-provider';
+import useTranslation from 'next-translate/useTranslation';
 
 export interface SolrQueryFetcherOptions {
   query: string;
@@ -19,9 +20,12 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
   placeholder,
   onCloseDrawer,
 }) => {
+  const { t } = useTranslation('common');
+
   const {
     suggestionsResult,
     queryResult,
+    queryError,
     inputRef,
     isLoadingSearchIfQuery,
     isLoadingSuggestionsIfQuery,
@@ -31,6 +35,11 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
     currentPage,
     setCurrentPage,
   } = useSolrSearch();
+
+  const queryErrorCode =
+  queryError instanceof Error
+    ? (queryError as Error & { code?: string }).code
+    : undefined;
 
   return (
     <NamespaceThemeConfigProvider namespace={'unspecific' as Namespace}>
@@ -50,8 +59,8 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
           }
           defaultValue={query}
           options={
-            query && suggestionsResult?.spellcheck.suggestions[1]
-              ? suggestionsResult.spellcheck.suggestions[1].suggestion
+            query && suggestionsResult?.spellcheck?.suggestions[1]
+              ? suggestionsResult.spellcheck?.suggestions[1].suggestion
                   .sort((s1, s2) => s2.freq - s1.freq)
                   .map((x, index) => ({
                     value: x.word,
@@ -75,6 +84,11 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
             allowClear
           />
         </AutoComplete>
+
+        {queryError instanceof Error && (
+        // Error is created in swr.ts and passed through useSolrSearch
+        <div style={{ color: 'var(--top-bar-color)', marginTop: 12, marginLeft: 12, fontSize: '14px', lineHeight: 1.4, }}> {t(`searchErrors.${queryErrorCode}`)}</div>)} 
+
         {queryResult && (
           <SearchResults
             queryResult={queryResult}

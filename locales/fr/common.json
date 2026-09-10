@@ -33,6 +33,11 @@
   "resource-type": "Type de ressource",
   "scroll-to-top": "Faire défiler vers le haut",
   "search": "Recherche",
+  "searchErrors": {
+    "EMPTY_SEARCH_QUERY": "Veuillez saisir un terme de recherche.",
+    "EMPTY_PHRASE": "Veuillez saisir une expression entre guillemets.",
+    "UNCLOSED_QUOTATION_MARK": "La requête de recherche contient un guillemet non fermé."
+  },
   "searchResultCount": "sur {{count}} résultats",
   "site": "Page",
   "sorterTooltip": "Trier par ordre alphabétique",
