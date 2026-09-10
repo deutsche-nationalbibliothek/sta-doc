@@ -24,8 +24,6 @@ const validateSearchQuery = (query: string) => {
 
   const numberOfQuotationMarks = (queryTrimmed.match(/"/g) || []).length
 
-  console.log(numberOfQuotationMarks)
-
   if (numberOfQuotationMarks % 2 !== 0) {return {msg: 'The search query contains an unclosed quotation mark.'}}
 
   return null
@@ -39,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const validationError = validateSearchQuery(requestedQuery);
 
-  if (validationError) {return res.status(400).json(validationError)};
+  if (validationError) return res.status(400).json(validationError);
 
   const buildQueryStatement = (requestedQuery: string) => {
     const phraseSearch = requestedQuery.match(/"(.*?)"/g);
@@ -113,16 +111,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   };
   
-  const query = buildQueryStatement(requestedQuery);
+  try {
+    const query = buildQueryStatement(requestedQuery);
+  
+    const queryResult = await solrGet<QueryResult>('select', {
+      q: query,
+      'q.op': 'AND',
+      sort: 'score desc',
+      fl: SEARCH_RESULT_FIELDS,
+      rows: 10,
+      ...(start ? { start: Number(start) } : {}),
+    });
+  
+    res.status(200).json(queryResult);
 
-  const queryResult = await solrGet<QueryResult>('select', {
-    q: query,
-    'q.op': 'AND',
-    sort: 'score desc',
-    fl: SEARCH_RESULT_FIELDS,
-    rows: 10,
-    ...(start ? { start: Number(start) } : {}),
-  });
-
-  res.status(200).json(queryResult);
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({msg: 'An unexpected error occurred during the search.'})
+  }
 };

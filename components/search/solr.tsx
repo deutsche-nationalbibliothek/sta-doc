@@ -50,8 +50,8 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
           }
           defaultValue={query}
           options={
-            query && suggestionsResult?.spellcheck.suggestions[1]
-              ? suggestionsResult.spellcheck.suggestions[1].suggestion
+            query && suggestionsResult?.spellcheck?.suggestions[1]
+              ? suggestionsResult.spellcheck?.suggestions[1].suggestion
                   .sort((s1, s2) => s2.freq - s1.freq)
                   .map((x, index) => ({
                     value: x.word,
