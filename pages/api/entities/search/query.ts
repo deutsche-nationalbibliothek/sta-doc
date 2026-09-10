@@ -18,13 +18,13 @@ const SEARCH_RESULT_FIELDS = [
 const validateSearchQuery = (query: string) => {
   const queryTrimmed = query.trim();
 
-  if(!queryTrimmed) {return {message: 'Please insert a search term.'}}
+  if(!queryTrimmed) return {code: 'EMPTY_SEARCH_QUERY', message: 'Please insert a search term.'}
 
-  if(queryTrimmed.includes('""')) {return {message: 'The search query contains an empty phrase. Please insert a phrase within the quotation marks.'}}
+  if(queryTrimmed.includes('""')) return {code: 'EMPTY_PHRASE', message: 'The search query contains an empty phrase. Please insert a phrase within the quotation marks.'}
 
   const numberOfQuotationMarks = (queryTrimmed.match(/"/g) || []).length
 
-  if (numberOfQuotationMarks % 2 !== 0) {return {message: 'The search query contains an unclosed quotation mark.'}}
+  if (numberOfQuotationMarks % 2 !== 0) return {code: 'UNCLOSED_QUOTATION_MARK', message: 'The search query contains an unclosed quotation mark.'}
 
   return null
 }
