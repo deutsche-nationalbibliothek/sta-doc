@@ -17,7 +17,7 @@ export const useSolrSearch = () => {
   // query solr logic
   const [urlQuery, setUrlQuery] = useState<string>();
 
-  const { data: queryResult, loading: queryLoading } = useSWR<QueryResult>(
+  const { data: queryResult, loading: queryLoading, error: queryError } = useSWR<QueryResult>(
     urlQuery,
     true
   );
@@ -70,11 +70,6 @@ export const useSolrSearch = () => {
         const pageSize = 10;
         const encodedQuery = encodeURIComponent(query) // von mir hinzugefügt
         
-        console.log('original query:', query); // hinterher raus // ""
-        console.log('encoded query:', encodedQuery); // hinterher raus // %22%22
-        console.log('urlQuery:', urlQuery);
-        console.log('queryResult:', queryResult);
-        
         const searchURL = (
           `${
             process.env.basePath ?? ''
@@ -83,16 +78,11 @@ export const useSolrSearch = () => {
           }`
         );
 
-        console.log('basePath:', process.env.basePath); // hier hinterher raus // geloggt wird /doc
-
         const suggestURL = (
           `${
             process.env.basePath ?? ''
           }/api/entities/search/suggest?query=${encodedQuery}` // hier vorher query
         );
-
-        console.log('searchURL:', searchURL); // hier auch raus
-        console.log('suggestURL:', suggestURL); // hier auch raus
 
         setUrlQuery(searchURL);
         setUrlSuggest(suggestURL);
@@ -106,6 +96,7 @@ export const useSolrSearch = () => {
   return {
     suggestionsResult,
     queryResult,
+    queryError,
     inputRef,
     isLoadingSearchIfQuery,
     isLoadingSuggestionsIfQuery,

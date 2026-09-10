@@ -54,6 +54,9 @@ export const useSWR = <T>(
       revalidateOnReconnect: false,
     }
   );
+
+  console.log('swr:', swr); // hinterher entfernen
+
   return {
     ...swr,
     loading: !swr.error && !swr.data,
