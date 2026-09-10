@@ -123,10 +123,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       ...(start ? { start: Number(start) } : {}),
     });
   
-    res.status(200).json(queryResult);
+    return res.status(200).json(queryResult);
 
   } catch(e) {
     console.error(e);
-    res.status(500).json({message: 'An unexpected error occurred during the search.'})
+    return res.status(500).json({message: 'An unexpected error occurred during the search.'})
   }
 };
