@@ -18,13 +18,13 @@ const SEARCH_RESULT_FIELDS = [
 const validateSearchQuery = (query: string) => {
   const queryTrimmed = query.trim();
 
-  if(!queryTrimmed){return {msg: 'Please insert a search term.'}}
+  if(!queryTrimmed) {return {message: 'Please insert a search term.'}}
 
-  if(queryTrimmed.includes('""')){return {msg: 'The search query contains an empty phrase. Please insert a phrase within the quotation marks.'}}
+  if(queryTrimmed.includes('""')) {return {message: 'The search query contains an empty phrase. Please insert a phrase within the quotation marks.'}}
 
   const numberOfQuotationMarks = (queryTrimmed.match(/"/g) || []).length
 
-  if (numberOfQuotationMarks % 2 !== 0) {return {msg: 'The search query contains an unclosed quotation mark.'}}
+  if (numberOfQuotationMarks % 2 !== 0) {return {message: 'The search query contains an unclosed quotation mark.'}}
 
   return null
 }
@@ -127,6 +127,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   } catch(e) {
     console.error(e);
-    res.status(500).json({msg: 'An unexpected error occurred during the search.'})
+    res.status(500).json({message: 'An unexpected error occurred during the search.'})
   }
 };
