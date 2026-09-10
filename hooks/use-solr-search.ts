@@ -50,30 +50,15 @@ export const useSolrSearch = () => {
   }, []);
 
   useEffect(() => {
-    // if (query === '""') {
-    //   setUrlQuery(undefined);
-    //   setUrlSuggest(undefined);
-    //   return;
-    // }
-
-    // if (!query || query.length <= 1) {
-    //   setUrlQuery(undefined);
-    //   setUrlSuggest(undefined);
-    //   return;
-    // }
-
-    // console.log("query", query); // hinterher raus
-    // console.log("current page", currentPage); // hinterher raus
-
     if (query) {
       if (query.length > 1) {
         const pageSize = 10;
-        const encodedQuery = encodeURIComponent(query) // von mir hinzugefügt
+        const encodedQuery = encodeURIComponent(query)
         
         const searchURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/query?query=${encodedQuery}${ // hier vorher query
+          }/api/entities/search/query?query=${encodedQuery}${
             '&start=' + String((currentPage - 1) * pageSize)
           }`
         );
@@ -81,7 +66,7 @@ export const useSolrSearch = () => {
         const suggestURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/suggest?query=${encodedQuery}` // hier vorher query
+          }/api/entities/search/suggest?query=${encodedQuery}`
         );
 
         setUrlQuery(searchURL);
