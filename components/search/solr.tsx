@@ -87,7 +87,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
 
         {queryError instanceof Error && (
         // Error is created in swr.ts and passed through useSolrSearch
-        <div style={{ color: 'var(--top-bar-color)', marginTop: 10, fontSize: '12px', lineHeight: 1.4, }}> {t(`searchErrors.${queryErrorCode}`)}</div>)} 
+        <div style={{ color: 'var(--top-bar-color)', marginTop: 12, marginLeft: 12, fontSize: '14px', lineHeight: 1.4, }}> {t(`searchErrors.${queryErrorCode}`)}</div>)} 
 
         {queryResult && (
           <SearchResults
