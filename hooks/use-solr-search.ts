@@ -50,22 +50,52 @@ export const useSolrSearch = () => {
   }, []);
 
   useEffect(() => {
+    // if (query === '""') {
+    //   setUrlQuery(undefined);
+    //   setUrlSuggest(undefined);
+    //   return;
+    // }
+
+    // if (!query || query.length <= 1) {
+    //   setUrlQuery(undefined);
+    //   setUrlSuggest(undefined);
+    //   return;
+    // }
+
+    // console.log("query", query); // hinterher raus
+    // console.log("current page", currentPage); // hinterher raus
+
     if (query) {
       if (query.length > 1) {
         const pageSize = 10;
-        setUrlQuery(
+        const encodedQuery = encodeURIComponent(query) // von mir hinzugefügt
+        
+        console.log('original query:', query); // hinterher raus // ""
+        console.log('encoded query:', encodedQuery); // hinterher raus // %22%22
+        console.log('urlQuery:', urlQuery);
+        console.log('queryResult:', queryResult);
+        
+        const searchURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/query?query=${query}${
+          }/api/entities/search/query?query=${encodedQuery}${ // hier vorher query
             '&start=' + String((currentPage - 1) * pageSize)
           }`
         );
 
-        setUrlSuggest(
+        console.log('basePath:', process.env.basePath); // hier hinterher raus // geloggt wird /doc
+
+        const suggestURL = (
           `${
             process.env.basePath ?? ''
-          }/api/entities/search/suggest?query=${query}`
+          }/api/entities/search/suggest?query=${encodedQuery}` // hier vorher query
         );
+
+        console.log('searchURL:', searchURL); // hier auch raus
+        console.log('suggestURL:', suggestURL); // hier auch raus
+
+        setUrlQuery(searchURL);
+        setUrlSuggest(suggestURL);
       } else {
         setUrlQuery(undefined);
         setUrlSuggest(undefined);

@@ -63,12 +63,17 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
           }
         >
           {queryResult?.response.docs.map((doc, index) => {
+            console.log("index, doc.id:", index, doc.id)
             if (!('headline-text-search' in doc)) {
               return null;
             }
 
+            console.log('before collectSearchSnippets:', doc.id);
+
             const { staNotationMatch, headlineMatches, fulltextMatches } =
               collectSearchSnippets(doc, query);
+
+            console.log('and after collectSearchSnippets:', doc.id);
 
             return (
               <NamespaceThemeConfigProvider
