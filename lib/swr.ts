@@ -35,17 +35,9 @@ export const useSWR = <T>(
   const swr = useSWRLib<T>(
     fullUrl,
     async (apiUrl: string) => {
-      // console.log('apiUrl:', apiUrl); // hinterher wieder entfernen
       const res = await fetch(apiUrl);
-      // console.log('status:', res.status); // hier auch
-      // console.log('ok:', res.ok); // hier auch
       const body = await res.json();
-      // console.log('response body:', body); // same here
-      // console.log('response summary:', {
-      //   numFound: body?.response?.numFound,
-      //   start: body?.response?.start,
-      //   docs: body?.response?.docs?.length,
-      // });
+
       if (!res.ok) {
         throw new Error(
           (body && typeof body === 'object' && 'message' in body
@@ -53,7 +45,7 @@ export const useSWR = <T>(
             : undefined) || `Request failed with ${res.status}`
         );
       }
-      // console.log('test') // wird auch geloggt. läuft also durch
+
       return body;
     },
     {
