@@ -22,6 +22,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
   const {
     suggestionsResult,
     queryResult,
+    queryError,
     inputRef,
     isLoadingSearchIfQuery,
     isLoadingSuggestionsIfQuery,
@@ -75,6 +76,11 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
             allowClear
           />
         </AutoComplete>
+
+        {queryError instanceof Error && (
+        // Error is created in swr.ts and passed through useSolrSearch
+        <div style={{ color: '#ff4d4f', marginTop: 10, fontSize: '12px' }}>{queryError.message}</div>)} 
+
         {queryResult && (
           <SearchResults
             queryResult={queryResult}
