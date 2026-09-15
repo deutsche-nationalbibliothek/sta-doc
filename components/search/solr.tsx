@@ -49,6 +49,7 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
             setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
           }
           defaultValue={query}
+          
           // options={
           //   query && suggestionsResult?.spellcheck.suggestions[1]
           //     ? suggestionsResult.spellcheck.suggestions[1].suggestion
@@ -62,16 +63,19 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
           //         }))
           //     : []
           // }
+
           options={
             query && suggestionsResult?.response.docs ? 
-            suggestionsResult.response.docs.map((doc, index) => ({
-              value: doc['headline.title'],
-              key: doc.id,
-              label:
-              <StringValueComponent stringValue={{ value: doc['headline.title'] }} />
-            }))
-            : []
-          }
+            suggestionsResult.response.docs.map((doc) => {
+              const headlineTitle = doc['headline.title'].toString();
+              return {
+                value: headlineTitle,
+                key: doc.id,
+                label: <StringValueComponent stringValue={{ value: headlineTitle }} />
+              };
+            	})
+              : []
+            }
         >
           <Input.Search
             placeholder={placeholder}
