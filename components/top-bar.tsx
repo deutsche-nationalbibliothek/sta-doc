@@ -8,6 +8,7 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
 import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import { useIsEdit } from '@/hooks/use-is-edit';
 import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
 import SegmentedControl from './segmented-control';
@@ -24,6 +25,8 @@ export const TopBar: React.FC = () => {
   const { token } = theme.useToken();
 
   const isSmallScreen = useIsSmallScreen();
+
+  const isEdit = useIsEdit();
 
   const menuColorStyles: CSSObject = useMemo(
     () => ({
@@ -171,18 +174,22 @@ export const TopBar: React.FC = () => {
               },
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
             },
-            {
-              label: (
-                <span className="ant-menu-item">
-                  <SegmentedControl />
-                </span>
-              ),
-              key: 'mode',
-              style: {
-                position: 'absolute',
-                right: isSmallScreen ? 150 : 150,
-              },
-            },
+            ...(isEdit
+              ? [
+                  {
+                    label: (
+                      <span className="ant-menu-item">
+                        <SegmentedControl />
+                      </span>
+                    ),
+                    key: 'mode',
+                    style: {
+                      position: 'absolute',
+                      right: isSmallScreen ? 150 : 150,
+                    } as const,
+                  },
+                ]
+              : []),
             {
               label: (
                 <span className="ant-menu-item">

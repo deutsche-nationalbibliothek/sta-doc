@@ -8,7 +8,7 @@ export default function SegmentedControl() {
   const { query, setFetchingParam } = useFetchingQueryParams();
 
   const options = [
-    { value: 'default', label: 'Default Mode' },
+    { value: 'default', label: 'No Mode' },
     { value: FetchingParam.live, label: 'Live' },
     { value: FetchingParam.prod, label: 'Prod' },
   ];
