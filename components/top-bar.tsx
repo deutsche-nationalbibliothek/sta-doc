@@ -10,6 +10,7 @@ import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
+import SegmentedControl from './segmented-control';
 
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
@@ -169,6 +170,18 @@ export const TopBar: React.FC = () => {
                 right: isSmallScreen ? 100 : 100,
               },
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
+            },
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <SegmentedControl />
+                </span>
+              ),
+              key: 'mode',
+              style: {
+                position: 'absolute',
+                right: isSmallScreen ? 150 : 150,
+              },
             },
             {
               label: (
