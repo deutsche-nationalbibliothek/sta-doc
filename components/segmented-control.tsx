@@ -16,7 +16,6 @@ export default function SegmentedControl() {
   return (
     <Segmented
       options={options}
-      value={query.live ?? 'default'}
       onChange={(value) => {
         setFetchingParam(
           value === 'default' ? undefined : (value as FetchingParam)
