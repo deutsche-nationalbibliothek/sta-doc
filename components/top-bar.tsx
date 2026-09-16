@@ -46,7 +46,7 @@ export const TopBar: React.FC = () => {
         paddingInline: isSmallScreen ? 10 : undefined,
       },
     }),
-    [token.colorPrimary, token.colorText, isSmallScreen],
+    [token.colorPrimary, token.colorText, isSmallScreen]
   );
 
   return (
@@ -185,7 +185,6 @@ export const TopBar: React.FC = () => {
           ]}
         />
       </AntdLayout.Header>
-
     </ConfigProvider>
   );
 };
