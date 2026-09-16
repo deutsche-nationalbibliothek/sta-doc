@@ -11,7 +11,7 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { useIsEdit } from '@/hooks/use-is-edit';
 import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
-import SegmentedControl from './segmented-control';
+import SegmentedControl from './segmented-mode-control';
 
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
