@@ -8,14 +8,15 @@ export default function SegmentedControl() {
   const { query, setFetchingParam } = useFetchingQueryParams();
 
   const options = [
-    { value: 'default', label: 'No Mode' },
-    { value: FetchingParam.live, label: 'Live' },
-    { value: FetchingParam.prod, label: 'Prod' },
+    { value: 'default', label: 'NO MODE' },
+    { value: FetchingParam.live, label: 'LIVE' },
+    { value: FetchingParam.prod, label: 'PROD' },
   ];
 
   return (
     <Segmented
       options={options}
+      value={query.live ?? 'default'}
       onChange={(value) => {
         setFetchingParam(
           value === 'default' ? undefined : (value as FetchingParam)

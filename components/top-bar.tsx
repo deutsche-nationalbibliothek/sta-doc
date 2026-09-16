@@ -185,7 +185,7 @@ export const TopBar: React.FC = () => {
                     key: 'mode',
                     style: {
                       position: 'absolute',
-                      right: isSmallScreen ? 150 : 150,
+                      right: isSmallScreen ? 'none' : 140,
                     } as const,
                   },
                 ]
