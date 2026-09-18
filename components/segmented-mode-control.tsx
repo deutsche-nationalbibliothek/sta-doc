@@ -21,6 +21,7 @@ function SegmentedControlLabel({
             height: 8,
             borderRadius: 50,
             backgroundColor: 'red',
+            // fontWeight: 700,
           }}
         />
       )}
@@ -62,7 +63,6 @@ export default function SegmentedControl() {
   return (
     <Segmented
       options={options}
-      // value={query.live ?? 'default'}
       value={currentValue}
       onChange={(value) => {
         setFetchingParam(
