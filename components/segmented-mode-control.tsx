@@ -13,8 +13,17 @@ function SegmentedControlLabel({
   isActive: boolean;
 }) {
   return (
-    <span>
-      {isActive && <span>RED DOT</span>}
+    <span css={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+      {isActive && (
+        <div
+          css={{
+            width: 8,
+            height: 8,
+            borderRadius: 50,
+            backgroundColor: 'red',
+          }}
+        />
+      )}
       {label}
     </span>
   );
