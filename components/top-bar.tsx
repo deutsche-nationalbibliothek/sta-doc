@@ -49,6 +49,9 @@ export const TopBar: React.FC = () => {
       '& li.ant-menu-submenu-horizontal, li.ant-menu-item': {
         paddingInline: isSmallScreen ? 10 : undefined,
       },
+      '& li.ant-menu-item.top-bar-item-right': {
+        paddingInline: 0,
+      },
     }),
     [token.colorPrimary, token.colorText, isSmallScreen]
   );
@@ -153,6 +156,7 @@ export const TopBar: React.FC = () => {
                 },
               ],
             },
+
             {
               label: (
                 <span className="ant-menu-item">
@@ -169,10 +173,19 @@ export const TopBar: React.FC = () => {
               ),
               key: 'search',
               style: {
-                position: 'absolute',
-                right: isSmallScreen ? 100 : 100,
+                marginInlineStart: 'auto',
               },
+              className: 'top-bar-item-right',
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
+            },
+            {
+              label: (
+                <span className="ant-menu-item">
+                  <LocaleSwitcher />
+                </span>
+              ),
+              key: 'switch-language',
+              className: 'top-bar-item-right',
             },
             ...(isEdit
               ? [
@@ -183,25 +196,10 @@ export const TopBar: React.FC = () => {
                       </span>
                     ),
                     key: 'mode',
-                    style: {
-                      position: 'absolute',
-                      right: isSmallScreen ? 'none' : 140,
-                    } as const,
+                    className: 'top-bar-item-right',
                   },
                 ]
               : []),
-            {
-              label: (
-                <span className="ant-menu-item">
-                  <LocaleSwitcher />
-                </span>
-              ),
-              key: 'switch-language',
-              style: {
-                position: 'absolute',
-                right: isSmallScreen ? 0 : 0,
-              },
-            },
           ]}
         />
       </AntdLayout.Header>
