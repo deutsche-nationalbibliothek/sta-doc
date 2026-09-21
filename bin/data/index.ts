@@ -83,7 +83,7 @@ const ensureDataDirectories = async () => {
   const parseRawAndWriteBreadcrumbs = () => {
     const readRaw = reader[DataState.raw];
     const staNotations = staNotationsParser(readRaw.staNotations('de'));
-    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs(), staNotations)
+    const breadcrumbs = breadcrumbsParser(readRaw.breadcrumbs(), labelsFr, staNotations)
     const data = { breadcrumbs: breadcrumbs }
     writer.parsed(data).breadcrumbs();
   }

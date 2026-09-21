@@ -236,7 +236,7 @@ export const parseRawEntity = (
         : undefined,
       label: !embedded ? label : undefined,
       elementOf: !embedded && elementOfId ? labelsDe[elementOfId] : undefined,
-      breadcrumbLink: breadcrumb ? breadcrumb : undefined,
+      breadcrumbLink: breadcrumb ? {...breadcrumb, label: lang === "fr" ? breadcrumb.labelFr : breadcrumb.labelDe } : undefined,
       annotation,
       pageType,
       contextOfUseLabel,
