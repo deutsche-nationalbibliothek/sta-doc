@@ -279,9 +279,11 @@ export const staNotationsParser = (staNotations: StaNotationsRaw) => {
 
 export const breadcrumbsParser = (
   breadcrumbs: BreadcrumbsRaw,
+  labelsFr: Record<EntityId, string>,
   staNotations?: StaNotations
 ) => {
   console.log('\tParsing Breadcrumbs');
+  console.log('labelsFr:', Object.entries(labelsFr).slice(0, 5));
   const staNotationToId = staNotations
     ? Object.values(staNotations).reduce(
         (acc, staNotation) => {
@@ -295,7 +297,8 @@ export const breadcrumbsParser = (
     const staNotation = entity.staNotation.value.toUpperCase();
     acc[entity.eId.value] = {
       id: staNotationToId[staNotation] ?? entity.eId.value,
-      label: entity.elementLabel.value,
+      labelDe: entity.elementLabel.value,
+      labelFr: labelsFr[entity.eId.value] ?? entity.elementLabel.value,
       staNotation,
     };
     return acc;
@@ -476,13 +479,13 @@ export const parseEntitiesDataFromRaw = (
 ): ParseEntitiesData => {
   const staNotations = staNotationsParser(raw.staNotations);
   const staNotationsDe = staNotationsParser(raw.staNotationsDe);
-  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs, staNotations);
-  const codings = codingsParser(raw.codings);
-  const schemas = schemasParser(raw.schemas);
-  const propertyTypes = propertyTypesParser(raw.propertyTypes);
   const labelsDe = labelsParser.de(raw.labelsDe);
   const labelsEn = labelsParser.en(raw.labelsEn);
   const labelsFr = labelsParser.fr(raw.labelsFr);
+  const breadcrumbs = breadcrumbsParser(raw.breadcrumbs, labelsFr, staNotations);
+  const codings = codingsParser(raw.codings);
+  const schemas = schemasParser(raw.schemas);
+  const propertyTypes = propertyTypesParser(raw.propertyTypes);
   const fields = fieldsParser(
     raw.fields,
     staNotationsDe,
@@ -518,14 +521,14 @@ export const parseSparqlData = (
 ): ParsedSparqlData => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
-  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
+  const labelsDe = labelsParser.de(read.labels.de());
+  const labelsEn = labelsParser.en(read.labels.en());
+  const labelsFr = labelsParser.fr(read.labels.fr());
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), labelsFr, staNotations);
   const codings = codingsParser(read.codings());
   const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());
   const propertyTypes = propertyTypesParser(read.propertyTypes())
-  const labelsDe = labelsParser.de(read.labels.de());
-  const labelsEn = labelsParser.en(read.labels.en());
-  const labelsFr = labelsParser.fr(read.labels.fr());
   const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
   const rdaElementStatuses = rdaElementStatusesParser(
     read.rdaElementStatuses(),
@@ -564,14 +567,14 @@ export const parseAllFromRead = (
 ): ParsedAllFromRead => {
   const staNotations = staNotationsParser(read.staNotations(lang)); 
   const staNotationsDe = staNotationsParser(read.staNotations('de')); 
-  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), staNotations);
+  const labelsDe = labelsParser.de(read.labels.de());
+  const labelsEn = labelsParser.en(read.labels.en());
+  const labelsFr = labelsParser.fr(read.labels.fr());
+  const breadcrumbs = breadcrumbsParser(read.breadcrumbs(), labelsFr, staNotations);
   const codings = codingsParser(read.codings());
   const descriptions = descriptionsParser(read.descriptions()); 
   const schemas = schemasParser(read.schemas());
   const propertyTypes = propertyTypesParser(read.propertyTypes())
-  const labelsDe = labelsParser.de(read.labels.de());
-  const labelsEn = labelsParser.en(read.labels.en());
-  const labelsFr = labelsParser.fr(read.labels.fr());
   const fields = fieldsParser(read.fields(), staNotationsDe, codings, labelsDe, labelsFr)
   const rdaElementStatuses = rdaElementStatusesParser(
     read.rdaElementStatuses(),
