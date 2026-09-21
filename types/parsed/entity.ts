@@ -15,7 +15,7 @@ export type EntitiesEntries = Record<EntityId, EntityEntry>;
 export interface Entity {
   id: EntityId;
   label?: string;
-  breadcrumbLink?: Breadcrumb;
+  breadcrumbLink?: (Breadcrumb & { label: string });
   elementOf?: string;
   annotation?: WikibasePointerValue;
   field?: Field;

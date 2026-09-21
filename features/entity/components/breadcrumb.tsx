@@ -66,7 +66,7 @@ export const BreadcrumbComp: React.FC = memo(() => {
                     <EntityLink
                       id={entity.breadcrumbLink.id}
                       staNotationLabel={entity.breadcrumbLink.staNotation}
-                      label={entity.breadcrumbLink.labelDe}
+                      label={entity.breadcrumbLink.label}
                     >
                       {title}
                     </EntityLink>
