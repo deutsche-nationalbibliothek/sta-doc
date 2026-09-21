@@ -4,6 +4,7 @@ export type Breadcrumbs = Record<EntityId, Breadcrumb>;
 
 export interface Breadcrumb {
   id: EntityId;
-  label: string;
+  labelDe: string;
+  labelFr: string;
   staNotation: string;
 }
