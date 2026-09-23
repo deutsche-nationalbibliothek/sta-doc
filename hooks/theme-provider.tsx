@@ -1,6 +1,6 @@
 import { theme } from 'antd';
 import { ThemeConfig } from 'antd/lib/config-provider';
-import colors from 'config/colors';
+import colors from '@/config/colors';
 import {
   createContext,
   Dispatch,

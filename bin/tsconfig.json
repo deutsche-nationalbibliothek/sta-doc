@@ -1,6 +1,5 @@
 {
-  "extends": "./../tsconfig.paths.json",
-  // copied values from https://github.com/tsconfig/bases/blob/main/bases/node16.json
+  "extends": "../tsconfig.json",
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Node 16",
   // Most ts-node options can be specified here using their programmatic names.
@@ -16,25 +15,18 @@
     }
   },
   "compilerOptions": {
+    // Node/ts-node overrides (root is a Next.js bundler project).
     "lib": ["es2021"],
     "module": "commonjs",
-    "incremental": true,
     "target": "es2021",
     "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    // typescript options here
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "noImplicitAny": true,
-    "strictNullChecks": true
+    "types": ["node"]
   },
   "exclude": ["**/node_modules", "**/.*/", "../lib/**/*.test.ts", "../bin/**/*.test.ts"],
   "include": [
     "../index.d.ts",
-    "../.eslintrc.js",
+    "../eslint.config.mjs",
     "../types",
     "../utils",
     "../lib/solr/**/*.ts",

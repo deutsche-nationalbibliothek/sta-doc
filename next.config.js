@@ -54,10 +54,12 @@ module.exports = async () => {
       defaultLocale: 'de',
     },
     images: {
-      domains: ['www.cilip.org.uk'],
-    },
-    eslint: {
-      ignoreDuringBuilds: true,
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'www.cilip.org.uk',
+        },
+      ],
     },
     typescript: {
       ignoreBuildErrors: true,
@@ -104,7 +106,10 @@ module.exports = async () => {
     },
   };
   // return withLess(nextConfig);
-  return nextTranslate(nextConfig);
+  // Next 16 uses Turbopack unless the process is started with --webpack.
+  return nextTranslate(nextConfig, {
+    turbopack: !process.argv.includes('--webpack'),
+  });
 };
 
 /**

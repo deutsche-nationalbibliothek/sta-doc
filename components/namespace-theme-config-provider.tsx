@@ -1,6 +1,6 @@
 import { Namespace, namespaceToColor } from '@/types/namespace';
 import { ConfigProvider } from 'antd';
-import namespaceConfig from 'config/namespace';
+import namespaceConfig from '@/config/namespace';
 import { PropsWithChildren } from 'react';
 
 interface NamespaceThemeConfigProviderProps {

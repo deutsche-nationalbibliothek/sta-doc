@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "es2015",
     "types": ["node", "jest"],
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -12,7 +11,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -25,7 +24,7 @@
   "include": [
     "index.d.ts",
     "next-env.d.ts",
-    ".eslintrc.js",
+    "eslint.config.mjs",
     "components/**/*",
     "features/**/*",
     "hooks/**/*",

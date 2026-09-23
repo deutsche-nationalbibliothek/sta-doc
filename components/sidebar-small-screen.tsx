@@ -4,7 +4,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import { TableOfContent } from '@/features/entity/components/table-of-content';
 import { layoutContentHeight } from './layout';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
-import layoutSizes from 'config/layout-sizes';
+import layoutSizes from '@/config/layout-sizes';
 
 export const SidebarSmallScreen: React.FC = () => {
   const { headlines } = useInitialHeadlines();

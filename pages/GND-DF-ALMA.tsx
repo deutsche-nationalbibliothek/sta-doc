@@ -6,7 +6,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { GndFieldsTable, GndFieldsProps } from 'features/gnd/field-table';
+import { GndFieldsTable, GndFieldsProps } from '@/features/gnd/field-table';
 import { Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
 import { PageHeader } from '@/components/page-header';

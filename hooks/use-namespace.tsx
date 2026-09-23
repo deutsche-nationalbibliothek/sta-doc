@@ -3,7 +3,7 @@ import {
   Namespace,
   NamespaceColor,
 } from '@/types/namespace';
-import namespaceConfig from 'config/namespace';
+import namespaceConfig from '@/config/namespace';
 import {
   createContext,
   Dispatch,

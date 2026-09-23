@@ -1,9 +1,9 @@
 /// <reference types="jest" />
 /* eslint-disable @typescript-eslint/ban-types */
-type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+export type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 import { CSSObject } from '@emotion/react';
-type PropsWithStyle<P = {}> = P & {
+export type PropsWithStyle<P = {}> = P & {
   className?: string;
   css?: CSSObject;
 };

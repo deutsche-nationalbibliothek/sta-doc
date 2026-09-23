@@ -15,8 +15,7 @@ export const useSWR = <T>(
   const fullUrl = useMemo(() => {
     if (ignoreFetchingQueryParamString) return url;
     if (!url) return url;
-    // Create a URL object
-    const urlObj = new URL(url, window.location.origin);
+    const [path] = url.split('?');
     // Create URLSearchParams from the query object
     const searchParams = new URLSearchParams();
     // Add live parameter if it exists and is not ignored
@@ -26,10 +25,9 @@ export const useSWR = <T>(
     if (apiEntityCall && locale) {
       searchParams.append('locale', locale);
     }
-    // Append search parameters to the URL object
-    urlObj.search = searchParams.toString();
+    const search = searchParams.toString();
 
-    return urlObj.toString();
+    return search ? `${path}?${search}` : path;
   }, [apiEntityCall, locale, url, query, ignoreFetchingQueryParamString]);
 
   const swr = useSWRLib<T>(

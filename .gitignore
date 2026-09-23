@@ -45,3 +45,7 @@ docker/solr/data
 /.cursor/
 .chromium*
 .vscode
+
+# root markdown (keep README.md only)
+/*.md
+!/README.md

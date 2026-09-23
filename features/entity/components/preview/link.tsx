@@ -5,7 +5,7 @@ import { EntityId } from '@/types/entity-id';
 import { Namespace, namespaceToColor } from '@/types/namespace';
 import { Tag, theme } from 'antd';
 import type { TooltipPlacement } from 'antd/lib/tooltip';
-import namespaceConfig from 'config/namespace';
+import namespaceConfig from '@/config/namespace';
 import { LinkProps } from 'next/link';
 import { EntityPreview } from '.';
 import { useRouter } from 'next/router';
