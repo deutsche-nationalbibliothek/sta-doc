@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { collectSearchSnippets, firstStaNotationLabel } from './snippets';
 import { Doc } from '@/types/search';
 

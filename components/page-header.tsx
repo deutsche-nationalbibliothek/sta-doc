@@ -1,9 +1,10 @@
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { Row, Col } from 'antd';
+import { ReactNode } from 'react';
 
 interface PageHeaderProps {
-  title?: JSX.Element | string;
-  extra?: JSX.Element;
+  title?: ReactNode;
+  extra?: ReactNode;
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, extra }) => {

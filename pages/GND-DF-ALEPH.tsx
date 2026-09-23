@@ -14,7 +14,7 @@ import useTranslation from 'next-translate/useTranslation';
 export default function GndFields({ fields }: GndFieldsProps) {
   const filterFields = (obj: Fields) => {
     return Object.fromEntries(
-      Object.entries(obj).filter(([key,field]) => field.codings.Aleph!.length !== 0)
+      Object.entries(obj).filter(([, field]) => field.codings.Aleph!.length !== 0)
     ) as Fields;
   };
   const filteredFields = filterFields(fields)

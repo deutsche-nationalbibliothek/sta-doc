@@ -7,7 +7,7 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { GndFieldsTable, GndFieldsProps } from 'features/gnd/field-table';
-import { Field, Fields } from '@/types/parsed/field';
+import { Fields } from '@/types/parsed/field';
 import { Namespace } from '@/types/namespace';
 import { PageHeader } from '@/components/page-header';
 import useTranslation from 'next-translate/useTranslation';

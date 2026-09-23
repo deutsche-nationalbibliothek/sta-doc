@@ -36,15 +36,15 @@ export const useSWR = <T>(
     fullUrl,
     async (apiUrl: string) => {
       const res = await fetch(apiUrl);
-      const body = await res.json();
+      const body: unknown = await res.json();
       if (!res.ok) {
-        throw new Error(
-          (body && typeof body === 'object' && 'message' in body
+        const message =
+          body && typeof body === 'object' && 'message' in body
             ? String(body.message)
-            : undefined) || `Request failed with ${res.status}`
-        );
+            : undefined;
+        throw new Error(message || `Request failed with ${res.status}`);
       }
-      return body;
+      return body as T;
     },
     {
       revalidateIfStale: false,

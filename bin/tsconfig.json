@@ -31,7 +31,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true
   },
-  "exclude": ["**/node_modules", "**/.*/"],
+  "exclude": ["**/node_modules", "**/.*/", "../lib/**/*.test.ts", "../bin/**/*.test.ts"],
   "include": [
     "../index.d.ts",
     "../.eslintrc.js",

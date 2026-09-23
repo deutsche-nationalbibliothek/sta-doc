@@ -2,10 +2,10 @@ import Draggable, { DraggableData, DraggableEvent } from '@/lib/draggable';
 import { useRouter } from '@/lib/next-use-router';
 import { css } from '@emotion/react';
 import { Modal as AntdModal, ModalProps as AntdModalProps, theme } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface ModalProps extends Omit<AntdModalProps, 'open' | 'onCancel'> {
-  label?: JSX.Element | string;
+  label?: ReactNode;
   disableLabelOnOpen?: boolean;
   // flag to control to render either a span or an anchor
   renderSpan?: boolean;

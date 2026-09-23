@@ -3,7 +3,7 @@ const SOLR_PATH = '/solr';
 
 export const escapeSpecialChars = (s: string): string =>
   s
-    .replace(/([\+\-!\(\)\{\}\[\]\^"~\*\?:\\\/])/g, (match) => `\\${match}`)
+    .replace(/([+\-!(){}[\]^"~*?:\\/])/g, (match) => `\\${match}`)
     .replace(/&&/g, '\\&\\&')
     .replace(/\|\|/g, '\\|\\|');
 

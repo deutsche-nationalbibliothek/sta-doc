@@ -1,11 +1,11 @@
 import { useIsLoading } from '@/hooks/use-loading-state';
 import { useSWR } from '@/lib/swr';
 import { Spin } from 'antd';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface FetchProps<T> {
   url: string;
-  children: (data: T | undefined, loading: boolean) => JSX.Element;
+  children: (data: T | undefined, loading: boolean) => ReactNode;
   showSpinner?: boolean;
   locale?: string;
   ignoreFetchingQueryParamString?: boolean;

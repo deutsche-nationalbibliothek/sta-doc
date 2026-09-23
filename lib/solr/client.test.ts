@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, it } from '@jest/globals';
 import { solrHostCandidates } from './client';
 
 describe('solr host candidates', () => {

@@ -11,7 +11,7 @@ import { Col, Row, Select, Spin, Typography } from 'antd';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useSyncExternalStore } from 'react';
 
 const resolveExampleNamespace = (entity: Entity): Namespace => {
   const pageTypeId = entity.pageType?.id;
@@ -92,23 +92,25 @@ const ExamplePopupContent: React.FC<{ entity: Entity }> = ({ entity }) => {
   );
 };
 
+const subscribeExamplePopupStorage = (onStoreChange: () => void) => {
+  if (typeof window === 'undefined') {
+    return () => undefined;
+  }
+  window.addEventListener('storage', onStoreChange);
+  return () => window.removeEventListener('storage', onStoreChange);
+};
+
 export default function ExamplePopupPage() {
   const { t } = useTranslation('common');
   const router = useRouter();
   const entityId = router.query.entityId as EntityId | undefined;
-  // undefined = not checked yet (SSR / before mount); null = no stored entity
-  const [storedEntity, setStoredEntity] = useState<Entity | null | undefined>(
-    undefined
+  const storedEntity = useSyncExternalStore(
+    subscribeExamplePopupStorage,
+    () => (entityId ? readExamplePopupEntity(entityId) : null),
+    () => null
   );
 
-  useEffect(() => {
-    if (!entityId) {
-      return;
-    }
-    setStoredEntity(readExamplePopupEntity(entityId));
-  }, [entityId]);
-
-  if (!router.isReady || !entityId || storedEntity === undefined) {
+  if (!router.isReady || !entityId) {
     return <LoadingSpinner />;
   }
 

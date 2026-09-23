@@ -4,6 +4,12 @@ import { compact } from 'lodash';
 
 const storageKey = (entityId: string) => `sta-example-popup:${entityId}`;
 
+let examplePopupSnapshot: {
+  entityId: string;
+  raw: string | null;
+  entity: Entity | null;
+} | null = null;
+
 /** Attach the wikibase-pointer label to embedded example entities (they have no own label). */
 export const examplesFromWikibasePointers = (
   pointers: WikibasePointerValue[]
@@ -23,7 +29,9 @@ export const storeExamplePopupEntity = (entity: Entity) => {
   if (typeof window === 'undefined') {
     return;
   }
-  localStorage.setItem(storageKey(entity.id), JSON.stringify(entity));
+  const raw = JSON.stringify(entity);
+  localStorage.setItem(storageKey(entity.id), raw);
+  examplePopupSnapshot = { entityId: entity.id, raw, entity };
 };
 
 export const readExamplePopupEntity = (entityId: string): Entity | null => {
@@ -31,12 +39,23 @@ export const readExamplePopupEntity = (entityId: string): Entity | null => {
     return null;
   }
   const raw = localStorage.getItem(storageKey(entityId));
+  if (
+    examplePopupSnapshot &&
+    examplePopupSnapshot.entityId === entityId &&
+    examplePopupSnapshot.raw === raw
+  ) {
+    return examplePopupSnapshot.entity;
+  }
   if (!raw) {
+    examplePopupSnapshot = { entityId, raw, entity: null };
     return null;
   }
   try {
-    return JSON.parse(raw) as Entity;
+    const entity = JSON.parse(raw) as Entity;
+    examplePopupSnapshot = { entityId, raw, entity };
+    return entity;
   } catch {
+    examplePopupSnapshot = { entityId, raw, entity: null };
     return null;
   }
 };

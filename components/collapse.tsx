@@ -5,15 +5,15 @@ import {
   Typography,
   theme,
 } from 'antd';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface CollapseProps extends AntdCollapseProps {
   defaultOpen?: boolean;
   labelOpen?: string;
   labelClosed?: string;
-  extra?: JSX.Element;
-  children: JSX.Element;
+  extra?: ReactNode;
+  children: ReactNode;
 }
 
 export const Collapse = ({

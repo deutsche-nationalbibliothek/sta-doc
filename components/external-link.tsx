@@ -1,7 +1,8 @@
 import { Link } from '@/lib/next-link';
+import { ReactNode } from 'react';
 
 interface ExternalLinkProps {
-  children: JSX.Element | string;
+  children: ReactNode;
   className?: string;
   linkProps: Omit<Parameters<typeof Link>[0], 'children'>;
 }

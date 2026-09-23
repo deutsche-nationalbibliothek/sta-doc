@@ -46,7 +46,7 @@ export default function Home({ headlines, namespace }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
+export const getStaticProps: GetStaticProps<HomeProps> = (context) => {
   const entityId: EntityId =
     Item['Documentation-platform-of-the-standardization-committee'];
   const locale: string = context.locale ? context.locale : "de";
