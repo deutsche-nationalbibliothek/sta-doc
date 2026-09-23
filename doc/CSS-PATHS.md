@@ -2,7 +2,10 @@
 
 components/search/result-list-item.tsx
 components/search/results-list.tsx
-components/external-link.tsx (className Prop)
+
+<!-- className Prop -->
+
+components/external-link.tsx
 
 ## Emotion (global)
 
@@ -23,7 +26,10 @@ components/loading-indicator.tsx
 components/modal.tsx
 components/page-header.tsx
 components/sidebar-small-screen.tsx
-components/sidebar.tsx (auch Ant Design)
+
+<!-- auch Ant Design -->
+
+components/sidebar.tsx
 components/splitter.tsx
 components/table.tsx
 components/title.tsx
@@ -72,6 +78,3 @@ styles/fonts.css
 features/entity/components/examples/index.tsx
 
 features/entity/components/statements/string-groups.tsx
-
-<!-- ## i18n -->
-<!-- features/entity/components/gnd-implementation/gnd-format-neutral.tsx -->
