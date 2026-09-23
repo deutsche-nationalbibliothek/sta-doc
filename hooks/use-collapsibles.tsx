@@ -12,10 +12,9 @@ export const useCollapseToggleEvent = (
   );
   return {
     onNextState: () => {
-      setIsOpen((isOpen) => {
-        publish(!isOpen ? 'open' : 'close');
-        return !isOpen;
-      });
+      const nextState = !isOpen;
+      setIsOpen(nextState);
+      publish(nextState ? 'open' : 'close');
     },
     state: isOpen,
   };

@@ -56,6 +56,7 @@ export const DraggableModal: React.FC<ModalProps> = (props) => {
       onDisableDraggable={onDisableDraggable}
       modalRender={(modal) => (
         <Draggable
+          nodeRef={draggleRef}
           disabled={disabled}
           bounds={bounds}
           onStart={(event: DraggableEvent, uiData: DraggableData) =>

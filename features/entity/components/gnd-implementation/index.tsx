@@ -26,7 +26,7 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
   return (
     <NamespaceThemeConfigProvider namespace={implementationsNamespace}>
       {implementations.map((implementation, index) => (
-        <>
+        <Fragment key={implementation.id ?? index}>
           <Collapse
             defaultOpen={true}
             labelOpen={label}
@@ -63,12 +63,11 @@ export const GndImplementations: React.FC<GndImplementationsProps> = ({
               <GndImplementationCard
                 entity={implementation}
                 codingsPreferences={codingsPreferences}
-                key={index}
                 lastIndex={index === implementations.length - 1}
               />
             </>
           </Collapse>
-        </>
+        </Fragment>
       ))}
     </NamespaceThemeConfigProvider>
   );
