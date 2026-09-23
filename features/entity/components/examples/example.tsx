@@ -230,9 +230,9 @@ const ExampleCodingCard: React.FC<ExampleCodingCardProps> = ({
         {codingPreference}
       </Tag>
       {exampleValues.map((innerExampleValues, index1) => (
-        <React.Fragment>
-          {innerExampleValues[0].coding && (
-            <Typography.Paragraph key={index1}>
+        <React.Fragment key={index1}>
+          {innerExampleValues[0]?.coding && (
+            <Typography.Paragraph>
               {innerExampleValues.map(({ coding, value }, index2) => (
                 <React.Fragment key={index2}>
                   {coding != undefined && (

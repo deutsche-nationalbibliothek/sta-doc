@@ -44,19 +44,18 @@ export const Collapse = ({
         }}
         accordion={true}
         activeKey={isOpen ? '1' : undefined}
-      >
-        <AntdCollapse.Panel
-          extra={extra}
-          header={
-            isOpen && defaultLabelClosed === t('furtherInformation')
-              ? labelOpen
-              : defaultLabelClosed
-          }
-          key="1"
-        >
-          {children}
-        </AntdCollapse.Panel>
-      </AntdCollapse>
+        items={[
+          {
+            key: '1',
+            extra,
+            label:
+              isOpen && defaultLabelClosed === t('furtherInformation')
+                ? labelOpen
+                : defaultLabelClosed,
+            children,
+          },
+        ]}
+      />
     </Typography.Paragraph>
   );
 };
