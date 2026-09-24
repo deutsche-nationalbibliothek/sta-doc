@@ -121,6 +121,7 @@ export const FIELDS = (apiUrl: API_URL) => `
 
   SELECT ?eId ?repeatable ?subId ?subRepeatable ?subLink WHERE {
     ?element prop:P2 item:Q2 . 
+    ?element prop:P643 ?staNotation .
     OPTIONAL {?element prop:P12 ?repeatable .}
     ?element p:P15 ?sub .
     OPTIONAL {?sub statement:P15 ?subelement .}
