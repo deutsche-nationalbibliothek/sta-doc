@@ -6,7 +6,6 @@ import { Sidebar } from './sidebar';
 import { Splitter } from './splitter';
 import { TopBar } from './top-bar';
 import { CSSObject } from '@emotion/react';
-import { compact } from 'lodash';
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import { SidebarSmallScreen } from './sidebar-small-screen';
@@ -93,18 +92,15 @@ const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
   const isSmallScreen = useIsSmallScreen();
   const { showHeadlines } = useHeadlines();
 
-  const hasAndShouldShowHeadlines =
-    headlines && headlines.length > 1 && showHeadlines;
+  const hasAndShouldShowHeadlines = Boolean(
+    headlines && headlines.length > 1 && showHeadlines
+  );
+  const showSidebar = !isSmallScreen && hasAndShouldShowHeadlines;
 
   return (
     <>
-      <Splitter>
-        {compact([
-          !isSmallScreen && hasAndShouldShowHeadlines && (
-            <Sidebar key="sidebar" />
-          ),
-          children,
-        ])}
+      <Splitter collapsed={!showSidebar}>
+        {[showSidebar ? <Sidebar key="sidebar" /> : null, children]}
       </Splitter>
       {isSmallScreen && hasAndShouldShowHeadlines && <SidebarSmallScreen />}
     </>

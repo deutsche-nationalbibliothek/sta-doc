@@ -1,22 +1,23 @@
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 interface SplitterProps {
   children: React.ReactNode[];
+  // collapses the first pane instead of removing it, so that the number of
+  // panes stays constant and the content pane is never remounted
+  collapsed?: boolean;
 }
 
-export const Splitter: React.FC<SplitterProps> = ({ children }) => {
-  const defaultSizes: [number, number] =
-    children.length === 2 ? [20, 80] : [100, 0];
+export const Splitter: React.FC<SplitterProps> = ({
+  children,
+  collapsed = false,
+}) => {
   const [userSizes, setUserSizes] = useState<[number, number] | null>(null);
-  const [trackedLength, setTrackedLength] = useState(children.length);
 
-  if (trackedLength !== children.length) {
-    setTrackedLength(children.length);
-    setUserSizes(null);
-  }
-
-  const sizes = userSizes ?? defaultSizes;
+  const sizes = useMemo<[number, number]>(
+    () => (collapsed ? [0, 100] : userSizes ?? [20, 80]),
+    [collapsed, userSizes]
+  );
   const direction: SplitDirection = SplitDirection.Horizontal;
   // const cssClass = direction === SplitDirection.Vertical ? 'gutter-vertical' : 'gutter-horizontal'
   const cssClass = 'gutter-horizontal';
@@ -43,6 +44,7 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
           width: 0.5,
         },
         '& .gutter': {
+          display: collapsed ? 'none' : undefined,
           padding: 0,
           marginLeft: '2px',
           marginRight: '2px',
@@ -55,12 +57,8 @@ export const Splitter: React.FC<SplitterProps> = ({ children }) => {
       }}
     >
       <ReactSplit
-        classes={
-          children.length === 2
-            ? ['no-print', 'gutter-content']
-            : ['gutter-content']
-        }
-        minWidths={children.length === 2 ? [256, 512] : [100, 0]}
+        classes={['no-print', 'gutter-content']}
+        minWidths={collapsed ? [0, 0] : [256, 512]}
         direction={direction}
         gutterClassName={`gutter ${cssClass}`}
         draggerClassName="dragger"
