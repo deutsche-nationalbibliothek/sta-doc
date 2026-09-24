@@ -13,8 +13,8 @@ lib/emotion/global.tsx
 
 ## Emotion (component-based)
 
-<!-- häufig auch nur einzelne statische Werte -->
-<!-- global in tsconfig.json festgelegt -->
+<!-- often only single static values -->
+<!-- set globally in tsconfig.json -->
 
 components/search/solr.tsx
 components/collapse.tsx
@@ -27,7 +27,7 @@ components/modal.tsx
 components/page-header.tsx
 components/sidebar-small-screen.tsx
 
-<!-- auch Ant Design -->
+<!-- also Ant Design -->
 
 components/sidebar.tsx
 components/splitter.tsx
@@ -53,7 +53,7 @@ features/entity/components/table-of-content.tsx
 
 ## Antd Theme-Token
 
-<!-- evtl. noch erweiterbar -->
+<!-- potentially expandable -->
 
 components/namespace-theme-config-provider.tsx
 hooks/theme-provider.tsx
@@ -73,7 +73,7 @@ styles/fonts.css
 
 ## Inline
 
-<!-- neben inline Styles auch Antd Theme-Token, Antd Layout-Props (justify etc.), Emotion -->
+<!-- in addition to inline styles: Antd theme tokens, Antd layout props (justify, etc.), Emotion -->
 
 features/entity/components/examples/index.tsx
 
