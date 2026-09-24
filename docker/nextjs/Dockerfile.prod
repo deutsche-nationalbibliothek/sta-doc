@@ -17,8 +17,9 @@ ENV NODE_OPTIONS=--max_old_space_size=4096
 ENV basePath="/doc"
 
 RUN npm run build
-RUN rm -rf node_modules
-RUN npm install --omit=dev
+# npm ci wipes node_modules itself and installs exactly what the lockfile pins,
+# so the runtime tree matches what `.next/node_modules` symlinks were built against.
+RUN npm ci --omit=dev
 
 # Production stage
 FROM node:20-alpine AS production-stage

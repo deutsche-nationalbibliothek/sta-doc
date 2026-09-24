@@ -21,6 +21,7 @@
 # misc
 .DS_Store
 *.pem
+/.ci-check/
 
 # debug
 npm-debug.log*
