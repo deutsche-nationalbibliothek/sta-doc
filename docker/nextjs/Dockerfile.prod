@@ -3,7 +3,7 @@ FROM node:20-alpine AS dev-stage
 # Install build dependencies only for development
 RUN apk add --no-cache python3 make g++ git
 WORKDIR /srv
-COPY ./package*.json ./
+COPY ./package*.json ./.npmrc ./
 RUN npm install
 COPY . .
 
