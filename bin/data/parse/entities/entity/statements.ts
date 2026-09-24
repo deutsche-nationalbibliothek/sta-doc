@@ -137,7 +137,15 @@ export const parseStatements = (
             statementNamespace
           )
         : undefined;
-      
+
+      // Resource-type elements have no property headline. The WEMI group
+      // headline already advanced the level (nextHe + 1), so do not add
+      // another level here or element headlines skip a step.
+      const childHeadlineLevel =
+        hasHeadline && !isSubfieldsProp
+          ? currentHeadlineLevel + 1
+          : currentHeadlineLevel;
+
       const dataTypeSpecifics = compact(
         occs.map((occ: StatementRaw | Claim) =>
           parseStatement({
@@ -145,10 +153,7 @@ export const parseStatements = (
             occ,
             keyAccessOcc: <T>(...keys: string[]) => keyAccess<T>(occ, ...keys),
             hasHeadline,
-            currentHeadlineLevel:
-              hasHeadline && !isSubfieldsProp || isElementsPropOnRdaRessourceType
-                ? currentHeadlineLevel + 1
-                : currentHeadlineLevel,
+            currentHeadlineLevel: childHeadlineLevel,
             simplifiedDataType: dataType,
             isElementsPropOnRdaRessourceType,
           })
