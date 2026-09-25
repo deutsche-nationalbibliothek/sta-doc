@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import type { NextComponentType, NextPageContext } from 'next';
 import HeadlinesProvider from '@/hooks/headlines';
 import Layout from '@/components/layout';
-import FileLinkLabels from '../components/file-link-labels';
+import FileLinkLabels from '@/components/file-link-label';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
 import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
 import { NamespaceProvider } from '@/hooks/use-namespace';
