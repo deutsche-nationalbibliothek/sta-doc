@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { fetcher } from '@/bin/data/fetcher';
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [result, setResult] = useState(null);
 
   const handleFetch = async () => {
-    // const wikibaseData = fetcher();
-    console.log(entityId);
+    const res = await fetch(`/api/wikibase?id=${entityId}`);
+    const data = await res.json();
+    console.log(data);
+    return data;
   };
 
   return (
@@ -27,7 +28,7 @@ export default function WikibaseTest() {
 
       <h2>Response</h2>
 
-      <pre>{/*JSON Response*/}</pre>
+      <pre>JSON response</pre>
     </main>
   );
 }
