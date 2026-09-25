@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import type { NextComponentType, NextPageContext } from 'next';
 import HeadlinesProvider from '@/hooks/headlines';
 import Layout from '@/components/layout';
+import FileLinkLabels from '@/components/file-link-labels';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
 import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
 import { NamespaceProvider } from '@/hooks/use-namespace';
@@ -49,7 +50,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
                               <EntityProvider>
-                                {Page.isPopupPage ? page : <Layout>{page}</Layout>}
+                                {Page.isPopupPage ? (
+                                  page
+                                ) : (
+                                  <Layout>{page}</Layout>
+                                )}
                               </EntityProvider>
                             </CodingsPreferencesProvider>
                           </IsLoadingContextProvider>
@@ -66,6 +71,5 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </GlobalStaticStyles>
   );
 };
-
 
 export default MyApp;

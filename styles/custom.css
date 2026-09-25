@@ -13,7 +13,7 @@
   border-width: 2px; */
 }
 
-/* links to ppt files */
+/* links to pptx files */
 
 a[href*=".pptx"]::after {
   content: "PPTX";
@@ -23,6 +23,10 @@ a[href*=".pptx"]::after {
   color: currentColor;
   font-size: 0.7em;
   line-height: 1;
+}
+
+a[href*=".ppt"].has-ppt-label::after {
+  content: none;
 }
 
 /* links to internal pdfs */
@@ -35,6 +39,10 @@ a[href*=".pdf"]::after {
   color: currentColor;
   font-size: 0.7em;
   line-height: 1;
+}
+
+a[href*=".pdf"].has-pdf-label::after {
+  content: none;
 }
 
 /* external links */
