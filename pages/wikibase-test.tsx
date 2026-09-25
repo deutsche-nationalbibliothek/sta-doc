@@ -6,8 +6,8 @@ export default function WikibaseTest() {
   const [result, setResult] = useState(null);
 
   const handleFetch = async () => {
-    const wikibaseData = fetcher(); // stürzt ab
-    console.log(wikibaseData);
+    // const wikibaseData = fetcher();
+    console.log(entityId);
   };
 
   return (
@@ -21,7 +21,9 @@ export default function WikibaseTest() {
         placeholder="insert a Q- or P-value"
       />
 
-      <button onClick={handleFetch}>Fetch Wikibase Data</button>
+      <button style={{ marginBottom: '1rem' }} onClick={handleFetch}>
+        Fetch Wikibase Data
+      </button>
 
       <h2>Response</h2>
 
