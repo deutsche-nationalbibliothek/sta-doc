@@ -67,6 +67,7 @@ a[href^="http"]:not([href*="sta.dnb.de"]):not([href*=".pdf"]):not([href*=".pptx"
 }
 
 /* links to external pdfs */
+
 a[href^="http"]:not([href*="sta.dnb.de"]):not([href*="wiki.dnb.de"])[href*=".pdf"]::after {
   content: "PDF";
   display: inline-block;
