@@ -30,7 +30,7 @@ export default function WikibaseTest() {
         value={entityId}
         onChange={(e) => setEntityId(e.target.value)}
         placeholder="insert i.e. Q7 or P7"
-      />
+      ></input>
 
       <button
         style={{ marginBottom: '1rem' }}

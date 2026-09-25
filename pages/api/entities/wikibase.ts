@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const wikibaseData = fetcher();
         const result = await wikibaseData.entities.single(id as EntityId);
 
-        console.log('entity id:', id);
-        console.log('wikibase result:', result);
+        // console.log('entity id:', id);
+        // console.log('wikibase result:', result);
 
         return res.status(200).json(result)
     } catch(e) {
