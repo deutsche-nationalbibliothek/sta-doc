@@ -29,7 +29,7 @@ export default function WikibaseTest() {
         type="text"
         value={entityId}
         onChange={(e) => setEntityId(e.target.value)}
-        placeholder="i.e. Q7 or P7"
+        placeholder="insert i.e. Q7 or P7"
       />
 
       <button
