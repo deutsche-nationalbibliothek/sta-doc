@@ -22,9 +22,10 @@ a[href^="http"]:not([href*="sta.dnb.de"]):hover {
 a[href^="http"]:not([href*="sta.dnb.de"])::after {
   content: "";
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 1.1em;
+  height: 1.1em;
   margin-left: 0.3em;
+  margin-bottom: 0.1em;
   background-color: currentColor;
 
   /* webkit (browser engine) for safari */
