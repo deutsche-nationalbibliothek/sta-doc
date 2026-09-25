@@ -10,7 +10,7 @@ export default function FileLinkLabels() {
         .forEach((link) => {
           const text = link.textContent ?? '';
 
-          if (/\bPDF\b/i.test(text)) {
+          if (/\bpdf\b/i.test(text)) {
             link.classList.add('has-pdf-label');
           }
 
