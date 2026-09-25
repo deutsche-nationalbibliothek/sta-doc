@@ -1,9 +1,7 @@
-// next.js macht routing automatisch, also durch ordnerstruktur /api/wikibase
 import { NextApiRequest, NextApiResponse } from "next";
 import { fetcher } from '@/bin/data/fetcher';
 import { EntityId } from "@/types/entity-id";
 
-// function handler wie meine express callback
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { id } = req.query
 
@@ -17,6 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('wikibase result:', result);
 
         return res.status(200).json(result)
-    } catch(e){console.error(e);
-    return res.status(500).json({message: "Wikibase request was not possible."})}
+    } catch(e) {
+        console.error(e);
+        return res.status(500).json({message: "Wikibase request was not possible."})
+    }
 }
