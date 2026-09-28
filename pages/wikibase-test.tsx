@@ -7,26 +7,47 @@ type EntityValue = {
   id: string;
 };
 
-type Statement = {
-  mainsnak: {
-    snaktype: string;
-    property: string;
-    hash: string;
-    datavalue: {
-      value: string | EntityValue;
-      type: string;
-    };
-    datatype: string;
+type Snak = {
+  snaktype: string;
+  property: string;
+  hash: string;
+  datavalue?: {
+    value: string | EntityValue;
+    type: string;
   };
+  datatype: string;
+};
+
+type Statement = {
+  mainsnak: Snak;
   type: string;
   id: string;
   rank: string;
+  qualifiers?: Record<string, Snak[]>;
 };
 
 type WikibaseResponse = {
   [key: string]: {
     claims: Record<string, Statement[]>;
   };
+};
+
+type Qualifier = {
+  propertyId: string;
+  snaktype: string;
+  value: string;
+  datatype: string;
+};
+
+type DataSourceItem = {
+  key: string;
+  propertyId: string;
+  snaktype: string;
+  value: string | undefined;
+  datatype: string;
+  type: string;
+  statementId: string;
+  qualifiers: Qualifier[];
 };
 
 export default function WikibaseTest() {
@@ -65,9 +86,22 @@ export default function WikibaseTest() {
       dataIndex: 'statementId',
       key: 'statementId',
     },
+    {
+      title: 'Qualifiers',
+      dataIndex: 'qualifiers',
+      key: 'qualifiers',
+      render: (qualifiers: Qualifier[]) =>
+        qualifiers.length > 0
+          ? qualifiers.map((qualifier, index) => (
+              <div key={`${qualifier.propertyId}-${index}`}>
+                {qualifier.propertyId}: {qualifier.value}
+              </div>
+            ))
+          : null,
+    },
   ];
 
-  const dataSource = response?.[entityId]?.claims
+  const dataSource: DataSourceItem[] = response?.[entityId]?.claims
     ? Object.entries(response[entityId].claims).flatMap(
         ([propertyId, statements]) =>
           statements.map((statement) => ({
@@ -75,12 +109,26 @@ export default function WikibaseTest() {
             propertyId,
             snaktype: statement.mainsnak.snaktype,
             value:
-              typeof statement.mainsnak.datavalue.value === 'string'
+              typeof statement.mainsnak.datavalue?.value === 'string'
                 ? statement.mainsnak.datavalue.value
-                : statement.mainsnak.datavalue.value.id,
+                : statement.mainsnak.datavalue?.value.id,
             datatype: statement.mainsnak.datatype,
             type: statement.type,
             statementId: statement.id,
+
+            qualifiers: Object.entries(statement.qualifiers ?? {}).flatMap(
+              ([qualifierPropertyId, qualifiers]) =>
+                qualifiers.map((qualifier) => ({
+                  propertyId: qualifierPropertyId,
+                  snaktype: qualifier.snaktype,
+                  value:
+                    typeof qualifier.datavalue?.value === 'string'
+                      ? qualifier.datavalue.value
+                      : qualifier.datavalue?.value?.id ?? '',
+
+                  datatype: qualifier.datatype,
+                }))
+            ),
           }))
       )
     : [];
@@ -107,7 +155,7 @@ export default function WikibaseTest() {
   };
 
   if (response) {
-    console.log(response[entityId].claims);
+    console.log(response?.[entityId]?.claims);
   }
 
   return (
