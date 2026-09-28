@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Table } from 'antd';
 
 type EntityValue = {
   'entity-type': string;
@@ -49,6 +50,11 @@ export default function WikibaseTest() {
     }
   };
 
+  const handleSubmit = (e: any) => {
+    e.prevent.default();
+    fetchEntity();
+  };
+
   if (response) {
     console.log(response[entityId].claims);
   }
@@ -57,20 +63,22 @@ export default function WikibaseTest() {
     <main>
       <h1>Wikibase-Testseite</h1>
 
-      <input
-        type="text"
-        value={entityId}
-        onChange={(e) => setEntityId(e.target.value)}
-        placeholder="Gib z. B. Q7 or P7 ein."
-      ></input>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={entityId}
+          onChange={(e) => setEntityId(e.target.value)}
+          placeholder="Gib z. B. Q7 or P7 ein."
+        ></input>
 
-      <button
-        style={{ marginBottom: '1rem' }}
-        onClick={fetchEntity}
-        disabled={loading}
-      >
-        {loading ? 'Lädt ...' : 'Entity laden'}
-      </button>
+        <button
+          style={{ marginBottom: '1rem' }}
+          onClick={fetchEntity}
+          disabled={loading}
+        >
+          {loading ? 'Lädt ...' : 'Entity laden'}
+        </button>
+      </form>
 
       <h2>Tabellarische Response-Werte</h2>
 
