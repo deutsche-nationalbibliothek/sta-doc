@@ -68,3 +68,21 @@
     overflow-wrap: anywhere;
   }
   
+
+  /* table style 1 */
+  
+  table.wrapped {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table.wrapped td {
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+  
+  table.wrapped td:first-child {
+    width: 40%;
+  }
+
+  
