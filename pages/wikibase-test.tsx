@@ -80,7 +80,6 @@ export default function WikibaseTest() {
             <thead>
               <tr>
                 <th>Property</th>
-                <th>Statement ID</th>
                 <th>Snaktype</th>
                 <th>Hash</th>
                 <th>Value</th>
@@ -97,7 +96,6 @@ export default function WikibaseTest() {
                   statements.map((statement) => (
                     <tr key={statement.id}>
                       <td>{propertyId}</td>
-                      <td>{statement.id}</td>
                       <td>{statement.mainsnak.snaktype}</td>
                       <td>{statement.mainsnak.hash}</td>
                       <td>
