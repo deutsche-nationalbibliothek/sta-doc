@@ -1,4 +1,3 @@
-import { map } from 'lodash';
 import { useState } from 'react';
 
 type EntityValue = {
@@ -75,7 +74,7 @@ export default function WikibaseTest() {
 
       <h2>Tabellarische Response-Werte</h2>
 
-      <div className="table-wrapper">
+      <div className="claims-table-wrapper">
         {response ? (
           <table className="claims-table">
             <thead>
@@ -121,7 +120,7 @@ export default function WikibaseTest() {
         )}
       </div>
 
-      <h2 style={{ marginTop: '1rem' }}>Vollständige Response</h2>
+      <h2 style={{ marginTop: '1rem' }}>Vollständige Response als JSON</h2>
 
       <pre style={{ marginTop: '1rem' }}>
         {response

@@ -24,6 +24,7 @@ import '../styles/colors.css';
 import '../styles/layout-sizes.css';
 import '../styles/custom.css';
 import '../styles/fonts.css';
+import '../styles/tables.css';
 import { EntityProvider } from '@/hooks/entity-provider';
 
 type AppPageComponent = NextComponentType<NextPageContext, unknown, unknown> & {
@@ -49,7 +50,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                           <IsLoadingContextProvider>
                             <CodingsPreferencesProvider>
                               <EntityProvider>
-                                {Page.isPopupPage ? page : <Layout>{page}</Layout>}
+                                {Page.isPopupPage ? (
+                                  page
+                                ) : (
+                                  <Layout>{page}</Layout>
+                                )}
                               </EntityProvider>
                             </CodingsPreferencesProvider>
                           </IsLoadingContextProvider>
@@ -66,6 +71,5 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     </GlobalStaticStyles>
   );
 };
-
 
 export default MyApp;
