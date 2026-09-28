@@ -79,16 +79,18 @@ export default function WikibaseTest() {
         {response ? (
           <table className="claims-table">
             <thead>
-              <th>Property</th>
-              <th>Statement ID</th>
-              <th>Snaktype</th>
-              <th>Hash</th>
-              <th>Value</th>
-              <th>Value Type</th>
-              <th>Datatype</th>
-              <th>Type</th>
-              <th>Statement ID</th>
-              <th>Rank</th>
+              <tr>
+                <th>Property</th>
+                <th>Statement ID</th>
+                <th>Snaktype</th>
+                <th>Hash</th>
+                <th>Value</th>
+                <th>Value Type</th>
+                <th>Datatype</th>
+                <th>Type</th>
+                <th>Statement ID</th>
+                <th>Rank</th>
+              </tr>
             </thead>
             <tbody>
               {Object.entries(response?.[entityId]?.claims).map(
