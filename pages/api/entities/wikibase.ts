@@ -3,9 +3,9 @@ import { fetcher } from '@/bin/data/fetcher';
 import { EntityId } from "@/types/entity-id";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { id } = req.query
+    const { id } = req.query;
 
-    if (typeof id !== "string") { return res.status(400).json({message: "Entity Id is missing or not valid!"})}
+    if (typeof id !== "string") { return res.status(400).json({message: "Entity Id is missing or not valid!"})};
 
     try{
         const wikibaseData = fetcher();
@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // console.log('entity id:', id);
         // console.log('wikibase result:', result);
 
-        return res.status(200).json(result)
+        return res.status(200).json(result);
     } catch(e) {
         console.error(e);
         return res.status(500).json({message: "Wikibase request was not possible."})
