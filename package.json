@@ -39,7 +39,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@ant-design/icons": "^6.1.0",
+    "@ant-design/icons": "^6.3.4",
     "@devbookhq/splitter": "^1.4.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
