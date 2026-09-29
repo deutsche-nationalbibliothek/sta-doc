@@ -65,6 +65,41 @@ type DataSourceItem = {
   qualifiers: Qualifier[];
 };
 
+interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  'data-row-key': string;
+}
+
+const Row: React.FC<Readonly<RowProps>> = (props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: props['data-row-key'],
+  });
+
+  const style: React.CSSProperties = {
+    ...props.style,
+    transform: CSS.Translate.toString(transform),
+    transition,
+    cursor: 'move',
+    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+  };
+
+  return (
+    <tr
+      {...props}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    />
+  );
+};
+
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
