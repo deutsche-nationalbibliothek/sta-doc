@@ -223,7 +223,7 @@ export default function WikibaseTest() {
         {response ? (
           <Table columns={columns} dataSource={dataSource} pagination={false} />
         ) : (
-          'Noch keine Daten geladen'
+          'Noch keine Daten geladen.'
         )}
       </div>
 
