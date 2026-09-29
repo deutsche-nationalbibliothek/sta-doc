@@ -176,10 +176,13 @@ export default function WikibaseTest() {
 
     try {
       const res = await fetch(`/doc/api/entities/wikibase?id=${entityId}`);
-      const data = await res.json();
+      const data: WikibaseResponse = await res.json();
 
-      const newDataSource = response?.[entityId]?.claims
-        ? Object.entries(response[entityId].claims).flatMap(
+      console.log(data);
+      setResponse(data);
+
+      const newDataSource = data?.[entityId]?.claims
+        ? Object.entries(data[entityId].claims).flatMap(
             ([propertyId, statements]) =>
               statements.map((statement) => ({
                 key: statement.id,
@@ -210,8 +213,6 @@ export default function WikibaseTest() {
           )
         : [];
 
-      console.log(data);
-      setResponse(data);
       setDataSource(newDataSource);
     } catch (e) {
       console.error(e);
@@ -239,7 +240,7 @@ export default function WikibaseTest() {
           value={entityId}
           onChange={(e) => setEntityId(e.target.value)}
           placeholder="Gib z. B. Q7 or P7 ein."
-        ></input>
+        />
 
         <button
           style={{ marginBottom: '1rem' }}
