@@ -242,11 +242,7 @@ export default function WikibaseTest() {
           placeholder="Gib z. B. Q7 or P7 ein."
         />
 
-        <button
-          style={{ marginBottom: '1rem' }}
-          onClick={fetchEntity}
-          disabled={loading}
-        >
+        <button style={{ marginBottom: '1rem' }} disabled={loading}>
           {loading ? 'Lädt ...' : 'Entity laden'}
         </button>
       </form>
@@ -269,6 +265,12 @@ export default function WikibaseTest() {
                 columns={columns}
                 dataSource={dataSource}
                 pagination={false}
+                components={{
+                  body: {
+                    row: Row,
+                  },
+                }}
+                rowKey="key"
               />
             </SortableContext>
           </DndContext>
