@@ -104,6 +104,7 @@ export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dataSource, setDataSource] = useState<DataSourceItem[]>([]);
 
   const columns = [
     {
@@ -151,37 +152,24 @@ export default function WikibaseTest() {
     },
   ];
 
-  const dataSource: DataSourceItem[] = response?.[entityId]?.claims
-    ? Object.entries(response[entityId].claims).flatMap(
-        ([propertyId, statements]) =>
-          statements.map((statement) => ({
-            key: statement.id,
-            propertyId,
-            snaktype: statement.mainsnak.snaktype,
-            value:
-              typeof statement.mainsnak.datavalue?.value === 'string'
-                ? statement.mainsnak.datavalue.value
-                : statement.mainsnak.datavalue?.value.id,
-            datatype: statement.mainsnak.datatype,
-            type: statement.type,
-            statementId: statement.id,
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+        distance: 1,
+      },
+    })
+  );
 
-            qualifiers: Object.entries(statement.qualifiers ?? {}).flatMap(
-              ([qualifierPropertyId, qualifiers]) =>
-                qualifiers.map((qualifier) => ({
-                  propertyId: qualifierPropertyId,
-                  snaktype: qualifier.snaktype,
-                  value:
-                    typeof qualifier.datavalue?.value === 'string'
-                      ? qualifier.datavalue.value
-                      : qualifier.datavalue?.value?.id ?? '',
-
-                  datatype: qualifier.datatype,
-                }))
-            ),
-          }))
-      )
-    : [];
+  const onDragEnd = ({ active, over }: DragEndEvent) => {
+    if (active.id !== over?.id) {
+      setDataSource((prev) => {
+        const activeIndex = prev.findIndex((i) => i.key === active.id);
+        const overIndex = prev.findIndex((i) => i.key === over?.id);
+        return arrayMove(prev, activeIndex, overIndex);
+      });
+    }
+  };
 
   const fetchEntity = async () => {
     setLoading(true);
@@ -190,8 +178,41 @@ export default function WikibaseTest() {
       const res = await fetch(`/doc/api/entities/wikibase?id=${entityId}`);
       const data = await res.json();
 
+      const newDataSource = response?.[entityId]?.claims
+        ? Object.entries(response[entityId].claims).flatMap(
+            ([propertyId, statements]) =>
+              statements.map((statement) => ({
+                key: statement.id,
+                propertyId,
+                snaktype: statement.mainsnak.snaktype,
+                value:
+                  typeof statement.mainsnak.datavalue?.value === 'string'
+                    ? statement.mainsnak.datavalue.value
+                    : statement.mainsnak.datavalue?.value.id,
+                datatype: statement.mainsnak.datatype,
+                type: statement.type,
+                statementId: statement.id,
+
+                qualifiers: Object.entries(statement.qualifiers ?? {}).flatMap(
+                  ([qualifierPropertyId, qualifiers]) =>
+                    qualifiers.map((qualifier) => ({
+                      propertyId: qualifierPropertyId,
+                      snaktype: qualifier.snaktype,
+                      value:
+                        typeof qualifier.datavalue?.value === 'string'
+                          ? qualifier.datavalue.value
+                          : qualifier.datavalue?.value?.id ?? '',
+
+                      datatype: qualifier.datatype,
+                    }))
+                ),
+              }))
+          )
+        : [];
+
       console.log(data);
       setResponse(data);
+      setDataSource(newDataSource);
     } catch (e) {
       console.error(e);
     } finally {
