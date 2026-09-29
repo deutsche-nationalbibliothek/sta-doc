@@ -81,6 +81,8 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
     id: props['data-row-key'],
   });
 
+  console.log("props['data-row-key']:", props['data-row-key']);
+
   const style: React.CSSProperties = {
     ...props.style,
     transform: CSS.Translate.toString(transform),
@@ -153,12 +155,15 @@ export default function WikibaseTest() {
   ];
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-        distance: 1,
-      },
-    })
+    useSensor(
+      PointerSensor
+      //   {
+      //   activationConstraint: {
+      //     // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+      //     distance: 1,
+      //   },
+      // }
+    )
   );
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
@@ -169,6 +174,8 @@ export default function WikibaseTest() {
         return arrayMove(prev, activeIndex, overIndex);
       });
     }
+
+    console.log('activeId and overId:', active.id, over?.id);
   };
 
   const fetchEntity = async () => {
@@ -178,7 +185,7 @@ export default function WikibaseTest() {
       const res = await fetch(`/doc/api/entities/wikibase?id=${entityId}`);
       const data: WikibaseResponse = await res.json();
 
-      console.log(data);
+      console.log('data:', data);
       setResponse(data);
 
       const newDataSource = data?.[entityId]?.claims
