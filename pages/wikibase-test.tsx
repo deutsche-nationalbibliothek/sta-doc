@@ -1,4 +1,19 @@
 import { useState } from 'react';
+import type { DragEndEvent } from '@dnd-kit/core';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Table } from 'antd';
 
 type EntityValue = {
@@ -181,7 +196,29 @@ export default function WikibaseTest() {
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
 
-      {/* <div className="claims-table-wrapper">
+      <div>
+        {response ? (
+          <Table columns={columns} dataSource={dataSource} pagination={false} />
+        ) : (
+          'Noch keine Daten geladen'
+        )}
+      </div>
+
+      <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
+
+      <pre style={{ marginTop: '1rem' }}>
+        {response
+          ? JSON.stringify(response, null, 2)
+          : 'Noch keine Daten geladen.'}
+      </pre>
+    </main>
+  );
+}
+
+/* selbst geschriebene Tabelle, später mit Antd Table ersetzt */
+
+{
+  /* <div className="claims-table-wrapper">
         {response ? (
           <table className="claims-table">
             <thead>
@@ -217,23 +254,5 @@ export default function WikibaseTest() {
         ) : (
           'Noch keine Daten geladen.'
         )}
-      </div> */}
-
-      <div>
-        {response ? (
-          <Table columns={columns} dataSource={dataSource} pagination={false} />
-        ) : (
-          'Noch keine Daten geladen'
-        )}
-      </div>
-
-      <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
-
-      <pre style={{ marginTop: '1rem' }}>
-        {response
-          ? JSON.stringify(response, null, 2)
-          : 'Noch keine Daten geladen.'}
-      </pre>
-    </main>
-  );
+      </div> */
 }
