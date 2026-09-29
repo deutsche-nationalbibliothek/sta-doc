@@ -221,7 +221,7 @@ export default function WikibaseTest() {
   };
 
   const handleSubmit = (e: any) => {
-    e.prevent.default();
+    e.preventDefault();
     fetchEntity();
   };
 
@@ -254,9 +254,25 @@ export default function WikibaseTest() {
 
       <div>
         {response ? (
-          <Table columns={columns} dataSource={dataSource} pagination={false} />
+          <DndContext
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext
+              // rowKey array
+              items={dataSource.map((i) => i.key)}
+              strategy={verticalListSortingStrategy}
+            >
+              <Table
+                columns={columns}
+                dataSource={dataSource}
+                pagination={false}
+              />
+            </SortableContext>
+          </DndContext>
         ) : (
-          'Noch keine Daten geladen'
+          'Noch keine Daten geladen.'
         )}
       </div>
 
