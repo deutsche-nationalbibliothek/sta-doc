@@ -102,6 +102,15 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
   );
 };
 
+const QualifierItem = ({ qualifier }: { qualifier: Qualifier }) => {
+  return (
+    <div>
+      <p>{qualifier.propertyId}:</p>
+      <p>{qualifier.value}</p>
+    </div>
+  );
+};
+
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
@@ -219,6 +228,8 @@ export default function WikibaseTest() {
               }))
           )
         : [];
+
+      console.log();
 
       setDataSource(newDataSource);
     } catch (e) {
