@@ -104,9 +104,20 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
 
 const QualifierItem = ({ qualifier }: { qualifier: Qualifier }) => {
   return (
-    <div>
-      <p>{qualifier.propertyId}:</p>
-      <p>{qualifier.value}</p>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '0.3rem',
+        border: '1px solid lightgray',
+        borderRadius: '0.3rem',
+        padding: '0.3rem',
+        margin: '0.3rem',
+      }}
+    >
+      <p style={{ margin: 0 }}>{qualifier.propertyId}:</p>
+      <p style={{ margin: 0 }}>{qualifier.value}</p>
     </div>
   );
 };
@@ -155,9 +166,13 @@ export default function WikibaseTest() {
       render: (qualifiers: Qualifier[]) =>
         qualifiers.length > 0
           ? qualifiers.map((qualifier, index) => (
-              <div key={`${qualifier.propertyId}-${index}`}>
-                {qualifier.propertyId}: {qualifier.value}
-              </div>
+              // <div key={`${qualifier.propertyId}-${index}`}>
+              //   {qualifier.propertyId}: {qualifier.value}
+              // </div>
+              <QualifierItem
+                key={`${qualifier.propertyId}-${index}`}
+                qualifier={qualifier}
+              />
             ))
           : null,
     },
