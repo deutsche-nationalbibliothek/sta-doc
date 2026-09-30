@@ -353,7 +353,6 @@ export default function WikibaseTest() {
             onDragEnd={onDragEnd}
           >
             <SortableContext
-              // rowKey array
               items={dataSource.map((i) => i.key)}
               strategy={verticalListSortingStrategy}
             >
