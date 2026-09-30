@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactHTMLElement, useState } from 'react';
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
@@ -317,7 +317,7 @@ export default function WikibaseTest() {
     }
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetchEntity();
   };
