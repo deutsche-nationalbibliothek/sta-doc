@@ -48,6 +48,7 @@ type WikibaseResponse = {
 };
 
 type Qualifier = {
+  id: string;
   propertyId: string;
   snaktype: string;
   value: string;
@@ -81,7 +82,7 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
     id: props['data-row-key'],
   });
 
-  console.log("props['data-row-key']:", props['data-row-key']);
+  // console.log("props['data-row-key']:", props['data-row-key']);
 
   const style: React.CSSProperties = {
     ...props.style,
@@ -103,18 +104,40 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
 };
 
 const QualifierItem = ({ qualifier }: { qualifier: Qualifier }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: qualifier.id,
+  });
+
+  const style: React.CSSProperties = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+    cursor: 'move',
+    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+  };
+
   return (
     <div
+      ref={setNodeRef}
       style={{
+        ...style,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         gap: '0.3rem',
         border: '1px solid lightgray',
-        borderRadius: '0.3rem',
+        borderRadius: '10px',
         padding: '0.3rem',
         margin: '0.3rem',
       }}
+      {...attributes}
+      {...listeners}
     >
       <p style={{ margin: 0 }}>{qualifier.propertyId}:</p>
       <p style={{ margin: 0 }}>{qualifier.value}</p>
@@ -127,6 +150,50 @@ export default function WikibaseTest() {
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState<DataSourceItem[]>([]);
+
+  const onQualifierDragEnd = (
+    statementId: string,
+    { active, over }: DragEndEvent
+  ) => {
+    if (!over || active.id === over.id) return;
+
+    setDataSource((prev) =>
+      prev.map((item) => {
+        if (item.key !== statementId) {
+          return item;
+        }
+
+        const activeIndex = item.qualifiers.findIndex(
+          (qualifier) => qualifier.id === active.id
+        );
+
+        const overIndex = item.qualifiers.findIndex(
+          (qualifier) => qualifier.id === over.id
+        );
+
+        if (activeIndex === -1 || overIndex === -1) {
+          return item;
+        }
+
+        return {
+          ...item,
+          qualifiers: arrayMove(item.qualifiers, activeIndex, overIndex),
+        };
+      })
+    );
+  };
+
+  const sensors = useSensors(
+    useSensor(
+      PointerSensor
+      //   {
+      //   activationConstraint: {
+      //     // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+      //     distance: 5,
+      //   },
+      // }
+    )
+  );
 
   const columns = [
     {
@@ -163,32 +230,27 @@ export default function WikibaseTest() {
       title: 'Qualifiers',
       dataIndex: 'qualifiers',
       key: 'qualifiers',
-      render: (qualifiers: Qualifier[]) =>
-        qualifiers.length > 0
-          ? qualifiers.map((qualifier, index) => (
-              // <div key={`${qualifier.propertyId}-${index}`}>
-              //   {qualifier.propertyId}: {qualifier.value}
-              // </div>
-              <QualifierItem
-                key={`${qualifier.propertyId}-${index}`}
-                qualifier={qualifier}
-              />
-            ))
-          : null,
+      render: (qualifiers: Qualifier[], record: DataSourceItem) =>
+        qualifiers.length > 0 ? (
+          <DndContext
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={(e) => {
+              onQualifierDragEnd(record.key, e);
+            }}
+          >
+            <SortableContext
+              items={qualifiers.map((i) => i.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {qualifiers.map((qualifier) => (
+                <QualifierItem key={qualifier.id} qualifier={qualifier} />
+              ))}
+            </SortableContext>
+          </DndContext>
+        ) : null,
     },
   ];
-
-  const sensors = useSensors(
-    useSensor(
-      PointerSensor
-      //   {
-      //   activationConstraint: {
-      //     // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-      //     distance: 1,
-      //   },
-      // }
-    )
-  );
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
@@ -229,7 +291,8 @@ export default function WikibaseTest() {
 
                 qualifiers: Object.entries(statement.qualifiers ?? {}).flatMap(
                   ([qualifierPropertyId, qualifiers]) =>
-                    qualifiers.map((qualifier) => ({
+                    qualifiers.map((qualifier, qualifierIndex) => ({
+                      id: `${statement.id}-${qualifierPropertyId}-${qualifierIndex}`,
                       propertyId: qualifierPropertyId,
                       snaktype: qualifier.snaktype,
                       value:
