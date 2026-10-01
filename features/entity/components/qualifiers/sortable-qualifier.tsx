@@ -3,9 +3,9 @@ import { CSS } from '@dnd-kit/utilities';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
 
-type SortableQualifierProps = {
+interface SortableQualifierProps {
   qualifier: Qualifier;
-};
+}
 
 export const SortableQualifier = ({ qualifier }: SortableQualifierProps) => {
   const {

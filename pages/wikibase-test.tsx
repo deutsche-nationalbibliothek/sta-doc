@@ -11,53 +11,15 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   arrayMove,
   SortableContext,
-  useSortable,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 
 import { Table } from 'antd';
 import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
+import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type { DataSourceItem, Qualifier } from '@/types/parsed/wikibase';
-
-interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  'data-row-key': string;
-}
-
-const Row: React.FC<Readonly<RowProps>> = (props) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: props['data-row-key'],
-  });
-
-  // console.log("props['data-row-key']:", props['data-row-key']);
-
-  const style: React.CSSProperties = {
-    ...props.style,
-    transform: CSS.Translate.toString(transform),
-    transition,
-    cursor: 'move',
-    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
-  };
-
-  return (
-    <tr
-      {...props}
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-    />
-  );
-};
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
@@ -276,7 +238,7 @@ export default function WikibaseTest() {
                 pagination={false}
                 components={{
                   body: {
-                    row: Row,
+                    row: SortableRow,
                   },
                 }}
                 rowKey="key"
