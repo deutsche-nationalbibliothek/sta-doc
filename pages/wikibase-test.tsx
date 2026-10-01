@@ -1,4 +1,4 @@
-import { ReactHTMLElement, useState } from 'react';
+import { useState } from 'react';
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
