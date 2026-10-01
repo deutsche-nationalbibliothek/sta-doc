@@ -14,9 +14,10 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-
 import { CSS } from '@dnd-kit/utilities';
+
 import { Table } from 'antd';
+import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type { DataSourceItem, Qualifier } from '@/types/parsed/wikibase';
@@ -55,48 +56,6 @@ const Row: React.FC<Readonly<RowProps>> = (props) => {
       {...attributes}
       {...listeners}
     />
-  );
-};
-
-const QualifierItem = ({ qualifier }: { qualifier: Qualifier }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: qualifier.id,
-  });
-
-  const style: React.CSSProperties = {
-    transform: CSS.Translate.toString(transform),
-    transition,
-    cursor: 'move',
-    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={{
-        ...style,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '0.3rem',
-        border: '1px solid lightgray',
-        borderRadius: '10px',
-        padding: '0.3rem',
-        margin: '0.3rem',
-      }}
-      {...attributes}
-      {...listeners}
-    >
-      <p style={{ margin: 0 }}>{qualifier.propertyId}:</p>
-      <p style={{ margin: 0 }}>{qualifier.value}</p>
-    </div>
   );
 };
 
@@ -199,7 +158,7 @@ export default function WikibaseTest() {
               strategy={verticalListSortingStrategy}
             >
               {qualifiers.map((qualifier) => (
-                <QualifierItem key={qualifier.id} qualifier={qualifier} />
+                <SortableQualifier key={qualifier.id} qualifier={qualifier} />
               ))}
             </SortableContext>
           </DndContext>
