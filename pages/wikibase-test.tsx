@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import type { WikibaseResponse } from '@/types/raw/wikibase';
-import type { DataSourceItem, Qualifier } from '@/types/parsed/wikibase';
+
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
@@ -15,8 +14,12 @@ import {
   useSortable,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+
 import { CSS } from '@dnd-kit/utilities';
 import { Table } from 'antd';
+
+import type { WikibaseResponse } from '@/types/raw/wikibase';
+import type { DataSourceItem, Qualifier } from '@/types/parsed/wikibase';
 
 interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
