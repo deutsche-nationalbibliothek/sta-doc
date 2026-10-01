@@ -1,3 +1,8 @@
+export type ParsedStatementGroup = {
+  propertId: string;
+  statements: ParsedStatement[]
+}
+
 export type ParsedStatement = {
     key: string;
     propertyId: string;
