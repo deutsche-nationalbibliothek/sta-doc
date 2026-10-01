@@ -15,7 +15,6 @@ import {
 } from '@dnd-kit/sortable';
 
 import { Table } from 'antd';
-import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
@@ -79,11 +78,6 @@ export default function WikibaseTest() {
       title: 'Property',
       dataIndex: 'propertyId',
       key: 'propertyId',
-    },
-    {
-      title: 'Snaktype',
-      dataIndex: 'snaktype',
-      key: 'snaktype',
     },
     {
       title: 'Value',
