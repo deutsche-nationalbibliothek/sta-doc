@@ -16,6 +16,7 @@ import {
 
 import { Table } from 'antd';
 import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
+import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
@@ -110,22 +111,11 @@ export default function WikibaseTest() {
       key: 'qualifiers',
       render: (qualifiers: Qualifier[], record: ParsedStatement) =>
         qualifiers.length > 0 ? (
-          <DndContext
-            sensors={sensors}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={(e) => {
-              onQualifierDragEnd(record.key, e);
-            }}
-          >
-            <SortableContext
-              items={qualifiers.map((i) => i.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {qualifiers.map((qualifier) => (
-                <SortableQualifier key={qualifier.id} qualifier={qualifier} />
-              ))}
-            </SortableContext>
-          </DndContext>
+          <SortableQualifiers
+            qualifiers={qualifiers}
+            statementId={record.key}
+            onQualifierDragEnd={onQualifierDragEnd}
+          />
         ) : null,
     },
   ];
