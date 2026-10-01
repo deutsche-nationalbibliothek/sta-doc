@@ -1,4 +1,4 @@
-export type DataSourceItem = {
+export type ParsedStatement = {
     key: string;
     propertyId: string;
     snaktype: string;

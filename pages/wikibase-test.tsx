@@ -19,13 +19,15 @@ import { SortableQualifier } from '@/features/entity/components/qualifiers/sorta
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
-import type { DataSourceItem, Qualifier } from '@/types/parsed/wikibase';
+import type { ParsedStatement, Qualifier } from '@/types/parsed/wikibase';
+
+import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
-  const [dataSource, setDataSource] = useState<DataSourceItem[]>([]);
+  const [dataSource, setDataSource] = useState<ParsedStatement[]>([]);
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -106,7 +108,7 @@ export default function WikibaseTest() {
       title: 'Qualifiers',
       dataIndex: 'qualifiers',
       key: 'qualifiers',
-      render: (qualifiers: Qualifier[], record: DataSourceItem) =>
+      render: (qualifiers: Qualifier[], record: ParsedStatement) =>
         qualifiers.length > 0 ? (
           <DndContext
             sensors={sensors}
@@ -150,42 +152,7 @@ export default function WikibaseTest() {
       console.log('data:', data);
       setResponse(data);
 
-      const newDataSource = data?.[entityId]?.claims
-        ? Object.entries(data[entityId].claims).flatMap(
-            ([propertyId, statements]) =>
-              statements.map((statement) => ({
-                key: statement.id,
-                propertyId,
-                snaktype: statement.mainsnak.snaktype,
-                value:
-                  typeof statement.mainsnak.datavalue?.value === 'string'
-                    ? statement.mainsnak.datavalue.value
-                    : statement.mainsnak.datavalue?.value.id,
-                datatype: statement.mainsnak.datatype,
-                type: statement.type,
-                statementId: statement.id,
-
-                qualifiers: Object.entries(statement.qualifiers ?? {}).flatMap(
-                  ([qualifierPropertyId, qualifiers]) =>
-                    qualifiers.map((qualifier, qualifierIndex) => ({
-                      id: `${statement.id}-${qualifierPropertyId}-${qualifierIndex}`,
-                      propertyId: qualifierPropertyId,
-                      snaktype: qualifier.snaktype,
-                      value:
-                        typeof qualifier.datavalue?.value === 'string'
-                          ? qualifier.datavalue.value
-                          : qualifier.datavalue?.value?.id ?? '',
-
-                      datatype: qualifier.datatype,
-                    }))
-                ),
-              }))
-          )
-        : [];
-
-      console.log();
-
-      setDataSource(newDataSource);
+      setDataSource(parseWikibaseResponse(data, entityId));
     } catch (e) {
       console.error(e);
     } finally {
