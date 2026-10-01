@@ -1,8 +1,13 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+
 import type { Qualifier } from '@/types/parsed/wikibase';
 
-export const SortableQualifier = ({ qualifier }: { qualifier: Qualifier }) => {
+type SortableQualifierProps = {
+  qualifier: Qualifier;
+};
+
+export const SortableQualifier = ({ qualifier }: SortableQualifierProps) => {
   const {
     attributes,
     listeners,
