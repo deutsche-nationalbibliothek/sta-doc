@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
@@ -15,37 +16,6 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Table } from 'antd';
-
-type EntityValue = {
-  'entity-type': string;
-  'numeric-id': number;
-  id: string;
-};
-
-type Snak = {
-  snaktype: string;
-  property: string;
-  hash: string;
-  datavalue?: {
-    value: string | EntityValue;
-    type: string;
-  };
-  datatype: string;
-};
-
-type Statement = {
-  mainsnak: Snak;
-  type: string;
-  id: string;
-  rank: string;
-  qualifiers?: Record<string, Snak[]>;
-};
-
-type WikibaseResponse = {
-  [key: string]: {
-    claims: Record<string, Statement[]>;
-  };
-};
 
 type Qualifier = {
   id: string;
