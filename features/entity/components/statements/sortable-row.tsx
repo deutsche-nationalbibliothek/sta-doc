@@ -1,3 +1,4 @@
+import { HolderOutlined } from '@ant-design/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -23,17 +24,23 @@ export const SortableRow = (props: SortableRowProps) => {
     ...props.style,
     transform: CSS.Translate.toString(transform),
     transition,
-    cursor: 'move',
+    // cursor: 'move',
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
   return (
-    <tr
-      {...props}
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-    />
+    <tr {...props} ref={setNodeRef} style={style} {...attributes}>
+      <td>
+        <span
+          {...listeners}
+          style={{
+            cursor: isDragging ? 'grabbing' : 'grab',
+          }}
+        >
+          <HolderOutlined />
+        </span>
+      </td>
+      {props.children}
+    </tr>
   );
 };

@@ -26,6 +26,8 @@ import type {
 } from '@/types/parsed/wikibase';
 // import type { TableColumnsType } from 'antd';
 
+import { HolderOutlined } from '@ant-design/icons';
+
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
 export default function WikibaseTest() {
@@ -84,6 +86,7 @@ export default function WikibaseTest() {
   // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
 
   const statementColumns = [
+    { title: '', key: 'drag-handle', width: 40 },
     {
       title: 'Property',
       dataIndex: 'propertyId',

@@ -22,7 +22,7 @@ export const SortableQualifier = ({ qualifier }: SortableQualifierProps) => {
   const style: React.CSSProperties = {
     transform: CSS.Translate.toString(transform),
     transition,
-    cursor: 'move',
+    // cursor: 'move',
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
@@ -39,6 +39,7 @@ export const SortableQualifier = ({ qualifier }: SortableQualifierProps) => {
         borderRadius: '10px',
         padding: '0.3rem',
         margin: '0.3rem',
+        cursor: isDragging ? 'grabbing' : 'grab',
       }}
       {...attributes}
       {...listeners}
