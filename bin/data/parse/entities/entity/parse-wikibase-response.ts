@@ -1,4 +1,4 @@
-import { ParsedStatement, ParsedStatementGroup } from "@/types/parsed/wikibase";
+import { ParsedStatementGroup } from "@/types/parsed/wikibase";
 import { WikibaseResponse } from "@/types/raw/wikibase";
 
 export const parseWikibaseResponse = (data: WikibaseResponse, entityId: string) : ParsedStatementGroup[] => { 

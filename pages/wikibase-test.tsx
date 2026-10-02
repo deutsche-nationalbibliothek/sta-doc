@@ -19,7 +19,11 @@ import { SortableQualifiers } from '@/features/entity/components/qualifiers/sort
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
-import type { ParsedStatement, Qualifier } from '@/types/parsed/wikibase';
+import type {
+  ParsedStatement,
+  ParsedStatementGroup,
+  Qualifier,
+} from '@/types/parsed/wikibase';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
@@ -27,7 +31,7 @@ export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
-  const [dataSource, setDataSource] = useState<ParsedStatement[]>([]);
+  const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -36,28 +40,31 @@ export default function WikibaseTest() {
     if (!over || active.id === over.id) return;
 
     setDataSource((prev) =>
-      prev.map((item) => {
-        if (item.key !== statementId) {
-          return item;
-        }
+      prev.map((group) => ({
+        ...group,
+        statements: group.statements.map((item) => {
+          if (item.key !== statementId) {
+            return item;
+          }
 
-        const activeIndex = item.qualifiers.findIndex(
-          (qualifier) => qualifier.id === active.id
-        );
+          const activeIndex = item.qualifiers.findIndex(
+            (qualifier) => qualifier.id === active.id
+          );
 
-        const overIndex = item.qualifiers.findIndex(
-          (qualifier) => qualifier.id === over.id
-        );
+          const overIndex = item.qualifiers.findIndex(
+            (qualifier) => qualifier.id === over.id
+          );
 
-        if (activeIndex === -1 || overIndex === -1) {
-          return item;
-        }
+          if (activeIndex === -1 || overIndex === -1) {
+            return item;
+          }
 
-        return {
-          ...item,
-          qualifiers: arrayMove(item.qualifiers, activeIndex, overIndex),
-        };
-      })
+          return {
+            ...item,
+            qualifiers: arrayMove(item.qualifiers, activeIndex, overIndex),
+          };
+        }),
+      }))
     );
   };
 
@@ -114,13 +121,32 @@ export default function WikibaseTest() {
     },
   ];
 
-  const onDragEnd = ({ active, over }: DragEndEvent) => {
+  const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
-      setDataSource((prev) => {
-        const activeIndex = prev.findIndex((i) => i.key === active.id);
-        const overIndex = prev.findIndex((i) => i.key === over?.id);
-        return arrayMove(prev, activeIndex, overIndex);
-      });
+      setDataSource((prev) =>
+        prev.map((group, index) => {
+          if (index !== groupIndex) {
+            return group;
+          }
+
+          const activeIndex = group.statements.findIndex(
+            (statement) => statement.key === active.id
+          );
+
+          const overIndex = group.statements.findIndex(
+            (statement) => statement.key === over?.id
+          );
+
+          if (activeIndex === -1 || overIndex === -1) {
+            return group;
+          }
+
+          return {
+            ...group,
+            statements: arrayMove(group.statements, activeIndex, overIndex),
+          };
+        })
+      );
     }
 
     console.log('activeId and overId:', active.id, over?.id);
@@ -173,32 +199,35 @@ export default function WikibaseTest() {
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
 
       <div>
-        {response ? (
-          <DndContext
-            sensors={sensors}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={onDragEnd}
-          >
-            <SortableContext
-              items={dataSource.map((i) => i.key)}
-              strategy={verticalListSortingStrategy}
-            >
-              <Table
-                columns={columns}
-                dataSource={dataSource}
-                pagination={false}
-                components={{
-                  body: {
-                    row: SortableRow,
-                  },
-                }}
-                rowKey="key"
-              />
-            </SortableContext>
-          </DndContext>
-        ) : (
-          'Noch keine Daten geladen.'
-        )}
+        {response
+          ? dataSource.map((group, groupIndex) => (
+              <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
+                <h3>{group.propertyId}</h3>
+                <DndContext
+                  sensors={sensors}
+                  modifiers={[restrictToVerticalAxis]}
+                  onDragEnd={(event) => onDragEnd(groupIndex, event)}
+                >
+                  <SortableContext
+                    items={group.statements.map((statement) => statement.key)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <Table
+                      columns={columns}
+                      dataSource={group.statements}
+                      pagination={false}
+                      components={{
+                        body: {
+                          row: SortableRow,
+                        },
+                      }}
+                      rowKey="key"
+                    />
+                  </SortableContext>
+                </DndContext>
+              </div>
+            ))
+          : 'Noch keine Daten geladen.'}
       </div>
 
       <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
