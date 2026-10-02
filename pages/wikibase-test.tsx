@@ -102,7 +102,7 @@ export default function WikibaseTest() {
         }
 
         if (editingValueWithStatementId === record.statementId) {
-          return <Input defaultValue={value} />;
+          return <Input defaultValue={value} autoFocus />;
         }
 
         return (
