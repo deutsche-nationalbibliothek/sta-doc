@@ -26,7 +26,7 @@ import type {
 } from '@/types/parsed/wikibase';
 // import type { TableColumnsType } from 'antd';
 
-import { HolderOutlined } from '@ant-design/icons';
+import { EditOutlined } from '@ant-design/icons';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
@@ -93,6 +93,17 @@ export default function WikibaseTest() {
       title: 'Value',
       dataIndex: 'value',
       key: 'value',
+      render: (value: string, record: ParsedStatement) => {
+        if (record.datatype !== 'string') {
+          return value;
+        }
+
+        return (
+          <span>
+            {value} <EditOutlined />
+          </span>
+        );
+      },
     },
     {
       title: 'Datatype',
