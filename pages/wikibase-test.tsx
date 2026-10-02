@@ -27,6 +27,7 @@ import type {
 // import type { TableColumnsType } from 'antd';
 
 import { EditOutlined } from '@ant-design/icons';
+import { Input } from 'antd/lib';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
@@ -35,6 +36,8 @@ export default function WikibaseTest() {
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
+  const [editingValueWithStatementId, setEditingValueWithStatementId] =
+    useState<string | null>(null);
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -98,6 +101,10 @@ export default function WikibaseTest() {
           return value;
         }
 
+        if (editingValueWithStatementId === record.statementId) {
+          return <Input defaultValue={value} />;
+        }
+
         return (
           <span
             style={{
@@ -107,7 +114,10 @@ export default function WikibaseTest() {
             }}
           >
             {value}
-            <EditOutlined />
+            <EditOutlined
+              style={{ cursor: 'pointer' }}
+              onClick={() => setEditingValueWithStatementId(record.statementId)}
+            />
           </span>
         );
       },
