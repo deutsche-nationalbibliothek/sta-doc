@@ -24,6 +24,7 @@ import type {
   ParsedStatementGroup,
   Qualifier,
 } from '@/types/parsed/wikibase';
+// import type { TableColumnsType } from 'antd';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 
@@ -80,7 +81,9 @@ export default function WikibaseTest() {
     )
   );
 
-  const columns = [
+  // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
+
+  const statementColumns = [
     {
       title: 'Property',
       dataIndex: 'propertyId',
@@ -213,7 +216,7 @@ export default function WikibaseTest() {
                     strategy={verticalListSortingStrategy}
                   >
                     <Table
-                      columns={columns}
+                      columns={statementColumns}
                       dataSource={group.statements}
                       pagination={false}
                       components={{
