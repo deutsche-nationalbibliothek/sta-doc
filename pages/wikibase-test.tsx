@@ -72,21 +72,18 @@ export default function WikibaseTest() {
   };
 
   const sensors = useSensors(
-    useSensor(
-      PointerSensor
-      //   {
-      //   activationConstraint: {
-      //     // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-      //     distance: 5,
-      //   },
-      // }
-    )
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+        distance: 3,
+      },
+    })
   );
 
   // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
 
   const statementColumns = [
-    { title: '', key: 'drag-handle', width: 40 },
+    { title: '', key: 'drag-handle', width: 40, render: () => null },
     {
       title: 'Property',
       dataIndex: 'propertyId',
