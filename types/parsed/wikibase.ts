@@ -1,6 +1,6 @@
 export type ParsedStatementGroup = {
-  propertId: string;
-  statements: ParsedStatement[]
+  propertyId: string;
+  statements: ParsedStatement[];
 }
 
 export type ParsedStatement = {

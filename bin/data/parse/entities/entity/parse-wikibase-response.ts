@@ -1,10 +1,11 @@
-import { ParsedStatement } from "@/types/parsed/wikibase";
+import { ParsedStatement, ParsedStatementGroup } from "@/types/parsed/wikibase";
 import { WikibaseResponse } from "@/types/raw/wikibase";
 
-export const parseWikibaseResponse = (data: WikibaseResponse, entityId: string) : ParsedStatement[] => { return data?.[entityId]?.claims
-        ? Object.entries(data[entityId].claims).flatMap(
-            ([propertyId, statements]) =>
-              statements.map((statement) => ({
+export const parseWikibaseResponse = (data: WikibaseResponse, entityId: string) : ParsedStatementGroup[] => { 
+  return data?.[entityId]?.claims
+        ? Object.entries(data[entityId].claims).map(
+            ([propertyId, statements]) => ({
+              propertyId, statements: statements.map((statement) => ({
                 key: statement.id,
                 propertyId,
                 snaktype: statement.mainsnak.snaktype,
@@ -26,11 +27,11 @@ export const parseWikibaseResponse = (data: WikibaseResponse, entityId: string) 
                         typeof qualifier.datavalue?.value === 'string'
                           ? qualifier.datavalue.value
                           : qualifier.datavalue?.value?.id ?? '',
-
                       datatype: qualifier.datatype,
                     }))
                 ),
-              }))
+              })),
+            })
           )
         : [];
     }
