@@ -38,6 +38,7 @@ export default function WikibaseTest() {
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
+  const [currentEditingValue, setCurrentEditingValue] = useState('');
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -102,7 +103,13 @@ export default function WikibaseTest() {
         }
 
         if (editingValueWithStatementId === record.statementId) {
-          return <Input defaultValue={value} autoFocus />;
+          return (
+            <Input
+              defaultValue={value}
+              autoFocus
+              onChange={(e) => setCurrentEditingValue(e.target.value)}
+            />
+          );
         }
 
         return (
@@ -116,7 +123,10 @@ export default function WikibaseTest() {
             {value}
             <EditOutlined
               style={{ cursor: 'pointer' }}
-              onClick={() => setEditingValueWithStatementId(record.statementId)}
+              onClick={() => {
+                setEditingValueWithStatementId(record.statementId);
+                setCurrentEditingValue(value);
+              }}
             />
           </span>
         );
