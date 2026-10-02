@@ -99,8 +99,15 @@ export default function WikibaseTest() {
         }
 
         return (
-          <span>
-            {value} <EditOutlined />
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            {value}
+            <EditOutlined />
           </span>
         );
       },
