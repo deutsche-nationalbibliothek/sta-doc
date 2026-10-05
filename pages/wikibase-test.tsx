@@ -89,11 +89,11 @@ export default function WikibaseTest() {
 
   const statementColumns = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
-    {
-      title: 'Property',
-      dataIndex: 'propertyId',
-      key: 'propertyId',
-    },
+    // {
+    //   title: 'Property',
+    //   dataIndex: 'propertyId',
+    //   key: 'propertyId',
+    // },
     {
       title: 'Value',
       dataIndex: 'value',
@@ -145,21 +145,21 @@ export default function WikibaseTest() {
         );
       },
     },
-    {
-      title: 'Datatype',
-      dataIndex: 'datatype',
-      key: 'datatype',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
-    },
-    {
-      title: 'Statement ID',
-      dataIndex: 'statementId',
-      key: 'statementId',
-    },
+    // {
+    //   title: 'Datatype',
+    //   dataIndex: 'datatype',
+    //   key: 'datatype',
+    // },
+    // {
+    //   title: 'Type',
+    //   dataIndex: 'type',
+    //   key: 'type',
+    // },
+    // {
+    //   title: 'Statement ID',
+    //   dataIndex: 'statementId',
+    //   key: 'statementId',
+    // },
     {
       title: 'Qualifiers',
       dataIndex: 'qualifiers',
@@ -268,11 +268,6 @@ export default function WikibaseTest() {
     setEditingValueWithStatementId(null);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetchEntity();
-  };
-
   if (response) {
     console.log(response?.[entityId]?.claims);
   }
@@ -281,23 +276,17 @@ export default function WikibaseTest() {
     <main>
       <h1 style={{ marginTop: '3rem' }}>Wikibase-Testseite</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: 'flex', alignItems: 'center' }}
-      >
-        <Input.Search
-          type="text"
-          value={entityId}
-          onChange={(e) => setEntityId(e.target.value)}
-          placeholder="Gib z. B. Q7 or P7 ein."
-          enterButton={loading ? 'Lädt ...' : 'Entity laden'}
-          style={{ maxWidth: '400px' }}
-        />
-
-        {/* <button style={{ marginBottom: '1rem' }} disabled={loading}>
-          {loading ? 'Lädt ...' : 'Entity laden'}
-        </button> */}
-      </form>
+      <Input.Search
+        className="entity-search"
+        type="text"
+        value={entityId}
+        onChange={(e) => setEntityId(e.target.value)}
+        onSearch={fetchEntity}
+        placeholder="Gib z. B. Q7 or P7 ein."
+        enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+        style={{ maxWidth: '400px' }}
+        disabled={loading}
+      />
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
 

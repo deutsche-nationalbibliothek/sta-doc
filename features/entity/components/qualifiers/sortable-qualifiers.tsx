@@ -15,6 +15,8 @@ import { SortableQualifier } from './sortable-qualifier';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
 
+import { Table } from 'antd';
+
 interface SortableQualifiersProps {
   qualifiers: Qualifier[];
   statementId: string;
@@ -28,6 +30,19 @@ export const SortableQualifiers = ({
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
+  const columns = [
+    {
+      title: 'Property',
+      dataIndex: 'propertyId',
+      key: 'propertyId',
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
+
   return (
     <DndContext
       sensors={sensors}
@@ -40,9 +55,20 @@ export const SortableQualifiers = ({
         items={qualifiers.map((qualifier) => qualifier.id)}
         strategy={verticalListSortingStrategy}
       >
-        {qualifiers.map((qualifier) => (
+        {/* {qualifiers.map((qualifier) => (
           <SortableQualifier key={qualifier.id} qualifier={qualifier} />
-        ))}
+        ))} */}
+        <Table
+          columns={columns}
+          dataSource={qualifiers}
+          rowKey="id"
+          pagination={false}
+          components={{
+            body: {
+              row: SortableQualifier,
+            },
+          }}
+        />
       </SortableContext>
     </DndContext>
   );

@@ -72,3 +72,14 @@
   .row-changed > td {
     background-color: rgb(226, 250, 189) !important;
   }
+
+  /* Search */
+  .entity-search .ant-input-search-button {
+    background-color: var(--top-bar-color);
+    font-size: 1rem;
+  }
+
+  .entity-search .ant-input-search-button:hover {
+    background-color: var(--top-bar-color) !important;
+    opacity: 0.8;
+  }
