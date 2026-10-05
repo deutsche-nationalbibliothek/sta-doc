@@ -68,3 +68,7 @@
     overflow-wrap: anywhere;
   }
   
+  /* Row */
+  .row-changed > td {
+    background-color: rgb(226, 250, 189) !important;
+  }

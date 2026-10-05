@@ -39,6 +39,7 @@ export default function WikibaseTest() {
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
   const [currentEditingValue, setCurrentEditingValue] = useState('');
+  const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]);
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -113,7 +114,7 @@ export default function WikibaseTest() {
                 onChange={handleEditingValueChange}
               />
               <CheckOutlined
-                onClick={saveEditingValue}
+                onClick={handleSaveEditing}
                 style={{ cursor: 'pointer' }}
               />
               <CloseOutlined
@@ -242,6 +243,27 @@ export default function WikibaseTest() {
     setEditingValueWithStatementId(null);
   };
 
+  const markStatementAsChanged = () => {
+    if (!editingValueWithStatementId) return;
+
+    setChangedStatementIds((previous) => {
+      if (previous.includes(editingValueWithStatementId)) {
+        return previous;
+      }
+
+      return [...previous, editingValueWithStatementId];
+    });
+  };
+
+  const isChangedStatement = (statementId: string) => {
+    return changedStatementIds.includes(statementId);
+  };
+
+  const handleSaveEditing = () => {
+    markStatementAsChanged();
+    saveEditingValue();
+  };
+
   const cancelEditingValue = () => {
     setEditingValueWithStatementId(null);
   };
@@ -298,6 +320,11 @@ export default function WikibaseTest() {
                         },
                       }}
                       rowKey="key"
+                      rowClassName={(record) =>
+                        isChangedStatement(record.statementId)
+                          ? 'row-changed'
+                          : ''
+                      }
                     />
                   </SortableContext>
                 </DndContext>
