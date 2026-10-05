@@ -216,8 +216,18 @@ export default function WikibaseTest() {
   };
 
   const saveEditingValue = () => {
-    // scurrentEditingValue in dataSource übernehemn
-    // Änderungen im FE anzeigen
+    const newDataSource = dataSource.map((group) => ({
+      ...group,
+      statements: group.statements.map((statement) => {
+        if (statement.propertyId === editingValueWithStatementId) {
+          return { ...statement, value: currentEditingValue };
+        }
+        return statement;
+      }),
+    }));
+
+    setDataSource(newDataSource);
+    setEditingValueWithStatementId(null);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
