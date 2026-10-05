@@ -26,7 +26,7 @@ import type {
 } from '@/types/parsed/wikibase';
 // import type { TableColumnsType } from 'antd';
 
-import { EditOutlined, CheckOutlined } from '@ant-design/icons';
+import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Input } from 'antd/lib';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
@@ -112,7 +112,14 @@ export default function WikibaseTest() {
                 autoFocus
                 onChange={handleEditingValueChange}
               />
-              <CheckOutlined onClick={saveEditingValue} />
+              <CheckOutlined
+                onClick={saveEditingValue}
+                style={{ cursor: 'pointer' }}
+              />
+              <CloseOutlined
+                onClick={cancelEditingValue}
+                style={{ cursor: 'pointer' }}
+              />
             </div>
           );
         }
@@ -232,6 +239,10 @@ export default function WikibaseTest() {
     }));
 
     setDataSource(newDataSource);
+    setEditingValueWithStatementId(null);
+  };
+
+  const cancelEditingValue = () => {
     setEditingValueWithStatementId(null);
   };
 
