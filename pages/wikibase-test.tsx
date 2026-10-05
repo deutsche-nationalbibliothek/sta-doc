@@ -281,17 +281,22 @@ export default function WikibaseTest() {
     <main>
       <h1 style={{ marginTop: '3rem' }}>Wikibase-Testseite</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: 'flex', alignItems: 'center' }}
+      >
+        <Input.Search
           type="text"
           value={entityId}
           onChange={(e) => setEntityId(e.target.value)}
           placeholder="Gib z. B. Q7 or P7 ein."
+          enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+          style={{ maxWidth: '400px' }}
         />
 
-        <button style={{ marginBottom: '1rem' }} disabled={loading}>
+        {/* <button style={{ marginBottom: '1rem' }} disabled={loading}>
           {loading ? 'Lädt ...' : 'Entity laden'}
-        </button>
+        </button> */}
       </form>
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
