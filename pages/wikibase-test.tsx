@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
@@ -26,7 +26,7 @@ import type {
 } from '@/types/parsed/wikibase';
 // import type { TableColumnsType } from 'antd';
 
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, CheckOutlined } from '@ant-design/icons';
 import { Input } from 'antd/lib';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
@@ -107,7 +107,7 @@ export default function WikibaseTest() {
             <Input
               defaultValue={value}
               autoFocus
-              onChange={(e) => setCurrentEditingValue(e.target.value)}
+              onChange={handleEditingValueChange}
             />
           );
         }
@@ -209,6 +209,15 @@ export default function WikibaseTest() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleEditingValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentEditingValue(e.target.value);
+  };
+
+  const saveEditingValue = () => {
+    // scurrentEditingValue in dataSource übernehemn
+    // Änderungen im FE anzeigen
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
