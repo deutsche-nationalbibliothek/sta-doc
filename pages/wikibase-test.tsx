@@ -104,11 +104,16 @@ export default function WikibaseTest() {
 
         if (editingValueWithStatementId === record.statementId) {
           return (
-            <Input
-              defaultValue={value}
-              autoFocus
-              onChange={handleEditingValueChange}
-            />
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <Input
+                defaultValue={value}
+                autoFocus
+                onChange={handleEditingValueChange}
+              />
+              <CheckOutlined onClick={saveEditingValue} />
+            </div>
           );
         }
 
@@ -219,7 +224,7 @@ export default function WikibaseTest() {
     const newDataSource = dataSource.map((group) => ({
       ...group,
       statements: group.statements.map((statement) => {
-        if (statement.propertyId === editingValueWithStatementId) {
+        if (statement.statementId === editingValueWithStatementId) {
           return { ...statement, value: currentEditingValue };
         }
         return statement;
