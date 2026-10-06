@@ -290,7 +290,7 @@ export default function WikibaseTest() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '2rem',
+          gap: '1rem',
         }}
       >
         <Segmented
@@ -313,8 +313,6 @@ export default function WikibaseTest() {
         {changedStatementIds.length > 0 ? (
           <Button>Alle Änderungen ins Backend speichern</Button>
         ) : null}
-
-        {/* nur anzeigen, wenn bereits Änderungen in der Tabelle gemacht wurden */}
       </div>
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>

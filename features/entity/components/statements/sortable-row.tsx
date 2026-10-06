@@ -1,4 +1,4 @@
-import { HolderOutlined } from '@ant-design/icons';
+import { HolderOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import React from 'react';
@@ -29,28 +29,26 @@ export const SortableRow = (props: SortableRowProps) => {
   // Normalizes React.Children to an array regardless whether there is only a single element or multiple children.
   const cells = React.Children.toArray(props.children);
 
+  const deleteRow = () => {};
+
   return (
     <tr {...props} ref={setNodeRef} style={style} {...attributes}>
-      {/* <td style={{ width: 40, textAlign: 'center' }}>
-        <span
-          {...listeners}
-          style={{
-            cursor: isDragging ? 'grabbing' : 'grab',
-          }}
-        >
-          <HolderOutlined />
-        </span>
-      </td>
-      {props.children} */}
       {React.cloneElement(
         cells[0] as React.ReactElement,
         {},
-        <span
-          {...listeners}
-          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-        >
-          <HolderOutlined />
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span
+            {...listeners}
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+            }}
+          >
+            <HolderOutlined />
+          </span>
+          <span>
+            <DeleteOutlined onClick={deleteRow} />
+          </span>
+        </div>
       )}
 
       {cells.slice(1)}
