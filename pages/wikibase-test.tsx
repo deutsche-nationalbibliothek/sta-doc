@@ -15,7 +15,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Select, Table } from 'antd';
+import { Select, Table, Tooltip } from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
@@ -27,7 +27,12 @@ import type {
 } from '@/types/parsed/wikibase';
 // import type { TableColumnsType } from 'antd';
 
-import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  CheckOutlined,
+  CloseOutlined,
+  ExportOutlined,
+} from '@ant-design/icons';
 import { Input } from 'antd/lib';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
@@ -42,6 +47,32 @@ const formatEntityId = (id: string, idLookup: IdLookup | null) => {
   const label = idLookup[id];
   return label ? `${label} (${id})` : id;
 };
+
+const wikibaseStatementUrl = (statementKey: string) => {
+  const entityId = statementKey.split('$')[0];
+  const namespace = entityId.startsWith('P') ? 'Property' : 'Item';
+  const base = (
+    process.env.NEXT_PUBLIC_URL || 'https://edit.sta.dnb.de'
+  ).replace(/\/$/, '');
+
+  return `${base}/wiki/${namespace}:${entityId}#${statementKey}`;
+};
+
+const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
+  <Tooltip title="In Wikibase öffnen">
+    <a
+      href={wikibaseStatementUrl(statementKey)}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="In Wikibase öffnen"
+      className="wikibase-statement-link"
+      onClick={(event) => event.stopPropagation()}
+      onPointerDown={(event) => event.stopPropagation()}
+    >
+      <ExportOutlined />
+    </a>
+  </Tooltip>
+);
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
@@ -188,8 +219,17 @@ export default function WikibaseTest() {
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: ParsedStatement) => {
+        const opener = <WikibaseStatementLink statementKey={record.key} />;
+
         if (record.datatype !== 'string') {
-          return formatEntityId(value, idLookup);
+          return (
+            <span
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+            >
+              <span>{formatEntityId(value, idLookup)}</span>
+              {opener}
+            </span>
+          );
         }
 
         if (editingValueWithStatementId === record.statementId) {
@@ -202,6 +242,7 @@ export default function WikibaseTest() {
                 autoFocus
                 onChange={handleEditingValueChange}
               />
+              {opener}
               <CheckOutlined
                 onClick={handleSaveEditing}
                 style={{ cursor: 'pointer' }}
@@ -230,6 +271,7 @@ export default function WikibaseTest() {
                 setCurrentEditingValue(value);
               }}
             />
+            {opener}
           </span>
         );
       },
@@ -243,11 +285,6 @@ export default function WikibaseTest() {
     //   title: 'Type',
     //   dataIndex: 'type',
     //   key: 'type',
-    // },
-    // {
-    //   title: 'Statement ID',
-    //   dataIndex: 'statementId',
-    //   key: 'statementId',
     // },
     {
       title: 'Qualifiers',

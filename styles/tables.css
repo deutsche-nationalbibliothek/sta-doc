@@ -83,3 +83,27 @@
     background-color: var(--top-bar-color) !important;
     opacity: 0.8;
   }
+
+  .wikibase-statement-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    color: #1677ff;
+    background: rgba(22, 119, 255, 0.1);
+    flex-shrink: 0;
+    line-height: 1;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+
+  .wikibase-statement-link:hover {
+    color: #fff;
+    background: #1677ff;
+    transform: translateY(-1px);
+  }
+
+  .wikibase-statement-link .anticon {
+    font-size: 12px;
+  }
