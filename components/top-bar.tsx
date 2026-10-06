@@ -8,8 +8,10 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
 import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
+import { useIsEdit } from '@/hooks/use-is-edit';
 import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
+import SegmentedControl from './segmented-mode-control';
 
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
@@ -23,6 +25,8 @@ export const TopBar: React.FC = () => {
   const { token } = theme.useToken();
 
   const isSmallScreen = useIsSmallScreen();
+
+  const isEdit = useIsEdit();
 
   const menuColorStyles: CSSObject = useMemo(
     () => ({
@@ -45,8 +49,11 @@ export const TopBar: React.FC = () => {
       '& li.ant-menu-submenu-horizontal, li.ant-menu-item': {
         paddingInline: isSmallScreen ? 10 : undefined,
       },
+      '& li.ant-menu-item.top-bar-item-right': {
+        paddingInline: 0,
+      },
     }),
-    [token.colorPrimary, token.colorText, isSmallScreen],
+    [token.colorPrimary, token.colorText, isSmallScreen]
   );
 
   return (
@@ -149,6 +156,7 @@ export const TopBar: React.FC = () => {
                 },
               ],
             },
+
             {
               label: (
                 <span className="ant-menu-item">
@@ -165,9 +173,9 @@ export const TopBar: React.FC = () => {
               ),
               key: 'search',
               style: {
-                position: 'absolute',
-                right: isSmallScreen ? 100 : 100,
+                marginInlineStart: 'auto',
               },
+              className: 'top-bar-item-right',
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
             },
             {
@@ -177,15 +185,24 @@ export const TopBar: React.FC = () => {
                 </span>
               ),
               key: 'switch-language',
-              style: {
-                position: 'absolute',
-                right: isSmallScreen ? 0 : 0,
-              },
+              className: 'top-bar-item-right',
             },
+            ...(isEdit
+              ? [
+                  {
+                    label: (
+                      <span className="ant-menu-item">
+                        <SegmentedControl />
+                      </span>
+                    ),
+                    key: 'mode',
+                    className: 'top-bar-item-right',
+                  },
+                ]
+              : []),
           ]}
         />
       </AntdLayout.Header>
-
     </ConfigProvider>
   );
 };
