@@ -23,7 +23,6 @@ export const SortableRow = (props: SortableRowProps) => {
     ...props.style,
     transform: CSS.Translate.toString(transform),
     transition,
-    // cursor: 'move',
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
@@ -31,14 +30,7 @@ export const SortableRow = (props: SortableRowProps) => {
   const cells = React.Children.toArray(props.children);
 
   return (
-    // style
-    <tr
-      {...props}
-      ref={setNodeRef}
-      style={style}
-      // style={{ ...style, cursor: isDragging ? 'grabbing' : 'grab' }}
-      {...attributes}
-    >
+    <tr {...props} ref={setNodeRef} style={style} {...attributes}>
       {/* <td style={{ width: 40, textAlign: 'center' }}>
         <span
           {...listeners}

@@ -1,4 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
+import {
+  FetchingParam,
+  useFetchingQueryParams,
+} from '@/hooks/fetch-query-params-provider';
+import { useIsEdit } from '@/hooks/use-is-edit';
+import { useQueryParam } from 'use-query-params';
 
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
@@ -14,7 +20,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table } from 'antd';
+import { Table, Input, Segmented, Button } from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
@@ -24,12 +30,11 @@ import type {
   ParsedStatementGroup,
   Qualifier,
 } from '@/types/parsed/wikibase';
-// import type { TableColumnsType } from 'antd';
 
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Input } from 'antd/lib';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
+import { values } from 'lodash';
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
@@ -40,6 +45,8 @@ export default function WikibaseTest() {
     useState<string | null>(null);
   const [currentEditingValue, setCurrentEditingValue] = useState('');
   const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]);
+
+  const [mode, setMode] = useQueryParam('live');
 
   const onQualifierDragEnd = (
     statementId: string,
@@ -202,8 +209,6 @@ export default function WikibaseTest() {
         })
       );
     }
-
-    console.log('activeId and overId:', active.id, over?.id);
   };
 
   const fetchEntity = async () => {
@@ -272,21 +277,45 @@ export default function WikibaseTest() {
     console.log(response?.[entityId]?.claims);
   }
 
+  const options = [
+    { value: 'edit', label: 'Edit' },
+    { value: 'live', label: 'Live' },
+  ];
+
   return (
     <main>
       <h1 style={{ marginTop: '3rem' }}>Wikibase-Testseite</h1>
 
-      <Input.Search
-        className="entity-search"
-        type="text"
-        value={entityId}
-        onChange={(e) => setEntityId(e.target.value)}
-        onSearch={fetchEntity}
-        placeholder="Gib z. B. Q7 or P7 ein."
-        enterButton={loading ? 'Lädt ...' : 'Entity laden'}
-        style={{ maxWidth: '400px' }}
-        disabled={loading}
-      />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '2rem',
+        }}
+      >
+        <Segmented
+          options={options}
+          value={mode}
+          onChange={(value) => setMode(value)}
+        />
+        <Input.Search
+          className="entity-search"
+          type="text"
+          value={entityId}
+          onChange={(e) => setEntityId(e.target.value)}
+          onSearch={fetchEntity}
+          placeholder="Gib z. B. Q7 or P7 ein."
+          enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+          style={{ maxWidth: '400px' }}
+          disabled={loading}
+        />
+
+        {changedStatementIds.length > 0 ? (
+          <Button>Alle Änderungen ins Backend speichern</Button>
+        ) : null}
+
+        {/* nur anzeigen, wenn bereits Änderungen in der Tabelle gemacht wurden */}
+      </div>
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
 
