@@ -94,6 +94,8 @@ export default function WikibaseTest() {
 
   // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
 
+  const { TextArea } = Input;
+
   const statementColumns = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
     // {
@@ -115,7 +117,8 @@ export default function WikibaseTest() {
             <div
               style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
             >
-              <Input
+              <TextArea
+                rows={4}
                 defaultValue={value}
                 autoFocus
                 onChange={handleEditingValueChange}
@@ -229,7 +232,7 @@ export default function WikibaseTest() {
     }
   };
 
-  const handleEditingValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleEditingValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentEditingValue(e.target.value);
   };
 

@@ -12,9 +12,7 @@ import {
 } from '@dnd-kit/sortable';
 
 import { SortableQualifier } from './sortable-qualifier';
-
 import type { Qualifier } from '@/types/parsed/wikibase';
-
 import { Table } from 'antd';
 
 interface SortableQualifiersProps {
