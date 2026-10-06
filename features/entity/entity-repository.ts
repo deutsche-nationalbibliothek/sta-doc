@@ -19,6 +19,8 @@ import ssgIndexDe from '@/data/parsed/entities-ssg-index-de.json';
 import ssgIndexFr from '@/data/parsed/entities-ssg-index-fr.json';
 
 const entitiesCache: Partial<Record<'de' | 'fr', EntitiesEntries>> = {};
+const idLookupCache: Partial<Record<'de' | 'fr' | 'en', Record<string, string>>> =
+  {};
 const liveLookupRawCache: Partial<
   Record<API_URL, Awaited<ReturnType<ReturnType<typeof fetcher>['lookupRaw']>>>
 > = {};
@@ -26,6 +28,29 @@ const liveParsedDataCache: Partial<Record<string, ParseEntitiesData>> = {};
 
 const resolveLang = (lang: string | undefined): 'de' | 'fr' =>
   lang === 'fr' ? 'fr' : 'de';
+
+const resolveLabelLang = (lang: string | undefined): 'de' | 'fr' | 'en' => {
+  if (lang === 'fr') return 'fr';
+  if (lang === 'en') return 'en';
+  return 'de';
+};
+
+const loadIdLookup = (lang: string | undefined): Record<string, string> => {
+  const key = resolveLabelLang(lang);
+  if (!idLookupCache[key]) {
+    const fileName =
+      key === 'fr'
+        ? 'labels-fr.json'
+        : key === 'en'
+          ? 'labels-en.json'
+          : 'labels-de.json';
+    const filePath = path.join(process.cwd(), 'data/parsed', fileName);
+    idLookupCache[key] = JSON.parse(
+      fs.readFileSync(filePath, 'utf8')
+    ) as Record<string, string>;
+  }
+  return idLookupCache[key] as Record<string, string>;
+};
 
 const resolveLiveApiUrl = (live: FetchingParam): API_URL | undefined => {
   switch (live) {
@@ -204,6 +229,10 @@ class EntityRepository {
 
   getPreparsedEntitiesEntries(lang: string | undefined): EntitiesEntries {
     return loadEntitiesEntries(lang);
+  }
+
+  getIdLookup(lang: string | undefined): Record<string, string> {
+    return loadIdLookup(lang);
   }
 
   async getLiveEntityEntry(

@@ -21,12 +21,25 @@ interface SortableQualifiersProps {
   qualifiers: Qualifier[];
   statementId: string;
   onQualifierDragEnd: (statementId: string, event: DragEndEvent) => void;
+  idLookup?: Record<string, string> | null;
 }
+
+const formatEntityId = (
+  id: string,
+  idLookup: Record<string, string> | null | undefined
+) => {
+  if (!idLookup) {
+    return id;
+  }
+  const label = idLookup[id];
+  return label ? `${label} (${id})` : id;
+};
 
 export const SortableQualifiers = ({
   qualifiers,
   statementId,
   onQualifierDragEnd,
+  idLookup,
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -35,11 +48,16 @@ export const SortableQualifiers = ({
       title: 'Property',
       dataIndex: 'propertyId',
       key: 'propertyId',
+      render: (propertyId: string) => formatEntityId(propertyId, idLookup),
     },
     {
       title: 'Value',
       dataIndex: 'value',
       key: 'value',
+      render: (value: string, record: Qualifier) =>
+        record.datatype === 'string'
+          ? value
+          : formatEntityId(value, idLookup),
     },
   ];
 
