@@ -45,9 +45,6 @@ export const SortableRow = (props: SortableRowProps) => {
           >
             <HolderOutlined />
           </span>
-          <span>
-            <DeleteOutlined onClick={deleteRow} />
-          </span>
         </div>
       )}
 

@@ -1,4 +1,6 @@
 import { ChangeEvent, useState, useEffect } from 'react';
+import type { ColumnsType } from 'antd/es/table';
+
 import {
   FetchingParam,
   useFetchingQueryParams,
@@ -23,6 +25,7 @@ import {
 import { Table, Input, Segmented, Button } from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
+import { DeleteOutlined } from '@ant-design/icons';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type {
@@ -34,7 +37,6 @@ import type {
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
-import { values } from 'lodash';
 
 export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
@@ -96,7 +98,7 @@ export default function WikibaseTest() {
 
   const { TextArea } = Input;
 
-  const statementColumns = [
+  const statementColumns: ColumnsType<ParsedStatement> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
     // {
     //   title: 'Property',
@@ -124,7 +126,7 @@ export default function WikibaseTest() {
                 onChange={handleEditingValueChange}
               />
               <CheckOutlined
-                onClick={handleSaveEditing}
+                onClick={handleSaveStatementEditing}
                 style={{ cursor: 'pointer' }}
               />
               <CloseOutlined
@@ -182,6 +184,18 @@ export default function WikibaseTest() {
             onQualifierDragEnd={onQualifierDragEnd}
           />
         ) : null,
+    },
+    {
+      title: '',
+      key: 'actions',
+      width: 40,
+      render: () => {
+        return (
+          <span>
+            <DeleteOutlined onClick={deleteRow} />
+          </span>
+        );
+      },
     },
   ];
 
@@ -267,7 +281,7 @@ export default function WikibaseTest() {
     return changedStatementIds.includes(statementId);
   };
 
-  const handleSaveEditing = () => {
+  const handleSaveStatementEditing = () => {
     markStatementAsChanged();
     saveEditingValue();
   };
@@ -275,6 +289,8 @@ export default function WikibaseTest() {
   const cancelEditingValue = () => {
     setEditingValueWithStatementId(null);
   };
+
+  const deleteRow = () => {};
 
   if (response) {
     console.log(response?.[entityId]?.claims);

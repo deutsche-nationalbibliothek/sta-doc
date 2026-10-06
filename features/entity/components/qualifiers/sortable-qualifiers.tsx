@@ -28,7 +28,7 @@ export const SortableQualifiers = ({
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
-  const columns = [
+  const qualifierColumns = [
     {
       title: 'Property',
       dataIndex: 'propertyId',
@@ -57,7 +57,7 @@ export const SortableQualifiers = ({
           <SortableQualifier key={qualifier.id} qualifier={qualifier} />
         ))} */}
         <Table
-          columns={columns}
+          columns={qualifierColumns}
           dataSource={qualifiers}
           rowKey="id"
           pagination={false}
@@ -66,6 +66,7 @@ export const SortableQualifiers = ({
               row: SortableQualifier,
             },
           }}
+          showHeader={false}
         />
       </SortableContext>
     </DndContext>
