@@ -251,6 +251,13 @@ export default function WikibaseTest() {
 
     try {
       const res = await fetch(`/doc/api/entities/wikibase?id=${entityId}`);
+
+      if (!res.ok) {
+        const error = await res.text(); // liest den response body aus
+        console.error('API Error:', res.status, error);
+        return;
+      }
+
       const data: WikibaseResponse = await res.json();
 
       console.log('data:', data);

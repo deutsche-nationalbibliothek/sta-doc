@@ -16,14 +16,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try{
         const wikibaseData = fetcher();
+        console.log("fetcher erstellt")
         const result = await wikibaseData.entities.single(id as EntityId);
+        console.log("wikibase result erhalten")
 
         // console.log('entity id:', id);
         // console.log('wikibase result:', result);
 
         return res.status(200).json(result);
     } catch(e) {
-        console.error(e);
+        console.error("wikibase api error", e);
         return res
         .status(500)
         .json({
