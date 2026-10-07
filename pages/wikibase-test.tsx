@@ -21,7 +21,7 @@ import {
 import { Table, Input, Segmented, Button } from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type {
@@ -187,12 +187,22 @@ export default function WikibaseTest() {
       key: 'actions',
       width: 40,
       render: (_value, record) => {
-        return (
+        const isDeleted = deletedStatementIds.includes(record.statementId);
+
+        return isDeleted ? (
+          <RollbackOutlined
+            onClick={() => {
+              restoreRow(record.statementId);
+            }}
+            style={{ cursor: 'pointer' }}
+          />
+        ) : (
           <span>
             <DeleteOutlined
               onClick={() => {
                 deleteRow(record.statementId);
               }}
+              style={{ cursor: 'pointer' }}
             />
           </span>
         );
@@ -304,7 +314,13 @@ export default function WikibaseTest() {
       return;
     }
 
-    setDeletedStatementIds((prev) => [...prev, statementId]);
+    setDeletedStatementIds((prev) => [...prev, statementId]); // nimm alle bisherigen IDs und füge die neue ID hinten hinzu
+  };
+
+  const restoreRow = (statementId: string) => {
+    setDeletedStatementIds(
+      (previous) => previous.filter((id) => id !== statementId) // behalte alle IDs, die ungleich der statementId sind
+    );
   };
 
   // if (response) {
