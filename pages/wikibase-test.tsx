@@ -28,6 +28,7 @@ import type {
   ParsedStatement,
   ParsedStatementGroup,
   Qualifier,
+  StatementChange,
 } from '@/types/parsed/wikibase';
 
 import { EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
@@ -42,8 +43,12 @@ export default function WikibaseTest() {
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
   const [currentEditingValue, setCurrentEditingValue] = useState('');
-  const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]);
+  const [originalEditingValue, setOriginalEditingValue] = useState('');
+  const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]); // löschen
   const [deletedStatementIds, setDeletedStatementIds] = useState<string[]>([]);
+  const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
+    []
+  );
 
   const [mode, setMode] = useQueryParam('live');
 
@@ -154,6 +159,7 @@ export default function WikibaseTest() {
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 setEditingValueWithStatementId(record.statementId);
+                setOriginalEditingValue(value);
                 setCurrentEditingValue(value);
               }}
             />
@@ -293,14 +299,41 @@ export default function WikibaseTest() {
   const markStatementAsChanged = () => {
     if (!editingValueWithStatementId) return;
 
-    setChangedStatementIds((previous) => {
-      if (previous.includes(editingValueWithStatementId)) {
-        return previous;
+    setChangedStatements((previous) => {
+      // previous = das komplette changedStatements Array
+      // existingChange ist ein Eintrag in dem Array
+      const existingChange = previous.find(
+        (change) => change.statementId === editingValueWithStatementId
+      );
+
+      if (existingChange) {
+        return previous.map((change) => {
+          if (change.statementId === editingValueWithStatementId) {
+            return {
+              statementId: editingValueWithStatementId,
+              originalValue: change.originalValue,
+              newValue: currentEditingValue,
+            };
+          }
+
+          return change;
+        });
       }
 
-      return [...previous, editingValueWithStatementId];
+      return [
+        ...previous,
+        {
+          statementId: editingValueWithStatementId,
+          originalValue: originalEditingValue,
+          newValue: currentEditingValue,
+        },
+      ];
     });
   };
+
+  useEffect(() => {
+    console.log('changedStatements:', changedStatements);
+  }, [changedStatements]);
 
   const isChangedStatement = (statementId: string) => {
     return changedStatementIds.includes(statementId);
@@ -316,14 +349,6 @@ export default function WikibaseTest() {
   };
 
   const deleteRow = (statementId: string) => {
-    // setDataSource((prev) =>
-    //   prev.map((group) => ({
-    //     ...group,
-    //     statements: group.statements.filter(
-    //       (statement) => statement.statementId !== statementId
-    //     ),
-    //   }))
-    // );
     if (!window.confirm('Soll das Statement wirklich gelöscht werden?')) {
       return;
     }

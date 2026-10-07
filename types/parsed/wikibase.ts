@@ -21,5 +21,11 @@ export type Qualifier = {
     value: string;
     datatype: string;
   };
+
+export type StatementChange = {
+    statementId: string;
+    originalValue: string;
+    newValue: string;
+  };
   
   
