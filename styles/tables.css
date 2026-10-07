@@ -73,6 +73,10 @@
     background-color: rgb(226, 250, 189) !important;
   }
 
+  .row-deleted > td {
+    background-color: rgb(252, 131, 131) !important;
+  }
+
   /* Entitiy Search */
   .entity-search .ant-input-search-button {
     background-color: var(--top-bar-color);

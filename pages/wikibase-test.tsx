@@ -43,6 +43,7 @@ export default function WikibaseTest() {
     useState<string | null>(null);
   const [currentEditingValue, setCurrentEditingValue] = useState('');
   const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]);
+  const [deletedStatementIds, setDeletedStatementIds] = useState<string[]>([]);
 
   const [mode, setMode] = useQueryParam('live');
 
@@ -188,7 +189,11 @@ export default function WikibaseTest() {
       render: (_value, record) => {
         return (
           <span>
-            <DeleteOutlined onClick={() => deleteRow(record.statementId)} />
+            <DeleteOutlined
+              onClick={() => {
+                deleteRow(record.statementId);
+              }}
+            />
           </span>
         );
       },
@@ -287,19 +292,24 @@ export default function WikibaseTest() {
   };
 
   const deleteRow = (statementId: string) => {
-    setDataSource((prev) =>
-      prev.map((group) => ({
-        ...group,
-        statements: group.statements.filter(
-          (statement) => statement.statementId !== statementId
-        ),
-      }))
-    );
+    // setDataSource((prev) =>
+    //   prev.map((group) => ({
+    //     ...group,
+    //     statements: group.statements.filter(
+    //       (statement) => statement.statementId !== statementId
+    //     ),
+    //   }))
+    // );
+    if (!window.confirm('Soll das Statement wirklich gelöscht werden?')) {
+      return;
+    }
+
+    setDeletedStatementIds((prev) => [...prev, statementId]);
   };
 
-  if (response) {
-    console.log(response?.[entityId]?.claims);
-  }
+  // if (response) {
+  //   console.log(response?.[entityId]?.claims);
+  // }
 
   const options = [
     { value: 'edit', label: 'Edit' },
@@ -366,7 +376,9 @@ export default function WikibaseTest() {
                       }}
                       rowKey="key"
                       rowClassName={(record) =>
-                        isChangedStatement(record.statementId)
+                        deletedStatementIds.includes(record.statementId)
+                          ? 'row-deleted'
+                          : isChangedStatement(record.statementId)
                           ? 'row-changed'
                           : ''
                       }
