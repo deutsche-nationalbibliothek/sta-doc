@@ -120,7 +120,7 @@ export default function ExamplePopupPage() {
 
   return (
     <FetchEntity entityId={entityId} showSpinner={false}>
-      {(entityEntry, loading): JSX.Element => {
+      {(entityEntry, loading) => {
         if (loading) {
           return <LoadingSpinner />;
         }
