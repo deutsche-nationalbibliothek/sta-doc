@@ -107,6 +107,13 @@ export default function WikibaseTest() {
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: ParsedStatement) => {
+        // record ist komplettes Statement, also Row (ist ein Objekt)
+        const isDeleted = deletedStatementIds.includes(record.statementId);
+
+        if (isDeleted) {
+          return value;
+        }
+
         if (record.datatype !== 'string') {
           return value;
         }
