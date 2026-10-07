@@ -5,11 +5,14 @@ import {
   apiUrlTest,
   hostnameFromUrl,
   mediawikiUrl,
+  normalizeWikiBase,
+  resolveMediawikiFetchUrl,
 } from './env';
 
 describe('mediawiki and live wiki URLs', () => {
   const keys = [
     'NEXT_PUBLIC_URL',
+    'MEDIAWIKI_FETCH_URL',
     'API_URL_LIVE',
     'API_URL_PROD',
     'API_URL_TEST',
@@ -50,5 +53,39 @@ describe('mediawiki and live wiki URLs', () => {
   it('extracts the hostname from a wiki URL', () => {
     expect(hostnameFromUrl('https://edit.sta.dnb.de')).toBe('edit.sta.dnb.de');
     expect(hostnameFromUrl('http://lab.sta.dnb.de/wiki')).toBe('lab.sta.dnb.de');
+  });
+
+  it('strips trailing slashes from wiki base URLs', () => {
+    expect(normalizeWikiBase('https://edit.example.test/')).toBe(
+      'https://edit.example.test'
+    );
+  });
+
+  it('returns canonical base when MEDIAWIKI_FETCH_URL is unset', () => {
+    delete process.env.MEDIAWIKI_FETCH_URL;
+    process.env.NEXT_PUBLIC_URL = 'https://example.mediawiki.test';
+    expect(resolveMediawikiFetchUrl('https://example.mediawiki.test')).toBe(
+      'https://example.mediawiki.test'
+    );
+  });
+
+  it('maps mediawiki and prod canonical URLs to MEDIAWIKI_FETCH_URL', () => {
+    process.env.NEXT_PUBLIC_URL = 'https://edit.example.test';
+    process.env.API_URL_PROD = 'https://prod.example.test';
+    process.env.MEDIAWIKI_FETCH_URL = 'http://mediawiki.svc';
+    expect(resolveMediawikiFetchUrl('https://edit.example.test/')).toBe(
+      'http://mediawiki.svc'
+    );
+    expect(resolveMediawikiFetchUrl('https://prod.example.test')).toBe(
+      'http://mediawiki.svc'
+    );
+  });
+
+  it('leaves unrelated canonical URLs unchanged when MEDIAWIKI_FETCH_URL is set', () => {
+    process.env.MEDIAWIKI_FETCH_URL = 'http://mediawiki.svc';
+    process.env.API_URL_TEST = 'http://lab.example.test';
+    expect(resolveMediawikiFetchUrl('http://lab.example.test')).toBe(
+      'http://lab.example.test'
+    );
   });
 });

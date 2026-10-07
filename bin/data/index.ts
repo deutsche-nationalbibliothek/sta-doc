@@ -9,7 +9,24 @@ import {
   // EntityEntry,
 } from '../../types/parsed/entity';
 import { EntitiesRaw } from '../../types/raw/entity';
+import {
+  isLocalMediawikiFetch,
+  resolveMediawikiFetchUrl,
+} from '../../lib/env';
 import { API_URL, fetcher } from './fetcher';
+
+const logMediawikiFetchTarget = (canonicalBase: string) => {
+  if (isLocalMediawikiFetch(canonicalBase)) {
+    console.log(
+      'Fetch from database (canonical):',
+      canonicalBase,
+      'via:',
+      resolveMediawikiFetchUrl(canonicalBase)
+    );
+  } else {
+    console.log('Fetch from database:', canonicalBase);
+  }
+};
 import {
   breadcrumbsParser,
   codingsParser,
@@ -49,21 +66,21 @@ const ensureDataDirectories = async () => {
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const fetchRawAndWrite = async () => {
-    console.log('Fetch raw data from database: ', API_URL.host);
+    logMediawikiFetchTarget(API_URL.host);
     const data = await fetcher(API_URL.host).fetchAll();
     console.log('Going to write complete data.');
     writer.raw(data).writeAll();
   };
 
   const fetchRawFieldsAndWrite = async () => {
-    console.log('Fetch raw fields from database: ', API_URL.host);
+    logMediawikiFetchTarget(API_URL.host);
     const data = await fetcher(API_URL.host).fields();
     console.log('Going to write fields.');
     writer.rawFields(data);
   };
 
   const fetchSingleEntityAndWrite = async (entityId: EntityId) => {
-    console.log('Fetch raw single entity data from database: ', API_URL.host);
+    logMediawikiFetchTarget(API_URL.host);
     console.log('Fetch raw data of entity',entityId);
     const entity = await fetcher(API_URL.host).entities.single(entityId);
     if (entity) {

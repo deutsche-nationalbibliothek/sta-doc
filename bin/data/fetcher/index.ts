@@ -4,6 +4,7 @@ import {
   apiUrlProd,
   apiUrlTest,
   mediawikiUrl,
+  resolveMediawikiFetchUrl,
 } from '../../../lib/env';
 import { EntityId } from '../../../types/entity-id';
 import { BreadcrumbsRaw } from '../../../types/raw/breadcrumb';
@@ -67,8 +68,8 @@ const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
   );
   return chunked.map((bulk) => bulk.join('|'));
 };
-const wikiBase = (apiUrl: API_URL) => {
-  const onFetch = fetchWithSparql(apiUrl);
+const wikiBase = (canonicalBase: API_URL) => {
+  const onFetch = fetchWithSparql(resolveMediawikiFetchUrl(canonicalBase));
   return fetchWikibase(onFetch);
 };
 const fetchIndex = async (apiUrl: API_URL) => {

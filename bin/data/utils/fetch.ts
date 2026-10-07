@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
-import { API_URL } from '../fetcher';
 
-export const fetchWithSparql = (apiUrl: API_URL) => {
+export const fetchWithSparql = (fetchBaseUrl: string) => {
   const sparqlQueryDispatcher = <T>(sparqlQuery: string) => {
     const headers = { Accept: 'application/sparql-results+json' };
     const path = `/query/proxy/wdqs/bigdata/namespace/wdq/sparql?query=${encodeURIComponent(
@@ -12,7 +11,7 @@ export const fetchWithSparql = (apiUrl: API_URL) => {
   };
 
   const fetcher = async <T>(path: string, options = {}): Promise<T> => {
-    const url = `${apiUrl}/${path}`;
+    const url = `${fetchBaseUrl}/${path}`;
     const response = await fetch(url, options);
     const body = await response.text();
     if (!response.ok) {

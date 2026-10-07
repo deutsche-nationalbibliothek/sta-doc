@@ -66,6 +66,8 @@ Start testing the productive version with
 (Test with docker compose setup)
 - `npm run docker:build; npm run docker:up && npm run solr:index`
 
+When sta-doc runs on the same host as Wikibase (shared `dnb-wikibase_default` network), set `MEDIAWIKI_FETCH_URL` so server-side fetches use the local MediaWiki service (`http://mediawiki.svc` in Docker; `http://127.0.0.1:8080` for host-side `npm run data:fetch`). Keep `NEXT_PUBLIC_URL` as the public wiki URL for links and SPARQL entity IRIs. Production compose defaults `MEDIAWIKI_FETCH_URL` to `http://mediawiki.svc`; with that in place, `IP_ADDRESS` / `extra_hosts` in `bin/docker-compose.sh` are optional for Wikibase traffic.
+
 ## Documentation
 
 - [React](https://react.dev/reference/react)

@@ -47,6 +47,30 @@ export const hostnameFromUrl = (url: string): string => {
 export const mediawikiUrl = (): string =>
   process.env.NEXT_PUBLIC_URL || DEFAULT_MEDIAWIKI_URL;
 
+export const mediawikiFetchUrl = (): string | undefined =>
+  process.env.MEDIAWIKI_FETCH_URL?.trim() || undefined;
+
+export const normalizeWikiBase = (url: string): string =>
+  url.replace(/\/+$/, '');
+
+export const resolveMediawikiFetchUrl = (canonicalBase: string): string => {
+  const fetchUrl = mediawikiFetchUrl();
+  if (!fetchUrl) {
+    return normalizeWikiBase(canonicalBase);
+  }
+  const canonical = normalizeWikiBase(canonicalBase);
+  const localCanonicals = new Set(
+    [mediawikiUrl(), apiUrlProd()].map(normalizeWikiBase)
+  );
+  if (localCanonicals.has(canonical)) {
+    return normalizeWikiBase(fetchUrl);
+  }
+  return canonical;
+};
+
+export const isLocalMediawikiFetch = (canonicalBase: string): boolean =>
+  resolveMediawikiFetchUrl(canonicalBase) !== normalizeWikiBase(canonicalBase);
+
 export const apiUrlLive = (): string =>
   process.env.API_URL_LIVE || DEFAULT_API_URL_LIVE;
 
