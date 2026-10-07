@@ -1,10 +1,6 @@
 import { ChangeEvent, useState, useEffect } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 
-import {
-  FetchingParam,
-  useFetchingQueryParams,
-} from '@/hooks/fetch-query-params-provider';
 import { useIsEdit } from '@/hooks/use-is-edit';
 import { useQueryParam } from 'use-query-params';
 
@@ -189,10 +185,10 @@ export default function WikibaseTest() {
       title: '',
       key: 'actions',
       width: 40,
-      render: () => {
+      render: (_value, record) => {
         return (
           <span>
-            <DeleteOutlined onClick={deleteRow} />
+            <DeleteOutlined onClick={() => deleteRow(record.statementId)} />
           </span>
         );
       },
@@ -290,7 +286,16 @@ export default function WikibaseTest() {
     setEditingValueWithStatementId(null);
   };
 
-  const deleteRow = () => {};
+  const deleteRow = (statementId: string) => {
+    setDataSource((prev) =>
+      prev.map((group) => ({
+        ...group,
+        statements: group.statements.filter(
+          (statement) => statement.statementId !== statementId
+        ),
+      }))
+    );
+  };
 
   if (response) {
     console.log(response?.[entityId]?.claims);
