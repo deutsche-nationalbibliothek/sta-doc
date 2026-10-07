@@ -3,13 +3,51 @@ import { NextApiRequest } from 'next';
 const SUPPORTED_LOCALES = ['de', 'fr', 'en']; // List of locales your application supports
 const DEFAULT_LOCALE = 'de'; // Fallback locale if none is specified or invalid
 
+export type EntityLocale = 'de' | 'fr';
+
+const FR_PATH_RE = /(^|\/)fr(\/|$|\?)/;
+
+/**
+ * Locale used to load parsed entity JSON (`entities-de.json` / `entities-fr.json`).
+ */
+export function resolveEntityLocale(
+  router: { locale?: string | undefined; asPath?: string },
+  lang?: string
+): EntityLocale {
+  if (lang === 'fr' || router.locale === 'fr') {
+    return 'fr';
+  }
+  if (lang === 'de' || router.locale === 'de') {
+    return 'de';
+  }
+  const path = router.asPath ?? '';
+  if (FR_PATH_RE.test(path)) {
+    return 'fr';
+  }
+  return 'de';
+}
+
 /**
  * Normalizes a locale value to ensure it's valid and supported
  * @param localeToCheck - The locale value to validate (can be any type)
  * @returns The validated locale string, or default locale if invalid
  */
 function normalizeLocale(localeToCheck: unknown): string {
-  return (typeof localeToCheck === 'string') && SUPPORTED_LOCALES.indexOf(localeToCheck) > -1 ? localeToCheck : DEFAULT_LOCALE;
+  if (localeToCheck === 'fr') {
+    return 'fr';
+  }
+  if (
+    typeof localeToCheck === 'string' &&
+    SUPPORTED_LOCALES.indexOf(localeToCheck) > -1
+  ) {
+    return localeToCheck;
+  }
+  return DEFAULT_LOCALE;
+}
+
+/** Normalizes API `locale` query values to `de` or `fr` for entity payloads. */
+export function normalizeEntityLocale(localeToCheck: unknown): EntityLocale {
+  return localeToCheck === 'fr' ? 'fr' : 'de';
 }
 
 /**
@@ -50,5 +88,5 @@ export function setLocaleParam(url : string, localeParam : unknown) : string {
  * @returns The validated locale from query params, or default locale if not specified
  */
 export function getLocaleFromReq(req: NextApiRequest) {
-  return normalizeLocale(req.query.locale);
+  return normalizeEntityLocale(req.query.locale);
 }

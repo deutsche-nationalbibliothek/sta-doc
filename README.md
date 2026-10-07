@@ -25,7 +25,7 @@ The fetched data gets saved in `/data/raw/*.json`.
 
 #### Data parsing the fetched raw data
 `npm run data:parse`
-Transforms all data from `/data/raw/*.json` and saves the result in `/data/parsed/*.json`. The most relevant data file is `/data/parsed/entities.json`, which is the last result of the composition, and it's meant to hold all relevant data for the client, pre-sorted and structured, ready for rendering.
+Transforms all data from `/data/raw/*.json` and saves the result in `/data/parsed/*.json`. Entity pages read locale-specific files `data/parsed/entities-de.json` and `data/parsed/entities-fr.json` (French UI uses the `-fr` file via `?locale=fr`). After parser changes, run a full parse so both files are regenerated.
 
 ### Update the Solr search index
 After parsed entity data changed, post documents to the running Solr collection via the HTTP update API (batched, overwrite by unique key). Use `npm run solr:index` in development and production. The collection is created only if it does not exist — it is not recreated on every index.

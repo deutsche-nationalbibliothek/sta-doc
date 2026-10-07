@@ -6,16 +6,18 @@ import { Typography } from 'antd';
 import { PropsWithStyle } from 'index';
 import { EntityLink } from '../preview/link';
 import { EntityId } from '@/types/entity-id';
+import React from 'react';
 
 interface StringValueProps {
   stringValue: { value: string, isLink?: EntityId, linkLabel?: string, linkStaNotation?: string };
   itemType?: ItemType;
   property?: Property;
+  statementLink?: React.ReactNode;
 }
 
 export const StringValueComponent: React.FC<
   PropsWithStyle<StringValueProps>
-> = ({ itemType, property, className, stringValue }) => {
+> = ({ itemType, property, className, stringValue, statementLink }) => {
   const isHtml = (str: string) => {
     // ref: https://stackoverflow.com/a/15458968
     const doc = Array.from(
@@ -49,6 +51,7 @@ export const StringValueComponent: React.FC<
         ) : (
           <QueryHighlighter textToHighlight={stringValue.value} />
         )}
+        {statementLink}
       </Typography.Paragraph>{' '}
     </>
   );

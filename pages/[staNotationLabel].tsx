@@ -11,6 +11,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { useScroll } from '@/hooks/use-scroll';
 import { useEntity } from '@/hooks/entity-provider';
 import { entityRepository } from '@/features/entity/entity-repository';
+import { useAppLocale } from '@/hooks/use-app-locale';
 import useTranslation from 'next-translate/useTranslation';
 
 interface EntityDetailsProps {
@@ -23,6 +24,7 @@ export default function EntityDetailsPage({
   entity,
 }: EntityDetailsProps) {
   const { lang } = useTranslation('common');
+  const appLocale = useAppLocale();
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
   const { setEntity } = useEntity();
@@ -57,7 +59,7 @@ export default function EntityDetailsPage({
           entityEntry={entityEntry}
           loading={loading}
           setHeadlines={setHeadlines}
-          locale={lang}
+          locale={appLocale}
         />
       )}
     </FetchEntity>

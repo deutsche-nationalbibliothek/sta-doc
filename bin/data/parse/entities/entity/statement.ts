@@ -1,7 +1,7 @@
 import { parseRawEntity, PreMappedStatement } from '.';
 import { EntityId } from '../../../../../types/entity-id';
 import { Property } from '../../../../../types/property';
-import { Claim, StatementRaw } from '../../../../../types/raw/entity';
+import { Claim, isClaim, StatementRaw } from '../../../../../types/raw/entity';
 import { isPropertyBlacklisted } from '../../../../../utils/constants';
 import { parseReferences } from './datatype/references';
 import { parseStringValue } from './datatype/string';
@@ -142,6 +142,7 @@ export const parseStatement = (props: ParseStatementProps) => {
 
   const preMappedStatement: PreMappedStatement = {
     property,
+    statementId: isClaim(occ) ? occ.id : undefined,
     staNotationLabel: staNotations[property]?.label,
     namespace,
     missingValue: isMissingValue ? snakType : undefined,

@@ -7,7 +7,7 @@ import { theme } from 'antd';
 import { Tooltip } from 'antd';
 import { memo } from 'react';
 import { ExternalLink } from '@/components/external-link';
-import { useRouter } from 'next/router';
+import { useAppLocale } from '@/hooks/use-app-locale';
 
 interface EmbeddedProps {
   entity: Entity;
@@ -17,7 +17,7 @@ export const Embedded: React.FC<EmbeddedProps> = memo(
   ({ entity }) => {
   const websideUrl = process.env.NEXT_PUBLIC_URL as string;
   const { token } = theme.useToken();
-  const locale = useRouter().locale || 'de';
+  const locale = useAppLocale();
     return (
       <NamespaceThemeConfigProvider namespace={entity.namespace}>
         <Collapse

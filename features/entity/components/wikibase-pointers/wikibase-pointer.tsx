@@ -8,6 +8,7 @@ import { References } from '../references';
 import { MissingValueGuard } from '../missing-value';
 import { WikibaseLink } from './wikibase-link';
 import { Embedded } from '../embedded';
+import { WikibaseStatementLink } from '../wikibase-statement-link';
 
 interface WikibasePointerProps {
   wikibasePointer: WikibasePointerValue;
@@ -20,6 +21,10 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
   isSeeItemOrProperty = false,
   property,
 }) => {
+  const statementLink = wikibasePointer.statementId ? (
+    <WikibaseStatementLink statementId={wikibasePointer.statementId} />
+  ) : null;
+
   return (
     <MissingValueGuard data={wikibasePointer}>
       <React.Fragment>
@@ -28,12 +33,16 @@ export const WikibasePointer: React.FC<WikibasePointerProps> = ({
             <EntityLink {...wikibasePointer}>
               {wikibasePointer.label}{' '}
             </EntityLink>
+            {statementLink}
           </Title>
         ) : (
-          <WikibaseLink
-            showArrow={isSeeItemOrProperty}
-            wikibasePointer={wikibasePointer}
-          />
+          <>
+            <WikibaseLink
+              showArrow={isSeeItemOrProperty}
+              wikibasePointer={wikibasePointer}
+            />
+            {statementLink}
+          </>
         )}
         {wikibasePointer.references && (
           <References references={wikibasePointer.references} />

@@ -216,8 +216,9 @@ export const parseRawEntity = (
 
     let annotation: WikibasePointerValue | undefined = undefined;
     if (entity.claims[Property.Annotation]) {
+      const annotationClaim = entity.claims[Property.Annotation][0];
       const annotationItemId =
-        entity.claims[Property.Annotation][0].mainsnak.datavalue?.value.id;
+        annotationClaim.mainsnak.datavalue?.value.id;
 
       if (annotationItemId) {
         annotation = {
@@ -225,6 +226,7 @@ export const parseRawEntity = (
           label: lang === 'fr' ? labelsFr[annotationItemId] : labelsDe[annotationItemId],
           property: Property.Annotation,
           staNotationLabel: staNotations[annotationItemId]?.label,
+          statementId: annotationClaim.id,
         };
       }
     }

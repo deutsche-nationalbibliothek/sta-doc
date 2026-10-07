@@ -5,6 +5,57 @@
   text-align: left;
   vertical-align: top;
 }
+.wikibase-statement-link-trigger {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -0.05em;
+  margin-left: 0.15em;
+  padding: 2px;
+  line-height: 0;
+  cursor: pointer;
+}
+
+/* Pencil-only control: not styled as a text link (overrides .ant-typography a) */
+a.wikibase-statement-link,
+.ant-typography a.wikibase-statement-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  border-radius: 2px;
+  color: var(--unspecific-namespace-color);
+  background: transparent;
+  flex-shrink: 0;
+  line-height: 1;
+  vertical-align: -0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+a.wikibase-statement-link:hover,
+a.wikibase-statement-link:focus,
+a.wikibase-statement-link:visited,
+.ant-typography a.wikibase-statement-link:hover,
+.ant-typography a.wikibase-statement-link:focus,
+.ant-typography a.wikibase-statement-link:visited {
+  color: var(--unspecific-namespace-color);
+  text-decoration: none;
+  background: transparent;
+}
+
+a.wikibase-statement-link:hover,
+.ant-typography a.wikibase-statement-link:hover {
+  opacity: 0.75;
+}
+
+a.wikibase-statement-link .anticon,
+.ant-typography a.wikibase-statement-link .anticon {
+  font-size: 9px;
+  color: inherit;
+}
+
 .grey-background {
   background-color: #c5c4c4; /* Light grey background */
   /* border-color: black;

@@ -11,6 +11,7 @@ import { GndSubFieldTable } from '@/features/gnd/subfield-table';
 import { compact } from 'lodash';
 import React from 'react';
 import { Qualifiers } from '../qualifiers';
+import { wikibaseStatementLinkFor } from '../utils/string-value-mapper';
 import { StringValueComponent } from '../values/string';
 import { WikibasePointers } from '../wikibase-pointers';
 import { Item } from '@/types/item';
@@ -159,6 +160,9 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                     }
                                     property={stringValue.property}
                                     stringValue={stringValue}
+                                    statementLink={wikibaseStatementLinkFor(
+                                      stringValue
+                                    )}
                                   >
                                   </StringValueComponent>
                                 </Col>
@@ -198,6 +202,9 @@ export const TableStatements: React.FC<TableStatementsProps> = ({
                                   }
                                   property={stringValue.property}
                                   stringValue={stringValue}
+                                  statementLink={wikibaseStatementLinkFor(
+                                    stringValue
+                                  )}
                                 />
                               }
                               {stringValue.qualifiers && (

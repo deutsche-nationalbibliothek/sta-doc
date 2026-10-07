@@ -1,4 +1,5 @@
 import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
+import { normalizeEntityLocale } from '@/utils/locale-utils';
 import { useMemo } from 'react';
 import useSWRLib from 'swr';
 
@@ -22,8 +23,8 @@ export const useSWR = <T>(
     if (query.live && !ignoreFetchingQueryParamString) {
       searchParams.append('live', query.live);
     }
-    if (apiEntityCall && locale) {
-      searchParams.append('locale', locale);
+    if (apiEntityCall) {
+      searchParams.append('locale', normalizeEntityLocale(locale));
     }
     const search = searchParams.toString();
 

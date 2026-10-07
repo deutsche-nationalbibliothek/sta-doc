@@ -80,6 +80,8 @@ export interface CommonValue {
   embedded?: Entity;
   missingValue?: 'somevalue' | 'novalue';
   qualifiers?: Statement[];
+  /** Wikibase claim id (e.g. Q123$uuid) for deep-linking to the source statement */
+  statementId?: string;
 }
 
 export type StatementValue = Statement & CommonValue;

@@ -26,7 +26,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
   const { token } = theme.useToken();
   const renderHeadline = (stringValueContainer: StringGroup) => (
     <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-      {(stringValue, qualifiers, references) => {
+      {(stringValue, qualifiers, references, statementLink) => {
         if (!stringValue.headline) {
           console.debug('headline missing in', stringValueContainer);
         }
@@ -38,6 +38,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                 linkLabel={stringValue.linkLabel} 
                 linkStaNotation={stringValue.linkStaNotation}>
                 <QueryHighlighter textToHighlight={stringValue.value} />
+                {statementLink}
                 {references}
               </Title>
             )}
@@ -68,7 +69,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     default: (stringValueContainer: StringGroup) => (
       <>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references) =>
+          {(stringValue, qualifiers, references, statementLink) =>
             !isStringValueExampleLabel(stringValue) ? (
               <React.Fragment key={stringValue.value}>
                 <Typography.Text>
@@ -76,6 +77,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                     itemType={stringValueContainer.itemType}
                     property={property}
                     stringValue={stringValue}
+                    statementLink={statementLink}
                   />
                   {references}
                   {qualifiers}
@@ -93,12 +95,13 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     ) => (
       <ul>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references) => (
+          {(stringValue, qualifiers, references, statementLink) => (
             <li key={stringValue.value}>
               <StringValueComponent
                 itemType={stringValueContainer.itemType}
                 property={property}
                 stringValue={stringValue}
+                statementLink={statementLink}
               />
               {references}
               {qualifiers}
@@ -112,12 +115,13 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     ) => (
       <ol>
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references) => (
+          {(stringValue, qualifiers, references, statementLink) => (
             <li key={stringValue.value}>
               <StringValueComponent
                 itemType={stringValueContainer.itemType}
                 property={property}
                 stringValue={stringValue}
+                statementLink={statementLink}
               />
               {references}
               {qualifiers}
@@ -170,10 +174,17 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                 stringValueContainer={stringValueContainer}
               >
                 {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-                {(stringValue, _qualifiers, _references, index) => (
+                {(
+                  stringValue,
+                  _qualifiers,
+                  _references,
+                  statementLink,
+                  index
+                ) => (
                   <>
                     <StringValueExamples
                       stringValue={stringValue}
+                      statementLink={statementLink}
                       // qualifiers={qualifiers}
                       // references={references}
                     />
@@ -198,7 +209,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     ) => {
       return (
         <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-          {(stringValue, qualifiers, references) => {
+          {(stringValue, qualifiers, references, statementLink) => {
             const introStringGroups = stringValue?.qualifiers?.find(
               (qualifier) =>
                 qualifier.property &&
@@ -215,6 +226,7 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
                     itemType={stringValueContainer.itemType}
                     property={property}
                     stringValue={stringValue}
+                    statementLink={statementLink}
                   />
                   {references}
                   {qualifiers}
@@ -227,12 +239,13 @@ export const StringGroupsStatement: React.FC<StringStatementProps> = ({
     },
     [Item['English-0']]: (stringValueContainer: StringGroup) => (
       <GenericStringValueMapper stringValueContainer={stringValueContainer}>
-        {(stringValue, qualifiers, references) => (
+        {(stringValue, qualifiers, references, statementLink) => (
           <Typography.Paragraph key={stringValue.value}>
             <StringValueComponent
               itemType={stringValueContainer.itemType}
               property={property}
               stringValue={stringValue}
+              statementLink={statementLink}
             />
             {references}
             {qualifiers}

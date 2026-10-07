@@ -1,6 +1,6 @@
 import { Fetch } from '@/components/fetch';
+import { useAppLocale } from '@/hooks/use-app-locale';
 import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
-import { useRouter } from 'next/router';
 
 interface FetchEntityProps {
   entityId: string;
@@ -18,13 +18,11 @@ export const FetchEntity: React.FC<FetchEntityProps> = ({
   ignoreFetchingQueryParamString,
   showSpinner,
 }) => {
-  const locale = useRouter().locale
+  const locale = useAppLocale();
   const url =
     (process.env.basePath ?? '') +
     '/api/entities/' +
-    encodeURIComponent(entityId) +
-    '?locale=' +
-    locale;
+    encodeURIComponent(entityId);
   return (
     <>
       {entityId && (

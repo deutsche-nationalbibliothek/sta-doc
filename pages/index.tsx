@@ -9,7 +9,7 @@ import { Namespace } from '@/types/namespace';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { GetStaticProps } from 'next';
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useAppLocale } from '@/hooks/use-app-locale';
 
 interface HomeProps {
   headlines: Headline[];
@@ -19,7 +19,7 @@ interface HomeProps {
 export default function Home({ headlines, namespace }: HomeProps) {
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
-  const locale = useRouter().locale || 'de';
+  const locale = useAppLocale();
 
   useEffect(() => {
     setHeadlines(headlines);

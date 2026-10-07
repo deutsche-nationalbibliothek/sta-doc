@@ -2,6 +2,7 @@ import { WikibasePointerValue } from '@/types/parsed/entity';
 import { notification } from 'antd';
 import React, { useEffect } from 'react';
 import { WikibaseLink } from './wikibase-pointers/wikibase-link';
+import { WikibaseStatementLink } from './wikibase-statement-link';
 
 const Context = React.createContext({ name: 'Default' });
 
@@ -17,7 +18,20 @@ export const EntityAnnotation: React.FC<EntityAnnotationProps> = ({
       message: undefined,
       description: (
         <Context.Consumer>
-          {() => <WikibaseLink wikibasePointer={annotation} />}
+          {() => (
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <WikibaseLink wikibasePointer={annotation} />
+              {annotation.statementId && (
+                <WikibaseStatementLink statementId={annotation.statementId} />
+              )}
+            </span>
+          )}
         </Context.Consumer>
       ),
       placement: 'bottomRight',
