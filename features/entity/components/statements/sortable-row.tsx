@@ -29,8 +29,6 @@ export const SortableRow = (props: SortableRowProps) => {
   // Normalizes React.Children to an array regardless whether there is only a single element or multiple children.
   const cells = React.Children.toArray(props.children);
 
-  const deleteRow = () => {};
-
   return (
     <tr {...props} ref={setNodeRef} style={style} {...attributes}>
       {React.cloneElement(

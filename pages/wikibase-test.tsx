@@ -234,6 +234,7 @@ export default function WikibaseTest() {
         if (isDeleted) {
           return value;
         }
+
         const opener = <WikibaseStatementLink statementKey={record.key} />;
 
         if (record.datatype !== 'string') {
@@ -258,7 +259,6 @@ export default function WikibaseTest() {
                 autoFocus
                 onChange={handleEditingValueChange}
               />
-              {opener}
               <CheckOutlined
                 onClick={handleSaveStatementEditing}
                 style={{ cursor: 'pointer' }}
@@ -267,7 +267,37 @@ export default function WikibaseTest() {
                 onClick={cancelEditingValue}
                 style={{ cursor: 'pointer' }}
               />
+              {opener}
             </div>
+          );
+        }
+
+        if (isChangedStatement(record.statementId)) {
+          return (
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              {value}
+              <EditOutlined
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setEditingValueWithStatementId(record.statementId);
+                  setOriginalEditingValue(value);
+                  setCurrentEditingValue(value);
+                }}
+              />
+              <RollbackOutlined
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  restoreOriginalStatementValue(record.statementId);
+                }}
+              />
+              {opener}
+            </span>
           );
         }
 
@@ -378,16 +408,6 @@ export default function WikibaseTest() {
     setLoading(true);
 
     try {
-      // const res = await fetch(`/doc/api/entities/wikibase?id=${entityId}`);
-
-      // if (!res.ok) {
-      //   const error = await res.text(); // liest den response body aus
-      //   console.error('API Error:', res.status, error);
-      //   return;
-      // }
-
-      // const data: WikibaseResponse = await res.json();
-
       const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
         fetch(`/doc/api/entities/wikibase?id=${entityId}`),
         fetch(`/doc/api/entities/${entityId}`),
@@ -498,12 +518,36 @@ export default function WikibaseTest() {
     );
   };
 
-  // if (response) {
-  //   console.log(response?.[entityId]?.claims);
-  // }
+  const restoreOriginalStatementValue = (statementId: string) => {
+    const changedStatement = changedStatements.find(
+      (change) => change.statementId === statementId
+    );
+
+    if (!changedStatement) {
+      return;
+    }
+
+    setDataSource((previous) =>
+      previous.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) =>
+          statement.statementId === statementId
+            ? {
+                ...statement,
+                value: changedStatement.originalValue,
+              }
+            : statement
+        ),
+      }))
+    );
+
+    setChangedStatements((previous) =>
+      previous.filter((change) => change.statementId !== statementId)
+    );
+  };
 
   const options = [
-    { value: 'edit', label: 'Edit' },
+    { value: 'prod', label: 'Prod' },
     { value: 'live', label: 'Live' },
   ];
 
@@ -539,7 +583,7 @@ export default function WikibaseTest() {
           disabled={loading}
         />
 
-        {changedStatements.length > 0 ? (
+        {changedStatements.length > 0 || deletedStatementIds.length > 0 ? (
           <Button>Alle Änderungen ins Backend speichern</Button>
         ) : null}
 
