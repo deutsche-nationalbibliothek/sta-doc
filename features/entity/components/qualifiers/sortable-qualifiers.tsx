@@ -20,6 +20,8 @@ interface SortableQualifiersProps {
   statementId: string;
   onQualifierDragEnd: (statementId: string, event: DragEndEvent) => void;
   idLookup?: Record<string, string> | null;
+  isDeleted: boolean;
+  isChanged: boolean;
 }
 
 const formatEntityId = (
@@ -38,6 +40,8 @@ export const SortableQualifiers = ({
   statementId,
   onQualifierDragEnd,
   idLookup,
+  isDeleted,
+  isChanged,
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -53,9 +57,7 @@ export const SortableQualifiers = ({
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: Qualifier) =>
-        record.datatype === 'string'
-          ? value
-          : formatEntityId(value, idLookup),
+        record.datatype === 'string' ? value : formatEntityId(value, idLookup),
     },
   ];
 
@@ -85,6 +87,9 @@ export const SortableQualifiers = ({
             },
           }}
           showHeader={false}
+          rowClassName={() =>
+            isDeleted ? 'row-deleted' : isChanged ? 'row-changed' : ''
+          }
         />
       </SortableContext>
     </DndContext>

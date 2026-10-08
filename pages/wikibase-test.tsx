@@ -337,15 +337,25 @@ export default function WikibaseTest() {
       title: 'Qualifiers',
       dataIndex: 'qualifiers',
       key: 'qualifiers',
-      render: (qualifiers: Qualifier[], record: ParsedStatement) =>
-        qualifiers.length > 0 ? (
+      render: (qualifiers: Qualifier[], record: ParsedStatement) => {
+        if (qualifiers.length === 0) {
+          return null;
+        }
+
+        const isDeleted = deletedStatementIds.includes(record.statementId);
+        const isChanged = isChangedStatement(record.statementId);
+
+        return (
           <SortableQualifiers
             qualifiers={qualifiers}
             statementId={record.key}
             onQualifierDragEnd={onQualifierDragEnd}
             idLookup={idLookup}
+            isDeleted={isDeleted}
+            isChanged={isChanged}
           />
-        ) : null,
+        );
+      },
     },
     {
       title: '',
@@ -558,7 +568,6 @@ export default function WikibaseTest() {
       <div
         style={{
           display: 'flex',
-          // alignItems: 'center',
           gap: '1rem',
           flexWrap: 'wrap',
           alignItems: 'flex-start',
@@ -584,7 +593,7 @@ export default function WikibaseTest() {
         />
 
         {changedStatements.length > 0 || deletedStatementIds.length > 0 ? (
-          <Button>Alle Änderungen ins Backend speichern</Button>
+          <Button>Alle Änderungen übernehmen</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
         <Select
