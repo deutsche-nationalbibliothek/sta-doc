@@ -44,7 +44,6 @@ export default function WikibaseTest() {
     useState<string | null>(null);
   const [currentEditingValue, setCurrentEditingValue] = useState('');
   const [originalEditingValue, setOriginalEditingValue] = useState('');
-  const [changedStatementIds, setChangedStatementIds] = useState<string[]>([]); // löschen
   const [deletedStatementIds, setDeletedStatementIds] = useState<string[]>([]);
   const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
     []
@@ -336,7 +335,9 @@ export default function WikibaseTest() {
   }, [changedStatements]);
 
   const isChangedStatement = (statementId: string) => {
-    return changedStatementIds.includes(statementId);
+    return changedStatements.some(
+      (change) => change.statementId === statementId
+    );
   };
 
   const handleSaveStatementEditing = () => {
@@ -399,7 +400,7 @@ export default function WikibaseTest() {
           disabled={loading}
         />
 
-        {changedStatementIds.length > 0 ? (
+        {changedStatements.length > 0 ? (
           <Button>Alle Änderungen ins Backend speichern</Button>
         ) : null}
       </div>
