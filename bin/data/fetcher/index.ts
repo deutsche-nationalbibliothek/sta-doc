@@ -1,4 +1,3 @@
-import { DEV } from '..';
 import {
   apiUrlLive,
   apiUrlProd,
@@ -28,6 +27,9 @@ import { fetchWikibase } from './wikibase';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
 import { FieldsRaw } from '../../../types/raw/field';
+
+/** Limit entity fetch to the first chunk while debugging the data pipeline. */
+const DEV = false;
 
 export const API_URL = {
   get host() {

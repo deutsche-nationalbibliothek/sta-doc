@@ -1,4 +1,4 @@
-import { read, existsSync } from 'fs';
+import '../../lib/load-dotenv';
 import fs from "fs/promises";
 import path from "path";
 import { EntityId } from '../../types/entity-id';
@@ -53,21 +53,44 @@ import {
   writer,
 } from './write';
 
-export const DEV = false;
-
 const ensureDataDirectories = async () => {
-  console.log("Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory");
-  
-  const projectRoot = process.cwd();
+  console.log(
+    'Check wether directory /data and related subdirectories /data/raw and /data/parsed already exist within root directory'
+  );
 
-  const directories = ["data", "data/raw", "data/parsed"]
-  .map(dir => path.join(projectRoot, dir))
-
-  for (const dir of directories) {try {
-    await fs.mkdir(dir, {recursive: true});
-    console.log(`Directory ${dir} already exists or was created.`)
-  } catch(e) {console.error(`Could not create ${dir}`, e); throw e}}
-}
+  // Keep each path expression as path.join(process.cwd(), 'data', ...).
+  // Do not pass the directory through a variable or helper: Turbopack then
+  // treats the filesystem access as the whole project root.
+  try {
+    await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
+    console.log(
+      `Directory ${path.join(process.cwd(), 'data')} already exists or was created.`
+    );
+  } catch (e) {
+    console.error("Could not create data", e);
+    throw e;
+  }
+  try {
+    await fs.mkdir(path.join(process.cwd(), 'data', 'raw'), { recursive: true });
+    console.log(
+      `Directory ${path.join(process.cwd(), 'data', 'raw')} already exists or was created.`
+    );
+  } catch (e) {
+    console.error("Could not create data/raw", e);
+    throw e;
+  }
+  try {
+    await fs.mkdir(path.join(process.cwd(), 'data', 'parsed'), {
+      recursive: true,
+    });
+    console.log(
+      `Directory ${path.join(process.cwd(), 'data', 'parsed')} already exists or was created.`
+    );
+  } catch (e) {
+    console.error("Could not create data/parsed", e);
+    throw e;
+  }
+};
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
