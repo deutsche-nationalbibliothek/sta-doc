@@ -3,6 +3,7 @@ import {
   apiUrlLive,
   apiUrlProd,
   apiUrlTest,
+  canonicalWikiBase,
   mediawikiUrl,
   resolveMediawikiFetchUrl,
 } from '../../../lib/env';
@@ -68,18 +69,22 @@ const entitiesChunk = (entitiesIndexKeys: EntityId[]) => {
   );
   return chunked.map((bulk) => bulk.join('|'));
 };
+const wikiSparqlBase = (apiUrl: API_URL) => canonicalWikiBase(apiUrl);
+
 const wikiBase = (canonicalBase: API_URL) => {
   const onFetch = fetchWithSparql(resolveMediawikiFetchUrl(canonicalBase));
   return fetchWikibase(onFetch);
 };
 const fetchIndex = async (apiUrl: API_URL) => {
   return await wikiBase(apiUrl).sparqlQuery<EntitiesIndexRaw>(
-    sparql.ENTITY_INDEX(apiUrl)
+    sparql.ENTITY_INDEX(wikiSparqlBase(apiUrl))
   );
 };
 
 export const breadcrumbsFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<BreadcrumbsRaw>(sparql.BREADCRUMBS(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<BreadcrumbsRaw>(
+    sparql.BREADCRUMBS(wikiSparqlBase(apiUrl))
+  );
 export const entitiesFetcher = {
   index: fetchIndex,
   single: async (entityId: EntityId, apiUrl: API_URL) =>
@@ -100,48 +105,62 @@ export const entitiesFetcher = {
   },
 };
 export const fieldsFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<FieldsRaw>(sparql.FIELDS(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<FieldsRaw>(
+    sparql.FIELDS(wikiSparqlBase(apiUrl))
+  );
 export const labelsFetcher = {
   de: async (apiUrl: API_URL) =>
-    await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(sparql.LABELDE(apiUrl)),
+    await wikiBase(apiUrl).sparqlQuery<LabelDeRaws>(
+      sparql.LABELDE(wikiSparqlBase(apiUrl))
+    ),
   en: async (apiUrl: API_URL) =>
-    await wikiBase(apiUrl).sparqlQuery<LabelEnRaws>(sparql.LABELEN(apiUrl)),
+    await wikiBase(apiUrl).sparqlQuery<LabelEnRaws>(
+      sparql.LABELEN(wikiSparqlBase(apiUrl))
+    ),
   fr: async (apiUrl: API_URL) =>
-    await wikiBase(apiUrl).sparqlQuery<LabelFrRaws>(sparql.LABELFR(apiUrl)),
+    await wikiBase(apiUrl).sparqlQuery<LabelFrRaws>(
+      sparql.LABELFR(wikiSparqlBase(apiUrl))
+    ),
 };
 export const staNotationsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
-    sparql.STA_NOTATIONS(apiUrl)
+    sparql.STA_NOTATIONS(wikiSparqlBase(apiUrl))
   );
 export const staNotationsFetcherFr = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<StaNotationsRaw>(
-    sparql.STA_NOTATIONS_FR(apiUrl)
+    sparql.STA_NOTATIONS_FR(wikiSparqlBase(apiUrl))
   );
 export const schemasFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<SchemasRaw>(sparql.SCHEMAS(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<SchemasRaw>(
+    sparql.SCHEMAS(wikiSparqlBase(apiUrl))
+  );
 export const codingsFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(sparql.CODINGS(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<CodingsRaw>(
+    sparql.CODINGS(wikiSparqlBase(apiUrl))
+  );
 export const descriptionsFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<DescriptionRaws>(
-    sparql.DESCRIPTIONS(apiUrl)
+    sparql.DESCRIPTIONS(wikiSparqlBase(apiUrl))
   );
 export const propertyTypesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<PropertyTypesRaw>(
-    sparql.PROPERTYTYPES(apiUrl)
+    sparql.PROPERTYTYPES(wikiSparqlBase(apiUrl))
   );
 export const rdaRulesFetcher = async (apiUrl: API_URL) =>
-  await wikiBase(apiUrl).sparqlQuery<RdaRulesRaw>(sparql.RDARULES(apiUrl));
+  await wikiBase(apiUrl).sparqlQuery<RdaRulesRaw>(
+    sparql.RDARULES(wikiSparqlBase(apiUrl))
+  );
 export const rdaPropertiesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<RdaPropertiesRaw>(
-    sparql.RDAPROPERTIES(apiUrl)
+    sparql.RDAPROPERTIES(wikiSparqlBase(apiUrl))
   );
 const propertyItemListFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<PropertiesItemsListRaw>(
-    sparql.propertyItemList(apiUrl)
+    sparql.propertyItemList(wikiSparqlBase(apiUrl))
   );
 const rdaElementStatusesFetcher = async (apiUrl: API_URL) =>
   await wikiBase(apiUrl).sparqlQuery<RdaElementStatusesRaw>(
-    sparql.RDA_ELEMENT_STATUSES(apiUrl)
+    sparql.RDA_ELEMENT_STATUSES(wikiSparqlBase(apiUrl))
   );
 
 export const fetcher = (apiUrl = API_URL.host) => {

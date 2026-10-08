@@ -10,21 +10,27 @@ import {
 } from '../../types/parsed/entity';
 import { EntitiesRaw } from '../../types/raw/entity';
 import {
+  canonicalWikiBase,
   isLocalMediawikiFetch,
+  mediawikiFetchDiffersFromCanonical,
   resolveMediawikiFetchUrl,
 } from '../../lib/env';
 import { API_URL, fetcher } from './fetcher';
 
 const logMediawikiFetchTarget = (canonicalBase: string) => {
-  if (isLocalMediawikiFetch(canonicalBase)) {
+  const canonical = canonicalWikiBase(canonicalBase);
+  if (
+    isLocalMediawikiFetch(canonicalBase) ||
+    mediawikiFetchDiffersFromCanonical(canonicalBase)
+  ) {
     console.log(
       'Fetch from database (canonical):',
-      canonicalBase,
+      canonical,
       'via:',
       resolveMediawikiFetchUrl(canonicalBase)
     );
   } else {
-    console.log('Fetch from database:', canonicalBase);
+    console.log('Fetch from database:', canonical);
   }
 };
 import {

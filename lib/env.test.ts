@@ -5,6 +5,8 @@ import {
   apiUrlTest,
   hostnameFromUrl,
   mediawikiUrl,
+  canonicalWikiBase,
+  mediawikiTransportUrl,
   normalizeWikiBase,
   resolveMediawikiFetchUrl,
 } from './env';
@@ -61,11 +63,34 @@ describe('mediawiki and live wiki URLs', () => {
     );
   });
 
-  it('returns canonical base when MEDIAWIKI_FETCH_URL is unset', () => {
+  it('upgrades http to https for public wiki hosts', () => {
+    expect(canonicalWikiBase('http://edit.sta.dnb.de')).toBe(
+      'https://edit.sta.dnb.de'
+    );
+    expect(canonicalWikiBase('http://127.0.0.1:8080')).toBe(
+      'http://127.0.0.1:8080'
+    );
+  });
+
+  it('uses https canonical URL when NEXT_PUBLIC_URL is http on a public host', () => {
+    process.env.NEXT_PUBLIC_URL = 'http://edit.sta.dnb.de';
+    expect(mediawikiUrl()).toBe('https://edit.sta.dnb.de');
+  });
+
+  it('uses http transport for public hosts while keeping https IRIs', () => {
+    expect(mediawikiTransportUrl('https://edit.sta.dnb.de')).toBe(
+      'http://edit.sta.dnb.de'
+    );
+    expect(mediawikiTransportUrl('http://127.0.0.1:8080')).toBe(
+      'http://127.0.0.1:8080'
+    );
+  });
+
+  it('uses http transport when MEDIAWIKI_FETCH_URL is unset', () => {
     delete process.env.MEDIAWIKI_FETCH_URL;
     process.env.NEXT_PUBLIC_URL = 'https://example.mediawiki.test';
     expect(resolveMediawikiFetchUrl('https://example.mediawiki.test')).toBe(
-      'https://example.mediawiki.test'
+      'http://example.mediawiki.test'
     );
   });
 

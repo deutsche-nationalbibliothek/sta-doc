@@ -11,7 +11,8 @@ export const fetchWithSparql = (fetchBaseUrl: string) => {
   };
 
   const fetcher = async <T>(path: string, options = {}): Promise<T> => {
-    const url = `${fetchBaseUrl}/${path}`;
+    const base = fetchBaseUrl.replace(/\/+$/, '');
+    const url = `${base}${path.startsWith('/') ? path : `/${path}`}`;
     const response = await fetch(url, options);
     const body = await response.text();
     if (!response.ok) {
