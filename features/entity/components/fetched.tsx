@@ -4,7 +4,7 @@ import { useNamespace } from '@/hooks/use-namespace';
 import { Headline } from '@/types/headline';
 import { EntityEntryWithOptionalHeadlines } from '@/types/parsed/entity';
 import Head from 'next/head';
-import { Dispatch, SetStateAction, memo, useEffect } from 'react';
+import { Dispatch, SetStateAction, memo, useEffect, useRef } from 'react';
 import { EntityDetails } from './details';
 import { EntityPlaceholder } from './placeholder';
 import { compact } from 'lodash';
@@ -36,7 +36,6 @@ export const FetchedEntity = memo(
           setNamespace(entity.namespace);
         }
       }
-      return unloadEntity;
     }, [
       entity,
       entityEntry?.headlines,
@@ -44,8 +43,14 @@ export const FetchedEntity = memo(
       setHeadlines,
       setEntity,
       setNamespace,
-      unloadEntity,
     ]);
+
+    const unloadEntityRef = useRef(unloadEntity);
+    unloadEntityRef.current = unloadEntity;
+
+    // unload only when leaving the page, not on every data change, otherwise
+    // the headlines the page provided get wiped in between
+    useEffect(() => () => unloadEntityRef.current(), []);
 
     const titleLabel = compact([entity?.namespace, entity?.label]).join(' | ');
     return (
