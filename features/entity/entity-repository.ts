@@ -7,7 +7,9 @@ import { API_URL, fetcher } from '@/bin/data/fetcher';
 import { EntitiesRaw } from '@/types/raw/entity';
 import { prefetchEmbeddedEntities } from '@/bin/data/utils/embedded-entity-ids';
 import { parseEntities, ParseEntitiesData } from '@/bin/data/parse/entities';
-import { parseEntitiesDataFromRaw } from '@/bin/data/parse';
+import { parseEntitiesDataFromParsed } from '@/bin/data/parse';
+import { reader } from '@/bin/data/read';
+import { DataState } from '@/bin/data/utils';
 import { isPropertyBlacklisted } from '@/utils/constants';
 import { Namespace } from '@/types/namespace';
 import { EntityIndex } from '@/types/parsed/entity-index';
@@ -19,10 +21,9 @@ import ssgIndexDe from '@/data/parsed/entities-ssg-index-de.json';
 import ssgIndexFr from '@/data/parsed/entities-ssg-index-fr.json';
 
 const entitiesCache: Partial<Record<'de' | 'fr', EntitiesEntries>> = {};
-const liveLookupRawCache: Partial<
-  Record<API_URL, Awaited<ReturnType<ReturnType<typeof fetcher>['lookupRaw']>>>
+const liveParseEntitiesDataCache: Partial<
+  Record<'de' | 'fr', ParseEntitiesData>
 > = {};
-const liveParsedDataCache: Partial<Record<string, ParseEntitiesData>> = {};
 
 const resolveLang = (lang: string | undefined): 'de' | 'fr' =>
   lang === 'fr' ? 'fr' : 'de';
@@ -40,41 +41,15 @@ const resolveLiveApiUrl = (live: FetchingParam): API_URL | undefined => {
   }
 };
 
-const loadLiveEntitiesData = async (
-  lang: string,
-  fetch: ReturnType<typeof fetcher>,
-  apiUrl: API_URL
-): Promise<ParseEntitiesData> => {
+const loadLiveEntitiesData = (lang: string): ParseEntitiesData => {
   const resolvedLang = resolveLang(lang);
-  const cacheKey = `${apiUrl}:${resolvedLang}`;
-  if (!liveParsedDataCache[cacheKey]) {
-    if (!liveLookupRawCache[apiUrl]) {
-      console.log('Fetching live lookup data from', apiUrl);
-      liveLookupRawCache[apiUrl] = await fetch.lookupRaw();
-    }
-    const raw = liveLookupRawCache[apiUrl];
-    if (!raw) {
-      throw new Error(`Failed to load live lookup data from ${apiUrl}`);
-    }
-    liveParsedDataCache[cacheKey] = parseEntitiesDataFromRaw(
-      {
-        breadcrumbs: raw.breadcrumbs,
-        codings: raw.codings,
-        fields: raw.fields,
-        labelsDe: raw.labelsDe,
-        labelsEn: raw.labelsEn,
-        labelsFr: raw.labelsFr,
-        propertyTypes: raw.propertyTypes,
-        rdaElementStatuses: raw.rdaElementStatuses,
-        staNotations:
-          resolvedLang === 'fr' ? raw.staNotationsFr : raw.staNotationsDe,
-        staNotationsDe: raw.staNotationsDe,
-        schemas: raw.schemas,
-      },
+  if (!liveParseEntitiesDataCache[resolvedLang]) {
+    liveParseEntitiesDataCache[resolvedLang] = parseEntitiesDataFromParsed(
+      reader[DataState.parsed],
       resolvedLang
     );
   }
-  return liveParsedDataCache[cacheKey] as ParseEntitiesData;
+  return liveParseEntitiesDataCache[resolvedLang] as ParseEntitiesData;
 };
 
 const loadEntitiesEntries = (lang: string | undefined): EntitiesEntries => {
@@ -195,8 +170,7 @@ class EntityRepository {
       return await this.getLiveEntityEntry(
         lang,
         fetcher(apiUrl),
-        resolvedId,
-        apiUrl
+        resolvedId
       );
     }
     return this.getPreparsedEntitiesEntries(lang)[resolvedId];
@@ -209,8 +183,7 @@ class EntityRepository {
   async getLiveEntityEntry(
     lang: string,
     fetch: ReturnType<typeof fetcher>,
-    entityId: EntityId,
-    apiUrl: API_URL
+    entityId: EntityId
   ) {
     const prefetched = {} as EntitiesRaw;
     // prefetch to parse without async
@@ -239,7 +212,7 @@ class EntityRepository {
         rawEntities: { [entityId]: entity },
         getRawEntityById: (id: EntityId) => prefetched[id],
         lang,
-        data: await loadLiveEntitiesData(lang, fetch, apiUrl),
+        data: loadLiveEntitiesData(lang),
       });
 
       return parsedEntities[entityId];

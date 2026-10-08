@@ -470,6 +470,23 @@ export interface SparqlLookupRaw {
   schemas: SchemasRaw;
 }
 
+/** Lookup tables for entity parsing from committed `data/parsed` (no live SPARQL). */
+export const parseEntitiesDataFromParsed = (
+  readParsed: (typeof reader)['parsed'],
+  lang: string
+): ParseEntitiesData => ({
+  breadcrumbs: readParsed.breadcrumbs(),
+  codings: readParsed.codings(),
+  fields: readParsed.fields(),
+  labelsDe: readParsed.labels.de(),
+  labelsEn: readParsed.labels.en(),
+  labelsFr: readParsed.labels.fr(),
+  propertyTypes: readParsed.propertyTypes(),
+  rdaElementStatuses: readParsed.rdaElementStatuses(),
+  staNotations: readParsed.staNotations(lang),
+  schemas: readParsed.schemas(),
+});
+
 export const parseEntitiesDataFromRaw = (
   raw: SparqlLookupRaw,
   lang: string
