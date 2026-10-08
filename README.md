@@ -66,7 +66,7 @@ Start testing the productive version with
 (Test with docker compose setup)
 - `npm run docker:build; npm run docker:up && npm run solr:index`
 
-When sta-doc runs on the same host as Wikibase (shared `dnb-wikibase_default` network), set `MEDIAWIKI_FETCH_URL` so server-side fetches use the local MediaWiki service (`http://mediawiki.svc` in Docker; `http://127.0.0.1:8080` for host-side `npm run data:fetch`). Keep `NEXT_PUBLIC_URL` as the public wiki URL for links and SPARQL entity IRIs. Production compose defaults `MEDIAWIKI_FETCH_URL` to `http://mediawiki.svc`; with that in place, `IP_ADDRESS` / `extra_hosts` in `bin/docker-compose.sh` are optional for Wikibase traffic.
+Server-side Wikibase HTTP uses plain `http://<public-wiki-host>` (see `lib/env.ts` `mediawikiTransportUrl`) so SPARQL PREFIXes stay on `https://` IRIs while TLS or internal `mediawiki.svc` paths are avoided. Optional `MEDIAWIKI_FETCH_URL` overrides that only for reachable bases (e.g. `http://127.0.0.1:8080` on a dev machine); `http://mediawiki.svc` is ignored because it does not serve the public SPARQL proxy. In production Docker, keep `NEXT_PUBLIC_URL` as the public wiki URL and use `IP_ADDRESS` / `extra_hosts` from `bin/docker-compose.sh` so `http://edit.sta.dnb.de` resolves inside the container.
 
 ## Documentation
 

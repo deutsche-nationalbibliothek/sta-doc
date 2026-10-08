@@ -94,15 +94,23 @@ describe('mediawiki and live wiki URLs', () => {
     );
   });
 
-  it('maps mediawiki and prod canonical URLs to MEDIAWIKI_FETCH_URL', () => {
+  it('maps prod canonical URLs to a custom MEDIAWIKI_FETCH_URL', () => {
     process.env.NEXT_PUBLIC_URL = 'https://edit.example.test';
     process.env.API_URL_PROD = 'https://prod.example.test';
-    process.env.MEDIAWIKI_FETCH_URL = 'http://mediawiki.svc';
+    process.env.MEDIAWIKI_FETCH_URL = 'http://127.0.0.1:8080';
     expect(resolveMediawikiFetchUrl('https://edit.example.test/')).toBe(
-      'http://mediawiki.svc'
+      'http://127.0.0.1:8080'
     );
     expect(resolveMediawikiFetchUrl('https://prod.example.test')).toBe(
-      'http://mediawiki.svc'
+      'http://127.0.0.1:8080'
+    );
+  });
+
+  it('ignores mediawiki.svc and uses public http transport for prod wiki', () => {
+    process.env.NEXT_PUBLIC_URL = 'https://edit.sta.dnb.de';
+    process.env.MEDIAWIKI_FETCH_URL = 'http://mediawiki.svc';
+    expect(resolveMediawikiFetchUrl('https://edit.sta.dnb.de')).toBe(
+      'http://edit.sta.dnb.de'
     );
   });
 

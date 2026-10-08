@@ -69,16 +69,21 @@ export const mediawikiTransportUrl = (canonicalBase: string): string => {
   return canonical;
 };
 
+/** Internal Docker DNS does not expose the public SPARQL proxy path (404). */
+const isUnusableMediawikiFetchUrl = (fetchUrl: string): boolean =>
+  hostnameFromUrl(fetchUrl) === 'mediawiki.svc';
+
 export const resolveMediawikiFetchUrl = (canonicalBase: string): string => {
   const fetchUrl = mediawikiFetchUrl();
-  if (!fetchUrl) {
-    return mediawikiTransportUrl(canonicalBase);
-  }
   const canonical = canonicalWikiBase(canonicalBase);
   const localCanonicals = new Set(
     [mediawikiUrl(), apiUrlProd()].map(canonicalWikiBase)
   );
-  if (localCanonicals.has(canonical)) {
+  if (
+    fetchUrl &&
+    !isUnusableMediawikiFetchUrl(fetchUrl) &&
+    localCanonicals.has(canonical)
+  ) {
     return normalizeWikiBase(fetchUrl);
   }
   return mediawikiTransportUrl(canonicalBase);
@@ -86,7 +91,7 @@ export const resolveMediawikiFetchUrl = (canonicalBase: string): string => {
 
 export const isLocalMediawikiFetch = (canonicalBase: string): boolean => {
   const fetchUrl = mediawikiFetchUrl();
-  if (!fetchUrl) {
+  if (!fetchUrl || isUnusableMediawikiFetchUrl(fetchUrl)) {
     return false;
   }
   const canonical = canonicalWikiBase(canonicalBase);

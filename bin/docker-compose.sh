@@ -32,8 +32,7 @@ fi
 if [[ -z "${API_URL_PROD_HOST:-}" ]]; then
   API_URL_PROD_HOST="$(host_from_url "${API_URL_PROD:-https://edit.sta.dnb.de}")"
 fi
-# When MEDIAWIKI_FETCH_URL points at the wiki on the shared Docker network (e.g.
-# http://mediawiki.svc), Next.js does not need extra_hosts / IP_ADDRESS for Wikibase fetches.
+# extra_hosts lets the container reach the wiki over http://<public-host> (see lib/env mediawikiTransportUrl).
 # Optional EXTRA_HOST_IP when Docker cannot reach MediaWiki via IP_ADDRESS
 # (public/SCP IP vs internal docker-network IP).
 if [[ -n "${EXTRA_HOST_IP:-}" ]]; then
