@@ -80,6 +80,7 @@ export default function WikibaseTest() {
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [entityNotFound, setEntityNotFound] = useState(false);
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
@@ -416,6 +417,9 @@ export default function WikibaseTest() {
 
   const fetchEntity = async () => {
     setLoading(true);
+    setEntityNotFound(false);
+    setResponse(null);
+    setDataSource([]);
 
     try {
       const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
@@ -423,6 +427,15 @@ export default function WikibaseTest() {
         fetch(`/doc/api/entities/${entityId}`),
         fetch(`/doc/api/entities/id-lookup`),
       ]);
+
+      if (wikibaseRes.status === 404 || parsedRes.status === 404) {
+        setEntityNotFound(true);
+        return;
+      }
+
+      if (!wikibaseRes.ok || !parsedRes.ok || !lookupRes.ok) {
+        throw new Error('Eine API-Anfrage ist fehlgeschlagen.');
+      }
 
       const data: WikibaseResponse = await wikibaseRes.json();
       const resParsed = await parsedRes.json();
@@ -616,51 +629,66 @@ export default function WikibaseTest() {
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
 
       <div>
-        {response
-          ? dataSource.map((group, groupIndex) => (
-              <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
-                <h3>{formatEntityId(group.propertyId, idLookup)}</h3>
-                <DndContext
-                  sensors={sensors}
-                  modifiers={[restrictToVerticalAxis]}
-                  onDragEnd={(event) => onDragEnd(groupIndex, event)}
+        {entityNotFound ? (
+          <p>
+            Entity {entityId} wurde nicht gefunden. Versuche es erneut mit einer
+            anderen ID.
+          </p>
+        ) : response ? (
+          dataSource.map((group, groupIndex) => (
+            <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
+              <h3>{formatEntityId(group.propertyId, idLookup)}</h3>
+              <DndContext
+                sensors={sensors}
+                modifiers={[restrictToVerticalAxis]}
+                onDragEnd={(event) => onDragEnd(groupIndex, event)}
+              >
+                <SortableContext
+                  items={group.statements.map((statement) => statement.key)}
+                  strategy={verticalListSortingStrategy}
                 >
-                  <SortableContext
-                    items={group.statements.map((statement) => statement.key)}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    <Table
-                      columns={statementColumns}
-                      dataSource={group.statements}
-                      pagination={false}
-                      components={{
-                        body: {
-                          row: SortableRow,
-                        },
-                      }}
-                      rowKey="key"
-                      rowClassName={(record) =>
-                        deletedStatementIds.includes(record.statementId)
-                          ? 'row-deleted'
-                          : isChangedStatement(record.statementId)
-                          ? 'row-changed'
-                          : ''
-                      }
-                    />
-                  </SortableContext>
-                </DndContext>
-              </div>
-            ))
-          : 'Noch keine Daten geladen.'}
+                  <Table
+                    columns={statementColumns}
+                    dataSource={group.statements}
+                    pagination={false}
+                    components={{
+                      body: {
+                        row: SortableRow,
+                      },
+                    }}
+                    rowKey="key"
+                    rowClassName={(record) =>
+                      deletedStatementIds.includes(record.statementId)
+                        ? 'row-deleted'
+                        : isChangedStatement(record.statementId)
+                        ? 'row-changed'
+                        : ''
+                    }
+                  />
+                </SortableContext>
+              </DndContext>
+            </div>
+          ))
+        ) : (
+          'Noch keine Daten geladen.'
+        )}
+        {}
       </div>
 
       <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
 
-      <pre style={{ marginTop: '1rem' }}>
-        {response
-          ? JSON.stringify(response, null, 2)
-          : 'Noch keine Daten geladen.'}
-      </pre>
+      <div style={{ marginTop: '1rem' }}>
+        {entityNotFound ? (
+          <p>
+            Da die Entity nicht geladen werden konnte, liegt keine Response zur
+            Anzeige vor.
+          </p>
+        ) : response ? (
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+        ) : (
+          <p>Noch keine Daten geladen.</p>
+        )}
+      </div>
     </main>
   );
 }
