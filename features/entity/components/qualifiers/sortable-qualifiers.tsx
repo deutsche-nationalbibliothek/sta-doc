@@ -46,6 +46,7 @@ export const SortableQualifiers = ({
   const sensors = useSensors(useSensor(PointerSensor));
 
   const qualifierColumns = [
+    { title: '', key: 'drag-handle', width: 40, render: () => null },
     {
       title: 'Property',
       dataIndex: 'propertyId',

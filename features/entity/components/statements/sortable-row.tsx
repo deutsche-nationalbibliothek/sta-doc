@@ -1,7 +1,7 @@
-import { HolderOutlined, DeleteOutlined } from '@ant-design/icons';
+import React from 'react';
+import { HolderOutlined } from '@ant-design/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React from 'react';
 
 interface SortableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;

@@ -1,18 +1,15 @@
-import type { HTMLAttributes } from 'react';
+import React from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
+import { HolderOutlined } from '@ant-design/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 interface SortableQualifierProps extends HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
-  // qualifier: Qualifier;
 }
 
-export const SortableQualifier = ({
-  children,
-  ...props
-}: // { qualifier }:
-SortableQualifierProps) => {
+export const SortableQualifier = (props: SortableQualifierProps) => {
   const {
     attributes,
     listeners,
@@ -21,9 +18,7 @@ SortableQualifierProps) => {
     transition,
     isDragging,
   } = useSortable({
-    id:
-      // qualifier.id,
-      props['data-row-key'],
+    id: props['data-row-key'],
   });
 
   const style: React.CSSProperties = {
@@ -31,34 +26,29 @@ SortableQualifierProps) => {
     transform: CSS.Translate.toString(transform),
     transition,
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
-    cursor: isDragging ? 'grabbing' : 'grab',
   };
 
+  // Normalizes React.Children to an array regardless whether there is only a single element or multiple children.
+  const cells = React.Children.toArray(props.children);
+
   return (
-    <tr
-      {...props}
-      ref={setNodeRef}
-      style={
-        style
-        //   {
-        //   ...style,
-        //   display: 'flex',
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   gap: '0.3rem',
-        //   border: '1px solid lightgray',
-        //   borderRadius: '10px',
-        //   padding: '0.3rem',
-        //   margin: '0.3rem',
-        //   cursor: isDragging ? 'grabbing' : 'grab',
-        // }
-      }
-      {...attributes}
-      {...listeners}
-    >
-      {/* <td style={{ margin: 0 }}>{qualifier.propertyId}:</td>
-      <td style={{ margin: 0 }}>{qualifier.value}</td> */}
-      {children}
+    <tr {...props} ref={setNodeRef} style={style} {...attributes}>
+      {React.cloneElement(
+        cells[0] as React.ReactElement,
+        {},
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <span
+            {...listeners}
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+            }}
+          >
+            <HolderOutlined />
+          </span>
+        </div>
+      )}
+
+      {cells.slice(1)}
     </tr>
   );
 };
