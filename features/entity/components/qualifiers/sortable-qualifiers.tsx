@@ -14,11 +14,15 @@ import {
 import { SortableQualifier } from './sortable-qualifier';
 import type { Qualifier } from '@/types/parsed/wikibase';
 import { Table } from 'antd';
+import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
 
 interface SortableQualifiersProps {
   qualifiers: Qualifier[];
   statementId: string;
+  deletedQualifierIds: string[];
   onQualifierDragEnd: (statementId: string, event: DragEndEvent) => void;
+  deleteQualifier: (_statementId: string, qualifierId: string) => void;
+  restoreQualifier: (_statementId: string, qualifierId: string) => void;
   idLookup?: Record<string, string> | null;
   isDeleted: boolean;
   isChanged: boolean;
@@ -38,7 +42,10 @@ const formatEntityId = (
 export const SortableQualifiers = ({
   qualifiers,
   statementId,
+  deletedQualifierIds,
   onQualifierDragEnd,
+  deleteQualifier,
+  restoreQualifier,
   idLookup,
   isDeleted,
   isChanged,
@@ -60,6 +67,33 @@ export const SortableQualifiers = ({
       render: (value: string, record: Qualifier) =>
         record.datatype === 'string' ? value : formatEntityId(value, idLookup),
     },
+    {
+      title: '',
+      key: 'actions',
+      width: 40,
+      render: (value: string, record: Qualifier) => {
+        // falls das ganze Statement gelöscht ist, gibt es keine Actions
+        if (isDeleted) {
+          return null;
+        }
+
+        return deletedQualifierIds.includes(record.id) ? (
+          <RollbackOutlined
+            onClick={() => {
+              restoreQualifier(statementId, record.id);
+            }}
+            style={{ cursor: 'pointer' }}
+          />
+        ) : (
+          <DeleteOutlined
+            onClick={() => {
+              deleteQualifier(statementId, record.id);
+            }}
+            style={{ cursor: 'pointer' }}
+          />
+        );
+      },
+    },
   ];
 
   return (
@@ -74,9 +108,6 @@ export const SortableQualifiers = ({
         items={qualifiers.map((qualifier) => qualifier.id)}
         strategy={verticalListSortingStrategy}
       >
-        {/* {qualifiers.map((qualifier) => (
-          <SortableQualifier key={qualifier.id} qualifier={qualifier} />
-        ))} */}
         <Table
           columns={qualifierColumns}
           dataSource={qualifiers}
@@ -88,8 +119,12 @@ export const SortableQualifiers = ({
             },
           }}
           showHeader={false}
-          rowClassName={() =>
-            isDeleted ? 'row-deleted' : isChanged ? 'row-changed' : ''
+          rowClassName={(record) =>
+            isDeleted || deletedQualifierIds.includes(record.id)
+              ? 'row-deleted'
+              : isChanged
+              ? 'row-changed'
+              : ''
           }
         />
       </SortableContext>

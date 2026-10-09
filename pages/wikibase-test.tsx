@@ -16,18 +16,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import {
-  Table,
-  Input,
-  Segmented,
-  Button,
-  Select,
-  Tooltip,
-  AutoComplete,
-} from 'antd';
+import { Table, Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
-import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type {
@@ -42,6 +33,8 @@ import {
   CheckOutlined,
   CloseOutlined,
   ExportOutlined,
+  DeleteOutlined,
+  RollbackOutlined,
 } from '@ant-design/icons';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
@@ -98,6 +91,7 @@ export default function WikibaseTest() {
   const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
     []
   );
+  const [deletedQualifierIds, setDeletedQualifierIds] = useState<string[]>([]);
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
   const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
   const [idSearchOptions, setIdSearchOptions] = useState<
@@ -360,7 +354,10 @@ export default function WikibaseTest() {
           <SortableQualifiers
             qualifiers={qualifiers}
             statementId={record.key}
+            deletedQualifierIds={deletedQualifierIds}
             onQualifierDragEnd={onQualifierDragEnd}
+            deleteQualifier={deleteQualifier}
+            restoreQualifier={restoreQualifier}
             idLookup={idLookup}
             isDeleted={isDeleted}
             isChanged={isChanged}
@@ -383,14 +380,12 @@ export default function WikibaseTest() {
             style={{ cursor: 'pointer' }}
           />
         ) : (
-          <span>
-            <DeleteOutlined
-              onClick={() => {
-                deleteRow(record.statementId);
-              }}
-              style={{ cursor: 'pointer' }}
-            />
-          </span>
+          <DeleteOutlined
+            onClick={() => {
+              deleteRow(record.statementId);
+            }}
+            style={{ cursor: 'pointer' }}
+          />
         );
       },
     },
@@ -565,6 +560,20 @@ export default function WikibaseTest() {
     );
   };
 
+  const deleteQualifier = (_statementId: string, qualifierId: string) => {
+    if (!window.confirm('Soll der Qualifier wirklich gelöscht werden?')) {
+      return;
+    }
+
+    setDeletedQualifierIds((previous) => [...previous, qualifierId]); // nimm alle bisherigen IDs und füge die neue ID hinten hinzu
+  };
+
+  const restoreQualifier = (_statementId: string, qualifierId: string) => {
+    setDeletedQualifierIds(
+      (previous) => previous.filter((id) => id !== qualifierId) // behalte alle IDs, die ungleich der qualifierId sind
+    );
+  };
+
   const restoreOriginalStatementValue = (statementId: string) => {
     const changedStatement = changedStatements.find(
       (change) => change.statementId === statementId
@@ -634,7 +643,6 @@ export default function WikibaseTest() {
           <Input.Search
             className="entity-search"
             type="text"
-            // onChange={(e) => setEntityId(e.target.value)}
             onSearch={fetchEntity}
             placeholder="Entity-ID oder Label suchen ..."
             enterButton={loading ? 'Lädt ...' : 'Entity laden'}
@@ -642,7 +650,9 @@ export default function WikibaseTest() {
           />
         </AutoComplete>
 
-        {changedStatements.length > 0 || deletedStatementIds.length > 0 ? (
+        {changedStatements.length > 0 ||
+        deletedStatementIds.length > 0 ||
+        deletedQualifierIds.length > 0 ? (
           <Button>Alle Änderungen übernehmen</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
