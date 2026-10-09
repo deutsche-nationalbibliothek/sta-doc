@@ -7,6 +7,10 @@ interface SortableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
 }
 
+// Sortable table row for the Ant Design `Table`, built on dnd-kit. The content of the first cell is replaced by a drag handle. Only the handle starts a drag. Must be used inside a `DndContext` and `SortableContext`.
+
+// Example: <Table rowKey="key" components={{ body: { row: SortableRow } }} ... />
+
 export const SortableRow = (props: SortableRowProps) => {
   const {
     attributes,
@@ -23,6 +27,7 @@ export const SortableRow = (props: SortableRowProps) => {
     ...props.style,
     transform: CSS.Translate.toString(transform),
     transition,
+    // Keep the dragged row above the others
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
@@ -31,6 +36,7 @@ export const SortableRow = (props: SortableRowProps) => {
 
   return (
     <tr {...props} ref={setNodeRef} style={style} {...attributes}>
+      {/* Replace the content of the first cell with the drag handle */}
       {React.cloneElement(
         cells[0] as React.ReactElement,
         {},
@@ -45,7 +51,7 @@ export const SortableRow = (props: SortableRowProps) => {
           </span>
         </div>
       )}
-
+      {/* Render all remaining cells unchanged. */}
       {cells.slice(1)}
     </tr>
   );
