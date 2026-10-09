@@ -90,12 +90,14 @@ export default function WikibaseTest() {
   const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
     []
   );
-  const [mode, setMode] = useQueryParam('live');
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
   const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
   const [idSearchOptions, setIdSearchOptions] = useState<
     { value: string; label: string }[]
   >([]);
+
+  const [entityIdParam, setEntityIdParam] = useQueryParam('entity');
+  const [mode, setMode] = useQueryParam('live');
 
   useEffect(() => {
     fetch('/doc/api/entities/id-lookup')
@@ -415,7 +417,15 @@ export default function WikibaseTest() {
     }
   };
 
-  const fetchEntity = async () => {
+  const fetchEntity = async (id?: string) => {
+    const entityIdToLoad = (id ?? entityId).trim();
+
+    if (!entityIdToLoad) {
+      return;
+    }
+
+    setEntityId(entityIdToLoad);
+    setEntityIdParam(entityIdToLoad);
     setLoading(true);
     setEntityNotFound(false);
     setResponse(null);
@@ -423,8 +433,8 @@ export default function WikibaseTest() {
 
     try {
       const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
-        fetch(`/doc/api/entities/wikibase?id=${entityId}`),
-        fetch(`/doc/api/entities/${entityId}`),
+        fetch(`/doc/api/entities/wikibase?id=${entityIdToLoad}`),
+        fetch(`/doc/api/entities/${entityIdToLoad}`),
         fetch(`/doc/api/entities/id-lookup`),
       ]);
 
@@ -446,13 +456,19 @@ export default function WikibaseTest() {
       setResponse(data);
       setIdLookup(lookup);
 
-      setDataSource(parseWikibaseResponse(data, entityId));
+      setDataSource(parseWikibaseResponse(data, entityIdToLoad));
     } catch (e) {
       console.error(e);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (typeof entityIdParam === 'string' && entityIdParam) {
+      fetchEntity(entityIdParam);
+    }
+  }, [entityIdParam]);
 
   const handleEditingValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentEditingValue(e.target.value);
@@ -680,8 +696,8 @@ export default function WikibaseTest() {
       <div style={{ marginTop: '1rem' }}>
         {entityNotFound ? (
           <p>
-            Da die Entity nicht geladen werden konnte, liegt keine Response zur
-            Anzeige vor.
+            Da die Entity nicht geladen werden konnte, kann keine Response
+            angezeigt werden.
           </p>
         ) : response ? (
           <pre>{JSON.stringify(response, null, 2)}</pre>
