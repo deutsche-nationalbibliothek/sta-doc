@@ -16,7 +16,15 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table, Input, Segmented, Button, Select, Tooltip } from 'antd';
+import {
+  Table,
+  Input,
+  Segmented,
+  Button,
+  Select,
+  Tooltip,
+  AutoComplete,
+} from 'antd';
 import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
@@ -424,7 +432,7 @@ export default function WikibaseTest() {
       return;
     }
 
-    setEntityId(entityIdToLoad);
+    setEntityId(formatEntityId(entityIdToLoad, idLookup));
     setEntityIdParam(entityIdToLoad);
     setLoading(true);
     setEntityNotFound(false);
@@ -609,23 +617,36 @@ export default function WikibaseTest() {
           onChange={(value) => setMode(value)}
         />
 
-        <Input.Search
-          className="entity-search"
-          type="text"
+        <AutoComplete
           value={entityId}
-          onChange={(e) => setEntityId(e.target.value)}
-          onSearch={fetchEntity}
-          placeholder="Gib z. B. Q7 or P7 ein."
-          enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+          options={idSelectOptions}
+          onChange={(value) => setEntityId(value)}
+          onSearch={searchEntityIds}
+          onSelect={(value) => {
+            fetchEntity(value);
+            setEntityId(value);
+          }}
+          filterOption={false}
           style={{ flex: '1 1 280px', maxWidth: '400px' }}
           disabled={loading}
-        />
+          // allowClear
+        >
+          <Input.Search
+            className="entity-search"
+            type="text"
+            // onChange={(e) => setEntityId(e.target.value)}
+            onSearch={fetchEntity}
+            placeholder="Entity-ID oder Label suchen ..."
+            enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+            disabled={loading}
+          />
+        </AutoComplete>
 
         {changedStatements.length > 0 || deletedStatementIds.length > 0 ? (
           <Button>Alle Änderungen übernehmen</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
-        <Select
+        {/* <Select
           mode="multiple"
           allowClear
           showSearch
@@ -639,7 +660,7 @@ export default function WikibaseTest() {
           optionLabelProp="label"
           style={{ flex: '2 1 360px', minWidth: '280px' }}
           disabled={!idLookup}
-        />
+        /> */}
       </div>
 
       <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
