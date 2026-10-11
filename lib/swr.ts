@@ -23,6 +23,9 @@ export const useSWR = <T>(
     if (query.live && !ignoreFetchingQueryParamString) {
       searchParams.append('live', query.live);
     }
+    if (query.stage && !ignoreFetchingQueryParamString) {
+      searchParams.append('stage', query.stage);
+    }
     if (apiEntityCall) {
       searchParams.append('locale', normalizeEntityLocale(locale));
     }
@@ -53,6 +56,7 @@ export const useSWR = <T>(
   );
   return {
     ...swr,
-    loading: !swr.error && !swr.data,
+    // No key → no request in flight (e.g. gated staged reads).
+    loading: Boolean(fullUrl) && !swr.error && !swr.data,
   };
 };

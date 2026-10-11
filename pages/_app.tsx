@@ -6,7 +6,7 @@ import Layout from '@/components/layout';
 import IsLoadingContextProvider from '@/hooks/use-loading-state';
 import { CodingsPreferencesProvider } from '@/hooks/use-codings-preference';
 import { NamespaceProvider } from '@/hooks/use-namespace';
-import { ConfigProvider } from 'antd';
+import { App, ConfigProvider } from 'antd';
 import deDE from 'antd/lib/locale/de_DE';
 import InitialHeadlinesProvider from '@/hooks/initial-headlines';
 import { NextAdapter } from 'next-query-params';
@@ -25,6 +25,7 @@ import '../styles/layout-sizes.css';
 import '../styles/custom.css';
 import '../styles/fonts.css';
 import { EntityProvider } from '@/hooks/entity-provider';
+import { AuthProvider } from '@/hooks/use-auth';
 
 type AppPageComponent = NextComponentType<NextPageContext, unknown, unknown> & {
   isPopupPage?: boolean;
@@ -36,6 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <GlobalStaticStyles>
+      <AuthProvider>
       <InitialHeadlinesProvider>
         <QueryParamProvider adapter={NextAdapter as QueryParamAdapterComponent}>
           <ApplicationProfileQueryParamProvider>
@@ -46,13 +48,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                     {(themeConfig) => (
                       <NamespaceProvider>
                         <ConfigProvider locale={deDE} theme={themeConfig}>
-                          <IsLoadingContextProvider>
-                            <CodingsPreferencesProvider>
-                              <EntityProvider>
-                                {Page.isPopupPage ? page : <Layout>{page}</Layout>}
-                              </EntityProvider>
-                            </CodingsPreferencesProvider>
-                          </IsLoadingContextProvider>
+                          <App>
+                            <IsLoadingContextProvider>
+                              <CodingsPreferencesProvider>
+                                <EntityProvider>
+                                  {Page.isPopupPage ? page : <Layout>{page}</Layout>}
+                                </EntityProvider>
+                              </CodingsPreferencesProvider>
+                            </IsLoadingContextProvider>
+                          </App>
                         </ConfigProvider>
                       </NamespaceProvider>
                     )}
@@ -63,6 +67,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </ApplicationProfileQueryParamProvider>
         </QueryParamProvider>
       </InitialHeadlinesProvider>
+      </AuthProvider>
     </GlobalStaticStyles>
   );
 };

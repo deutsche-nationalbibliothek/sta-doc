@@ -25,6 +25,7 @@
     "data:parse:schemas": "ts-node bin/data parse:schemas",
     "data:parse:staNotations": "ts-node bin/data parse:staNotations",
     "data:parse:staNotations:fr": "ts-node bin/data parse:staNotations:fr",
+    "data:compare-parsed": "ts-node bin/data/compare-parsed.ts",
     "split-entities": "./bin/split-entities-solr.sh",
     "split-entities-powershell": "powershell -File ./bin/split-entities-solr.ps1",
     "solr:index": "NODE_OPTIONS='--max-old-space-size=4096' ts-node bin/solr/index.ts",

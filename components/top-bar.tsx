@@ -8,8 +8,9 @@ import { HomeOutlined, SearchOutlined } from '@ant-design/icons';
 import { CSSObject } from '@emotion/react';
 import { useMemo, useState } from 'react';
 import useIsSmallScreen from '@/hooks/use-is-small-screen';
-import LocaleSwitcher from './locale-switcher';
 import useTranslation from 'next-translate/useTranslation';
+import { AuthStatus } from './auth-status';
+import LocaleSwitcher from './locale-switcher';
 
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
@@ -59,6 +60,8 @@ export const TopBar: React.FC = () => {
     >
       <AntdLayout.Header
         css={{
+          display: 'flex',
+          alignItems: 'center',
           lineHeight: isSmallScreen
             ? 'var(--topbar-mobile-height)'
             : 'var(--topbar-height)',
@@ -66,11 +69,16 @@ export const TopBar: React.FC = () => {
             ? 'var(--topbar-mobile-height) !important'
             : 'var(--topbar-height) !important',
           background: 'var(--top-bar-color)',
+          borderBottom: '1px solid rgba(5, 5, 5, 0.06)',
         }}
       >
         <Menu
           css={{
             ...menuColorStyles,
+            flex: '1 1 auto',
+            minWidth: 0,
+            position: 'relative',
+            borderBottom: 'none',
           }}
           mode="horizontal"
           selectedKeys={compact([
@@ -166,24 +174,25 @@ export const TopBar: React.FC = () => {
               key: 'search',
               style: {
                 position: 'absolute',
-                right: isSmallScreen ? 100 : 100,
+                right: 8,
               },
               onClick: () => !isSearchOpen && setIsSearchOpen(true),
             },
-            {
-              label: (
-                <span className="ant-menu-item">
-                  <LocaleSwitcher />
-                </span>
-              ),
-              key: 'switch-language',
-              style: {
-                position: 'absolute',
-                right: isSmallScreen ? 0 : 0,
-              },
-            },
           ]}
         />
+        <div
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            flex: 'none',
+            gap: isSmallScreen ? 4 : 8,
+            marginLeft: 8,
+            lineHeight: 1.2,
+          }}
+        >
+          <AuthStatus compact={isSmallScreen} />
+          <LocaleSwitcher />
+        </div>
       </AntdLayout.Header>
 
     </ConfigProvider>

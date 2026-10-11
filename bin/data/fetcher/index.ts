@@ -24,6 +24,7 @@ import { entitiesParser } from '../parse';
 import { sparql } from '../utils';
 import { fetchWithSparql } from '../utils/fetch';
 import { fetchWikibase } from './wikibase';
+import { postgresFetcher } from './postgres';
 import { RdaElementStatusesRaw } from '../../../types/raw/rda-element-status';
 import { PropertyTypesRaw } from '../../../types/raw/property-type';
 import { FieldsRaw } from '../../../types/raw/field';
@@ -166,6 +167,10 @@ const rdaElementStatusesFetcher = async (apiUrl: API_URL) =>
   );
 
 export const fetcher = (apiUrl = API_URL.host) => {
+  if ((process.env.DATA_SOURCE || 'wikibase').toLowerCase() === 'postgres') {
+    return postgresFetcher();
+  }
+
   const entities = {
     single: async (entityId: EntityId) =>
       await entitiesFetcher.single(entityId, apiUrl),

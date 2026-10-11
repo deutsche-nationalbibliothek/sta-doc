@@ -11,7 +11,7 @@ export enum DataState {
 export const writeFile = (data: string, filePath: string) => {
   const path = initial(filePath.split('/')).join('/');
   if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
+    fs.mkdirSync(path, { recursive: true });
   }
   console.log('Write file', filePath)
   fs.writeFileSync(filePath, data);

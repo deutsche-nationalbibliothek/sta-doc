@@ -55,7 +55,9 @@ export const getStaticProps: GetStaticProps<HomeProps> = (context) => {
   return {
     props: {
       headlines: entityEntry?.headlines ?? [],
-      namespace: entityEntry?.entity.namespace ?? undefined,
+      ...(entityEntry?.entity.namespace != null
+        ? { namespace: entityEntry.entity.namespace }
+        : {}),
     },
   };
 };

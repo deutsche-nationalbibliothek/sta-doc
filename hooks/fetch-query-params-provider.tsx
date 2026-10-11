@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQueryParam } from 'use-query-params';
+import {
+  editorFeatures,
+} from '@/lib/sta-editor-features';
 
 
 declare global {
@@ -16,8 +19,19 @@ export enum FetchingParam {
   prod = 'prod',
 }
 
+/** PostgreSQL ReadStage for sta-doc view (?stage=), not Wikibase ?live=. */
+export type ReadStageParam = 'working' | 'preview' | 'live';
+
+const READ_STAGES = new Set<string>(['working', 'preview', 'live']);
+
+export function isReadStageParam(value: string | null | undefined): value is ReadStageParam {
+  return value != null && READ_STAGES.has(value);
+}
+
 interface RouterQuery {
   live: FetchingParam | undefined;
+  stage: ReadStageParam | undefined;
+  edit: boolean;
   locale: string;
   query: string | undefined;
 }
@@ -44,6 +58,23 @@ export default function FetchingQueryParamsProvider({
     UseQueryParamSetter<FetchingParam | undefined>,
   ];
 
+  const [stageRaw] = useQueryParam('stage') as [
+    string | undefined,
+    UseQueryParamSetter<string | undefined>,
+  ];
+  const stage = isReadStageParam(stageRaw) ? stageRaw : undefined;
+
+  const [editRaw] = useQueryParam('edit') as [
+    string | undefined,
+    UseQueryParamSetter<string | undefined>,
+  ];
+  const edit = editRaw === '1' || editRaw === 'true';
+
+  const effectiveStage =
+    editorFeatures.postgresReadEnabled && stage ? stage : undefined;
+  const effectiveEdit =
+    editorFeatures.editorEnabled && edit ? edit : false;
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (!('data' in window)) {
@@ -59,8 +90,16 @@ export default function FetchingQueryParamsProvider({
       queryObj.live = live;
     }
 
+    if (effectiveStage) {
+      queryObj.stage = effectiveStage;
+    }
+
+    if (effectiveEdit) {
+      queryObj.edit = effectiveEdit;
+    }
+
     return queryObj as RouterQuery;
-  }, [live]);
+  }, [live, effectiveStage, effectiveEdit]);
 
   return (
     <FetchingQueryParamsContext.Provider

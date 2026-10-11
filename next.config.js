@@ -38,6 +38,12 @@ const alephToStaNotation = Object.entries(fields).map(([key,field]) => {
 }).filter(Boolean);
 
 module.exports = async () => {
+  const editorApiUpstream = (
+    process.env.EDITOR_API_UPSTREAM ||
+    process.env.EDITOR_API_URL ||
+    'http://localhost:8080/sta-doc-api/api'
+  ).replace(/\/$/, '');
+
   const nextConfig = {
     basePath: '/doc',
     env: {
@@ -102,6 +108,16 @@ module.exports = async () => {
           destination: `/${entry.staNotationLabel}`,
           permanent: true
         }))
+      ];
+    },
+    // Sibling to /doc (outside basePath): browser → /doc-backend/api/* → WildFly
+    async rewrites() {
+      return [
+        {
+          source: '/doc-backend/api/:path*',
+          destination: `${editorApiUpstream}/:path*`,
+          basePath: false,
+        },
       ];
     },
   };

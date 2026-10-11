@@ -8,16 +8,50 @@ import { EntityLink } from '../preview/link';
 import { EntityId } from '@/types/entity-id';
 import React from 'react';
 
+import { StaPropertyType } from '@/lib/api/sta-content-types';
+import { Input } from 'antd';
+
 interface StringValueProps {
   stringValue: { value: string, isLink?: EntityId, linkLabel?: string, linkStaNotation?: string };
   itemType?: ItemType;
   property?: Property;
   statementLink?: React.ReactNode;
+  editable?: boolean;
+  valueType?: StaPropertyType;
+  onChange?: (value: string) => void;
 }
 
 export const StringValueComponent: React.FC<
   PropsWithStyle<StringValueProps>
-> = ({ itemType, property, className, stringValue, statementLink }) => {
+> = ({ itemType, property, className, stringValue, statementLink, editable, valueType, onChange }) => {
+  if (editable && onChange) {
+    const useTextArea =
+      valueType === 'TEXT' ||
+      valueType === 'STRING' ||
+      valueType === 'MULTILINGUAL' ||
+      !valueType;
+
+    if (useTextArea) {
+      return (
+        <Input.TextArea
+          className={className}
+          value={stringValue.value}
+          onChange={(e) => onChange(e.target.value)}
+          autoSize={{ minRows: 3, maxRows: 24 }}
+          style={{ fontFamily: 'monospace', fontSize: 13 }}
+        />
+      );
+    }
+
+    return (
+      <Input
+        className={className}
+        value={stringValue.value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    );
+  }
+
   const isHtml = (str: string) => {
     // ref: https://stackoverflow.com/a/15458968
     const doc = Array.from(

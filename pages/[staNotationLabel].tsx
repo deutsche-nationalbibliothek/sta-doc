@@ -1,5 +1,6 @@
 import { FetchedEntity } from '@/entity/components/fetched';
 import { FetchEntity } from '@/entity/components/utils/fetch';
+import { EntityContentEditor } from '@/features/editor/entity-content-editor';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import { EntityId } from '@/types/entity-id';
 import { Headline } from '@/types/headline';
@@ -13,6 +14,13 @@ import { useEntity } from '@/hooks/entity-provider';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { useAppLocale } from '@/hooks/use-app-locale';
 import useTranslation from 'next-translate/useTranslation';
+import { DraftPreviewBanner } from '@/components/draft-preview-banner';
+import { useFetchingQueryParams } from '@/hooks/fetch-query-params-provider';
+import { useAuth } from '@/hooks/use-auth';
+import { useStageAuthRedirect } from '@/hooks/use-stage-auth-redirect';
+import { EntityViewEditToolbar } from '@/components/entity-view-edit-toolbar';
+import { editorFeatures } from '@/lib/sta-editor-features';
+import { Spin } from 'antd';
 
 interface EntityDetailsProps {
   headlines: Headline[];
@@ -25,6 +33,9 @@ export default function EntityDetailsPage({
 }: EntityDetailsProps) {
   const { lang } = useTranslation('common');
   const appLocale = useAppLocale();
+  const { query } = useFetchingQueryParams();
+  const { canEdit } = useAuth();
+  const { authLoading, stageAccessReady } = useStageAuthRedirect();
   const { setHeadlines } = useInitialHeadlines();
   const { setNamespace } = useNamespace();
   const { setEntity } = useEntity();
@@ -52,17 +63,40 @@ export default function EntityDetailsPage({
     }
   }, [setHeadlines, headlines, lang]);
 
+  const showDraftBanner =
+    editorFeatures.postgresReadEnabled && Boolean(query.stage);
+  const inEditMode =
+    editorFeatures.editorEnabled && query.edit && canEdit;
+
+  if (showDraftBanner && (authLoading || !stageAccessReady)) {
+    return (
+      <div css={{ padding: '2em', textAlign: 'center' }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
   return (
-    <FetchEntity entityId={entity.id} showSpinner={false} >
-      {(entityEntry, loading) => (
-        <FetchedEntity
-          entityEntry={entityEntry}
-          loading={loading}
-          setHeadlines={setHeadlines}
-          locale={appLocale}
-        />
+    <>
+      {showDraftBanner && query.stage && (
+        <DraftPreviewBanner entityId={entity.id} stage={query.stage} />
       )}
-    </FetchEntity>
+      <EntityViewEditToolbar editMode={Boolean(inEditMode)} stage={query.stage} />
+      {inEditMode ? (
+        <EntityContentEditor entityId={entity.id} />
+      ) : (
+        <FetchEntity entityId={entity.id} showSpinner={false}>
+          {(entityEntry, loading) => (
+            <FetchedEntity
+              entityEntry={entityEntry}
+              loading={loading}
+              setHeadlines={setHeadlines}
+              locale={appLocale}
+            />
+          )}
+        </FetchEntity>
+      )}
+    </>
   );
 }
 
@@ -94,10 +128,16 @@ export const getStaticProps: GetStaticProps<EntityDetailsProps,{staNotationLabel
         headlines: entityEntry.headlines,
         entity: {
           id: validEntityId,
-          namespace: entityEntry.entity.namespace || undefined,
-          elementOf: entityEntry.entity.elementOf || undefined,
-          label: entityEntry.entity.label || undefined,
           staNotationLabel,
+          ...(entityEntry.entity.namespace != null
+            ? { namespace: entityEntry.entity.namespace }
+            : {}),
+          ...(entityEntry.entity.elementOf != null
+            ? { elementOf: entityEntry.entity.elementOf }
+            : {}),
+          ...(entityEntry.entity.label != null
+            ? { label: entityEntry.entity.label }
+            : {}),
         },
       },
     };

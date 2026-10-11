@@ -1,8 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { entityRepository } from '@/features/entity/entity-repository';
 import { EntityId } from '@/types/entity-id';
-import { FetchingParam } from '@/hooks/fetch-query-params-provider';
+import { FetchingParam, isReadStageParam } from '@/hooks/fetch-query-params-provider';
 import { getLocaleFromReq } from '@/utils/locale-utils';
+import { fetchViewRawServer } from '@/lib/api/editor-server-client';
+import { viewRawToEntityEntry } from '@/lib/bff/view-raw-to-entity-entry';
+import { isPostgresReadEnabledServer } from '@/lib/sta-editor-features';
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,8 +25,44 @@ export default async function handler(
     const live = req.query.live
       ? (req.query.live as FetchingParam)
       : undefined;
+    const stageRaw =
+      typeof req.query.stage === 'string' ? req.query.stage : undefined;
+    const stage = isReadStageParam(stageRaw) ? stageRaw : undefined;
+
+    if (stage && isPostgresReadEnabledServer()) {
+      const viewRawResult = await fetchViewRawServer(entityId, {
+        stage,
+        language: locale,
+        cookieHeader: req.headers.cookie,
+      });
+
+      if (viewRawResult.status === 401 || viewRawResult.status === 403) {
+        return res.status(viewRawResult.status).json({
+          message: viewRawResult.message ?? 'Unauthorized for staged read',
+        });
+      }
+
+      if (!viewRawResult.data) {
+        return res.status(viewRawResult.status).json({
+          message: viewRawResult.message ?? 'Entity not found',
+        });
+      }
+
+      const entityEntry = await viewRawToEntityEntry(
+        viewRawResult.data,
+        entityId,
+        locale
+      );
+      if (entityEntry == null) {
+        return res.status(404).json({ message: 'Entity not found' });
+      }
+
+      res.setHeader('Cache-Control', 'private, no-store');
+      return res.status(200).json(entityEntry);
+    }
+
     const entityData = await entityRepository.get(entityId, locale, live);
-    if (!entityData) {
+    if (entityData == null) {
       return res.status(404).json({ message: 'Entity not found' });
     }
     if (live === undefined) {
@@ -37,7 +76,6 @@ export default async function handler(
   } catch (error: unknown) {
     console.error('Error fetching entity:', error);
 
-    // Handle different types of errors
     if (error instanceof Error && error.message.includes('not found')) {
       return res.status(404).json({ message: 'Entity not found' });
     }
