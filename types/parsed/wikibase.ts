@@ -28,4 +28,9 @@ export type StatementChange = {
     newValue: string;
   };
   
+export type QualifierChange = {
+  qualifierId: string;
+  originalValue: string;
+  newValue: string;
+}
   

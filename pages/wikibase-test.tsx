@@ -26,6 +26,7 @@ import type {
   ParsedStatementGroup,
   Qualifier,
   StatementChange,
+  QualifierChange,
 } from '@/types/parsed/wikibase';
 
 import {
@@ -83,17 +84,31 @@ export default function WikibaseTest() {
   const [loading, setLoading] = useState(false);
   const [entityNotFound, setEntityNotFound] = useState(false);
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
+
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
-  const [currentEditingValue, setCurrentEditingValue] = useState('');
-  const [originalEditingValue, setOriginalEditingValue] = useState('');
+  const [currentEditingStatementValue, setCurrentEditingStatementValue] =
+    useState('');
+  const [originalEditingStatementValue, setOriginalEditingStatementValue] =
+    useState('');
   const [deletedStatementIds, setDeletedStatementIds] = useState<string[]>([]);
   const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
     []
   );
+
+  const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
+    useState<string | null>(null);
+  const [currentEditingQualifierValue, setCurrentEditingQualifierValue] =
+    useState('');
+  const [originalEditingQualfierValue, setOriginalEditingQualifierValue] =
+    useState('');
   const [deletedQualifierIds, setDeletedQualifierIds] = useState<string[]>([]);
+  const [changedQualifiers, setChangedQualifiers] = useState<QualifierChange[]>(
+    []
+  );
+
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
-  const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
+  const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]); // brauchen wir das noch?
   const [idSearchOptions, setIdSearchOptions] = useState<
     { value: string; label: string }[]
   >([]);
@@ -242,6 +257,8 @@ export default function WikibaseTest() {
 
         const opener = <WikibaseStatementLink statementKey={record.key} />;
 
+        console.log('statement record.datatype', record.datatype);
+
         if (record.datatype !== 'string') {
           return (
             <span
@@ -262,14 +279,14 @@ export default function WikibaseTest() {
                 rows={4}
                 defaultValue={value}
                 autoFocus
-                onChange={handleEditingValueChange}
+                onChange={handleEditingStatementValueChange}
               />
               <CheckOutlined
                 onClick={handleSaveStatementEditing}
                 style={{ cursor: 'pointer' }}
               />
               <CloseOutlined
-                onClick={cancelEditingValue}
+                onClick={cancelEditingStatementValue}
                 style={{ cursor: 'pointer' }}
               />
               {opener}
@@ -291,8 +308,8 @@ export default function WikibaseTest() {
                 style={{ cursor: 'pointer' }}
                 onClick={() => {
                   setEditingValueWithStatementId(record.statementId);
-                  setOriginalEditingValue(value);
-                  setCurrentEditingValue(value);
+                  setOriginalEditingStatementValue(value);
+                  setCurrentEditingStatementValue(value);
                 }}
               />
               <RollbackOutlined
@@ -319,8 +336,8 @@ export default function WikibaseTest() {
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 setEditingValueWithStatementId(record.statementId);
-                setOriginalEditingValue(value);
-                setCurrentEditingValue(value);
+                setOriginalEditingStatementValue(value);
+                setCurrentEditingStatementValue(value);
               }}
             />
             {opener}
@@ -361,6 +378,16 @@ export default function WikibaseTest() {
             idLookup={idLookup}
             isDeleted={isDeleted}
             isChanged={isChanged}
+            editingValueWithQualifierId={editingValueWithQualifierId}
+            isChangedQualifier={isChangedQualifier}
+            setEditingValueWithQualifierId={setEditingValueWithQualifierId}
+            setOriginalEditingQualifierValue={setOriginalEditingQualifierValue}
+            setCurrentEditingQualifierValue={setCurrentEditingQualifierValue}
+            handleEditingQualifierValueChange={
+              handleEditingQualifierValueChange
+            }
+            handleSaveQualifierEditing={handleSaveQualifierEditing}
+            cancelEditingQualifierValue={cancelEditingQualifierValue}
           />
         );
       },
@@ -427,7 +454,7 @@ export default function WikibaseTest() {
       return;
     }
 
-    setEntityId(formatEntityId(entityIdToLoad, idLookup));
+    setEntityId(entityIdToLoad);
     setEntityIdParam(entityIdToLoad);
     setLoading(true);
     setEntityNotFound(false);
@@ -447,7 +474,7 @@ export default function WikibaseTest() {
       }
 
       if (!wikibaseRes.ok || !parsedRes.ok || !lookupRes.ok) {
-        throw new Error('Eine API-Anfrage ist fehlgeschlagen.');
+        throw new Error('Eine der API-Anfragen ist fehlgeschlagen.');
       }
 
       const data: WikibaseResponse = await wikibaseRes.json();
@@ -473,16 +500,24 @@ export default function WikibaseTest() {
     }
   }, [entityIdParam]);
 
-  const handleEditingValueChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setCurrentEditingValue(e.target.value);
+  const handleEditingStatementValueChange = (
+    e: ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setCurrentEditingStatementValue(e.target.value);
   };
 
-  const saveEditingValue = () => {
+  const handleEditingQualifierValueChange = (
+    e: ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setCurrentEditingQualifierValue(e.target.value);
+  };
+
+  const saveEditingStatementValue = () => {
     const newDataSource = dataSource.map((group) => ({
       ...group,
       statements: group.statements.map((statement) => {
         if (statement.statementId === editingValueWithStatementId) {
-          return { ...statement, value: currentEditingValue };
+          return { ...statement, value: currentEditingStatementValue };
         }
         return statement;
       }),
@@ -490,6 +525,21 @@ export default function WikibaseTest() {
 
     setDataSource(newDataSource);
     setEditingValueWithStatementId(null);
+  };
+
+  const saveEditingQualifierValue = () => {
+    const newDataSource = dataSource.map((group) => ({
+      ...group,
+      statements: group.statements.map((statement) => {
+        if (statement.statementId === editingValueWithStatementId) {
+          return { ...statement, value: currentEditingStatementValue };
+        }
+        return statement;
+      }),
+    })); // das hier ist noch falsch
+
+    setDataSource(newDataSource);
+    setEditingValueWithQualifierId(null);
   };
 
   const markStatementAsChanged = () => {
@@ -508,7 +558,7 @@ export default function WikibaseTest() {
             return {
               statementId: editingValueWithStatementId,
               originalValue: change.originalValue,
-              newValue: currentEditingValue,
+              newValue: currentEditingStatementValue,
             };
           }
 
@@ -520,8 +570,8 @@ export default function WikibaseTest() {
         ...previous,
         {
           statementId: editingValueWithStatementId,
-          originalValue: originalEditingValue,
-          newValue: currentEditingValue,
+          originalValue: originalEditingStatementValue,
+          newValue: currentEditingStatementValue,
         },
       ];
     });
@@ -537,13 +587,28 @@ export default function WikibaseTest() {
     );
   };
 
-  const handleSaveStatementEditing = () => {
-    markStatementAsChanged();
-    saveEditingValue();
+  const isChangedQualifier = (qualifierId: string) => {
+    return changedQualifiers.some(
+      (change) => change.qualifierId === qualifierId
+    );
   };
 
-  const cancelEditingValue = () => {
+  const handleSaveStatementEditing = () => {
+    markStatementAsChanged();
+    saveEditingStatementValue();
+  };
+
+  const handleSaveQualifierEditing = () => {
+    // markQualifierAsChanged(); // noch implementieren
+    saveEditingQualifierValue();
+  };
+
+  const cancelEditingStatementValue = () => {
     setEditingValueWithStatementId(null);
+  };
+
+  const cancelEditingQualifierValue = () => {
+    setEditingValueWithQualifierId(null);
   };
 
   const deleteRow = (statementId: string) => {

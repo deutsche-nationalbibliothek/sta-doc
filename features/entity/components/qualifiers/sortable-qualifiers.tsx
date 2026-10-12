@@ -13,8 +13,15 @@ import {
 
 import { SortableQualifier } from './sortable-qualifier';
 import type { Qualifier } from '@/types/parsed/wikibase';
-import { Table } from 'antd';
-import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Table, Input } from 'antd';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  RollbackOutlined,
+} from '@ant-design/icons';
+import React, { ChangeEvent } from 'react';
 
 interface SortableQualifiersProps {
   qualifiers: Qualifier[];
@@ -26,6 +33,20 @@ interface SortableQualifiersProps {
   idLookup?: Record<string, string> | null;
   isDeleted: boolean;
   isChanged: boolean;
+  editingValueWithQualifierId: string | null;
+  isChangedQualifier: (qualifierId: string) => boolean;
+  setEditingValueWithQualifierId: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
+  setOriginalEditingQualifierValue: React.Dispatch<
+    React.SetStateAction<string>
+  >;
+  setCurrentEditingQualifierValue: React.Dispatch<React.SetStateAction<string>>;
+  handleEditingQualifierValueChange: (
+    e: ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  handleSaveQualifierEditing: () => void;
+  cancelEditingQualifierValue: () => void;
 }
 
 const formatEntityId = (
@@ -49,8 +70,18 @@ export const SortableQualifiers = ({
   idLookup,
   isDeleted,
   isChanged,
+  editingValueWithQualifierId,
+  isChangedQualifier,
+  setEditingValueWithQualifierId,
+  setOriginalEditingQualifierValue,
+  setCurrentEditingQualifierValue,
+  handleEditingQualifierValueChange,
+  handleSaveQualifierEditing,
+  cancelEditingQualifierValue,
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
+
+  const { TextArea } = Input;
 
   const qualifierColumns = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
@@ -64,14 +95,95 @@ export const SortableQualifiers = ({
       title: 'Value',
       dataIndex: 'value',
       key: 'value',
-      render: (value: string, record: Qualifier) =>
-        record.datatype === 'string' ? value : formatEntityId(value, idLookup),
+      render: (value: string, record: Qualifier) => {
+        // record.datatype === 'string' ? value : formatEntityId(value, idLookup);
+
+        console.log('qualifier record.datatype:', record.datatype);
+
+        if (record.datatype !== 'wikibase-item') {
+          // ist das hier so richtig? sollen wikibase-items (qualifier) editiert werden können?
+          return (
+            <div>
+              <span>{formatEntityId(value, idLookup)}</span>
+            </div>
+          );
+        }
+
+        if (editingValueWithQualifierId === record.id) {
+          return (
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <TextArea
+                rows={4}
+                defaultValue={value}
+                autoFocus
+                onChange={handleEditingQualifierValueChange}
+              />
+              <CheckOutlined
+                onClick={handleSaveQualifierEditing}
+                style={{ cursor: 'pointer' }}
+              />
+              <CloseOutlined
+                onClick={cancelEditingQualifierValue}
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+          );
+        }
+
+        if (isChangedQualifier(record.id)) {
+          return (
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+              }}
+            >
+              {value}
+              <EditOutlined
+                onClick={() => {
+                  setEditingValueWithQualifierId(record.id);
+                  setOriginalEditingQualifierValue(value);
+                  setCurrentEditingQualifierValue(value);
+                }}
+                style={{ cursor: 'pointer' }}
+              />
+              <RollbackOutlined
+                onClick={() => {}}
+                style={{ cursor: 'pointer' }}
+              />
+            </span>
+          );
+        }
+
+        return (
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            {value}
+            <EditOutlined
+              onClick={() => {
+                setEditingValueWithQualifierId(record.id);
+                setOriginalEditingQualifierValue(value);
+                setCurrentEditingQualifierValue(value);
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+          </span>
+        );
+      },
     },
     {
       title: '',
       key: 'actions',
       width: 40,
-      render: (value: string, record: Qualifier) => {
+      render: (_value: string, record: Qualifier) => {
         // falls das ganze Statement gelöscht ist, gibt es keine Actions
         if (isDeleted) {
           return null;
