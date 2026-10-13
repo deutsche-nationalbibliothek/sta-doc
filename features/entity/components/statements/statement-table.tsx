@@ -1,11 +1,17 @@
 import type {
   ParsedStatement,
+  ParsedStatementGroup,
   Qualifier,
-  StatementChange,
 } from '@/types/parsed/wikibase';
 import type { ColumnsType } from 'antd/es/table';
 
-import { DndContext } from '@dnd-kit/core';
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   SortableContext,
@@ -63,6 +69,9 @@ const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
 );
 
 interface StatementTableProps {
+  group: ParsedStatementGroup;
+  groupIndex: number;
+  idLookup: IdLookup | null;
   deletedStatementIds: string[];
   editingValueWithStatementId: string | null;
   handleEditingStatementValueChange: (
@@ -81,9 +90,13 @@ interface StatementTableProps {
     React.SetStateAction<string>
   >;
   setCurrentEditingStatementValue: React.Dispatch<React.SetStateAction<string>>;
+  onDragEnd: (groupIndex: number, { active, over }: DragEndEvent) => void;
 }
 
 export const StatementTable = ({
+  group,
+  groupIndex,
+  idLookup,
   deletedStatementIds,
   editingValueWithStatementId,
   handleEditingStatementValueChange,
@@ -96,8 +109,18 @@ export const StatementTable = ({
   setEditingValueWithStatementId,
   setOriginalEditingStatementValue,
   setCurrentEditingStatementValue,
+  onDragEnd,
 }: StatementTableProps) => {
   const { TextArea } = Input;
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+        distance: 3,
+      },
+    })
+  );
 
   const statementColumns: ColumnsType<ParsedStatement> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },

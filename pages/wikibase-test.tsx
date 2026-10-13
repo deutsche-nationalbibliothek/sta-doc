@@ -651,17 +651,28 @@ export default function WikibaseTest() {
             <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
               <h3>{formatEntityId(group.propertyId, idLookup)}</h3>
               <StatementTable
+                group={group}
+                groupIndex={groupIndex}
+                idLookup={idLookup}
                 deletedStatementIds={deletedStatementIds}
                 editingValueWithStatementId={editingValueWithStatementId}
                 handleEditingStatementValueChange={
                   handleEditingStatementValueChange
                 }
                 handleSaveStatementEditing={handleSaveStatementEditing}
-                cancelEditingStatementValue={cancelEditingQualifierValue}
+                cancelEditingStatementValue={cancelEditingStatementValue}
+                isChangedStatement={isChangedStatement}
                 restoreRow={restoreRow}
                 deleteRow={deleteRow}
                 restoreOriginalStatementValue={restoreOriginalStatementValue}
                 setEditingValueWithStatementId={setEditingValueWithStatementId}
+                setOriginalEditingStatementValue={
+                  setOriginalEditingStatementValue
+                }
+                setCurrentEditingStatementValue={
+                  setCurrentEditingStatementValue
+                }
+                onDragEnd={onDragEnd}
               />
               {/* <DndContext
                 sensors={sensors}
