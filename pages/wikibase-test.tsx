@@ -100,7 +100,7 @@ export default function WikibaseTest() {
     useState<string | null>(null);
   const [currentEditingQualifierValue, setCurrentEditingQualifierValue] =
     useState('');
-  const [originalEditingQualfierValue, setOriginalEditingQualifierValue] =
+  const [originalEditingQualifierValue, setOriginalEditingQualifierValue] =
     useState('');
   const [deletedQualifierIds, setDeletedQualifierIds] = useState<string[]>([]);
   const [changedQualifiers, setChangedQualifiers] = useState<QualifierChange[]>(
@@ -365,7 +365,7 @@ export default function WikibaseTest() {
         }
 
         const isDeleted = deletedStatementIds.includes(record.statementId);
-        const isChanged = isChangedStatement(record.statementId);
+        // const isChanged = isChangedStatement(record.statementId);
 
         return (
           <SortableQualifiers
@@ -377,7 +377,7 @@ export default function WikibaseTest() {
             restoreQualifier={restoreQualifier}
             idLookup={idLookup}
             isDeleted={isDeleted}
-            isChanged={isChanged}
+            // isChanged={isChanged}
             editingValueWithQualifierId={editingValueWithQualifierId}
             isChangedQualifier={isChangedQualifier}
             setEditingValueWithQualifierId={setEditingValueWithQualifierId}
@@ -388,6 +388,7 @@ export default function WikibaseTest() {
             }
             handleSaveQualifierEditing={handleSaveQualifierEditing}
             cancelEditingQualifierValue={cancelEditingQualifierValue}
+            restoreOriginalQualifierValue={restoreOriginalQualifierValue}
           />
         );
       },
@@ -580,6 +581,41 @@ export default function WikibaseTest() {
     });
   };
 
+  const markQualifierAsChanged = () => {
+    if (!editingValueWithQualifierId) return;
+
+    setChangedQualifiers((prev) => {
+      // previous = das komplette changedStatements Array
+      // existingChange ist ein Eintrag in dem Array
+      const existingQualifierChange = prev.find(
+        (change) => change.qualifierId === editingValueWithQualifierId
+      );
+
+      if (existingQualifierChange) {
+        return prev.map((change) => {
+          if (change.qualifierId === editingValueWithQualifierId) {
+            return {
+              qualifierId: editingValueWithQualifierId,
+              originalValue: change.originalValue,
+              newValue: currentEditingQualifierValue,
+            };
+          }
+
+          return change;
+        });
+      }
+
+      return [
+        ...prev,
+        {
+          qualifierId: editingValueWithQualifierId,
+          originalValue: originalEditingQualifierValue,
+          newValue: currentEditingQualifierValue,
+        },
+      ];
+    });
+  };
+
   useEffect(() => {
     console.log('changedStatements:', changedStatements);
   }, [changedStatements]);
@@ -602,7 +638,7 @@ export default function WikibaseTest() {
   };
 
   const handleSaveQualifierEditing = () => {
-    // markQualifierAsChanged(); // noch implementieren
+    markQualifierAsChanged();
     saveEditingQualifierValue();
   };
 
@@ -670,6 +706,35 @@ export default function WikibaseTest() {
     );
   };
 
+  const restoreOriginalQualifierValue = (qualifierId: string) => {
+    const changedQualifier = changedQualifiers.find(
+      (change) => change.qualifierId === qualifierId
+    );
+
+    if (!changedQualifier) {
+      return;
+    }
+
+    setDataSource((prev) =>
+      prev.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) => ({
+          ...statement,
+          qualifiers: statement.qualifiers.map((qualifier) => {
+            if (qualifier.id === qualifierId) {
+              return { ...qualifier, value: changedQualifier.originalValue };
+            }
+            return qualifier;
+          }),
+        })),
+      }))
+    );
+
+    setChangedQualifiers((prev) =>
+      prev.filter((change) => change.qualifierId !== qualifierId)
+    );
+  };
+
   const options = [
     { value: 'prod', label: 'Prod' },
     { value: 'live', label: 'Live' },
@@ -719,6 +784,7 @@ export default function WikibaseTest() {
         </AutoComplete>
 
         {changedStatements.length > 0 ||
+        changedQualifiers.length > 0 ||
         deletedStatementIds.length > 0 ||
         deletedQualifierIds.length > 0 ? (
           <Button>Alle Änderungen übernehmen</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt

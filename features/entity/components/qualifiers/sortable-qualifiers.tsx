@@ -32,7 +32,6 @@ interface SortableQualifiersProps {
   restoreQualifier: (_statementId: string, qualifierId: string) => void;
   idLookup?: Record<string, string> | null;
   isDeleted: boolean;
-  isChanged: boolean;
   editingValueWithQualifierId: string | null;
   isChangedQualifier: (qualifierId: string) => boolean;
   setEditingValueWithQualifierId: React.Dispatch<
@@ -47,6 +46,7 @@ interface SortableQualifiersProps {
   ) => void;
   handleSaveQualifierEditing: () => void;
   cancelEditingQualifierValue: () => void;
+  restoreOriginalQualifierValue: (qualifierId: string) => void;
 }
 
 const formatEntityId = (
@@ -69,7 +69,6 @@ export const SortableQualifiers = ({
   restoreQualifier,
   idLookup,
   isDeleted,
-  isChanged,
   editingValueWithQualifierId,
   isChangedQualifier,
   setEditingValueWithQualifierId,
@@ -78,6 +77,7 @@ export const SortableQualifiers = ({
   handleEditingQualifierValueChange,
   handleSaveQualifierEditing,
   cancelEditingQualifierValue,
+  restoreOriginalQualifierValue,
 }: SortableQualifiersProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -151,7 +151,9 @@ export const SortableQualifiers = ({
                 style={{ cursor: 'pointer' }}
               />
               <RollbackOutlined
-                onClick={() => {}}
+                onClick={() => {
+                  restoreOriginalQualifierValue(record.id);
+                }}
                 style={{ cursor: 'pointer' }}
               />
             </span>
@@ -234,7 +236,7 @@ export const SortableQualifiers = ({
           rowClassName={(record) =>
             isDeleted || deletedQualifierIds.includes(record.id)
               ? 'row-deleted'
-              : isChanged
+              : isChangedQualifier(record.id)
               ? 'row-changed'
               : ''
           }
