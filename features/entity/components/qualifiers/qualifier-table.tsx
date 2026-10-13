@@ -23,7 +23,7 @@ import {
 } from '@ant-design/icons';
 import React, { ChangeEvent } from 'react';
 
-interface SortableQualifiersProps {
+interface QualifierTableProps {
   qualifiers: Qualifier[];
   statementId: string;
   deletedQualifierIds: string[];
@@ -78,7 +78,7 @@ export const QualifierTable = ({
   handleSaveQualifierEditing,
   cancelEditingQualifierValue,
   restoreOriginalQualifierValue,
-}: SortableQualifiersProps) => {
+}: QualifierTableProps) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const { TextArea } = Input;
