@@ -528,17 +528,20 @@ export default function WikibaseTest() {
   };
 
   const saveEditingQualifierValue = () => {
-    const newDataSource = dataSource.map((group) => ({
+    const updatedDataSource = dataSource.map((group) => ({
       ...group,
-      statements: group.statements.map((statement) => {
-        if (statement.statementId === editingValueWithStatementId) {
-          return { ...statement, value: currentEditingStatementValue };
-        }
-        return statement;
-      }),
-    })); // das hier ist noch falsch
+      statements: group.statements.map((statement) => ({
+        ...statement,
+        qualifiers: statement.qualifiers.map((qualifier) => {
+          if (qualifier.id === editingValueWithQualifierId) {
+            return { ...qualifier, value: currentEditingQualifierValue };
+          }
+          return qualifier;
+        }),
+      })),
+    }));
 
-    setDataSource(newDataSource);
+    setDataSource(updatedDataSource);
     setEditingValueWithQualifierId(null);
   };
 
