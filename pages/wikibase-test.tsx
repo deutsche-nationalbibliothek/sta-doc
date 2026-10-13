@@ -1,5 +1,4 @@
 import { ChangeEvent, useState, useEffect, useMemo } from 'react';
-import type { ColumnsType } from 'antd/es/table';
 import { debounce } from 'lodash';
 
 import type { DragEndEvent } from '@dnd-kit/core';
@@ -16,9 +15,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table, Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
-import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
-import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
+import { Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type {
@@ -41,6 +38,7 @@ import {
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 import { fuzzyLabelMatchScore } from '@/utils/fuzzy-label-match';
 import { useQueryParam } from 'use-query-params';
+import { StatementTable } from '@/features/entity/components/statements/statement-table';
 
 type IdLookup = Record<string, string>;
 
@@ -233,189 +231,6 @@ export default function WikibaseTest() {
   );
 
   // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
-
-  const { TextArea } = Input;
-
-  const statementColumns: ColumnsType<ParsedStatement> = [
-    { title: '', key: 'drag-handle', width: 40, render: () => null },
-    // {
-    //   title: 'Property',
-    //   dataIndex: 'propertyId',
-    //   key: 'propertyId',
-    // },
-    {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-      render: (value: string, record: ParsedStatement) => {
-        // record ist komplettes Statement, also Row (ist ein Objekt)
-        const isDeleted = deletedStatementIds.includes(record.statementId);
-
-        if (isDeleted) {
-          return value;
-        }
-
-        const opener = <WikibaseStatementLink statementKey={record.key} />;
-
-        console.log('statement record.datatype', record.datatype);
-
-        if (record.datatype !== 'string') {
-          return (
-            <span
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-            >
-              <span>{formatEntityId(value, idLookup)}</span>
-              {opener}
-            </span>
-          );
-        }
-
-        if (editingValueWithStatementId === record.statementId) {
-          return (
-            <div
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-            >
-              <TextArea
-                rows={4}
-                defaultValue={value}
-                autoFocus
-                onChange={handleEditingStatementValueChange}
-              />
-              <CheckOutlined
-                onClick={handleSaveStatementEditing}
-                style={{ cursor: 'pointer' }}
-              />
-              <CloseOutlined
-                onClick={cancelEditingStatementValue}
-                style={{ cursor: 'pointer' }}
-              />
-              {opener}
-            </div>
-          );
-        }
-
-        if (isChangedStatement(record.statementId)) {
-          return (
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              {value}
-              <EditOutlined
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setEditingValueWithStatementId(record.statementId);
-                  setOriginalEditingStatementValue(value);
-                  setCurrentEditingStatementValue(value);
-                }}
-              />
-              <RollbackOutlined
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  restoreOriginalStatementValue(record.statementId);
-                }}
-              />
-              {opener}
-            </span>
-          );
-        }
-
-        return (
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            {value}
-            <EditOutlined
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                setEditingValueWithStatementId(record.statementId);
-                setOriginalEditingStatementValue(value);
-                setCurrentEditingStatementValue(value);
-              }}
-            />
-            {opener}
-          </span>
-        );
-      },
-    },
-    // {
-    //   title: 'Datatype',
-    //   dataIndex: 'datatype',
-    //   key: 'datatype',
-    // },
-    // {
-    //   title: 'Type',
-    //   dataIndex: 'type',
-    //   key: 'type',
-    // },
-    {
-      title: 'Qualifiers',
-      dataIndex: 'qualifiers',
-      key: 'qualifiers',
-      render: (qualifiers: Qualifier[], record: ParsedStatement) => {
-        if (qualifiers.length === 0) {
-          return null;
-        }
-
-        const isDeleted = deletedStatementIds.includes(record.statementId);
-
-        return (
-          <QualifierTable
-            qualifiers={qualifiers}
-            statementId={record.key}
-            deletedQualifierIds={deletedQualifierIds}
-            onQualifierDragEnd={onQualifierDragEnd}
-            deleteQualifier={deleteQualifier}
-            restoreQualifier={restoreQualifier}
-            idLookup={idLookup}
-            isDeleted={isDeleted}
-            editingValueWithQualifierId={editingValueWithQualifierId}
-            isChangedQualifier={isChangedQualifier}
-            setEditingValueWithQualifierId={setEditingValueWithQualifierId}
-            setOriginalEditingQualifierValue={setOriginalEditingQualifierValue}
-            setCurrentEditingQualifierValue={setCurrentEditingQualifierValue}
-            handleEditingQualifierValueChange={
-              handleEditingQualifierValueChange
-            }
-            handleSaveQualifierEditing={handleSaveQualifierEditing}
-            cancelEditingQualifierValue={cancelEditingQualifierValue}
-            restoreOriginalQualifierValue={restoreOriginalQualifierValue}
-          />
-        );
-      },
-    },
-    {
-      title: '',
-      key: 'actions',
-      width: 40,
-      render: (_value, record) => {
-        const isDeleted = deletedStatementIds.includes(record.statementId);
-
-        return isDeleted ? (
-          <RollbackOutlined
-            onClick={() => {
-              restoreRow(record.statementId);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
-        ) : (
-          <DeleteOutlined
-            onClick={() => {
-              deleteRow(record.statementId);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
-        );
-      },
-    },
-  ];
 
   const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
@@ -835,7 +650,20 @@ export default function WikibaseTest() {
           dataSource.map((group, groupIndex) => (
             <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
               <h3>{formatEntityId(group.propertyId, idLookup)}</h3>
-              <DndContext
+              <StatementTable
+                deletedStatementIds={deletedStatementIds}
+                editingValueWithStatementId={editingValueWithStatementId}
+                handleEditingStatementValueChange={
+                  handleEditingStatementValueChange
+                }
+                handleSaveStatementEditing={handleSaveStatementEditing}
+                cancelEditingStatementValue={cancelEditingQualifierValue}
+                restoreRow={restoreRow}
+                deleteRow={deleteRow}
+                restoreOriginalStatementValue={restoreOriginalStatementValue}
+                setEditingValueWithStatementId={setEditingValueWithStatementId}
+              />
+              {/* <DndContext
                 sensors={sensors}
                 modifiers={[restrictToVerticalAxis]}
                 onDragEnd={(event) => onDragEnd(groupIndex, event)}
@@ -863,7 +691,7 @@ export default function WikibaseTest() {
                     }
                   />
                 </SortableContext>
-              </DndContext>
+              </DndContext> */}
             </div>
           ))
         ) : (

@@ -101,7 +101,7 @@ export const QualifierTable = ({
         console.log('qualifier record.datatype:', record.datatype);
 
         if (record.datatype !== 'wikibase-item') {
-          // ist das hier so richtig? sollen wikibase-items (qualifier) editiert werden können?
+          // ist das hier so richtig? sollen wikibase-items (qualifier) editiert werden können? oder brauche ich dafür nicht eigentlich eine eigene Entity-Auswahl?
           return (
             <div>
               <span>{formatEntityId(value, idLookup)}</span>
