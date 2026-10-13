@@ -17,7 +17,7 @@ import {
 } from '@dnd-kit/sortable';
 
 import { Table, Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
-import { SortableQualifiers } from '@/features/entity/components/qualifiers/sortable-qualifiers';
+import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
 import { SortableRow } from '@/features/entity/components/statements/sortable-row';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
@@ -368,7 +368,7 @@ export default function WikibaseTest() {
         // const isChanged = isChangedStatement(record.statementId);
 
         return (
-          <SortableQualifiers
+          <QualifierTable
             qualifiers={qualifiers}
             statementId={record.key}
             deletedQualifierIds={deletedQualifierIds}

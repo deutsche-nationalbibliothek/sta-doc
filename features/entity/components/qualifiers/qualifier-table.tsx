@@ -60,7 +60,7 @@ const formatEntityId = (
   return label ? `${label} (${id})` : id;
 };
 
-export const SortableQualifiers = ({
+export const QualifierTable = ({
   qualifiers,
   statementId,
   deletedQualifierIds,
