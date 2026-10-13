@@ -3,7 +3,8 @@ import { HolderOutlined } from '@ant-design/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-interface SortableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+interface SortableStatementProps
+  extends React.HTMLAttributes<HTMLTableRowElement> {
   'data-row-key': string;
 }
 
@@ -11,7 +12,7 @@ interface SortableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
 
 // Example: <Table rowKey="key" components={{ body: { row: SortableRow } }} ... />
 
-export const SortableRow = (props: SortableRowProps) => {
+export const SortableStatement = (props: SortableStatementProps) => {
   const {
     attributes,
     listeners,

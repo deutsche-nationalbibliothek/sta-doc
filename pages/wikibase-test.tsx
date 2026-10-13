@@ -18,7 +18,7 @@ import {
 
 import { Table, Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
-import { SortableRow } from '@/features/entity/components/statements/sortable-row';
+import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
 import type {
@@ -365,7 +365,6 @@ export default function WikibaseTest() {
         }
 
         const isDeleted = deletedStatementIds.includes(record.statementId);
-        // const isChanged = isChangedStatement(record.statementId);
 
         return (
           <QualifierTable
@@ -377,7 +376,6 @@ export default function WikibaseTest() {
             restoreQualifier={restoreQualifier}
             idLookup={idLookup}
             isDeleted={isDeleted}
-            // isChanged={isChanged}
             editingValueWithQualifierId={editingValueWithQualifierId}
             isChangedQualifier={isChangedQualifier}
             setEditingValueWithQualifierId={setEditingValueWithQualifierId}
@@ -834,7 +832,7 @@ export default function WikibaseTest() {
                     pagination={false}
                     components={{
                       body: {
-                        row: SortableRow,
+                        row: SortableStatement,
                       },
                     }}
                     rowKey="key"
