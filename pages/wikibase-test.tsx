@@ -554,6 +554,15 @@ export default function WikibaseTest() {
         (change) => change.statementId === editingValueWithStatementId
       );
 
+      const originalValue =
+        existingChange?.originalValue ?? originalEditingStatementValue;
+
+      if (currentEditingStatementValue === originalValue) {
+        return previous.filter(
+          (change) => change.statementId !== editingValueWithStatementId
+        );
+      }
+
       if (existingChange) {
         return previous.map((change) => {
           if (change.statementId === editingValueWithStatementId) {
@@ -588,6 +597,15 @@ export default function WikibaseTest() {
       const existingQualifierChange = prev.find(
         (change) => change.qualifierId === editingValueWithQualifierId
       );
+
+      const originalQualifierValue =
+        existingQualifierChange?.originalValue ?? originalEditingQualifierValue;
+
+      if (currentEditingQualifierValue === originalQualifierValue) {
+        return prev.filter(
+          (change) => change.qualifierId !== editingValueWithQualifierId
+        );
+      }
 
       if (existingQualifierChange) {
         return prev.map((change) => {
