@@ -1,6 +1,7 @@
 import { Tooltip } from 'antd';
 import { ExportOutlined } from '@ant-design/icons';
 
+// Builds the Wikibase URL of a single statement.
 const wikibaseStatementUrl = (statementKey: string) => {
   const entityId = statementKey.split('$')[0];
   const namespace = entityId.startsWith('P') ? 'Property' : 'Item';
@@ -11,6 +12,7 @@ const wikibaseStatementUrl = (statementKey: string) => {
   return `${base}/wiki/${namespace}:${entityId}#${statementKey}`;
 };
 
+// Icon link that opens a statement in Wikibase in a new tab.
 export const WikibaseStatementLink = ({
   statementKey,
 }: {
