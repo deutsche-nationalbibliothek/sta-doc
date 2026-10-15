@@ -5,14 +5,17 @@ import type {
   ParsedStatementGroup,
   StatementChange,
   QualifierChange,
+  IdLookup,
 } from '@/types/parsed/wikibase';
 
-export type IdLookup = Record<string, string>;
+// Contains all state and handlers of the Wikibase editor. Called once in "WikibaseEditorProvider". Components read it via "useWikibaseEditorContext".
 
+// Edits are not written back directly. They are tracked in "changed" and "deleted" so they can be reverted and sent to the backend in one go.
 export default function useWikibaseEditor() {
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
 
+  // Statament state
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
   const [currentEditingStatementValue, setCurrentEditingStatementValue] =
@@ -24,6 +27,7 @@ export default function useWikibaseEditor() {
     []
   );
 
+  // Qualifier state
   const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
     useState<string | null>(null);
   const [currentEditingQualifierValue, setCurrentEditingQualifierValue] =
@@ -35,6 +39,7 @@ export default function useWikibaseEditor() {
     []
   );
 
+  // Re-orders statements within one property group.
   const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
       setDataSource((prev) =>
@@ -64,6 +69,7 @@ export default function useWikibaseEditor() {
     }
   };
 
+  // Re-orders qualifiers within one statement (identified by its "key").
   const onQualifierDragEnd = (
     statementId: string,
     { active, over }: DragEndEvent
@@ -111,6 +117,7 @@ export default function useWikibaseEditor() {
     setCurrentEditingQualifierValue(e.target.value);
   };
 
+  // Writes the edited value into "dataSource" and leaves edit mode.
   const saveEditingStatementValue = () => {
     const newDataSource = dataSource.map((group) => ({
       ...group,
@@ -144,12 +151,18 @@ export default function useWikibaseEditor() {
     setEditingValueWithQualifierId(null);
   };
 
+  /* Updates "changedStatements" for the statement being edited:
+  - value equals the very first original value: remove the entry (no change)
+  - entry exists: update "newValue", keep the "originalValue"
+  - otherwise: add a new entry
+
+  The original value of an existing entry wins, so repeated edits can still be reverted to the value from Wikibase. */
   const markStatementAsChanged = () => {
     if (!editingValueWithStatementId) return;
 
     setChangedStatements((previous) => {
-      // previous = das komplette changedStatements Array
-      // existingChange ist ein Eintrag in dem Array
+      // previous = the complete changedStatements array existingChange is an entry in the array
+      // existingChange = one entry within this array
       const existingChange = previous.find(
         (change) => change.statementId === editingValueWithStatementId
       );
@@ -188,6 +201,7 @@ export default function useWikibaseEditor() {
     });
   };
 
+  // Same logic as "markStatementAsChanged", here for qualifiers.
   const markQualifierAsChanged = () => {
     if (!editingValueWithQualifierId) return;
 
@@ -232,6 +246,7 @@ export default function useWikibaseEditor() {
     });
   };
 
+  // Order matters: marking reads the editing id, saving resets it.
   const handleSaveStatementEditing = () => {
     markStatementAsChanged();
     saveEditingStatementValue();
@@ -262,6 +277,7 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // Soft delete: It marks the statement, which stays in "dataSource" (shown as deleted) so it can be restored.
   const deleteRow = (statementId: string) => {
     if (!window.confirm('Soll das Statement wirklich gelöscht werden?')) {
       return;
@@ -276,20 +292,22 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // "_statementId" is unused, but keeps the signature symmetric to function "onQualifierDragEnd" and the props of "QualifierTable".
   const deleteQualifier = (_statementId: string, qualifierId: string) => {
     if (!window.confirm('Soll der Qualifier wirklich gelöscht werden?')) {
       return;
     }
 
-    setDeletedQualifierIds((previous) => [...previous, qualifierId]); // nimm alle bisherigen IDs und füge die neue ID hinten hinzu
+    setDeletedQualifierIds((previous) => [...previous, qualifierId]); // take all previous IDs and add the new ID at the end
   };
 
   const restoreQualifier = (_statementId: string, qualifierId: string) => {
     setDeletedQualifierIds(
-      (previous) => previous.filter((id) => id !== qualifierId) // behalte alle IDs, die ungleich der qualifierId sind
+      (previous) => previous.filter((id) => id !== qualifierId) // keep all IDs that are not equal to the qualifierId
     );
   };
 
+  // Reverts an edited statement to its original value and drops the change.
   const restoreOriginalStatementValue = (statementId: string) => {
     const changedStatement = changedStatements.find(
       (change) => change.statementId === statementId
@@ -318,6 +336,7 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // Reverts an edited qualifier to its original value and drops the change.
   const restoreOriginalQualifierValue = (qualifierId: string) => {
     const changedQualifier = changedQualifiers.find(
       (change) => change.qualifierId === qualifierId
@@ -347,6 +366,7 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // Discards all pending edits and deletions. Called when another entity is loaded, so changes never extend into the next entity.
   const resetChanges = () => {
     setEditingValueWithStatementId(null);
     setEditingValueWithQualifierId(null);
@@ -395,4 +415,5 @@ export default function useWikibaseEditor() {
   };
 }
 
-export type WikibaseEditor = ReturnType<typeof useWikibaseEditor>; // typeof useWikibaseEditor determines the type of the useWikibaseEditor function automatically via TypeScript
+// typeof useWikibaseEditor determines the type of the useWikibaseEditor function automatically via TypeScript
+export type WikibaseEditor = ReturnType<typeof useWikibaseEditor>;
