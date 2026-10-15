@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { debounce } from 'lodash';
-import { Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
+import { Input, Segmented, Button, AutoComplete } from 'antd';
 import { useQueryParam } from 'use-query-params';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
@@ -41,7 +41,7 @@ const WikibaseTest = () => {
   const [loading, setLoading] = useState(false);
   const [entityNotFound, setEntityNotFound] = useState(false);
 
-  const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]); // brauchen wir das noch?
+  // const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
   const [idSearchOptions, setIdSearchOptions] = useState<
     { value: string; label: string }[]
   >([]);
@@ -105,30 +105,21 @@ const WikibaseTest = () => {
     return () => searchEntityIds.cancel();
   }, [searchEntityIds]);
 
-  const idSelectOptions = useMemo(() => {
-    const byValue = new Map<string, { value: string; label: string }>();
-    for (const id of pickedEntityIds) {
-      byValue.set(id, {
-        value: id,
-        label: formatEntityId(id, idLookup),
-      });
-    }
-    for (const option of idSearchOptions) {
-      if (!byValue.has(option.value)) {
-        byValue.set(option.value, option);
-      }
-    }
-    return [...byValue.values()];
-  }, [pickedEntityIds, idSearchOptions, idLookup]);
-
-  // const sensors = useSensors(
-  //   useSensor(PointerSensor, {
-  //     activationConstraint: {
-  //       // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-  //       distance: 3,
-  //     },
-  //   })
-  // );
+  // const idSelectOptions = useMemo(() => {
+  //   const byValue = new Map<string, { value: string; label: string }>();
+  //   for (const id of pickedEntityIds) {
+  //     byValue.set(id, {
+  //       value: id,
+  //       label: formatEntityId(id, idLookup),
+  //     });
+  //   }
+  //   for (const option of idSearchOptions) {
+  //     if (!byValue.has(option.value)) {
+  //       byValue.set(option.value, option);
+  //     }
+  //   }
+  //   return [...byValue.values()];
+  // }, [pickedEntityIds, idSearchOptions, idLookup]);
 
   const fetchEntity = async (id?: string) => {
     const entityIdToLoad = (id ?? entityId).trim();
@@ -210,7 +201,7 @@ const WikibaseTest = () => {
 
         <AutoComplete
           value={entityId}
-          options={idSelectOptions}
+          options={idSearchOptions}
           onChange={(value) => setEntityId(value)}
           onSearch={searchEntityIds}
           onSelect={(value) => {
@@ -220,7 +211,6 @@ const WikibaseTest = () => {
           filterOption={false}
           style={{ flex: '1 1 280px', maxWidth: '400px' }}
           disabled={loading}
-          // allowClear
         >
           <Input.Search
             className="entity-search"
@@ -274,7 +264,6 @@ const WikibaseTest = () => {
         ) : (
           'Noch keine Daten geladen.'
         )}
-        {}
       </div>
 
       <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
