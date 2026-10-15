@@ -33,4 +33,5 @@ export type QualifierChange = {
   originalValue: string;
   newValue: string;
 }
-  
+
+export type IdLookup = Record<string, string>;

@@ -31,42 +31,8 @@ import { QualifierTable } from '@/features/entity/components/qualifiers/qualifie
 import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
 
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
-
-type IdLookup = Record<string, string>;
-
-const formatEntityId = (id: string, idLookup: IdLookup | null) => {
-  if (!idLookup) {
-    return id;
-  }
-  const label = idLookup[id];
-  return label ? `${label} (${id})` : id;
-};
-
-const wikibaseStatementUrl = (statementKey: string) => {
-  const entityId = statementKey.split('$')[0];
-  const namespace = entityId.startsWith('P') ? 'Property' : 'Item';
-  const base = (
-    process.env.NEXT_PUBLIC_URL || 'https://edit.sta.dnb.de'
-  ).replace(/\/$/, '');
-
-  return `${base}/wiki/${namespace}:${entityId}#${statementKey}`;
-};
-
-const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
-  <Tooltip title="In Wikibase öffnen">
-    <a
-      href={wikibaseStatementUrl(statementKey)}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="In Wikibase öffnen"
-      className="wikibase-statement-link"
-      onClick={(event) => event.stopPropagation()}
-      onPointerDown={(event) => event.stopPropagation()}
-    >
-      <ExportOutlined />
-    </a>
-  </Tooltip>
-);
+import { formatEntityId } from '@/utils/format-entity-id';
+import { WikibaseStatementLink } from '@/features/entity/components/statements/wikibase-statement-link';
 
 interface StatementTableProps {
   group: ParsedStatementGroup;

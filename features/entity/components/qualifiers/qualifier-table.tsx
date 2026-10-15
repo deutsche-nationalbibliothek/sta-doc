@@ -20,6 +20,7 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
+import { formatEntityId } from '@/utils/format-entity-id';
 
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
 
@@ -29,17 +30,6 @@ interface QualifierTableProps {
   idLookup?: Record<string, string> | null;
   isDeleted: boolean;
 }
-
-const formatEntityId = (
-  id: string,
-  idLookup: Record<string, string> | null | undefined
-) => {
-  if (!idLookup) {
-    return id;
-  }
-  const label = idLookup[id];
-  return label ? `${label} (${id})` : id;
-};
 
 export const QualifierTable = ({
   qualifiers,

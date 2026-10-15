@@ -1,65 +1,19 @@
 import { useState, useEffect, useMemo } from 'react';
 import { debounce } from 'lodash';
-
 import { Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
+import { useQueryParam } from 'use-query-params';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
+import type { IdLookup } from '@/types/parsed/wikibase';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 import { fuzzyLabelMatchScore } from '@/utils/fuzzy-label-match';
-import { useQueryParam } from 'use-query-params';
+import { formatEntityId } from '@/utils/format-entity-id';
 import { StatementTable } from '@/features/entity/components/statements/statement-table';
-
 import {
   WikibaseEditorProvider,
   useWikibaseEditorContext,
 } from '@/features/entity/context/wikibase-editor-context';
-
-import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'; // brauche ich das hier noch?
-
-import type {
-  ParsedStatementGroup,
-  StatementChange,
-  QualifierChange,
-} from '@/types/parsed/wikibase'; // brauche ich das hier noch?
-
-import { ExportOutlined } from '@ant-design/icons'; // und das hier?
-
-type IdLookup = Record<string, string>;
-
-const formatEntityId = (id: string, idLookup: IdLookup | null) => {
-  if (!idLookup) {
-    return id;
-  }
-  const label = idLookup[id];
-  return label ? `${label} (${id})` : id;
-};
-
-const wikibaseStatementUrl = (statementKey: string) => {
-  const entityId = statementKey.split('$')[0];
-  const namespace = entityId.startsWith('P') ? 'Property' : 'Item';
-  const base = (
-    process.env.NEXT_PUBLIC_URL || 'https://edit.sta.dnb.de'
-  ).replace(/\/$/, '');
-
-  return `${base}/wiki/${namespace}:${entityId}#${statementKey}`;
-};
-
-const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
-  <Tooltip title="In Wikibase öffnen">
-    <a
-      href={wikibaseStatementUrl(statementKey)}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="In Wikibase öffnen"
-      className="wikibase-statement-link"
-      onClick={(event) => event.stopPropagation()}
-      onPointerDown={(event) => event.stopPropagation()}
-    >
-      <ExportOutlined />
-    </a>
-  </Tooltip>
-);
 
 export default function WikibaseTestPage() {
   return (
