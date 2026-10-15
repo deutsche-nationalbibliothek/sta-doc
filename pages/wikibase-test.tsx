@@ -1,44 +1,29 @@
-import { ChangeEvent, useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { debounce } from 'lodash';
-
-import type { DragEndEvent } from '@dnd-kit/core';
-import {
-  DndContext,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
 
 import { Input, Segmented, Button, Tooltip, AutoComplete } from 'antd';
 
 import type { WikibaseResponse } from '@/types/raw/wikibase';
-import type {
-  ParsedStatement,
-  ParsedStatementGroup,
-  Qualifier,
-  StatementChange,
-  QualifierChange,
-} from '@/types/parsed/wikibase';
-
-import {
-  EditOutlined,
-  CheckOutlined,
-  CloseOutlined,
-  ExportOutlined,
-  DeleteOutlined,
-  RollbackOutlined,
-} from '@ant-design/icons';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 import { fuzzyLabelMatchScore } from '@/utils/fuzzy-label-match';
 import { useQueryParam } from 'use-query-params';
 import { StatementTable } from '@/features/entity/components/statements/statement-table';
+
+import {
+  WikibaseEditorProvider,
+  useWikibaseEditorContext,
+} from '@/features/entity/context/wikibase-editor-context';
+
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'; // brauche ich das hier noch?
+
+import type {
+  ParsedStatementGroup,
+  StatementChange,
+  QualifierChange,
+} from '@/types/parsed/wikibase'; // brauche ich das hier noch?
+
+import { ExportOutlined } from '@ant-design/icons'; // und das hier?
 
 type IdLookup = Record<string, string>;
 
@@ -76,36 +61,32 @@ const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
   </Tooltip>
 );
 
-export default function WikibaseTest() {
+export default function WikibaseTestPage() {
+  return (
+    <WikibaseEditorProvider>
+      <WikibaseTest />
+    </WikibaseEditorProvider>
+  );
+}
+
+const WikibaseTest = () => {
+  const {
+    dataSource,
+    setDataSource,
+    idLookup,
+    setIdLookup,
+    resetChanges,
+    changedStatements,
+    changedQualifiers,
+    deletedStatementIds,
+    deletedQualifierIds,
+  } = useWikibaseEditorContext();
+
   const [entityId, setEntityId] = useState('');
   const [response, setResponse] = useState<WikibaseResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [entityNotFound, setEntityNotFound] = useState(false);
-  const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
 
-  const [editingValueWithStatementId, setEditingValueWithStatementId] =
-    useState<string | null>(null);
-  const [currentEditingStatementValue, setCurrentEditingStatementValue] =
-    useState('');
-  const [originalEditingStatementValue, setOriginalEditingStatementValue] =
-    useState('');
-  const [deletedStatementIds, setDeletedStatementIds] = useState<string[]>([]);
-  const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
-    []
-  );
-
-  const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
-    useState<string | null>(null);
-  const [currentEditingQualifierValue, setCurrentEditingQualifierValue] =
-    useState('');
-  const [originalEditingQualifierValue, setOriginalEditingQualifierValue] =
-    useState('');
-  const [deletedQualifierIds, setDeletedQualifierIds] = useState<string[]>([]);
-  const [changedQualifiers, setChangedQualifiers] = useState<QualifierChange[]>(
-    []
-  );
-
-  const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
   const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]); // brauchen wir das noch?
   const [idSearchOptions, setIdSearchOptions] = useState<
     { value: string; label: string }[]
@@ -186,80 +167,14 @@ export default function WikibaseTest() {
     return [...byValue.values()];
   }, [pickedEntityIds, idSearchOptions, idLookup]);
 
-  const onQualifierDragEnd = (
-    statementId: string,
-    { active, over }: DragEndEvent
-  ) => {
-    if (!over || active.id === over.id) return;
-
-    setDataSource((prev) =>
-      prev.map((group) => ({
-        ...group,
-        statements: group.statements.map((item) => {
-          if (item.key !== statementId) {
-            return item;
-          }
-
-          const activeIndex = item.qualifiers.findIndex(
-            (qualifier) => qualifier.id === active.id
-          );
-
-          const overIndex = item.qualifiers.findIndex(
-            (qualifier) => qualifier.id === over.id
-          );
-
-          if (activeIndex === -1 || overIndex === -1) {
-            return item;
-          }
-
-          return {
-            ...item,
-            qualifiers: arrayMove(item.qualifiers, activeIndex, overIndex),
-          };
-        }),
-      }))
-    );
-  };
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
-        distance: 3,
-      },
-    })
-  );
-
-  // const columns = [{ title: 'Property', dataIndex: "propertyId", key: "propertyId" }];
-
-  const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
-    if (active.id !== over?.id) {
-      setDataSource((prev) =>
-        prev.map((group, index) => {
-          if (index !== groupIndex) {
-            return group;
-          }
-
-          const activeIndex = group.statements.findIndex(
-            (statement) => statement.key === active.id
-          );
-
-          const overIndex = group.statements.findIndex(
-            (statement) => statement.key === over?.id
-          );
-
-          if (activeIndex === -1 || overIndex === -1) {
-            return group;
-          }
-
-          return {
-            ...group,
-            statements: arrayMove(group.statements, activeIndex, overIndex),
-          };
-        })
-      );
-    }
-  };
+  // const sensors = useSensors(
+  //   useSensor(PointerSensor, {
+  //     activationConstraint: {
+  //       // https://docs.dndkit.com/api-documentation/sensors/pointer#activation-constraints
+  //       distance: 3,
+  //     },
+  //   })
+  // );
 
   const fetchEntity = async (id?: string) => {
     const entityIdToLoad = (id ?? entityId).trim();
@@ -274,6 +189,7 @@ export default function WikibaseTest() {
     setEntityNotFound(false);
     setResponse(null);
     setDataSource([]);
+    resetChanges();
 
     try {
       const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
@@ -313,258 +229,6 @@ export default function WikibaseTest() {
       fetchEntity(entityIdParam);
     }
   }, [entityIdParam]);
-
-  const handleEditingStatementValueChange = (
-    e: ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setCurrentEditingStatementValue(e.target.value);
-  };
-
-  const handleEditingQualifierValueChange = (
-    e: ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setCurrentEditingQualifierValue(e.target.value);
-  };
-
-  const saveEditingStatementValue = () => {
-    const newDataSource = dataSource.map((group) => ({
-      ...group,
-      statements: group.statements.map((statement) => {
-        if (statement.statementId === editingValueWithStatementId) {
-          return { ...statement, value: currentEditingStatementValue };
-        }
-        return statement;
-      }),
-    }));
-
-    setDataSource(newDataSource);
-    setEditingValueWithStatementId(null);
-  };
-
-  const saveEditingQualifierValue = () => {
-    const updatedDataSource = dataSource.map((group) => ({
-      ...group,
-      statements: group.statements.map((statement) => ({
-        ...statement,
-        qualifiers: statement.qualifiers.map((qualifier) => {
-          if (qualifier.id === editingValueWithQualifierId) {
-            return { ...qualifier, value: currentEditingQualifierValue };
-          }
-          return qualifier;
-        }),
-      })),
-    }));
-
-    setDataSource(updatedDataSource);
-    setEditingValueWithQualifierId(null);
-  };
-
-  const markStatementAsChanged = () => {
-    if (!editingValueWithStatementId) return;
-
-    setChangedStatements((previous) => {
-      // previous = das komplette changedStatements Array
-      // existingChange ist ein Eintrag in dem Array
-      const existingChange = previous.find(
-        (change) => change.statementId === editingValueWithStatementId
-      );
-
-      const originalValue =
-        existingChange?.originalValue ?? originalEditingStatementValue;
-
-      if (currentEditingStatementValue === originalValue) {
-        return previous.filter(
-          (change) => change.statementId !== editingValueWithStatementId
-        );
-      }
-
-      if (existingChange) {
-        return previous.map((change) => {
-          if (change.statementId === editingValueWithStatementId) {
-            return {
-              statementId: editingValueWithStatementId,
-              originalValue: change.originalValue,
-              newValue: currentEditingStatementValue,
-            };
-          }
-
-          return change;
-        });
-      }
-
-      return [
-        ...previous,
-        {
-          statementId: editingValueWithStatementId,
-          originalValue: originalEditingStatementValue,
-          newValue: currentEditingStatementValue,
-        },
-      ];
-    });
-  };
-
-  const markQualifierAsChanged = () => {
-    if (!editingValueWithQualifierId) return;
-
-    setChangedQualifiers((prev) => {
-      // previous = das komplette changedStatements Array
-      // existingChange ist ein Eintrag in dem Array
-      const existingQualifierChange = prev.find(
-        (change) => change.qualifierId === editingValueWithQualifierId
-      );
-
-      const originalQualifierValue =
-        existingQualifierChange?.originalValue ?? originalEditingQualifierValue;
-
-      if (currentEditingQualifierValue === originalQualifierValue) {
-        return prev.filter(
-          (change) => change.qualifierId !== editingValueWithQualifierId
-        );
-      }
-
-      if (existingQualifierChange) {
-        return prev.map((change) => {
-          if (change.qualifierId === editingValueWithQualifierId) {
-            return {
-              qualifierId: editingValueWithQualifierId,
-              originalValue: change.originalValue,
-              newValue: currentEditingQualifierValue,
-            };
-          }
-
-          return change;
-        });
-      }
-
-      return [
-        ...prev,
-        {
-          qualifierId: editingValueWithQualifierId,
-          originalValue: originalEditingQualifierValue,
-          newValue: currentEditingQualifierValue,
-        },
-      ];
-    });
-  };
-
-  useEffect(() => {
-    console.log('changedStatements:', changedStatements);
-  }, [changedStatements]);
-
-  const isChangedStatement = (statementId: string) => {
-    return changedStatements.some(
-      (change) => change.statementId === statementId
-    );
-  };
-
-  const isChangedQualifier = (qualifierId: string) => {
-    return changedQualifiers.some(
-      (change) => change.qualifierId === qualifierId
-    );
-  };
-
-  const handleSaveStatementEditing = () => {
-    markStatementAsChanged();
-    saveEditingStatementValue();
-  };
-
-  const handleSaveQualifierEditing = () => {
-    markQualifierAsChanged();
-    saveEditingQualifierValue();
-  };
-
-  const cancelEditingStatementValue = () => {
-    setEditingValueWithStatementId(null);
-  };
-
-  const cancelEditingQualifierValue = () => {
-    setEditingValueWithQualifierId(null);
-  };
-
-  const deleteRow = (statementId: string) => {
-    if (!window.confirm('Soll das Statement wirklich gelöscht werden?')) {
-      return;
-    }
-
-    setDeletedStatementIds((prev) => [...prev, statementId]); // nimm alle bisherigen IDs und füge die neue ID hinten hinzu
-  };
-
-  const restoreRow = (statementId: string) => {
-    setDeletedStatementIds(
-      (previous) => previous.filter((id) => id !== statementId) // behalte alle IDs, die ungleich der statementId sind
-    );
-  };
-
-  const deleteQualifier = (_statementId: string, qualifierId: string) => {
-    if (!window.confirm('Soll der Qualifier wirklich gelöscht werden?')) {
-      return;
-    }
-
-    setDeletedQualifierIds((previous) => [...previous, qualifierId]); // nimm alle bisherigen IDs und füge die neue ID hinten hinzu
-  };
-
-  const restoreQualifier = (_statementId: string, qualifierId: string) => {
-    setDeletedQualifierIds(
-      (previous) => previous.filter((id) => id !== qualifierId) // behalte alle IDs, die ungleich der qualifierId sind
-    );
-  };
-
-  const restoreOriginalStatementValue = (statementId: string) => {
-    const changedStatement = changedStatements.find(
-      (change) => change.statementId === statementId
-    );
-
-    if (!changedStatement) {
-      return;
-    }
-
-    setDataSource((previous) =>
-      previous.map((group) => ({
-        ...group,
-        statements: group.statements.map((statement) =>
-          statement.statementId === statementId
-            ? {
-                ...statement,
-                value: changedStatement.originalValue,
-              }
-            : statement
-        ),
-      }))
-    );
-
-    setChangedStatements((previous) =>
-      previous.filter((change) => change.statementId !== statementId)
-    );
-  };
-
-  const restoreOriginalQualifierValue = (qualifierId: string) => {
-    const changedQualifier = changedQualifiers.find(
-      (change) => change.qualifierId === qualifierId
-    );
-
-    if (!changedQualifier) {
-      return;
-    }
-
-    setDataSource((prev) =>
-      prev.map((group) => ({
-        ...group,
-        statements: group.statements.map((statement) => ({
-          ...statement,
-          qualifiers: statement.qualifiers.map((qualifier) => {
-            if (qualifier.id === qualifierId) {
-              return { ...qualifier, value: changedQualifier.originalValue };
-            }
-            return qualifier;
-          }),
-        })),
-      }))
-    );
-
-    setChangedQualifiers((prev) =>
-      prev.filter((change) => change.qualifierId !== qualifierId)
-    );
-  };
 
   const options = [
     { value: 'prod', label: 'Prod' },
@@ -650,59 +314,7 @@ export default function WikibaseTest() {
           dataSource.map((group, groupIndex) => (
             <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
               <h3>{formatEntityId(group.propertyId, idLookup)}</h3>
-              <StatementTable
-                group={group}
-                groupIndex={groupIndex}
-                idLookup={idLookup}
-                deletedStatementIds={deletedStatementIds}
-                editingValueWithStatementId={editingValueWithStatementId}
-                handleEditingStatementValueChange={
-                  handleEditingStatementValueChange
-                }
-                handleSaveStatementEditing={handleSaveStatementEditing}
-                cancelEditingStatementValue={cancelEditingStatementValue}
-                isChangedStatement={isChangedStatement}
-                restoreRow={restoreRow}
-                deleteRow={deleteRow}
-                restoreOriginalStatementValue={restoreOriginalStatementValue}
-                setEditingValueWithStatementId={setEditingValueWithStatementId}
-                setOriginalEditingStatementValue={
-                  setOriginalEditingStatementValue
-                }
-                setCurrentEditingStatementValue={
-                  setCurrentEditingStatementValue
-                }
-                onDragEnd={onDragEnd}
-              />
-              {/* <DndContext
-                sensors={sensors}
-                modifiers={[restrictToVerticalAxis]}
-                onDragEnd={(event) => onDragEnd(groupIndex, event)}
-              >
-                <SortableContext
-                  items={group.statements.map((statement) => statement.key)}
-                  strategy={verticalListSortingStrategy}
-                >
-                  <Table
-                    columns={statementColumns}
-                    dataSource={group.statements}
-                    pagination={false}
-                    components={{
-                      body: {
-                        row: SortableStatement,
-                      },
-                    }}
-                    rowKey="key"
-                    rowClassName={(record) =>
-                      deletedStatementIds.includes(record.statementId)
-                        ? 'row-deleted'
-                        : isChangedStatement(record.statementId)
-                        ? 'row-changed'
-                        : ''
-                    }
-                  />
-                </SortableContext>
-              </DndContext> */}
+              <StatementTable group={group} groupIndex={groupIndex} />
             </div>
           ))
         ) : (
@@ -727,4 +339,4 @@ export default function WikibaseTest() {
       </div>
     </main>
   );
-}
+};

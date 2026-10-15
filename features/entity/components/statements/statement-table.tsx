@@ -11,7 +11,6 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   SortableContext,
@@ -30,7 +29,8 @@ import {
 
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
 import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
-import React, { ChangeEvent } from 'react';
+
+import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
 
 type IdLookup = Record<string, string>;
 
@@ -71,46 +71,26 @@ const WikibaseStatementLink = ({ statementKey }: { statementKey: string }) => (
 interface StatementTableProps {
   group: ParsedStatementGroup;
   groupIndex: number;
-  idLookup: IdLookup | null;
-  deletedStatementIds: string[];
-  editingValueWithStatementId: string | null;
-  handleEditingStatementValueChange: (
-    e: ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  handleSaveStatementEditing: () => void;
-  cancelEditingStatementValue: () => void;
-  isChangedStatement: (statementId: string) => boolean;
-  restoreRow: (statementId: string) => void;
-  deleteRow: (statementId: string) => void;
-  restoreOriginalStatementValue: (statementId: string) => void;
-  setEditingValueWithStatementId: React.Dispatch<
-    React.SetStateAction<string | null>
-  >;
-  setOriginalEditingStatementValue: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-  setCurrentEditingStatementValue: React.Dispatch<React.SetStateAction<string>>;
-  onDragEnd: (groupIndex: number, { active, over }: DragEndEvent) => void;
 }
 
-export const StatementTable = ({
-  group,
-  groupIndex,
-  idLookup,
-  deletedStatementIds,
-  editingValueWithStatementId,
-  handleEditingStatementValueChange,
-  handleSaveStatementEditing,
-  cancelEditingStatementValue,
-  isChangedStatement,
-  restoreRow,
-  deleteRow,
-  restoreOriginalStatementValue,
-  setEditingValueWithStatementId,
-  setOriginalEditingStatementValue,
-  setCurrentEditingStatementValue,
-  onDragEnd,
-}: StatementTableProps) => {
+export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
+  const {
+    idLookup,
+    deletedStatementIds,
+    editingValueWithStatementId,
+    handleEditingStatementValueChange,
+    handleSaveStatementEditing,
+    cancelEditingStatementValue,
+    isChangedStatement,
+    restoreRow,
+    deleteRow,
+    restoreOriginalStatementValue,
+    setEditingValueWithStatementId,
+    setOriginalEditingStatementValue,
+    setCurrentEditingStatementValue,
+    onDragEnd,
+  } = useWikibaseEditorContext();
+
   const { TextArea } = Input;
 
   const sensors = useSensors(
@@ -256,23 +236,7 @@ export const StatementTable = ({
           <QualifierTable
             qualifiers={qualifiers}
             statementId={record.key}
-            deletedQualifierIds={deletedQualifierIds}
-            onQualifierDragEnd={onQualifierDragEnd}
-            deleteQualifier={deleteQualifier}
-            restoreQualifier={restoreQualifier}
-            idLookup={idLookup}
             isDeleted={isDeleted}
-            editingValueWithQualifierId={editingValueWithQualifierId}
-            isChangedQualifier={isChangedQualifier}
-            setEditingValueWithQualifierId={setEditingValueWithQualifierId}
-            setOriginalEditingQualifierValue={setOriginalEditingQualifierValue}
-            setCurrentEditingQualifierValue={setCurrentEditingQualifierValue}
-            handleEditingQualifierValueChange={
-              handleEditingQualifierValueChange
-            }
-            handleSaveQualifierEditing={handleSaveQualifierEditing}
-            cancelEditingQualifierValue={cancelEditingQualifierValue}
-            restoreOriginalQualifierValue={restoreOriginalQualifierValue}
           />
         );
       },

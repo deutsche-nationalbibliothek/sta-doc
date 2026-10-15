@@ -1,4 +1,3 @@
-import type { DragEndEvent } from '@dnd-kit/core';
 import {
   DndContext,
   PointerSensor,
@@ -21,32 +20,14 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
-import React, { ChangeEvent } from 'react';
+
+import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
 
 interface QualifierTableProps {
   qualifiers: Qualifier[];
   statementId: string;
-  deletedQualifierIds: string[];
-  onQualifierDragEnd: (statementId: string, event: DragEndEvent) => void;
-  deleteQualifier: (_statementId: string, qualifierId: string) => void;
-  restoreQualifier: (_statementId: string, qualifierId: string) => void;
   idLookup?: Record<string, string> | null;
   isDeleted: boolean;
-  editingValueWithQualifierId: string | null;
-  isChangedQualifier: (qualifierId: string) => boolean;
-  setEditingValueWithQualifierId: React.Dispatch<
-    React.SetStateAction<string | null>
-  >;
-  setOriginalEditingQualifierValue: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-  setCurrentEditingQualifierValue: React.Dispatch<React.SetStateAction<string>>;
-  handleEditingQualifierValueChange: (
-    e: ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  handleSaveQualifierEditing: () => void;
-  cancelEditingQualifierValue: () => void;
-  restoreOriginalQualifierValue: (qualifierId: string) => void;
 }
 
 const formatEntityId = (
@@ -63,22 +44,25 @@ const formatEntityId = (
 export const QualifierTable = ({
   qualifiers,
   statementId,
-  deletedQualifierIds,
-  onQualifierDragEnd,
-  deleteQualifier,
-  restoreQualifier,
-  idLookup,
   isDeleted,
-  editingValueWithQualifierId,
-  isChangedQualifier,
-  setEditingValueWithQualifierId,
-  setOriginalEditingQualifierValue,
-  setCurrentEditingQualifierValue,
-  handleEditingQualifierValueChange,
-  handleSaveQualifierEditing,
-  cancelEditingQualifierValue,
-  restoreOriginalQualifierValue,
 }: QualifierTableProps) => {
+  const {
+    idLookup,
+    deletedQualifierIds,
+    onQualifierDragEnd,
+    deleteQualifier,
+    restoreQualifier,
+    editingValueWithQualifierId,
+    isChangedQualifier,
+    setEditingValueWithQualifierId,
+    setOriginalEditingQualifierValue,
+    setCurrentEditingQualifierValue,
+    handleEditingQualifierValueChange,
+    handleSaveQualifierEditing,
+    cancelEditingQualifierValue,
+    restoreOriginalQualifierValue,
+  } = useWikibaseEditorContext();
+
   const sensors = useSensors(useSensor(PointerSensor));
 
   const { TextArea } = Input;
