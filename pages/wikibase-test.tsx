@@ -15,6 +15,8 @@ import {
   useWikibaseEditorContext,
 } from '@/features/entity/context/wikibase-editor-context';
 
+//The provider must sit above the component that calls `useWikibaseEditorContext`, hence the wrapper.
+
 export default function WikibaseTestPage() {
   return (
     <WikibaseEditorProvider>
@@ -41,6 +43,7 @@ const WikibaseTest = () => {
   const [loading, setLoading] = useState(false);
   const [entityNotFound, setEntityNotFound] = useState(false);
 
+  // Kept for a possible multi-select search (see commented Select in the JSX).
   // const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
   const [idSearchOptions, setIdSearchOptions] = useState<
     { value: string; label: string }[]
@@ -49,6 +52,7 @@ const WikibaseTest = () => {
   const [entityIdParam, setEntityIdParam] = useQueryParam('entity');
   const [mode, setMode] = useQueryParam('live');
 
+  // The lookup does not depend on the entity, so it is loaded once on mount and not again in `fetchEntity`.
   useEffect(() => {
     fetch('/doc/api/entities/id-lookup')
       .then((res) => res.json())
@@ -56,6 +60,7 @@ const WikibaseTest = () => {
       .catch((error) => console.error('Failed to load id lookup:', error));
   }, []);
 
+  // Debounced autocomplete search. Ranking: exact ID match (3000) > ID prefix (2500) > ID contains (2200) > fuzzy label match. Keeps the best 50 hits.
   const searchEntityIds = useMemo(
     () =>
       debounce((searchText: string) => {
@@ -101,6 +106,7 @@ const WikibaseTest = () => {
     [idLookup]
   );
 
+  // Cancel a pending search on unmount so it cannot set state afterwards.
   useEffect(() => {
     return () => searchEntityIds.cancel();
   }, [searchEntityIds]);
@@ -121,6 +127,8 @@ const WikibaseTest = () => {
   //   return [...byValue.values()];
   // }, [pickedEntityIds, idSearchOptions, idLookup]);
 
+  // Loads an entity (given `id` or the current input) and fills the editor.
+  // Pending edits of the previous entity are discarded first. A 404 sets `entityNotFound`; other errors show a message.
   const fetchEntity = async (id?: string) => {
     const entityIdToLoad = (id ?? entityId).trim();
 
@@ -137,29 +145,33 @@ const WikibaseTest = () => {
     resetChanges();
 
     try {
-      const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
-        fetch(`/doc/api/entities/wikibase?id=${entityIdToLoad}`),
-        fetch(`/doc/api/entities/${entityIdToLoad}`),
-        fetch(`/doc/api/entities/id-lookup`),
-      ]);
+      // const [wikibaseRes, parsedRes, lookupRes] = await Promise.all([
+      //   fetch(`/doc/api/entities/wikibase?id=${entityIdToLoad}`),
+      //   fetch(`/doc/api/entities/${entityIdToLoad}`),
+      //   fetch(`/doc/api/entities/id-lookup`),
+      // ]);
 
-      if (wikibaseRes.status === 404 || parsedRes.status === 404) {
+      const wikibaseRes = await fetch(
+        `/doc/api/entities/wikibase?id=${entityIdToLoad}`
+      );
+
+      // if (wikibaseRes.status === 404 || parsedRes.status === 404)
+      if (wikibaseRes.status === 404) {
         setEntityNotFound(true);
         return;
       }
 
-      if (!wikibaseRes.ok || !parsedRes.ok || !lookupRes.ok) {
+      // if (!wikibaseRes.ok || !parsedRes.ok || !lookupRes.ok)
+      if (!wikibaseRes.ok) {
         throw new Error('Eine der API-Anfragen ist fehlgeschlagen.');
       }
 
       const data: WikibaseResponse = await wikibaseRes.json();
-      const resParsed = await parsedRes.json();
-      const lookup: IdLookup = await lookupRes.json();
+      // const resParsed = await parsedRes.json();
+      // const lookup: IdLookup = await lookupRes.json();
 
-      console.log('resParsed:', resParsed);
-      console.log('data:', data);
       setResponse(data);
-      setIdLookup(lookup);
+      // setIdLookup(lookup);
 
       setDataSource(parseWikibaseResponse(data, entityIdToLoad));
     } catch (e) {
@@ -169,6 +181,7 @@ const WikibaseTest = () => {
     }
   };
 
+  // Loads the entity from `?entity=...` on page load and when the param changes.
   useEffect(() => {
     if (typeof entityIdParam === 'string' && entityIdParam) {
       fetchEntity(entityIdParam);
