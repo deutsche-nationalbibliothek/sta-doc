@@ -9,10 +9,6 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-
-import { SortableQualifier } from './sortable-qualifier';
-import type { Qualifier } from '@/types/parsed/wikibase';
-import { Table, Input } from 'antd';
 import {
   CheckOutlined,
   CloseOutlined,
@@ -20,16 +16,22 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
-import { formatEntityId } from '@/utils/format-entity-id';
+import { Input, Table } from 'antd';
 
+import { SortableQualifier } from './sortable-qualifier';
+
+import { formatEntityId } from '@/utils/format-entity-id';
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
+
+import type { Qualifier } from '@/types/parsed/wikibase';
 
 interface QualifierTableProps {
   qualifiers: Qualifier[];
   statementId: string;
-  idLookup?: Record<string, string> | null;
   isDeleted: boolean;
 }
+
+const { TextArea } = Input;
 
 export const QualifierTable = ({
   qualifiers,
@@ -55,8 +57,6 @@ export const QualifierTable = ({
 
   const sensors = useSensors(useSensor(PointerSensor));
 
-  const { TextArea } = Input;
-
   const qualifierColumns = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
     {
@@ -72,15 +72,15 @@ export const QualifierTable = ({
       render: (value: string, record: Qualifier) => {
         // record.datatype === 'string' ? value : formatEntityId(value, idLookup);
 
-        console.log('qualifier record.datatype:', record.datatype);
+        if (
+          record.datatype === 'wikibase-item' ||
+          record.datatype === 'wikibase-property'
+        ) {
+          return <span>{formatEntityId(value, idLookup)}</span>;
+        }
 
-        if (record.datatype !== 'wikibase-item') {
-          // ist das hier so richtig? sollen wikibase-items (qualifier) editiert werden können? oder brauche ich dafür nicht eigentlich eine eigene Entity-Auswahl?
-          return (
-            <div>
-              <span>{formatEntityId(value, idLookup)}</span>
-            </div>
-          );
+        if (record.datatype !== 'string') {
+          return <span>{value}</span>;
         }
 
         if (editingValueWithQualifierId === record.id) {
