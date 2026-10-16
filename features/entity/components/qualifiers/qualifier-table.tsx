@@ -24,6 +24,7 @@ import type { ColumnsType } from 'antd/es/table';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
 import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
+import { QualifierValueCell } from '@/features/entity/components/qualifiers/qualifier-value-cell';
 import { formatEntityId } from '@/utils/format-entity-id';
 import { EntitySelect } from '@/features/entity/components/entity-select';
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
@@ -77,104 +78,9 @@ export const QualifierTable = ({
       title: t('table.value'),
       dataIndex: 'value',
       key: 'value',
-      render: (value: string, record: Qualifier) => {
-        const isItem = record.datatype === 'wikibase-item';
-
-        // Items are stored as IDs (for instance "Q5"), but shown with their label
-        const displayValue = isItem ? formatEntityId(value, idLookup) : value;
-
-        if (!editableDatatypes.includes(record.datatype)) {
-          return <span>{displayValue}</span>;
-        }
-
-        if (editingValueWithQualifierId === record.id) {
-          return (
-            <div
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-            >
-              {isItem ? (
-                <EntitySelect
-                  defaultValue={value}
-                  onSelect={setCurrentEditingQualifierValue}
-                />
-              ) : (
-                <TextArea
-                  rows={4}
-                  defaultValue={value}
-                  autoFocus
-                  onChange={handleEditingQualifierValueChange}
-                />
-              )}
-              <Tooltip title={t('table.save')}>
-                <CheckOutlined
-                  onClick={handleSaveQualifierEditing}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-              <Tooltip title={t('table.cancel')}>
-                <CloseOutlined
-                  onClick={cancelEditingQualifierValue}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-            </div>
-          );
-        }
-
-        if (isChangedQualifier(record.id)) {
-          return (
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              {displayValue}
-              <Tooltip title={t('table.edit')}>
-                <EditOutlined
-                  onClick={() => {
-                    setEditingValueWithQualifierId(record.id);
-                    setOriginalEditingQualifierValue(value);
-                    setCurrentEditingQualifierValue(value);
-                  }}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-              <Tooltip title={t('table.restore')}>
-                <RollbackOutlined
-                  onClick={() => {
-                    restoreOriginalQualifierValue(record.id);
-                  }}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-            </span>
-          );
-        }
-
-        return (
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            {displayValue}
-            <Tooltip title={t('table.edit')}>
-              <EditOutlined
-                onClick={() => {
-                  setEditingValueWithQualifierId(record.id);
-                  setOriginalEditingQualifierValue(value);
-                  setCurrentEditingQualifierValue(value);
-                }}
-                style={{ cursor: 'pointer' }}
-              />
-            </Tooltip>
-          </span>
-        );
-      },
+      render: (value: string, record: Qualifier) => (
+        <QualifierValueCell value={value} record={record} />
+      ),
     },
     {
       title: '',

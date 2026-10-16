@@ -12,22 +12,15 @@ import {
 
 import useTranslation from 'next-translate/useTranslation';
 
-import { Table, Input, Tooltip } from 'antd';
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  RollbackOutlined,
-} from '@ant-design/icons';
+import { Table, Tooltip } from 'antd';
+import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
 import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
+import { StatementValueCell } from '@/features/entity/components/statements/statement-value-cell';
 
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
-import { formatEntityId } from '@/utils/format-entity-id';
-import { WikibaseStatementLink } from '@/features/entity/components/statements/wikibase-statement-link';
 
 import type {
   ParsedStatement,
@@ -44,23 +37,12 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
   const { t } = useTranslation('wikibase');
 
   const {
-    idLookup,
     deletedStatementIds,
-    editingValueWithStatementId,
-    handleEditingStatementValueChange,
-    handleSaveStatementEditing,
-    cancelEditingStatementValue,
     isChangedStatement,
     restoreRow,
     deleteRow,
-    restoreOriginalStatementValue,
-    setEditingValueWithStatementId,
-    setOriginalEditingStatementValue,
-    setCurrentEditingStatementValue,
     onDragEnd,
   } = useWikibaseEditorContext();
-
-  const { TextArea } = Input;
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -82,111 +64,13 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
       title: t('table.value'),
       dataIndex: 'value',
       key: 'value',
-      render: (value: string, record: ParsedStatement) => {
-        // record ist komplettes Statement, also Row (ist ein Objekt)
-        const isDeleted = deletedStatementIds.includes(record.statementId);
-
-        if (isDeleted) {
-          return value;
-        }
-
-        const opener = <WikibaseStatementLink statementKey={record.key} />;
-
-        if (record.datatype !== 'string') {
-          return (
-            <span
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-            >
-              <span>{formatEntityId(value, idLookup)}</span>
-              {opener}
-            </span>
-          );
-        }
-
-        if (editingValueWithStatementId === record.statementId) {
-          return (
-            <div
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-            >
-              <TextArea
-                rows={4}
-                defaultValue={value}
-                autoFocus
-                onChange={handleEditingStatementValueChange}
-              />
-              <Tooltip title={t('table.save')}>
-                <CheckOutlined
-                  onClick={handleSaveStatementEditing}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-              <Tooltip title={t('table.cancel')}>
-                <CloseOutlined
-                  onClick={cancelEditingStatementValue}
-                  style={{ cursor: 'pointer' }}
-                />
-              </Tooltip>
-              {opener}
-            </div>
-          );
-        }
-
-        if (isChangedStatement(record.statementId)) {
-          return (
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              {value}
-              <Tooltip title={t('table.edit')}>
-                <EditOutlined
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    setEditingValueWithStatementId(record.statementId);
-                    setOriginalEditingStatementValue(value);
-                    setCurrentEditingStatementValue(value);
-                  }}
-                />
-              </Tooltip>
-              <Tooltip title={t('table.restore')}>
-                <RollbackOutlined
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    restoreOriginalStatementValue(record.statementId);
-                  }}
-                />
-              </Tooltip>
-              {opener}
-            </span>
-          );
-        }
-
-        return (
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            {value}
-            <Tooltip title={t('table.edit')}>
-              <EditOutlined
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setEditingValueWithStatementId(record.statementId);
-                  setOriginalEditingStatementValue(value);
-                  setCurrentEditingStatementValue(value);
-                }}
-              />
-            </Tooltip>
-            {opener}
-          </span>
-        );
-      },
+      render: (value: string, record: ParsedStatement) => (
+        <StatementValueCell
+          value={value}
+          record={record}
+          isDeleted={deletedStatementIds.includes(record.statementId)}
+        />
+      ),
     },
     // {
     //   title: 'Datatype',
