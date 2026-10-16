@@ -1,10 +1,3 @@
-import type {
-  ParsedStatement,
-  ParsedStatementGroup,
-  Qualifier,
-} from '@/types/parsed/wikibase';
-import type { ColumnsType } from 'antd/es/table';
-
 import {
   DndContext,
   PointerSensor,
@@ -17,7 +10,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table, Input } from 'antd';
+import useTranslation from 'next-translate/useTranslation';
+
+import { Table, Input, Tooltip } from 'antd';
 import {
   CheckOutlined,
   CloseOutlined,
@@ -25,6 +20,7 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
+import type { ColumnsType } from 'antd/es/table';
 
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
 import { SortableStatement } from '@/features/entity/components/statements/sortable-statement';
@@ -33,12 +29,20 @@ import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-edi
 import { formatEntityId } from '@/utils/format-entity-id';
 import { WikibaseStatementLink } from '@/features/entity/components/statements/wikibase-statement-link';
 
+import type {
+  ParsedStatement,
+  ParsedStatementGroup,
+  Qualifier,
+} from '@/types/parsed/wikibase';
+
 interface StatementTableProps {
   group: ParsedStatementGroup;
   groupIndex: number;
 }
 
 export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
+  const { t } = useTranslation('wikibase');
+
   const {
     idLookup,
     deletedStatementIds,
@@ -75,7 +79,7 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
     //   key: 'propertyId',
     // },
     {
-      title: 'Value',
+      title: t('table.value'),
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: ParsedStatement) => {
@@ -110,14 +114,18 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
                 autoFocus
                 onChange={handleEditingStatementValueChange}
               />
-              <CheckOutlined
-                onClick={handleSaveStatementEditing}
-                style={{ cursor: 'pointer' }}
-              />
-              <CloseOutlined
-                onClick={cancelEditingStatementValue}
-                style={{ cursor: 'pointer' }}
-              />
+              <Tooltip title={t('table.save')}>
+                <CheckOutlined
+                  onClick={handleSaveStatementEditing}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
+              <Tooltip title={t('table.cancel')}>
+                <CloseOutlined
+                  onClick={cancelEditingStatementValue}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
               {opener}
             </div>
           );
@@ -133,20 +141,24 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
               }}
             >
               {value}
-              <EditOutlined
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  setEditingValueWithStatementId(record.statementId);
-                  setOriginalEditingStatementValue(value);
-                  setCurrentEditingStatementValue(value);
-                }}
-              />
-              <RollbackOutlined
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  restoreOriginalStatementValue(record.statementId);
-                }}
-              />
+              <Tooltip title={t('table.edit')}>
+                <EditOutlined
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    setEditingValueWithStatementId(record.statementId);
+                    setOriginalEditingStatementValue(value);
+                    setCurrentEditingStatementValue(value);
+                  }}
+                />
+              </Tooltip>
+              <Tooltip title={t('table.restore')}>
+                <RollbackOutlined
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    restoreOriginalStatementValue(record.statementId);
+                  }}
+                />
+              </Tooltip>
               {opener}
             </span>
           );
@@ -161,14 +173,16 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
             }}
           >
             {value}
-            <EditOutlined
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                setEditingValueWithStatementId(record.statementId);
-                setOriginalEditingStatementValue(value);
-                setCurrentEditingStatementValue(value);
-              }}
-            />
+            <Tooltip title={t('table.edit')}>
+              <EditOutlined
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  setEditingValueWithStatementId(record.statementId);
+                  setOriginalEditingStatementValue(value);
+                  setCurrentEditingStatementValue(value);
+                }}
+              />
+            </Tooltip>
             {opener}
           </span>
         );
@@ -185,7 +199,7 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
     //   key: 'type',
     // },
     {
-      title: 'Qualifiers',
+      title: t('table.qualifiers'),
       dataIndex: 'qualifiers',
       key: 'qualifiers',
       render: (qualifiers: Qualifier[], record: ParsedStatement) => {
@@ -212,19 +226,23 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
         const isDeleted = deletedStatementIds.includes(record.statementId);
 
         return isDeleted ? (
-          <RollbackOutlined
-            onClick={() => {
-              restoreRow(record.statementId);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
+          <Tooltip title={t('table.restoreDeleted')}>
+            <RollbackOutlined
+              onClick={() => {
+                restoreRow(record.statementId);
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+          </Tooltip>
         ) : (
-          <DeleteOutlined
-            onClick={() => {
-              deleteRow(record.statementId);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
+          <Tooltip title={t('table.delete')}>
+            <DeleteOutlined
+              onClick={() => {
+                deleteRow(record.statementId);
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+          </Tooltip>
         );
       },
     },

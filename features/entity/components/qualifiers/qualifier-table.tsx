@@ -10,7 +10,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table, Input } from 'antd';
+import useTranslation from 'next-translate/useTranslation';
+
+import { Input, Table, Tooltip } from 'antd';
 import {
   CheckOutlined,
   CloseOutlined,
@@ -40,6 +42,8 @@ export const QualifierTable = ({
   statementId,
   isDeleted,
 }: QualifierTableProps) => {
+  const { t } = useTranslation('wikibase');
+
   const {
     idLookup,
     deletedQualifierIds,
@@ -64,13 +68,13 @@ export const QualifierTable = ({
   const qualifierColumns: ColumnsType<Qualifier> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
     {
-      title: 'Property',
+      title: t('table.property'),
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (propertyId: string) => formatEntityId(propertyId, idLookup),
     },
     {
-      title: 'Value',
+      title: t('table.value'),
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: Qualifier) => {
@@ -101,14 +105,18 @@ export const QualifierTable = ({
                   onChange={handleEditingQualifierValueChange}
                 />
               )}
-              <CheckOutlined
-                onClick={handleSaveQualifierEditing}
-                style={{ cursor: 'pointer' }}
-              />
-              <CloseOutlined
-                onClick={cancelEditingQualifierValue}
-                style={{ cursor: 'pointer' }}
-              />
+              <Tooltip title={t('table.save')}>
+                <CheckOutlined
+                  onClick={handleSaveQualifierEditing}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
+              <Tooltip title={t('table.cancel')}>
+                <CloseOutlined
+                  onClick={cancelEditingQualifierValue}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
             </div>
           );
         }
@@ -123,20 +131,24 @@ export const QualifierTable = ({
               }}
             >
               {displayValue}
-              <EditOutlined
-                onClick={() => {
-                  setEditingValueWithQualifierId(record.id);
-                  setOriginalEditingQualifierValue(value);
-                  setCurrentEditingQualifierValue(value);
-                }}
-                style={{ cursor: 'pointer' }}
-              />
-              <RollbackOutlined
-                onClick={() => {
-                  restoreOriginalQualifierValue(record.id);
-                }}
-                style={{ cursor: 'pointer' }}
-              />
+              <Tooltip title={t('table.edit')}>
+                <EditOutlined
+                  onClick={() => {
+                    setEditingValueWithQualifierId(record.id);
+                    setOriginalEditingQualifierValue(value);
+                    setCurrentEditingQualifierValue(value);
+                  }}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
+              <Tooltip title={t('table.restore')}>
+                <RollbackOutlined
+                  onClick={() => {
+                    restoreOriginalQualifierValue(record.id);
+                  }}
+                  style={{ cursor: 'pointer' }}
+                />
+              </Tooltip>
             </span>
           );
         }
@@ -150,14 +162,16 @@ export const QualifierTable = ({
             }}
           >
             {displayValue}
-            <EditOutlined
-              onClick={() => {
-                setEditingValueWithQualifierId(record.id);
-                setOriginalEditingQualifierValue(value);
-                setCurrentEditingQualifierValue(value);
-              }}
-              style={{ cursor: 'pointer' }}
-            />
+            <Tooltip title={t('table.edit')}>
+              <EditOutlined
+                onClick={() => {
+                  setEditingValueWithQualifierId(record.id);
+                  setOriginalEditingQualifierValue(value);
+                  setCurrentEditingQualifierValue(value);
+                }}
+                style={{ cursor: 'pointer' }}
+              />
+            </Tooltip>
           </span>
         );
       },
@@ -173,19 +187,23 @@ export const QualifierTable = ({
         }
 
         return deletedQualifierIds.includes(record.id) ? (
-          <RollbackOutlined
-            onClick={() => {
-              restoreQualifier(statementId, record.id);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
+          <Tooltip title={t('table.restoreDeleted')}>
+            <RollbackOutlined
+              onClick={() => {
+                restoreQualifier(statementId, record.id);
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+          </Tooltip>
         ) : (
-          <DeleteOutlined
-            onClick={() => {
-              deleteQualifier(statementId, record.id);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
+          <Tooltip title={t('table.delete')}>
+            <DeleteOutlined
+              onClick={() => {
+                deleteQualifier(statementId, record.id);
+              }}
+              style={{ cursor: 'pointer' }}
+            />
+          </Tooltip>
         );
       },
     },

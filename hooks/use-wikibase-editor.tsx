@@ -1,6 +1,10 @@
 import { ChangeEvent, useState } from 'react';
+
 import type { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
+
+import useTranslation from 'next-translate/useTranslation';
+
 import type {
   ParsedStatementGroup,
   StatementChange,
@@ -12,6 +16,8 @@ import type {
 
 // Edits are not written back directly. They are tracked in "changed" and "deleted" so they can be reverted and sent to the backend in one go.
 export default function useWikibaseEditor() {
+  const { t } = useTranslation('wikibase');
+
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
 
@@ -152,6 +158,7 @@ export default function useWikibaseEditor() {
   };
 
   /* Updates "changedStatements" for the statement being edited:
+  
   - value equals the very first original value: remove the entry (no change)
   - entry exists: update "newValue", keep the "originalValue"
   - otherwise: add a new entry
@@ -279,7 +286,7 @@ export default function useWikibaseEditor() {
 
   // Soft delete: It marks the statement, which stays in "dataSource" (shown as deleted) so it can be restored.
   const deleteRow = (statementId: string) => {
-    if (!window.confirm('Soll das Statement wirklich gelöscht werden?')) {
+    if (!window.confirm(t('confirm.deleteStatement'))) {
       return;
     }
 
@@ -294,7 +301,7 @@ export default function useWikibaseEditor() {
 
   // "_statementId" is unused, but keeps the signature symmetric to function "onQualifierDragEnd" and the props of "QualifierTable".
   const deleteQualifier = (_statementId: string, qualifierId: string) => {
-    if (!window.confirm('Soll der Qualifier wirklich gelöscht werden?')) {
+    if (!window.confirm(t('confirm.deleteQualifier'))) {
       return;
     }
 

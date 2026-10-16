@@ -1,0 +1,38 @@
+{
+    "page": {
+      "title": "Wikibase-Testseite",
+      "tableHeading": "Tabellarische Response-Werte",
+      "jsonHeading": "Vollständige Response als JSON",
+      "noData": "Noch keine Daten geladen.",
+      "notFound": "Entity {{id}} wurde nicht gefunden. Versuche es erneut mit einer anderen ID.",
+      "noResponse": "Da die Entity nicht geladen werden konnte, kann keine Response angezeigt werden."
+    },
+    "search": {
+      "placeholder": "Entity-ID oder Label suchen ...",
+      "selectPlaceholder": "ID oder Label suchen ...",
+      "load": "Entity laden",
+      "loading": "Lädt ..."
+    },
+    "actions": {
+      "applyAll": "Alle Änderungen übernehmen",
+      "openInWikibase": "In Wikibase öffnen"
+    },
+    "confirm": {
+      "deleteStatement": "Soll das Statement wirklich gelöscht werden?",
+      "deleteQualifier": "Soll der Qualifier wirklich gelöscht werden?"
+    },
+    "errors": {
+      "loadFailed": "Die Entity konnte nicht geladen werden."
+    },
+    "table": {
+        "property": "Eigenschaft",
+        "value": "Wert",
+        "qualifiers": "Qualifikatoren",
+        "edit": "Bearbeiten",
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "restore": "Ursprünglichen Wert wiederherstellen",
+        "delete": "Löschen",
+        "restoreDeleted": "Gelöschten Eintrag wiederherstellen"
+    }  
+}

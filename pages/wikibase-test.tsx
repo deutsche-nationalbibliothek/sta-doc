@@ -1,10 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
-import { debounce } from 'lodash';
+import { useState, useEffect } from 'react';
 import { Input, Segmented, Button, AutoComplete } from 'antd';
 import { useQueryParam } from 'use-query-params';
+import useTranslation from 'next-translate/useTranslation';
 
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
-import { fuzzyLabelMatchScore } from '@/utils/fuzzy-label-match';
 import { formatEntityId } from '@/utils/format-entity-id';
 import { StatementTable } from '@/features/entity/components/statements/statement-table';
 import {
@@ -27,6 +26,8 @@ export default function WikibaseTestPage() {
 }
 
 const WikibaseTest = () => {
+  const { t } = useTranslation('wikibase');
+
   const {
     dataSource,
     setDataSource,
@@ -144,7 +145,7 @@ const WikibaseTest = () => {
 
   return (
     <main>
-      <h1 style={{ marginTop: '3rem' }}>Wikibase-Testseite</h1>
+      <h1 style={{ marginTop: '3rem' }}>{t('page.title')}</h1>
 
       <div
         style={{
@@ -178,8 +179,8 @@ const WikibaseTest = () => {
             className="entity-search"
             type="text"
             onSearch={fetchEntity}
-            placeholder="Entity-ID oder Label suchen ..."
-            enterButton={loading ? 'Lädt ...' : 'Entity laden'}
+            placeholder={t('search.placeholder')}
+            enterButton={loading ? t('search.loading') : t('search.load')}
             disabled={loading}
           />
         </AutoComplete>
@@ -188,7 +189,7 @@ const WikibaseTest = () => {
         changedQualifiers.length > 0 ||
         deletedStatementIds.length > 0 ||
         deletedQualifierIds.length > 0 ? (
-          <Button>Alle Änderungen übernehmen</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
+          <Button>{t('actions.applyAll')}</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
         {/* <Select
@@ -208,14 +209,11 @@ const WikibaseTest = () => {
         /> */}
       </div>
 
-      <h2 style={{ marginTop: '3rem' }}>Tabellarische Response-Werte</h2>
+      <h2 style={{ marginTop: '3rem' }}>{t('page.tableHeading')}</h2>
 
       <div>
         {entityNotFound ? (
-          <p>
-            Entity {entityId} wurde nicht gefunden. Versuche es erneut mit einer
-            anderen ID.
-          </p>
+          <p>{t('page.notFound', { id: entityId })}</p>
         ) : response ? (
           dataSource.map((group, groupIndex) => (
             <div key={group.propertyId} style={{ marginBottom: '3rem' }}>
@@ -224,22 +222,19 @@ const WikibaseTest = () => {
             </div>
           ))
         ) : (
-          'Noch keine Daten geladen.'
+          t('page.noData')
         )}
       </div>
 
-      <h2 style={{ marginTop: '3rem' }}>Vollständige Response als JSON</h2>
+      <h2 style={{ marginTop: '3rem' }}>{t('page.jsonHeading')}</h2>
 
       <div style={{ marginTop: '1rem' }}>
         {entityNotFound ? (
-          <p>
-            Da die Entity nicht geladen werden konnte, kann keine Response
-            angezeigt werden.
-          </p>
+          <p>{t('page.noResponse')}</p>
         ) : response ? (
           <pre>{JSON.stringify(response, null, 2)}</pre>
         ) : (
-          <p>Noch keine Daten geladen.</p>
+          <p>{t('page.noData')}</p>
         )}
       </div>
     </main>
