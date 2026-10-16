@@ -17,14 +17,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import { Table, Input, Tooltip } from 'antd';
+import { Table, Input } from 'antd';
 import {
   CheckOutlined,
   CloseOutlined,
   DeleteOutlined,
   EditOutlined,
   RollbackOutlined,
-  ExportOutlined,
 } from '@ant-design/icons';
 
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
@@ -88,8 +87,6 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
         }
 
         const opener = <WikibaseStatementLink statementKey={record.key} />;
-
-        console.log('statement record.datatype', record.datatype);
 
         if (record.datatype !== 'string') {
           return (

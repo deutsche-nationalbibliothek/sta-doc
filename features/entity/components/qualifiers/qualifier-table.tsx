@@ -9,6 +9,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+
+import { Table, Input } from 'antd';
 import {
   CheckOutlined,
   CloseOutlined,
@@ -16,22 +18,22 @@ import {
   EditOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
-import { Input, Table } from 'antd';
-
-import { SortableQualifier } from './sortable-qualifier';
-
-import { formatEntityId } from '@/utils/format-entity-id';
-import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
+import type { ColumnsType } from 'antd/es/table';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
+import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
+import { formatEntityId } from '@/utils/format-entity-id';
+import { EntitySelect } from '@/features/entity/components/entity-select';
+import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
 
 interface QualifierTableProps {
   qualifiers: Qualifier[];
   statementId: string;
-  isDeleted: boolean;
+  isDeleted: boolean; // whole statement is deleted
 }
 
-const { TextArea } = Input;
+// Datatypes that can be edited. Everything else: read-only.
+const editableDatatypes = ['string', 'wikibase-item'];
 
 export const QualifierTable = ({
   qualifiers,
@@ -57,7 +59,9 @@ export const QualifierTable = ({
 
   const sensors = useSensors(useSensor(PointerSensor));
 
-  const qualifierColumns = [
+  const { TextArea } = Input;
+
+  const qualifierColumns: ColumnsType<Qualifier> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
     {
       title: 'Property',
@@ -70,17 +74,13 @@ export const QualifierTable = ({
       dataIndex: 'value',
       key: 'value',
       render: (value: string, record: Qualifier) => {
-        // record.datatype === 'string' ? value : formatEntityId(value, idLookup);
+        const isItem = record.datatype === 'wikibase-item';
 
-        if (
-          record.datatype === 'wikibase-item' ||
-          record.datatype === 'wikibase-property'
-        ) {
-          return <span>{formatEntityId(value, idLookup)}</span>;
-        }
+        // Items are stored as IDs (for instance "Q5"), but shown with their label
+        const displayValue = isItem ? formatEntityId(value, idLookup) : value;
 
-        if (record.datatype !== 'string') {
-          return <span>{value}</span>;
+        if (!editableDatatypes.includes(record.datatype)) {
+          return <span>{displayValue}</span>;
         }
 
         if (editingValueWithQualifierId === record.id) {
@@ -88,12 +88,19 @@ export const QualifierTable = ({
             <div
               style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
             >
-              <TextArea
-                rows={4}
-                defaultValue={value}
-                autoFocus
-                onChange={handleEditingQualifierValueChange}
-              />
+              {isItem ? (
+                <EntitySelect
+                  defaultValue={value}
+                  onSelect={setCurrentEditingQualifierValue}
+                />
+              ) : (
+                <TextArea
+                  rows={4}
+                  defaultValue={value}
+                  autoFocus
+                  onChange={handleEditingQualifierValueChange}
+                />
+              )}
               <CheckOutlined
                 onClick={handleSaveQualifierEditing}
                 style={{ cursor: 'pointer' }}
@@ -115,7 +122,7 @@ export const QualifierTable = ({
                 gap: '0.5rem',
               }}
             >
-              {value}
+              {displayValue}
               <EditOutlined
                 onClick={() => {
                   setEditingValueWithQualifierId(record.id);
@@ -142,7 +149,7 @@ export const QualifierTable = ({
               gap: '0.5rem',
             }}
           >
-            {value}
+            {displayValue}
             <EditOutlined
               onClick={() => {
                 setEditingValueWithQualifierId(record.id);
@@ -160,7 +167,7 @@ export const QualifierTable = ({
       key: 'actions',
       width: 40,
       render: (_value: string, record: Qualifier) => {
-        // falls das ganze Statement gelöscht ist, gibt es keine Actions
+        // If the whole statement is deleted, there are no actions available anymore.
         if (isDeleted) {
           return null;
         }

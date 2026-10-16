@@ -3,9 +3,6 @@ import { debounce } from 'lodash';
 import { Input, Segmented, Button, AutoComplete } from 'antd';
 import { useQueryParam } from 'use-query-params';
 
-import type { WikibaseResponse } from '@/types/raw/wikibase';
-import type { IdLookup } from '@/types/parsed/wikibase';
-
 import { parseWikibaseResponse } from '@/bin/data/parse/entities/entity/parse-wikibase-response';
 import { fuzzyLabelMatchScore } from '@/utils/fuzzy-label-match';
 import { formatEntityId } from '@/utils/format-entity-id';
@@ -14,6 +11,10 @@ import {
   WikibaseEditorProvider,
   useWikibaseEditorContext,
 } from '@/features/entity/context/wikibase-editor-context';
+import useEntitySearch from '@/hooks/use-entity-search';
+
+import type { WikibaseResponse } from '@/types/raw/wikibase';
+import type { IdLookup } from '@/types/parsed/wikibase';
 
 //The provider must sit above the component that calls `useWikibaseEditorContext`, hence the wrapper.
 
@@ -45,9 +46,6 @@ const WikibaseTest = () => {
 
   // Kept for a possible multi-select search (see commented Select in the JSX).
   // const [pickedEntityIds, setPickedEntityIds] = useState<string[]>([]);
-  const [idSearchOptions, setIdSearchOptions] = useState<
-    { value: string; label: string }[]
-  >([]);
 
   const [entityIdParam, setEntityIdParam] = useQueryParam('entity');
   const [mode, setMode] = useQueryParam('live');
@@ -60,56 +58,7 @@ const WikibaseTest = () => {
       .catch((error) => console.error('Failed to load id lookup:', error));
   }, []);
 
-  // Debounced autocomplete search. Ranking: exact ID match (3000) > ID prefix (2500) > ID contains (2200) > fuzzy label match. Keeps the best 50 hits.
-  const searchEntityIds = useMemo(
-    () =>
-      debounce((searchText: string) => {
-        if (!idLookup) {
-          setIdSearchOptions([]);
-          return;
-        }
-
-        const query = searchText.trim().toLowerCase();
-        if (!query) {
-          setIdSearchOptions([]);
-          return;
-        }
-
-        const scored: { value: string; label: string; score: number }[] = [];
-        for (const [id, label] of Object.entries(idLookup)) {
-          const idLower = id.toLowerCase();
-          let score = 0;
-          if (idLower === query) {
-            score = 3000;
-          } else if (idLower.startsWith(query)) {
-            score = 2500;
-          } else if (idLower.includes(query)) {
-            score = 2200;
-          } else {
-            score = fuzzyLabelMatchScore(query, label);
-          }
-
-          if (score > 0) {
-            scored.push({
-              value: id,
-              label: formatEntityId(id, idLookup),
-              score,
-            });
-          }
-        }
-
-        scored.sort((a, b) => b.score - a.score);
-        setIdSearchOptions(
-          scored.slice(0, 50).map(({ value, label }) => ({ value, label }))
-        );
-      }, 250),
-    [idLookup]
-  );
-
-  // Cancel a pending search on unmount so it cannot set state afterwards.
-  useEffect(() => {
-    return () => searchEntityIds.cancel();
-  }, [searchEntityIds]);
+  const { idSearchOptions, searchEntityIds } = useEntitySearch(idLookup);
 
   // const idSelectOptions = useMemo(() => {
   //   const byValue = new Map<string, { value: string; label: string }>();
