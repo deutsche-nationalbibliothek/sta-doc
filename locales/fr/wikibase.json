@@ -33,6 +33,7 @@
     "cancel": "Annuler",
     "restore": "Restaurer la valeur d’origine",
     "delete": "Supprimer",
-    "restoreDeleted": "Restaurer l'entrée supprimée"
+    "restoreDeleted": "Restaurer l'entrée supprimée",
+    "addStatement": "Ajouter une déclaration"
     }
 }

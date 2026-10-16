@@ -6,6 +6,7 @@ import { arrayMove } from '@dnd-kit/sortable';
 import useTranslation from 'next-translate/useTranslation';
 
 import type {
+  ParsedStatement,
   ParsedStatementGroup,
   StatementChange,
   QualifierChange,
@@ -32,6 +33,7 @@ export default function useWikibaseEditor() {
   const [changedStatements, setChangedStatements] = useState<StatementChange[]>(
     []
   );
+  const [newStatementIds, setNewStatementIds] = useState<string[]>([]);
 
   // Qualifier state
   const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
@@ -255,6 +257,21 @@ export default function useWikibaseEditor() {
 
   // Order matters: marking reads the editing id, saving resets it.
   const handleSaveStatementEditing = () => {
+    if (!editingValueWithStatementId) return;
+
+    // New statements must have a value before leaving edit mode.
+    if (
+      newStatementIds.includes(editingValueWithStatementId) &&
+      !currentEditingStatementValue.trim()
+    ) {
+      return;
+    }
+
+    if (newStatementIds.includes(editingValueWithStatementId)) {
+      saveEditingStatementValue();
+      return;
+    }
+
     markStatementAsChanged();
     saveEditingStatementValue();
   };
@@ -265,6 +282,24 @@ export default function useWikibaseEditor() {
   };
 
   const cancelEditingStatementValue = () => {
+    if (
+      editingValueWithStatementId &&
+      newStatementIds.includes(editingValueWithStatementId)
+    ) {
+      setDataSource((previous) =>
+        previous.map((group) => ({
+          ...group,
+          statements: group.statements.filter(
+            (statement) => statement.statementId !== editingValueWithStatementId
+          ),
+        }))
+      );
+
+      setNewStatementIds((previous) =>
+        previous.filter((id) => id !== editingValueWithStatementId)
+      );
+    }
+
     setEditingValueWithStatementId(null);
   };
 
@@ -373,6 +408,43 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // Adds a new, empty statement to the selected property group.
+  const addStatement = (groupIndex: number) => {
+    const group = dataSource[groupIndex];
+
+    if (!group) return;
+
+    const id = `new-${crypto.randomUUID()}`;
+
+    setEditingValueWithStatementId(id);
+    setOriginalEditingStatementValue('');
+    setCurrentEditingStatementValue('');
+
+    const newStatement: ParsedStatement = {
+      key: id,
+      statementId: id,
+      propertyId: group.propertyId,
+      snaktype: 'value',
+      value: '',
+      datatype: '',
+      type: 'statement',
+      qualifiers: [],
+    };
+
+    setDataSource((previous) =>
+      previous.map((item, index) =>
+        index === groupIndex
+          ? {
+              ...item,
+              statements: [...item.statements, newStatement],
+            }
+          : item
+      )
+    );
+
+    setNewStatementIds((previous) => [...previous, id]);
+  };
+
   // Discards all pending edits and deletions. Called when another entity is loaded, so changes never extend into the next entity.
   const resetChanges = () => {
     setEditingValueWithStatementId(null);
@@ -404,6 +476,8 @@ export default function useWikibaseEditor() {
     restoreRow,
     restoreOriginalStatementValue,
     onDragEnd,
+    addStatement,
+    newStatementIds,
 
     editingValueWithQualifierId,
     deletedQualifierIds,

@@ -12,6 +12,7 @@ export type ParsedStatement = {
     type: string;
     statementId: string;
     qualifiers: Qualifier[];
+    isNew?: boolean;
   };
 
 export type Qualifier = {

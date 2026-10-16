@@ -12,8 +12,12 @@ import {
 
 import useTranslation from 'next-translate/useTranslation';
 
-import { Table, Tooltip } from 'antd';
-import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
+import { Button, Table, Tooltip } from 'antd';
+import {
+  DeleteOutlined,
+  RollbackOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
 import { QualifierTable } from '@/features/entity/components/qualifiers/qualifier-table';
@@ -38,10 +42,12 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
 
   const {
     deletedStatementIds,
+    newStatementIds,
     isChangedStatement,
     restoreRow,
     deleteRow,
     onDragEnd,
+    addStatement,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(
@@ -155,12 +161,22 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
           rowClassName={(record) =>
             deletedStatementIds.includes(record.statementId)
               ? 'row-deleted'
-              : isChangedStatement(record.statementId)
+              : newStatementIds.includes(record.statementId) ||
+                isChangedStatement(record.statementId)
               ? 'row-changed'
               : ''
           }
         />
       </SortableContext>
+      <Tooltip title={t('table.addStatement')}>
+        <Button
+          type="text"
+          block
+          icon={<PlusOutlined />}
+          onClick={() => addStatement(groupIndex)}
+          style={{ backgroundColor: 'lightgray' }}
+        />
+      </Tooltip>
     </DndContext>
   );
 };

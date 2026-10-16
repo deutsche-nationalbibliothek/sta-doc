@@ -31,6 +31,7 @@ export const StatementValueCell = ({
   const {
     idLookup,
     editingValueWithStatementId,
+    newStatementIds,
     handleEditingStatementValueChange,
     handleSaveStatementEditing,
     cancelEditingStatementValue,
@@ -41,6 +42,8 @@ export const StatementValueCell = ({
     setCurrentEditingStatementValue,
   } = useWikibaseEditorContext();
 
+  const isNewStatement = newStatementIds.includes(record.statementId);
+
   // Deleted statements are displayed without editing actions.
   if (isDeleted) {
     return value;
@@ -48,7 +51,7 @@ export const StatementValueCell = ({
 
   const opener = <WikibaseStatementLink statementKey={record.key} />;
 
-  if (record.datatype !== 'string') {
+  if (record.datatype !== 'string' && !isNewStatement) {
     return (
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
         <span>{formatEntityId(value, idLookup)}</span>
@@ -93,7 +96,7 @@ export const StatementValueCell = ({
           gap: '0.5rem',
         }}
       >
-        {value}
+        {value || ''}
         <Tooltip title={t('table.edit')}>
           <EditOutlined
             style={{ cursor: 'pointer' }}
@@ -125,7 +128,7 @@ export const StatementValueCell = ({
         gap: '0.5rem',
       }}
     >
-      {value}
+      {value || ''}
       <Tooltip title={t('table.edit')}>
         <EditOutlined
           style={{ cursor: 'pointer' }}

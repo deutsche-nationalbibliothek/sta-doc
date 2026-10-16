@@ -33,6 +33,7 @@
         "cancel": "Abbrechen",
         "restore": "Ursprünglichen Wert wiederherstellen",
         "delete": "Löschen",
-        "restoreDeleted": "Gelöschten Eintrag wiederherstellen"
+        "restoreDeleted": "Gelöschten Eintrag wiederherstellen",
+        "addStatement": "Statement hinzufügen"
     }  
 }
