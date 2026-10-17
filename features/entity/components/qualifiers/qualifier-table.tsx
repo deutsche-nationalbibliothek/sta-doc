@@ -12,21 +12,14 @@ import {
 
 import useTranslation from 'next-translate/useTranslation';
 
-import { Input, Table, Tooltip } from 'antd';
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  RollbackOutlined,
-} from '@ant-design/icons';
+import { Table, Tooltip } from 'antd';
+import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
 import { SortableQualifier } from '@/features/entity/components/qualifiers/sortable-qualifier';
 import { QualifierValueCell } from '@/features/entity/components/qualifiers/qualifier-value-cell';
 import { formatEntityId } from '@/utils/format-entity-id';
-import { EntitySelect } from '@/features/entity/components/entity-select';
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
 
 interface QualifierTableProps {
@@ -34,9 +27,6 @@ interface QualifierTableProps {
   statementId: string;
   isDeleted: boolean; // whole statement is deleted
 }
-
-// Datatypes that can be edited. Everything else: read-only.
-const editableDatatypes = ['string', 'wikibase-item'];
 
 export const QualifierTable = ({
   qualifiers,
@@ -51,20 +41,10 @@ export const QualifierTable = ({
     onQualifierDragEnd,
     deleteQualifier,
     restoreQualifier,
-    editingValueWithQualifierId,
     isChangedQualifier,
-    setEditingValueWithQualifierId,
-    setOriginalEditingQualifierValue,
-    setCurrentEditingQualifierValue,
-    handleEditingQualifierValueChange,
-    handleSaveQualifierEditing,
-    cancelEditingQualifierValue,
-    restoreOriginalQualifierValue,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(useSensor(PointerSensor));
-
-  const { TextArea } = Input;
 
   const qualifierColumns: ColumnsType<Qualifier> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
@@ -128,6 +108,7 @@ export const QualifierTable = ({
         strategy={verticalListSortingStrategy}
       >
         <Table
+          tableLayout="fixed"
           columns={qualifierColumns}
           dataSource={qualifiers}
           rowKey="id"

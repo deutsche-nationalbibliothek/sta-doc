@@ -149,6 +149,7 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
         strategy={verticalListSortingStrategy}
       >
         <Table
+          tableLayout="fixed"
           columns={statementColumns}
           dataSource={group.statements}
           pagination={false}
