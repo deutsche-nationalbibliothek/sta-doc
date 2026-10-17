@@ -10,6 +10,7 @@
   "search": {
     "placeholder": "Rechercher un identifiant ou un libellé d'entité ...",
     "selectPlaceholder": "Rechercher un identifiant ou un libellé ...",
+    "placeholderProperty": "Trouver une propriété, par exemple P580",
     "load": "Charger l'entité",
     "loading": "Chargement ..."
     },
@@ -34,6 +35,7 @@
     "restore": "Restaurer la valeur d’origine",
     "delete": "Supprimer",
     "restoreDeleted": "Restaurer l'entrée supprimée",
-    "addStatement": "Ajouter une déclaration"
+    "addStatement": "Ajouter une déclaration",
+    "addQualifier": "Ajoutez un qualificatif"
     }
 }

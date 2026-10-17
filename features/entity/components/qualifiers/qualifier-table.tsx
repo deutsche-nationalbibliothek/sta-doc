@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   DndContext,
   PointerSensor,
@@ -12,8 +14,12 @@ import {
 
 import useTranslation from 'next-translate/useTranslation';
 
-import { Table, Tooltip } from 'antd';
-import { DeleteOutlined, RollbackOutlined } from '@ant-design/icons';
+import { AutoComplete, Button, Input, Table, Tooltip } from 'antd';
+import {
+  DeleteOutlined,
+  RollbackOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
 import type { Qualifier } from '@/types/parsed/wikibase';
@@ -21,6 +27,7 @@ import { SortableQualifier } from '@/features/entity/components/qualifiers/sorta
 import { QualifierValueCell } from '@/features/entity/components/qualifiers/qualifier-value-cell';
 import { formatEntityId } from '@/utils/format-entity-id';
 import { useWikibaseEditorContext } from '@/features/entity/context/wikibase-editor-context';
+import useEntitySearch from '@/hooks/use-entity-search';
 
 interface QualifierTableProps {
   qualifiers: Qualifier[];
@@ -42,9 +49,14 @@ export const QualifierTable = ({
     deleteQualifier,
     restoreQualifier,
     isChangedQualifier,
+    newQualifierIds,
+    addQualifier,
+    updateQualifierProperty,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(useSensor(PointerSensor));
+  const { idSearchOptions, searchEntityIds } = useEntitySearch(idLookup);
+  const [propertySearch, setPropertySearch] = useState('');
 
   const qualifierColumns: ColumnsType<Qualifier> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
@@ -52,7 +64,30 @@ export const QualifierTable = ({
       title: t('table.property'),
       dataIndex: 'propertyId',
       key: 'propertyId',
-      render: (propertyId: string) => formatEntityId(propertyId, idLookup),
+      render: (propertyId: string, record: Qualifier) => {
+        if (!newQualifierIds.includes(record.id)) {
+          return formatEntityId(propertyId, idLookup);
+        }
+
+        return (
+          <AutoComplete
+            value={propertySearch || propertyId}
+            options={idSearchOptions}
+            onSearch={(value) => {
+              setPropertySearch(value);
+              searchEntityIds(value);
+            }}
+            onSelect={(value) => {
+              updateQualifierProperty(record.id, value);
+              setPropertySearch('');
+            }}
+            filterOption={false}
+            style={{ width: '80%' }}
+          >
+            <Input placeholder={t('search.placeholderProperty')} />
+          </AutoComplete>
+        );
+      },
     },
     {
       title: t('table.value'),
@@ -128,6 +163,16 @@ export const QualifierTable = ({
           }
         />
       </SortableContext>
+      <Tooltip title={t('table.addQualifier')}>
+        <Button
+          type="text"
+          block
+          icon={<PlusOutlined />}
+          disabled={isDeleted}
+          onClick={() => addQualifier(statementId)}
+          style={{ backgroundColor: 'var(--light-gray)' }}
+        />
+      </Tooltip>
     </DndContext>
   );
 };

@@ -43,6 +43,7 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
   const {
     deletedStatementIds,
     newStatementIds,
+    editingValueWithStatementId,
     isChangedStatement,
     restoreRow,
     deleteRow,
@@ -93,17 +94,11 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
       dataIndex: 'qualifiers',
       key: 'qualifiers',
       render: (qualifiers: Qualifier[], record: ParsedStatement) => {
-        if (qualifiers.length === 0) {
-          return null;
-        }
-
-        const isDeleted = deletedStatementIds.includes(record.statementId);
-
         return (
           <QualifierTable
             qualifiers={qualifiers}
             statementId={record.key}
-            isDeleted={isDeleted}
+            isDeleted={deletedStatementIds.includes(record.statementId)}
           />
         );
       },
@@ -175,7 +170,8 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
           block
           icon={<PlusOutlined />}
           onClick={() => addStatement(groupIndex)}
-          style={{ backgroundColor: 'lightgray' }}
+          style={{ backgroundColor: 'var(--light-gray)' }}
+          disabled={editingValueWithStatementId !== null}
         />
       </Tooltip>
     </DndContext>

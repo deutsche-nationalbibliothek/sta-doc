@@ -10,6 +10,7 @@
     "search": {
       "placeholder": "Entity-ID oder Label suchen ...",
       "selectPlaceholder": "ID oder Label suchen ...",
+      "placeholderProperty": "Property suchen, z. B. P580",
       "load": "Entity laden",
       "loading": "Lädt ..."
     },
@@ -34,6 +35,7 @@
         "restore": "Ursprünglichen Wert wiederherstellen",
         "delete": "Löschen",
         "restoreDeleted": "Gelöschten Eintrag wiederherstellen",
-        "addStatement": "Statement hinzufügen"
+        "addStatement": "Statement hinzufügen",
+        "addQualifier": "Qualifier hinzufügen"
     }  
 }

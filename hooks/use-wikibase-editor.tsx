@@ -9,6 +9,7 @@ import type {
   ParsedStatement,
   ParsedStatementGroup,
   StatementChange,
+  Qualifier,
   QualifierChange,
   IdLookup,
 } from '@/types/parsed/wikibase';
@@ -22,7 +23,7 @@ export default function useWikibaseEditor() {
   const [dataSource, setDataSource] = useState<ParsedStatementGroup[]>([]);
   const [idLookup, setIdLookup] = useState<IdLookup | null>(null);
 
-  // Statament state
+  // Statament states
   const [editingValueWithStatementId, setEditingValueWithStatementId] =
     useState<string | null>(null);
   const [currentEditingStatementValue, setCurrentEditingStatementValue] =
@@ -35,7 +36,7 @@ export default function useWikibaseEditor() {
   );
   const [newStatementIds, setNewStatementIds] = useState<string[]>([]);
 
-  // Qualifier state
+  // Qualifier states
   const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
     useState<string | null>(null);
   const [currentEditingQualifierValue, setCurrentEditingQualifierValue] =
@@ -46,6 +47,7 @@ export default function useWikibaseEditor() {
   const [changedQualifiers, setChangedQualifiers] = useState<QualifierChange[]>(
     []
   );
+  const [newQualifierIds, setNewQualifierIds] = useState<string[]>([]);
 
   // Re-orders statements within one property group.
   const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
@@ -277,6 +279,17 @@ export default function useWikibaseEditor() {
   };
 
   const handleSaveQualifierEditing = () => {
+    if (!editingValueWithQualifierId) return;
+
+    if (newQualifierIds.includes(editingValueWithQualifierId)) {
+      if (!currentEditingQualifierValue.trim()) {
+        return;
+      }
+
+      saveEditingQualifierValue();
+      return;
+    }
+
     markQualifierAsChanged();
     saveEditingQualifierValue();
   };
@@ -304,6 +317,25 @@ export default function useWikibaseEditor() {
   };
 
   const cancelEditingQualifierValue = () => {
+    if (
+      editingValueWithQualifierId &&
+      newQualifierIds.includes(editingValueWithQualifierId)
+    ) {
+      setDataSource((previous) =>
+        previous.map((group) => ({
+          ...group,
+          statements: group.statements.map((statement) => ({
+            ...statement,
+            qualifiers: statement.qualifiers.filter(
+              (qualifier) => qualifier.id !== editingValueWithQualifierId
+            ),
+          })),
+        }))
+      );
+      setNewQualifierIds((previous) =>
+        previous.filter((id) => id !== editingValueWithQualifierId)
+      );
+    }
     setEditingValueWithQualifierId(null);
   };
 
@@ -445,6 +477,53 @@ export default function useWikibaseEditor() {
     setNewStatementIds((previous) => [...previous, id]);
   };
 
+  const addQualifier = (statementId: string) => {
+    const id = `new-${crypto.randomUUID()}`;
+
+    const newQualifier: Qualifier = {
+      id,
+      propertyId: '',
+      snaktype: 'value',
+      value: '',
+      datatype: '',
+    };
+
+    setDataSource((previous) =>
+      previous.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) =>
+          statement.key === statementId
+            ? {
+                ...statement,
+                qualifiers: [...statement.qualifiers, newQualifier],
+              }
+            : statement
+        ),
+      }))
+    );
+
+    setNewQualifierIds((previous) => [...previous, id]);
+    setEditingValueWithQualifierId(id);
+    setOriginalEditingQualifierValue('');
+    setCurrentEditingQualifierValue('');
+  };
+
+  const updateQualifierProperty = (qualifierId: string, propertyId: string) => {
+    setDataSource((previous) =>
+      previous.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) => ({
+          ...statement,
+          qualifiers: statement.qualifiers.map((qualifier) =>
+            qualifier.id === qualifierId
+              ? { ...qualifier, propertyId }
+              : qualifier
+          ),
+        })),
+      }))
+    );
+  };
+
   // Discards all pending edits and deletions. Called when another entity is loaded, so changes never extend into the next entity.
   const resetChanges = () => {
     setEditingValueWithStatementId(null);
@@ -453,6 +532,8 @@ export default function useWikibaseEditor() {
     setDeletedQualifierIds([]);
     setChangedStatements([]);
     setChangedQualifiers([]);
+    setNewStatementIds([]);
+    setNewQualifierIds([]);
   };
 
   return {
@@ -493,6 +574,9 @@ export default function useWikibaseEditor() {
     restoreQualifier,
     restoreOriginalQualifierValue,
     onQualifierDragEnd,
+    addQualifier,
+    newQualifierIds,
+    updateQualifierProperty,
   };
 }
 
