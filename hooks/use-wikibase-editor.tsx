@@ -673,6 +673,58 @@ export default function useWikibaseEditor() {
     setEditingValueWithQualifierId(null);
   };
 
+  // Collects all tracked changes in one object for later backend integration.
+  const collectTrackedChanges = () => {
+    return {
+      statements: {
+        updated: changedStatements,
+        deleted: deletedStatementIds,
+        created: dataSource.flatMap((group) =>
+          group.statements.filter((statement) =>
+            newStatementIds.includes(statement.statementId)
+          )
+        ),
+        reordered: dataSource
+          .filter((group) =>
+            group.statements.some((statement) =>
+              reorderedStatementIds.includes(statement.statementId)
+            )
+          )
+          .map((group) => ({
+            propertyId: group.propertyId,
+            statementIds: group.statements.map(
+              (statement) => statement.statementId
+            ),
+          })),
+      },
+      qualifiers: {
+        updated: changedQualifiers,
+        deleted: deletedQualifierIds,
+        created: dataSource.flatMap((group) =>
+          group.statements.flatMap((statement) =>
+            statement.qualifiers.filter((qualifier) =>
+              newQualifierIds.includes(qualifier.id)
+            )
+          )
+        ),
+        reordered: dataSource.flatMap((group) =>
+          group.statements
+            .filter((statement) =>
+              statement.qualifiers.some((qualifier) =>
+                reorderedQualifierIds.includes(qualifier.id)
+              )
+            )
+            .map((statement) => ({
+              statementId: statement.statementId,
+              qualifierIds: statement.qualifiers.map(
+                (qualifier) => qualifier.id
+              ),
+            }))
+        ),
+      },
+    };
+  };
+
   // Discards all pending edits and deletions. Called when another entity is loaded, so changes never extend into the next entity.
   const resetChanges = () => {
     setEditingValueWithStatementId(null);
@@ -685,6 +737,8 @@ export default function useWikibaseEditor() {
     setNewQualifierIds([]);
     setOriginalStatementOrder({});
     setReorderedStatementIds([]);
+    setOriginalQualifierOrder({});
+    setReorderedQualifierIds([]);
   };
 
   return {
@@ -693,6 +747,7 @@ export default function useWikibaseEditor() {
     idLookup,
     setIdLookup,
     resetChanges,
+    collectTrackedChanges,
 
     editingValueWithStatementId,
     deletedStatementIds,

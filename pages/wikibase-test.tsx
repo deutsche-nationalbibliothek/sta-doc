@@ -34,11 +34,15 @@ const WikibaseTest = () => {
     idLookup,
     setIdLookup,
     resetChanges,
+    collectTrackedChanges,
     changedStatements,
     changedQualifiers,
     deletedStatementIds,
     deletedQualifierIds,
     reorderedStatementIds,
+    reorderedQualifierIds,
+    newStatementIds,
+    newQualifierIds,
   } = useWikibaseEditorContext();
 
   const [entityId, setEntityId] = useState('');
@@ -190,8 +194,17 @@ const WikibaseTest = () => {
         changedQualifiers.length > 0 ||
         deletedStatementIds.length > 0 ||
         deletedQualifierIds.length > 0 ||
-        reorderedStatementIds.length > 0 ? (
-          <Button>{t('actions.applyAll')}</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
+        reorderedStatementIds.length > 0 ||
+        reorderedQualifierIds.length > 0 ||
+        newStatementIds.length > 0 ||
+        newQualifierIds.length > 0 ? (
+          <Button
+            onClick={() => {
+              console.log(collectTrackedChanges());
+            }}
+          >
+            {t('actions.applyAll')}
+          </Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
         {/* <Select
