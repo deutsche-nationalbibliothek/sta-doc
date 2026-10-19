@@ -22,7 +22,7 @@ export const EntitySelect = ({ defaultValue, onSelect }: EntitySelectProps) => {
       onSelect={onSelect}
       filterOption={false}
       autoFocus
-      style={{ width: 400 }}
+      style={{ width: '100%' }}
       placeholder={t('search.selectPlaceholder')}
     />
   );

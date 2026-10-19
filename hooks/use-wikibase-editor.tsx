@@ -485,7 +485,7 @@ export default function useWikibaseEditor() {
       propertyId: '',
       snaktype: 'value',
       value: '',
-      datatype: '',
+      datatype: 'wikibase-item',
     };
 
     setDataSource((previous) =>
@@ -522,6 +522,75 @@ export default function useWikibaseEditor() {
         })),
       }))
     );
+  };
+
+  const updateQualifierDatatype = (
+    qualifierId: string,
+    datatype: 'string' | 'wikibase-item'
+  ) => {
+    setDataSource((previous) =>
+      previous.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) => ({
+          ...statement,
+          qualifiers: statement.qualifiers.map((qualifier) =>
+            qualifier.id === qualifierId
+              ? { ...qualifier, datatype }
+              : qualifier
+          ),
+        })),
+      }))
+    );
+  };
+
+  const handleSelectQualifierItem = (id: string) => {
+    if (!editingValueWithQualifierId) return;
+
+    // Directly adopt the selected entity value.
+    setDataSource((previous) =>
+      previous.map((group) => ({
+        ...group,
+        statements: group.statements.map((statement) => ({
+          ...statement,
+          qualifiers: statement.qualifiers.map((qualifier) =>
+            qualifier.id === editingValueWithQualifierId
+              ? { ...qualifier, value: id }
+              : qualifier
+          ),
+        })),
+      }))
+    );
+
+    // Document the change for existing qualifiers
+    if (!newQualifierIds.includes(editingValueWithQualifierId)) {
+      setChangedQualifiers((previous) => {
+        const existing = previous.find(
+          (change) => change.qualifierId === editingValueWithQualifierId
+        );
+
+        const originalValue =
+          existing?.originalValue ?? originalEditingQualifierValue;
+
+        if (id === originalValue) {
+          return previous.filter(
+            (change) => change.qualifierId !== editingValueWithQualifierId
+          );
+        }
+
+        return [
+          ...previous.filter(
+            (change) => change.qualifierId !== editingValueWithQualifierId
+          ),
+          {
+            qualifierId: editingValueWithQualifierId,
+            originalValue,
+            newValue: id,
+          },
+        ];
+      });
+    }
+
+    setEditingValueWithQualifierId(null);
   };
 
   // Discards all pending edits and deletions. Called when another entity is loaded, so changes never extend into the next entity.
@@ -577,6 +646,7 @@ export default function useWikibaseEditor() {
     addQualifier,
     newQualifierIds,
     updateQualifierProperty,
+    updateQualifierDatatype,
   };
 }
 

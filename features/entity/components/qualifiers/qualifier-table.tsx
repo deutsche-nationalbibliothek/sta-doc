@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import {
   DndContext,
   PointerSensor,
@@ -14,11 +13,12 @@ import {
 
 import useTranslation from 'next-translate/useTranslation';
 
-import { AutoComplete, Button, Input, Table, Tooltip } from 'antd';
+import { AutoComplete, Button, Input, Select, Table, Tooltip } from 'antd';
 import {
   DeleteOutlined,
-  RollbackOutlined,
+  EditOutlined,
   PlusOutlined,
+  RollbackOutlined,
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 
@@ -41,6 +41,9 @@ export const QualifierTable = ({
   isDeleted,
 }: QualifierTableProps) => {
   const { t } = useTranslation('wikibase');
+  const [editingPropertyId, setEditingPropertyId] = useState<string | null>(
+    null
+  );
 
   const {
     idLookup,
@@ -52,11 +55,11 @@ export const QualifierTable = ({
     newQualifierIds,
     addQualifier,
     updateQualifierProperty,
+    updateQualifierDatatype,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(useSensor(PointerSensor));
   const { idSearchOptions, searchEntityIds } = useEntitySearch(idLookup);
-  const [propertySearch, setPropertySearch] = useState('');
 
   const qualifierColumns: ColumnsType<Qualifier> = [
     { title: '', key: 'drag-handle', width: 40, render: () => null },
@@ -65,27 +68,73 @@ export const QualifierTable = ({
       dataIndex: 'propertyId',
       key: 'propertyId',
       render: (propertyId: string, record: Qualifier) => {
-        if (!newQualifierIds.includes(record.id)) {
+        const isNew = newQualifierIds.includes(record.id);
+        const isEditing =
+          isNew && (!propertyId || editingPropertyId === record.id);
+
+        if (!isNew) {
           return formatEntityId(propertyId, idLookup);
         }
 
+        if (isEditing) {
+          return (
+            <AutoComplete
+              defaultValue={propertyId}
+              options={idSearchOptions}
+              onSearch={searchEntityIds}
+              onSelect={(value) => {
+                updateQualifierProperty(record.id, value);
+                setEditingPropertyId(null);
+              }}
+              filterOption={false}
+            >
+              <Input placeholder={t('search.placeholderProperty')} />
+            </AutoComplete>
+          );
+        }
+
         return (
-          <AutoComplete
-            value={propertySearch || propertyId}
-            options={idSearchOptions}
-            onSearch={(value) => {
-              setPropertySearch(value);
-              searchEntityIds(value);
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
             }}
-            onSelect={(value) => {
-              updateQualifierProperty(record.id, value);
-              setPropertySearch('');
-            }}
-            filterOption={false}
-            style={{ width: '80%' }}
           >
-            <Input placeholder={t('search.placeholderProperty')} />
-          </AutoComplete>
+            {formatEntityId(propertyId, idLookup)}
+
+            <Tooltip title={t('table.edit')}>
+              <EditOutlined
+                onClick={() => setEditingPropertyId(record.id)}
+                style={{ cursor: 'pointer' }}
+              />
+            </Tooltip>
+          </span>
+        );
+      },
+    },
+    {
+      title: 'Datentyp',
+      dataIndex: 'datatype',
+      key: 'datatype',
+      width: 160,
+      render: (datatype: string, record: Qualifier) => {
+        if (!newQualifierIds.includes(record.id)) {
+          return datatype;
+        }
+
+        return (
+          <Select
+            value={datatype || 'wikibase-item'}
+            style={{ width: '100%' }}
+            options={[
+              { value: 'string', label: 'string' },
+              { value: 'wikibase-item', label: 'wikibase-item' },
+            ]}
+            onChange={(value: 'string' | 'wikibase-item') => {
+              updateQualifierDatatype(record.id, value);
+            }}
+          />
         );
       },
     },
@@ -157,7 +206,8 @@ export const QualifierTable = ({
           rowClassName={(record) =>
             isDeleted || deletedQualifierIds.includes(record.id)
               ? 'row-deleted'
-              : isChangedQualifier(record.id)
+              : newQualifierIds.includes(record.id) ||
+                isChangedQualifier(record.id)
               ? 'row-changed'
               : ''
           }
