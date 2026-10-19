@@ -647,6 +647,7 @@ export default function useWikibaseEditor() {
     newQualifierIds,
     updateQualifierProperty,
     updateQualifierDatatype,
+    handleSelectQualifierItem,
   };
 }
 
