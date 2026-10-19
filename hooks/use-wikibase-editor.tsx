@@ -35,6 +35,12 @@ export default function useWikibaseEditor() {
     []
   );
   const [newStatementIds, setNewStatementIds] = useState<string[]>([]);
+  const [originalStatementOrder, setOriginalStatementOrder] = useState<
+    Record<string, string[]>
+  >({});
+  const [reorderedStatementIds, setReorderedStatementIds] = useState<string[]>(
+    []
+  );
 
   // Qualifier states
   const [editingValueWithQualifierId, setEditingValueWithQualifierId] =
@@ -48,35 +54,75 @@ export default function useWikibaseEditor() {
     []
   );
   const [newQualifierIds, setNewQualifierIds] = useState<string[]>([]);
+  const [originalQualifierOrder, setOriginalQualifierOrder] = useState<
+    Record<string, string[]>
+  >({});
+  const [reorderedQualifierIds, setReorderedQualifierIds] = useState<string[]>(
+    []
+  );
 
   // Re-orders statements within one property group.
   const onDragEnd = (groupIndex: number, { active, over }: DragEndEvent) => {
-    if (active.id !== over?.id) {
-      setDataSource((prev) =>
-        prev.map((group, index) => {
-          if (index !== groupIndex) {
-            return group;
-          }
+    if (!over || active.id === over.id) return;
 
-          const activeIndex = group.statements.findIndex(
-            (statement) => statement.key === active.id
-          );
+    const group = dataSource[groupIndex];
+    if (!group) return;
 
-          const overIndex = group.statements.findIndex(
-            (statement) => statement.key === over?.id
-          );
+    const activeIndex = group.statements.findIndex(
+      (statement) => statement.key === active.id
+    );
 
-          if (activeIndex === -1 || overIndex === -1) {
-            return group;
-          }
+    const overIndex = group.statements.findIndex(
+      (statement) => statement.key === over.id
+    );
 
-          return {
-            ...group,
-            statements: arrayMove(group.statements, activeIndex, overIndex),
-          };
-        })
-      );
+    if (activeIndex === -1 || overIndex === -1) return;
+
+    // Remember original order during first move
+    const originalOrder =
+      originalStatementOrder[group.propertyId] ??
+      group.statements.map((statement) => statement.statementId);
+
+    if (!originalStatementOrder[group.propertyId]) {
+      setOriginalStatementOrder((previous) => ({
+        ...previous,
+        [group.propertyId]: originalOrder,
+      }));
     }
+
+    const reorderedStatements = arrayMove(
+      group.statements,
+      activeIndex,
+      overIndex
+    );
+
+    // Compare current order with original order
+    const currentOrder = reorderedStatements.map(
+      (statement) => statement.statementId
+    );
+
+    const changedIds = currentOrder.filter(
+      (id, index) => originalOrder[index] !== id
+    );
+
+    // Update markings within this group.
+    const groupStatementIds = group.statements.map(
+      (statement) => statement.statementId
+    );
+
+    setReorderedStatementIds((previous) => [
+      ...previous.filter((id) => !groupStatementIds.includes(id)),
+      ...changedIds,
+    ]);
+
+    // Existing behavior: update order.
+    setDataSource((previous) =>
+      previous.map((item, index) =>
+        index === groupIndex
+          ? { ...item, statements: reorderedStatements }
+          : item
+      )
+    );
   };
 
   // Re-orders qualifiers within one statement (identified by its "key").
@@ -85,32 +131,65 @@ export default function useWikibaseEditor() {
     { active, over }: DragEndEvent
   ) => {
     if (!over || active.id === over.id) return;
+    // NEU: Das Statement finden, zu dem die Qualifier gehören.
+    const statement = dataSource
+      .flatMap((group) => group.statements)
+      .find((item) => item.key === statementId);
 
-    setDataSource((prev) =>
-      prev.map((group) => ({
+    if (!statement) return;
+
+    const activeIndex = statement.qualifiers.findIndex(
+      (qualifier) => qualifier.id === active.id
+    );
+
+    const overIndex = statement.qualifiers.findIndex(
+      (qualifier) => qualifier.id === over.id
+    );
+
+    if (activeIndex === -1 || overIndex === -1) return;
+
+    // Remember original order during first move
+    const originalOrder =
+      originalQualifierOrder[statementId] ??
+      statement.qualifiers.map((qualifier) => qualifier.id);
+
+    if (!originalQualifierOrder[statementId]) {
+      setOriginalQualifierOrder((previous) => ({
+        ...previous,
+        [statementId]: originalOrder,
+      }));
+    }
+
+    const reorderedQualifiers = arrayMove(
+      statement.qualifiers,
+      activeIndex,
+      overIndex
+    );
+
+    // Compare current order with original one.
+    const currentOrder = reorderedQualifiers.map((qualifier) => qualifier.id);
+
+    const changedIds = currentOrder.filter(
+      (id, index) => originalOrder[index] !== id
+    );
+
+    // update markings for this statement
+    const qualifierIds = statement.qualifiers.map((qualifier) => qualifier.id);
+
+    setReorderedQualifierIds((previous) => [
+      ...previous.filter((id) => !qualifierIds.includes(id)),
+      ...changedIds,
+    ]);
+
+    // Existing behavior: update order in dataSource
+    setDataSource((previous) =>
+      previous.map((group) => ({
         ...group,
-        statements: group.statements.map((item) => {
-          if (item.key !== statementId) {
-            return item;
-          }
-
-          const activeIndex = item.qualifiers.findIndex(
-            (qualifier) => qualifier.id === active.id
-          );
-
-          const overIndex = item.qualifiers.findIndex(
-            (qualifier) => qualifier.id === over.id
-          );
-
-          if (activeIndex === -1 || overIndex === -1) {
-            return item;
-          }
-
-          return {
-            ...item,
-            qualifiers: arrayMove(item.qualifiers, activeIndex, overIndex),
-          };
-        }),
+        statements: group.statements.map((item) =>
+          item.key === statementId
+            ? { ...item, qualifiers: reorderedQualifiers }
+            : item
+        ),
       }))
     );
   };
@@ -543,6 +622,7 @@ export default function useWikibaseEditor() {
     );
   };
 
+  // Updates the qualifier's entity ID, tracks changes for existing qualifiers, and exits editing mode
   const handleSelectQualifierItem = (id: string) => {
     if (!editingValueWithQualifierId) return;
 
@@ -603,6 +683,8 @@ export default function useWikibaseEditor() {
     setChangedQualifiers([]);
     setNewStatementIds([]);
     setNewQualifierIds([]);
+    setOriginalStatementOrder({});
+    setReorderedStatementIds([]);
   };
 
   return {
@@ -628,6 +710,7 @@ export default function useWikibaseEditor() {
     onDragEnd,
     addStatement,
     newStatementIds,
+    reorderedStatementIds,
 
     editingValueWithQualifierId,
     deletedQualifierIds,
@@ -648,6 +731,7 @@ export default function useWikibaseEditor() {
     updateQualifierProperty,
     updateQualifierDatatype,
     handleSelectQualifierItem,
+    reorderedQualifierIds,
   };
 }
 

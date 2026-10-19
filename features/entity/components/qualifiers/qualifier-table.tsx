@@ -56,6 +56,7 @@ export const QualifierTable = ({
     addQualifier,
     updateQualifierProperty,
     updateQualifierDatatype,
+    reorderedQualifierIds,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(useSensor(PointerSensor));
@@ -207,7 +208,8 @@ export const QualifierTable = ({
             isDeleted || deletedQualifierIds.includes(record.id)
               ? 'row-deleted'
               : newQualifierIds.includes(record.id) ||
-                isChangedQualifier(record.id)
+                isChangedQualifier(record.id) ||
+                reorderedQualifierIds.includes(record.id)
               ? 'row-changed'
               : ''
           }

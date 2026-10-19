@@ -49,6 +49,7 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
     deleteRow,
     onDragEnd,
     addStatement,
+    reorderedStatementIds,
   } = useWikibaseEditorContext();
 
   const sensors = useSensors(
@@ -158,7 +159,8 @@ export const StatementTable = ({ group, groupIndex }: StatementTableProps) => {
             deletedStatementIds.includes(record.statementId)
               ? 'row-deleted'
               : newStatementIds.includes(record.statementId) ||
-                isChangedStatement(record.statementId)
+                isChangedStatement(record.statementId) ||
+                reorderedStatementIds.includes(record.statementId)
               ? 'row-changed'
               : ''
           }

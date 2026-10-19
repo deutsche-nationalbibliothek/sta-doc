@@ -38,6 +38,7 @@ const WikibaseTest = () => {
     changedQualifiers,
     deletedStatementIds,
     deletedQualifierIds,
+    reorderedStatementIds,
   } = useWikibaseEditorContext();
 
   const [entityId, setEntityId] = useState('');
@@ -188,7 +189,8 @@ const WikibaseTest = () => {
         {changedStatements.length > 0 ||
         changedQualifiers.length > 0 ||
         deletedStatementIds.length > 0 ||
-        deletedQualifierIds.length > 0 ? (
+        deletedQualifierIds.length > 0 ||
+        reorderedStatementIds.length > 0 ? (
           <Button>{t('actions.applyAll')}</Button> // hier fehlt noch die Funktion, die alle Daten ins BE übernimmt
         ) : null}
 
