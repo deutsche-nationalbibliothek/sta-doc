@@ -1,88 +1,146 @@
 /* Wikibase test site table */
+/* These table styles can likely be deleted, as they related to a table that was originally built using HTML and CSS. That table has since been replaced by one from Ant Design (Antd). */
 
 .claims-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 1rem;
-  }
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1rem;
+}
   
-  .claims-table {
-    min-width: 1100px;
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    background: white;
-  }
+.claims-table {
+  min-width: 1100px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  background: white;
+}
   
-  .claims-table th,
-  .claims-table td {
-    border: 1px solid #ddd;
-    padding: 0.75rem;
-    text-align: left;
-    vertical-align: top;
-  }
+.claims-table th,
+.claims-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
   
-  .claims-table th {
-    background-color: #f3f4f6;
-    font-weight: 600;
-    color: #333;
-    position: sticky;
-    top: 0;
-  }
+.claims-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  color: #333;
+  position: sticky;
+  top: 0;
+}
   
-  .claims-table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-  }
+.claims-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
   
-  .claims-table tbody tr:hover {
-    background-color: #eef6ff;
-  }
+.claims-table tbody tr:hover {
+  background-color: #eef6ff;
+}
   
-  .claims-table td:first-child {
-    font-weight: 600;
-    white-space: nowrap;
-  }
+.claims-table td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
   
-  .claims-table .value {
-    min-width: 300px;
-    max-width: 600px;
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
+.claims-table .value {
+  min-width: 300px;
+  max-width: 600px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
   
-  .claims-table .hash,
-  .claims-table .statement-id {
-    font-family: monospace;
-    font-size: 0.8rem;
-    color: #666;
-  }
+.claims-table .hash,
+.claims-table .statement-id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #666;
+}
   
-  .claims-table .hash {
-    max-width: 220px;
-    overflow-wrap: anywhere;
-  }
+.claims-table .hash {
+  max-width: 220px;
+  overflow-wrap: anywhere;
+}
   
-  .claims-table .statement-id {
-    max-width: 280px;
-    overflow-wrap: anywhere;
-  }
+.claims-table .statement-id {
+  max-width: 280px;
+  overflow-wrap: anywhere;
+}
   
 
-  /* table style 1 */
-  
-  table.wrapped {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  table.wrapped td {
-    padding: 0.5rem;
-    vertical-align: top;
-  }
-  
-  table.wrapped td:first-child {
-    width: 40%;
-  }
+/* table style 1: two columns of equal width (50 %), gray header row */
 
+/* class: table-style-1 */
+
+table.table-style-1 {
+  width: 100%;
+  border: 1px solid var(--top-bar-color);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+table.table-style-1 th,
+table.table-style-1 td {
+  width: 50%;
+  border: 1px solid var(--top-bar-color);
+  padding: 8px;
+}
+
+table.table-style-1 th {
+  background-color: var(--light-gray);
+}
+
+/* table style 2: column split of 40 % to 60 %, horizontal dividing lines only */
+
+/* class: table-style-2 */
   
+table.table-style-2 {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+  
+table.table-style-2 td,
+table.table-style-2 th {
+  padding: 0.5rem;
+  vertical-align: top;
+  border: none;
+  border-bottom: 1px solid var(--top-bar-color);
+}
+
+table.table-style-2 td:first-child,
+table.table-style-2 th:first-child {
+  width: 40%;
+}
+
+table.table-style-2 td:nth-child(2),
+table.table-style-2 th:nth-child(2) {
+  width: 60%;
+}
+
+/* Last row without deviding line */
+table.table-style-2 tr:last-child td,
+table.table-style-2 tr:last-child th {
+  border-bottom: none;
+}
+
+/* 
+
+If the table styles are not applied automatically, it may help to increase the specificity by using the following pattern and add the class "wrapped":
+
+table.wrapped.table-style-1 {}
+table.wrapped.table-style-2 {}
+
+If that does not help, apply styles using "!important", for instance:
+
+table.table-style-1 {
+  width: 100% !important;
+  border: 1px solid var(--top-bar-color) !important;
+  border-collapse: collapse !important;
+  table-layout: fixed !important;
+}
+
+*/
