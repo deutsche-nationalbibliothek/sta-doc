@@ -32,6 +32,8 @@
     "docker:build": "DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 COMPOSE_PROGRESS=plain ./bin/docker-compose.sh -f docker-compose.yml -f docker-compose.prod.yml build",
     "docker:dev:up": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
     "docker:dev:build": "DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 COMPOSE_PROGRESS=plain docker-compose -f docker-compose.yml -f docker-compose.dev.yml build",
+    "docker:dev:down": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml down",
+    "docker:dev:nextjs:logs": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml logs -f nextjs",
     "docker:dev:solr:up": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d solr",
     "lint": "eslint pages components lib",
     "test": "NODE_OPTIONS='--max-old-space-size=6144' jest --watch",
