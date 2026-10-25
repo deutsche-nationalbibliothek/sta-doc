@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useMemo } from 'react';
 import { useQueryParam } from 'use-query-params';
 
-
 declare global {
   interface Window {
     data?: (fetchingParam: FetchingParam) => void;
@@ -24,6 +23,7 @@ interface RouterQuery {
 
 type FetchingQueryParamsContext = {
   query: RouterQuery;
+  setFetchingParam: UseQueryParamSetter<FetchingParam | undefined>;
 };
 
 export type QueryParam = string;
@@ -41,7 +41,7 @@ export default function FetchingQueryParamsProvider({
   // const locale = useRouter().locale;
   const [live, setLive] = useQueryParam('live') as [
     FetchingParam | undefined,
-    UseQueryParamSetter<FetchingParam | undefined>,
+    UseQueryParamSetter<FetchingParam | undefined>
   ];
 
   useEffect(() => {
@@ -65,7 +65,8 @@ export default function FetchingQueryParamsProvider({
   return (
     <FetchingQueryParamsContext.Provider
       value={{
-        query
+        query,
+        setFetchingParam: setLive,
       }}
     >
       {children}
