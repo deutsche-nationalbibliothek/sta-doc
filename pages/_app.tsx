@@ -1,4 +1,5 @@
 // import '../styles/globals.less';
+import '@ant-design/v5-patch-for-react-19';
 import type { AppProps } from 'next/app';
 import type { NextComponentType, NextPageContext } from 'next';
 import HeadlinesProvider from '@/hooks/headlines';

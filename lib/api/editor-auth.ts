@@ -18,17 +18,30 @@ export function parseErrorBody(body: unknown, status: number): EditorApiError {
       ? (body as Record<string, unknown>)
       : undefined;
 
-  const message =
+  let message =
     typeof record?.message === 'string'
       ? record.message
       : typeof body === 'string' && body
         ? body
         : 'Unbekannter Fehler';
 
-  const details =
+  if (message === 'Unbekannter Fehler' && status === 404) {
+    message = 'Editor-API nicht gefunden (404)';
+  }
+
+  let details =
     typeof record?.details === 'string' && record.details.trim()
       ? record.details
       : undefined;
+
+  if (
+    status === 404 &&
+    !details &&
+    message === 'Editor-API nicht gefunden (404)'
+  ) {
+    details =
+      'POST /sta-content/import-from-wikibase fehlt — bitte sta-doc-api neu deployen (z. B. bin/redeploy.ps1).';
+  }
 
   const validationResult =
     record?.validationResult &&

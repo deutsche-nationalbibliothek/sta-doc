@@ -12,6 +12,8 @@ import { SidebarSmallScreen } from './sidebar-small-screen';
 import { useInitialHeadlines } from '@/hooks/initial-headlines';
 import React from 'react';
 import { useHeadlines } from '@/hooks/headlines';
+import { useEditorChromeHidden } from '@/hooks/use-editor-chrome-hidden';
+import { EditorMinimalChrome } from './editor-minimal-chrome';
 
 export const layoutContentHeight = (isSmallScreen: boolean) =>
   isSmallScreen
@@ -51,8 +53,34 @@ const VerticalLayoutDivider = () => {
   );
 };
 
+const editorContentHeight = (isSmallScreen: boolean) =>
+  isSmallScreen
+    ? 'calc(100vh - var(--topbar-mobile-height))'
+    : 'calc(100vh - var(--topbar-height))';
+
 const Layout: React.FC<LayoutProps> = React.memo((props) => {
   const isSmallScreen = useIsSmallScreen();
+  const editorChromeHidden = useEditorChromeHidden();
+
+  if (editorChromeHidden) {
+    return (
+      <AntdLayout>
+        <LoadingIndicator />
+        <EditorMinimalChrome />
+        <AntdLayout
+          css={{
+            height: editorContentHeight(isSmallScreen),
+            backgroundColor: 'white',
+          }}
+        >
+          <EditorContent isSmallScreen={isSmallScreen}>
+            {props.children}
+          </EditorContent>
+        </AntdLayout>
+      </AntdLayout>
+    );
+  }
+
   return (
     <AntdLayout>
       <LoadingIndicator />
@@ -91,11 +119,13 @@ const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
   const { headlines } = useInitialHeadlines();
   const isSmallScreen = useIsSmallScreen();
   const { showHeadlines } = useHeadlines();
+  const editorChromeHidden = useEditorChromeHidden();
 
   const hasAndShouldShowHeadlines = Boolean(
     headlines && headlines.length > 1 && showHeadlines
   );
-  const showSidebar = !isSmallScreen && hasAndShouldShowHeadlines;
+  const showSidebar =
+    !editorChromeHidden && !isSmallScreen && hasAndShouldShowHeadlines;
 
   return (
     <>
@@ -104,6 +134,29 @@ const ContentSplitter: React.FC<PropsWithChildren> = ({ children }) => {
       </Splitter>
       {isSmallScreen && hasAndShouldShowHeadlines && <SidebarSmallScreen />}
     </>
+  );
+};
+
+const EditorContent: React.FC<
+  PropsWithChildren<{ isSmallScreen: boolean }>
+> = ({ children, isSmallScreen }) => {
+  const mainLayoutRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <AntdLayout.Content>
+      <div
+        css={{
+          overflowY: 'auto',
+          padding: isSmallScreen ? '16px 16px' : '24px 35px',
+          height: editorContentHeight(isSmallScreen),
+        }}
+        className="main-scroll-container"
+        id="main-scroll-container"
+        ref={mainLayoutRef}
+      >
+        {children}
+      </div>
+    </AntdLayout.Content>
   );
 };
 

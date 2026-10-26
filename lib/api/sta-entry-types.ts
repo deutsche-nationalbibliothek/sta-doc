@@ -71,8 +71,11 @@ export function primaryDocumentPropertyKey(entry: StaEntryDto): string {
 
 /** First document value on the entry, if any. */
 export function primaryDocumentSection(
-  entry: StaEntryDto
+  entry: StaEntryDto | null | undefined
 ): { propertyKey: string; value: Extract<StaValue, { kind: 'document' }> } | undefined {
+  if (!entry) {
+    return undefined;
+  }
   for (const section of entry.sections ?? []) {
     for (const value of section.values ?? []) {
       if (value.kind === 'document') {

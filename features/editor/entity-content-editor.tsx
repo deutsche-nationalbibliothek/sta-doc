@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   App,
@@ -11,6 +11,7 @@ import {
   Typography,
 } from 'antd';
 import Link from 'next/link';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { CloudDownloadOutlined } from '@ant-design/icons';
 import {
@@ -36,7 +37,21 @@ import {
 } from '@/lib/api/sta-entry-types';
 import { useAuth } from '@/hooks/use-auth';
 import { useAppLocale } from '@/hooks/use-app-locale';
+import { type EntityLocale } from '@/utils/locale-utils';
+
+function asEntityLocale(code: string): EntityLocale {
+  return code === 'fr' ? 'fr' : 'de';
+}
 import { DocumentHtmlEditor } from './document-html-editor';
+import { StringHtmlEditor } from './string-html-editor';
+import { stringValueLooksLikeHtml } from '@/lib/html-field-utils';
+import { DocumentActionsProvider } from './tiptap/document-actions-context';
+import { DraftPreviewBanner } from '@/components/draft-preview-banner';
+import {
+  hasUnpublishedChanges,
+  hasUnsavedChanges,
+} from '@/lib/api/sta-entry-compare';
+import { useEditorUnsavedChanges } from './editor-unsaved-changes-context';
 
 interface EntityContentEditorProps {
   entityId: string;
@@ -89,12 +104,19 @@ function formatApiError(error: EditorApiError): string {
 export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
   entityId,
 }) => {
-  const { canEdit, hasRole, loading: authLoading } = useAuth();
-  const { message } = App.useApp();
+  const { lang } = useTranslation('common');
+  const isDe = lang !== 'fr';
+  const { canEdit, loading: authLoading } = useAuth();
+  const { message, modal } = App.useApp();
   const pageLanguage = useAppLocale();
   const router = useRouter();
+  const { setHasUnsavedChanges } = useEditorUnsavedChanges();
   const [content, setContent] = useState<StaEntryDto | null>(null);
   const [baseline, setBaseline] = useState<StaEntryDto | null>(null);
+  /** `undefined` = live release not loaded yet; `null` = no published edition in release. */
+  const [publishedLive, setPublishedLive] = useState<
+    StaEntryDto | null | undefined
+  >(undefined);
   const [loading, setLoading] = useState(true);
   const [importing, setImporting] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -107,14 +129,33 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
   const [propertyLabels, setPropertyLabels] = useState<Record<string, string>>(
     {}
   );
-  const canImportFromWikibase = hasRole('REDAKTEUR');
   const sectionPropertyKeys = (content?.sections ?? [])
     .map((section) => section.propertyKey)
     .filter((key): key is string => Boolean(key));
 
+  const loadPublishedLive = useCallback(
+    async (language: string) => {
+      const liveResult = await getStaContent(entityId, {
+        language,
+        stage: 'live',
+      });
+      if (liveResult.data) {
+        setPublishedLive(cloneStaEntry(liveResult.data));
+        return;
+      }
+      if (liveResult.error?.status === 404) {
+        setPublishedLive(null);
+        return;
+      }
+      setPublishedLive(undefined);
+    },
+    [entityId]
+  );
+
   const loadContent = useCallback(async (language = DEFAULT_ENTRY_LANGUAGE) => {
     setLoading(true);
     setSaveError(undefined);
+    setPublishedLive(undefined);
     const result = await getStaContent(entityId, { language });
     if (result.error || !result.data) {
       setLoadError(
@@ -125,16 +166,18 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
       setLoadNotFound(result.error?.status === 404);
       setContent(null);
       setBaseline(null);
+      setPublishedLive(undefined);
     } else {
       const snapshot = cloneStaEntry(result.data);
       setContent(snapshot);
       setBaseline(cloneStaEntry(result.data));
-      setActiveLanguage(snapshot.language || language);
+      setActiveLanguage(asEntityLocale(snapshot.language || language));
       setLoadError(undefined);
       setLoadNotFound(false);
+      await loadPublishedLive(snapshot.language || language);
     }
     setLoading(false);
-  }, [entityId]);
+  }, [entityId, loadPublishedLive]);
 
   useEffect(() => {
     // Page locale selects the edition; the header control changes that locale.
@@ -164,10 +207,10 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
   }, [sectionPropertyKeys.join('|'), activeLanguage]);
 
   const onLanguageChange = (language: string) => {
-    if (
-      (language === 'de' || language === 'fr') &&
-      language !== pageLanguage
-    ) {
+    if (language !== 'de' && language !== 'fr') {
+      return;
+    }
+    if (language !== pageLanguage) {
       void router.push(
         { pathname: router.pathname, query: router.query },
         undefined,
@@ -199,15 +242,29 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
     setBaseline(cloneStaEntry(result.data));
     setLoadError(undefined);
     setLoadNotFound(false);
-    message.success('Seite aus Wikibase in die Working Copy importiert');
+    await loadPublishedLive(snapshot.language || activeLanguage);
+    message.success('Seite importiert');
   };
 
-  const onCancel = () => {
+  const revertToBaseline = useCallback(() => {
     if (baseline) {
       setContent(cloneStaEntry(baseline));
     }
     setSaveError(undefined);
-  };
+  }, [baseline]);
+
+  const onCancel = useCallback(() => {
+    modal.confirm({
+      title: isDe ? 'Ungespeicherte Änderungen' : 'Modifications non enregistrées',
+      content: isDe
+        ? 'Nicht gespeicherte Änderungen gehen verloren. Wirklich zurücksetzen?'
+        : 'Les modifications non enregistrées seront perdues. Voulez-vous vraiment réinitialiser ?',
+      okText: isDe ? 'Verwerfen' : 'Abandonner',
+      okType: 'danger',
+      cancelText: isDe ? 'Weiter bearbeiten' : 'Continuer la modification',
+      onOk: revertToBaseline,
+    });
+  }, [isDe, modal, revertToBaseline]);
 
   const onValidate = async () => {
     if (!content) {
@@ -257,8 +314,30 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
       setContent(snapshot);
       setBaseline(cloneStaEntry(result.data));
     }
-    message.success('Working Copy gespeichert');
+    message.success('Entwurf gespeichert');
   };
+
+  const showDraftPreviewBanner = useMemo(() => {
+    if (!content || publishedLive === undefined) {
+      return false;
+    }
+    return hasUnpublishedChanges(content, publishedLive, baseline);
+  }, [content, publishedLive, baseline]);
+
+  const unsaved = useMemo(
+    () => (content ? hasUnsavedChanges(content, baseline) : false),
+    [content, baseline]
+  );
+
+  useEffect(() => {
+    setHasUnsavedChanges(unsaved);
+    return () => setHasUnsavedChanges(false);
+  }, [unsaved, setHasUnsavedChanges]);
+
+  /** Bumps when server returns a new edition (PUT/import/load) — syncs TipTap to canonical HTML. */
+  const htmlServerSyncKey = content
+    ? `${content.entityVersion ?? 0}:${content.editionVersion ?? 0}`
+    : '0';
 
   if (authLoading || loading) {
     return <Spin />;
@@ -286,33 +365,20 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
       <Alert
         type={loadNotFound ? 'warning' : 'error'}
         message={
-          loadNotFound ? 'Seite nicht in der Working Copy' : loadError
+          loadNotFound
+            ? `Seite ${entityId} liegt noch nicht im Editor-System.`
+            : loadError
         }
         description={
           loadNotFound ? (
-            <Space direction="vertical" size="middle">
-              <span>
-                Entity <Typography.Text code>{entityId}</Typography.Text> ist noch
-                nicht in PostgreSQL importiert. Der Editor liest nur die Working
-                Copy — nicht Wikibase/Confluence.
-              </span>
-              {canImportFromWikibase ? (
-                <Button
-                  type="primary"
-                  icon={<CloudDownloadOutlined />}
-                  loading={importing}
-                  onClick={() => void onImportFromWikibase()}
-                >
-                  Aus Wikibase importieren
-                </Button>
-              ) : (
-                <span>
-                  Zum Import aus Wikibase ist die Rolle Redakteur erforderlich,
-                  oder nutzen Sie{' '}
-                  <Typography.Text code>bin/import-wave.ps1</Typography.Text>.
-                </span>
-              )}
-            </Space>
+            <Button
+              type="primary"
+              icon={<CloudDownloadOutlined />}
+              loading={importing}
+              onClick={() => void onImportFromWikibase()}
+            >
+              Jetzt importieren
+            </Button>
           ) : undefined
         }
         showIcon
@@ -324,12 +390,9 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
     return null;
   }
 
-  const viewHref = content.staNotation
-    ? `/${content.staNotation}`
-    : undefined;
-
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      {showDraftPreviewBanner && <DraftPreviewBanner />}
       <div>
         <Space align="center" wrap size="middle">
           <Typography.Title level={3} style={{ margin: 0 }}>
@@ -350,12 +413,6 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
           Entity: {entityId}
           {content.editionVersion != null && (
             <> · Fassungs-Version: {content.editionVersion}</>
-          )}
-          {viewHref && (
-            <>
-              {' · '}
-              <Link href={viewHref}>Zur Ansicht</Link>
-            </>
           )}
         </Typography.Paragraph>
       </div>
@@ -467,7 +524,7 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
                 sections: [],
                 labels: [],
               });
-              setActiveLanguage(newLanguage);
+              setActiveLanguage(asEntityLocale(newLanguage));
               setNewLanguage('');
             }}
           >
@@ -540,6 +597,16 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
       {(content.sections ?? []).map((section) => {
         const propertyKey = section.propertyKey || '?';
         const label = propertyLabels[propertyKey];
+        const valueKinds = [
+          ...new Set(
+            (section.values ?? [])
+              .map((value) => value.kind)
+              .filter(Boolean)
+          ),
+        ];
+        const valueIds = (section.values ?? [])
+          .map((value) => value.id?.trim())
+          .filter((id): id is string => Boolean(id));
         return (
           <div
             key={propertyKey}
@@ -549,53 +616,102 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
               marginTop: 8,
             }}
           >
-            <Typography.Text strong>
-              {label ? `${label} (${propertyKey})` : propertyKey}
-            </Typography.Text>
+            <Space size={8} align="baseline" wrap>
+              <Typography.Text strong>
+                {label ? `${label} (${propertyKey})` : propertyKey}
+              </Typography.Text>
+              {valueKinds.map((kind) => (
+                <Typography.Text key={kind} code>
+                  {kind}
+                </Typography.Text>
+              ))}
+              {valueIds.map((id) => (
+                <Typography.Text
+                  key={id}
+                  type="secondary"
+                  style={{ fontSize: 11, opacity: 0.75 }}
+                >
+                  {id}
+                </Typography.Text>
+              ))}
+            </Space>
             {(section.values ?? []).map((value, valueIndex) => (
               <div key={`${propertyKey}-${valueIndex}`} style={{ marginTop: 8 }}>
-                <Typography.Text type="secondary">
-                  {value.kind}
-                  {value.id ? ` · ${value.id}` : ''}
-                </Typography.Text>
                 {value.kind === 'document' && (
                   <div style={{ marginTop: 8 }}>
-                    <DocumentHtmlEditor
-                      html={value.html ?? ''}
-                      onChange={(html) =>
+                    <DocumentActionsProvider
+                      value={{
+                        mode: 'host',
+                        onSave: () => void onSave(),
+                        onCancel,
+                        onValidate: () => void onValidate(),
+                        saving,
+                        validating,
+                        cancelDisabled: !unsaved,
+                        saveLabel: 'Speichern',
+                        cancelLabel: 'Abbrechen',
+                      }}
+                    >
+                      <DocumentHtmlEditor
+                        serverSyncKey={htmlServerSyncKey}
+                        html={value.html ?? ''}
+                        onChange={(html) =>
+                          setContent(
+                            withDocumentHtml(
+                              content,
+                              activeLanguage,
+                              html,
+                              propertyKey
+                            )
+                          )
+                        }
+                      />
+                    </DocumentActionsProvider>
+                  </div>
+                )}
+                {value.kind === 'string' &&
+                  (stringValueLooksLikeHtml(value.value) ? (
+                    <div style={{ marginTop: 8 }}>
+                      <StringHtmlEditor
+                        serverSyncKey={htmlServerSyncKey}
+                        html={value.value ?? ''}
+                        onChange={(html) =>
+                          setContent(
+                            replaceSectionValue(
+                              content,
+                              activeLanguage,
+                              propertyKey,
+                              valueIndex,
+                              {
+                                ...value,
+                                value: html,
+                              } satisfies StaValue
+                            )
+                          )
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <Input.TextArea
+                      style={{ marginTop: 8 }}
+                      autoSize={{ minRows: 1, maxRows: 8 }}
+                      value={value.value ?? ''}
+                      onChange={(event) =>
                         setContent(
-                          withDocumentHtml(
+                          replaceSectionValue(
                             content,
                             activeLanguage,
-                            html,
-                            propertyKey
+                            propertyKey,
+                            valueIndex,
+                            {
+                              ...value,
+                              value: event.target.value,
+                            } satisfies StaValue
                           )
                         )
                       }
                     />
-                  </div>
-                )}
-                {value.kind === 'string' && (
-                  <Input.TextArea
-                    style={{ marginTop: 8 }}
-                    autoSize={{ minRows: 1, maxRows: 8 }}
-                    value={value.value ?? ''}
-                    onChange={(event) =>
-                      setContent(
-                        replaceSectionValue(
-                          content,
-                          activeLanguage,
-                          propertyKey,
-                          valueIndex,
-                          {
-                            ...value,
-                            value: event.target.value,
-                          } satisfies StaValue
-                        )
-                      )
-                    }
-                  />
-                )}
+                  ))}
                 {value.kind === 'id' && (
                   <Input
                     style={{ marginTop: 8 }}
@@ -624,15 +740,6 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
         );
       })}
 
-      <Space wrap>
-        <Button type="primary" onClick={() => void onSave()} loading={saving}>
-          Speichern
-        </Button>
-        <Button onClick={onCancel}>Abbrechen</Button>
-        <Button onClick={() => void onValidate()} loading={validating}>
-          Validieren
-        </Button>
-      </Space>
     </Space>
   );
 };

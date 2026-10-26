@@ -11,6 +11,7 @@ import useIsSmallScreen from '@/hooks/use-is-small-screen';
 import useTranslation from 'next-translate/useTranslation';
 import { AuthStatus } from './auth-status';
 import LocaleSwitcher from './locale-switcher';
+const topBarEditorClusterGap = (compact: boolean) => (compact ? 18 : 28);
 
 export const TopBar: React.FC = () => {
   const { t } = useTranslation('top-bar');
@@ -157,27 +158,6 @@ export const TopBar: React.FC = () => {
                 },
               ],
             },
-            {
-              label: (
-                <span className="ant-menu-item">
-                  {router.pathname !== '/search' && (
-                    <SearchOutlined
-                      css={{ fontSize: isSmallScreen ? 16 : 20 }}
-                    />
-                  )}
-                  <SearchDrawer
-                    setIsSearchOpen={setIsSearchOpen}
-                    isSearchOpen={isSearchOpen}
-                  />
-                </span>
-              ),
-              key: 'search',
-              style: {
-                position: 'absolute',
-                right: 8,
-              },
-              onClick: () => !isSearchOpen && setIsSearchOpen(true),
-            },
           ]}
         />
         <div
@@ -185,16 +165,41 @@ export const TopBar: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             flex: 'none',
-            gap: isSmallScreen ? 4 : 8,
+            gap: topBarEditorClusterGap(isSmallScreen),
             marginLeft: 8,
+            paddingRight: 8,
             lineHeight: 1.2,
           }}
         >
           <AuthStatus compact={isSmallScreen} />
+          <button
+            type="button"
+            aria-label="Suche"
+            title="Suche"
+            onClick={() => !isSearchOpen && setIsSearchOpen(true)}
+            css={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: 0,
+              padding: 4,
+              border: 'none',
+              background: 'transparent',
+              color: token.colorText,
+              cursor: 'pointer',
+              fontSize: isSmallScreen ? 12 : 14,
+              lineHeight: 1,
+            }}
+          >
+            {router.pathname !== '/search' && <SearchOutlined />}
+          </button>
           <LocaleSwitcher />
         </div>
       </AntdLayout.Header>
-
+      <SearchDrawer
+        setIsSearchOpen={setIsSearchOpen}
+        isSearchOpen={isSearchOpen}
+      />
     </ConfigProvider>
   );
 };

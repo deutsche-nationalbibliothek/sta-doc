@@ -1,37 +1,41 @@
 import React from 'react';
-import { Input, Typography } from 'antd';
+import dynamic from 'next/dynamic';
+import { Spin } from 'antd';
 
 interface DocumentHtmlEditorProps {
   html: string;
   onChange: (html: string) => void;
+  serverSyncKey?: string | number;
 }
 
+const DocumentEditor = dynamic(
+  () =>
+    import('./tiptap/document-editor').then((mod) => mod.DocumentEditor),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ padding: 24, textAlign: 'center' }}>
+        <Spin />
+        <div style={{ marginTop: 8 }}>Editor wird geladen…</div>
+      </div>
+    ),
+  }
+);
+
 /**
- * Interim editor for DocumentValue.html (TipTap comes later).
- * Shows baked HTML including layout/embed/description/see atoms and lang marks.
+ * DocumentValue.html editor — TipTap spike (Sprint 4).
+ * Same contract as before: html string in / onChange(html) out.
  */
 export const DocumentHtmlEditor: React.FC<DocumentHtmlEditorProps> = ({
   html,
   onChange,
+  serverSyncKey,
 }) => {
   return (
-    <div>
-      <Typography.Paragraph type="secondary" style={{ marginBottom: 8 }}>
-        Dokument-HTML (
-        <Typography.Text code>div.collapsible</Typography.Text>,{' '}
-        <Typography.Text code>div.example</Typography.Text>,{' '}
-        <Typography.Text code>div.embed</Typography.Text>,{' '}
-        <Typography.Text code>div.description</Typography.Text>,{' '}
-        <Typography.Text code>a.ref</Typography.Text>,{' '}
-        <Typography.Text code>a.see</Typography.Text>,{' '}
-        <Typography.Text code>lang</Typography.Text>)
-      </Typography.Paragraph>
-      <Input.TextArea
-        value={html}
-        onChange={(event) => onChange(event.target.value)}
-        autoSize={{ minRows: 8, maxRows: 32 }}
-        style={{ fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace' }}
-      />
-    </div>
+    <DocumentEditor
+      html={html}
+      onChange={onChange}
+      serverSyncKey={serverSyncKey}
+    />
   );
 };
