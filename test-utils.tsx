@@ -13,7 +13,8 @@ import { QueryParamProvider } from 'use-query-params';
 import FetchingQueryParamsProvider from './hooks/fetch-query-params-provider';
 import ApplicationProfileQueryParamProvider from './hooks/use-application-profile-query-param-provider';
 import { ConfigProvider } from 'antd';
-// import InitialHeadlinesProvider from './hooks/initial-headlines';
+import { AuthProvider } from './hooks/use-auth';
+import { EntityProvider } from './hooks/entity-provider';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -29,33 +30,37 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-const genericRender = (component: ReactElement, name: string) => {
+export const genericRender = (component: ReactElement, name: string) => {
   const wrapper = ({ children }: PropsWithChildren) => {
     return (
       <>
-        <ConfigProvider locale={deDE}>
-          <QueryParamProvider adapter={NextAdapter}>
-            <ApplicationProfileQueryParamProvider>
-              <FetchingQueryParamsProvider>
-                <NamespaceProvider>
-                  <InitialHeadlinesProvider>
-                    <HeadlinesProvider>
-                      <IsLoadingContextProvider>
-                        <CodingsPreferencesProvider>
-                          <Layout>
-                            <MemoryRouterProvider>
-                              {children}
-                            </MemoryRouterProvider>
-                          </Layout>
-                        </CodingsPreferencesProvider>
-                      </IsLoadingContextProvider>
-                    </HeadlinesProvider>
-                  </InitialHeadlinesProvider>
-                </NamespaceProvider>
-              </FetchingQueryParamsProvider>
-            </ApplicationProfileQueryParamProvider>
-          </QueryParamProvider>
-        </ConfigProvider>
+        <AuthProvider>
+          <ConfigProvider locale={deDE}>
+            <QueryParamProvider adapter={NextAdapter}>
+              <ApplicationProfileQueryParamProvider>
+                <FetchingQueryParamsProvider>
+                  <NamespaceProvider>
+                    <InitialHeadlinesProvider>
+                      <EntityProvider>
+                        <HeadlinesProvider>
+                          <IsLoadingContextProvider>
+                            <CodingsPreferencesProvider>
+                              <Layout>
+                                <MemoryRouterProvider>
+                                  {children}
+                                </MemoryRouterProvider>
+                              </Layout>
+                            </CodingsPreferencesProvider>
+                          </IsLoadingContextProvider>
+                        </HeadlinesProvider>
+                      </EntityProvider>
+                    </InitialHeadlinesProvider>
+                  </NamespaceProvider>
+                </FetchingQueryParamsProvider>
+              </ApplicationProfileQueryParamProvider>
+            </QueryParamProvider>
+          </ConfigProvider>
+        </AuthProvider>
       </>
     );
   };
@@ -66,5 +71,6 @@ const genericRender = (component: ReactElement, name: string) => {
     throw e;
   }
 };
+
 export const genericMatchSnapshot = (component: ReactElement, name: string) =>
   expect(genericRender(component, name)).toMatchSnapshot(name);
