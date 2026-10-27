@@ -1,5 +1,8 @@
 import { Namespace } from '@/types/namespace';
 
+/** Postgres {@code entities.origin}: Wikibase import vs editor-created ({@code Q9000000+}). */
+export type EntityOriginDto = 'imported_wikibase' | 'editor_native';
+
 export interface StaCatalogEntryDto {
   entityId: string;
   title: string;
@@ -9,6 +12,7 @@ export interface StaCatalogEntryDto {
   role?: string | null;
   inboundRefCount?: number;
   pageTypeLabel?: string | null;
+  origin?: EntityOriginDto | null;
 }
 
 export interface CatalogEntitiesResponse {
@@ -52,6 +56,7 @@ export interface CreateEntityResponse {
   entityId: string;
   staNotation?: string;
   role?: string;
+  origin?: EntityOriginDto;
 }
 
 /** Namespaces offered when creating a page (matches GND-I / RDA-I / STA-I). */

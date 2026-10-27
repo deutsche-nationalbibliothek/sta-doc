@@ -52,6 +52,10 @@ import {
   hasUnsavedChanges,
 } from '@/lib/api/sta-entry-compare';
 import { useEditorUnsavedChanges } from './editor-unsaved-changes-context';
+import { STA_PAGE_TYPE_OPTIONS } from '@/lib/api/catalog-types';
+
+/** Wikibase P2 — STA page type (Q3095 = Regeltext), not the page entity id. */
+const STA_PAGE_TYPE_PROPERTY_KEY = 'P2';
 
 interface EntityContentEditorProps {
   entityId: string;
@@ -410,8 +414,14 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
           />
         </Space>
         <Typography.Paragraph type="secondary" style={{ marginTop: 4, marginBottom: 0 }}>
-          Entity: {entityId}
-          {content.editionVersion != null && (
+          Entity-ID: {content?.entityId ?? entityId}
+          {content?.staNotation ? <> · STA-Notation: {content.staNotation}</> : null}
+          {content?.origin === 'editor_native'
+            ? ' · Nur Editor (Q9000000+)'
+            : content?.origin === 'imported_wikibase'
+              ? ' · Wikibase-Import'
+              : null}
+          {content?.editionVersion != null && (
             <> · Fassungs-Version: {content.editionVersion}</>
           )}
         </Typography.Paragraph>
@@ -712,27 +722,62 @@ export const EntityContentEditor: React.FC<EntityContentEditorProps> = ({
                       }
                     />
                   ))}
-                {value.kind === 'id' && (
-                  <Input
-                    style={{ marginTop: 8 }}
-                    value={value.entityId ?? ''}
-                    placeholder="Q… oder P…"
-                    onChange={(event) =>
-                      setContent(
-                        replaceSectionValue(
-                          content,
-                          activeLanguage,
-                          propertyKey,
-                          valueIndex,
-                          {
-                            ...value,
-                            entityId: event.target.value.trim(),
-                          } satisfies StaValue
+                {value.kind === 'id' &&
+                  (propertyKey === STA_PAGE_TYPE_PROPERTY_KEY ? (
+                    <Select
+                      style={{ marginTop: 8, width: '100%', maxWidth: 420 }}
+                      value={value.entityId ?? undefined}
+                      options={STA_PAGE_TYPE_OPTIONS.map((opt) => ({
+                        value: opt.value,
+                        label: isDe ? opt.labelDe : opt.labelFr,
+                      }))}
+                      onChange={(nextId) =>
+                        setContent(
+                          replaceSectionValue(
+                            content,
+                            activeLanguage,
+                            propertyKey,
+                            valueIndex,
+                            {
+                              ...value,
+                              entityId: nextId,
+                            } satisfies StaValue
+                          )
                         )
-                      )
-                    }
-                  />
-                )}
+                      }
+                    />
+                  ) : (
+                    <Input
+                      style={{ marginTop: 8 }}
+                      value={value.entityId ?? ''}
+                      placeholder="Q… oder P…"
+                      onChange={(event) =>
+                        setContent(
+                          replaceSectionValue(
+                            content,
+                            activeLanguage,
+                            propertyKey,
+                            valueIndex,
+                            {
+                              ...value,
+                              entityId: event.target.value.trim(),
+                            } satisfies StaValue
+                          )
+                        )
+                      }
+                    />
+                  ))}
+                {value.kind === 'id' &&
+                  propertyKey === STA_PAGE_TYPE_PROPERTY_KEY && (
+                    <Typography.Text
+                      type="secondary"
+                      style={{ display: 'block', marginTop: 4, fontSize: 12 }}
+                    >
+                      {isDe
+                        ? 'Seitenart (Typ-Katalog). Die gewählte Q-Nummer ist nicht die Entity-ID dieser Seite (siehe oben).'
+                        : 'Type de page (catalogue). Ce Q n’est pas l’identifiant de cette page (voir ci-dessus).'}
+                    </Typography.Text>
+                  )}
                 <UnresolvedList claims={value.unresolved} />
               </div>
             ))}

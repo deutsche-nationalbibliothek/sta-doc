@@ -1,4 +1,5 @@
 import { MultilingualLabelDto } from './sta-content-types';
+import type { EntityOriginDto } from './catalog-types';
 
 export type StaEntryRole = 'page' | 'fragment';
 
@@ -28,6 +29,7 @@ export interface StaSectionDto {
 export interface StaEntryDto {
   formatVersion?: number;
   entityId?: string;
+  origin?: EntityOriginDto | null;
   title?: string;
   role?: StaEntryRole;
   staType?: string;

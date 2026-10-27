@@ -144,6 +144,38 @@ export const getServerSideProps: GetServerSideProps<
   if (context.params && 'staNotationLabel' in context.params) {
     staNotationLabel = context.params.staNotationLabel;
     const locale: string = context.locale ? context.locale : 'de';
+
+    // Prefer Postgres working copy (editor-native pages exist only there).
+    if (staNotationLabel && isPostgresReadEnabledServer()) {
+      const catalogEntry = await fetchWorkingCatalogEntryByStaNotation(
+        context.req.headers.cookie,
+        staNotationLabel,
+        locale
+      );
+      const catalogEntityId = catalogEntry?.entityId as EntityId | undefined;
+      if (
+        catalogEntry &&
+        catalogEntityId &&
+        !isPropertyBlacklisted(catalogEntityId)
+      ) {
+        return {
+          props: {
+            headlines: [],
+            entity: {
+              id: catalogEntityId,
+              staNotationLabel: catalogEntry.staNotation ?? staNotationLabel,
+              ...(catalogEntry.namespace != null
+                ? { namespace: catalogEntry.namespace as Namespace }
+                : {}),
+              ...(catalogEntry.title != null
+                ? { label: catalogEntry.title }
+                : {}),
+            },
+          },
+        };
+      }
+    }
+
     entityEntry = entityRepository.getByStaNotation(locale, staNotationLabel);
     validEntityId =
       entityEntry && !isPropertyBlacklisted(entityEntry.entity.id)
@@ -175,37 +207,6 @@ export const getServerSideProps: GetServerSideProps<
         },
       },
     };
-  }
-
-  if (staNotationLabel && isPostgresReadEnabledServer()) {
-    const locale: string = context.locale ? context.locale : 'de';
-    const catalogEntry = await fetchWorkingCatalogEntryByStaNotation(
-      context.req.headers.cookie,
-      staNotationLabel,
-      locale
-    );
-    const catalogEntityId = catalogEntry?.entityId as EntityId | undefined;
-    if (
-      catalogEntry &&
-      catalogEntityId &&
-      !isPropertyBlacklisted(catalogEntityId)
-    ) {
-      return {
-        props: {
-          headlines: [],
-          entity: {
-            id: catalogEntityId,
-            staNotationLabel: catalogEntry.staNotation ?? staNotationLabel,
-            ...(catalogEntry.namespace != null
-              ? { namespace: catalogEntry.namespace as Namespace }
-              : {}),
-            ...(catalogEntry.title != null
-              ? { label: catalogEntry.title }
-              : {}),
-          },
-        },
-      };
-    }
   }
 
   return { notFound: true };

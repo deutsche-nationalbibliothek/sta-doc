@@ -60,7 +60,16 @@ export const NewPageDialog: React.FC<NewPageDialogProps> = ({
         return;
       }
       const notation = result.data?.staNotation ?? values.staNotation.trim();
-      message.success(isDe ? 'Seite angelegt' : 'Page créée');
+      const newId = result.data?.entityId;
+      message.success(
+        isDe
+          ? newId
+            ? `Seite angelegt (Entity-ID ${newId})`
+            : 'Seite angelegt'
+          : newId
+            ? `Page créée (identifiant ${newId})`
+            : 'Page créée'
+      );
       onClose();
       form.resetFields();
       await router.push({
