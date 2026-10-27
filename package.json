@@ -88,18 +88,20 @@
   "overrides": {
     "@babel/core": "7.29.7",
     "@tootallnate/once": "3.0.1",
-    "brace-expansion": "5.0.7",
+    "brace-expansion": "5.0.12",
     "flatted": "3.4.2",
     "form-data": "2.5.6",
     "handlebars": "4.7.9",
     "i18next-fs-backend": "2.6.6",
     "js-cookie": "3.0.8",
-    "js-yaml@3": "3.15.0",
-    "js-yaml@4": "4.3.0",
+    "js-yaml@3": "3.15.2",
+    "js-yaml@4": "4.3.2",
     "minimatch": "10.2.4",
     "picomatch@2": "2.3.2",
     "picomatch@4": "4.0.5",
-    "postcss": "8.5.22",
+    "postcss": "8.5.32",
+    "@typescript-eslint/typescript-estree": "8.72.1",
+    "@typescript-eslint/type-utils": "8.72.1",
     "qs": "6.15.3",
     "sharp": "0.35.5",
     "tar": "7.5.10",
@@ -118,7 +120,8 @@
     "@testing-library/react": "^16.3.3",
     "@types/jest": "^30.0.0",
     "@types/solr-client": "^0.7.9",
-    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@typescript-eslint/eslint-plugin": "8.72.1",
+    "@typescript-eslint/parser": "8.72.1",
     "eslint": "^9",
     "eslint-config-next": "^16.4.1",
     "eslint-config-react": "^1.1.7",
@@ -130,6 +133,6 @@
     "jest-environment-jsdom": "^30.5.2",
     "jiti": "^2.6.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.72.0"
+    "typescript-eslint": "8.72.1"
   }
 }
