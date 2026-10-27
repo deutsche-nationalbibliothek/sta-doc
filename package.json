@@ -40,7 +40,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "@ant-design/icons": "^6.1.0",
+    "@ant-design/icons": "^6.3.4",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@devbookhq/splitter": "^1.4.2",
     "@emotion/react": "^11.14.0",
