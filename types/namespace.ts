@@ -32,3 +32,25 @@ export const isPrimaryNamepsace = (
   namespace: Namespace
 ): namespace is PrimaryNamespace =>
   [Namespace.GND, Namespace.RDA].includes(namespace);
+
+/** Infer RDA/GND from URL path (Next `asPath` without query/hash; basePath omitted). */
+export const namespaceFromAppPath = (
+  asPath: string
+): PrimaryNamespace | undefined => {
+  const path = asPath.split('?')[0].split('#')[0];
+  if (
+    path === '/RDA' ||
+    path.startsWith('/RDA-') ||
+    path.startsWith('/entities/rda')
+  ) {
+    return Namespace.RDA;
+  }
+  if (
+    path === '/GND' ||
+    path.startsWith('/GND-') ||
+    path.startsWith('/entities/gnd')
+  ) {
+    return Namespace.GND;
+  }
+  return undefined;
+};

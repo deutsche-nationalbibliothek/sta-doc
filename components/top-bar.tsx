@@ -1,6 +1,11 @@
+import namespaceConfig from '@/config/namespace';
 import { useNamespace } from '@/hooks/use-namespace';
 import { Link } from '@/lib/next-link';
 import { useRouter } from '@/lib/next-use-router';
+import {
+  isPrimaryNamepsace,
+  namespaceFromAppPath,
+} from '@/types/namespace';
 import { Layout as AntdLayout, Menu, theme, ConfigProvider } from 'antd';
 import { compact } from 'lodash';
 import { SearchDrawer } from './search/drawer';
@@ -26,6 +31,15 @@ export const TopBar: React.FC = () => {
 
   const isSmallScreen = useIsSmallScreen();
 
+  const effectiveNamespace = namespace ?? namespaceFromAppPath(router.asPath);
+  const menuPrimaryColor = useMemo(() => {
+    const colorKey =
+      effectiveNamespace && isPrimaryNamepsace(effectiveNamespace)
+        ? effectiveNamespace
+        : 'unspecific';
+    return namespaceConfig.colors[colorKey].primary;
+  }, [effectiveNamespace]);
+
   const menuColorStyles: CSSObject = useMemo(
     () => ({
       background: 'var(--top-bar-color) !important',
@@ -33,13 +47,13 @@ export const TopBar: React.FC = () => {
         color: `${token.colorText} !important`,
       },
       '& li.ant-menu-item-selected': {
-        backgroundColor: `${token.colorPrimary} !important`,
+        backgroundColor: `${menuPrimaryColor} !important`,
         '& .ant-menu-title-content': {
           color: `${token.colorText} !important`,
         },
       },
       '& li.ant-menu-submenu-selected': {
-        backgroundColor: `${token.colorPrimary} !important`,
+        backgroundColor: `${menuPrimaryColor} !important`,
         '& .ant-menu-title-content': {
           color: `${token.colorText} !important`,
         },
@@ -48,12 +62,13 @@ export const TopBar: React.FC = () => {
         paddingInline: isSmallScreen ? 10 : undefined,
       },
     }),
-    [token.colorPrimary, token.colorText, isSmallScreen],
+    [menuPrimaryColor, token.colorText, isSmallScreen],
   );
 
   return (
     <ConfigProvider
       theme={{
+        inherit: true,
         token: {
           fontSize: isSmallScreen ? 12 : 14,
         },
@@ -83,7 +98,7 @@ export const TopBar: React.FC = () => {
           }}
           mode="horizontal"
           selectedKeys={compact([
-            namespace,
+            effectiveNamespace,
             pathMatch && pathMatch[0],
             namespaceDomain,
           ])}

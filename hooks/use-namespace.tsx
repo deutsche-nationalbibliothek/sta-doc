@@ -2,6 +2,7 @@ import {
   isPrimaryNamepsace,
   Namespace,
   NamespaceColor,
+  namespaceFromAppPath,
 } from '@/types/namespace';
 import namespaceConfig from '@/config/namespace';
 import {
@@ -9,9 +10,11 @@ import {
   Dispatch,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
+import { useRouter } from 'next/router';
 import { themeConfigDefault, useThemeConfig } from './theme-provider';
 
 interface NamespaceContext {
@@ -61,16 +64,30 @@ export const NamespaceProvider: React.FC<NamespaceProviderProps> = ({
     }),
     []
   );
-  const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
-    if (nextNamespace) {
-      if (isPrimaryNamepsace(nextNamespace)) {
+  const applyNamespaceTheme = useCallback(
+    (nextNamespace: Namespace | undefined) => {
+      if (nextNamespace && isPrimaryNamepsace(nextNamespace)) {
         setThemeConfig(nameSpaceTokens[nextNamespace]);
       } else {
         setThemeConfig(nameSpaceTokens['unspecific']);
       }
-    }
+    },
+    [nameSpaceTokens, setThemeConfig]
+  );
+
+  const onSetNamepsace: Dispatch<Namespace | undefined> = (nextNamespace) => {
+    applyNamespaceTheme(nextNamespace);
     setNamespace(nextNamespace);
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    const fromPath = namespaceFromAppPath(router.asPath);
+    if (fromPath) {
+      applyNamespaceTheme(fromPath);
+      setNamespace(fromPath);
+    }
+  }, [router.asPath, applyNamespaceTheme]);
 
   const onResetNamespace = useCallback(() => {
     setNamespace(undefined);
