@@ -29,4 +29,11 @@ const customJestConfig = {
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig);
+module.exports = async () => {
+  const jestConfig = await createJestConfig(customJestConfig)();
+  // @ant-design/icons 6.3+ bundles ESM @ant-design/colors (incl. nested node_modules paths)
+  jestConfig.transformIgnorePatterns = [
+    '/node_modules/(?!(.*@ant-design/(fast-color|colors)|@ant-design/icons)/)',
+  ];
+  return jestConfig;
+};

@@ -49,7 +49,7 @@ describe('mediawiki and live wiki URLs', () => {
     process.env.API_URL_TEST = 'http://test.example.test';
     expect(apiUrlLive()).toBe('https://live.example.test');
     expect(apiUrlProd()).toBe('https://prod.example.test');
-    expect(apiUrlTest()).toBe('http://test.example.test');
+    expect(apiUrlTest()).toBe('https://test.example.test');
   });
 
   it('extracts the hostname from a wiki URL', () => {
