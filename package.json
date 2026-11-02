@@ -45,7 +45,7 @@
     "@devbookhq/splitter": "^1.4.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@tiptap/extension-link": "^3.31.4",
+    "@tiptap/extension-link": "^3.32.1",
     "@tiptap/extension-paragraph": "^3.31.4",
     "@tiptap/extension-placeholder": "^3.31.4",
     "@tiptap/extension-table": "^3.32.0",
