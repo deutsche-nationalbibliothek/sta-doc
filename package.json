@@ -72,7 +72,7 @@
     "next-router-mock": "^0.9.13",
     "next-translate": "^3.2.0",
     "next-translate-plugin": "^3.2.0",
-    "node-fetch": "2.7.0",
+    "node-fetch": "3.3.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-draggable": "^4.7.2",
