@@ -49,19 +49,33 @@ export const SolrSearch: React.FC<SolrSearchProps> = ({
             setQuery(value.replaceAll(/(<([^>]+)>)/g, ''))
           }
           defaultValue={query}
+          
+          // options={
+          //   query && suggestionsResult?.spellcheck.suggestions[1]
+          //     ? suggestionsResult.spellcheck.suggestions[1].suggestion
+          //         .sort((s1, s2) => s2.freq - s1.freq)
+          //         .map((x, index) => ({
+          //           value: x.word,
+          //           key: index,
+          //           label: (
+          //             <StringValueComponent stringValue={{ value: x.word }} />
+          //           ),
+          //         }))
+          //     : []
+          // }
+
           options={
-            query && suggestionsResult?.spellcheck.suggestions[1]
-              ? suggestionsResult.spellcheck.suggestions[1].suggestion
-                  .sort((s1, s2) => s2.freq - s1.freq)
-                  .map((x, index) => ({
-                    value: x.word,
-                    key: index,
-                    label: (
-                      <StringValueComponent stringValue={{ value: x.word }} />
-                    ),
-                  }))
+            query && suggestionsResult?.response.docs ? 
+            suggestionsResult.response.docs.map((doc) => {
+              const headlineTitle = doc['headline.title'].toString();
+              return {
+                value: headlineTitle,
+                key: doc.id,
+                label: <StringValueComponent stringValue={{ value: headlineTitle }} />
+              };
+            	})
               : []
-          }
+            }
         >
           <Input.Search
             placeholder={placeholder}
